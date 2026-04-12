@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
         ...(body.topic ? { program: body.topic } : {}),
       })
       .select('id')
-      .maybeSingle();
+      .single();
 
     if (error) return safeDbError(error, 'Failed to schedule session');
     return NextResponse.json({ success: true, id: data.id });
