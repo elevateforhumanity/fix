@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       created_by: auth.user.id,
     })
     .select('id')
-    .maybeSingle();
+    .single();
 
   if (error) return safeDbError(error, 'Failed to create WIOA participant record');
   return NextResponse.json({ success: true, id: data.id });

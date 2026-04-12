@@ -1,4 +1,3 @@
-// PUBLIC ROUTE: Supersonic interview scheduling form
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -34,7 +33,7 @@ export async function POST(request: NextRequest) {
       status: 'interview_submitted',
     })
     .select('id')
-    .maybeSingle();
+    .single();
 
   if (error) return safeDbError(error, 'Failed to save interview');
   return NextResponse.json({ success: true, id: data.id });
