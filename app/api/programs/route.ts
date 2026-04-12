@@ -1,6 +1,7 @@
-// PUBLIC ROUTE: public programs catalog
-import { createPublicClient } from '@/lib/supabase/public';
+import { getAdminClient } from '@/lib/supabase/admin';
+
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
 import { sanitizeSearchInput } from '@/lib/utils';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -10,12 +11,17 @@ export const maxDuration = 60;
 
 export const dynamic = 'force-dynamic';
 
+// Create Supabase client for edge runtime
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
 async function _GET(request: Request) {
   try {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    const db = createPublicClient();
+    const db = await getAdminClient();
+    if (!db) return NextResponse.json({ error: 'Admin client failed to initialize' }, { status: 500 });
 
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');

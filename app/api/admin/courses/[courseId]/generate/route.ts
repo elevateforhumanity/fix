@@ -31,10 +31,7 @@ export const maxDuration = 300;
 // ── OpenAI helpers ────────────────────────────────────────────────────────────
 
 function getOpenAI(): OpenAI {
-  // Throw so the caller's catch block returns a proper error response.
-  // Returning NextResponse here typed as OpenAI causes a runtime crash when
-  // the caller tries to call .chat.completions.create() on the response object.
-  if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_API_KEY not configured');
+  if (!process.env.OPENAI_API_KEY) return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
   return new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 }
 
@@ -68,9 +65,9 @@ Rules: 6-12 lessons total. Titles are specific and action-oriented.`,
   });
 
   const raw = completion.choices[0]?.message?.content;
-  if (!raw) throw new Error('Empty outline response from OpenAI');
+  if (!raw) return NextResponse.json({ error: 'Empty outline response from OpenAI' }, { status: 500 });
   const parsed = JSON.parse(raw);
-  if (!Array.isArray(parsed.lessons)) throw new Error('Invalid outline shape from OpenAI');
+  if (!Array.isArray(parsed.lessons)) return NextResponse.json({ error: 'Invalid outline shape' }, { status: 500 });
   return parsed.lessons;
 }
 
@@ -115,7 +112,7 @@ export async function POST(
   if (!user) return safeError('Unauthorized', 401);
 
   const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
   if (!profile || !ADMIN_ROLES.has(profile.role)) return safeError('Forbidden', 403);
 
   const { courseId } = await params;
@@ -125,7 +122,7 @@ export async function POST(
     .from('courses')
     .select('id, title, generator_prompt, generation_status')
     .eq('id', courseId)
-    .maybeSingle();
+    .single();
 
   if (courseErr || !course) return safeError('Course not found', 404);
   if (course.generation_status === 'generating') {
@@ -195,7 +192,7 @@ export async function POST(
         .from('courses')
         .select('generation_paused')
         .eq('id', courseId)
-        .maybeSingle();
+        .single();
 
       if (fresh?.generation_paused) {
         await db.from('courses').update({

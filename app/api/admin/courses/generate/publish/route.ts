@@ -19,11 +19,9 @@ import type { SupabaseClient } from '@supabase/supabase-js';
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { z } from 'zod';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { apiRequireAdmin } from '@/lib/admin/guards';
-import { safeError, safeInternalError } from '@/lib/api/safe-error';
+import { getCurrentUser } from '@/lib/auth';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
 import { runAlignmentAudit } from '@/lib/services/credential-alignment-audit';
@@ -161,7 +159,7 @@ async function checkCoverageGate(
     .from('programs')
     .select('slug')
     .eq('id', programId)
-    .maybeSingle();
+    .single();
 
   if (progErr) {
     // Network/DB error — infrastructure failure, fail open and log
@@ -204,45 +202,38 @@ async function checkCoverageGate(
 
 // ── Pre-publish validators ────────────────────────────────────────────────────
 
-// Each validator returns a descriptive error string on failure, or null when valid.
-// The caller in publishCompiledDraft checks the return value and throws so the
-// error propagates back to _POST as a 422 response.
-
-function ensureUniqueLessonTitles(draft: PublishDraft): string | null {
+function ensureUniqueLessonTitles(draft: PublishDraft): void {
   const seen = new Set<string>();
   for (const mod of draft.modules) {
     for (const lesson of mod.lessons) {
       const key = lesson.lesson_title.trim().toLowerCase();
-      if (seen.has(key)) return `Duplicate lesson title: "${lesson.lesson_title}"`;
+      if (seen.has(key)) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
       seen.add(key);
     }
   }
-  return null;
 }
 
-function validateQuizAnswers(draft: PublishDraft): string | null {
+function validateQuizAnswers(draft: PublishDraft): void {
   for (const mod of draft.modules) {
     for (const lesson of mod.lessons) {
       for (const q of lesson.knowledge_check) {
         if (!q.options.includes(q.correct_answer)) {
-          return `Quiz answer "${q.correct_answer}" not found in options for question: "${q.question}"`;
+          return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
         }
       }
     }
   }
-  return null;
 }
 
-function validateDurations(draft: PublishDraft): string | null {
+function validateDurations(draft: PublishDraft): void {
   for (const mod of draft.modules) {
     for (const lesson of mod.lessons) {
       if (lesson.estimated_minutes < 3)
-        return `Lesson "${lesson.lesson_title}" has estimated_minutes < 3`;
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
       if (lesson.narration_script.trim().length < 400)
-        return `Lesson "${lesson.lesson_title}" narration_script is too short (< 400 chars)`;
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
   }
-  return null;
 }
 
 // ── Compiled draft content renderer ──────────────────────────────────────────
@@ -309,19 +300,15 @@ async function publishCompiledDraft(
   callerRole: string | null | undefined,
   db: SupabaseClient
 ): Promise<{ courseId: string; slug: string; lessonCount: number }> {
-  // Run pre-publish validators. Each returns null on success or an error string.
-  // Throw so the error propagates to _POST which returns a 422 to the caller.
-  const validationError =
-    ensureUniqueLessonTitles(draft) ??
-    validateQuizAnswers(draft) ??
-    validateDurations(draft);
-  if (validationError) throw new Error(validationError);
+  ensureUniqueLessonTitles(draft);
+  validateQuizAnswers(draft);
+  validateDurations(draft);
 
   // Coverage gate: block live publication if credential alignment is incomplete.
   // Drafts (auto_publish: false) are always allowed through.
   if (draft.program_id) {
     const coverageError = await checkCoverageGate(draft.program_id, draft.auto_publish);
-    if (coverageError) throw new Error(coverageError);
+    if (coverageError) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 
   const slugBase = draft.course_name
@@ -364,10 +351,10 @@ async function publishCompiledDraft(
       },
     })
     .select('id, slug')
-    .maybeSingle();
+    .single();
 
   if (courseErr || !courseRow)
-    throw new Error(`training_courses insert failed: ${courseErr?.message ?? 'no row returned'}`);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
 
   const courseId = courseRow.id;
 
@@ -507,29 +494,25 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
 async function _POST(req: NextRequest) {
-  const rateLimited = await applyRateLimit(req, 'strict');
-  if (rateLimited) return rateLimited;
-
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
-
-  // callerRole is used downstream for publish-status resolution
-  const callerRole = auth.user.role ?? null;
-
   try {
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     const body = await req.json();
     const db = await getAdminClient();
+
+    const callerRole = user.profile?.role ?? null;
 
     // ── v2 compiled draft path ──────────────────────────────────────────────
     if (body.draft) {
       const parsed = PublishDraftSchema.safeParse(body.draft);
       if (!parsed.success) {
         const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
-        return safeError(`Invalid draft: ${issues}`, 422);
+        return NextResponse.json({ error: `Invalid draft: ${issues}` }, { status: 422 });
       }
-      const result = await publishCompiledDraft(parsed.data, auth.user.id, callerRole, db);
+      const result = await publishCompiledDraft(parsed.data, user.id, callerRole, db);
       const finalStatus = resolvePublishStatus(parsed.data.auto_publish, callerRole);
-      logger.info('AI course published (v2)', { userId: auth.user.id, status: finalStatus, ...result });
+      logger.info('AI course published (v2)', { userId: user.id, status: finalStatus, ...result });
       return NextResponse.json({ ok: true, status: finalStatus, ...result });
     }
 
@@ -538,14 +521,14 @@ async function _POST(req: NextRequest) {
       : { course: GeneratedCourse; program_id?: string; is_published?: boolean } = body;
 
     if (!course?.title || !course.modules?.length) {
-      return safeError('Invalid course data', 400);
+      return NextResponse.json({ error: 'Invalid course data' }, { status: 400 });
     }
 
     // Coverage gate for legacy path
     if (program_id) {
       const coverageError = await checkCoverageGate(program_id, is_published);
       if (coverageError) {
-        return safeError(coverageError, 422);
+        return NextResponse.json({ error: coverageError }, { status: 422 });
       }
     }
 
@@ -579,19 +562,19 @@ async function _POST(req: NextRequest) {
         is_active:      is_published && TRUSTED_PUBLISH_ROLES.has(callerRole ?? ''),
         status:         resolvePublishStatus(is_published, callerRole),
         passing_score:  course.passing_score ?? 70,
-        created_by:     auth.user.id,
+        created_by:     user.id,
         metadata: {
           subtitle:     course.subtitle,
           audience:     course.audience,
           generated:    true,
           generated_at: new Date().toISOString(),
-          generated_by: auth.user.id,
+          generated_by: user.id,
         },
       })
       .select('id, slug')
-      .maybeSingle();
+      .single();
 
-    if (courseErr || !courseRow) return safeInternalError(courseErr ?? new Error('No row returned'), 'Failed to create course');
+    if (courseErr) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     const courseId = courseRow.id;
 
     // ── 2. Lesson records ───────────────────────────────────────────────────
@@ -617,7 +600,7 @@ async function _POST(req: NextRequest) {
     );
 
     const { error: lessonsErr } = await db.from('training_lessons').insert(lessonRows);
-    if (lessonsErr) return safeInternalError(lessonsErr, 'Failed to insert lessons');
+    if (lessonsErr) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
 
     // ── 2b. course_modules + course_lessons — canonical LMS delivery tables ──
     // lms_lessons view reads course_lessons. Write here so learners see content.
@@ -710,14 +693,14 @@ async function _POST(req: NextRequest) {
 
     const finalStatus = resolvePublishStatus(is_published, callerRole);
     logger.info('Course published from generator', {
-      userId: auth.user.id, courseId, slug: courseRow.slug, status: finalStatus,
+      userId: user.id, courseId, slug: courseRow.slug, status: finalStatus,
       title: course.title, lessons: lessonRows.length, programId: program_id,
     });
 
     return NextResponse.json({ ok: true, courseId, slug: courseRow.slug, lessonCount: lessonRows.length, status: finalStatus });
   } catch (err: any) {
     logger.error('Course publish error:', err);
-    return safeInternalError(err, 'Publish failed');
+    return NextResponse.json({ ok: false, error: 'Publish failed' }, { status: 500 });
   }
 }
 

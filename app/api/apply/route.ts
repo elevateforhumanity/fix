@@ -1,4 +1,3 @@
-// PUBLIC ROUTE: general program application form
 import { logger } from '@/lib/logger';
 
 import { NextResponse } from 'next/server';
@@ -13,7 +12,6 @@ import { auditLog, AuditAction, AuditEntity } from '@/lib/logging/auditLog';
 import { getRoutingRecommendations } from '@/lib/automation/shop-routing';
 import { insertWithPreAuthCheck } from '@/lib/pre-auth-guard';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { resolveProgramId } from '@/lib/programs/resolve';
 export const runtime = 'nodejs';
 export const maxDuration = 30;
 
@@ -46,12 +44,6 @@ export const POST = withRateLimit(
       const { program, funding, name, email, phone, pathway_slug, source } = validatedData;
       const eligible = funding !== 'Self Pay' && program !== 'Not Sure';
 
-      // Funding sources that require WorkOne / Indiana Career Connect intake first
-      const WORKFORCE_FUNDING_KEYS = ['wioa', 'workone', 'workforce ready', 'workforce_ready', 'fssa', 'employindy', 'employ_indy', 'impact', 'dwd'];
-      const needsWorkOneIntake = WORKFORCE_FUNDING_KEYS.some(k =>
-        (funding ?? '').toLowerCase().includes(k)
-      );
-
       // Split name into first and last
       const nameParts = name.trim().split(' ');
       const firstName = nameParts[0] || '';
@@ -67,7 +59,15 @@ export const POST = withRateLimit(
     }
     
       // Resolve program_id from slug or title so the review page can approve without guessing
-      const resolvedProgramId = await resolveProgramId(supabase, program);
+      let resolvedProgramId: string | null = null;
+      if (program) {
+        const { data: matchedProgram } = await supabase
+          .from('programs')
+          .select('id')
+          .or(`slug.ilike.${program},title.ilike.${program}`)
+          .maybeSingle();
+        resolvedProgramId = matchedProgram?.id ?? null;
+      }
 
       // Build insert object - only include pathway_slug/source if migration has been run
       const insertData: Record<string, any> = {
@@ -75,8 +75,6 @@ export const POST = withRateLimit(
         last_name: lastName,
         email,
         phone,
-        normalized_email: email.toLowerCase().trim(),
-        normalized_phone: phone.replace(/\D/g, ''),
         city: 'Not provided',
         zip: '00000',
         program_interest: program,
@@ -93,11 +91,11 @@ export const POST = withRateLimit(
           ...insertData,
           pathway_slug: pathway_slug || null,
           source: source || 'direct',
-        }).select('id').maybeSingle();
+        }).select('id').single();
 
         if (result.error?.message?.includes('column') || result.error?.code === '42703') {
           // Columns don't exist yet, insert without them
-          const fallback = await insertWithPreAuthCheck(supabase, 'applications', insertData).select('id').maybeSingle();
+          const fallback = await insertWithPreAuthCheck(supabase, 'applications', insertData).select('id').single();
           application = fallback.data;
           error = fallback.error;
         } else {
@@ -184,22 +182,13 @@ export const POST = withRateLimit(
       }
 
       if (contentType?.includes('application/json')) {
-        return NextResponse.json({ success: true, pending_workone: needsWorkOneIntake });
+        return NextResponse.json({ success: true });
       }
 
-      // Workforce-funded applicants → WorkOne intake page
-      if (needsWorkOneIntake) {
-        const dest = new URL('/apply/pending-workone', req.url);
-        if (funding) dest.searchParams.set('funding', funding);
-        if (program) dest.searchParams.set('program', program);
-        return NextResponse.redirect(dest, { status: 303 });
-      }
-
-      // All other applicants → success page with funding param so Career Connect prompt can show
-      const dest = new URL('/apply/success', req.url);
-      if (funding) dest.searchParams.set('funding', funding);
-      if (program) dest.searchParams.set('program', program);
-      return NextResponse.redirect(dest, { status: 303 });
+      return NextResponse.redirect(
+        new URL('/apply/success', req.url),
+        { status: 303 }
+      );
     } catch (err: any) {
       logger.error('Apply route error:', err);
       

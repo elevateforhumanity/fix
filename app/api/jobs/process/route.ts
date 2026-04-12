@@ -1,78 +1,175 @@
-// PUBLIC ROUTE: Cron/internal route — gated by JOB_PROCESSOR_TOKEN
+import type { SupabaseClient } from '@supabase/supabase-js';
+/**
+ * POST /api/jobs/process
+ *
+ * Background job processor for the LMS job_queue table.
+ * Intended to be called by a cron job (Netlify scheduled function or external cron).
+ *
+ * Security: requires Authorization: Bearer <CRON_SECRET> header.
+ *
+ * Processing model:
+ *   - Claims up to 25 pending jobs (run_after <= now)
+ *   - Marks each 'processing' before executing to prevent double-claim
+ *   - On success: status = 'completed', processed_at = now()
+ *   - On failure: attempts++, run_after += 5 min, last_error stored
+ *   - After 5 attempts: status = 'failed' (visible in admin/jobs)
+ */
+
+
 import { NextRequest, NextResponse } from 'next/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
+import type { CertificateIssuedPayload } from '@/lib/jobs/enqueue';
+import { hydrateProcessEnv } from '@/lib/secrets';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-export const maxDuration = 10;
+export const maxDuration = 60;
 
-function getBaseUrl(req: NextRequest) {
-  const proto = req.headers.get('x-forwarded-proto') ?? 'https';
-  const host = req.headers.get('x-forwarded-host') ?? req.headers.get('host');
-  return `${proto}://${host}`;
+export const dynamic = 'force-dynamic';
+
+const MAX_ATTEMPTS = 5;
+const RETRY_DELAY_MINUTES = 5;
+const BATCH_SIZE = 25;
+
+// ── Auth ──────────────────────────────────────────────────────────────────
+
+function isAuthorized(req: NextRequest): boolean {
+  const secret = process.env.CRON_SECRET;
+  if (!secret) {
+    logger.error('CRON_SECRET not configured');
+    return false;
+  }
+  const auth = req.headers.get('authorization') ?? '';
+  return auth === `Bearer ${secret}`;
 }
 
-export async function POST(req: NextRequest) {
-  try {
-    const token = process.env.JOB_PROCESSOR_TOKEN;
-    const auth = req.headers.get('authorization');
+// ── Job handlers ──────────────────────────────────────────────────────────
 
-    if (!token) {
-      // Token not configured — return 503 (not 500) so monitoring doesn't alert as crash
-      return NextResponse.json(
-        { ok: false, message: 'Job processor not configured' },
-        { status: 503 }
-      );
-    }
+async function handleCertificateIssued(
+  db: SupabaseClient,
+  payload: CertificateIssuedPayload
+): Promise<void> {
+  const { certificateId, learnerId, learnerEmail, learnerName, credentialName, certificateUrl } = payload;
 
-    if (auth !== `Bearer ${token}`) {
-      return NextResponse.json(
-        { ok: false, message: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
-
-    const body = await req.json().catch(() => ({}));
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
-
+  // 1. Send credential email (if learner email is available)
+  if (learnerEmail) {
     try {
-      const res = await fetch(`${getBaseUrl(req)}/.netlify/functions/job-processor`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-        cache: 'no-store',
-        signal: controller.signal,
-      });
+      const { emailService } = await import('@/lib/notifications/email');
+      await emailService.sendCertificateNotification(
+        learnerEmail,
+        learnerName ?? 'Learner',
+        credentialName ?? 'Certificate of Completion',
+        certificateUrl ?? `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/certificates/${certificateId}`
+      );
+      logger.info('Certificate email sent', { certificateId, email: learnerEmail });
+    } catch (err) {
+      // Re-throw so the job retries — email failure is a real failure
+      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    }
+  }
 
-      const text = await res.text();
-      let parsed: unknown = { ok: res.ok, message: text || 'No response body' };
+  // 2. Create in-app notification
+  const { error: notifError } = await db
+    .from('notifications')
+    .insert({
+      user_id: learnerId,
+      type: 'achievement',
+      title: 'Certificate Issued!',
+      message: `Your certificate for ${credentialName ?? 'your course'} is ready.`,
+      action_url: certificateUrl ?? `/certificates/${certificateId}`,
+    });
 
-      try {
-        parsed = JSON.parse(text);
-      } catch {}
+  if (notifError) {
+    // Notification failure is non-fatal — log and continue
+    logger.error('Notification insert failed (non-fatal)', notifError as Error, { certificateId });
+  }
 
-      if (!res.ok) {
-        logger.error('job-processor failed', parsed);
-        return NextResponse.json(
-          { ok: false, message: 'Job processor failed', details: parsed },
-          { status: 502 }
-        );
+  logger.info('certificate_issued job completed', { certificateId });
+}
+
+// ── Main handler ──────────────────────────────────────────────────────────
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  await hydrateProcessEnv();
+  if (!isAuthorized(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const db = await getAdminClient();
+  const now = new Date().toISOString();
+
+  // Claim a batch of pending jobs due for processing.
+  // Mark them 'processing' immediately to prevent double-claim by concurrent runs.
+  const { data: jobs, error: claimError } = await db
+    .from('job_queue')
+    .select('id, type, payload, attempts')
+    .eq('status', 'pending')
+    .lte('run_after', now)
+    .order('created_at', { ascending: true })
+    .limit(BATCH_SIZE);
+
+  if (claimError) {
+    logger.error('Failed to fetch jobs', claimError as Error);
+    return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: 500 });
+  }
+
+  if (!jobs || jobs.length === 0) {
+    return NextResponse.json({ ok: true, processed: 0 });
+  }
+
+  // Mark all claimed jobs as 'processing' before executing
+  const jobIds = jobs.map((j) => j.id);
+  await db
+    .from('job_queue')
+    .update({ status: 'processing' })
+    .in('id', jobIds);
+
+  const results = { completed: 0, failed: 0, retrying: 0 };
+
+  for (const job of jobs) {
+    try {
+      if (job.type === 'certificate_issued') {
+        await handleCertificateIssued(db, job.payload as CertificateIssuedPayload);
+      } else {
+        logger.error('Unknown job type', new Error(`Unknown job type: ${job.type}`), { jobId: job.id });
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
       }
 
-      return NextResponse.json(parsed, { status: 200 });
-    } finally {
-      clearTimeout(timeout);
+      // Success
+      await db
+        .from('job_queue')
+        .update({ status: 'completed', processed_at: new Date().toISOString() })
+        .eq('id', job.id);
+
+      results.completed++;
+
+    } catch (err) {
+      const attempts = (job.attempts as number) + 1;
+      const message = err instanceof Error ? err.message : 'Unknown error';
+
+      if (attempts > MAX_ATTEMPTS) {
+        // Permanently failed — requires manual intervention via admin/jobs
+        await db
+          .from('job_queue')
+          .update({ status: 'failed', attempts, last_error: message })
+          .eq('id', job.id);
+
+        logger.error('Job permanently failed', new Error(message), { jobId: job.id, type: job.type, attempts });
+        results.failed++;
+      } else {
+        // Schedule retry with exponential-ish backoff
+        const retryAfter = new Date(Date.now() + RETRY_DELAY_MINUTES * 60 * 1000 * attempts).toISOString();
+        await db
+          .from('job_queue')
+          .update({ status: 'pending', attempts, run_after: retryAfter, last_error: message })
+          .eq('id', job.id);
+
+        logger.error('Job failed — will retry', new Error(message), { jobId: job.id, type: job.type, attempts, retryAfter });
+        results.retrying++;
+      }
     }
-  } catch (error) {
-    logger.error('/api/jobs/process crashed', error);
-    return NextResponse.json(
-      { ok: false, message: 'Job processor failed' },
-      { status: 500 }
-    );
   }
+
+  logger.info('Job batch processed', { ...results, total: jobs.length });
+  return NextResponse.json({ ok: true, processed: jobs.length, ...results });
 }

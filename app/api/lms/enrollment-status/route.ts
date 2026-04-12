@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
  * Reads from program_enrollments (canonical). Admin client bypasses RLS.
  */
 export async function GET(req: NextRequest) {
-  const rateLimited = await applyRateLimit(req, 'api');
+  const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
   const courseId = req.nextUrl.searchParams.get('courseId');
@@ -112,15 +112,12 @@ export async function GET(req: NextRequest) {
   }
 
   // Fallback: HVAC and other legacy students enrolled via training_enrollments
-  // (pre-dates program_enrollments). training_enrollments.course_id maps to
-  // training_courses, not courses — filter by the raw courseId param so we only
-  // match enrollments for the requested course, not any legacy course the user
-  // happens to be enrolled in.
+  // (pre-dates program_enrollments). Check by user_id — no course_id join needed
+  // because training_enrollments.course_id maps to training_courses, not courses.
   const { data: legacyEnrollment } = await db
     .from('training_enrollments')
     .select('status, approved_at, progress')
     .eq('user_id', user.id)
-    .eq('course_id', courseId)
     .order('enrolled_at', { ascending: false })
     .limit(1)
     .maybeSingle();

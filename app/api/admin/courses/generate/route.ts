@@ -8,13 +8,15 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { getCurrentUser } from '@/lib/auth';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { logger } from '@/lib/logger';
+import { getAdminClient } from '@/lib/supabase/admin';
 import OpenAI from 'openai';
 
 import { withRuntime } from '@/lib/api/withRuntime';
+
+const ADMIN_ROLES = new Set(['admin', 'super_admin', 'staff']);
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -116,22 +118,30 @@ Rules:
 - duration_minutes realistic: reading 5-15, video 5-20, quiz 10-30`;
 
 async function _POST(req: NextRequest) {
-  // AI generation is expensive — strict tier (3 req / 5 min per admin)
-  const rateLimited = await applyRateLimit(req, 'strict');
-  if (rateLimited) return rateLimited;
-
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
-
   try {
+    const rateLimited = await applyRateLimit(req, 'api');
+    if (rateLimited) return rateLimited;
+
+    const user = await getCurrentUser();
+    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const db = await getAdminClient();
+    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+    if (!profile || !ADMIN_ROLES.has(profile.role)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     if (!process.env.OPENAI_API_KEY) {
-      return safeError('OPENAI_API_KEY is not configured. Add it to Netlify environment variables.', 503);
+      return NextResponse.json(
+        { error: 'OPENAI_API_KEY is not configured. Add it to Netlify environment variables.' },
+        { status: 503 }
+      );
     }
 
     const body = await req.json();
     const { raw_text, input_type } = body as { raw_text: string; input_type: string };
     if (!raw_text?.trim()) {
-      return safeError('raw_text is required', 400);
+      return NextResponse.json({ error: 'raw_text is required' }, { status: 400 });
     }
 
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -147,14 +157,14 @@ async function _POST(req: NextRequest) {
     });
 
     const raw = completion.choices[0]?.message?.content;
-    if (!raw) return safeError('Empty response from OpenAI', 500);
+    if (!raw) return NextResponse.json({ error: 'Empty response from OpenAI' }, { status: 500 });
 
     let course: GeneratedCourse;
     try { course = JSON.parse(raw); }
-    catch { return safeError('OpenAI returned invalid JSON', 500); }
+    catch { return NextResponse.json({ error: 'OpenAI returned invalid JSON' }, { status: 500 }); }
 
     if (!course.title || !course.modules?.length) {
-      return safeError('Generated course missing required fields', 500);
+      return NextResponse.json({ error: 'Generated course missing required fields' }, { status: 500 });
     }
 
     // Normalize lesson_number sequential across all modules
@@ -164,7 +174,7 @@ async function _POST(req: NextRequest) {
     }
 
     logger.info('Course generated', {
-      userId: auth.user.id, title: course.title,
+      userId: user.id, title: course.title,
       modules: course.modules.length,
       lessons: course.modules.reduce((s, m) => s + m.lessons.length, 0),
     });
@@ -172,7 +182,7 @@ async function _POST(req: NextRequest) {
     return NextResponse.json({ course });
   } catch (err: any) {
     logger.error('Course generation error:', err);
-    return safeInternalError(err, 'Generation failed');
+    return NextResponse.json({ error: 'Generation failed' }, { status: 500 });
   }
 }
 
