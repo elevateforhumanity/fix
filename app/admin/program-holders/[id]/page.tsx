@@ -44,7 +44,7 @@ async function verifyApprovalCaller(holderId: string): Promise<{ callerId: strin
     .from('profiles')
     .select('role')
     .eq('id', caller.id)
-    .maybeSingle();
+    .single();
 
   if (!callerProfile || !canApprove(callerProfile.role as AdminRole)) {
     redirect(`/admin/program-holders/${holderId}?error=${encodeURIComponent('Approval requires admin or super_admin role')}`);
@@ -62,11 +62,14 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
   const { error: pageError, success: pageSuccess } = await searchParams;
   const supabase = await createClient();
 
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login?redirect=/admin/program-holders');
+
   const { data: adminProfile } = await supabase
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .maybeSingle();
+    .single();
 
   const viewRoles: AdminRole[] = ['admin', 'super_admin', 'staff'];
   if (!adminProfile || !viewRoles.includes(adminProfile.role as AdminRole)) {
@@ -76,20 +79,17 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
   const adminRole = adminProfile.role as AdminRole;
   const hasApprovalAuthority = canApprove(adminRole);
 
-  // Use admin client for all data queries — RLS blocks session reads on these tables
-  const adb = await getAdminClient();
-
   // Fetch program holder
-  const { data: holder, error } = await adb
+  const { data: holder, error } = await supabase
     .from('program_holders')
     .select('*')
     .eq('id', id)
-    .maybeSingle();
+    .single();
 
   if (error || !holder) notFound();
 
   // Fetch assigned programs
-  const { data: assignments } = await adb
+  const { data: assignments } = await supabase
     .from('program_holder_programs')
     .select('id, program_id, role_in_program, is_primary, status, created_at')
     .eq('program_holder_id', id);
@@ -98,14 +98,14 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
 
   // Fetch program details for assigned programs
   const { data: assignedPrograms } = assignedProgramIds.length > 0
-    ? await adb.from('programs').select('id, name, title, slug').in('id', assignedProgramIds)
+    ? await supabase.from('programs').select('id, name, title, slug').in('id', assignedProgramIds)
     : { data: [] };
 
   const programMap: Record<string, any> = {};
   (assignedPrograms || []).forEach((p: any) => { programMap[p.id] = p; });
 
   // Fetch all active programs for dropdowns
-  const { data: allPrograms } = await adb
+  const { data: allPrograms } = await supabase
     .from('programs')
     .select('id, name, title, slug, is_active')
     .eq('is_active', true)
@@ -117,11 +117,11 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
 
   // Fetch linked user profile
   const { data: holderProfile } = holder.user_id
-    ? await adb.from('profiles').select('id, email, full_name, role').eq('id', holder.user_id).maybeSingle()
+    ? await supabase.from('profiles').select('id, email, full_name, role').eq('id', holder.user_id).maybeSingle()
     : { data: null };
 
   // Fetch audit events for this holder
-  const { data: auditEvents } = await adb
+  const { data: auditEvents } = await supabase
     .from('admin_audit_events')
     .select('action, actor_user_id, metadata, created_at')
     .eq('target_type', 'program_holder')
@@ -175,7 +175,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
 
       const { data: programData } = await adb
         .from('programs')
-        .select('title')
+        .select('name')
         .eq('id', programId)
         .maybeSingle();
 
