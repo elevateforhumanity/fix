@@ -1,6 +1,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminClient } from '@/lib/supabase/admin';
+import { createAdminClient } from "@/lib/supabase/admin";
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -55,7 +56,7 @@ async function _POST(request: NextRequest) {
       progress_percentage: 0,
     })
     .select()
-    .maybeSingle();
+    .single();
 
   if (error) {
     return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

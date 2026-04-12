@@ -1,4 +1,4 @@
-// PUBLIC ROUTE: tax intake form
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getAdminClient } from '@/lib/supabase/admin';
 
 import { NextResponse } from "next/server";
@@ -29,7 +29,7 @@ async function _POST(req: Request) {
         notes: body.notes || null,
       })
       .select("id")
-      .maybeSingle();
+      .single();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 400 });

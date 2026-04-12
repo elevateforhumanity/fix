@@ -1,7 +1,6 @@
-// PUBLIC ROUTE: simplified program application form
 import { NextResponse } from "next/server";
 import { getAdminClient } from '@/lib/supabase/admin';
-import { resolveProgramId } from '@/lib/programs/resolve';
+import { createAdminClient } from "@/lib/supabase/admin";
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { sendApplicationWelcomeEmail } from '@/lib/email/application-welcome';
@@ -12,25 +11,18 @@ export const dynamic = 'force-dynamic';
 
 async function _POST(req: Request) {
   try {
-    try { const rl = await applyRateLimit(req, 'strict'); if (rl) return rl; } catch {}
+    const rateLimited = await applyRateLimit(req, 'strict');
+    if (rateLimited) return rateLimited;
 
-    // Accept both form data and JSON
-    const contentType = req.headers.get('content-type') || '';
-    let program: string, funding: string, name: string, email: string, phone: string;
-    if (contentType.includes('application/json')) {
-      const json = await req.json();
-      program = json.program; funding = json.funding; name = json.name; email = json.email; phone = json.phone;
-    } else {
-      const data = await req.formData();
-      program = data.get('program') as string; funding = data.get('funding') as string;
-      name = data.get('name') as string; email = data.get('email') as string; phone = data.get('phone') as string;
-    }
+    const data = await req.formData();
+
+    const program = data.get("program") as string;
+    const funding = data.get("funding") as string;
 
     // WIOA-style prescreen
     const eligible = funding !== "Self Pay" && program !== "Not Sure";
 
-    let supabase: Awaited<ReturnType<typeof getAdminClient>> | null = null;
-    try { supabase = await getAdminClient(); } catch {}
+    const supabase = await getAdminClient();
 
     if (!supabase) {
       return NextResponse.json(
@@ -40,37 +32,29 @@ async function _POST(req: Request) {
     }
 
     // Resolve program_id so the review page can approve without guessing
-    const resolvedProgramId = await resolveProgramId(supabase, program);
-
-    // Split name into first/last — applications table has NOT NULL on both
-    const nameParts = (name || '').trim().split(/\s+/);
-    const firstName = nameParts[0] || 'Unknown';
-    const lastName = nameParts.slice(1).join(' ') || 'Unknown';
+    let resolvedProgramId: string | null = null;
+    if (program) {
+      const { data: matchedProgram } = await supabase
+        .from('programs')
+        .select('id')
+        .or(`slug.ilike.${program},title.ilike.${program}`)
+        .maybeSingle();
+      resolvedProgramId = matchedProgram?.id ?? null;
+    }
 
     // @preAuthWrite table=applications mode=reconcile
     const { error } = await insertWithPreAuthCheck(supabase, 'applications', {
-      first_name: firstName,
-      last_name: lastName,
-      name,
-      email,
-      phone,
-      normalized_email: (email || '').toLowerCase().trim(),
-      normalized_phone: (phone || '').replace(/\D/g, ''),
-      program_interest: program,
+      name: data.get("name"),
+      email: data.get("email"),
+      phone: data.get("phone"),
+      program,
       program_id: resolvedProgramId,
-      funding_type: funding,
-      source: 'simple_form',
-      notes: eligible ? "Prescreen passed — WIOA eligible" : "Needs review",
-      status: 'submitted',
-      // Required NOT NULL columns — simple form doesn't collect address
-      city: 'Unknown',
-      zip: '00000',
-      state: 'IN',
+      funding,
+      eligible,
+      notes: eligible ? "Prescreen passed" : "Needs review",
     });
 
-    if (error) {
-      return NextResponse.json({ error: 'Submission failed. Please try again.' }, { status: 500 });
-    }
+    if (error) throw error;
 
     // Welcome and onboarding emails fire when application moves to 'in_review'
     // via the transition route — not on submission.

@@ -1,6 +1,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminClient } from '@/lib/supabase/admin';
+import { createAdminClient } from "@/lib/supabase/admin";
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 export const runtime = 'nodejs';
@@ -28,7 +29,7 @@ async function _GET(request: NextRequest) {
     .from("user_points")
     .select("*")
     .eq("user_id", user.id)
-    .maybeSingle();
+    .single();
 
   if (!userPoints) {
     const { data: newPoints } = await supabase
@@ -41,7 +42,7 @@ async function _GET(request: NextRequest) {
         points_to_next_level: 100,
       })
       .select()
-      .maybeSingle();
+      .single();
 
     return NextResponse.json(newPoints);
   }
@@ -76,7 +77,7 @@ async function _POST(request: NextRequest) {
     .from("user_points")
     .select("*")
     .eq("user_id", user.id)
-    .maybeSingle();
+    .single();
 
   const newTotal = (currentPoints?.total_points || 0) + points;
   const newLevel = Math.floor(newTotal / 1000) + 1;
@@ -93,7 +94,7 @@ async function _POST(request: NextRequest) {
     })
     .eq("user_id", user.id)
     .select()
-    .maybeSingle();
+    .single();
 
   return NextResponse.json(updatedPoints);
 }

@@ -1,4 +1,12 @@
-export const dynamic = 'force-dynamic';
+import { redirect } from 'next/navigation';
+import { getAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
+import { buildLoginRedirect } from '@/lib/lms/redirect';
+import { StudentToolsStrip } from '@/components/lms/dashboard/StudentToolsStrip';
+import Link from 'next/link';
+import Image from 'next/image';
+import type { Metadata } from 'next';
+import { Clock, Award, ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Student Training Portal | Elevate for Humanity',
@@ -21,13 +29,12 @@ export default async function LmsPublicPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (user) redirect('/learner/dashboard');
 
-  // Load programs from DB — published, active, ordered
+  // Load programs from DB — active, published, ordered
   const { getAdminClient } = await import('@/lib/supabase/admin');
   const db = await getAdminClient();
   const { data: dbPrograms } = await db
     .from('programs')
-    .select('id, title, slug, description, excerpt, image_url, estimated_weeks, credential, credential_name, is_active, status, published')
-    .eq('published', true)
+    .select('id, title, slug, description, excerpt, image_url, duration_weeks, credential, credential_name, is_active, status')
     .eq('is_active', true)
     .neq('status', 'archived')
     .order('title')
@@ -36,7 +43,7 @@ export default async function LmsPublicPage() {
   const programs = (dbPrograms ?? []).map((p: any) => ({
     title: p.title,
     desc: p.excerpt || p.description?.slice(0, 120) || '',
-    duration: p.estimated_weeks ? `${p.estimated_weeks} weeks` : '—',
+    duration: p.duration_weeks ? `${p.duration_weeks} weeks` : '—',
     credential: p.credential_name || p.credential || '—',
     image: p.image_url || '/images/pages/hvac-unit.jpg',
     slug: p.slug,
@@ -60,19 +67,15 @@ export default async function LmsPublicPage() {
       </nav>
 
       {/* HERO */}
-      <HeroVideo
-        videoSrcDesktop={heroBanners['lms'].videoSrcDesktop}
-        posterImage={heroBanners['lms'].posterImage}
-        voiceoverSrc={heroBanners['lms'].voiceoverSrc}
-        microLabel={heroBanners['lms'].microLabel}
-        belowHeroHeadline={heroBanners['lms'].belowHeroHeadline}
-        belowHeroSubheadline={heroBanners['lms'].belowHeroSubheadline}
-        ctas={[heroBanners['lms'].primaryCta, heroBanners['lms'].secondaryCta].filter(Boolean)}
-        trustIndicators={heroBanners['lms'].trustIndicators}
-        transcript={heroBanners['lms'].transcript}
-      />
-      <section className="py-8 border-b border-slate-100">
+      <section className="py-16 sm:py-24 border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-xs font-bold text-brand-red-600 uppercase tracking-widest mb-4">Elevate for Humanity · Career Training</p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-5">
+            Start Your Training.<br className="hidden sm:block" /> Build Your Career.
+          </h1>
+          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10">
+            Industry-recognized credentials. Workforce funding available. Real job outcomes.
+          </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href={buildLoginRedirect("/lms/courses")} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-700 text-white font-bold px-8 py-4 rounded-xl text-base transition">
               Enter Student Portal <ChevronRight className="w-4 h-4" />
