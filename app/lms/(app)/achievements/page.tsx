@@ -6,10 +6,6 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { AchievementsBadges } from '@/components/AchievementsBadges';
 import MicroCredentialsBadges from '@/components/MicroCredentialsBadges';
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 import {
 
   Trophy,
@@ -48,13 +44,20 @@ export default async function AchievementsPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .maybeSingle();
+    .single();
 
-  const { data: enrollments } = await supabase
+  // Fetch enrollments then hydrate course details separately (no FK on course_id)
+  const { data: rawAchEnrollments } = await supabase
     .from('program_enrollments')
-    .select('id, status, course_id, progress_percent, created_at, courses ( id, title, description, thumbnail_url )')
+    .select('id, status, course_id, progress_percent, created_at')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
+  const achCourseIds = [...new Set((rawAchEnrollments || []).map((e: any) => e.course_id).filter(Boolean))];
+  const { data: achCourses } = achCourseIds.length
+    ? await supabase.from('courses').select('id, title, description, thumbnail_url').in('id', achCourseIds)
+    : { data: [] };
+  const achCourseMap = Object.fromEntries((achCourses || []).map((c: any) => [c.id, c]));
+  const enrollments = (rawAchEnrollments || []).map((e: any) => ({ ...e, courses: achCourseMap[e.course_id] ?? null }));
 
   // Fetch completed courses
   const { count: completedCourses } = await supabase

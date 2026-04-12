@@ -6,10 +6,6 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import LearningAnalyticsDashboard from '@/components/LearningAnalyticsDashboard';
 import StudentEngagementAnalytics from '@/components/StudentEngagementAnalytics';
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 import {
 
   BarChart3,
@@ -42,11 +38,18 @@ export default async function AnalyticsPage() {
     redirect('/login');
   }
 
-  // Fetch enrollments with course details (FK now exists on program_enrollments.course_id)
-  const { data: enrollments } = await supabase
+  // Fetch enrollments then hydrate course details separately (no FK on course_id)
+  const { data: rawEnrollments } = await supabase
     .from('program_enrollments')
-    .select('id, status, course_id, progress_percent, completed_lessons, enrolled_at, updated_at, courses ( id, title, total_lessons, duration_hours )')
+    .select('id, status, course_id, progress_percent, completed_lessons, enrolled_at, updated_at')
     .eq('user_id', user.id);
+
+  const enrollmentCourseIds = [...new Set((rawEnrollments || []).map(e => e.course_id).filter(Boolean))];
+  const { data: enrollmentCourses } = enrollmentCourseIds.length
+    ? await supabase.from('courses').select('id, title, total_lessons, duration_hours').in('id', enrollmentCourseIds)
+    : { data: [] };
+  const enrollmentCourseMap = Object.fromEntries((enrollmentCourses || []).map(c => [c.id, c]));
+  const enrollments = (rawEnrollments || []).map(e => ({ ...e, courses: enrollmentCourseMap[e.course_id] ?? null }));
 
   // Fetch lesson progress
   const { data: lessonProgress } = await supabase
