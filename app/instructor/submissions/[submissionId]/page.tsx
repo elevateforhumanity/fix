@@ -87,30 +87,22 @@ export default function SubmissionReviewPage() {
   useEffect(() => {
     async function load() {
       setLoading(true);
-      const [{ data: sub, error: subErr }, { data: audit }] = await Promise.all([
-        supabase
-          .from('step_submissions')
-          .select(`
-            id, user_id, course_lesson_id, lesson_id, course_id, step_type,
-            submission_text, file_urls, status, instructor_note,
-            reviewed_at, created_at, competency_key,
-            profiles:user_id ( full_name, email ),
-            course_lessons:course_lesson_id ( title, slug, competency_checks )
-          `)
-          .eq('id', submissionId)
-          .maybeSingle(),
-        supabase
-          .from('competency_audit_log')
-          .select('id, action, note, created_at, actor:actor_id ( full_name, email )')
-          .eq('submission_id', submissionId)
-          .order('created_at', { ascending: false }),
-      ]);
+      const { data: rawSub, error } = await supabase
+        .from('step_submissions')
+        .select(`id, user_id, course_lesson_id, course_id, step_type, submission_text, file_urls, status, instructor_note, reviewed_at, created_at, course_lessons:course_lesson_id ( title, slug )`)
+        .eq('id', submissionId)
+        .single();
 
-      if (subErr || !sub) {
+      if (error || !rawSub) {
         setError('Submission not found.');
       } else {
-        setSubmission(sub as unknown as Submission);
-        setNote(sub.instructor_note ?? '');
+        // Hydrate profile separately (step_submissions.user_id has no FK to profiles)
+        const { data: subProfile } = rawSub.user_id
+          ? await supabase.from('profiles').select('full_name, email').eq('id', rawSub.user_id).maybeSingle()
+          : { data: null };
+        const data = { ...rawSub, profiles: subProfile ?? null };
+        setSubmission(data as unknown as Submission);
+        setNote(data.instructor_note ?? '');
       }
       setAuditLog((audit ?? []) as unknown as AuditEntry[]);
       setLoading(false);
