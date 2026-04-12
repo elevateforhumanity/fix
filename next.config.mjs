@@ -161,6 +161,8 @@ const nextConfig = {
   // Experimental — minimal set only. Removed optimizePackageImports and other
   // memory-intensive experiments to stay within Netlify's build container limits.
   experimental: {
+    // Limit page-data workers to 2 — Netlify's build container OOMs at 5 workers
+    cpus: 2,
     serverActions: {
       allowedOrigins: [
         'localhost:3000',
