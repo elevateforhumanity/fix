@@ -3,7 +3,6 @@
 // Cached featured programs endpoint
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { createAdminClient } from "@/lib/supabase/admin";
 import { cacheGet, cacheSet } from '@/lib/cache';
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -14,9 +13,11 @@ export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 async function _GET(req: NextRequest) {
-    const rateLimited = await applyRateLimit(req, 'api');
-    if (rateLimited) return rateLimited;
-  const supabase = await getAdminClient();
+  try {
+  try { const rl = await applyRateLimit(req, 'api'); if (rl) return rl; } catch {}
+  let supabase: Awaited<ReturnType<typeof getAdminClient>> | null = null;
+  try { supabase = await getAdminClient(); } catch {}
+  if (!supabase) return NextResponse.json({ programs: [], cached: false });
   const cacheKey = 'programs:featured';
 
   // Try cache first
@@ -29,11 +30,11 @@ async function _GET(req: NextRequest) {
   }
 
   // Fetch from database
-  const { data, error }: any = await supabase
+  const { data, error }: any = await supabase!
     .from('programs')
     .select('*')
-    .eq('is_featured', true)
-    .eq('is_published', true)
+    .eq('featured', true)
+    .eq('published', true)
     .limit(12);
 
   if (error) {
@@ -47,5 +48,8 @@ async function _GET(req: NextRequest) {
     { programs: data, cached: false },
     { headers: { 'Cache-Control': 's-maxage=300, stale-while-revalidate=600' } }
   );
+  } catch (err) {
+    return NextResponse.json({ programs: [], cached: false });
+  }
 }
 export const GET = withApiAudit('/api/programs/featured', _GET);

@@ -173,7 +173,7 @@ export type GuardedUser = {
  * Usage (inside handleRoute):
  *   const user = await apiAuthGuard(req);
  */
-export async function apiAuthGuard(_req: Request): Promise<GuardedUser> {
+export async function apiAuthGuard(_req?: Request): Promise<GuardedUser> {
   try {
     const supabase = await createClient();
 
@@ -190,7 +190,7 @@ export async function apiAuthGuard(_req: Request): Promise<GuardedUser> {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .maybeSingle();
+      .single();
 
     if (profileError) {
       return { id: user.id, email: user.email ?? null, role: null, error: serverError('PROFILE_LOOKUP_FAILED') };
@@ -206,7 +206,7 @@ export async function apiAuthGuard(_req: Request): Promise<GuardedUser> {
   }
 }
 
-const ADMIN_ROLES: UserRole[] = ['admin', 'super_admin', 'staff', 'org_admin'];
+const ADMIN_ROLES: UserRole[] = ['admin', 'super_admin', 'staff'];
 const INSTRUCTOR_ROLES: UserRole[] = ['instructor', 'admin', 'super_admin', 'staff'];
 
 /**
@@ -216,7 +216,7 @@ const INSTRUCTOR_ROLES: UserRole[] = ['instructor', 'admin', 'super_admin', 'sta
  * Usage (inside handleRoute):
  *   const user = await apiRequireAdmin(req);
  */
-export async function apiRequireAdmin(_req: Request): Promise<GuardedUser> {
+export async function apiRequireAdmin(_req?: Request): Promise<GuardedUser> {
   const user = await apiAuthGuard(_req);
   if (user.error) return user;
 
@@ -231,7 +231,7 @@ export async function apiRequireAdmin(_req: Request): Promise<GuardedUser> {
  * Verify the request is from an instructor, admin, super_admin, or staff user.
  * Throws 401 if unauthenticated, 403 if authenticated but wrong role.
  */
-export async function apiRequireInstructor(_req: Request): Promise<GuardedUser> {
+export async function apiRequireInstructor(_req?: Request): Promise<GuardedUser> {
   const user = await apiAuthGuard(_req);
   if (user.error) return user;
 
