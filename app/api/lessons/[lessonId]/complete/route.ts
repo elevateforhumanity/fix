@@ -13,7 +13,6 @@ import {
 } from '@/lib/lms/engine';
 import type { CheckpointGateError } from '@/lib/lms/engine';
 import { assertLessonAccess, accessErrorResponse } from '@/lib/lms/access-control';
-import { checkCompetencyGate } from '@/lib/lms/competency-gate';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
@@ -59,7 +58,7 @@ async function _POST(
       .from('lms_lessons')
       .select('id, course_id, title')
       .eq('id', lessonId)
-      .maybeSingle();
+      .single();
 
     if (lessonError || !lesson) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
@@ -155,26 +154,12 @@ async function _POST(
       );
     }
 
-    // Competency gate: practical lessons require all instructor sign-offs before completion.
-    const gate = await checkCompetencyGate(db, { userId: user.id, lessonId });
-    if (!gate.allowed) {
-      return NextResponse.json(
-        {
-          error: 'Instructor sign-off required before this lesson can be marked complete.',
-          code: 'COMPETENCY_SIGNOFF_REQUIRED',
-          pendingChecks: gate.missingKeys,
-          message: `${gate.missingKeys.length} competency check(s) require instructor approval: ${gate.missingKeys.join(', ')}`,
-        },
-        { status: 403 },
-      );
-    }
-
     // Fetch lesson details for type-specific enforcement
     const { data: lessonDetail, error: detailError } = await db
       .from('lms_lessons')
       .select('content_type, duration_minutes')
       .eq('id', lessonId)
-      .maybeSingle();
+      .single();
 
     if (detailError || !lessonDetail) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
@@ -240,13 +225,36 @@ async function _POST(
       );
     }
 
-    // lesson_progress is written by recordStepCompletion() below via the engine.
-    // Writing it here as well would fire the DB checkpoint-gate trigger twice and
-    // overwrite completed_at with a slightly later timestamp on the second write.
-    // The completion timestamp used in the response is derived from the engine result.
-    const completedAt = new Date().toISOString();
+    // Mark lesson as complete
+    const { data: progress, error: progressError } = await db
+      .from('lesson_progress')
+      .upsert(
+        {
+          user_id: user.id,
+          lesson_id: lessonId,
+          course_id: lesson.course_id,
+          enrollment_id: enrollment.id,
+          completed: true,
+          completed_at: new Date().toISOString(),
+          time_spent_seconds: timeSpentSeconds || 0,
+          updated_at: new Date().toISOString(),
+        },
+        {
+          onConflict: 'user_id,lesson_id',
+        }
+      )
+      .select()
+      .single();
 
-    logger.info('Lesson completing', {
+    if (progressError) {
+      logger.error('Lesson completion error:', progressError);
+      return NextResponse.json(
+        { error: 'Failed to mark lesson complete' },
+        { status: 500 }
+      );
+    }
+
+    logger.info('Lesson completed', {
       userId: user.id,
       lessonId,
       courseId: lesson.course_id,
@@ -396,7 +404,7 @@ async function _POST(
       lessonId,
       lessonTitle: lesson.title,
       completed: true,
-      completedAt,
+      completedAt: progress.completed_at,
       courseProgress: {
         progressPercent,
         courseCompleted,
@@ -440,7 +448,7 @@ async function _DELETE(
       .from('lms_lessons')
       .select('course_id')
       .eq('id', lessonId)
-      .maybeSingle();
+      .single();
 
     if (!lessonRow?.course_id) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });

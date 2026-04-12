@@ -1,6 +1,3 @@
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-
 // Public preview page — no auth required
 // Shows all generated barber lesson videos for review
 

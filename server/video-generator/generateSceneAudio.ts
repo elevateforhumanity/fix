@@ -62,7 +62,7 @@ export async function generateAllSceneAudio(
   const results: SceneAudioAsset[] = [];
   for (const scene of scenes) {
     const asset = await generateSceneAudio(scene, voice, outputDir);
-    console.info(`  🎙 ${scene.id}: ${asset.durationSeconds.toFixed(1)}s`);
+    console.log(`  🎙 ${scene.id}: ${asset.durationSeconds.toFixed(1)}s`);
     results.push(asset);
   }
   return results;

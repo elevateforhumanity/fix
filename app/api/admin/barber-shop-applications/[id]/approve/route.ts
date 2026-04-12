@@ -1,8 +1,8 @@
 import { logger } from '@/lib/logger';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 export const runtime = 'nodejs';
@@ -40,7 +40,7 @@ export async function POST(
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .maybeSingle();
+    .single();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -51,7 +51,7 @@ export async function POST(
     .from('barbershop_partner_applications')
     .select('id, status, contact_email, contact_name, owner_name, shop_legal_name')
     .eq('id', id)
-    .maybeSingle();
+    .single();
 
   if (fetchError || !application) {
     logger.error('barbershop application fetch error', undefined, { id, detail: fetchError?.message });
@@ -109,7 +109,7 @@ export async function POST(
         { onConflict: 'name,city,state' }  // prevent duplicate shops on re-approval
       )
       .select('id')
-      .maybeSingle();
+      .single();
 
     if (shopErr) {
       logger.warn('[barber-approve] shops upsert failed (non-fatal)', { id, detail: shopErr.message });
@@ -143,52 +143,6 @@ export async function POST(
           shopId: provisionedShopId,
           supervisorEmail: application.contact_email,
         });
-      }
-
-      // Provision partner_users row so the supervisor can log hours immediately
-      // after claiming their account. Matched by email — user_id backfilled on
-      // first login via the onboarding link.
-      try {
-        // Look up auth user by email (may not exist yet if account not claimed)
-        const { data: authList } = await supabase.auth.admin.listUsers();
-        const authUser = authList?.users?.find(
-          (u: { email?: string }) => u.email?.toLowerCase() === application.contact_email?.toLowerCase()
-        );
-
-        if (authUser) {
-          await supabase.from('partner_users').upsert(
-            {
-              user_id:    authUser.id,
-              partner_id: provisionedShopId,
-              role:       'supervisor',
-              is_active:  true,
-            },
-            { onConflict: 'user_id,partner_id' }
-          );
-
-          // Ensure profile role is at least 'partner' so onboarding layout lets them in
-          await supabase.from('profiles').update({ role: 'partner' })
-            .eq('id', authUser.id)
-            .in('role', ['learner', 'student', null]);
-
-          logger.info('[barber-approve] partner_users row provisioned', {
-            userId: authUser.id,
-            shopId: provisionedShopId,
-          });
-        } else {
-          // Account not claimed yet — store pending assignment on the application
-          // so it can be backfilled when the user signs up via the onboarding link.
-          await supabase.from('barbershop_partner_applications')
-            .update({ pending_shop_id: provisionedShopId })
-            .eq('id', id)
-            .catch(() => {}); // column may not exist — non-fatal
-          logger.info('[barber-approve] No auth user yet — partner_users will be provisioned on first login', {
-            email: application.contact_email,
-            shopId: provisionedShopId,
-          });
-        }
-      } catch (puErr) {
-        logger.warn('[barber-approve] partner_users provisioning failed (non-fatal)', { id, error: String(puErr) });
       }
     }
   } catch (provisionErr) {

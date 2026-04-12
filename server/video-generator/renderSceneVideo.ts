@@ -56,11 +56,9 @@ export async function renderSceneVideo(
 
   const { videoPath, durationSeconds: clipDuration } = scene.video;
   const { audioPath, durationSeconds: audioDuration } = scene.audio;
-  // Scene duration = exact audio duration. No tail padding — padding caused
-  // the video stream to run past the audio, freezing on the last frame.
-  const sceneDuration = audioDuration;
+  const sceneDuration = audioDuration + scene.timing.tailPadSeconds;
 
-  // Loop video if the clip is shorter than the audio
+  // If the clip is shorter than the scene, loop it
   const needsLoop = clipDuration < sceneDuration;
 
   const [capLine1, capLine2] = wrapCaption(scene.caption);
