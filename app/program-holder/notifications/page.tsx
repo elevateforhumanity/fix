@@ -30,7 +30,7 @@ export default async function ProgramHolderNotificationsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .maybeSingle();
+    .single();
 
   if (!profile || !['program_holder', 'admin', 'super_admin', 'staff'].includes(profile.role)) {
     redirect('/unauthorized');

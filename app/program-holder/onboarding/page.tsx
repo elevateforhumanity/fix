@@ -40,7 +40,7 @@ export default async function ProgramHolderOnboarding() {
       .from('profiles')
       .select('program_holder_id')
       .eq('id', user.id)
-      .maybeSingle(),
+      .single(),
     db
       .from('program_holder_acknowledgements')
       .select('document_type')
@@ -59,7 +59,7 @@ export default async function ProgramHolderOnboarding() {
       .from('program_holders')
       .select('mou_signed')
       .eq('id', holderId)
-      .maybeSingle();
+      .single();
     mouSigned = holder?.mou_signed ?? false;
   }
 

@@ -27,7 +27,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('profiles')
     .select('program_holder_id')
     .eq('id', user.id)
-    .maybeSingle();
+    .single();
 
   if (!prof?.program_holder_id) {
     return new Response('No program holder assigned', { status: 404 });
@@ -38,15 +38,15 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('program_holders')
     .select('mou_final_pdf_url, name')
     .eq('id', prof.program_holder_id)
-    .maybeSingle();
+    .single();
 
   if (!ph?.mou_final_pdf_url) {
     return new Response('No signed MOU available', { status: 404 });
   }
 
-  // Download from storage — MOUs are stored in the 'mous' bucket
+  // Download from storage
   const { data, error }: any = await supabase.storage
-    .from('mous')
+    .from('agreements')
     .download(ph.mou_final_pdf_url);
 
   if (error || !data) {

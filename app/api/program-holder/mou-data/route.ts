@@ -26,7 +26,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('profiles')
     .select('program_holder_id')
     .eq('id', user.id)
-    .maybeSingle();
+    .single();
 
   if (!prof?.program_holder_id) {
     return Response.json(null);
@@ -54,7 +54,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     `
     )
     .eq('id', prof.program_holder_id)
-    .maybeSingle();
+    .single();
 
   if (error || !holder) {
     return Response.json(null);
