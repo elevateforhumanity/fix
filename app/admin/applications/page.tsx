@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { redirect } from 'next/navigation';
 import { requireRole } from '@/lib/auth/require-role';
 import Link from 'next/link';
 import { Inbox, Clock, CheckCircle, XCircle, Eye, Users } from 'lucide-react';
@@ -44,12 +45,7 @@ export default async function ApplicationsPage({
   try { adminDb = await getAdminClient(); } catch {}
   if (!adminDb) return <div className="p-8 text-red-600">Service temporarily unavailable. Please try again.</div>;
 
-  // Exclude program_holder applications — those are managed under /admin/program-holders
-  let query = adminDb
-    .from('applications')
-    .select('*', { count: 'exact' })
-    .or('type.is.null,type.neq.program_holder')
-    .order('created_at', { ascending: false });
+  let query = adminDb.from('applications').select('*', { count: 'exact' }).order('created_at', { ascending: false });
   if (resolvedStatuses.length === 1) query = query.eq('status', resolvedStatuses[0]);
   else if (resolvedStatuses.length > 1) query = query.in('status', resolvedStatuses);
   if (search) query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,full_name.ilike.%${search}%`);
@@ -58,10 +54,7 @@ export default async function ApplicationsPage({
   const { data: applications, count: totalCount, error: applicationsError } = await query;
   if (applicationsError) return <div className="p-8 text-red-600">Failed to load applications. Please refresh.</div>;
 
-  const { data: allApps, error: allAppsError } = await adminDb
-    .from('applications')
-    .select('status')
-    .or('type.is.null,type.neq.program_holder');
+  const { data: allApps, error: allAppsError } = await adminDb.from('applications').select('status');
   if (allAppsError) return <div className="p-8 text-red-600">Failed to load application counts. Please refresh.</div>;
 
   const statusCounts: Record<string, number> = {};
@@ -82,12 +75,11 @@ export default async function ApplicationsPage({
       description="Review, approve, and manage program applications."
       breadcrumbs={[{ label: 'Admin', href: '/admin/dashboard' }, { label: 'Applications' }]}
       stats={[
-        { label: 'Total',            value: totalApplications,                                                                    icon: Inbox,        color: 'slate' },
-        { label: 'Needs Review',     value: pending,                                                                              icon: Clock,        color: 'amber', alert: pending > 0 },
-        { label: 'In Review',        value: (statusCounts['in_review'] || 0) + (statusCounts['under_review'] || 0),              icon: Eye,          color: 'blue' },
-        { label: 'Approved',         value: (statusCounts['approved'] || 0) + (statusCounts['ready_to_enroll'] || 0),            icon: CheckCircle,  color: 'green' },
-        { label: 'Enrolled',         value: statusCounts['enrolled'] || 0,                                                       icon: CheckCircle,  color: 'teal' },
-        { label: 'Rejected',         value: statusCounts['rejected'] || 0,                                                       icon: XCircle,      color: 'red' },
+        { label: 'Total',      value: totalApplications,                    icon: Inbox,        color: 'slate' },
+        { label: 'Pending',    value: pending,                              icon: Clock,        color: 'amber', alert: pending > 0 },
+        { label: 'In Review',  value: statusCounts['in_review'] || 0,       icon: Eye,          color: 'blue' },
+        { label: 'Approved',   value: statusCounts['approved'] || 0,        icon: CheckCircle,  color: 'green' },
+        { label: 'Rejected',   value: statusCounts['rejected'] || 0,        icon: XCircle,      color: 'red' },
       ]}
       actions={
         <FollowUpBlastButton pendingCount={pending} />
@@ -102,14 +94,11 @@ export default async function ApplicationsPage({
               className="px-3 py-2 text-sm border border-slate-200 rounded-lg bg-white focus:ring-2 focus:ring-brand-blue-500 focus:outline-none">
               <option value="all">All Statuses</option>
               <option value="submitted">Submitted</option>
+              <option value="pending">Pending (legacy)</option>
               <option value="in_review">In Review</option>
-              <option value="under_review">Under Review</option>
-              <option value="pending_workone">Pending WorkOne</option>
-              <option value="waitlisted">Waitlisted</option>
               <option value="approved">Approved</option>
-              <option value="ready_to_enroll">Ready to Enroll</option>
-              <option value="enrolled">Enrolled</option>
               <option value="rejected">Rejected</option>
+              <option value="enrolled">Enrolled</option>
             </select>
           </div>
           <div>
