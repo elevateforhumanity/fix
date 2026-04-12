@@ -1,4 +1,3 @@
-// PUBLIC ROUTE: v1 API — auth inside handler
 /**
  * @deprecated Use canonical enrollment routes:
  *   - /api/enroll (student enrollment)
@@ -162,7 +161,7 @@ async function _POST(request: NextRequest) {
         status: 'active',
       })
       .select(`*, course:courses!course_id(id, title)`)
-      .maybeSingle();
+      .single();
 
     if (createError) throw createError;
 

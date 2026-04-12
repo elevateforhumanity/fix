@@ -9,7 +9,6 @@ import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { auditMutation } from '@/lib/api/withAudit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
-import { resolveProgram } from '@/lib/programs/resolve';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
 
@@ -53,11 +52,14 @@ async function _POST(req: Request) {
     });
 
     // Step 1: Get program details
-    const program = await resolveProgram(supabase, programSlug);
+    const { data: program, error: programError } = await supabase
+      .from('programs')
+      .select('id, title, slug')
+      .eq('slug', programSlug)
+      .single();
 
-    if (!program) {
-      logger.error('[enroll/complete] Could not resolve program', { programSlug });
-      return NextResponse.json({ error: 'Program not found' }, { status: 422 });
+    if (programError || !program) {
+      throw new Error(`Program not found: ${programSlug}`);
     }
 
     // Step 2: Check if user already exists
@@ -66,16 +68,14 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('id')
       .eq('email', emailLower)
-      .maybeSingle();
+      .single();
 
     if (existingUser) {
       userId = existingUser.id;
       logger.info('User already exists', { userId, email: emailLower });
     } else {
-      // Step 3: Create auth user with a cryptographically random temp password.
-      // Math.random() is predictable — use randomBytes instead.
-      const { randomBytes: _rb } = require('crypto') as typeof import('crypto');
-      const tempPassword = `EFH-${_rb(8).toString('hex')}-Temp!`;
+      // Step 3: Create auth user with temporary password
+      const tempPassword = Math.random().toString(36).slice(-12) + 'Aa1!';
       const { data: authData, error: authError } =
         await supabase.auth.admin.createUser({
           email: emailLower,
@@ -90,7 +90,7 @@ async function _POST(req: Request) {
 
       if (authError || !authData.user) {
         logger.error('Auth user creation error', authError);
-        return NextResponse.json({ error: 'Failed to create user account' }, { status: 500 });
+        throw new Error('Failed to create user account');
       }
 
       userId = authData.user.id;
@@ -141,7 +141,7 @@ async function _POST(req: Request) {
       .select('id')
       .eq('user_id', userId)
       .eq('program_id', program.id)
-      .maybeSingle();
+      .single();
 
     let enrollmentId: string;
 
@@ -176,7 +176,7 @@ async function _POST(req: Request) {
             : {}),
         })
         .select('id')
-        .maybeSingle();
+        .single();
 
       if (enrollError) {
         logger.error('Enrollment creation error', enrollError);
