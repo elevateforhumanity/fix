@@ -12,86 +12,61 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_SUPABASE_URL: 'https://cuxzzpsyufcewtmicszk.supabase.co',
     NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN1eHp6cHN5dWZjZXd0bWljc3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNjEwNDcsImV4cCI6MjA3MzczNzA0N30.DyFtzoKha_tuhKiSIPoQlKonIpaoSYrlhzntCUvLUnA',
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org',
-    NEXT_PUBLIC_BUILD_ID: `build-${Date.now()}`,
   },
   // Server external packages - exclude heavy dependencies from the server bundle
   // These are loaded at runtime instead of being bundled, reducing Lambda size
   serverExternalPackages: [
-    // Database
-    'pg', 'pg-native',
-    // FFmpeg binaries (66 MB + 76 MB)
-    'fluent-ffmpeg', '@ffmpeg-installer/ffmpeg', '@ffprobe-installer/ffprobe',
-    // Canvas / native image
-    'canvas', '@napi-rs/canvas',
-    // OCR (44 MB wasm)
-    'tesseract.js', 'tesseract.js-core',
-    // Sharp native binaries
-    'sharp', '@img/sharp-libvips-linux-x64', '@img/sharp-linux-x64',
-    // PDF libraries
-    'pdf-parse', 'pdfkit', 'pdf-lib', '@pdf-lib/fontkit',
-    'jspdf', 'jspdf-autotable', '@react-pdf/renderer', 'pdfjs-dist',
-    // Google APIs (194 MB)
-    'googleapis', 'google-auth-library', 'google-gax',
-    // Monaco editor (75 MB)
-    'monaco-editor',
-    // node-pty (63 MB)
-    'node-pty',
-    // Video / media (browser-only)
-    'video.js', 'hls.js',
-    // MediaPipe (20 MB, browser-only)
-    '@mediapipe/tasks-vision',
-    // 3D / WebGL — three-stdlib only; three/@react-three are in optimizePackageImports (conflict)
-    'three-stdlib',
-    // Screenshot (browser-only)
-    'html2canvas',
-    // Sentry CLI binary
-    '@sentry/cli-linux-x64', '@sentry/cli',
-    // AWS SDK
-    '@aws-sdk/client-s3', '@aws-sdk/s3-request-presigner',
-    '@aws-sdk/client-ses', '@aws-sdk/client-sns',
-    // Cache
-    'ioredis', 'redis', '@upstash/redis', '@redis/client',
-    // AI / payments
-    'openai', 'stripe',
-    // Email
-    '@sendgrid/mail', '@sendgrid/helpers', 'nodemailer', 'resend',
-    // Observability
-    '@sentry/nextjs', '@sentry/node', '@sentry/core',
-    '@opentelemetry/api', '@opentelemetry/sdk-node',
+    'fluent-ffmpeg',
+    '@ffmpeg-installer/ffmpeg',
+    '@ffprobe-installer/ffprobe',
+    'canvas',
+    '@napi-rs/canvas',
+    'tesseract.js',
+    'tesseract.js-core',
+    'sharp',
+    'pdf-parse',
+    'pdfkit',
+    'pdf-lib',
+    'jspdf',
+    'jspdf-autotable',
+    '@react-pdf/renderer',
+    '@aws-sdk/client-s3',
+    '@aws-sdk/s3-request-presigner',
+    'pg',
+    'openai',
+    'stripe',
+    'ioredis',
+    'redis',
+    '@upstash/redis',
+    'socket.io',
+    'socket.io-client',
+    '@sendgrid/mail',
+    'nodemailer',
+    '@sentry/nextjs',
+    '@sentry/node',
+    '@sentry/core',
+    '@opentelemetry/api',
+    '@opentelemetry/sdk-node',
     '@opentelemetry/exporter-trace-otlp-http',
-    '@opentelemetry/resources', '@opentelemetry/semantic-conventions',
-    // Browser automation
-    'puppeteer', 'puppeteer-core', 'playwright', 'playwright-core',
-    'chromium-bidi', '@playwright/test', '@sparticuz/chromium', 'chrome-aws-lambda',
-    // Sockets
-    'socket.io', 'socket.io-client', 'ws',
-    // Document generation
-    'docx', 'mammoth', 'xlsx',
-    // Collaborative editing (browser-only)
-    'yjs', 'y-protocols', 'lib0',
-    // WebContainer (browser-only)
-    '@webcontainer/api',
-    // Mailchimp
-    '@mailchimp/mailchimp_marketing',
-    // Build / dev tools (never needed at runtime)
-    'typescript', 'core-js', 'prettier', 'tailwindcss', 'autoprefixer',
-    'postcss', 'postcss-media-query-parser', 'postcss-selector-parser',
-    'eslint', '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser',
-    'esbuild', 'webpack', 'webpack-sources',
-    // Test / DOM
-    'jsdom', 'happy-dom', 'vitest',
-    // Misc not needed in SSR
-    '@mailchimp/mailchimp_marketing', 'csv-parse', 'csv-stringify',
-    'sitemap', 'jszip', 'fast-xml-parser', 'marked', 'cheerio',
-    // Animation — lottie only; framer-motion is in optimizePackageImports (conflict)
-    'lottie-web', '@lottiefiles/react-lottie-player',
-    // Syntax highlighting (browser-only)
-    'prismjs', 'highlight.js', 'shiki',
-    // Rich text editors (browser-only)
-    'codemirror', 'ace-builds', 'quill', 'draft-js',
-    '@tiptap/core', '@tiptap/react', '@tiptap/starter-kit',
-    'prosemirror-model', 'prosemirror-state', 'prosemirror-view',
+    '@opentelemetry/resources',
+    '@opentelemetry/semantic-conventions',
+    'puppeteer',
+    'puppeteer-core',
+    'playwright',
+    'chromium-bidi',
+    'jsdom',
+    'typescript',
+    'core-js',
+    // Client-only 3D/media packages — never needed server-side
+    'three',
+    'three-stdlib',
+    '@react-three/fiber',
+    '@react-three/drei',
+    'hls.js',
+    '@mediapipe/tasks-vision',
+    // Monaco editor (75 MB) — client-only, loaded via dynamic import
+    '@monaco-editor/react',
+    'monaco-editor',
   ],
 
   // Disable dev indicators (static route indicator, build indicator)
@@ -105,11 +80,8 @@ const nextConfig = {
   generateBuildId: async () => {
     return `build-${Date.now()}-production`;
   },
-  // Required for @netlify/plugin-nextjs v5 — plugin reads .next/standalone
-  output: 'standalone',
-  // Restrict NFT tracing to the project root — prevents it from following
-  // pnpm symlinks up into the global store and pulling in full package trees.
-  outputFileTracingRoot: process.env.NETLIFY ? '/opt/build/repo' : process.cwd(),
+  // Netlify uses 'export' or default, not 'standalone'
+  // output: 'standalone', // Commented out for Netlify compatibility
   reactStrictMode: true,
   trailingSlash: false,
   poweredByHeader: false,
@@ -119,12 +91,10 @@ const nextConfig = {
   // Image optimization settings
   images: {
     unoptimized: false,
-    // avif encoding is CPU-intensive and causes 504s on large images — webp only
-    formats: ['image/webp'],
-    // Reduced set — fewer variants = less Lambda resize work = fewer 504s on Netlify
-    deviceSizes: [640, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 64, 128, 256],
-    qualities: [80],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    qualities: [85],
     minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: false,
     contentDispositionType: 'inline',
@@ -158,8 +128,7 @@ const nextConfig = {
     '**.gitpod.dev',
   ],
 
-  // Experimental — minimal set only. Removed optimizePackageImports and other
-  // memory-intensive experiments to stay within Netlify's build container limits.
+  // Experimental features for better performance
   experimental: {
     // Limit page-data workers to 1 — Netlify's build container OOMs at 2+ workers
     cpus: 1,
@@ -171,13 +140,34 @@ const nextConfig = {
         'elevateforhumanity.org',
       ],
     },
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-tooltip',
+      '@radix-ui/react-popover',
+      'recharts',
+      'react-hot-toast',
+      // @react-three/* and three removed — they are in serverExternalPackages.
+      // Turbopack forbids a package appearing in both optimizePackageImports and serverExternalPackages.
+      'date-fns',
+      'framer-motion',
+      '@stripe/stripe-js',
+      'zod',
+      'react-hook-form',
+      '@hookform/resolvers',
+      'swr',
+    ],
     webpackBuildWorker: false,
+    // optimizeCss runs critters on every page — with 1,486 pages this causes OOM on Netlify (3 GB limit).
+    // Re-enable when build containers are upgraded or the page count is reduced.
     optimizeCss: false,
+    // Parallel routes for faster builds
     parallelServerCompiles: false,
     parallelServerBuildTraces: false,
-    // Limit static page generation to 1 worker at a time.
-    // Default is the number of CPUs; with 1,486 pages this exhausts container RAM.
-    staticGenerationConcurrency: 1,
   },
   
   // Suppress middleware deprecation warning (middleware.ts is still correct for our use case)
@@ -187,9 +177,6 @@ const nextConfig = {
     },
   },
   webpack: (config, { isServer }) => {
-    // Hard-limit parallelism to prevent OOM in Netlify's 4GB build container
-    config.parallelism = 1;
-
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -201,10 +188,11 @@ const nextConfig = {
     config.optimization = {
       ...config.optimization,
       moduleIds: 'deterministic',
+      // Simplified splitChunks — the previous name(module) callback ran for every
+      // node_modules module during compilation, contributing to heap pressure.
+      // Next.js default chunking is sufficient; only override what's necessary.
       splitChunks: {
         chunks: 'all',
-        maxInitialRequests: 25,
-        minSize: 20000,
         cacheGroups: {
           default: false,
           vendors: false,
@@ -215,34 +203,11 @@ const nextConfig = {
             priority: 40,
             enforce: true,
           },
-          lib: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)?.[1];
-              return `npm.${packageName?.replace('@', '')}`;
-            },
-            priority: 30,
-            minChunks: 1,
-            reuseExistingChunk: true,
-          },
-          // Split large UI libraries
-          ui: {
-            test: /[\\/]node_modules[\\/](@radix-ui|lucide-react)[\\/]/,
-            name: 'ui-libs',
-            priority: 35,
-            reuseExistingChunk: true,
-          },
-          // Split Supabase
-          supabase: {
-            test: /[\\/]node_modules[\\/](@supabase)[\\/]/,
-            name: 'supabase',
-            priority: 35,
-            reuseExistingChunk: true,
-          },
           commons: {
             name: 'commons',
             minChunks: 2,
             priority: 20,
+            reuseExistingChunk: true,
           },
         },
       },
@@ -251,208 +216,97 @@ const nextConfig = {
   },
 
   typescript: {
-    // TypeScript type-checking is skipped during `next build` to stay within
-    // Netlify's 7 GB build container. The TS checker alone consumes ~4 GB on
-    // 4,450+ files and triggers OOM. Run `pnpm typecheck` separately in CI.
+    // OOMs during type-check on 4,450+ files in CI — keep enabled until project is split or memory increased
     ignoreBuildErrors: true,
   },
-
   // Removed staticPageGenerationTimeout - use route segment config instead
   // See: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
   outputFileTracingExcludes: {
-    // Exclude everything from the accreditation report route — it uses a dedicated function
     '/api/accreditation/report': ['**/*'],
-    // Exclude heavy packages from ALL routes to keep ___netlify-server-handler under 50 MB zipped.
-    // Rule: if a package is only used in a specific API route or Netlify function, exclude it here
-    // and load it via dynamic import() or move it to netlify/functions/.
+    // Exclude heavy/dev files from ALL routes to reduce Netlify handler size
     '*': [
-      // Generated media — served by CDN
+      // Generated media — served by CDN, not the server function
       'public/generated/**',
       'public/generated-images/**',
       // Dev artifacts
       'reports/**',
       'audit-packet/**',
       'playwright-report/**',
-
-      // ── Browser automation (never needed in SSR) ──────────────────────────
+      // Browser automation
       '**/node_modules/playwright/**',
-      '**/node_modules/.pnpm/playwright*/**',
-      '**/node_modules/@playwright/**',
-      '**/node_modules/.pnpm/@playwright*/**',
-      '**/node_modules/playwright-core/**',
-      '**/node_modules/.pnpm/playwright-core*/**',
       '**/node_modules/puppeteer/**',
-      '**/node_modules/.pnpm/puppeteer*/**',
+      '**/node_modules/@playwright/**',
+      '**/node_modules/playwright-core/**',
       '**/node_modules/puppeteer-core/**',
-      '**/node_modules/.pnpm/puppeteer-core*/**',
-      '**/node_modules/chromium-bidi/**',
-      '**/node_modules/.pnpm/chromium-bidi*/**',
+      '**/node_modules/**/chromium/**',
       '**/node_modules/@sparticuz/**',
-      '**/node_modules/.pnpm/@sparticuz*/**',
       '**/node_modules/chrome-aws-lambda/**',
-
-      // ── FFmpeg / FFprobe binaries (66 MB + 76 MB) ─────────────────────────
+      // FFmpeg + FFprobe binaries (66MB + 76MB) — only used in video generator
       '**/node_modules/@ffmpeg-installer/**',
       '**/node_modules/.pnpm/@ffmpeg-installer*/**',
       '**/node_modules/@ffprobe-installer/**',
       '**/node_modules/.pnpm/@ffprobe-installer*/**',
       '**/node_modules/fluent-ffmpeg/**',
       '**/node_modules/.pnpm/fluent-ffmpeg*/**',
-
-      // ── Canvas / native image (30 MB) ─────────────────────────────────────
+      // Canvas native binaries — only used in video generator
       '**/node_modules/canvas/**',
       '**/node_modules/.pnpm/canvas*/**',
       '**/node_modules/@napi-rs/canvas/**',
       '**/node_modules/.pnpm/@napi-rs+canvas*/**',
-
-      // ── OCR (44 MB core wasm + 1.7 MB js) ────────────────────────────────
-      '**/node_modules/tesseract.js/**',
-      '**/node_modules/.pnpm/tesseract.js*/**',
-      '**/node_modules/tesseract.js-core/**',
-      '**/node_modules/.pnpm/tesseract.js-core*/**',
-
-      // ── Sharp native binaries ─────────────────────────────────────────────
-      '**/node_modules/sharp/**',
-      '**/node_modules/.pnpm/sharp*/**',
-      '**/node_modules/@img/**',
-      '**/node_modules/.pnpm/@img*/**',
-
-      // ── PDF libraries ─────────────────────────────────────────────────────
-      '**/node_modules/pdf-lib/**',
-      '**/node_modules/.pnpm/pdf-lib*/**',
-      '**/node_modules/pdf-parse/**',
-      '**/node_modules/.pnpm/pdf-parse*/**',
-      '**/node_modules/pdfkit/**',
-      '**/node_modules/.pnpm/pdfkit*/**',
-      '**/node_modules/pdfjs-dist/**',
-      '**/node_modules/.pnpm/pdfjs-dist*/**',
-      '**/node_modules/jspdf/**',
-      '**/node_modules/.pnpm/jspdf*/**',
-      '**/node_modules/@react-pdf/**',
-      '**/node_modules/.pnpm/@react-pdf*/**',
-
-      // ── Google APIs (194 MB) ──────────────────────────────────────────────
+      // Other heavy packages
       '**/node_modules/googleapis/**',
       '**/node_modules/.pnpm/googleapis*/**',
-      '**/node_modules/google-auth-library/**',
-      '**/node_modules/.pnpm/google-auth-library*/**',
-
-      // ── Monaco editor (75 MB) ─────────────────────────────────────────────
       '**/node_modules/monaco-editor/**',
       '**/node_modules/.pnpm/monaco-editor*/**',
-
-      // ── node-pty (63 MB) ──────────────────────────────────────────────────
       '**/node_modules/node-pty/**',
       '**/node_modules/.pnpm/node-pty*/**',
-
-      // ── Video / media (browser-only) ──────────────────────────────────────
       '**/node_modules/video.js/**',
       '**/node_modules/.pnpm/video.js*/**',
-      '**/node_modules/hls.js/**',
-      '**/node_modules/.pnpm/hls.js*/**',
-
-      // ── MediaPipe (20 MB, browser-only) ───────────────────────────────────
-      '**/node_modules/@mediapipe/**',
-      '**/node_modules/.pnpm/@mediapipe*/**',
-
-      // ── 3D / WebGL (43 MB + 29 MB stdlib, browser-only) ──────────────────
+      '**/node_modules/pdfjs-dist/**',
+      '**/node_modules/.pnpm/pdfjs-dist*/**',
+      '**/node_modules/happy-dom/**',
+      '**/node_modules/.pnpm/happy-dom*/**',
+      '**/node_modules/@sentry/cli-linux-x64/**',
+      '**/node_modules/.pnpm/@sentry+cli-linux*/**',
+      // Dev-only tools
+      '**/node_modules/typescript/**',
+      '**/node_modules/jsdom/**',
+      '**/node_modules/core-js/**',
+      '**/node_modules/prettier/**',
+      // Sharp native binaries
+      '**/node_modules/@img/sharp-libvips-*/**',
+      '**/node_modules/@img/sharp-linux-*/**',
+      '**/node_modules/@img/sharp-darwin-*/**',
+      '**/node_modules/@img/sharp-win32-*/**',
+      // Heavy PDF dist bundles
+      '**/node_modules/jspdf/dist/**',
+      '**/node_modules/pdf-lib/**',
+      '**/node_modules/.pnpm/pdf-lib*/**',
+      '**/node_modules/@apm-js-collab/**',
+      '**/node_modules/.pnpm/@apm-js-collab*/**',
+      // Client-only 3D / media packages (29MB + 24MB + 20MB) — never run server-side
       '**/node_modules/three/**',
       '**/node_modules/.pnpm/three*/**',
       '**/node_modules/three-stdlib/**',
       '**/node_modules/.pnpm/three-stdlib*/**',
       '**/node_modules/@react-three/**',
       '**/node_modules/.pnpm/@react-three*/**',
-
-      // ── Icon library (42 MB, browser-only) ───────────────────────────────
-      '**/node_modules/lucide-react/**',
-      '**/node_modules/.pnpm/lucide-react*/**',
-
-      // ── Charting (browser-only) ───────────────────────────────────────────
-      '**/node_modules/recharts/**',
-      '**/node_modules/.pnpm/recharts*/**',
-
-      // ── Screenshot / canvas (browser-only) ───────────────────────────────
-      '**/node_modules/html2canvas/**',
-      '**/node_modules/.pnpm/html2canvas*/**',
-
-      // ── Sentry CLI binary (21 MB) ─────────────────────────────────────────
-      '**/node_modules/@sentry/cli-linux-x64/**',
-      '**/node_modules/.pnpm/@sentry+cli-linux*/**',
-
-      // ── Document generation / parsing ─────────────────────────────────────
-      '**/node_modules/docx/**',
-      '**/node_modules/.pnpm/docx*/**',
-      '**/node_modules/mammoth/**',
-      '**/node_modules/.pnpm/mammoth*/**',
-
-      // ── Collaborative editing (browser-only) ──────────────────────────────
-      '**/node_modules/yjs/**',
-      '**/node_modules/.pnpm/yjs*/**',
-      '**/node_modules/y-protocols/**',
-      '**/node_modules/.pnpm/y-protocols*/**',
-      '**/node_modules/lib0/**',
-      '**/node_modules/.pnpm/lib0*/**',
-
-      // ── WebContainer (browser-only) ───────────────────────────────────────
-      '**/node_modules/@webcontainer/**',
-      '**/node_modules/.pnpm/@webcontainer*/**',
-
-      // ── Next.js build-time binaries (never needed at runtime) ────────────
-      // @next/swc is the Rust compiler — 113 MB, build-only
-      '**/node_modules/@next/swc-*/**',
-      '**/node_modules/.pnpm/@next+swc-*/**',
-      // esbuild binary — build-only
-      '**/node_modules/@esbuild/**',
-      '**/node_modules/.pnpm/@esbuild*/**',
-      // webpack — build-only
-      '**/node_modules/webpack/**',
-      '**/node_modules/.pnpm/webpack*/**',
-      '**/node_modules/webpack-sources/**',
-      '**/node_modules/.pnpm/webpack-sources*/**',
-
-      // ── Build / dev tools (not needed at runtime) ─────────────────────────
-      '**/node_modules/typescript/**',
-      '**/node_modules/.pnpm/typescript*/**',
-      '**/node_modules/core-js/**',
-      '**/node_modules/.pnpm/core-js*/**',
-      '**/node_modules/prettier/**',
-      '**/node_modules/.pnpm/prettier*/**',
-      '**/node_modules/tailwindcss/**',
-      '**/node_modules/.pnpm/tailwindcss*/**',
-      '**/node_modules/autoprefixer/**',
-      '**/node_modules/.pnpm/autoprefixer*/**',
-      '**/node_modules/postcss/**',
-      '**/node_modules/.pnpm/postcss*/**',
-      '**/node_modules/eslint/**',
-      '**/node_modules/.pnpm/eslint*/**',
-      '**/node_modules/@typescript-eslint/**',
-      '**/node_modules/.pnpm/@typescript-eslint*/**',
-      '**/node_modules/vitest/**',
-      '**/node_modules/.pnpm/vitest*/**',
-
-      // ── Test / DOM (not needed at runtime) ───────────────────────────────
-      '**/node_modules/jsdom/**',
-      '**/node_modules/.pnpm/jsdom*/**',
-      '**/node_modules/happy-dom/**',
-      '**/node_modules/.pnpm/happy-dom*/**',
-
-      // ── Misc not needed in SSR hot path ───────────────────────────────────
-      '**/node_modules/@mailchimp/**',
-      '**/node_modules/.pnpm/@mailchimp*/**',
-      '**/node_modules/csv-parse/**',
-      '**/node_modules/.pnpm/csv-parse*/**',
-      '**/node_modules/sitemap/**',
-      '**/node_modules/.pnpm/sitemap*/**',
-      '**/node_modules/jszip/**',
-      '**/node_modules/.pnpm/jszip*/**',
-      '**/node_modules/fast-xml-parser/**',
-      '**/node_modules/.pnpm/fast-xml-parser*/**',
-      '**/node_modules/marked/**',
-      '**/node_modules/.pnpm/marked*/**',
-      '**/node_modules/cheerio/**',
-      '**/node_modules/.pnpm/cheerio*/**',
-      '**/node_modules/@apm-js-collab/**',
-      '**/node_modules/.pnpm/@apm-js-collab*/**',
+      '**/node_modules/hls.js/**',
+      '**/node_modules/.pnpm/hls.js*/**',
+      '**/node_modules/@mediapipe/**',
+      '**/node_modules/.pnpm/@mediapipe*/**',
+      // Monaco editor (75 MB) — client-only, never traced into server bundle
+      '**/node_modules/monaco-editor/**',
+      '**/node_modules/.pnpm/monaco-editor*/**',
+      '**/node_modules/@monaco-editor/**',
+      '**/node_modules/.pnpm/@monaco-editor*/**',
+      // Source files not needed at runtime
+      'app/**/*.tsx',
+      'app/**/*.ts',
+      'components/**/*.tsx',
+      'components/**/*.ts',
+      'lib/**/*.ts',
+      'lib/**/*.tsx',
     ],
   },
 
@@ -528,7 +382,7 @@ const nextConfig = {
       { source: '/admin/analytics/:path*', destination: '/admin/reports', permanent: false },
       { source: '/admin/reporting', destination: '/admin/reports', permanent: false },
       { source: '/admin/courses/builder', destination: '/admin/course-builder', permanent: false },
-
+      { source: '/admin/courses/create', destination: '/admin/courses/create', permanent: false },
 
       // ============================================
       // DELETED PAGE REDIRECTS
@@ -610,6 +464,18 @@ const nextConfig = {
 
       // LMS
       { source: '/lms/catalog', destination: '/lms/courses', permanent: true },
+
+      // Programs/Courses terminology split — temporary redirects (permanent: false)
+      // until canonical path is decided and all internal links are updated.
+      //
+      // Current state:
+      //   /lms/programs  → public catalog (unauthenticated, app/lms/(public)/programs)
+      //   /lms/courses   → authenticated learner experience (app/lms/(app)/courses)
+      //
+      // Canonical term for learners is "Program". /lms/courses is the legacy path.
+      // Do not flip these to permanent until all 20+ internal hrefs are updated.
+      // See AGENTS.md "Programs vs Courses" tracked UX debt.
+      { source: '/lms/program/:programId', destination: '/lms/courses/:programId', permanent: false },
 
       // Mentor / Mentorship
       { source: '/mentor', destination: '/mentor/dashboard', permanent: false },
@@ -773,7 +639,7 @@ const nextConfig = {
       // Duplicate route consolidation
       { source: '/mission', destination: '/about/mission', permanent: true },
       { source: '/microclasses', destination: '/micro-classes', permanent: true },
-      { source: '/fundingimpact', destination: '/about', permanent: true },
+      { source: '/fundingimpact', destination: '/impact', permanent: true },
       { source: '/getstarted', destination: '/apply/student', permanent: true },
       { source: '/connect', destination: '/contact', permanent: true },
       { source: '/call-now', destination: '/contact', permanent: true },
@@ -790,7 +656,7 @@ const nextConfig = {
       // Deleted public routes — redirect to nearest relevant page
       { source: '/creator/analytics', destination: '/admin', permanent: true },
       { source: '/franchise/office/:path*', destination: '/admin', permanent: true },
-      { source: '/leaderboard', destination: '/learner/dashboard', permanent: true },
+      { source: '/leaderboard', destination: '/lms/dashboard', permanent: true },
       // duplicate removed — canonical entry at line 464 sends to /staff-portal/dashboard
       { source: '/app-hub', destination: '/apps', permanent: true },
       { source: '/card', destination: '/', permanent: true },
@@ -868,9 +734,6 @@ const nextConfig = {
       // with /lms/(app)/dashboard (same resolved path). Redirect lives here instead.
       { source: '/lms/dashboard', destination: '/learner/dashboard', permanent: false },
       { source: '/lms/my-courses', destination: '/lms/courses', permanent: true },
-      // Public catalog canonical URL is /lms/programs.
-      // /lms/program (singular) is a common typo — redirect to plural.
-      { source: '/lms/program', destination: '/lms/programs', permanent: true },
       
       // Student portal redirects
       { source: '/student-portal/dashboard', destination: '/student-portal', permanent: true },
@@ -948,6 +811,8 @@ const nextConfig = {
 
       // /employer-portal root → canonical employer dashboard
       { source: '/employer-portal',           destination: '/employer/dashboard',  permanent: true },
+
+
 
       // ============================================
       // STUB PAGE REPLACEMENTS — working redirect stubs moved to config
@@ -1076,14 +941,12 @@ const nextConfig = {
           { key: 'X-Build-ID', value: process.env.COMMIT_REF?.slice(0, 7) || 'dev' },
         ],
       },
-      // 1) Non-app routes (marketing stubs, public info pages) — short CDN cache.
-      //    Marketing content is served by Cloudflare Pages (www.elevateforhumanity.org).
-      //    These stubs just redirect there; short cache is fine.
-      //    stale-while-revalidate kept short (10s) so deploys are visible immediately.
+      // 1) Public marketing pages — short CDN cache, revalidate in background.
+      //    Netlify edge will serve stale while fetching fresh, keeping TTFB fast.
       {
         source: '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|studio|api|lms|admin|learner|instructor|employer|partner|program-holder|staff-portal|mentor|student-portal|onboarding|franchise|tax|supersonic).*)',
         headers: [
-          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=10' },
+          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
           { key: 'X-Build-ID', value: process.env.COMMIT_REF?.slice(0, 7) || 'dev' },
           { key: 'X-Deployment-ID', value: process.env.DEPLOY_ID || 'local' },
           ...securityHeaders,
@@ -1169,6 +1032,12 @@ const sentryWebpackPluginOptions = {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
+  // Skip source map upload and webpack instrumentation when no auth token is
+  // configured. Without this, withSentryConfig wraps the entire webpack
+  // compilation even on builds where it cannot upload anything, adding
+  // measurable heap pressure on large codebases.
+  disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
+  disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
 };
 
 export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
