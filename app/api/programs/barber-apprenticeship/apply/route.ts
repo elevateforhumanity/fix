@@ -65,7 +65,7 @@ export async function POST(req: Request) {
         program_interest: 'Barber Apprenticeship',
         program_slug: 'barber-apprenticeship', // required for approve.ts → resolveCourseId()
         program_id: '5ff21fcb-1968-41fd-99d3-37d69a31bd5c', // required for approve.ts enrollment block
-        status: 'pending_payment',
+        status: 'submitted',
         // date_of_birth, address, state stored in eligibility_data (not in applications schema)
         eligibility_data: {
           date_of_birth: validated.dateOfBirth,
