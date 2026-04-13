@@ -160,9 +160,7 @@ export const ApplicationCreateSchema = z.object({
 });
 
 export const ApplicationUpdateSchema = z.object({
-  // 'pending' removed — DB constraint (20260621000001) no longer allows it.
-  // Legacy 'pending' rows were migrated to 'submitted' in that migration.
-  status: z.enum(['submitted', 'in_review', 'under_review', 'approved', 'rejected', 'enrolled', 'waitlisted', 'ready_to_enroll', 'pending_workone']).optional(),
+  status: z.enum(['pending', 'submitted', 'in_review', 'under_review', 'approved', 'rejected', 'enrolled', 'waitlisted', 'ready_to_enroll', 'pending_workone']).optional(),
   reviewer_id: z.string().uuid().optional().nullable(),
   review_notes: z.string().optional().nullable(),
   reviewed_at: z.string().datetime().optional().nullable(),
