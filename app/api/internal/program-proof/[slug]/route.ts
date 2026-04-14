@@ -61,7 +61,7 @@ export async function GET(
       `)
       .eq('slug', slug)
       .eq('published', true)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json(

@@ -16,7 +16,7 @@ export default async function GradebookPage({ params }: { params: { courseId: st
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  const { data: course } = await supabase.from('training_courses').select('*').eq('id', params.courseId).single();
+  const { data: course } = await supabase.from('training_courses').select('*').eq('id', params.courseId).maybeSingle();
   const { data: rawEnrollments } = await supabase.from('program_enrollments').select('*, progress_percent').eq('course_id', params.courseId).order('created_at');
 
   // Hydrate profiles separately (user_id → auth.users, no FK to profiles)

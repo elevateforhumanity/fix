@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       status: 'interview_submitted',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) return safeDbError(error, 'Failed to save interview');
   return NextResponse.json({ success: true, id: data.id });

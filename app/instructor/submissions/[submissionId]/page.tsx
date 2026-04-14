@@ -98,7 +98,7 @@ export default function SubmissionReviewPage() {
             course_lessons:course_lesson_id ( title, slug, competency_checks )
           `)
           .eq('id', submissionId)
-          .single(),
+          .maybeSingle(),
         supabase
           .from('competency_audit_log')
           .select('id, action, note, created_at, actor:actor_id ( full_name, email )')

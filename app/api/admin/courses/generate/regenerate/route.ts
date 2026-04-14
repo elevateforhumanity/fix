@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const db = await getAdminClient();
-    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!profile || !ADMIN_ROLES.has(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }

@@ -294,7 +294,7 @@ export default function LessonPage() {
       .from('courses')
       .select('id, title, description, short_description, status')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     // Module draft gate — block direct URL access to lessons in unreleased modules.
     // Fetch role from profiles to determine admin bypass.

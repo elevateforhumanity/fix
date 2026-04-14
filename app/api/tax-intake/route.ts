@@ -29,7 +29,7 @@ async function _POST(req: Request) {
         notes: body.notes || null,
       })
       .select("id")
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 400 });

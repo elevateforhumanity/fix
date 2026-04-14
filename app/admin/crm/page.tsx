@@ -1,14 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import type { Metadata } from 'next';
-
-export const dynamic = 'force-dynamic';
-export const metadata: Metadata = {
-  title: 'CRM Hub | Admin | Elevate For Humanity',
-  robots: { index: false, follow: false },
-};
 import {
 
   Users,
@@ -20,9 +13,29 @@ import {
   Target,
 CheckCircle, } from 'lucide-react';
 
-export default async function CRMHubPage() {
-  const db = await getAdminClient();
+export const metadata = {
+  title: 'CRM Hub | Admin Dashboard',
+  description: 'Manage contacts, campaigns, leads, and customer relationships',
+};
 
+export default async function CRMHubPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
+
+
+  // Check admin access
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+    redirect('/dashboard');
+  }
+
+  // Get CRM metrics
   const [
     { count: totalContacts },
     { count: activeLeads },
@@ -31,12 +44,26 @@ export default async function CRMHubPage() {
     { data: recentCampaigns },
     { data: openDeals },
   ] = await Promise.all([
-    db.from('marketing_contacts').select('*', { count: 'exact', head: true }),
-    db.from('crm_leads').select('*', { count: 'exact', head: true }),
-    db.from('follow_up_reminders').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
-    db.from('appointments').select('*', { count: 'exact', head: true }).gte('scheduled_at', new Date().toISOString()),
-    db.from('marketing_campaigns').select('id,name,subject,sent_count,opened_count,clicked_count').order('created_at', { ascending: false }).limit(5),
-    db.from('crm_leads').select('id,name,amount,stage,expected_close_date').in('stage', ['Discovery', 'Proposal', 'Negotiation']).limit(10),
+    supabase.from('profiles').select('*', { count: 'exact', head: true }),
+    supabase.from('leads').select('*', { count: 'exact', head: true }),
+    supabase
+      .from('follow_ups')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending'),
+    supabase
+      .from('appointments')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', new Date().toISOString()),
+    supabase
+      .from('campaigns')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(5),
+    supabase
+      .from('leads')
+      .select('*')
+      .in('status', ['new', 'contacted', 'qualified', 'proposal'])
+      .limit(10),
   ]);
 
   // Calculate total pipeline value

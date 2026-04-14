@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     .from('profiles')
     .select('id, email, full_name, created_at, updated_at, tenant_id')
     .eq('id', sessionUserId)
-    .single();
+    .maybeSingle();
 
   if (userError || !user) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });

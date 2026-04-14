@@ -190,7 +190,7 @@ export async function apiAuthGuard(_req?: Request): Promise<GuardedUser> {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profileError) {
       return { id: user.id, email: user.email ?? null, role: null, error: serverError('PROFILE_LOOKUP_FAILED') };

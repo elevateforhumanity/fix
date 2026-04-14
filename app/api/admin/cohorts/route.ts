@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -9,11 +8,9 @@ export const dynamic = 'force-dynamic';
 
 async function requireAdmin() {
   const supabase = await createClient();
-  const db = await getAdminClient();
-  if (!supabase) return { error: 'Database unavailable', status: 500 };
-  const { data: { user } } = await supabase.auth.getUser();
+const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
@@ -32,7 +29,7 @@ const auth = await requireAdmin();
     const status = searchParams.get('status');
     const programId = searchParams.get('program_id');
 
-    let query = auth.db
+    let query = auth.supabase
       .from('cohorts')
       .select(`
         *,
@@ -71,7 +68,7 @@ async function _POST(request: Request) {
   try {
     const body = await request.json();
     
-    const { data: cohort, error } = await auth.db
+    const { data: cohort, error } = await auth.supabase
       .from('cohorts')
       .insert({
         program_id: body.program_id,
@@ -103,15 +100,15 @@ async function _POST(request: Request) {
         reporting_notes: body.reporting_notes || null,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
     // Log audit
-    await auth.db.from('audit_logs').insert({
-      actor_id: auth.user.id,
+    await auth.supabase.from('audit_logs').insert({
+      actor_id: auth.id,
       actor_role: auth.profile.role,
       action: 'create',
       resource_type: 'cohort',
@@ -141,13 +138,13 @@ const auth = await requireAdmin();
     }
 
     // Get current state for audit
-    const { data: oldCohort } = await auth.db
+    const { data: oldCohort } = await auth.supabase
       .from('cohorts')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
-    const { data: cohort, error } = await auth.db
+    const { data: cohort, error } = await auth.supabase
       .from('cohorts')
       .update({
         ...updates,
@@ -155,15 +152,15 @@ const auth = await requireAdmin();
       })
       .eq('id', id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
     // Log audit
-    await auth.db.from('audit_logs').insert({
-      actor_id: auth.user.id,
+    await auth.supabase.from('audit_logs').insert({
+      actor_id: auth.id,
       actor_role: auth.profile.role,
       action: 'update',
       resource_type: 'cohort',
@@ -194,14 +191,14 @@ const auth = await requireAdmin();
     }
 
     // Get current state for audit
-    const { data: oldCohort } = await auth.db
+    const { data: oldCohort } = await auth.supabase
       .from('cohorts')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     // Soft delete by setting status to cancelled
-    const { error } = await auth.db
+    const { error } = await auth.supabase
       .from('cohorts')
       .update({ status: 'cancelled', updated_at: new Date().toISOString() })
       .eq('id', id);
@@ -211,8 +208,8 @@ const auth = await requireAdmin();
     }
 
     // Log audit
-    await auth.db.from('audit_logs').insert({
-      actor_id: auth.user.id,
+    await auth.supabase.from('audit_logs').insert({
+      actor_id: auth.id,
       actor_role: auth.profile.role,
       action: 'delete',
       resource_type: 'cohort',

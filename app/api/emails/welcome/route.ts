@@ -39,7 +39,7 @@ async function _POST(request: Request) {
       .from('program_enrollments')
       .select(`id, user_id, courses!inner(title)`)
       .eq('id', enrollmentId)
-      .single();
+      .maybeSingle();
 
     if (!rawWelcomeEnrollment) {
       return NextResponse.json(

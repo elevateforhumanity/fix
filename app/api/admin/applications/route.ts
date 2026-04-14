@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { ApplicationCreateSchema } from '@/lib/validators/course';
 import { createApplication, listApplications } from '@/lib/db/courses';
 import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -11,12 +10,10 @@ export const dynamic = 'force-dynamic';
 
 async function requireAdmin() {
   const supabase = await createClient();
-  const db = await getAdminClient();
-  if (!supabase) return { error: 'Database unavailable', status: 500 };
-  const { data: { user } } = await supabase.auth.getUser();
+const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!profile || !['admin', 'super_admin', 'staff', 'org_admin'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
   return { user, profile, supabase };
@@ -54,7 +51,7 @@ async function _POST(request: Request) {
     const data = await createApplication(parsed.data);
     
     // Log audit
-    await auth.db.from('audit_logs').insert({
+    await auth.supabase.from('audit_logs').insert({
       actor_id: auth.user.id,
       actor_role: auth.profile.role,
       action: 'create',

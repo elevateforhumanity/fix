@@ -97,7 +97,7 @@ async function evalCompletePreviousModule(
     .from('course_lessons')
     .select('course_module_id, order_index, course_id')
     .eq('id', lessonId)
-    .single();
+    .maybeSingle();
 
   if (lessonErr || !lesson) {
     throw new Error(`progression-gate: lesson lookup failed: ${lessonErr?.message}`);
@@ -108,7 +108,7 @@ async function evalCompletePreviousModule(
     .from('course_modules')
     .select('order_index, course_id')
     .eq('id', lesson.course_module_id)
-    .single();
+    .maybeSingle();
 
   if (modErr || !currentMod) {
     throw new Error(`progression-gate: module lookup failed: ${modErr?.message}`);
@@ -125,7 +125,7 @@ async function evalCompletePreviousModule(
     .select('id')
     .eq('course_id', currentMod.course_id)
     .eq('order_index', currentMod.order_index - 1)
-    .single();
+    .maybeSingle();
 
   if (prevErr || !prevMod) {
     // No previous module found — allow access
@@ -185,7 +185,7 @@ async function evalAchieveCompetency(
     .from('course_lessons')
     .select('course_id')
     .eq('id', lessonId)
-    .single();
+    .maybeSingle();
 
   if (lessonErr || !lesson) {
     throw new Error(`progression-gate: lesson lookup failed: ${lessonErr?.message}`);

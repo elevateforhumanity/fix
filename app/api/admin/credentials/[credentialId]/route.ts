@@ -4,23 +4,31 @@
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { apiRequireAdmin } from '@/lib/admin/guards';
-import { safeError, safeInternalError } from '@/lib/api/safe-error';
+import { getCurrentUser } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 import { mapCredentialRow, type RawCredentialRow } from '@/lib/domain';
 
 export const dynamic = 'force-dynamic';
 
+async function requireAdmin() {
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const db = await getAdminClient();
+  const { data: p } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!p || !['admin','super_admin','org_admin','staff'].includes(p.role)) return null;
+  return user;
+}
+
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ credentialId: string }> }
 ) {
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
   const { credentialId } = await params;
+  const user = await requireAdmin();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => null);
-  if (!body) return safeError('Invalid JSON', 400);
+  if (!body) return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
 
   const db = await getAdminClient();
 
@@ -32,7 +40,7 @@ export async function PATCH(
     .maybeSingle();
 
   if (fetchError || !existing) {
-    return safeError('Credential not found', 404);
+    return NextResponse.json({ error: 'Credential not found' }, { status: 404 });
   }
 
   // Re-derive protected flag if proctor_authority changed
@@ -53,18 +61,18 @@ export async function PATCH(
 
   if (error) {
     logger.error('PATCH credential error', error);
-    return safeInternalError(error, 'Failed to update credential');
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
   return NextResponse.json({ credential: mapCredentialRow(data as RawCredentialRow) });
 }
 
 export async function DELETE(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ credentialId: string }> }
 ) {
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
   const { credentialId } = await params;
+  const user = await requireAdmin();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();
 
@@ -76,7 +84,7 @@ export async function DELETE(
     .maybeSingle();
 
   if (fetchError || !existing) {
-    return safeError('Credential not found', 404);
+    return NextResponse.json({ error: 'Credential not found' }, { status: 404 });
   }
 
   const { error } = await db
@@ -84,7 +92,7 @@ export async function DELETE(
     .update({ is_active: false, updated_at: new Date().toISOString() })
     .eq('id', credentialId);
 
-  if (error) return safeInternalError(error, 'Failed to deactivate credential');
-  logger.info('Credential deactivated', { credentialId, userId: auth.user.id });
+  if (error) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  logger.info('Credential deactivated', { credentialId, userId: user.id });
   return NextResponse.json({ ok: true });
 }

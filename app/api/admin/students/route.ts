@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
 import { sanitizeSearchInput } from '@/lib/utils';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -10,11 +9,9 @@ export const dynamic = 'force-dynamic';
 
 async function requireAdmin() {
   const supabase = await createClient();
-  const db = await getAdminClient();
-  if (!supabase) return { error: 'Database unavailable', status: 500 };
-  const { data: { user } } = await supabase.auth.getUser();
+const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
@@ -37,7 +34,7 @@ const auth = await requireAdmin();
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = (page - 1) * limit;
 
-    let query = auth.db
+    let query = auth.supabase
       .from('profiles')
       .select(`
         *,
@@ -103,7 +100,7 @@ async function _POST(request: Request) {
     const body = await request.json();
     
     // Create profile for new student
-    const { data: student, error } = await auth.db
+    const { data: student, error } = await auth.supabase
       .from('profiles')
       .insert({
         full_name: body.full_name,
@@ -116,15 +113,15 @@ async function _POST(request: Request) {
         zip_code: body.zip_code,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
     // Log audit
-    await auth.db.from('audit_logs').insert({
-      actor_id: auth.user.id,
+    await auth.supabase.from('audit_logs').insert({
+      actor_id: auth.id,
       actor_role: auth.profile.role,
       action: 'create',
       resource_type: 'student',

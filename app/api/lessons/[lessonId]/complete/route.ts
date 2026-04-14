@@ -59,7 +59,7 @@ async function _POST(
       .from('lms_lessons')
       .select('id, course_id, title')
       .eq('id', lessonId)
-      .single();
+      .maybeSingle();
 
     if (lessonError || !lesson) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
@@ -174,7 +174,7 @@ async function _POST(
       .from('lms_lessons')
       .select('content_type, duration_minutes')
       .eq('id', lessonId)
-      .single();
+      .maybeSingle();
 
     if (detailError || !lessonDetail) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
@@ -463,7 +463,7 @@ async function _DELETE(
       .from('lms_lessons')
       .select('course_id')
       .eq('id', lessonId)
-      .single();
+      .maybeSingle();
 
     if (!lessonRow?.course_id) {
       return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });

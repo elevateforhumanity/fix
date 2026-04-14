@@ -36,7 +36,7 @@ async function _GET(
       .from('interactive_quizzes')
       .select('*')
       .eq('id', quizId)
-      .single();
+      .maybeSingle();
 
     if (quizError) throw quizError;
 
@@ -98,14 +98,14 @@ async function _POST(
       .from('interactive_quizzes')
       .select('lesson_id')
       .eq('id', quizId)
-      .single();
+      .maybeSingle();
 
     if (quizMeta?.lesson_id) {
       const { data: lessonMeta } = await supabase
         .from('course_lessons')
         .select('course_id')
         .eq('id', quizMeta.lesson_id)
-        .single();
+        .maybeSingle();
 
       if (lessonMeta?.course_id) {
         const { data: enrollment } = await supabase
@@ -114,7 +114,7 @@ async function _POST(
           .eq('user_id', userId)
           .eq('course_id', lessonMeta.course_id)
           .eq('status', 'active')
-          .single();
+          .maybeSingle();
         enrollmentId = enrollment?.id ?? null;
       }
     }
@@ -129,7 +129,7 @@ async function _POST(
       .from('interactive_quizzes')
       .select('*')
       .eq('id', quizId)
-      .single();
+      .maybeSingle();
 
     const { data: questions } = await supabase
       .from('quiz_questions')
@@ -206,7 +206,7 @@ async function _POST(
         feedback,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (attemptError) throw attemptError;
 

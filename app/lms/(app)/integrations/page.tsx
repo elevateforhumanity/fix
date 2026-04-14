@@ -36,7 +36,7 @@ export default async function IntegrationsPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch enrollments then hydrate course details separately (no FK on course_id)
   const { data: rawIntEnrollments } = await supabase

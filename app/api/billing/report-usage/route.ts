@@ -42,7 +42,7 @@ async function _POST(request: Request) {
       .from('tenant_billing')
       .select('*')
       .eq('tenant_id', u.tenant_id)
-      .single();
+      .maybeSingle();
 
     if (!billing?.stripe_subscription_id || !billing.price_id) continue;
 

@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       created_by: auth.user.id,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) return safeDbError(error, 'Failed to save financial assurance record');
   return NextResponse.json({ success: true, id: data.id });

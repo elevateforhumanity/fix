@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { data: profile } = await supabase
-      .from('profiles').select('role').eq('id', user.id).single();
+      .from('profiles').select('role').eq('id', user.id).maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff', 'org_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

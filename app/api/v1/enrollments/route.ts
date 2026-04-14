@@ -162,7 +162,7 @@ async function _POST(request: NextRequest) {
         status: 'active',
       })
       .select(`*, course:courses!course_id(id, title)`)
-      .single();
+      .maybeSingle();
 
     if (createError) throw createError;
 

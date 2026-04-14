@@ -29,7 +29,7 @@ async function requireAdmin() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }

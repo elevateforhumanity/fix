@@ -1,23 +1,57 @@
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
+import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { canAccessRoute, getUnauthorizedRedirect } from '@/lib/auth/lms-routes';
-import { requireUser } from '@/lib/auth/require-user';
 import { LmsAppShell } from './LmsAppShell';
 
 export const dynamic = 'force-dynamic';
 
 export default async function LmsAppLayout({ children }: { children: ReactNode }) {
-  // Single server-side gate — redirects to /login?redirect=<path> if unauthenticated.
-  const authUser = await requireUser();
-
+  const supabase = await createClient();
   const db = await getAdminClient();
   if (!db) throw new Error('Admin client failed to initialize');
 
-  const user = { id: authUser.id, email: authUser.email };
-  const profile = authUser.profile as Record<string, unknown> & { role?: string };
+  // Preserve the requested path through login so the user lands back here after auth.
+  // x-pathname is set by proxy.ts when it runs as middleware.
+  // x-url / x-invoke-path are Next.js internal headers (unreliable in App Router).
+  // referer is the browser-supplied previous URL — usable as a fallback.
+  const headersList = await headers();
+  const rawUrl =
+    headersList.get('x-pathname') ||
+    headersList.get('x-url') ||
+    headersList.get('x-invoke-path') ||
+    headersList.get('referer') ||
+    '';
+  let returnPath = '/lms/courses';
+  if (rawUrl) {
+    try {
+      const u = new URL(rawUrl, 'http://localhost');
+      returnPath = u.pathname + (u.search || '');
+    } catch {
+      // malformed — use default
+    }
+  }
+  const loginRedirect = `/login?redirect=${encodeURIComponent(returnPath)}`;
 
-  // Role-based LMS access check
+  if (!supabase) {
+    redirect(loginRedirect);
+  }
+
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    redirect(loginRedirect);
+  }
+
+  const { data: profile } = await db
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  // Server-side role check
   if (profile?.role && !canAccessRoute('/lms', profile.role)) {
     redirect(getUnauthorizedRedirect(profile.role));
   }
@@ -59,7 +93,7 @@ export default async function LmsAppLayout({ children }: { children: ReactNode }
   const serializedUser = {
     id: user.id,
     email: user.email,
-    user_metadata: (profile as Record<string, unknown>)?.user_metadata ?? {},
+    user_metadata: user.user_metadata,
   };
 
   return (

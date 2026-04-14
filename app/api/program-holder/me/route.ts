@@ -27,7 +27,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('profiles')
     .select('program_holder_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!prof?.program_holder_id) {
     return new Response('No program holder assigned', { status: 404 });
@@ -40,7 +40,7 @@ const supabase = await createRouteHandlerClient({ cookies });
       'id, name, payout_share, mou_status, mou_holder_name, mou_holder_signed_at'
     )
     .eq('id', prof.program_holder_id)
-    .single();
+    .maybeSingle();
 
   if (error) {
     return new Response(toErrorMessage(error), { status: 500 });

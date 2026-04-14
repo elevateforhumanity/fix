@@ -8,8 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { apiRequireAdmin } from '@/lib/admin/guards';
-import { safeError, safeInternalError } from '@/lib/api/safe-error';
+import { getCurrentUser } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 import { mapCourseRow, type RawCourseRow } from '@/lib/domain';
 
@@ -21,13 +20,22 @@ const AttachSchema = z.object({
   order_index:  z.number().int().min(0).default(0),
 });
 
+async function requireAdmin() {
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const db = await getAdminClient();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) return null;
+  return user;
+}
+
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   { params }: { params: Promise<{ programId: string }> }
 ) {
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
   const { programId } = await params;
+  const user = await requireAdmin();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();
   const { data, error } = await db
@@ -41,7 +49,7 @@ export async function GET(
 
   if (error) {
     logger.error('GET program courses error', error);
-    return safeInternalError(error, 'Failed to fetch program courses');
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
   // Normalize course sub-rows through the domain mapper to resolve title/course_name drift
   const items = (data ?? []).map((row) => ({
@@ -57,17 +65,17 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ programId: string }> }
 ) {
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
   const { programId } = await params;
+  const user = await requireAdmin();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => null);
-  if (!body) return safeError('Invalid JSON', 400);
+  if (!body) return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
 
   const parsed = AttachSchema.safeParse(body);
   if (!parsed.success) {
     const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
-    return safeError(issues, 422);
+    return NextResponse.json({ error: issues }, { status: 422 });
   }
 
   const db = await getAdminClient();
@@ -82,9 +90,9 @@ export async function POST(
 
   if (error) {
     logger.error('POST program course attach error', error);
-    return safeInternalError(error, 'Failed to attach course to program');
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 
-  logger.info('Internal course attached to program', { programId, courseId: parsed.data.course_id, userId: auth.user.id });
+  logger.info('Internal course attached to program', { programId, courseId: parsed.data.course_id, userId: user.id });
   return NextResponse.json({ item: data }, { status: 201 });
 }

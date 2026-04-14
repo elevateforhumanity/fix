@@ -30,7 +30,7 @@ const { id } = await params;
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return new Response('Forbidden', { status: 403 });
@@ -61,7 +61,7 @@ const { id } = await params;
     `
     )
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !ph) {
     return new Response('Program holder not found', { status: 404 });
