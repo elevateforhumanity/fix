@@ -25,8 +25,10 @@ const clientId = process.env.LINKEDIN_CLIENT_ID;
     );
   }
 
-  // Generate random state for CSRF protection
-  const state = Math.random().toString(36).substring(7);
+  // Use crypto.randomBytes for the OAuth state parameter — Math.random() is
+  // predictable and makes CSRF protection ineffective.
+  const { randomBytes } = require('crypto') as typeof import('crypto');
+  const state = randomBytes(16).toString('hex');
 
   // LinkedIn OAuth scopes
   const scopes = [
@@ -44,6 +46,15 @@ const clientId = process.env.LINKEDIN_CLIENT_ID;
   authUrl.searchParams.set('state', state);
   authUrl.searchParams.set('scope', scopes.join(' '));
 
-  return NextResponse.redirect(authUrl.toString());
+  // Store state in an HttpOnly cookie so the callback can verify it.
+  const response = NextResponse.redirect(authUrl.toString());
+  response.cookies.set('oauth_state_linkedin', state, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 600,
+    path: '/',
+  });
+  return response;
 }
 export const GET = withApiAudit('/api/auth/linkedin/authorize', _GET);

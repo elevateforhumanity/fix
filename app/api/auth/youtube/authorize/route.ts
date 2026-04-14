@@ -38,8 +38,22 @@ const clientId = process.env.GOOGLE_CLIENT_ID;
   authUrl.searchParams.set('scope', scopes.join(' '));
   authUrl.searchParams.set('access_type', 'offline');
   authUrl.searchParams.set('prompt', 'consent');
-  authUrl.searchParams.set('state', Math.random().toString(36).substring(7));
+  // Generate a cryptographically random state value and store it in an
+  // HttpOnly cookie so the callback can verify it. Without storing the state
+  // server-side, the CSRF check is theater — any attacker-supplied state value
+  // would pass because there is nothing to compare it against.
+  const { randomBytes } = require('crypto') as typeof import('crypto');
+  const state = randomBytes(16).toString('hex');
+  authUrl.searchParams.set('state', state);
 
-  return NextResponse.redirect(authUrl.toString());
+  const response = NextResponse.redirect(authUrl.toString());
+  response.cookies.set('oauth_state_youtube', state, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 600, // 10 minutes — enough to complete the OAuth flow
+    path: '/',
+  });
+  return response;
 }
 export const GET = withApiAudit('/api/auth/youtube/authorize', _GET);

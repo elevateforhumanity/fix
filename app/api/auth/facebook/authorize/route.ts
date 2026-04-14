@@ -38,8 +38,21 @@ const clientId = process.env.FACEBOOK_CLIENT_ID;
   authUrl.searchParams.set('redirect_uri', redirectUri);
   authUrl.searchParams.set('scope', scopes.join(','));
   authUrl.searchParams.set('response_type', 'code');
-  authUrl.searchParams.set('state', Math.random().toString(36).substring(7));
+  // Use crypto.randomBytes for the OAuth state parameter — Math.random() is
+  // predictable and makes CSRF protection ineffective.
+  const { randomBytes } = require('crypto') as typeof import('crypto');
+  const state = randomBytes(16).toString('hex');
+  authUrl.searchParams.set('state', state);
 
-  return NextResponse.redirect(authUrl.toString());
+  // Store state in an HttpOnly cookie so the callback can verify it.
+  const response = NextResponse.redirect(authUrl.toString());
+  response.cookies.set('oauth_state_facebook', state, {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 600,
+    path: '/',
+  });
+  return response;
 }
 export const GET = withApiAudit('/api/auth/facebook/authorize', _GET);
