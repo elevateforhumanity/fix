@@ -117,6 +117,24 @@ export default async function LearnerOnboardingPage({
   // whose profile row hasn't been created yet don't throw PGRST116
   const supabase = await getAdminClient();
 
+  // Role check: program holders, employers, and instructors have their own
+  // onboarding flows — redirect them before running the student gate logic.
+  const { data: roleCheck } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (roleCheck?.role === 'program_holder') {
+    redirect('/program-holder/onboarding');
+  }
+  if (roleCheck?.role === 'employer') {
+    redirect('/onboarding/employer');
+  }
+  if (roleCheck?.role === 'instructor') {
+    redirect('/instructor/dashboard');
+  }
+
   // Fetch all data in parallel
   const [
     profileResult,
