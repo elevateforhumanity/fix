@@ -3,287 +3,308 @@
     "passingScore": 70,
     "questions": [
       {
-        "prompt": "What is the most common type of hair loss?",
+        "prompt": "What is the most common form of hair loss, characterized by a gradual thinning of hair?",
         "choices": [
-          "Androgenetic alopecia",
-          "Alopecia areata",
-          "Traction alopecia",
-          "Telogen effluvium"
+          "Androgenetic Alopecia",
+          "Alopecia Areata",
+          "Telogen Effluvium",
+          "Traction Alopecia"
         ],
         "answerIndex": 0,
-        "rationale": "Androgenetic alopecia, also known as male or female pattern baldness, is the most common type of hair loss."
+        "rationale": "Androgenetic Alopecia, also known as male or female pattern baldness, is the most common form of hair loss.",
+        "type": "recall"
       },
       {
-        "prompt": "Which hair loss condition is characterized by patchy loss and is autoimmune in nature?",
+        "prompt": "Which type of hair loss is caused by an autoimmune response?",
         "choices": [
-          "Telogen effluvium",
-          "Alopecia areata",
-          "Androgenetic alopecia",
-          "Traction alopecia"
+          "Androgenetic Alopecia",
+          "Alopecia Areata",
+          "Telogen Effluvium",
+          "Traction Alopecia"
         ],
         "answerIndex": 1,
-        "rationale": "Alopecia areata is an autoimmune condition that causes patchy hair loss."
+        "rationale": "Alopecia Areata is an autoimmune condition where the immune system attacks hair follicles, leading to hair loss.",
+        "type": "recall"
       },
       {
-        "prompt": "What is the role of a barber when a client presents with sudden and patchy hair loss?",
+        "prompt": "What is the primary cause of Telogen Effluvium?",
         "choices": [
-          "Perform a scalp massage",
-          "Recommend minoxidil",
-          "Refer to a dermatologist",
-          "Apply prescription products"
-        ],
-        "answerIndex": 2,
-        "rationale": "Barbers should refer clients to a dermatologist when hair loss is sudden and patchy."
-      },
-      {
-        "prompt": "Which of the following treatments is FDA-approved for over-the-counter use for hair loss?",
-        "choices": [
-          "Caffeine shampoos",
-          "Biotin supplements",
-          "Minoxidil",
-          "DHT-blocking shampoos"
-        ],
-        "answerIndex": 2,
-        "rationale": "Minoxidil is the only FDA-approved OTC topical treatment for hair loss."
-      },
-      {
-        "prompt": "What should a barber avoid during a scalp massage?",
-        "choices": [
-          "Using fingertip pressure",
-          "Circular motions",
-          "Massaging inflamed skin",
-          "5–10 minute duration"
-        ],
-        "answerIndex": 2,
-        "rationale": "Barbers should avoid massaging inflamed or broken skin to prevent further irritation."
-      },
-      {
-        "prompt": "Which type of hair loss is often caused by tight hairstyles?",
-        "choices": [
-          "Androgenetic alopecia",
-          "Alopecia areata",
-          "Traction alopecia",
-          "Telogen effluvium"
-        ],
-        "answerIndex": 2,
-        "rationale": "Traction alopecia results from tight hairstyles that pull on the hair."
-      },
-      {
-        "prompt": "What is the primary action of scalp massage in promoting hair health?",
-        "choices": [
-          "Stimulates hair growth",
-          "Increases blood circulation",
-          "Cures hair loss",
-          "Thickens hair strands"
-        ],
-        "answerIndex": 1,
-        "rationale": "Scalp massage increases blood circulation to the hair follicles, which may support hair retention."
-      },
-      {
-        "prompt": "When is it appropriate for a barber to apply prescription hair loss products?",
-        "choices": [
-          "When prescribed by a physician",
-          "During a scalp treatment",
-          "Never",
-          "With client consent"
-        ],
-        "answerIndex": 2,
-        "rationale": "Barbers may not apply prescription products; this is outside their scope of practice."
-      },
-      {
-        "prompt": "A client reports hair shedding after a stressful event. What type of hair loss might this indicate?",
-        "choices": [
-          "Androgenetic alopecia",
-          "Alopecia areata",
-          "Traction alopecia",
-          "Telogen effluvium"
-        ],
-        "answerIndex": 3,
-        "rationale": "Telogen effluvium is a temporary shedding triggered by stress, illness, or nutritional deficiency."
-      },
-      {
-        "prompt": "Which treatment is NOT within the standard scope of practice for barbers in Indiana?",
-        "choices": [
-          "Scalp massage",
-          "Scalp micropigmentation",
-          "Applying OTC topicals",
-          "Recommending a dermatologist"
-        ],
-        "answerIndex": 1,
-        "rationale": "Scalp micropigmentation requires separate training and licensing and is not within the standard barber scope."
-      },
-      {
-        "prompt": "A barber notices scaling and inflammation on a client's scalp. What should they do?",
-        "choices": [
-          "Perform a scalp massage",
-          "Apply a soothing shampoo",
-          "Refer to a dermatologist",
-          "Recommend biotin supplements"
-        ],
-        "answerIndex": 2,
-        "rationale": "Scaling and inflammation are indications to refer the client to a dermatologist."
-      },
-      {
-        "prompt": "What is the cause of androgenetic alopecia?",
-        "choices": [
-          "DHT sensitivity",
+          "Genetics",
           "Autoimmune response",
-          "Nutritional deficiency",
+          "Stress or hormonal changes",
           "Tight hairstyles"
         ],
+        "answerIndex": 2,
+        "rationale": "Telogen Effluvium is often triggered by stress, illness, or hormonal changes, causing temporary hair thinning.",
+        "type": "recall"
+      },
+      {
+        "prompt": "Which type of hair loss can be prevented by avoiding certain hairstyles?",
+        "choices": [
+          "Androgenetic Alopecia",
+          "Alopecia Areata",
+          "Telogen Effluvium",
+          "Traction Alopecia"
+        ],
+        "answerIndex": 3,
+        "rationale": "Traction Alopecia is caused by continuous tension on the hair from tight hairstyles and can be prevented by avoiding such styles.",
+        "type": "recall"
+      },
+      {
+        "prompt": "What is the role of a barber in Indiana regarding hair loss services?",
+        "choices": [
+          "Diagnose medical conditions",
+          "Prescribe medications",
+          "Offer non-medical treatments",
+          "Perform surgical procedures"
+        ],
+        "answerIndex": 2,
+        "rationale": "Barbers in Indiana can offer non-medical hair loss treatments and advice on hair care products but cannot diagnose or prescribe.",
+        "type": "recall"
+      },
+      {
+        "prompt": "Which over-the-counter treatment can barbers recommend for certain types of hair loss?",
+        "choices": [
+          "Minoxidil",
+          "Finasteride",
+          "Corticosteroids",
+          "Anthralin"
+        ],
         "answerIndex": 0,
-        "rationale": "Androgenetic alopecia is caused by sensitivity to dihydrotestosterone (DHT) in hair follicles."
+        "rationale": "Minoxidil is an over-the-counter topical treatment that barbers can recommend for certain types of hair loss.",
+        "type": "recall"
       },
       {
-        "prompt": "A client is interested in using minoxidil. What should a barber do?",
+        "prompt": "When should a barber refer a client to a physician?",
         "choices": [
-          "Apply it during the appointment",
-          "Recommend consulting a physician",
-          "Prescribe it",
-          "Suggest caffeine shampoos instead"
+          "For any hair loss",
+          "If hair loss is sudden and unexplained",
+          "When hair is curly",
+          "If hair loss is genetic"
         ],
         "answerIndex": 1,
-        "rationale": "Barbers should recommend that clients consult their physician about using minoxidil."
+        "rationale": "Barbers should refer clients to a physician if the hair loss is sudden, unexplained, or accompanied by other symptoms.",
+        "type": "recall"
       },
       {
-        "prompt": "Which condition should prompt a barber to refer a client to a trichologist?",
+        "prompt": "What is the first step in conducting a hair loss consultation?",
         "choices": [
-          "Regular hair thinning",
-          "Sudden patchy hair loss",
-          "Desire for a new hairstyle",
-          "Interest in hair coloring"
+          "Perform a visual examination",
+          "Create a comfortable environment",
+          "Ask open-ended questions",
+          "Discuss potential causes"
         ],
         "answerIndex": 1,
-        "rationale": "Sudden patchy hair loss is a condition that requires professional evaluation by a dermatologist or trichologist."
+        "rationale": "Creating a comfortable environment is the first step to ensure clients feel relaxed and open to discussing their concerns.",
+        "type": "recall"
       },
       {
-        "prompt": "What is a common limitation of caffeine shampoos and biotin supplements in treating hair loss?",
+        "prompt": "A client presents with sudden, patchy hair loss. What should the barber do?",
         "choices": [
-          "FDA approval",
-          "Availability",
-          "Clinical evidence",
-          "Cost"
+          "Recommend a new shampoo",
+          "Suggest a tight hairstyle",
+          "Refer to a physician",
+          "Ignore and proceed with a haircut"
         ],
         "answerIndex": 2,
-        "rationale": "Caffeine shampoos and biotin supplements have limited clinical evidence supporting their efficacy in treating hair loss."
+        "rationale": "Sudden, patchy hair loss could indicate Alopecia Areata, and the client should be referred to a physician for evaluation.",
+        "type": "scenario"
       },
       {
-        "prompt": "A client with hair loss wants to try a new treatment. What should a barber avoid doing?",
+        "prompt": "During a service, you notice a client has thinning hair at the temples. What is the appropriate action?",
         "choices": [
-          "Discussing OTC options",
-          "Performing scalp massage",
-          "Diagnosing the condition",
-          "Referring to a dermatologist"
+          "Recommend minoxidil",
+          "Suggest a physician referral",
+          "Ignore it",
+          "Advise a tight braid"
+        ],
+        "answerIndex": 0,
+        "rationale": "Thinning at the temples may suggest Androgenetic Alopecia, for which minoxidil can be a suitable recommendation.",
+        "type": "scenario"
+      },
+      {
+        "prompt": "A new client asks about treatments for hair thinning due to stress. What should you suggest?",
+        "choices": [
+          "Consult a dermatologist",
+          "Try a new hairstyle",
+          "Use a topical minoxidil",
+          "Take a vitamin supplement"
         ],
         "answerIndex": 2,
-        "rationale": "Barbers should avoid diagnosing hair loss conditions, as this is outside their scope of practice."
+        "rationale": "For stress-related hair thinning, such as Telogen Effluvium, topical minoxidil can be an effective treatment option.",
+        "type": "scenario"
       },
       {
-        "prompt": "What should a barber document when referring a client to a medical professional?",
+        "prompt": "A client is worried about hair loss and has a family history of baldness. What should you do?",
         "choices": [
-          "The client's age",
-          "The referral recommendation",
-          "The client's hair color",
-          "The products used"
+          "Assure them it's not genetic",
+          "Recommend minoxidil",
+          "Suggest a new haircut",
+          "Ignore their concern"
         ],
         "answerIndex": 1,
-        "rationale": "Barbers should document the referral recommendation in the client's records."
+        "rationale": "Given the family history, Androgenetic Alopecia is possible, and minoxidil is a suitable recommendation.",
+        "type": "scenario"
       },
       {
-        "prompt": "What is the primary benefit of scalp micropigmentation?",
+        "prompt": "During a consultation, a client mentions scalp itching and redness. What is the best course of action?",
         "choices": [
-          "Stimulates hair growth",
-          "Creates appearance of density",
-          "Cures hair loss",
-          "Strengthens hair"
+          "Recommend a medicated shampoo",
+          "Suggest a physician referral",
+          "Offer a scalp massage",
+          "Ignore the symptoms"
         ],
         "answerIndex": 1,
-        "rationale": "Scalp micropigmentation creates the appearance of a shaved head or adds density to thinning areas."
+        "rationale": "Scalp itching and redness could indicate an underlying condition requiring medical evaluation, so a referral is advisable.",
+        "type": "scenario"
       },
       {
-        "prompt": "In what situation is it appropriate for a barber to recommend a dermatologist?",
+        "prompt": "A client with tight braids is experiencing hair loss at the hairline. What should you advise?",
         "choices": [
-          "Client requests a new hairstyle",
-          "Client has scalp inflammation",
-          "Client wants a hair color change",
-          "Client inquires about hair extensions"
+          "Continue with the braids",
+          "Try a looser hairstyle",
+          "Use chemical treatments",
+          "Shave the head"
         ],
         "answerIndex": 1,
-        "rationale": "Scalp inflammation is a condition that warrants a referral to a dermatologist."
+        "rationale": "Tight braids can cause Traction Alopecia, so recommending a looser hairstyle can help prevent further hair loss.",
+        "type": "scenario"
       },
       {
-        "prompt": "What is the recommended duration for a scalp massage to support hair retention?",
+        "prompt": "A client is using over-the-counter treatments but sees no improvement. What should you suggest?",
         "choices": [
-          "1–2 minutes",
-          "3–4 minutes",
-          "5–10 minutes",
-          "15–20 minutes"
+          "Change the treatment",
+          "Consult a dermatologist",
+          "Try a different barber",
+          "Wait longer"
+        ],
+        "answerIndex": 1,
+        "rationale": "If over-the-counter treatments are ineffective, a dermatologist can provide a more comprehensive evaluation and treatment plan.",
+        "type": "scenario"
+      },
+      {
+        "prompt": "A client is distressed about hair loss and asks for help. What is the BEST approach?",
+        "choices": [
+          "Ignore their distress",
+          "Offer support and suggest a physician visit",
+          "Recommend a new hairstyle",
+          "Tell them it's normal"
+        ],
+        "answerIndex": 1,
+        "rationale": "Offering support and suggesting a physician visit for further evaluation is the best approach to address their distress and provide professional care.",
+        "type": "applied"
+      },
+      {
+        "prompt": "What would you do if a client with Telogen Effluvium asks for advice on managing their condition?",
+        "choices": [
+          "Suggest a physician visit",
+          "Recommend stress management and minoxidil",
+          "Ignore the condition",
+          "Advise a new shampoo"
+        ],
+        "answerIndex": 1,
+        "rationale": "Telogen Effluvium is often stress-related, so stress management and minoxidil can help manage the condition.",
+        "type": "applied"
+      },
+      {
+        "prompt": "Which is the BEST approach for a barber when a client shows signs of Traction Alopecia?",
+        "choices": [
+          "Ignore the signs",
+          "Recommend tighter hairstyles",
+          "Advise on looser styles and hair care",
+          "Suggest a hair transplant"
         ],
         "answerIndex": 2,
-        "rationale": "A scalp massage should last 5–10 minutes to effectively increase blood circulation to the hair follicles."
+        "rationale": "Advising on looser hairstyles and proper hair care is the best approach to prevent further damage from Traction Alopecia.",
+        "type": "applied"
+      },
+      {
+        "prompt": "If a client is concerned about genetic hair loss, what is the BEST advice you can give?",
+        "choices": [
+          "Ignore their concern",
+          "Recommend a tight hairstyle",
+          "Suggest minoxidil and a physician consultation",
+          "Tell them it's unavoidable"
+        ],
+        "answerIndex": 2,
+        "rationale": "Suggesting minoxidil and a physician consultation provides a proactive approach to managing genetic hair loss concerns.",
+        "type": "applied"
+      },
+      {
+        "prompt": "A client presents with sudden, patchy hair loss. What is the most appropriate action for the barber to take?",
+        "choices": [
+          "A. Recommend minoxidil",
+          "B. Suggest a new hairstyle",
+          "C. Refer the client to a physician",
+          "D. Offer a scalp massage"
+        ],
+        "answerIndex": 2,
+        "rationale": "Sudden, patchy hair loss may indicate an underlying medical condition such as Alopecia Areata, which requires evaluation by a healthcare professional.",
+        "type": "scenario"
       }
     ]
   },
   "flashcards": [
     {
       "term": "Androgenetic Alopecia",
-      "definition": "Common type of hair loss caused by DHT sensitivity in hair follicles, known as male/female pattern baldness."
+      "definition": "A genetic condition known as male or female pattern baldness, characterized by gradual thinning of hair, affecting both men and women."
     },
     {
       "term": "Alopecia Areata",
-      "definition": "An autoimmune condition causing patchy hair loss."
-    },
-    {
-      "term": "Traction Alopecia",
-      "definition": "Hair loss resulting from tight hairstyles pulling on hair."
+      "definition": "An autoimmune condition causing sudden, patchy hair loss where the immune system attacks hair follicles."
     },
     {
       "term": "Telogen Effluvium",
-      "definition": "Temporary hair shedding triggered by stress, illness, or nutritional deficiency."
+      "definition": "A temporary hair loss condition triggered by stress or hormonal changes, leading to widespread thinning."
     },
     {
-      "term": "Scalp Massage",
-      "definition": "Technique using fingertip pressure in circular motions to increase blood circulation to hair follicles."
+      "term": "Traction Alopecia",
+      "definition": "Hair loss caused by continuous tension or pulling on the hair, often due to tight hairstyles, which is preventable and reversible if caught early."
     },
     {
       "term": "Minoxidil",
-      "definition": "The only FDA-approved over-the-counter topical treatment for hair loss."
+      "definition": "An over-the-counter topical treatment recommended for certain types of hair loss to stimulate hair growth."
     },
     {
-      "term": "Scalp Micropigmentation (SMP)",
-      "definition": "A cosmetic tattooing technique that creates the appearance of a shaved head or adds density to thinning areas."
+      "term": "Visual Examination",
+      "definition": "A procedure where the barber examines the scalp and hair for patterns of thinning, baldness, and scalp condition."
     },
     {
-      "term": "DHT",
-      "definition": "Dihydrotestosterone, a hormone linked to androgenetic alopecia."
+      "term": "Physician Referral",
+      "definition": "Advising clients to consult a healthcare provider when hair loss is sudden, unexplained, or accompanied by other symptoms."
     },
     {
-      "term": "Barber's Scope of Practice",
-      "definition": "Includes scalp treatments, scalp massage, and application of OTC products but not diagnosing conditions or prescribing medications."
+      "term": "Non-Medical Hair Loss Treatments",
+      "definition": "Treatments and advice barbers can offer, including recommending hair care products and over-the-counter solutions."
     },
     {
-      "term": "Referral to Dermatologist",
-      "definition": "Recommended when hair loss is sudden, patchy, or accompanied by scalp inflammation, scaling, or pain."
+      "term": "Autoimmune",
+      "definition": "A condition where the body's immune system mistakenly attacks its own cells, as seen in alopecia areata."
     },
     {
-      "term": "Caffeine Shampoos",
-      "definition": "Popular hair loss treatment with limited clinical evidence."
+      "term": "Resting Phase",
+      "definition": "The phase in the hair growth cycle where hair follicles are inactive, often associated with telogen effluvium."
     },
     {
-      "term": "Biotin Supplements",
-      "definition": "Dietary supplements often marketed for hair health, with limited evidence for effectiveness."
+      "term": "Indiana Barber Scope of Practice",
+      "definition": "The legal boundaries within which barbers operate, including offering non-medical advice and treatments but not diagnosing conditions."
     },
     {
-      "term": "DHT-Blocking Shampoos",
-      "definition": "Shampoos that claim to block DHT, with limited clinical evidence supporting their efficacy."
+      "term": "Comfortable Environment",
+      "definition": "A setting that makes clients feel relaxed and open to discussing their hair loss concerns during consultations."
     },
     {
-      "term": "Scalp Inflammation",
-      "definition": "A condition that requires referral to a medical professional if observed with hair loss."
+      "term": "Open-Ended Questions",
+      "definition": "Questions that encourage clients to share detailed information about their hair care routine and health history."
     },
     {
-      "term": "Client Records",
-      "definition": "Documentation where referral recommendations should be recorded."
+      "term": "Hair Loss Consultation",
+      "definition": "A structured interaction where barbers assess hair loss, discuss potential causes, and recommend appropriate actions."
+    },
+    {
+      "term": "Indiana State Board Exam",
+      "definition": "A certification test for barbers that includes a significant focus on hair and scalp conditions, accounting for 20% of the exam."
     }
-  ]
+  ],
+  "content": "## Understanding Hair Loss: A Crucial Skill for Indiana Barbers\n\nAs a professional barber in Indiana, understanding hair loss and its treatments is an essential part of your skill set. Hair loss affects millions of people and can impact their self-esteem and confidence. By mastering the knowledge and skills related to hair loss services, you can provide valuable guidance and support to your clients, enhancing their overall experience and satisfaction with your services.\n\n## Types of Hair Loss and Their Causes\n\nTo effectively address hair loss, it is crucial to identify the four primary types of hair loss and understand their causes. This knowledge will enable you to offer informed advice and appropriate treatments to your clients.\n\nThe first type is **Androgenetic Alopecia**, commonly known as male or female pattern baldness. This genetic condition is the most prevalent form of hair loss, affecting both men and women. It is characterized by a gradual thinning of hair, often starting at the temples or crown in men and a general thinning over the crown in women.\n\n**Alopecia Areata** is another form of hair loss, which is autoimmune in nature. It results in sudden, patchy hair loss and can affect any hair-bearing area. The immune system mistakenly attacks hair follicles, leading to hair loss.\n\n**Telogen Effluvium** is a temporary condition often triggered by stress, illness, or hormonal changes. It results in widespread thinning due to a large number of hair follicles entering the resting phase simultaneously.\n\nFinally, **Traction Alopecia** is caused by continuous tension or pulling on the hair, often due to certain hairstyles like tight braids or ponytails. This type of hair loss is preventable and can be reversed if caught early.\n\nUnderstanding these types and their causes not only helps in providing better service but also prepares you for the Indiana barber written exam, where hair and scalp knowledge accounts for 20% of the test.\n\n## Indiana Barber Scope of Practice for Hair Loss Services\n\nAs a barber in Indiana, it is important to understand the scope of practice concerning hair loss services. While you are not a medical professional, you play a pivotal role in recognizing hair loss patterns and recommending appropriate actions.\n\nBarbers are permitted to offer non-medical hair loss treatments and advice on hair care products that can help manage or prevent hair loss. This includes recommending over-the-counter topical treatments like minoxidil, which can be effective for certain types of hair loss.\n\nHowever, barbers must refrain from diagnosing medical conditions or prescribing medications. Your role is to provide support and suggest clients consult with a healthcare provider for medical concerns. This ensures you operate within the legal boundaries of your profession while still offering valuable assistance to your clients.\n\n## Conditions Requiring Physician Referral\n\nWhile barbers can offer guidance and support, certain conditions require a physician's expertise. Recognizing these situations is crucial for ensuring your clients receive the best possible care.\n\nIf a client presents with sudden, unexplained hair loss or if the hair loss is accompanied by other symptoms such as itching, redness, or scaling of the scalp, it is important to recommend a physician consultation. These could be signs of underlying medical conditions that require professional diagnosis and treatment.\n\nAdditionally, if a client is not responding to over-the-counter treatments or if the hair loss is causing significant distress, a referral to a dermatologist or a specialist in hair restoration is advisable. Understanding when to make these referrals is part of the competency checks you must demonstrate and is a critical aspect of your training and professional responsibility.\n\n## Step-by-Step Procedure: Conducting a Hair Loss Consultation\n\nConducting a thorough hair loss consultation is a key service you can provide as a barber. Here is a step-by-step procedure to guide you:\n\n1. **Create a Comfortable Environment**: Ensure your client feels relaxed and comfortable. This encourages open communication about their concerns.\n\n2. **Ask Open-Ended Questions**: Start with questions about the client's hair care routine, any recent changes in health or stress levels, and family history of hair loss.\n\n3. **Perform a Visual Examination**: Carefully examine the scalp and hair. Look for patterns of thinning or baldness, scalp condition, and hair texture.\n\n4. **Discuss Potential Causes**: Based on your examination and the client's responses, discuss possible causes of hair loss. Provide reassurance and support.\n\n5. **Recommend Next Steps**: Suggest appropriate hair care products or treatments. If necessary, recommend consulting a healthcare provider for further evaluation.\n\nBy following these steps, you can offer a professional and empathetic consultation that addresses your client's concerns and enhances their trust in your expertise.\n\n## Exam Relevance: Preparing for the Indiana State Board\n\nThe topic of hair loss is an important component of the Indiana barber written exam, accounting for 20% of the test. The exam assesses your knowledge of hair and scalp conditions, including the identification of different types of hair loss and appropriate treatment protocols.\n\nTo prepare effectively, focus on understanding the causes and characteristics of each type of hair loss, the scope of practice for barbers, and when to refer clients to a physician. This knowledge not only helps you pass the exam but also equips you to provide exceptional service to your clients.\n\n## Key Takeaway\n\nUnderstanding hair loss and its treatments is a vital skill for barbers in Indiana. By recognizing different types of hair loss, adhering to the scope of practice, and knowing when to refer clients to a physician, you can offer valuable support and enhance your clients' trust in your services. Mastery of this topic not only prepares you for the state board exam but also empowers you to make a positive impact on your clients' lives."
 }
