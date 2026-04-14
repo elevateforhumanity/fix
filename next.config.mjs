@@ -16,46 +16,83 @@ const nextConfig = {
   // Server external packages - exclude heavy dependencies from the server bundle
   // These are loaded at runtime instead of being bundled, reducing Lambda size
   serverExternalPackages: [
-    'fluent-ffmpeg',
-    '@ffmpeg-installer/ffmpeg',
-    '@ffprobe-installer/ffprobe',
-    'canvas',
-    'tesseract.js',
-    'tesseract.js-core',
-    'sharp',
-    'pdf-parse',
-    'pdfkit',
-    'pdf-lib',
-    'jspdf',
-    'jspdf-autotable',
-    '@react-pdf/renderer',
-    '@aws-sdk/client-s3',
-    '@aws-sdk/s3-request-presigner',
-    'pg',
-    'openai',
-    'stripe',
-    'ioredis',
-    'redis',
-    '@upstash/redis',
-    'socket.io',
-    'socket.io-client',
-    '@sendgrid/mail',
-    'nodemailer',
-    '@sentry/nextjs',
-    '@sentry/node',
-    '@sentry/core',
-    '@opentelemetry/api',
-    '@opentelemetry/sdk-node',
+    // Database
+    'pg', 'pg-native',
+    // FFmpeg binaries (66 MB + 76 MB)
+    'fluent-ffmpeg', '@ffmpeg-installer/ffmpeg', '@ffprobe-installer/ffprobe',
+    // Canvas / native image
+    'canvas', '@napi-rs/canvas',
+    // OCR (44 MB wasm)
+    'tesseract.js', 'tesseract.js-core',
+    // Sharp native binaries
+    'sharp', '@img/sharp-libvips-linux-x64', '@img/sharp-linux-x64',
+    // PDF libraries
+    'pdf-parse', 'pdfkit', 'pdf-lib', '@pdf-lib/fontkit',
+    'jspdf', 'jspdf-autotable', '@react-pdf/renderer', 'pdfjs-dist',
+    // Google APIs (194 MB)
+    'googleapis', 'google-auth-library', 'google-gax',
+    // Monaco editor (75 MB)
+    'monaco-editor',
+    // node-pty (63 MB)
+    'node-pty',
+    // Video / media (browser-only)
+    'video.js', 'hls.js',
+    // MediaPipe (20 MB, browser-only)
+    '@mediapipe/tasks-vision',
+    // 3D / WebGL (browser-only)
+    'three', 'three-stdlib', '@react-three/fiber', '@react-three/drei',
+    // Icons (42 MB, browser-only)
+    'lucide-react',
+    // Charting (browser-only)
+    'recharts',
+    // Screenshot (browser-only)
+    'html2canvas',
+    // Sentry CLI binary
+    '@sentry/cli-linux-x64', '@sentry/cli',
+    // AWS SDK
+    '@aws-sdk/client-s3', '@aws-sdk/s3-request-presigner',
+    '@aws-sdk/client-ses', '@aws-sdk/client-sns',
+    // Cache
+    'ioredis', 'redis', '@upstash/redis', '@redis/client',
+    // AI / payments
+    'openai', 'stripe',
+    // Email
+    '@sendgrid/mail', '@sendgrid/helpers', 'nodemailer', 'resend',
+    // Observability
+    '@sentry/nextjs', '@sentry/node', '@sentry/core',
+    '@opentelemetry/api', '@opentelemetry/sdk-node',
     '@opentelemetry/exporter-trace-otlp-http',
-    '@opentelemetry/resources',
-    '@opentelemetry/semantic-conventions',
-    'puppeteer',
-    'puppeteer-core',
-    'playwright',
-    'chromium-bidi',
-    'jsdom',
-    'typescript',
-    'core-js',
+    '@opentelemetry/resources', '@opentelemetry/semantic-conventions',
+    // Browser automation
+    'puppeteer', 'puppeteer-core', 'playwright', 'playwright-core',
+    'chromium-bidi', '@playwright/test', '@sparticuz/chromium', 'chrome-aws-lambda',
+    // Sockets
+    'socket.io', 'socket.io-client', 'ws',
+    // Document generation
+    'docx', 'mammoth', 'xlsx',
+    // Collaborative editing (browser-only)
+    'yjs', 'y-protocols', 'lib0',
+    // WebContainer (browser-only)
+    '@webcontainer/api',
+    // Mailchimp
+    '@mailchimp/mailchimp_marketing',
+    // Build / dev tools (never needed at runtime)
+    'typescript', 'core-js', 'prettier', 'tailwindcss', 'autoprefixer', 'postcss',
+    'eslint', '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser',
+    'esbuild', 'webpack', 'webpack-sources',
+    // Test / DOM
+    'jsdom', 'happy-dom', 'vitest',
+    // Misc not needed in SSR
+    '@mailchimp/mailchimp_marketing', 'csv-parse', 'csv-stringify',
+    'sitemap', 'jszip', 'fast-xml-parser', 'marked', 'cheerio',
+    // Animation (browser-only)
+    'framer-motion', 'lottie-web', '@lottiefiles/react-lottie-player',
+    // Syntax highlighting (browser-only)
+    'prismjs', 'highlight.js', 'shiki',
+    // Rich text editors (browser-only)
+    'codemirror', 'ace-builds', 'quill', 'draft-js',
+    '@tiptap/core', '@tiptap/react', '@tiptap/starter-kit',
+    'prosemirror-model', 'prosemirror-state', 'prosemirror-view',
   ],
 
   // Disable dev indicators (static route indicator, build indicator)
