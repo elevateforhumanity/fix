@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-
-export default function ApplyPage() {
-  redirect('/supersonic-fast-cash/start');
+export default function Page() {
+  redirect('https://www.elevateforhumanity.org/supersonic-fast-cash/apply');
 }
