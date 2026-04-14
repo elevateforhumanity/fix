@@ -17,33 +17,65 @@ import { existsSync } from 'fs';
 const STANDALONE_DIR = resolve('.next/standalone');
 
 const PRUNE_PACKAGES = [
+  // Next.js SWC compiler binaries (113 MB — build-time only, never needed at runtime)
   '@next/swc-linux-x64-gnu', '@next/swc-linux-x64-musl',
   '@next/swc-darwin-x64', '@next/swc-darwin-arm64', '@next/swc-win32-x64-msvc',
-  '@esbuild', 'webpack', 'webpack-sources', '@swc',
-  'googleapis', 'google-auth-library',
+  // esbuild, webpack, swc — build-only
+  '@esbuild', 'esbuild', 'webpack', 'webpack-sources', '@swc',
+  // Google APIs (194 MB)
+  'googleapis', 'google-auth-library', 'google-gax',
+  // OCR (44 MB wasm)
   'tesseract.js', 'tesseract.js-core',
+  // Sharp / image native binaries
   'sharp', '@img', '@napi-rs',
+  // Canvas (24 MB native)
   'canvas',
-  'pdf-lib', 'pdf-parse', 'pdfkit', 'pdfjs-dist', 'jspdf', '@react-pdf',
+  // PDF libraries
+  'pdf-lib', '@pdf-lib', 'pdf-parse', 'pdfkit', 'pdfjs-dist', 'jspdf', 'jspdf-autotable', '@react-pdf',
+  // FFmpeg binaries (66 MB + 76 MB)
   '@ffmpeg-installer', '@ffprobe-installer', 'fluent-ffmpeg',
+  // Browser automation
   'puppeteer', 'puppeteer-core', 'playwright', 'playwright-core',
   'chromium-bidi', '@playwright', '@sparticuz', 'chrome-aws-lambda',
+  // Editor / terminal (75 MB + 63 MB)
   'monaco-editor', 'node-pty',
+  // Video / media (browser-only)
   'video.js', 'hls.js',
+  // MediaPipe (20 MB, browser-only)
   '@mediapipe',
+  // 3D (browser-only)
   'three', 'three-stdlib', '@react-three',
+  // Icons (42 MB, browser-only)
   'lucide-react',
-  'recharts',
+  // Charting (browser-only)
+  'recharts', 'd3',
+  // Screenshot (browser-only)
   'html2canvas',
-  '@sentry/cli-linux-x64',
+  // Sentry CLI binary (21 MB)
+  '@sentry/cli-linux-x64', '@sentry/cli',
+  // Build / dev tools
   'typescript', 'core-js', 'prettier', 'tailwindcss', 'autoprefixer',
-  'postcss', 'eslint', '@typescript-eslint', 'vitest',
+  'postcss', 'eslint', '@typescript-eslint', 'vitest', 'jest',
+  // DOM / test
   'jsdom', 'happy-dom',
-  'docx', 'mammoth',
+  // Document generation
+  'docx', 'mammoth', 'xlsx',
+  // Collaborative editing (browser-only)
   'yjs', 'y-protocols', 'lib0',
+  // WebContainer (browser-only)
   '@webcontainer',
-  '@mailchimp', 'csv-parse', 'sitemap', 'jszip',
-  'fast-xml-parser', 'marked', 'cheerio',
+  // Misc
+  '@mailchimp', 'csv-parse', 'csv-stringify', 'sitemap', 'jszip',
+  'fast-xml-parser', 'marked', 'cheerio', 'node-html-parser',
+  // Animation / editors (browser-only)
+  'framer-motion', 'lottie-web', '@lottiefiles',
+  'prismjs', 'highlight.js', 'shiki',
+  'codemirror', '@codemirror', 'ace-builds', 'quill',
+  '@tiptap', 'prosemirror-model', 'prosemirror-state', 'prosemirror-view',
+  // es-toolkit (9.5 MB, not needed at runtime)
+  'es-toolkit',
+  // web-streams-polyfill (8.8 MB, Node has native streams)
+  'web-streams-polyfill',
 ];
 
 async function pruneNodeModules(nodeModulesDir) {

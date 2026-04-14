@@ -77,7 +77,8 @@ const nextConfig = {
     // Mailchimp
     '@mailchimp/mailchimp_marketing',
     // Build / dev tools (never needed at runtime)
-    'typescript', 'core-js', 'prettier', 'tailwindcss', 'autoprefixer', 'postcss',
+    'typescript', 'core-js', 'prettier', 'tailwindcss', 'autoprefixer',
+    'postcss', 'postcss-media-query-parser', 'postcss-selector-parser',
     'eslint', '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser',
     'esbuild', 'webpack', 'webpack-sources',
     // Test / DOM
@@ -108,6 +109,9 @@ const nextConfig = {
   },
   // Required for @netlify/plugin-nextjs v5 — plugin reads .next/standalone
   output: 'standalone',
+  // Restrict NFT tracing to the project root — prevents it from following
+  // pnpm symlinks up into the global store and pulling in full package trees.
+  outputFileTracingRoot: '/opt/build/repo',
   reactStrictMode: true,
   trailingSlash: false,
   poweredByHeader: false,
