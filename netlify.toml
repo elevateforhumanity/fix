@@ -76,9 +76,10 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# prune-handler disabled — rewrite pending
-# [[plugins]]
-#   package = "./netlify/plugins/prune-handler"
+# Runs after plugin-nextjs onBuild to strip heavy packages from the handler
+# before Netlify zips and uploads it. Keeps the bundle under 250 MB.
+[[plugins]]
+  package = "./netlify/plugins/prune-handler"
 
 # CDN caching — pages cached 60s at edge, static assets cached 1 year
 # stale-while-revalidate kept short (10s) so deploys are visible immediately.
