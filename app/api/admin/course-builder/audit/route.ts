@@ -1,4 +1,3 @@
-import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiRequireAdmin } from '@/lib/admin/guards';
 import { auditCourseTemplate } from '@/lib/course-builder/audit';
@@ -15,7 +14,7 @@ export async function POST(req: NextRequest) {
     const audit = auditCourseTemplate(body);
     return NextResponse.json({ ok: true, audit });
   } catch (error) {
-    logger.error('[course-builder/audit]', error);
+    console.error('[course-builder/audit]', error);
     return NextResponse.json({ ok: false, error: 'Invalid request body' }, { status: 400 });
   }
 }

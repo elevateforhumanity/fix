@@ -1,9 +1,7 @@
-import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getServiceDb } from '@/lib/course-builder/db';
-import { defaultActivities, normaliseStepType } from '@/lib/curriculum/activities';
 
 export const dynamic = 'force-dynamic';
 
@@ -98,9 +96,7 @@ export async function POST(req: NextRequest) {
       competency_checks: body.competencyChecks ?? [],
       instructor_notes: body.instructorNotes ?? null,
       practical_required: body.practicalRequired ?? false,
-      activities: body.activities?.length
-        ? body.activities
-        : defaultActivities(normaliseStepType(body.lessonType)),
+      activities: body.activities ?? [],
       is_required: body.isRequired ?? true,
       metadata: {
         requiredArtifacts: body.requiredArtifacts ?? [],
@@ -125,7 +121,7 @@ export async function POST(req: NextRequest) {
     if (error) throw error;
     return NextResponse.json({ ok: true, lesson: data });
   } catch (error) {
-    logger.error('[course-builder/lesson]', error);
-    return NextResponse.json({ ok: false, error: 'Failed to save lesson' }, { status: 400 });
+    console.error('[course-builder/lesson]', error);
+    return NextResponse.json({ ok: false, error: error instanceof Error ? error.message : 'Unknown error' }, { status: 400 });
   }
 }

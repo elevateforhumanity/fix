@@ -4,7 +4,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import React from 'react';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
@@ -27,8 +27,15 @@ import {
   Lock,
 } from 'lucide-react';
 import { QuizSystem } from '@/components/lms/QuizSystem';
+import QuizPlayer from '@/components/lms/QuizPlayer';
 import LessonPlayer from '@/components/lms/LessonPlayer';
+import StepSubmissionForm from '@/components/lms/StepSubmissionForm';
+import OjtCompletionPanel from '@/components/lms/OjtCompletionPanel';
+import InteractiveVideoPlayer from '@/components/lms/InteractiveVideoPlayer';
+import HvacLessonVideo from '@/components/lms/HvacLessonVideo';
 import { sanitizeRichHtml } from '@/lib/security/sanitize-html';
+import { NoteTaking } from '@/components/NoteTaking';
+import DigitalBinder from '@/components/DigitalBinder';
 import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
 
 // Reverse map: UUID → definition key (e.g. '2f172cb2-...' → 'hvac-01-01').
@@ -79,24 +86,14 @@ function barberVideoUrl(
 }
 import dynamic from 'next/dynamic';
 import { lessonUuidToSimulationKey } from '@/lib/lms/hvac-simulations';
+
+import { ExplainSimply } from '@/components/lms/ai/ExplainSimply';
+import { TranslateToggle } from '@/components/lms/ai/TranslateToggle';
+import SpacedRepetitionReview from '@/components/lms/SpacedRepetitionReview';
+import LessonActivityMenu from '@/components/lms/LessonActivityMenu';
 import { getActivitiesForLesson, getDefaultActivity } from '@/lib/lms/activity-map';
 import type { ActivityId } from '@/lib/lms/activity-map';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
-
-// Heavy components — loaded on demand, not part of the initial JS bundle.
-// This keeps the lesson page shell fast and reduces memory pressure on load.
-const QuizPlayer = dynamic(() => import('@/components/lms/QuizPlayer'), { ssr: false });
-const StepSubmissionForm = dynamic(() => import('@/components/lms/StepSubmissionForm'), { ssr: false });
-const OjtCompletionPanel = dynamic(() => import('@/components/lms/OjtCompletionPanel'), { ssr: false });
-const InteractiveVideoPlayer = dynamic(() => import('@/components/lms/InteractiveVideoPlayer'), { ssr: false });
-const HvacLessonVideo = dynamic(() => import('@/components/lms/HvacLessonVideo'), { ssr: false });
-const NoteTaking = dynamic(() => import('@/components/NoteTaking').then(m => ({ default: m.NoteTaking })), { ssr: false });
-const DigitalBinder = dynamic(() => import('@/components/DigitalBinder'), { ssr: false });
-const ExplainSimply = dynamic(() => import('@/components/lms/ai/ExplainSimply').then(m => ({ default: m.ExplainSimply })), { ssr: false });
-const TranslateToggle = dynamic(() => import('@/components/lms/ai/TranslateToggle').then(m => ({ default: m.TranslateToggle })), { ssr: false });
-const SpacedRepetitionReview = dynamic(() => import('@/components/lms/SpacedRepetitionReview'), { ssr: false });
-const LessonActivityMenu = dynamic(() => import('@/components/lms/LessonActivityMenu'), { ssr: false });
-
 
 const LessonVideoWithSimulation = dynamic(
   () => import('@/components/lms/LessonVideoWithSimulation'),
@@ -297,7 +294,7 @@ export default function LessonPage() {
       .from('courses')
       .select('id, title, description, short_description, status')
       .eq('id', courseId)
-      .maybeSingle();
+      .single();
 
     // Module draft gate — block direct URL access to lessons in unreleased modules.
     // Fetch role from profiles to determine admin bypass.
@@ -373,30 +370,41 @@ export default function LessonPage() {
       });
     }
 
-    // 3. Fetch learner progress via engine API (covers lesson_progress, checkpoint_scores,
-    //    and step_submissions in one call).
-    //
-    // NOTE: When courseId is present, /api/lms/progress returns the engine shape:
-    //   { completedLessonIds, checkpointScores, progressPercent, ... }
-    // The legacy `data.progress` array is only returned when courseId is absent.
-    // A previous version of this function made two separate fetches to the same URL
-    // and read `data.progress` (undefined in the engine response) in the first one —
-    // that was a dead no-op. Both concerns are now handled in this single fetch.
-    let passedIds = new Set<string>();
+    // 3. Fetch user progress in background
+    try {
+      if (user && lessonsData) {
+        const progressRes = await fetch(`/api/lms/progress?courseId=${courseId}`);
+        const progressData = progressRes.ok ? await progressRes.json() : { progress: [] };
+        const allProgress = progressData.progress;
+
+        if (allProgress) {
+          const completedIds = new Set(
+            allProgress.filter((p: any) => p.completed).map((p: any) => p.lesson_id)
+          );
+          setCompletedLessonIds(completedIds);
+          setIsCompleted(completedIds.has(lessonId));
+        }
+      }
+    } catch (e) {
+      console.error('[lesson] auth/progress fetch failed:', e);
+      // Lesson still renders fine without progress data
+    }
+
+    // 4. Fetch learner progress via engine API (covers checkpoint_scores +
+    //    step_submissions in one call). Replaces direct Supabase checkpoint query.
     try {
       if (user) {
         const res = await fetch(`/api/lms/progress?courseId=${courseId}`);
         if (res.ok) {
           const data = await res.json();
-          // Completed lesson IDs
+          // completedLessonIds already set above from lesson_progress; merge with engine result
           if (Array.isArray(data.completedLessonIds)) {
             setCompletedLessonIds(new Set<string>(data.completedLessonIds));
             setIsCompleted(data.completedLessonIds.includes(lessonId));
           }
-          // Passed checkpoint IDs — built locally so step 4 can use them immediately
-          // without waiting for the setPassedCheckpointIds → useEffect → ref sync cycle.
+          // Passed checkpoint IDs from engine checkpoint_scores
           if (data.checkpointScores) {
-            passedIds = new Set<string>(
+            const passedIds = new Set<string>(
               Object.entries(data.checkpointScores as Record<string, { passed: boolean }>)
                 .filter(([, v]) => v.passed)
                 .map(([k]) => k)
@@ -406,27 +414,21 @@ export default function LessonPage() {
         }
       }
     } catch (e) {
-      console.error('[lesson] progress fetch failed:', e);
-      // Fail open — lesson still renders without progress data
+      console.error('[lesson] checkpoint gating fetch failed:', e);
+      // Fail open — lesson still renders without gating data
     }
 
-    // 4. Determine if the current lesson is blocked by an unpassed checkpoint.
+    // 5. Determine if the current lesson is blocked by an unpassed checkpoint.
     // A lesson is blocked when it is in module N and the checkpoint for module N-1
     // has not been passed. Applies to all DB-driven lessons.
     // lesson_source is 'course_lessons' from lms_lessons view, or 'canonical' from fallback path.
-    //
-    // Uses the locally-derived `passedIds` set from the fetch above rather than
-    // passedCheckpointIdsRef.current. The ref is synced by a useEffect that runs
-    // after the render triggered by setPassedCheckpointIds — it is always stale
-    // (empty Set) on the first call to fetchLessonData, which caused every learner
-    // in module 2+ to see their lesson incorrectly blocked on every page load.
     const isDbDrivenLesson = lessonData?.lesson_source === 'canonical' || lessonData?.lesson_source === 'course_lessons';
     if (lessonData && lessonsData && isDbDrivenLesson && lessonData.module_order > 1) {
       const prevModuleOrder = lessonData.module_order - 1;
       const prevCheckpoint = lessonsData.find(
         (l: any) => l.module_order === prevModuleOrder && l.step_type === 'checkpoint'
       );
-      if (prevCheckpoint && !passedIds.has(prevCheckpoint.id)) {
+      if (prevCheckpoint && !passedCheckpointIdsRef.current.has(prevCheckpoint.id)) {
         setCheckpointBlocked(true);
       }
     }
@@ -437,16 +439,7 @@ export default function LessonPage() {
     fetchLessonData();
   }, [lessonId, fetchLessonData]);
 
-  const currentIndex = lessons.findIndex((l) => l.id === lessonId);
-  const hasPrevious = currentIndex > 0;
-  const hasNext = currentIndex < lessons.length - 1;
-
-  // useCallback so the function identity is stable across renders and inline
-  // JSX handlers (e.g. QuizPlayer.onComplete) always call the latest version.
-  // Without this, closures over `hasNext`/`currentIndex`/`lessons` go stale
-  // between the checkpoint fetch and the markComplete call, causing auto-advance
-  // to navigate to the wrong lesson or silently no-op.
-  const markComplete = useCallback(async (forceComplete?: boolean) => {
+  const markComplete = async (forceComplete?: boolean) => {
     // forceComplete=true means "always mark complete" (called from activity handlers).
     // Without it, the button toggles — allowing un-complete from the manual button only.
     const newStatus = forceComplete ? true : !isCompleted;
@@ -528,8 +521,11 @@ export default function LessonPage() {
     } catch (error) {
       setIsCompleted(!newStatus);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCompleted, lessonId, courseId, hasNext, currentIndex, lessons]);
+  };
+
+  const currentIndex = lessons.findIndex((l) => l.id === lessonId);
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < lessons.length - 1;
 
   const goToPrevious = () => {
     if (hasPrevious) {
@@ -1081,9 +1077,6 @@ export default function LessonPage() {
 
                 // For checkpoint and exam steps, record the score via the engine API.
                 // This is what the module gate reads — must be written before markComplete.
-                // Await the fetch so the checkpoint_scores INSERT commits before the
-                // lesson-complete endpoint calls enforceCheckpointGate; without await
-                // the gate fires before the row exists and returns CHECKPOINT_NOT_PASSED.
                 if (lesson.step_type === 'checkpoint' || lesson.step_type === 'exam') {
                   try {
                     await fetch(`/api/lessons/${lessonId}/checkpoint`, {
@@ -1093,6 +1086,7 @@ export default function LessonPage() {
                         courseId,
                         moduleOrder: lesson.module_order ?? 0,
                         score,
+                        passingScore,
                         answers: answers ?? {},
                       }),
                     });
@@ -1107,11 +1101,8 @@ export default function LessonPage() {
                   }
                 }
 
-                // Await markComplete so it runs after the checkpoint INSERT above
-                // has fully committed. Without await, the lesson-complete API call
-                // races the checkpoint write and the server gate fires prematurely.
                 if (passed) {
-                  await markComplete();
+                  markComplete();
                 }
               }}
               passingScore={lesson.passing_score || 70}
@@ -1500,40 +1491,8 @@ export default function LessonPage() {
                           title={lesson.title}
                           passingScore={lesson.passing_score || 70}
                           isCheckpoint={lesson.step_type === 'checkpoint'}
-                          onComplete={async (score, answers) => {
-                            const passingScore = lesson.passing_score || 70;
-                            const passed = score >= passingScore;
-
-                            // Record the checkpoint score before marking the lesson
-                            // complete. The module gate and certificate eligibility
-                            // check both read checkpoint_scores — without this write
-                            // the next module stays locked and the certificate is
-                            // never issued, regardless of the learner's score.
-                            if (lesson.step_type === 'checkpoint' || lesson.step_type === 'exam') {
-                              try {
-                                await fetch(`/api/lessons/${lessonId}/checkpoint`, {
-                                  method: 'POST',
-                                  headers: { 'Content-Type': 'application/json' },
-                                  body: JSON.stringify({
-                                    courseId,
-                                    moduleOrder: lesson.module_order ?? 0,
-                                    score,
-                                    passingScore,
-                                    answers: answers ?? {},
-                                  }),
-                                });
-
-                                if (passed) {
-                                  setPassedCheckpointIds(prev => new Set<string>([...Array.from(prev), lessonId]));
-                                  setCheckpointBlocked(false);
-                                }
-                              } catch (e) {
-                                console.error('[lesson] activity-tab checkpoint record failed:', e);
-                                // Non-fatal — fail open so the lesson still renders
-                              }
-                            }
-
-                            if (passed && !isCompleted) markComplete();
+                          onComplete={(score) => {
+                            if (score >= (lesson.passing_score || 70) && !isCompleted) markComplete();
                           }}
                         />
                       ) : (

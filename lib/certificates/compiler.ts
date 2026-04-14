@@ -308,7 +308,7 @@ export async function issueProgramCertificate(
       verification_summary:   evidence,
     })
     .select('id, certificate_number')
-    .maybeSingle();
+    .single();
 
   if (certErr) {
     logger.error('[cert-compiler] Insert failed', { userId, courseId, error: certErr.message });

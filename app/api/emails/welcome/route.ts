@@ -1,8 +1,9 @@
+// PUBLIC ROUTE: welcome email trigger — called post-signup
+
 import { NextResponse } from 'next/server';
 import { parseBody } from '@/lib/api-helpers';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { apiAuthGuard } from '@/lib/admin/guards';
 import { sendEmail, emailTemplates } from '@/lib/email';
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -14,9 +15,6 @@ export const dynamic = 'force-dynamic';
 
 async function _POST(request: Request) {
   try {
-    const auth = await apiAuthGuard(request as any);
-    if (auth.error) return auth.error;
-
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
@@ -41,7 +39,7 @@ async function _POST(request: Request) {
       .from('program_enrollments')
       .select(`id, user_id, courses!inner(title)`)
       .eq('id', enrollmentId)
-      .maybeSingle();
+      .single();
 
     if (!rawWelcomeEnrollment) {
       return NextResponse.json(

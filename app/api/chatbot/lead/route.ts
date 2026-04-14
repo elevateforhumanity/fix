@@ -1,14 +1,16 @@
-// PUBLIC ROUTE: Public chatbot lead capture
+// PUBLIC ROUTE: chatbot lead capture — public
+// AUTH: Intentionally public — no authentication required
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { sendEmail } from '@/lib/email/sendgrid';
+import { resend } from '@/lib/resend';
+import { hydrateProcessEnv } from '@/lib/secrets';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { safeError, safeInternalError } from '@/lib/api/safe-error';
+import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-
+// Initialize Resend only if API key is available (prevents build errors)
 
 // Internal notification email address
 const INTERNAL_EMAIL = process.env.LEAD_NOTIFICATION_EMAIL || 'elevate4humanityedu@gmail.com';
@@ -122,8 +124,9 @@ Timestamp: ${new Date().toISOString()}
 `.trim();
 }
 
-export async function POST(request: NextRequest) {
+async function _POST(request: NextRequest) {
   try {
+  await hydrateProcessEnv();
     const rateLimited = await applyRateLimit(request, 'strict');
     if (rateLimited) return rateLimited;
 
@@ -131,7 +134,10 @@ export async function POST(request: NextRequest) {
     
     // Validate required fields
     if (!data.organization && !data.name && !data.email) {
-      return safeError('At least one contact field is required', 400);
+      return NextResponse.json(
+        { error: 'At least one contact field is required' },
+        { status: 400 }
+      );
     }
     
     // Calculate buyer score
@@ -141,15 +147,18 @@ export async function POST(request: NextRequest) {
     const summary = generateBuyerSummary({ ...data, buyerScore });
     
     // Send internal notification email
-    try {
-      await sendEmail({
-        to: INTERNAL_EMAIL,
-        subject: `AI Buyer Summary — ${data.organization || data.name || 'Unknown'}`,
-        text: summary,
-      });
-    } catch (emailError) {
-      logger.error('[Chatbot Lead] Failed to send email:', emailError);
-      // Don't fail the request if email fails
+    if (resend) {
+      try {
+        await resend.emails.send({
+          from: 'Elevate AI Assistant <info@elevateforhumanity.org>',
+          to: INTERNAL_EMAIL,
+          subject: `AI Buyer Summary — ${data.organization || data.name || 'Unknown'}`,
+          text: summary,
+        });
+      } catch (emailError) {
+        logger.error('[Chatbot Lead] Failed to send email:', emailError);
+        // Don't fail the request if email fails
+      }
     }
     
     // Log the lead (could also save to database here)
@@ -166,6 +175,24 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error) {
-    return safeInternalError(error as Error, 'Failed to process lead');
+    logger.error('[Chatbot Lead] Error:', error);
+    return NextResponse.json(
+      { error: 'Failed to process lead' },
+      { status: 500 }
+    );
   }
 }
+
+// GET endpoint to check API health
+async function _GET(request: Request) {
+  
+    const rateLimited = await applyRateLimit(request, 'api');
+    if (rateLimited) return rateLimited;
+return NextResponse.json({
+    status: 'ok',
+    endpoint: 'chatbot/lead',
+    description: 'Captures qualified leads from AI chatbot conversations',
+  });
+}
+export const GET = withApiAudit('/api/chatbot/lead', _GET);
+export const POST = withApiAudit('/api/chatbot/lead', _POST);

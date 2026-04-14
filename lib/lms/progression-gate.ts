@@ -95,9 +95,9 @@ async function evalCompletePreviousModule(
   // Find the module this lesson belongs to, then find the previous module
   const { data: lesson, error: lessonErr } = await db
     .from('course_lessons')
-    .select('module_id, order_index, course_id')
+    .select('course_module_id, order_index, course_id')
     .eq('id', lessonId)
-    .maybeSingle();
+    .single();
 
   if (lessonErr || !lesson) {
     throw new Error(`progression-gate: lesson lookup failed: ${lessonErr?.message}`);
@@ -107,8 +107,8 @@ async function evalCompletePreviousModule(
   const { data: currentMod, error: modErr } = await db
     .from('course_modules')
     .select('order_index, course_id')
-    .eq('id', lesson.module_id)
-    .maybeSingle();
+    .eq('id', lesson.course_module_id)
+    .single();
 
   if (modErr || !currentMod) {
     throw new Error(`progression-gate: module lookup failed: ${modErr?.message}`);
@@ -125,7 +125,7 @@ async function evalCompletePreviousModule(
     .select('id')
     .eq('course_id', currentMod.course_id)
     .eq('order_index', currentMod.order_index - 1)
-    .maybeSingle();
+    .single();
 
   if (prevErr || !prevMod) {
     // No previous module found — allow access
@@ -136,7 +136,7 @@ async function evalCompletePreviousModule(
   const { data: prevLessons, error: prevLessonsErr } = await db
     .from('course_lessons')
     .select('id, is_required')
-    .eq('module_id', prevMod.id)
+    .eq('course_module_id', prevMod.id)
     .eq('is_required', true);
 
   if (prevLessonsErr) {
@@ -185,7 +185,7 @@ async function evalAchieveCompetency(
     .from('course_lessons')
     .select('course_id')
     .eq('id', lessonId)
-    .maybeSingle();
+    .single();
 
   if (lessonErr || !lesson) {
     throw new Error(`progression-gate: lesson lookup failed: ${lessonErr?.message}`);

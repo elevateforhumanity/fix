@@ -54,11 +54,27 @@ export default async function InstructorSubmissionsPage({
 
   let query = supabase
     .from('step_submissions')
-    .select(`id, user_id, course_lesson_id, course_id, step_type, submission_text, file_urls, status, instructor_note, reviewed_at, created_at, course_lessons:course_lesson_id ( title, slug )`)
+    .select(`
+      id,
+      user_id,
+      course_lesson_id,
+      course_id,
+      step_type,
+      submission_text,
+      file_urls,
+      status,
+      instructor_note,
+      reviewed_at,
+      created_at,
+      competency_key,
+      profiles:user_id ( full_name, email ),
+      course_lessons:course_lesson_id ( title, slug )
+    `)
     .order('created_at', { ascending: false })
     .limit(100);
 
   if (!isAdmin) {
+    // Instructors see submissions for their assigned courses
     query = query.eq('instructor_id', user.id);
   }
 
@@ -66,15 +82,7 @@ export default async function InstructorSubmissionsPage({
   if (filterCourse)     query = query.eq('course_id', filterCourse);
   if (filterCompetency) query = query.not('competency_key', 'is', null);
 
-  const { data: rawSubmissions, error } = await query;
-
-  // Hydrate profiles separately (step_submissions.user_id has no FK to profiles)
-  const subUserIds = [...new Set((rawSubmissions ?? []).map((s: any) => s.user_id).filter(Boolean))];
-  const { data: subProfiles } = subUserIds.length
-    ? await supabase.from('profiles').select('id, full_name, email').in('id', subUserIds)
-    : { data: [] };
-  const subProfileMap = Object.fromEntries((subProfiles ?? []).map((p: any) => [p.id, p]));
-  const submissions = (rawSubmissions ?? []).map((s: any) => ({ ...s, profiles: subProfileMap[s.user_id] ?? null }));
+  const { data: submissions, error } = await query;
 
   if (error) {
     return (

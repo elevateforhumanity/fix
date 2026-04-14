@@ -156,7 +156,7 @@ async function persistCourse(
         updated_at:  new Date().toISOString(),
       }, { onConflict: 'course_id,slug' })
       .select('id')
-      .maybeSingle();
+      .single();
 
     if (modErr || !moduleRow) {
       errors.push(`module '${mod.slug}' upsert failed: ${modErr?.message}`);
@@ -171,7 +171,7 @@ async function persistCourse(
 
       const { error: lessonErr } = await db.from('course_lessons').upsert({
         course_id:           courseId,
-        module_id:           moduleRow.id,
+        course_module_id:    moduleRow.id,
         slug:                lesson.slug,
         title:               lesson.title,
         lesson_type:         lesson.type,

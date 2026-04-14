@@ -1,7 +1,2 @@
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-
-import { redirect } from 'next/navigation';
-export default function Page() {
-  redirect('https://www.elevateforhumanity.org/community-services');
-}
+import { permanentRedirect } from 'next/navigation';
+export default function Page() { permanentRedirect(`/community-services/ohio`); }

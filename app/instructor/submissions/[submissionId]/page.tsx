@@ -87,22 +87,30 @@ export default function SubmissionReviewPage() {
   useEffect(() => {
     async function load() {
       setLoading(true);
-      const { data: rawSub, error } = await supabase
-        .from('step_submissions')
-        .select(`id, user_id, course_lesson_id, course_id, step_type, submission_text, file_urls, status, instructor_note, reviewed_at, created_at, course_lessons:course_lesson_id ( title, slug )`)
-        .eq('id', submissionId)
-        .single();
+      const [{ data: sub, error: subErr }, { data: audit }] = await Promise.all([
+        supabase
+          .from('step_submissions')
+          .select(`
+            id, user_id, course_lesson_id, lesson_id, course_id, step_type,
+            submission_text, file_urls, status, instructor_note,
+            reviewed_at, created_at, competency_key,
+            profiles:user_id ( full_name, email ),
+            course_lessons:course_lesson_id ( title, slug, competency_checks )
+          `)
+          .eq('id', submissionId)
+          .single(),
+        supabase
+          .from('competency_audit_log')
+          .select('id, action, note, created_at, actor:actor_id ( full_name, email )')
+          .eq('submission_id', submissionId)
+          .order('created_at', { ascending: false }),
+      ]);
 
-      if (error || !rawSub) {
+      if (subErr || !sub) {
         setError('Submission not found.');
       } else {
-        // Hydrate profile separately (step_submissions.user_id has no FK to profiles)
-        const { data: subProfile } = rawSub.user_id
-          ? await supabase.from('profiles').select('full_name, email').eq('id', rawSub.user_id).maybeSingle()
-          : { data: null };
-        const data = { ...rawSub, profiles: subProfile ?? null };
-        setSubmission(data as unknown as Submission);
-        setNote(data.instructor_note ?? '');
+        setSubmission(sub as unknown as Submission);
+        setNote(sub.instructor_note ?? '');
       }
       setAuditLog((audit ?? []) as unknown as AuditEntry[]);
       setLoading(false);
@@ -198,7 +206,7 @@ export default function SubmissionReviewPage() {
               <p className="text-sm text-slate-500 mt-1">
                 Submitted by <span className="font-medium text-slate-700">{learnerName}</span>
                 {' · '}<span className="capitalize">{submission.step_type}</span>
-                {' · '}{new Date(submission.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}
+                {' · '}{new Date(submission.created_at).toLocaleString()}
               </p>
             </div>
             <span className={`text-sm font-semibold px-3 py-1 rounded-full border ${STATUS_COLORS[submission.status]}`}>
@@ -299,7 +307,7 @@ export default function SubmissionReviewPage() {
           </div>
 
           {isResolved && submission.reviewed_at && (
-            <p className="text-xs text-slate-400 mt-3">Reviewed {new Date(submission.reviewed_at).toLocaleString('en-US', { timeZone: 'UTC' })}</p>
+            <p className="text-xs text-slate-400 mt-3">Reviewed {new Date(submission.reviewed_at).toLocaleString()}</p>
           )}
         </div>
 
@@ -325,7 +333,7 @@ export default function SubmissionReviewPage() {
                     <div>
                       <span className="font-medium text-slate-700">{actor}</span>
                       <span className="text-slate-400 mx-1">·</span>
-                      <span className="text-slate-400">{new Date(entry.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}</span>
+                      <span className="text-slate-400">{new Date(entry.created_at).toLocaleString()}</span>
                       {entry.note && <p className="text-slate-600 mt-0.5 italic">&ldquo;{entry.note}&rdquo;</p>}
                     </div>
                   </li>

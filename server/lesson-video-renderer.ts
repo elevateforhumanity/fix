@@ -76,7 +76,7 @@ let _loadImage: any;
 
 async function ensureDeps() {
   if (_createCanvas) return;
-  const canvas = await import(/* webpackIgnore: true */ 'canvas');
+  const canvas = await import('canvas');
   _createCanvas = canvas.createCanvas;
   _loadImage = canvas.loadImage;
 }
@@ -392,9 +392,9 @@ export async function renderSlideFrameForPreview(
 }
 
 async function getFFmpeg() {
-  const ffmpeg = (await import(/* webpackIgnore: true */ 'fluent-ffmpeg')).default;
+  const ffmpeg = (await import('fluent-ffmpeg')).default;
   try {
-    const ffmpegPath = (await import(/* webpackIgnore: true */ '@ffmpeg-installer/ffmpeg')).path;
+    const ffmpegPath = (await import('@ffmpeg-installer/ffmpeg')).path;
     ffmpeg.setFfmpegPath(ffmpegPath);
   } catch { /* use system ffmpeg */ }
   return ffmpeg;

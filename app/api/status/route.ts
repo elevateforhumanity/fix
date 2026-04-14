@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: public status page
 import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';

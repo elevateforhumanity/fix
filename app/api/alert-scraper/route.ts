@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: public alert scraper for job board data
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

@@ -1,7 +1,2 @@
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-
-import { redirect } from 'next/navigation';
-export default function Page() {
-  redirect('https://www.elevateforhumanity.org/career-training');
-}
+import { permanentRedirect } from 'next/navigation';
+export default function Page() { permanentRedirect(`/career-training/ohio`); }

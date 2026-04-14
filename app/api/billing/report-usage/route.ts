@@ -1,4 +1,3 @@
-// PUBLIC ROUTE: Cron route — gated by x-internal-token header
 // CRON ROUTE: internal-token gated — called by billing cron, not user-facing
 import { getAdminClient } from '@/lib/supabase/admin';
 
@@ -43,7 +42,7 @@ async function _POST(request: Request) {
       .from('tenant_billing')
       .select('*')
       .eq('tenant_id', u.tenant_id)
-      .maybeSingle();
+      .single();
 
     if (!billing?.stripe_subscription_id || !billing.price_id) continue;
 

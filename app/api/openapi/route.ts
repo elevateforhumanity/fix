@@ -1,11 +1,17 @@
-// PUBLIC ROUTE: Public OpenAPI spec endpoint
+// PUBLIC ROUTE: public OpenAPI spec
 import { NextResponse } from 'next/server';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { withApiAudit } from '@/lib/audit/withApiAudit';
+// AUTH: Intentionally public — no authentication required
 
-export const runtime = 'edge';
+
 export const maxDuration = 60;
 
-export async function GET() {
-  return NextResponse.json({
+async function _GET(request: Request) {
+  
+    const rateLimited = await applyRateLimit(request, 'api');
+    if (rateLimited) return rateLimited;
+return NextResponse.json({
     openapi: '3.0.0',
     info: {
       title: 'Elevate for Humanity API',
@@ -15,3 +21,4 @@ export async function GET() {
     paths: {}
   });
 }
+export const GET = withApiAudit('/api/openapi', _GET);

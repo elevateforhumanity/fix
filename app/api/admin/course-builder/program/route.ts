@@ -1,4 +1,3 @@
-import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { apiRequireAdmin } from '@/lib/admin/guards';
@@ -73,7 +72,7 @@ export async function POST(req: NextRequest) {
     if (error) throw error;
     return NextResponse.json({ ok: true, course: data });
   } catch (error) {
-    logger.error('[course-builder/program]', error);
-    return NextResponse.json({ ok: false, error: 'Failed to save program' }, { status: 400 });
+    console.error('[course-builder/program]', error);
+    return NextResponse.json({ ok: false, error: error instanceof Error ? error.message : 'Unknown error' }, { status: 400 });
   }
 }

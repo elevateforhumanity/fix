@@ -125,7 +125,7 @@ export async function submitPractical(
       updated_at:       new Date().toISOString(),
     })
     .select('id')
-    .maybeSingle();
+    .single();
 
   if (error) {
     logger.error('[practical-workflow] submitPractical failed', { userId, courseLessonId, error: error.message });
@@ -161,7 +161,7 @@ export async function reviewPractical(
     .from('step_submissions')
     .select('id, user_id, course_lesson_id, lesson_id, course_id, step_type, competency_key')
     .eq('id', submissionId)
-    .maybeSingle();
+    .single();
 
   if (fetchErr || !submission) {
     return { success: false, lessonUnlocked: false, competencyAchieved: false, error: 'Submission not found' };

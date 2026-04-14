@@ -1,4 +1,3 @@
-// PUBLIC ROUTE: Internal program proof endpoint — slug-scoped, no PII
 // CRON ROUTE: internal-key gated — server-to-server verification only
 /**
  * Internal proof route — verifies canonical DB state for a program slug.
@@ -62,7 +61,7 @@ export async function GET(
       `)
       .eq('slug', slug)
       .eq('published', true)
-      .maybeSingle();
+      .single();
 
     if (error || !data) {
       return NextResponse.json(

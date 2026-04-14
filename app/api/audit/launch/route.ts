@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: public audit launch endpoint
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
