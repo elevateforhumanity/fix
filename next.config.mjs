@@ -39,12 +39,8 @@ const nextConfig = {
     'video.js', 'hls.js',
     // MediaPipe (20 MB, browser-only)
     '@mediapipe/tasks-vision',
-    // 3D / WebGL (browser-only)
-    'three', 'three-stdlib', '@react-three/fiber', '@react-three/drei',
-    // Icons (42 MB, browser-only)
-    'lucide-react',
-    // Charting (browser-only)
-    'recharts',
+    // 3D / WebGL — three-stdlib only; three/@react-three are in optimizePackageImports (conflict)
+    'three-stdlib',
     // Screenshot (browser-only)
     'html2canvas',
     // Sentry CLI binary
@@ -86,8 +82,8 @@ const nextConfig = {
     // Misc not needed in SSR
     '@mailchimp/mailchimp_marketing', 'csv-parse', 'csv-stringify',
     'sitemap', 'jszip', 'fast-xml-parser', 'marked', 'cheerio',
-    // Animation (browser-only)
-    'framer-motion', 'lottie-web', '@lottiefiles/react-lottie-player',
+    // Animation — lottie only; framer-motion is in optimizePackageImports (conflict)
+    'lottie-web', '@lottiefiles/react-lottie-player',
     // Syntax highlighting (browser-only)
     'prismjs', 'highlight.js', 'shiki',
     // Rich text editors (browser-only)
