@@ -72,6 +72,17 @@ export function createAdminClient(): SupabaseClient<any> {
 export async function getAdminClient(): Promise<SupabaseClient<any>> {
   const { hydrateProcessEnv } = await import('@/lib/secrets');
   await hydrateProcessEnv();
+
+  // After hydration, the key may still be absent (local dev, misconfigured env).
+  // Throw a clean, actionable error rather than letting createAdminClient() throw
+  // the misleading "called before env hydration" guard.
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error(
+      'MISSING_ENV: SUPABASE_SERVICE_ROLE_KEY is not set. ' +
+      'Add it to Netlify environment variables or .env.local.'
+    );
+  }
+
   // SAFE: non-request-time context — scripts/ or internal admin.ts, hydration guaranteed by caller
   return createAdminClient();
 }
@@ -89,8 +100,8 @@ export async function createAuditedAdminClient(ctx: {
   systemActor?: string | null;
   requestId?: string | null;
 }): Promise<SupabaseClient<any>> {
-  // SAFE: non-request-time context — scripts/ or internal admin.ts, hydration guaranteed by caller
-  const client = createAdminClient();
+  // Hydrate secrets before creating the client — same guarantee as getAdminClient().
+  const client = await getAdminClient();
 
   try {
     await client.rpc('set_audit_context', {
