@@ -38,17 +38,17 @@ export async function getUserComplianceSummary(userId: string) {
       .from('handbook_acknowledgments')
       .select('handbook_version, acknowledged_at')
       .eq('user_id', userId)
-      .single(),
+      .maybeSingle(),
     supabase
       .from('onboarding_progress')
       .select('*')
       .eq('user_id', userId)
-      .single(),
+      .maybeSingle(),
     supabase
       .from('profiles')
       .select('full_name, email, role')
       .eq('id', userId)
-      .single(),
+      .maybeSingle(),
   ]);
 
   const requiredAgreements = ['enrollment', 'participation', 'ferpa'];
@@ -148,7 +148,7 @@ export async function verifyAgreementSigned(
     query = query.eq('document_version', version);
   }
 
-  const { data, error } = await query.single();
+  const { data, error } = await query.maybeSingle();
 
   if (error || !data) {
     return { signed: false };

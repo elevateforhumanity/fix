@@ -104,7 +104,7 @@ async function _POST(req: Request) {
           status: 'new',
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (inquiryError) {
         logger.error('[Enroll Apply] Failed to create inquiry:', inquiryError);
@@ -126,7 +126,7 @@ async function _POST(req: Request) {
         .from('profiles')
         .select('enrollment_status, program_holder_id')
         .eq('id', studentId)
-        .single();
+        .maybeSingle();
 
       // Enrollment gate: must be approved or active
       if (

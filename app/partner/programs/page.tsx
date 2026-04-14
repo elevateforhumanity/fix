@@ -25,7 +25,7 @@ export default async function PartnerProgramsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['partner', 'admin', 'super_admin', 'staff'].includes(profile.role)) {
     redirect('/unauthorized');

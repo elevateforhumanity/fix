@@ -58,7 +58,7 @@ export async function getProgramBySlug(slug: string, supabase?: SupabaseClient) 
     .select('*')
     .eq('slug', slug)
     .eq('active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching program:', error);

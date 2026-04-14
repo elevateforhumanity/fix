@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       notes: body.notes ?? null,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) return safeDbError(error, 'Failed to create MOU document');
   return NextResponse.json({ data }, { status: 201 });
 }

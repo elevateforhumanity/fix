@@ -49,7 +49,7 @@ export default async function LmsAppLayout({ children }: { children: ReactNode }
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Server-side role check
   if (profile?.role && !canAccessRoute('/lms', profile.role)) {

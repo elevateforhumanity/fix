@@ -50,7 +50,7 @@ function EnrollmentConfirmedContent() {
       const { data, error } = await query
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         router.push('/programs');

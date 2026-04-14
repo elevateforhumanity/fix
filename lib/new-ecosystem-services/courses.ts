@@ -42,7 +42,7 @@ export async function getCourse(courseId: string) {
     .from('training_courses')
     .select('id, program_id, code, title, summary, cover_url')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
   if (error) throw error;
   return data as Course;
 }
@@ -62,7 +62,7 @@ export async function getLesson(lessonId: string) {
     .from('training_lessons')
     .select('id, course_id, idx, title, video_url, html')
     .eq('id', lessonId)
-    .single();
+    .maybeSingle();
   if (error) throw error;
   return data as Lesson;
 }

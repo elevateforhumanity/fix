@@ -52,7 +52,7 @@ async function _POST(request: NextRequest) {
       `
       )
       .eq('id', certificateId)
-      .single();
+      .maybeSingle();
 
     if (!certificate) {
       return NextResponse.json(

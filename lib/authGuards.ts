@@ -97,7 +97,7 @@ export async function authGuard(options: AuthGuardOptions = {}): Promise<AuthGua
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const role = profile?.role as UserRole | null;
 
@@ -208,7 +208,7 @@ export async function getUserRole(): Promise<UserRole | null> {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   return (profile?.role as UserRole) || null;
 }
@@ -292,7 +292,7 @@ export async function canAccessCourse(courseId: string): Promise<boolean> {
     .select('id')
     .eq('user_id', user.id)
     .eq('course_id', courseId)
-    .single();
+    .maybeSingle();
 
   if (enrollment) return true;
 
@@ -301,7 +301,7 @@ export async function canAccessCourse(courseId: string): Promise<boolean> {
     .from('training_courses')
     .select('instructor_id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   return course?.instructor_id === user.id;
 }
@@ -338,7 +338,7 @@ export async function canEditCourse(courseId: string): Promise<boolean> {
     .from('training_courses')
     .select('instructor_id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   return course?.instructor_id === user.id;
 }
@@ -380,7 +380,7 @@ export async function canAccessStudentData(studentId: string): Promise<boolean> 
       .select('course_id, courses!inner(instructor_id)')
       .eq('user_id', studentId)
       .eq('courses.instructor_id', user.id)
-      .single();
+      .maybeSingle();
 
     return !!enrollment;
   }
@@ -447,7 +447,7 @@ export async function apiAuthGuard(options: AuthGuardOptions = {}): Promise<{
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const role = profile?.role as UserRole | null;
 

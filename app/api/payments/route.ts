@@ -43,7 +43,7 @@ async function verifyCustomerOwnership(userId: string, customerId: string): Prom
     .from('profiles')
     .select('stripe_customer_id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
   
   return profile?.stripe_customer_id === customerId;
 }
@@ -58,7 +58,7 @@ async function verifyPaymentOwnership(userId: string, paymentId: string): Promis
     .from('payments')
     .select('user_id')
     .eq('id', paymentId)
-    .single();
+    .maybeSingle();
   
   return payment?.user_id === userId;
 }
@@ -73,7 +73,7 @@ async function verifySubscriptionOwnership(userId: string, subscriptionId: strin
     .from('subscriptions')
     .select('user_id')
     .eq('stripe_subscription_id', subscriptionId)
-    .single();
+    .maybeSingle();
   
   return subscription?.user_id === userId;
 }
@@ -88,7 +88,7 @@ async function getUserStripeCustomerId(userId: string): Promise<string | null> {
     .from('profiles')
     .select('stripe_customer_id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
   
   return profile?.stripe_customer_id || null;
 }

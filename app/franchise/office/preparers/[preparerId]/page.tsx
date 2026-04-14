@@ -87,7 +87,7 @@ export default function PreparerDetailPage() {
         .from('franchise_preparers')
         .select('*')
         .eq('id', preparerId)
-        .single();
+        .maybeSingle();
 
       if (error || !preparerData) {
         toast({ title: 'Preparer not found', variant: 'destructive' });

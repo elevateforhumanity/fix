@@ -14,7 +14,7 @@ export default async function CourseDiscussionDetailPage({ params }: Props) {
     .from('course_discussions')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (!discussion) notFound();
 

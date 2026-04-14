@@ -156,7 +156,7 @@ export class ReturnService {
         }
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to create submission`);
@@ -205,7 +205,7 @@ export class ReturnService {
       .eq('ero_authorized', true)
       .eq('status', 'active')
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (ero) return ero;
 
@@ -217,7 +217,7 @@ export class ReturnService {
         .select('id, ptin')
         .eq('user_id', office.owner_id)
         .eq('status', 'active')
-        .single();
+        .maybeSingle();
 
       if (ownerPreparer) return ownerPreparer;
     }

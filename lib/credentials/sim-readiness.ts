@@ -49,7 +49,7 @@ export async function stampSimReadiness(
     .from('learner_credentials')
     .select('metadata')
     .eq('id', learnerCredentialId)
-    .single();
+    .maybeSingle();
 
   const merged = {
     ...(existing?.metadata ?? {}),

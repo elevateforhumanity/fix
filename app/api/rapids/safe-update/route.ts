@@ -49,7 +49,7 @@ async function _POST(req: Request) {
       .from('rapids_tracking')
       .select('status')
       .eq('apprentice_id', apprentice_id)
-      .single();
+      .maybeSingle();
 
     // If record exists, validate transition
     if (current && current.status) {

@@ -125,7 +125,7 @@ async function _POST(request: NextRequest) {
         status: 'submitted',
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

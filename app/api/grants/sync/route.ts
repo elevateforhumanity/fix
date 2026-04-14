@@ -48,7 +48,7 @@ async function _POST(request: Request) {
         { onConflict: 'code' }
       )
       .select()
-      .single();
+      .maybeSingle();
 
     if (sourceError || !source) {
       logger.error('Failed to ensure grant source:', sourceError);

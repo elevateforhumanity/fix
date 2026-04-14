@@ -46,7 +46,7 @@ async function _POST(request: Request) {
         .from('stripe_webhook_events')
         .select('id')
         .eq('stripe_event_id', event.id)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         return NextResponse.json({ received: true, duplicate: true });
@@ -81,7 +81,7 @@ async function _POST(request: Request) {
             .from('donations')
             .select('*')
             .eq('id', donationId)
-            .single();
+            .maybeSingle();
 
           if (donation && !donation.receipt_sent) {
             // Send receipt email
@@ -130,7 +130,7 @@ async function _POST(request: Request) {
           .from('donations')
           .select('id')
           .eq('stripe_payment_intent_id', paymentIntent.id)
-          .single();
+          .maybeSingle();
 
         if (donation) {
           await supabase
@@ -152,7 +152,7 @@ async function _POST(request: Request) {
           .from('donations')
           .select('id')
           .eq('stripe_payment_intent_id', charge.payment_intent as string)
-          .single();
+          .maybeSingle();
 
         if (donation) {
           await supabase
@@ -174,7 +174,7 @@ async function _POST(request: Request) {
           .from('donations')
           .select('id')
           .eq('stripe_subscription_id', subscription.id)
-          .single();
+          .maybeSingle();
 
         if (donation) {
           await supabase

@@ -20,7 +20,7 @@ export async function updateLicenseStatus(licenseId: string, status: string) {
     .from('licenses')
     .select('id, status')
     .eq('id', licenseId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !record) throw new Error('License not found');
 

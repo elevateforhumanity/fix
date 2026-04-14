@@ -34,7 +34,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -64,7 +64,7 @@ async function _POST(request: NextRequest) {
       .eq('id', requestId)
       .in('status', ['pending', 'paid'])
       .select('id, user_id, exam_name, student_email')
-      .single();
+      .maybeSingle();
 
     if (error || !updated) {
       logger.error('Failed to assign voucher:', error);

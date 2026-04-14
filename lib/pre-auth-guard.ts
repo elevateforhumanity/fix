@@ -55,7 +55,7 @@ export function assertPreAuthTable(table: string) {
  * Insert into a pre-auth table with registry validation.
  *
  * Throws PRE_AUTH VIOLATION synchronously if the table is not registered.
- * Returns the Supabase query builder so callers can chain .select(), .single(), etc.
+ * Returns the Supabase query builder so callers can chain .select(), .maybeSingle(), etc.
  *
  * Use this in any function that may be called from a public (unauthenticated) route.
  * Annotate the calling function with: // @preAuthWrite table=<table> mode=<mode>

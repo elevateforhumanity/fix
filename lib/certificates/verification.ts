@@ -50,7 +50,7 @@ export async function verifyCertificate(code: string) {
       programs:program_id (name, slug)
     `)
     .eq('verification_code', code)
-    .single();
+    .maybeSingle();
 
   if (error || !certificate) {
     return { valid: false, certificate: null, error: 'Certificate not found' };
@@ -101,7 +101,7 @@ export async function issueCertificate({
       expires_at: expiresAt?.toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     throw new Error(`Failed to issue certificate`);

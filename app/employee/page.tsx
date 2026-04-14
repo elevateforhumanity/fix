@@ -29,7 +29,7 @@ export default async function EmployeePortalPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const links = [
     { href: '/employee/profile', icon: User, label: 'My Profile', desc: 'View and update your information' },

@@ -35,7 +35,7 @@ const supabase = await createClient();
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -94,7 +94,7 @@ async function _POST(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -146,7 +146,7 @@ async function _POST(request: NextRequest) {
       status: 'pending',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -176,7 +176,7 @@ const supabase = await createClient();
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -229,7 +229,7 @@ const supabase = await createClient();
         .from('employer_sponsorships')
         .select('enrollment_id')
         .eq('id', sponsorshipId)
-        .single();
+        .maybeSingle();
 
       if (sponsorship) {
         await supabase
@@ -249,7 +249,7 @@ const supabase = await createClient();
         .from('employer_sponsorships')
         .select('reimbursements_received, total_reimbursed, term_months, total_tuition')
         .eq('id', sponsorshipId)
-        .single();
+        .maybeSingle();
 
       if (!current) {
         return NextResponse.json({ error: 'Sponsorship not found' }, { status: 404 });

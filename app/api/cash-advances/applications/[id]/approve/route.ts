@@ -41,7 +41,7 @@ async function _POST(
       })
       .eq('id', id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

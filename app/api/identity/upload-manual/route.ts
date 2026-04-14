@@ -140,7 +140,7 @@ async function _POST(request: NextRequest) {
         cost: 0, // FREE
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (verificationError) {
       return NextResponse.json(

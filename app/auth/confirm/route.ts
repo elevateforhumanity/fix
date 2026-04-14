@@ -147,7 +147,7 @@ export async function GET(request: NextRequest) {
               .from('profiles')
               .select('role')
               .eq('id', user.id)
-              .single();
+              .maybeSingle();
             if (profile?.role === 'program_holder') {
               redirectTo = '/program-holder/onboarding';
             }

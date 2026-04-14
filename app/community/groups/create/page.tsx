@@ -25,7 +25,7 @@ export default async function CreateGroupPage() {
     .from('profiles')
     .select('full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch available programs for group topics
   const { data: programs } = await supabase

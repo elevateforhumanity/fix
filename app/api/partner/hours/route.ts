@@ -25,7 +25,7 @@ async function _GET(request: NextRequest) {
     .from('partner_users')
     .select('organization_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!partnerUser) {
     return NextResponse.json({ error: 'Not a partner' }, { status: 403 });
@@ -70,7 +70,7 @@ async function _POST(request: NextRequest) {
     .from('partner_users')
     .select('organization_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!partnerUser) {
     return NextResponse.json({ error: 'Not a partner' }, { status: 403 });

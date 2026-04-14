@@ -41,7 +41,7 @@ async function _POST(
       .from('profiles')
       .select('organization_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile?.organization_id) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -59,7 +59,7 @@ async function _POST(
       `
       )
       .eq('id', itemId)
-      .single();
+      .maybeSingle();
 
     if (itemErr) {
       return NextResponse.json({ error: 'Item not found' }, { status: 404 });

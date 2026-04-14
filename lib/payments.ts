@@ -54,7 +54,7 @@ export async function getOrCreateStripeCustomer(
     .from('profiles')
     .select('stripe_customer_id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
   if (profile?.stripe_customer_id) {
     return profile.stripe_customer_id;
   }
@@ -107,7 +107,7 @@ export async function createCoursePaymentIntent(
     .from('profiles')
     .select('email, first_name, last_name')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
   if (!profile) {
     throw new Error('User not found');
   }
@@ -175,7 +175,7 @@ export async function createSubscriptionPaymentIntent(
     .from('profiles')
     .select('email, first_name, last_name')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
   if (!profile) {
     throw new Error('User not found');
   }
@@ -247,7 +247,7 @@ export async function confirmPayment(
     .from('payments')
     .select('*')
     .eq('stripe_payment_intent_id', paymentIntentId)
-    .single();
+    .maybeSingle();
   if (!payment) {
     return { success: false };
   }
@@ -262,7 +262,7 @@ export async function confirmPayment(
         enrolled_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
     // Trigger webhook
     const { triggerEnrollmentCreated } = await import('@/lib/webhooks');
     await triggerEnrollmentCreated(
@@ -315,7 +315,7 @@ export async function processRefund(
     .from('payments')
     .select('*')
     .eq('id', paymentId)
-    .single();
+    .maybeSingle();
   if (!payment || !payment.stripe_payment_intent_id) {
     return { success: false };
   }
@@ -409,7 +409,7 @@ export async function createSubscription(
     .from('profiles')
     .select('email, first_name, last_name, stripe_customer_id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
   if (!profile) {
     throw new Error('User not found');
   }
@@ -499,7 +499,7 @@ export async function getPayment(paymentId: string): Promise<Payment | null> {
     .from('payments')
     .select('*')
     .eq('id', paymentId)
-    .single();
+    .maybeSingle();
   if (error) return null;
   return data;
 }
@@ -574,7 +574,7 @@ export async function getCoursePrice(courseId: string): Promise<number> {
     .from('training_courses')
     .select('price')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
   return course?.price || 0;
 }
 /**

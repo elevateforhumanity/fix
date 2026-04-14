@@ -57,7 +57,7 @@ export default function StudentApplicationPage() {
       .from('profiles')
       .select('*')
       .eq('id', authUser.id)
-      .single();
+      .maybeSingle();
 
     if (profile) {
       setUser(profile);
@@ -70,7 +70,7 @@ export default function StudentApplicationPage() {
       .eq('email', authUser.email)
       .order('submitted_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (application) {
       setExistingApplication(application);

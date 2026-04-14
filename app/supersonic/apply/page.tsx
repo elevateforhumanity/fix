@@ -25,7 +25,7 @@ export default async function SupersonicApplyPage() {
       .from('profiles')
       .select('*')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     existingProfile = profile;
 
     // Check for existing application
@@ -35,7 +35,7 @@ export default async function SupersonicApplyPage() {
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
     existingApplication = application;
   }
 

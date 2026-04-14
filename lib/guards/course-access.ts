@@ -30,7 +30,7 @@ export async function verifyCourseAccess(courseId: string): Promise<CourseAccess
     `)
     .eq('user_id', user.id)
     .eq('course_id', courseId)
-    .single();
+    .maybeSingle();
 
   if (enrollError || !enrollment) {
     return {

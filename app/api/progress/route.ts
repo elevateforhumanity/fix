@@ -32,7 +32,7 @@ async function _GET(request: Request) {
         .select('*')
         .eq('user_id', user.id)
         .eq('course_id', courseId)
-        .single();
+        .maybeSingle();
 
       const { data: lessons } = await supabase
         .from('training_lessons')
@@ -182,7 +182,7 @@ async function _POST(request: Request) {
         }
       )
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Progress update error:', error);

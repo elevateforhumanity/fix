@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
         ].filter(Boolean).join(' | '),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       logger.error('Failed to insert CDL waitlist application', insertError);

@@ -44,7 +44,7 @@ async function _GET(
         is_active
       `)
       .eq('slug', slug)
-      .single();
+      .maybeSingle();
 
     if (programError || !program) {
       return NextResponse.json(

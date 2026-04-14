@@ -21,7 +21,7 @@ async function requireSuperAdmin() {
   if (!db) return { user: null, db: null, error: 'Service unavailable' as const };
 
   const { data: profile } = await db
-    .from('profiles').select('role').eq('id', user.id).single();
+    .from('profiles').select('role').eq('id', user.id).maybeSingle();
 
   if (!profile || !ADMIN_ROLES.includes(profile.role ?? '')) {
     return { user: null, db: null, error: 'Forbidden' as const };

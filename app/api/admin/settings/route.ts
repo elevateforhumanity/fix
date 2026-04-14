@@ -15,7 +15,7 @@ async function _GET(_req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!['admin', 'super_admin'].includes(profile?.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
@@ -36,7 +36,7 @@ async function _POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!['admin', 'super_admin'].includes(profile?.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }

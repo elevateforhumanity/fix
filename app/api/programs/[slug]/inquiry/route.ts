@@ -62,7 +62,7 @@ export async function POST(
       eligibility_data: { inquiry_slug: slug },
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) return safeDbError(error, 'Failed to save inquiry');
 

@@ -40,7 +40,7 @@ export async function POST(
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -51,7 +51,7 @@ export async function POST(
     .from('barbershop_partner_applications')
     .select('id, status, contact_email, contact_name, owner_name, shop_legal_name')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !application) {
     logger.error('barbershop application fetch error', undefined, { id, detail: fetchError?.message });
@@ -109,7 +109,7 @@ export async function POST(
         { onConflict: 'name,city,state' }  // prevent duplicate shops on re-approval
       )
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (shopErr) {
       logger.warn('[barber-approve] shops upsert failed (non-fatal)', { id, detail: shopErr.message });

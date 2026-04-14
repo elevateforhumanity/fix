@@ -18,7 +18,7 @@ async function requireAdmin() {
   const user = await getCurrentUser();
   if (!user) return null;
   const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) return null;
   return user;
 }
@@ -85,7 +85,7 @@ export async function POST(
       { onConflict: 'external_course_id,user_id', ignoreDuplicates: false }
     )
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Mark external complete error', error);

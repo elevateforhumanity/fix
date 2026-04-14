@@ -32,7 +32,7 @@ export async function POST(
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return safeError('Forbidden', 403);
@@ -46,7 +46,7 @@ export async function POST(
       { data: modules },
       { data: ctas },
     ] = await Promise.all([
-      db.from('programs').select('title, description, hero_image_url, estimated_weeks, delivery_method').eq('id', programId).single(),
+      db.from('programs').select('title, description, hero_image_url, estimated_weeks, delivery_method').eq('id', programId).maybeSingle(),
       db.from('program_outcomes').select('id').eq('program_id', programId),
       db.from('program_modules')
         .select('id, program_lessons(id)')

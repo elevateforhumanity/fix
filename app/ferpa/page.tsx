@@ -43,7 +43,7 @@ export default async function FERPAPortal() {
     .from('profiles')
     .select('role, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Check if user has FERPA access
   const allowedRoles = [

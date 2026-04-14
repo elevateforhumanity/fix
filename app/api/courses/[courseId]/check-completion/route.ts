@@ -34,7 +34,7 @@ async function _POST(req: NextRequest, { params }: Params) {
     .select('*')
     .eq('program_id', courseId)
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (enrollError || !enrollment) {
     logger.error(enrollError);

@@ -246,7 +246,7 @@ export async function buildCanonicalCourseFromBlueprint(
         is_active:  true,
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (courseErr || !newCourse) {
       throw new Error(`buildCanonicalCourseFromBlueprint: failed to create course — ${courseErr?.message}`);
@@ -443,7 +443,7 @@ async function upsertModule(
       order_index: mod.orderIndex,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error || !newMod) return null;
   return newMod.id;

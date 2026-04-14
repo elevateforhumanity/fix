@@ -62,7 +62,7 @@ export async function validateLicense(organizationId: string): Promise<LicenseVa
     .from('licenses')
     .select('*')
     .eq('organization_id', organizationId)
-    .single();
+    .maybeSingle();
 
   if (licenseError || !license) {
     return { valid: false, license: null, usage: null, reason: 'No license found' };
@@ -73,7 +73,7 @@ export async function validateLicense(organizationId: string): Promise<LicenseVa
     .from('license_usage')
     .select('*')
     .eq('license_id', license.id)
-    .single();
+    .maybeSingle();
 
   // Use billing authority rules for access check
   const accessResult = checkLicenseAccess({
@@ -195,7 +195,7 @@ export async function incrementUsage(
     .from('licenses')
     .select('id')
     .eq('organization_id', organizationId)
-    .single();
+    .maybeSingle();
 
   if (!license) return false;
 
@@ -224,7 +224,7 @@ export async function decrementUsage(
     .from('licenses')
     .select('id')
     .eq('organization_id', organizationId)
-    .single();
+    .maybeSingle();
 
   if (!license) return false;
 
@@ -268,7 +268,7 @@ export async function getLicenseByKey(licenseKey: string): Promise<License | nul
     .from('license_keys')
     .select('license_id, status')
     .eq('key', licenseKey)
-    .single();
+    .maybeSingle();
 
   if (!keyRecord || keyRecord.status !== 'active') {
     return null;
@@ -278,7 +278,7 @@ export async function getLicenseByKey(licenseKey: string): Promise<License | nul
     .from('licenses')
     .select('*')
     .eq('id', keyRecord.license_id)
-    .single();
+    .maybeSingle();
 
   return license;
 }

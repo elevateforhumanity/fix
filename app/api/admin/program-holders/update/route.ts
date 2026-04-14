@@ -41,7 +41,7 @@ export const POST = withAuth(
       .from('program_holders')
       .select('id, status, mou_status')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !existing) {
       await writeApiAuditEvent({ ...auditBase, result: 'failure', status_code: 404, error_summary: 'Not found' });

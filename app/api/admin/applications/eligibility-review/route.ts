@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     .from('application_eligibility_reviews')
     .select('*')
     .eq('application_id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (error) return safeError('Eligibility review not found', 404);
   return NextResponse.json(data);
@@ -90,7 +90,7 @@ export async function PATCH(req: NextRequest) {
       .from('applications')
       .select('first_name, last_name, email')
       .eq('id', application_id)
-      .single();
+      .maybeSingle();
 
     if (app?.email) {
       const messages: Record<string, { subject: string; body: string }> = {

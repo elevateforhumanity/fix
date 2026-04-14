@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
           .from('clients')
           .select('id')
           .eq('jotform_submission_id', submission.id)
-          .single();
+          .maybeSingle();
 
         if (existing) {
           continue; // Skip already processed
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
             created_at: new Date().toISOString(),
           })
           .select()
-          .single();
+          .maybeSingle();
 
         if (clientError) {
           errors.push(`Failed to create client for submission ${submission.id}`);

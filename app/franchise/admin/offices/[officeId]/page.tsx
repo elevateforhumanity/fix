@@ -101,7 +101,7 @@ export default function AdminOfficeDetailPage() {
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
         setAuthorized(false);
@@ -125,7 +125,7 @@ export default function AdminOfficeDetailPage() {
       .from('franchise_offices')
       .select('*')
       .eq('id', officeId)
-      .single();
+      .maybeSingle();
 
     if (error || !officeData) {
       toast({ title: 'Office not found', variant: 'destructive' });

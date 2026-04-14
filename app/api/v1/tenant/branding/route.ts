@@ -47,7 +47,7 @@ const apiKey = request.headers.get('x-api-key');
     .from('tenants')
     .select('*')
     .eq('id', validation.tenantId)
-    .single();
+    .maybeSingle();
 
   if (error || !tenant) {
     return NextResponse.json({ error: 'Tenant not found' }, { status: 404 });

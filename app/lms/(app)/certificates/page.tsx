@@ -34,7 +34,7 @@ export default async function CertificatesPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch certificates — issued_at added by migration, issued_date is the legacy column
   const { data: certificates } = await supabase

@@ -39,7 +39,7 @@ export default async function ThankyouPage() {
     .from('settings')
     .select('value')
     .eq('key', 'contact_info')
-    .single();
+    .maybeSingle();
 
   const defaultNextSteps = [
     {

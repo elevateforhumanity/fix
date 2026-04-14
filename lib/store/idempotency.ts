@@ -13,7 +13,7 @@ export async function isEventProcessed(
     .from('processed_stripe_events')
     .select('id')
     .eq('stripe_event_id', stripeEventId)
-    .single();
+    .maybeSingle();
 
   if (error && error.code !== 'PGRST116') {
     // PGRST116 = no rows found, which is expected for new events

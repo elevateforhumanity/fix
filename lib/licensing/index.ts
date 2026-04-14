@@ -83,7 +83,7 @@ export async function getTenantLicense(tenantId: string): Promise<License | null
       .eq('status', 'active')
       .order('created_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       logger.debug('No active license found for tenant', { tenantId });
@@ -123,7 +123,7 @@ export async function getUserTenant(userId: string): Promise<Tenant | null> {
     .from('profiles')
     .select('tenant_id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (!profile?.tenant_id) return null;
 
@@ -131,7 +131,7 @@ export async function getUserTenant(userId: string): Promise<Tenant | null> {
     .from('tenants')
     .select('*')
     .eq('id', profile.tenant_id)
-    .single();
+    .maybeSingle();
 
   return tenant as Tenant | null;
 }
@@ -287,7 +287,7 @@ export async function validateApiKey(apiKey: string): Promise<{ valid: boolean; 
     .from('tenants')
     .select('id, status')
     .eq('api_key', apiKey)
-    .single();
+    .maybeSingle();
 
   if (error || !tenant) {
     return { valid: false, error: 'Invalid API key' };

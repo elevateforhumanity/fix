@@ -65,7 +65,7 @@ async function _POST(request: NextRequest) {
         created_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (appError) {
       return NextResponse.json(
@@ -210,7 +210,7 @@ async function _GET(request: NextRequest) {
           .from('profiles')
           .select('role')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
         isAdmin = profile?.role === 'admin' || profile?.role === 'super_admin';
       }
     }

@@ -41,7 +41,7 @@ async function _GET(req: Request) {
       `
       )
       .eq('stripe_session_id', sessionId)
-      .single();
+      .maybeSingle();
 
     if (error || !sale) {
       return NextResponse.json(

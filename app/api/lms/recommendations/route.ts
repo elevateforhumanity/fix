@@ -29,7 +29,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('interests, skill_level, learning_style')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     // Fetch completed courses
     const { data: completedEnrollments } = await supabase

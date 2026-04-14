@@ -26,7 +26,7 @@ async function _POST(request: NextRequest) {
       .from('partner_users')
       .select('partner_id, role')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ error: 'You are not associated with a partner shop' }, { status: 403 });
@@ -49,7 +49,7 @@ async function _POST(request: NextRequest) {
       .select('id')
       .eq('user_id', apprenticeId)
       .eq('partner_id', partnerUser.partner_id)
-      .single();
+      .maybeSingle();
 
     if (!apprenticeAssignment) {
       return NextResponse.json({ error: 'Apprentice is not assigned to your shop' }, { status: 403 });
@@ -63,7 +63,7 @@ async function _POST(request: NextRequest) {
       .eq('partner_id', partnerUser.partner_id)
       .eq('program_id', 'BARBER')
       .eq('week_ending', weekEnding)
-      .single();
+      .maybeSingle();
 
     if (existingEntry) {
       // Update existing entry

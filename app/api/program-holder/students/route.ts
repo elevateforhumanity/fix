@@ -23,7 +23,7 @@ async function _GET(request: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'program_holder') {
       return NextResponse.json({ error: 'Forbidden - Program holder access only' }, { status: 403 });

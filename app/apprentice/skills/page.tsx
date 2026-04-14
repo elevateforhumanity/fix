@@ -25,7 +25,7 @@ export default async function ApprenticeSkillsPage() {
     .from('apprentices')
     .select('*, program:program_id(name)')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   // Get skill categories (flat — apprentice_skills join omitted until migration runs)
   const { data: rawCategories } = await supabase

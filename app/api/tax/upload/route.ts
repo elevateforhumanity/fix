@@ -91,7 +91,7 @@ async function _POST(request: Request) {
         status: 'pending_review',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (dbError) {
       // Cleanup uploaded file if database insert fails

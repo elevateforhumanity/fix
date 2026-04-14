@@ -33,7 +33,7 @@ async function _POST(req: Request, { params }: { params: Promise<{ caseId: strin
       .from('enrollment_cases')
       .select('student_id, program_holder_id, employer_id')
       .eq('id', caseId)
-      .single();
+      .maybeSingle();
 
     if (!enrollmentCase) {
       return NextResponse.json({ error: 'Case not found' }, { status: 404 });
@@ -49,7 +49,7 @@ async function _POST(req: Request, { params }: { params: Promise<{ caseId: strin
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
       
       if (!profile || !['admin', 'staff'].includes(profile.role)) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

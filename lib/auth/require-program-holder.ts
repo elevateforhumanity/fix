@@ -43,7 +43,7 @@ export async function requireProgramHolder(): Promise<ProgramHolderContext> {
     .from('profiles')
     .select('id, role, full_name, email, program_holder_id, tenant_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (
     !profile ||
@@ -63,7 +63,7 @@ export async function requireProgramHolder(): Promise<ProgramHolderContext> {
     .from('program_holders')
     .select('status, mou_signed, approved_at, payout_status')
     .eq('id', holderId)
-    .single();
+    .maybeSingle();
 
   if (!holder) {
     redirect('/program-holder?error=pending-approval');
@@ -125,7 +125,7 @@ export async function getProgramHolderContext(db: any, userId: string) {
     .from('profiles')
     .select('id, role, program_holder_id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (!profile?.program_holder_id) return null;
 

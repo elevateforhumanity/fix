@@ -32,7 +32,7 @@ async function _GET(
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
     const isSelf = preparer.user_id === user.id;
@@ -44,7 +44,7 @@ async function _GET(
         .from('franchise_offices')
         .select('owner_id')
         .eq('id', preparer.office_id)
-        .single();
+        .maybeSingle();
       isOwner = office?.owner_id === user.id;
     }
 

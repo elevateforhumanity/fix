@@ -52,7 +52,7 @@ export default async function ReviewApplicationPage({
     .from('applications')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !app) notFound();
 

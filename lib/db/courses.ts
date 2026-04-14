@@ -46,7 +46,7 @@ export async function createCourse(input: CourseCreate) {
       status: input.is_published ? 'published' : 'draft',
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw new Error(`Database operation failed: ${error.message}`);
   return data;
 }
@@ -67,7 +67,7 @@ export async function getCourse(id: string) {
     .from('training_courses')
     .select('*, programs(id, title)')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   if (error?.code === 'PGRST116') return null;
   if (error) throw new Error('Database operation failed');
   return data;
@@ -110,7 +110,7 @@ export async function createLesson(input: LessonCreate) {
       order_index: input.order_index ?? 0,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw new Error('Database operation failed');
   return data;
 }
@@ -132,7 +132,7 @@ export async function getLesson(id: string) {
     .from('training_lessons')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   if (error?.code === 'PGRST116') return null;
   if (error) throw new Error('Database operation failed');
   return data;
@@ -172,7 +172,7 @@ export async function createQuiz(input: QuizCreate) {
       max_attempts: input.max_attempts ?? 3,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw new Error('Database operation failed');
   return data;
 }
@@ -194,7 +194,7 @@ export async function getQuiz(id: string) {
     .from('quizzes')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   if (error?.code === 'PGRST116') return null;
   if (error) throw new Error('Database operation failed');
   return data;
@@ -235,7 +235,7 @@ export async function createQuestion(input: QuestionCreate) {
       order_index: input.order_index ?? 0,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw new Error('Database operation failed');
   return data;
 }
@@ -257,7 +257,7 @@ export async function getQuestion(id: string) {
     .from('quiz_questions')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   if (error?.code === 'PGRST116') return null;
   if (error) throw new Error('Database operation failed');
   return data;
@@ -299,7 +299,7 @@ export async function createEnrollment(input: EnrollmentCreate) {
       enrolled_at: new Date().toISOString(),
     })
     .select('*, student:profiles(id, full_name, email), course:training_courses(id, course_name)')
-    .single();
+    .maybeSingle();
   if (error) throw new Error('Database operation failed');
   return data;
 }
@@ -326,7 +326,7 @@ export async function getEnrollment(id: string) {
     .from('training_enrollments')
     .select('*, student:profiles(id, full_name, email), course:training_courses(id, course_name)')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   if (error?.code === 'PGRST116') return null;
   if (error) throw new Error('Database operation failed');
   return data;
@@ -375,7 +375,7 @@ export async function createProgram(input: ProgramCreate) {
       requirements: input.requirements || null,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw new Error('Database operation failed');
   return data;
 }
@@ -400,7 +400,7 @@ export async function getProgram(id: string) {
     .from('programs')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   if (error?.code === 'PGRST116') return null;
   if (error) throw new Error('Database operation failed');
   return data;
@@ -449,7 +449,7 @@ export async function createApplication(input: ApplicationCreate) {
       submitted_at: new Date().toISOString(),
     })
     .select('*, program:programs(id, title, code)')
-    .single();
+    .maybeSingle();
   if (error) throw new Error('Database operation failed');
   return data;
 }
@@ -480,7 +480,7 @@ export async function getApplication(id: string) {
     .from('applications')
     .select('*, program:programs(id, title, code)')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   if (error?.code === 'PGRST116') return null;
   if (error) throw new Error('Database operation failed');
   return data;
@@ -569,7 +569,7 @@ export async function saveCourseBlueprint(
       metadata: quizMetadata,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (courseErr || !course) throw new Error('Failed to create course record');
   const courseId = course.id;
@@ -587,7 +587,7 @@ export async function saveCourseBlueprint(
         order_index: mod.order_index ?? 0,
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (modErr || !moduleRow) continue;
 

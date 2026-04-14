@@ -19,7 +19,7 @@ export async function createProgram(formData: FormData) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
     redirect('/unauthorized');
@@ -71,7 +71,7 @@ export async function updateProgram(id: string, formData: FormData) {
   const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (profile?.role !== 'admin' && profile?.role !== 'super_admin') redirect('/unauthorized');
 
-  const { data: existing } = await db.from('programs').select('id').eq('id', id).single();
+  const { data: existing } = await db.from('programs').select('id').eq('id', id).maybeSingle();
   if (!existing) throw new Error('Program not found');
 
   const name = formData.get('name') as string;
@@ -122,7 +122,7 @@ export async function deleteProgram(id: string) {
   const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (profile?.role !== 'admin' && profile?.role !== 'super_admin') throw new Error('Unauthorized');
 
-  const { data: existing } = await db.from('programs').select('id').eq('id', id).single();
+  const { data: existing } = await db.from('programs').select('id').eq('id', id).maybeSingle();
   if (!existing) throw new Error('Program not found');
 
   const { error } = await db

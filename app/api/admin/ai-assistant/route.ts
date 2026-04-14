@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
     if (!user) return safeError('Unauthorized', 401);
 
     const db = await getAdminClient();
-    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!['admin', 'super_admin', 'staff'].includes(profile?.role ?? '')) {
       return safeError('Forbidden', 403);
     }

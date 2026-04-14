@@ -30,7 +30,7 @@ export default async function ProgramHolderNotificationSettingsPage() {
     .from('program_holders')
     .select('id, organization_name')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!programHolder) {
     redirect('/unauthorized');
@@ -41,7 +41,7 @@ export default async function ProgramHolderNotificationSettingsPage() {
     .from('notification_preferences')
     .select('*')
     .eq('program_holder_id', programHolder.id)
-    .single();
+    .maybeSingle();
 
   // Create default preferences if they don't exist
   if (!preferences) {
@@ -55,7 +55,7 @@ export default async function ProgramHolderNotificationSettingsPage() {
         sms_opt_out: false,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     preferences = newPreferences;
   }

@@ -88,7 +88,7 @@ export default function SetPasswordPage() {
           .from('profiles')
           .select('role')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
         const dest = nextParam || portalFor(profile?.role);
         setPortal(dest);
         setUserRole(profile?.role ?? null);

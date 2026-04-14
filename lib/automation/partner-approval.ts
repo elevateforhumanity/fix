@@ -53,7 +53,7 @@ export async function checkPartnerApproval(
       .from('partners')
       .select('*')
       .eq('id', partnerId)
-      .single();
+      .maybeSingle();
     
     if (partnerError || !partner) {
       return {
@@ -112,7 +112,7 @@ export async function checkPartnerApproval(
       .from('program_holders')
       .select('mou_status')
       .eq('partner_id', partnerId)
-      .single();
+      .maybeSingle();
     
     const mouSigned = mouStatus?.mou_status === 'fully_executed';
     
@@ -122,7 +122,7 @@ export async function checkPartnerApproval(
       .select('rules, version')
       .eq('rule_type', 'partner_approval')
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
     
     const rules = ruleset?.rules || {
       required_docs: ['shop_license', 'partner_mou'],
@@ -172,7 +172,7 @@ export async function checkPartnerApproval(
         actor: 'system',
       })
       .select()
-      .single();
+      .maybeSingle();
     
     // 11. Update partner status if approved
     if (canAutoApprove) {
@@ -206,7 +206,7 @@ export async function checkPartnerApproval(
           },
         })
         .select()
-        .single();
+        .maybeSingle();
       
       reviewQueueId = queueItem?.id;
     }

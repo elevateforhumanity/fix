@@ -31,7 +31,7 @@ export async function validateLicense(licenseKey: string): Promise<LicenseValida
     .from('licenses')
     .select('id, tenant_id, status, features, expires_at, tier, max_users')
     .eq('license_key', licenseKey)
-    .single();
+    .maybeSingle();
 
   if (!license) {
     return { valid: false, status: 'not_found', message: 'License not found' };
@@ -82,7 +82,7 @@ export async function validateTenantLicense(tenantId: string): Promise<LicenseVa
     .from('tenants')
     .select('license_status, license_expires_at')
     .eq('id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (!tenant) {
     return { valid: false, status: 'not_found', message: 'Tenant not found' };
@@ -114,7 +114,7 @@ export async function validateTenantLicense(tenantId: string): Promise<LicenseVa
     .select('features, expires_at')
     .eq('tenant_id', tenantId)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
 
   return {
     valid: true,
@@ -164,7 +164,7 @@ export async function handleRefund(paymentIntentId: string): Promise<void> {
     .from('license_purchases')
     .select('tenant_id, license_id')
     .eq('stripe_payment_intent_id', paymentIntentId)
-    .single();
+    .maybeSingle();
 
   if (!purchase?.tenant_id) {
     logger.warn('Refund received for unknown payment', { paymentIntentId });
@@ -208,7 +208,7 @@ export async function handleDispute(paymentIntentId: string): Promise<void> {
     .from('license_purchases')
     .select('tenant_id, license_id')
     .eq('stripe_payment_intent_id', paymentIntentId)
-    .single();
+    .maybeSingle();
 
   if (!purchase?.tenant_id) {
     logger.warn('Dispute received for unknown payment', { paymentIntentId });

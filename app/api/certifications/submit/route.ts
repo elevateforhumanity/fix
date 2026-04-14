@@ -40,7 +40,7 @@ async function _POST(request: NextRequest) {
     .eq('program_id', programId)
     .eq('certification_name', certificationName)
     .eq('status', 'pending_review')
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return NextResponse.json({ 
@@ -63,7 +63,7 @@ async function _POST(request: NextRequest) {
       status: 'pending_review',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to create submission:', error);

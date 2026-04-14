@@ -24,7 +24,7 @@ export default async function StaffApplicationPage() {
     .from('site_settings')
     .select('*')
     .eq('key', 'staff_applications')
-    .single();
+    .maybeSingle();
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}

@@ -50,7 +50,7 @@ export async function seedCourseToCurriculumLessons(
     .from('courses')
     .select('id, title, slug, status, description')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (courseErr || !course) {
     result.errors.push(`Course not found: ${courseId}`);

@@ -31,7 +31,7 @@ async function _POST(
       .from('courses')
       .select('id, title')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (courseError || !course) {
       return NextResponse.json({ error: 'Course not found' }, { status: 404 });
@@ -43,7 +43,7 @@ async function _POST(
       .select('id, status, progress')
       .eq('user_id', user.id)
       .eq('course_id', courseId)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !enrollment) {
       return NextResponse.json(
@@ -107,7 +107,7 @@ async function _POST(
       .from('courses')
       .select('slug')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     const requirements = getCourseRequirements(courseDetail?.slug || '');
     let examSession: any = null;
@@ -208,7 +208,7 @@ async function _POST(
       .from('profiles')
       .select('first_name, last_name, email')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     return NextResponse.json({
       success: true,
@@ -262,7 +262,7 @@ async function _GET(
       .select('status, progress, completed_at')
       .eq('user_id', user.id)
       .eq('course_id', courseId)
-      .single();
+      .maybeSingle();
 
     const { data: lessons } = await supabase
       .from('course_lessons')
@@ -281,7 +281,7 @@ async function _GET(
       .select('id, certificate_number, issued_at, verification_url')
       .eq('user_id', user.id)
       .eq('course_id', courseId)
-      .single();
+      .maybeSingle();
 
     return NextResponse.json({
       courseId,

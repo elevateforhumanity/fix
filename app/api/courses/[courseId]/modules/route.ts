@@ -67,7 +67,7 @@ async function _POST(
         created_by: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Failed to create module' }, { status: 500 });

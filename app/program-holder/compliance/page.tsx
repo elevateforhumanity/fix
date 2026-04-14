@@ -33,7 +33,7 @@ export default async function CompliancePage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['program_holder','admin','super_admin','staff'].includes(profile.role)) redirect('/login');
 
@@ -42,7 +42,7 @@ export default async function CompliancePage() {
     .from('program_holders')
     .select('*')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!programHolder) {
     redirect('/apply/program-holder');

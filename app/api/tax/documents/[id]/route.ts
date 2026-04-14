@@ -33,7 +33,7 @@ const { id } = await params;
       .select('*')
       .eq('id', id)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !document) {
       return NextResponse.json(

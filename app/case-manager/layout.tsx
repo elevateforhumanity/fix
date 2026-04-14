@@ -35,7 +35,7 @@ export default async function CaseManagerLayout({ children }: { children: React.
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !ALLOWED_ROLES.includes(profile.role)) {
     redirect('/unauthorized');

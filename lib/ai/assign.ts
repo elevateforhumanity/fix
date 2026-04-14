@@ -14,7 +14,7 @@ export async function assignAIInstructorForProgram(opts: {
     .eq("is_active", true)
     .order("created_at", { ascending: true })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (iErr || !instructor) {
     return { ok: false, reason: "NO_INSTRUCTOR_CONFIGURED" as const };

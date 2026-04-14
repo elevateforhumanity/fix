@@ -30,7 +30,7 @@ export async function submitQuiz(formData: FormData) {
     .from('lms_lessons')
     .select('course_id')
     .eq('id', quizId)
-    .single();
+    .maybeSingle();
 
   if (lessonError || !lesson?.course_id) {
     return { error: 'Quiz not found' };
@@ -59,7 +59,7 @@ export async function submitQuiz(formData: FormData) {
       status: 'submitted',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return { error: 'Quiz submission failed' };

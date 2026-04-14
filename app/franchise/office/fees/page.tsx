@@ -96,7 +96,7 @@ export default function FeeSchedulesPage() {
         .from('franchise_offices')
         .select('*')
         .eq('owner_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!officeData) {
         setLoading(false);

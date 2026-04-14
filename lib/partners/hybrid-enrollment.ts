@@ -45,7 +45,7 @@ export async function enrollInExternalModule(
       .from('external_partner_modules')
       .select('*')
       .eq('id', request.moduleId)
-      .single();
+      .maybeSingle();
 
     if (moduleError || !module) {
       throw new Error('Module not found');
@@ -56,7 +56,7 @@ export async function enrollInExternalModule(
       .from('profiles')
       .select('*')
       .eq('id', request.userId)
-      .single();
+      .maybeSingle();
 
     if (studentError || !student) {
       throw new Error('Student not found');
@@ -139,7 +139,7 @@ async function enrollViaAPI(
       { onConflict: 'module_id,user_id' }
     )
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -168,7 +168,7 @@ async function enrollViaLink(
       { onConflict: 'module_id,user_id' }
     )
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -198,7 +198,7 @@ export async function syncExternalModuleProgress(
     `
     )
     .eq('id', progressId)
-    .single();
+    .maybeSingle();
 
   if (progressError || !progress) {
     throw new Error('Progress record not found');

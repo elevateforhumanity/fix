@@ -28,7 +28,7 @@ export default async function ApprenticeHandbookPage() {
     .from('documents')
     .select('url')
     .eq('document_type', 'apprentice-handbook')
-    .single();
+    .maybeSingle();
 
   const defaultSections = [
     {

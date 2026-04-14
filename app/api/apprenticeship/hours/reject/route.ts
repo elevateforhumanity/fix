@@ -37,13 +37,13 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const { data: partnerUser } = await supabase
       .from('partner_users')
       .select('partner_id, role')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role && ['admin', 'super_admin'].includes(profile.role);
     const isPartner = !!partnerUser;

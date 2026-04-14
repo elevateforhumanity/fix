@@ -23,7 +23,7 @@ const userId = req.headers.get('x-user-id');
     .from('studio_settings')
     .select('*')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (error && error.code !== 'PGRST116') {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -59,7 +59,7 @@ const userId = req.headers.get('x-user-id');
       updated_at: new Date().toISOString()
     }, { onConflict: 'user_id' })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

@@ -71,7 +71,7 @@ async function _POST(request: NextRequest) {
         payment_weeks: paymentPlan?.weeks || null,
         status: 'pending_payment',
         created_at: new Date().toISOString(),
-      }).select().single(),
+      }).select().maybeSingle(),
       'Failed to create enrollment record. Please try again or call (317) 314-3757.'
     );
 

@@ -89,7 +89,7 @@ export default function ReturnDetailPage() {
           ero:franchise_preparers!franchise_return_submissions_ero_id_fkey(first_name, last_name)
         `)
         .eq('id', returnId)
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         toast({ title: 'Return not found', variant: 'destructive' });

@@ -27,7 +27,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('profiles')
     .select('program_holder_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!prof?.program_holder_id) {
     return new Response('No program holder assigned', { status: 404 });
@@ -38,7 +38,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('program_holders')
     .select('mou_final_pdf_url, name')
     .eq('id', prof.program_holder_id)
-    .single();
+    .maybeSingle();
 
   if (!ph?.mou_final_pdf_url) {
     return new Response('No signed MOU available', { status: 404 });

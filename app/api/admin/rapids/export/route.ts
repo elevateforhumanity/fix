@@ -36,7 +36,7 @@ async function _GET(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -115,7 +115,7 @@ async function _POST(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });

@@ -124,7 +124,7 @@ export class ClientService {
       .from('franchise_clients')
       .select('*')
       .eq('id', clientId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       if (error.code === 'PGRST116') return null;
@@ -334,7 +334,7 @@ export class ClientService {
       })
       .eq('id', clientId)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw new Error(`Failed to update client`);
     

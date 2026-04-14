@@ -125,7 +125,7 @@ export function withRateLimitAndAuth<T = any>(
           .from('profiles')
           .select('role')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
 
         if (!profile?.role || !options.roles.includes(profile.role)) {
           return NextResponse.json(

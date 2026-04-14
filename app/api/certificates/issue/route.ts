@@ -30,7 +30,7 @@ async function _POST(request: NextRequest) {
     }
     const adminDb = await getAdminClient();
     const authDb = adminDb || authClient;
-    const { data: profile } = await authDb.from('profiles').select('role').eq('id', session.user.id).single();
+    const { data: profile } = await authDb.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden — admin role required' }, { status: 403 });
     }
@@ -143,7 +143,7 @@ async function _POST(request: NextRequest) {
         status: "active",
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (dbError) {
       return NextResponse.json(

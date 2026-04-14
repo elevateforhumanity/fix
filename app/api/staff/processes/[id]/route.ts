@@ -33,7 +33,7 @@ const { id } = await params;
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (
       !profile ||
@@ -46,7 +46,7 @@ const { id } = await params;
       .from('processes')
       .select('*, process_steps(*)')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

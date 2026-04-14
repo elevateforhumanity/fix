@@ -186,7 +186,7 @@ class SupersonicTaxEngine {
       const { data } = await db.from('sfc_tax_returns')
         .select('status, updated_at')
         .eq('efile_submission_id', submissionId)
-        .single();
+        .maybeSingle();
       if (data) {
         return {
           success: data.status === 'accepted',
@@ -228,7 +228,7 @@ class SupersonicTaxEngine {
       const { data } = await db.from('sfc_tax_returns')
         .select('status, updated_at, preparer')
         .eq('tracking_id', returnId)
-        .single();
+        .maybeSingle();
       if (data) {
         const statusMap: Record<string, string> = {
           received: 'draft', pending_review: 'review', generating_forms: 'review',

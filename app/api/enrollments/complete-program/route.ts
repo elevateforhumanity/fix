@@ -68,7 +68,7 @@ async function _POST(req: NextRequest) {
         )
       `)
       .eq('id', enrollment_id)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !enrollment) {
       logger.error('Enrollment not found', { enrollment_id, error: enrollmentError });
@@ -80,7 +80,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'admin' || profile?.role === 'super_admin';
     if (enrollment.user_id !== user.id && !isAdmin) {
@@ -92,7 +92,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('full_name, first_name, last_name, email')
       .eq('id', enrollment.user_id)
-      .single();
+      .maybeSingle();
 
     if (!studentProfile || !studentProfile.email) {
       return NextResponse.json({ error: 'Student profile not found' }, { status: 404 });

@@ -57,7 +57,7 @@ export async function getCourseAnalytics(courseId: string): Promise<CourseAnalyt
     .from('training_courses')
     .select('id, title')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course) return null;
 

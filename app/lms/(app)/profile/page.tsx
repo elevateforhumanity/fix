@@ -16,7 +16,7 @@ export default async function ProfilePage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).maybeSingle();
   const { count: completedCourses } = await supabase.from('program_enrollments').select('*', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'completed');
   const { count: certificates } = await supabase.from('certificates').select('*', { count: 'exact', head: true }).eq('user_id', user.id);
 

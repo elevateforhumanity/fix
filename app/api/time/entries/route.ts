@@ -52,7 +52,7 @@ async function _POST(req: Request) {
     .from('student_enrollments')
     .select('id, student_id, program_id')
     .eq('id', enrollment_id)
-    .single();
+    .maybeSingle();
 
   if (enrollErr || !enrollment) {
     return NextResponse.json(
@@ -224,7 +224,7 @@ async function _POST(req: Request) {
       status: 'pending',
     })
     .select('*')
-    .single();
+    .maybeSingle();
 
   if (insErr)
     return NextResponse.json({ error: 'Operation failed' }, { status: 500 });

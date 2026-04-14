@@ -78,7 +78,7 @@ export default async function FerpaRequestsPage() {
     .from('profiles')
     .select('role, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const allowedRoles = ['admin', 'super_admin', 'ferpa_officer', 'registrar', 'staff'];
   if (!profile || !allowedRoles.includes(profile.role)) {

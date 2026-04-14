@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       status: 'pending_review',
     })
     .select('id, slug, title')
-    .single();
+    .maybeSingle();
 
   if (createError) return safeInternalError(createError, 'Failed to create program');
 

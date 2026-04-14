@@ -32,7 +32,7 @@ export default async function CertificationPage({ params }: Props) {
     .from('courses')
     .select('id, title, program_id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course) redirect('/lms/courses');
 

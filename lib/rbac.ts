@@ -56,7 +56,7 @@ export async function getCurrentUserWithRole(): Promise<{
     .from("profiles")
     .select("id, role, full_name, email")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
   if (profileError) {
     // We still return the raw user so callers can decide what to do
@@ -149,7 +149,7 @@ export async function getCurrentRole(): Promise<string | null> {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     return profile?.role || null;
   } catch (error) {

@@ -27,7 +27,7 @@ async function _POST(req: Request) {
       .from('program_enrollments')
       .select('id, user_id, enrollment_state')
       .eq('id', enrollment_id)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !enrollment) {
       return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 });

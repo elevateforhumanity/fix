@@ -21,7 +21,7 @@ export default async function OnboardingLayout({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const allowed = ['program_holder', 'admin', 'super_admin', 'staff', 'employer', 'partner'];
   if (!profile || !allowed.includes(profile.role)) {

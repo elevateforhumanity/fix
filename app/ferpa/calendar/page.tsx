@@ -50,7 +50,7 @@ export default async function FerpaCalendarPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const allowedRoles = ['admin', 'super_admin', 'ferpa_officer', 'registrar', 'staff'];
   if (!profile || !allowedRoles.includes(profile.role)) redirect('/unauthorized');

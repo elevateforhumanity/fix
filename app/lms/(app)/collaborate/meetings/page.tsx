@@ -30,7 +30,7 @@ export default async function MeetingsPage() {
     .from('profiles')
     .select('full_name, avatar_url')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch user's scheduled meetings from study_sessions if table exists
   let upcomingMeetings: any[] = [];

@@ -59,7 +59,7 @@ export default function AdminAgreementsPage() {
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
         setError('Admin access required');

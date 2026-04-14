@@ -46,7 +46,7 @@ async function _POST(request: NextRequest) {
       .from('hsi_course_products')
       .select('*')
       .eq('course_type', courseType)
-      .single();
+      .maybeSingle();
 
     if (courseError || !course) { /* Condition handled */ }
 

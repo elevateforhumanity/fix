@@ -59,7 +59,7 @@ const cookieStore = await cookies();
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (error || !profile) {
       logger.error('Error fetching profile:', error);

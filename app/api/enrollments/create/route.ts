@@ -78,7 +78,7 @@ async function _POST(request: NextRequest) {
           .from('enrollment_idempotency')
           .select('enrollment_id, created_at')
           .eq('idempotency_key', idempotencyKey)
-          .single();
+          .maybeSingle();
 
         if (existingByKey) {
           logger.info('Idempotent enrollment request', { idempotencyKey, requestId });
@@ -99,7 +99,7 @@ async function _POST(request: NextRequest) {
       .from('courses')
       .select('id, title, status, is_active')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (courseError || !course) {
       return NextResponse.json(
@@ -141,7 +141,7 @@ async function _POST(request: NextRequest) {
       .select('user_id, course_id, status')
       .eq('user_id', user.id)
       .eq('course_id', courseId)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       if (existing.status === 'active') {
@@ -162,7 +162,7 @@ async function _POST(request: NextRequest) {
         .eq('user_id', user.id)
         .eq('course_id', courseId)
         .select()
-        .single();
+        .maybeSingle();
 
       if (reactivateError) {
         logger.error('Enrollment reactivation failed', reactivateError instanceof Error ? reactivateError : new Error(String(reactivateError)));
@@ -193,7 +193,7 @@ async function _POST(request: NextRequest) {
         funding_source:    fundingSource || null,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Enrollment creation failed', error instanceof Error ? error : new Error(String(error)));

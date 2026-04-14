@@ -30,7 +30,7 @@ async function _GET(req: NextRequest) {
       .from("user_profiles")
       .select("role")
       .eq("user_id", user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !["admin", "instructor"].includes(profile.role)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
@@ -86,7 +86,7 @@ async function _POST(req: NextRequest) {
       .from("user_profiles")
       .select("role")
       .eq("user_id", user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !["admin", "instructor"].includes(profile.role)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
@@ -123,7 +123,7 @@ async function _POST(req: NextRequest) {
         settings,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (courseError) {
       logger.error("Error creating course:", courseError);

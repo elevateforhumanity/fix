@@ -17,7 +17,7 @@ export async function getFirmById(firmId: string) {
     .from('tax_firms')
     .select('*')
     .eq('id', firmId)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -39,7 +39,7 @@ export async function createFirm(input: {
       address: input.address ?? null,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;

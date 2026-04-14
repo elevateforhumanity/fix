@@ -32,7 +32,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (
       !profile ||
@@ -84,7 +84,7 @@ async function _POST(request: NextRequest) {
       .from('id_verifications')
       .select('*')
       .eq('id', verificationId)
-      .single();
+      .maybeSingle();
 
     if (!verification) {
       return NextResponse.json({ success: true });

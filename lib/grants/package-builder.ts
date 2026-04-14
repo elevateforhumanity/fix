@@ -47,7 +47,7 @@ export async function generateNarrativeDocx(
     .from('grant_applications')
     .select('*, grant:grant_opportunities(*), entity:entities(*)')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (error || !app) {
     throw new Error('Application not found');
@@ -117,7 +117,7 @@ export async function generateNarrativePdf(
     .from('grant_applications')
     .select('*, grant:grant_opportunities(*), entity:entities(*)')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (error || !app) {
     throw new Error('Application not found');
@@ -223,7 +223,7 @@ export async function generateCapabilityStatement(
     .from('entities')
     .select('*')
     .eq('id', entityId)
-    .single();
+    .maybeSingle();
 
   if (error || !entity) {
     throw new Error('Entity not found');
@@ -338,7 +338,7 @@ export async function generateBudgetSpreadsheet(
     .from('grant_applications')
     .select('*')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (error || !app) {
     throw new Error('Application not found');
@@ -372,7 +372,7 @@ export async function buildGrantPackage(
     .from('grant_applications')
     .select('*, grant:grant_opportunities(*), entity:entities(*)')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (error || !app) {
     throw new Error('Application not found');

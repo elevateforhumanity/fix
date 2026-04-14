@@ -24,7 +24,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     if (!adminProfile || !['admin', 'super_admin'].includes(adminProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -41,7 +41,7 @@ async function _POST(req: Request) {
       .from('marketplace_products')
       .select('title, creator_id, status')
       .eq('id', productId)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
@@ -61,14 +61,14 @@ async function _POST(req: Request) {
           .from('marketplace_creators')
           .select('user_id')
           .eq('id', product.creator_id)
-          .single();
+          .maybeSingle();
 
         if (creator?.user_id) {
           const { data: profile } = await supabase
             .from('profiles')
             .select('email, full_name')
             .eq('id', creator.user_id)
-            .single();
+            .maybeSingle();
 
           if (profile?.email) {
             const { sendProductApprovalEmail } = await import('@/lib/email/sendgrid');

@@ -57,7 +57,7 @@ export async function getMarketingPageBySlug(slug: string): Promise<MarketingPag
     `)
     .eq('slug', slug)
     .eq('published', true)
-    .single();
+    .maybeSingle();
 
   if (error || !page) {
     return null;

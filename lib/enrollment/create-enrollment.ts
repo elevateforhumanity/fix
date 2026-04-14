@@ -174,7 +174,7 @@ export async function createEnrollmentFromPayment(
           access_granted_at: null,
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (enrollError) {
         logger.error('[Enrollment] Failed to create enrollment', enrollError);
@@ -281,7 +281,7 @@ async function sendEnrollmentWelcomeEmail(params: {
       .from('programs')
       .select('name')
       .eq('id', programId)
-      .single();
+      .maybeSingle();
 
     const siteUrl =
       process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org';

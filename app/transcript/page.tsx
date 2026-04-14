@@ -25,7 +25,7 @@ export default async function TranscriptPage() {
     .from('profiles')
     .select('full_name, email')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // All lessons for this course
   const courseId = (enrollment?.training_courses as any)?.id ?? enrollment?.course_id;

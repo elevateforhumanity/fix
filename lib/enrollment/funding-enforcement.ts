@@ -35,7 +35,7 @@ export async function validateIntakeCompletion(
     .from('intake_records')
     .select('*')
     .eq('id', intakeId)
-    .single();
+    .maybeSingle();
   
   if (error || !intake) {
     return {
@@ -135,7 +135,7 @@ export async function validateEnrollmentEligibility(
     .eq('user_id', userId)
     .eq('program_id', programId)
     .eq('status', 'completed')
-    .single();
+    .maybeSingle();
   
   if (error || !intake) {
     return {
@@ -243,7 +243,7 @@ export async function createBridgePaymentPlan(
       credential_hold: true,
     })
     .select('id')
-    .single();
+    .maybeSingle();
   
   if (error) {
     return { success: false, error: 'Operation failed' };
@@ -266,7 +266,7 @@ export async function canIssueCredential(
     .from('bridge_payment_plans')
     .select('balance_remaining, status')
     .eq('enrollment_id', enrollmentId)
-    .single();
+    .maybeSingle();
   
   if (plan && plan.balance_remaining > 0) {
     return {
@@ -280,7 +280,7 @@ export async function canIssueCredential(
     .from('program_enrollments')
     .select('status, intake_completed, funding_pathway')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
   
   if (!enrollment) {
     return { canIssue: false, reason: 'Enrollment not found' };
@@ -313,7 +313,7 @@ export async function checkAcademicAccess(
     .select('status, funding_pathway')
     .eq('id', enrollmentId)
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
   
   if (!enrollment) {
     return { hasAccess: false, reason: 'Enrollment not found' };
@@ -333,7 +333,7 @@ export async function checkAcademicAccess(
       .from('bridge_payment_plans')
       .select('academic_access_paused, academic_access_paused_reason, down_payment_paid')
       .eq('enrollment_id', enrollmentId)
-      .single();
+      .maybeSingle();
     
     if (plan) {
       if (!plan.down_payment_paid) {
@@ -424,7 +424,7 @@ export async function assignFundingPathway(
     .from('intake_records')
     .select('workforce_screening_completed, employer_screening_completed')
     .eq('id', intakeId)
-    .single();
+    .maybeSingle();
   
   if (!intake) {
     return { success: false, error: 'Intake record not found' };

@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     // Insert acceptance record
     const { error: insertError } = await admin

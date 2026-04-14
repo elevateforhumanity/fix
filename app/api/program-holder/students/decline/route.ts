@@ -32,7 +32,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'program_holder') {
       return NextResponse.json(
@@ -46,7 +46,7 @@ async function _POST(request: NextRequest) {
       .from('program_holders')
       .select('id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (phError || !programHolder) {
       return NextResponse.json(
@@ -72,7 +72,7 @@ async function _POST(request: NextRequest) {
       .select('*')
       .eq('id', enrollment_id)
       .eq('program_holder_id', programHolder.id)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !enrollment) {
       return NextResponse.json(
@@ -92,7 +92,7 @@ async function _POST(request: NextRequest) {
       })
       .eq('id', enrollment_id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (updateError) {
       return NextResponse.json(
@@ -119,13 +119,13 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('email, full_name')
       .eq('id', enrollment.student_id)
-      .single();
+      .maybeSingle();
 
     const { data: phProfile } = await supabase
       .from('profiles')
       .select('full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     // Send notification email to student (non-blocking)
     if (studentProfile?.email) {

@@ -89,7 +89,7 @@ export default function MessagesClient({ userId, initialConversations, participa
         content: newMessage.trim(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (data && !error) {
       setMessages(prev => [...prev, data]);

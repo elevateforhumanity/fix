@@ -31,7 +31,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'program_owner') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -52,7 +52,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('program_holder_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!holderProfile?.program_holder_id) {
       return NextResponse.json({ error: 'No program holder record found' }, { status: 403 });

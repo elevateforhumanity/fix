@@ -64,7 +64,7 @@ export async function updateGrantOpportunity(id: string, formData: FormData) {
   const { data: _p } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!_p || !['admin', 'super_admin'].includes(_p.role)) return { error: 'Forbidden' };
 
-  const { data: existing } = await db.from('grant_opportunities').select('id').eq('id', id).single();
+  const { data: existing } = await db.from('grant_opportunities').select('id').eq('id', id).maybeSingle();
   if (!existing) return { error: 'Grant not found' };
 
   const focusAreas = (formData.get('focusAreas') as string)
@@ -112,7 +112,7 @@ export async function deleteGrantOpportunity(id: string) {
   const { data: _p } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!_p || !['admin', 'super_admin'].includes(_p.role)) return { error: 'Forbidden' };
 
-  const { data: existing } = await db.from('grant_opportunities').select('id').eq('id', id).single();
+  const { data: existing } = await db.from('grant_opportunities').select('id').eq('id', id).maybeSingle();
   if (!existing) return { error: 'Grant not found' };
 
   const { error } = await db
@@ -178,7 +178,7 @@ export async function updateGrantApplicationStatus(
   const supabase = await createClient();
   const db = await getAdminClient();
 
-  const { data: existing } = await db.from('grant_applications').select('id').eq('id', id).single();
+  const { data: existing } = await db.from('grant_applications').select('id').eq('id', id).maybeSingle();
   if (!existing) return { error: 'Grant application not found' };
 
   const updateData: Record<string, unknown> = {

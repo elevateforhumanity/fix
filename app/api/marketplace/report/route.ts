@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       .from('marketplace_products')
       .select('id')
       .eq('id', product_id)
-      .single();
+      .maybeSingle();
 
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });

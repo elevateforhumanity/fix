@@ -108,7 +108,7 @@ async function _GET(request: NextRequest) {
             .from("training_lessons")
             .select("title")
             .eq("id", nextLesson.id)
-            .single();
+            .maybeSingle();
           nextLessonTitle = lessonData?.title;
         }
 

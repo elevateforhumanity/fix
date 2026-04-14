@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
         verified_at: result.verified ? new Date().toISOString() : null,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

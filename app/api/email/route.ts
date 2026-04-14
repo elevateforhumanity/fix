@@ -69,7 +69,7 @@ async function _POST(request: NextRequest) {
         read: true,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

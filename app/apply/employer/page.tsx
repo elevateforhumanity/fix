@@ -24,7 +24,7 @@ export default async function EmployerApplicationPage() {
     .from('site_settings')
     .select('*')
     .eq('key', 'employer_applications')
-    .single();
+    .maybeSingle();
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}

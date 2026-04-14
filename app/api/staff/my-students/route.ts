@@ -24,7 +24,7 @@ async function _GET(request: Request) {
       .from('profiles')
       .select('role')
       .eq('id', tenantContext.userId)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'staff') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

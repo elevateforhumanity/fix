@@ -48,7 +48,7 @@ export async function runBarberPostPayment(
     })
     .eq('id', applicationId)
     .select('id, email, first_name, last_name, phone, status, enrollment_id')
-    .single();
+    .maybeSingle();
 
   if (appErr || !app) {
     logger.error('[barber-post-payment] Step 1 failed: application update', { applicationId, error: appErr?.message });
@@ -124,7 +124,7 @@ export async function runBarberPostPayment(
               enrolled_at:                 new Date().toISOString(),
             })
             .select('id')
-            .single();
+            .maybeSingle();
 
           if (enrollErr || !newEnrollment) {
             logger.error('[barber-post-payment] Enrollment creation failed', { error: enrollErr?.message });

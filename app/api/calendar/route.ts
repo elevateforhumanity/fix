@@ -81,7 +81,7 @@ async function _POST(request: NextRequest) {
       color: color || '#3b82f6',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

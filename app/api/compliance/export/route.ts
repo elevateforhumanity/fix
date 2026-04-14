@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden - Admin access required' }, { status: 403 });
@@ -329,7 +329,7 @@ export async function POST(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden - Admin access required' }, { status: 403 });
@@ -358,12 +358,12 @@ export async function POST(request: NextRequest) {
             .from('handbook_acknowledgments')
             .select('acknowledged_at')
             .eq('user_id', userId)
-            .single(),
+            .maybeSingle(),
           supabase
             .from('onboarding_progress')
             .select('*')
             .eq('user_id', userId)
-            .single(),
+            .maybeSingle(),
         ]);
 
         results.push({

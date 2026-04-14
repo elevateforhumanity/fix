@@ -37,7 +37,7 @@ export default async function CompleteCourse({ params }: { params: Params }) {
     .from('courses')
     .select('id, title, description')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course) redirect('/lms/courses');
 
@@ -47,7 +47,7 @@ export default async function CompleteCourse({ params }: { params: Params }) {
     .select('status, completed_at')
     .eq('user_id', user.id)
     .eq('course_id', courseId)
-    .single();
+    .maybeSingle();
 
   const isAlreadyCompleted = progress?.status === 'completed';
 

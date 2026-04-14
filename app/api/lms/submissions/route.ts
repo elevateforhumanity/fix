@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     .select('id, lesson_type, course_id')
     .eq('id', course_lesson_id)
     .eq('course_id', course_id)
-    .single();
+    .maybeSingle();
 
   if (lessonErr || !lesson) {
     return safeError('Lesson not found', 404);
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
       updated_at:       new Date().toISOString(),
     })
     .select('id, status, created_at')
-    .single();
+    .maybeSingle();
 
   if (insertErr) return safeDbError(insertErr, 'Failed to create submission');
 

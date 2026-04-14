@@ -32,7 +32,7 @@ async function _GET(request: NextRequest) {
         .from('profiles')
         .select('id, full_name, email, avatar_url, phone')
         .eq('id', user.id)
-        .single(),
+        .maybeSingle(),
       
       // Active enrollment
       db

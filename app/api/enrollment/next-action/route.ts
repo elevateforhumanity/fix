@@ -36,7 +36,7 @@ async function _GET(req: Request) {
       query = query.eq('program_id', programId);
     }
 
-    const { data: enrollment, error } = await query.order('created_at', { ascending: false }).limit(1).single();
+    const { data: enrollment, error } = await query.order('created_at', { ascending: false }).limit(1).maybeSingle();
 
     if (error || !enrollment) {
       return NextResponse.json({ 

@@ -199,7 +199,7 @@ export async function POST(request: NextRequest) {
         onConflict: 'ssn_hash'
       })
       .select()
-      .single();
+      .maybeSingle();
     
     if (clientError) {
       logger.error('Client creation error:', clientError);
@@ -248,7 +248,7 @@ export async function POST(request: NextRequest) {
         status: 'pending'
       })
       .select()
-      .single();
+      .maybeSingle();
     
     // Store W2 income
     if (taxReturn.w2Income && taxReturn.w2Income.length > 0) {

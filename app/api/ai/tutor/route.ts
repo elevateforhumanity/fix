@@ -56,7 +56,7 @@ async function _POST(req: Request) {
     `
     )
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course) {
     return NextResponse.json({ error: 'Course not found' }, { status: 404 });

@@ -22,7 +22,7 @@ async function _GET(request: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'admin' || profile?.role === 'super_admin';
 

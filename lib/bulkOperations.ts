@@ -101,7 +101,7 @@ export async function bulkIssueCertificates(
       .from('training_courses')
       .select('title, program_name')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (!course) {
       return { success: false, error: 'Course not found' };

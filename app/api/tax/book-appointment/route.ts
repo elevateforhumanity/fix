@@ -66,7 +66,7 @@ async function _POST(req: Request) {
         refund_advance_amount: appointmentData.refundAdvanceAmount || null,
         location: appointmentData.location || null,
         status: 'pending',
-      }]).select().single(),
+      }]).select().maybeSingle(),
       'Failed to create appointment. Please call (317) 314-3757.'
     );
 

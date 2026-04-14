@@ -34,7 +34,7 @@ const supabase = await createClient();
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'advisor', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Staff access required' }, { status: 403 });
@@ -140,7 +140,7 @@ async function _POST(request: NextRequest) {
       referral_date: new Date().toISOString().split('T')[0],
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -170,7 +170,7 @@ const supabase = await createClient();
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'advisor', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Staff access required' }, { status: 403 });
@@ -231,7 +231,7 @@ const supabase = await createClient();
         .from('workforce_referrals')
         .select('*, enrollments(status, programs(name, title))')
         .eq('id', referralId)
-        .single();
+        .maybeSingle();
 
       if (!referral || !referral.case_manager_email) {
         return NextResponse.json({ 

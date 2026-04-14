@@ -84,7 +84,7 @@ export default function BillingSettingsPage() {
         .from('profiles')
         .select('account_balance')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       setPaymentMethods(methods || []);
       setInvoices(invoiceData || []);

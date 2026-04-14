@@ -67,7 +67,7 @@ export async function createNotification(
       created_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     // Error: $1
@@ -219,13 +219,13 @@ export async function sendGrantNotification(
     .from('grant_opportunities')
     .select('title')
     .eq('id', notification.grantId)
-    .single();
+    .maybeSingle();
 
   const { data: entity } = await db
     .from('entities')
     .select('name')
     .eq('id', notification.entityId)
-    .single();
+    .maybeSingle();
 
   const grantTitle = grant?.title || 'Unknown Grant';
   const entityName = entity?.name || 'Unknown Entity';
@@ -274,7 +274,7 @@ export async function notifyDraftGenerated(
     .from('grant_applications')
     .select('*, grant:grant_opportunities(title), entity:entities(name)')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (!app) return;
 
@@ -301,7 +301,7 @@ export async function notifyPackageReady(applicationId: string): Promise<void> {
     .from('grant_applications')
     .select('*, grant:grant_opportunities(title, due_date), entity:entities(name)')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (!app) return;
 
@@ -333,7 +333,7 @@ export async function notifyGrantSubmitted(
     .from('grant_applications')
     .select('*, grant:grant_opportunities(title), entity:entities(name)')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (!app) return;
 
@@ -369,7 +369,7 @@ export async function notifyDeadlineApproaching(
     .from('grant_opportunities')
     .select('*, applications:grant_applications(id, entity:entities(name))')
     .eq('id', grantId)
-    .single();
+    .maybeSingle();
 
   if (!grant || !grant.applications || grant.applications.length === 0) return;
 

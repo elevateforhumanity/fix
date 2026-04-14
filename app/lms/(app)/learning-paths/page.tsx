@@ -28,7 +28,7 @@ const getCachedUserData = unstable_cache(
         .from('profiles')
         .select('id, full_name, role, avatar_url')
         .eq('id', userId)
-        .single(),
+        .maybeSingle(),
       supabase
         .from('program_enrollments')
         .select('id, status, progress_percent, course_id, created_at, courses ( id, title, description, thumbnail_url )')

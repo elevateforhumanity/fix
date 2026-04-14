@@ -18,7 +18,7 @@ export async function loadCaseFile(participantId: string): Promise<ParticipantCa
     .from('profiles')
     .select('*')
     .eq('id', participantId)
-    .single();
+    .maybeSingle();
 
   if (profileError || !profile) {
     return null;

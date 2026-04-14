@@ -41,7 +41,7 @@ async function _POST(request: Request) {
         status: 'pending',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       // Error: $1

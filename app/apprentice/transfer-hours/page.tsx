@@ -25,7 +25,7 @@ export default async function TransferHoursPage() {
     .from('apprentices')
     .select('*, program:program_id(name, allows_transfer)')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   // Get transfer requests
   const { data: transferRequests } = await supabase

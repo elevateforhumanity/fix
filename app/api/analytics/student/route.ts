@@ -100,7 +100,7 @@ async function _GET(request: NextRequest) {
       .from("learning_activity")
       .select("current_streak")
       .eq("user_id", user.id)
-      .single();
+      .maybeSingle();
 
     // Count courses
     const coursesInProgress = courseIds.length;

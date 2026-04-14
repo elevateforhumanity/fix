@@ -41,7 +41,7 @@ async function _POST(request: Request) {
         contact_methods: contactMethod,
         questions,
         created_at: new Date().toISOString(),
-      }).select().single(),
+      }).select().maybeSingle(),
       'Failed to save advising request'
     );
 

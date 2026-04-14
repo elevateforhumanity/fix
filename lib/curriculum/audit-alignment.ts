@@ -316,7 +316,7 @@ export async function runContentAlignmentAudit(
     .from('programs')
     .select('id, slug, name')
     .eq('slug', programSlug)
-    .single();
+    .maybeSingle();
 
   if (!program) {
     logger.error('audit-alignment: program not found', { programSlug });

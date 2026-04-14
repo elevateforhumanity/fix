@@ -33,7 +33,7 @@ async function _GET(request: NextRequest) {
       .from("profiles")
       .select("role")
       .eq("id", user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== "admin" && profile?.role !== "staff") {
       return NextResponse.json(

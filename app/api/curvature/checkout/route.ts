@@ -126,7 +126,7 @@ async function _POST(request: NextRequest) {
         stripe_session_id: session.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (order) {
       // Create order items

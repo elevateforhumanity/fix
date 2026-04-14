@@ -73,7 +73,7 @@ export default function AdminOfficesPage() {
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
         setAuthorized(false);

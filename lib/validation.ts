@@ -13,7 +13,7 @@ export async function checkDuplicateEnrollment(
     .eq('student_id', studentId)
     .eq('program_id', programId)
     .in('status', ['active', 'completed'])
-    .single();
+    .maybeSingle();
 
   return {
     isDuplicate: !!existing,
@@ -29,7 +29,7 @@ export async function verifyCertificateEligibility(enrollmentId: string) {
       '*, program:programs(required_lessons), progress:lesson_progress(completed_at)'
     )
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment || enrollment.status !== 'completed') {
     return { eligible: false, reason: 'Program not completed' };

@@ -35,7 +35,7 @@ export default async function VerifyCertificatePage({
     .from('program_completion_certificates')
     .select('*, users(full_name, email)')
     .eq('certificate_number', certificateId)
-    .single();
+    .maybeSingle();
 
   if (programCert) {
     certificate = programCert;
@@ -52,7 +52,7 @@ export default async function VerifyCertificatePage({
       .from('partner_certificates')
       .select('*, users(full_name, email), partner_courses(course_name)')
       .eq('certificate_number', certificateId)
-      .single();
+      .maybeSingle();
 
     if (partnerCert) {
       certificate = partnerCert;
@@ -70,7 +70,7 @@ export default async function VerifyCertificatePage({
       .from('module_certificates')
       .select('*, users(full_name, email)')
       .eq('certificate_number', certificateId)
-      .single();
+      .maybeSingle();
 
     if (moduleCert) {
       certificate = moduleCert;
@@ -88,7 +88,7 @@ export default async function VerifyCertificatePage({
       .from('certificates')
       .select('*, profiles:student_id(full_name, email)')
       .or(`certificate_number.eq.${certificateId},verification_token.eq.${certificateId},id.eq.${certificateId}`)
-      .single();
+      .maybeSingle();
 
     if (mainCert) {
       certificate = mainCert;

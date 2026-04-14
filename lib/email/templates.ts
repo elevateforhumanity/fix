@@ -10,7 +10,7 @@ export async function getEmailTemplate(key: string, tenantId?: string | null) {
       .select("*")
       .eq("tenant_id", tenantId)
       .eq("key", key)
-      .single();
+      .maybeSingle();
 
     if (tenantTemplate) return tenantTemplate;
   }
@@ -21,7 +21,7 @@ export async function getEmailTemplate(key: string, tenantId?: string | null) {
     .select("*")
     .is("tenant_id", null)
     .eq("key", key)
-    .single();
+    .maybeSingle();
 
   return globalTemplate;
 }

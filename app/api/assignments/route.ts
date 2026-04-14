@@ -117,7 +117,7 @@ async function _POST(request: Request) {
         submission_type: submissionType || 'text',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Error creating assignment:', error);

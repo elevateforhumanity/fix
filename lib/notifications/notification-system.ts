@@ -58,7 +58,7 @@ export async function createNotification(data: {
       read: false,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error creating notification:', error);

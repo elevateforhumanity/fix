@@ -27,7 +27,7 @@ async function _POST(req: Request) {
       .from('program_enrollments')
       .select('id, user_id, enrollment_state, program_id, email, full_name')
       .eq('id', enrollment_id)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !enrollment) {
       return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 });
@@ -127,7 +127,7 @@ async function _POST(req: Request) {
           .from('programs')
           .select('slug')
           .eq('id', enrollment.program_id)
-          .single();
+          .maybeSingle();
         if (prog?.slug) {
           await supabase
             .from('external_program_enrollments')

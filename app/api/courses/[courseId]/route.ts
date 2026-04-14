@@ -44,8 +44,8 @@ async function _GET(
 
     // Query by ID or slug
     const { data: course, error: courseError } = isUUID
-      ? await query.eq('id', courseId).single()
-      : await query.eq('slug', courseId).single();
+      ? await query.eq('id', courseId).maybeSingle()
+      : await query.eq('slug', courseId).maybeSingle();
 
     if (courseError) {
       return NextResponse.json({ error: 'Course operation failed' }, { status: 404 });
@@ -96,7 +96,7 @@ async function _PATCH(
       .from('profiles')
       .select('role')
       .eq('id', session.user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'instructor'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -161,7 +161,7 @@ async function _DELETE(
       .from('profiles')
       .select('role')
       .eq('id', session.user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'admin') {
       return NextResponse.json(

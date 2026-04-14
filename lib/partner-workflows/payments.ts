@@ -39,7 +39,7 @@ export async function createPartnerPaymentSession(
       .from('partner_lms_providers')
       .select('*')
       .eq('id', request.providerId)
-      .single();
+      .maybeSingle();
 
     if (!provider) {
       throw new Error('Provider not found');
@@ -50,7 +50,7 @@ export async function createPartnerPaymentSession(
       .from('profiles')
       .select('*')
       .eq('id', request.studentId)
-      .single();
+      .maybeSingle();
 
     if (!student) {
       throw new Error('Student not found');
@@ -71,7 +71,7 @@ export async function createPartnerPaymentSession(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       throw enrollmentError;
@@ -170,7 +170,7 @@ export async function handlePaymentSuccess(sessionId: string): Promise<void> {
     .from('partner_lms_enrollments')
     .select('provider_id, student_id')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (enrollment) {
     await supabase.functions.invoke('send-partner-welcome-email', {
@@ -240,7 +240,7 @@ export async function getProviderPricing(providerId: string): Promise<{
     .from('partner_lms_providers')
     .select('requires_payment, payment_amount')
     .eq('id', providerId)
-    .single();
+    .maybeSingle();
 
   if (!provider) {
     throw new Error('Provider not found');
@@ -285,7 +285,7 @@ export async function createPaymentLink(
     .from('partner_lms_providers')
     .select('provider_name')
     .eq('id', providerId)
-    .single();
+    .maybeSingle();
 
   if (!provider) {
     throw new Error('Provider not found');

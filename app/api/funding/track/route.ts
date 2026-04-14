@@ -31,7 +31,7 @@ async function _POST(request: Request) {
       start_date: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

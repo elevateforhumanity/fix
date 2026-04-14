@@ -30,7 +30,7 @@ export default async function ApprenticePortalPage() {
     .from('profiles')
     .select('full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Get active enrollment with program info
   const { data: enrollment } = await supabase
@@ -39,7 +39,7 @@ export default async function ApprenticePortalPage() {
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   // Gate: Redirect if orientation or documents not complete
   if (enrollment) {

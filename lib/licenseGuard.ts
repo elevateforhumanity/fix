@@ -32,7 +32,7 @@ export async function getTenantLicense(
     .from('tenant_licenses')
     .select('*')
     .eq('tenant_id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to fetch tenant license', error as Error, { tenantId });
@@ -201,7 +201,7 @@ export async function updateTenantLicense(
       expires_at: expiresAt || null,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to update tenant license', error as Error, { tenantId, plan });

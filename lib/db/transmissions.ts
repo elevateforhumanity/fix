@@ -13,7 +13,7 @@ export async function createPendingTransmission(input: {
       ack_status: 'pending',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -39,7 +39,7 @@ export async function saveAckResult(input: {
     })
     .eq('transmission_id', input.transmissionId)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;

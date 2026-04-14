@@ -38,7 +38,7 @@ export async function trackScormProgress(data: {
       onConflict: 'scorm_package_id,user_id'
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (enrollmentError) {
     // Error: $1
@@ -89,7 +89,7 @@ export async function getScormEnrollment(scormPackageId: string, userId: string)
     .select('*')
     .eq('scorm_package_id', scormPackageId)
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (error && error.code !== 'PGRST116') {
     // Error: $1
@@ -118,7 +118,7 @@ export async function enrollInPartnerCourse(data: {
       provider:partner_lms_providers(*)
     `)
     .eq('id', data.partnerCourseId)
-    .single();
+    .maybeSingle();
 
   if (courseError || !partnerCourse) {
     throw new Error('Partner course not found');
@@ -130,7 +130,7 @@ export async function enrollInPartnerCourse(data: {
     .select('*')
     .eq('student_id', user.id)
     .eq('course_id', data.partnerCourseId)
-    .single();
+    .maybeSingle();
 
   if (existingEnrollment) {
     return {
@@ -157,7 +157,7 @@ export async function enrollInPartnerCourse(data: {
       enrolled_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (enrollmentError) {
     // Error: $1
@@ -173,7 +173,7 @@ export async function enrollInPartnerCourse(data: {
     `)
     .eq('partner_course_id', data.partnerCourseId)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   // If SCORM package exists, create SCORM enrollment
   if (mapping?.scorm_package) {

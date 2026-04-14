@@ -43,7 +43,7 @@ async function _POST(request: NextRequest) {
       .select('*')
       .eq('id', documentId)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (docError || !doc) {
       return NextResponse.json({ error: 'Document not found' }, { status: 404 });

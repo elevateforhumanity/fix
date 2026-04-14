@@ -25,7 +25,7 @@ export default async function RecordAttendancePage() {
     .from('profiles')
     .select('role, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['staff', 'instructor', 'admin', 'super_admin'].includes(profile.role)) {
     redirect('/');

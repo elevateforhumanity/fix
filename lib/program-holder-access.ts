@@ -78,7 +78,7 @@ export async function canAccessStudent(
       courses!inner(id, category, slug)
     `)
     .eq('user_id', studentId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) {
     return false;

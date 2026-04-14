@@ -37,7 +37,7 @@ export async function verifyAPIKey(
     .select('*')
     .eq('api_key', apiKey)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (!key) return null;
 

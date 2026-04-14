@@ -82,7 +82,7 @@ export default async function CoursePage({ params }: { params: Params }) {
   const { data: program } = course.program_id
     ? await supabase.from('programs')
         .select('image_url, hero_image_url, credential_name, credential_type, credential')
-        .eq('id', course.program_id).single()
+        .eq('id', course.program_id).maybeSingle()
     : { data: null };
 
   const heroImage = program?.hero_image_url || program?.image_url || '/images/pages/hvac-unit.jpg';

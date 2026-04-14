@@ -39,7 +39,7 @@ export async function PATCH(request: NextRequest) {
     .from('program_enrollments')
     .select('student_start_date, voucher_issued_date, voucher_paid_date, payout_notes')
     .eq('id', enrollment_id)
-    .single();
+    .maybeSingle();
 
   if (fetchErr || !current) return safeError('Enrollment not found', 404);
 

@@ -24,7 +24,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     if (!roleProfile || !['admin', 'super_admin', 'staff'].includes(roleProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -41,7 +41,7 @@ async function _POST(req: Request) {
       .from('marketplace_products')
       .select('id, status')
       .eq('id', productId)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });

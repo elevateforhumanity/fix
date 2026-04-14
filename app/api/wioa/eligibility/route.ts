@@ -87,7 +87,7 @@ async function _POST(request: NextRequest) {
       .from('participant_eligibility')
       .select('id')
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(

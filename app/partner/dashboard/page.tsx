@@ -33,7 +33,7 @@ export default async function PartnerDashboardPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const allowedRoles = ['partner', 'admin', 'super_admin', 'staff'];
   if (!profile || !allowedRoles.includes(profile.role)) {

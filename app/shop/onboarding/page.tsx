@@ -45,7 +45,7 @@ export default async function ShopOnboardingPage() {
     .from('shop_onboarding')
     .select('*')
     .eq('shop_id', shop.id)
-    .single();
+    .maybeSingle();
 
   // Get required documents status
   const { data: docsStatus } = await supabase

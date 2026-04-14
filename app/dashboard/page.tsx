@@ -26,7 +26,7 @@ export default async function DashboardRouterPage() {
     .from('profiles')
     .select('role, onboarding_completed, enrollment_status')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const role = profile?.role ?? 'student';
 

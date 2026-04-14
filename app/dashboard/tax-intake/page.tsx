@@ -24,7 +24,7 @@ export default async function TaxIntakePage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['staff', 'admin', 'super_admin'].includes(profile.role)) {
     redirect('/');

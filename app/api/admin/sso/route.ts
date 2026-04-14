@@ -91,7 +91,7 @@ const _POST = withAuth(
           is_default,
         })
         .select('*')
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
 

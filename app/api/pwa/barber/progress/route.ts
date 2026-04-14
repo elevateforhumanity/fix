@@ -28,7 +28,7 @@ async function _GET(request: Request) {
       .select('*')
       .eq('student_id', user.id)
       .eq('program_slug', 'barber-apprenticeship')
-      .single();
+      .maybeSingle();
 
     if (enrollment) {
       enrollmentDate = enrollment.created_at;
@@ -38,7 +38,7 @@ async function _GET(request: Request) {
         .from('program_enrollments')
         .select('*, programs(slug, title)')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
       
       if (altEnrollment && (altEnrollment.programs as any)?.slug === 'barber-apprenticeship') {
         enrollmentDate = altEnrollment.created_at;
@@ -68,7 +68,7 @@ async function _GET(request: Request) {
       .from('profiles')
       .select('full_name, first_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     // Get partner/shop info if assigned
     let shopName = 'Not yet assigned';
@@ -76,14 +76,14 @@ async function _GET(request: Request) {
       .from('partner_users')
       .select('partner_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (partnerUser?.partner_id) {
       const { data: partner } = await supabase
         .from('partners')
         .select('name')
         .eq('id', partnerUser.partner_id)
-        .single();
+        .maybeSingle();
       
       if (partner) {
         shopName = partner.name;

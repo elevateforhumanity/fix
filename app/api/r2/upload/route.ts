@@ -37,7 +37,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });

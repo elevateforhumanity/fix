@@ -22,7 +22,7 @@ export async function assignAIInstructor({
       .select('id, name, role')
       .eq('program_slug', programSlug)
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (instructorError || !instructor) {
       logger.warn('No AI instructor found for program', { programSlug });
@@ -59,7 +59,7 @@ export async function assignAIInstructor({
         is_active: true,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (assignError) {
       logger.error('Failed to assign AI instructor', assignError);
@@ -84,7 +84,7 @@ export async function assignAIInstructor({
           is_active: true,
         })
         .select()
-        .single();
+        .maybeSingle();
     }
 
     logger.info('AI instructor assigned successfully', {

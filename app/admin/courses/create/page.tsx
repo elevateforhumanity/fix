@@ -22,7 +22,7 @@ export default async function CreateCoursePage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['admin', 'super_admin', 'org_admin', 'instructor'].includes(profile?.role || '')) {
     redirect('/unauthorized');

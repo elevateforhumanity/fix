@@ -203,7 +203,7 @@ async function _POST(request: NextRequest) {
         domain: `${subdomain}.elevatelms.com`,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (orgError) {
       logger.error(`[trial] ${correlationId} — Org creation error:`, orgError);
@@ -226,7 +226,7 @@ async function _POST(request: NextRequest) {
         expires_at: trialEndsAt.toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (licenseError) {
       logger.error(`[trial] ${correlationId} — License creation error:`, licenseError);

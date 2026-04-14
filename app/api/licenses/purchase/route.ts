@@ -46,7 +46,7 @@ async function _POST(request: NextRequest) {
       .from('programs')
       .select('title')
       .eq('id', program_id)
-      .single();
+      .maybeSingle();
 
     if (!program) {
       return NextResponse.json({ error: 'Program not found' }, { status: 404 });
@@ -70,7 +70,7 @@ async function _POST(request: NextRequest) {
           status: 'active',
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (licenseError) {
         return NextResponse.json(
@@ -132,7 +132,7 @@ async function _POST(request: NextRequest) {
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (licenseError) {
       return NextResponse.json(

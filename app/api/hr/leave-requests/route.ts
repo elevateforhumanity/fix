@@ -111,7 +111,7 @@ async function _POST(request: NextRequest) {
         status: 'pending',
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

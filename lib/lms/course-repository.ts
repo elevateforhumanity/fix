@@ -80,7 +80,7 @@ export async function getPublishedCourseBySlug(
     .eq('slug', slug)
     .eq('status', 'published')
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) throw new Error(`Course "${slug}" not found or not published: ${error.message}`);
   if (!data) throw new Error(`Course "${slug}" not found`);
@@ -122,7 +122,7 @@ export async function getPublishedCourseById(
     .eq('id', courseId)
     .eq('status', 'published')
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) throw new Error(`Course ${courseId} not found or not published: ${error.message}`);
   if (!data) throw new Error(`Course ${courseId} not found`);
@@ -157,7 +157,7 @@ export async function getPublishedLesson(
     .eq('id', lessonId)
     .eq('courses.status', 'published')
     .eq('courses.is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) throw new Error(`Lesson ${lessonId} not found or course not published: ${error.message}`);
   return data;

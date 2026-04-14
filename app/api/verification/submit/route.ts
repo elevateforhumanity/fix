@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
         status: 'pending',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     // Store uploaded files in documents table for admin review
     if (verification) {

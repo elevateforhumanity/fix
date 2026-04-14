@@ -41,7 +41,7 @@ export async function completeEnrollment(data: EnrollmentData): Promise<Enrollme
       .from('profiles')
       .select('id, email')
       .eq('id', data.userId)
-      .single();
+      .maybeSingle();
 
     if (userError || !user) {
       return { success: false, error: 'User not found' };
@@ -52,7 +52,7 @@ export async function completeEnrollment(data: EnrollmentData): Promise<Enrollme
       .from('courses')
       .select('id, title, slug, status, is_active')
       .eq('id', data.courseId)
-      .single();
+      .maybeSingle();
 
     if (courseError || !course) {
       return { success: false, error: 'Course not found' };
@@ -111,7 +111,7 @@ export async function completeEnrollment(data: EnrollmentData): Promise<Enrollme
         funding_source:    data.paymentMethod ?? null,
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (enrollError || !enrollment) {
       logger.error('Enrollment creation failed', enrollError);

@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
       .select('*')
       .eq('apprentice_id', apprentice_id)
       .eq('funding_source', funding_source)
-      .single();
+      .maybeSingle();
 
     const { data, error }: any = await supabase
       .from('funding_cases')
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
         { onConflict: 'apprentice_id,funding_source' }
       )
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 400 });

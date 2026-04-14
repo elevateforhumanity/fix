@@ -53,7 +53,7 @@ export async function syncUserProfile(input: SyncUserInput) {
     .from('profiles')
     .select('id')
     .eq('email', email)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     // SECURITY: Strict allowlist update - tenant_id is never updated

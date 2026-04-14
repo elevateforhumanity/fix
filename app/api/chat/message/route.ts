@@ -71,7 +71,7 @@ async function _POST(req: Request) {
       .from("live_chat_sessions")
       .select("id, status")
       .eq("id", session_id)
-      .single();
+      .maybeSingle();
 
     if (!session) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
@@ -89,7 +89,7 @@ async function _POST(req: Request) {
         body: body.trim(),
       })
       .select("id, created_at")
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

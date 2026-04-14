@@ -26,7 +26,7 @@ async function _POST(req: NextRequest) {
     const { courseId, userId, enrollmentId, completionData } = await req.json();
 
     // Verify the authenticated user matches the userId or is admin
-    const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).single();
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).maybeSingle();
     const isAdmin = profile && ['admin', 'super_admin'].includes(profile.role);
     if (session.user.id !== userId && !isAdmin) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

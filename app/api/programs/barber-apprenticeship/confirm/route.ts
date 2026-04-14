@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       .from('applications')
       .select('id, first_name, last_name, email, phone, status')
       .eq('submit_token', token)
-      .single();
+      .maybeSingle();
 
     if (error || !app) {
       logger.warn('[BarberConfirm] Invalid token:', token);

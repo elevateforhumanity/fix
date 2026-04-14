@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .from('course_lessons')
     .select('title, course_id')
     .eq('id', lessonId)
-    .single();
+    .maybeSingle();
 
   return {
     title: lesson ? `${lesson.title} | Elevate LMS` : 'Lesson | Elevate LMS',
@@ -35,7 +35,7 @@ export default async function LessonRedirectPage({ params }: Props) {
     .from('course_lessons')
     .select('course_id')
     .eq('id', lessonId)
-    .single();
+    .maybeSingle();
 
   if (error || !lesson) {
     notFound();

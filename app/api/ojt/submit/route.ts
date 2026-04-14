@@ -53,7 +53,7 @@ async function _POST(req: Request) {
         },
       ])
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 400 });

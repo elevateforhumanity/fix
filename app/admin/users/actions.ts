@@ -22,7 +22,7 @@ export async function updateUserProfile(userId: string, updates: {
 }) {
   const { supabase, db } = await requireAdminActor();
 
-  // .select().single() returns error if row doesn't exist — pre-read implicit.
+  // .select().maybeSingle() returns error if row doesn't exist — pre-read implicit.
   const { data, error } = await db.from('profiles').update({
     ...updates,
     updated_at: new Date().toISOString(),

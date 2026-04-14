@@ -30,7 +30,7 @@ async function authGuard() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 as const };
   }
@@ -147,7 +147,7 @@ export async function PATCH(
                 module_number: mod.sort_order ?? 0,
               })
               .select('id')
-              .single();
+              .maybeSingle();
             if (!newMod) continue;
             incomingModuleIds.push(newMod.id);
             await upsertLessons(db, newMod.id, mod.lessons ?? []);
@@ -244,7 +244,7 @@ async function upsertLessons(db: any, moduleId: string, lessons: any[]) {
           is_published:     lesson.is_published ?? false,
         })
         .select('id')
-        .single();
+        .maybeSingle();
       if (newLesson) incomingIds.push(newLesson.id);
     } else {
       await db.from('program_lessons').update({

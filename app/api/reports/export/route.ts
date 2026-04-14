@@ -25,7 +25,7 @@ async function _POST(request: NextRequest) {
       .from('apprentices')
       .select('id, user_id, shop_id, shops(name)')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (apprenticeError || !apprentice) {
       return NextResponse.json({ error: 'Apprentice record not found' }, { status: 404 });
@@ -78,7 +78,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('full_name, email')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const apprenticeName = profile?.full_name || user.email || 'Apprentice';
     const shopName = (apprentice as any).shops?.name || 'Unknown Shop';

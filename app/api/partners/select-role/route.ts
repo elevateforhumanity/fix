@@ -39,7 +39,7 @@ async function _POST(request: NextRequest) {
       .from('partner_profiles')
       .select('id, role, status')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (existingProfile) {
       return NextResponse.json(

@@ -17,7 +17,7 @@ export default async function AdminCourseLayout({
     .from('training_courses')
     .select('id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course) notFound();
 

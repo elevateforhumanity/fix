@@ -44,7 +44,7 @@ async function verifyApprovalCaller(holderId: string): Promise<{ callerId: strin
     .from('profiles')
     .select('role')
     .eq('id', caller.id)
-    .single();
+    .maybeSingle();
 
   if (!callerProfile || !canApprove(callerProfile.role as AdminRole)) {
     redirect(`/admin/program-holders/${holderId}?error=${encodeURIComponent('Approval requires admin or super_admin role')}`);
@@ -69,7 +69,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const viewRoles: AdminRole[] = ['admin', 'super_admin', 'staff'];
   if (!adminProfile || !viewRoles.includes(adminProfile.role as AdminRole)) {
@@ -84,7 +84,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
     .from('program_holders')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !holder) notFound();
 

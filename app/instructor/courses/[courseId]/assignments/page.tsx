@@ -27,7 +27,7 @@ export default async function InstructorAssignmentsPage({ params }: { params: Pa
     .from('training_courses')
     .select('id, title')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   // Fetch assignments for this course
   const { data: assignments } = await supabase

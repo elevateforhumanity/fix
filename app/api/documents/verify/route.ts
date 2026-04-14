@@ -29,7 +29,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     throw APIErrors.forbidden('Only admins can verify documents');
@@ -55,7 +55,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
     .from('documents')
     .select('*')
     .eq('id', documentId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !document) {
     throw APIErrors.notFound('Document');
@@ -105,7 +105,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
       .select('id, status')
       .eq('user_id', document.user_id)
       .eq('status', 'pending')
-      .single();
+      .maybeSingle();
 
     if (pendingEnrollment) {
       // Mark enrollment as ready for approval (docs verified)
@@ -170,7 +170,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
         .from('profiles')
         .select('role')
         .eq('id', document.user_id)
-        .single();
+        .maybeSingle();
 
       if (profile?.role === 'employer') {
         const { tryAutoActivate } = await import('@/lib/employer/check-onboarding-complete');

@@ -48,7 +48,7 @@ async function _POST(request: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'instructor'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden - Admin or Instructor required' }, { status: 403 });

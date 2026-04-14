@@ -23,7 +23,7 @@ export async function GET(
       .from('studio_workspaces')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json({ error: 'Workspace not found' }, { status: 404 });

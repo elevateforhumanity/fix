@@ -98,7 +98,7 @@ async function _POST(request: NextRequest) {
         metadata: JSON.stringify({ testScore, provider: 'NRF Foundation' }),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Certificate creation error:', error);

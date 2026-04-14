@@ -71,7 +71,7 @@ export async function enqueueJob(params: EnqueueJobParams): Promise<string> {
       run_at: params.runAt?.toISOString() || new Date().toISOString(),
     })
     .select('id')
-    .single();
+    .maybeSingle();
   
   if (error) {
     // Check for duplicate (idempotency)

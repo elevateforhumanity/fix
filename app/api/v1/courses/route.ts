@@ -178,7 +178,7 @@ async function _POST(request: NextRequest) {
         status: 'draft',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (createError) throw createError;
 

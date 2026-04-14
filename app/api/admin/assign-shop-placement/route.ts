@@ -47,7 +47,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin' && profile?.role !== 'instructor') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -87,7 +87,7 @@ async function _POST(req: Request) {
       .from('apprentices')
       .select('id')
       .eq('user_id', studentId)
-      .single();
+      .maybeSingle();
 
     if (apprentice && shopId) {
       // Full verification check for both apprentice and shop

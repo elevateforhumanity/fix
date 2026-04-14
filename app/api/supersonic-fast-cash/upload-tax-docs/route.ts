@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       metadata: { file_path: filePath, uploaded_at: new Date().toISOString() },
     })
     .select('id, document_type, file_name, file_size, status, created_at')
-    .single();
+    .maybeSingle();
 
   if (dbError) {
     // Clean up orphaned file

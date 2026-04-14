@@ -22,7 +22,7 @@ export async function approveApplication(id: string): Promise<void> {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff', 'org_admin'].includes(profile.role)) {
     throw new Error('Forbidden');
@@ -52,7 +52,7 @@ export async function rejectApplication(id: string): Promise<void> {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff', 'org_admin'].includes(profile.role)) {
     throw new Error('Forbidden');
@@ -65,7 +65,7 @@ export async function rejectApplication(id: string): Promise<void> {
     .from('applications')
     .select('id, status')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !record) throw new Error('Application not found');
   if (record.status === 'rejected') throw new Error('Application already rejected');

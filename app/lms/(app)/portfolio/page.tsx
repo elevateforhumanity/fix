@@ -32,7 +32,7 @@ export default async function PortfolioPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch certificates
   const { data: certificates } = await supabase

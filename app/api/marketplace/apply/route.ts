@@ -42,7 +42,7 @@ async function _POST(req: Request) {
       .from('marketplace_creators')
       .select('id, status')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(
@@ -68,7 +68,7 @@ async function _POST(req: Request) {
         status: 'pending',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

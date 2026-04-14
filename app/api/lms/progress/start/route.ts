@@ -59,7 +59,7 @@ async function _POST(req: NextRequest) {
       .from('courses')
       .select('slug')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     // Upsert progress record
     const { error } = await db.from('lms_progress').upsert(

@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       notes: body.notes || null,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) return safeDbError(error, 'Failed to create employer');
   return NextResponse.json({ success: true, id: data.id });

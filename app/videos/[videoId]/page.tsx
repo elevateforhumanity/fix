@@ -74,7 +74,7 @@ export default async function VideoWatchPage({
     .from('videos')
     .select('*')
     .eq('id', videoId)
-    .single();
+    .maybeSingle();
 
   const video = dbVideo || getVideoById(videoId);
 

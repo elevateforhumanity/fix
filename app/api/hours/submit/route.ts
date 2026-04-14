@@ -29,7 +29,7 @@ async function _POST(request: NextRequest) {
       .from('apprentices')
       .select('id, shop_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (apprenticeError || !apprentice) {
       return NextResponse.json({ error: 'Apprentice record not found' }, { status: 404 });
@@ -78,7 +78,7 @@ async function _POST(request: NextRequest) {
         submitted_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (entryError) {
       logger.error('Error creating hour entry:', entryError);

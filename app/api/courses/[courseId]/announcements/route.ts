@@ -65,7 +65,7 @@ async function _POST(
     .from('courses')
     .select('instructor_id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (courseError || !course) {
     logger.error(courseError);

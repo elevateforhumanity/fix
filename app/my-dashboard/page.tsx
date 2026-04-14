@@ -57,7 +57,7 @@ export default async function MyDashboardPage() {
     .from('profiles')
     .select('id, first_name, last_name, full_name, role, email, avatar_url, enrollment_status, onboarding_completed')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const role = profile?.role ?? 'student';
 

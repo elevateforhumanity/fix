@@ -75,7 +75,7 @@ export async function createReferralCode(
     .select('*')
     .eq('user_id', userId)
     .eq('type', type)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return existing;
@@ -97,7 +97,7 @@ export async function createReferralCode(
       enabled: true,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -115,7 +115,7 @@ export async function getReferralCodeByCode(code: string): Promise<ReferralCode 
     .select('*')
     .eq('code', code.toUpperCase())
     .eq('enabled', true)
-    .single();
+    .maybeSingle();
 
   if (error) return null;
 
@@ -197,7 +197,7 @@ export async function trackReferral(
     .from('referrals')
     .select('*')
     .eq('referred_id', referredUserId)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     throw new Error('User has already been referred');
@@ -214,7 +214,7 @@ export async function trackReferral(
       reward_paid: false,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -242,7 +242,7 @@ export async function completeReferral(
     .from('referrals')
     .select('*, referral_code:referral_codes(*)')
     .eq('id', referralId)
-    .single();
+    .maybeSingle();
 
   if (!referral) {
     throw new Error('Referral not found');
@@ -381,7 +381,7 @@ export async function approveAffiliateApplication(
     .from('affiliate_applications')
     .select('*')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (!application) {
     throw new Error('Application not found');
@@ -493,7 +493,7 @@ export async function processAffiliatePayout(
       status: 'pending',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   // Mark referrals as paid (proportionally)
   let remainingAmount = amount;

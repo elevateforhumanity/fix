@@ -21,7 +21,7 @@ export default async function EmployerAnalyticsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['employer', 'admin', 'super_admin'].includes(profile.role)) {
     redirect('/login');

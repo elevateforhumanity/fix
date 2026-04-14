@@ -94,7 +94,7 @@ async function createStudentAccount(
       .from('profiles')
       .select('id')
       .eq('email', normalizedEmail)
-      .single();
+      .maybeSingle();
 
     if (existingProfile?.id) {
       userId = existingProfile.id;
@@ -553,7 +553,7 @@ async function insertApplication(payload: {
           source: payload.source,
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (error) {
         logger.error(`[Application] DB insert failed for ${payload.email}`, new Error(error.message));
@@ -816,7 +816,7 @@ export async function submitProgramHolderApplication(data: ProgramHolderApplicat
         .from('profiles')
         .select('id')
         .eq('email', normalizedEmail)
-        .single();
+        .maybeSingle();
 
       if (profile?.id) {
         const { data: holderRow } = await adminDb
@@ -833,7 +833,7 @@ export async function submitProgramHolderApplication(data: ProgramHolderApplicat
             name: data.organizationName || `${data.firstName} ${data.lastName}`,
           }, { onConflict: 'user_id', ignoreDuplicates: false })
           .select('id')
-          .single();
+          .maybeSingle();
 
         // Set role and link profile to program_holders row immediately.
         await adminDb
@@ -1045,7 +1045,7 @@ export async function getApplicationStatus(identifier: string) {
     .ilike('support_notes', `%${identifier}%`)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (byRef) return byRef;
 
@@ -1055,7 +1055,7 @@ export async function getApplicationStatus(identifier: string) {
     .eq('email', identifier)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   return byEmail;
 }

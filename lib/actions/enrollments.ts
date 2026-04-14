@@ -71,7 +71,7 @@ export async function createEnrollment(input: CreateEnrollmentInput) {
       .from('students')
       .select('id, first_name, last_name, email')
       .eq('id', input.student_id)
-      .single();
+      .maybeSingle();
     if (studentError || !student) {
       throw new Error(`Student not found: ${input.student_id}`);
     }
@@ -81,7 +81,7 @@ export async function createEnrollment(input: CreateEnrollmentInput) {
       .select('id, slug, name, is_apprenticeship')
       .eq('id', input.program_id)
       .eq('active', true)
-      .single();
+      .maybeSingle();
     if (programError || !program) {
       throw new Error(`Program not found or inactive: ${input.program_id}`);
     }
@@ -96,7 +96,7 @@ export async function createEnrollment(input: CreateEnrollmentInput) {
       )
       .eq('program_id', input.program_id)
       .eq('funding_program_id', input.funding_program_id)
-      .single();
+      .maybeSingle();
     if (fundingError || !fundingOption) {
       throw new Error(`Funding program not allowed for this program`);
     }
@@ -134,7 +134,7 @@ export async function createEnrollment(input: CreateEnrollmentInput) {
         status: 'active',
       })
       .select()
-      .single();
+      .maybeSingle();
     if (enrollmentError || !enrollment) {
       // Error: $1
       throw new Error(
@@ -219,7 +219,7 @@ export async function addTransferHours(input: AddTransferHoursInput) {
       .from('student_enrollments')
       .select('id, student_id, program_id')
       .eq('id', input.enrollment_id)
-      .single();
+      .maybeSingle();
     if (enrollmentError || !enrollment) {
       throw new Error(`Enrollment not found: ${input.enrollment_id}`);
     }
@@ -242,7 +242,7 @@ export async function addTransferHours(input: AddTransferHoursInput) {
         status: 'pending',
       })
       .select()
-      .single();
+      .maybeSingle();
     if (transferError || !transferHours) {
       // Error: $1
       throw new Error(
@@ -286,7 +286,7 @@ export async function approveTransferHours(input: ApproveTransferHoursInput) {
       `
       )
       .eq('id', input.transfer_hours_id)
-      .single();
+      .maybeSingle();
     if (fetchError || !transferHours) {
       throw new Error(
         `Transfer hours record not found: ${input.transfer_hours_id}`
@@ -420,7 +420,7 @@ export async function updateFundingAmounts(input: UpdateFundingAmountsInput) {
       .from('student_enrollments')
       .select('id, student_id')
       .eq('id', input.enrollment_id)
-      .single();
+      .maybeSingle();
     if (enrollmentError || !enrollment) {
       throw new Error(`Enrollment not found: ${input.enrollment_id}`);
     }
@@ -485,7 +485,7 @@ export async function getEnrollmentDetails(enrollment_id: string) {
       `
       )
       .eq('id', enrollment_id)
-      .single();
+      .maybeSingle();
     if (error) {
       throw new Error(
         `Failed to fetch enrollment: ${'Operation failed'}`

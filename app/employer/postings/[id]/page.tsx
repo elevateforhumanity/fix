@@ -18,7 +18,7 @@ export default async function EmployerPostingDetailPage({ params }: Props) {
     .select('*')
     .eq('id', id)
     .eq('employer_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!posting) notFound();
 

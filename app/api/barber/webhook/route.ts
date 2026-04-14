@@ -441,7 +441,7 @@ ${!fullyPaid ? `<p><strong>Payment plan:</strong> Weekly invoices will arrive ev
             transferred_hours_verified: transferredHours,
             payment_model: fullyPaid ? 'paid_in_full' : 'invoices',
             created_at: new Date().toISOString(),
-          }).select('id').single();
+          }).select('id').maybeSingle();
           if (subRecord?.error) {
             logger.error('barber_subscriptions insert error:', subRecord.error);
           }
@@ -478,7 +478,7 @@ ${!fullyPaid ? `<p><strong>Payment plan:</strong> Weekly invoices will arrive ev
               .from('programs')
               .select('id')
               .eq('slug', 'barber-apprenticeship')
-              .single();
+              .maybeSingle();
             resolvedProgramId = prog?.id || BARBER_PROGRAM_ID;
           }
           const enrollResult = await createOrUpdateEnrollment(supabase, {
@@ -628,7 +628,7 @@ Amount paid: $${(amountPaidCents / 100).toFixed(2)}</p>`,
           created_at: new Date().toISOString(),
         }, {
           onConflict: 'stripe_subscription_id',
-        }).select().single();
+        }).select().maybeSingle();
 
         // Record subscription ID on enrollment — status stays pending_review until admin grants access.
         if (enrollmentId) {
@@ -646,7 +646,7 @@ Amount paid: $${(amountPaidCents / 100).toFixed(2)}</p>`,
           .from('apprentices')
           .select('id, start_date')
           .eq('user_id', userId)
-          .single();
+          .maybeSingle();
 
         let apprenticeId: string;
         if (existingApprentice) {
@@ -671,7 +671,7 @@ Amount paid: $${(amountPaidCents / 100).toFixed(2)}</p>`,
               barber_subscription_id: subscriptionRecord?.id,
             })
             .select()
-            .single();
+            .maybeSingle();
           apprenticeId = newApprentice?.id;
         }
 
@@ -688,7 +688,7 @@ Amount paid: $${(amountPaidCents / 100).toFixed(2)}</p>`,
           .from('barber_subscriptions')
           .select('welcome_email_sent_at')
           .eq('stripe_subscription_id', subscriptionId)
-          .single();
+          .maybeSingle();
 
         // Generate magic link for dashboard access
         let magicLink = `${process.env.NEXT_PUBLIC_SITE_URL}/apprentice`;
@@ -1103,7 +1103,7 @@ async function _PUT(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });

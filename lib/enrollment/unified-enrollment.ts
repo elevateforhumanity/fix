@@ -99,7 +99,7 @@ async function createCourseEnrollment(
     .select('user_id')
     .eq('user_id', params.userId)
     .eq('course_id', params.courseId)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return { 
@@ -123,7 +123,7 @@ async function createCourseEnrollment(
       payment_id: params.stripeSessionId,
     })
     .select('user_id, course_id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     return { success: false, error: 'Operation failed', table: 'enrollments' };
@@ -157,7 +157,7 @@ async function createProgramEnrollment(
     .eq('student_id', params.userId)
     .eq('program_slug', programId)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return {
@@ -182,7 +182,7 @@ async function createProgramEnrollment(
       started_at: new Date().toISOString(),
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     return { success: false, error: 'Operation failed', table: 'student_enrollments' };
@@ -216,7 +216,7 @@ async function createWorkforceEnrollment(
     .eq('student_id', params.userId)
     .eq('program_id', programId)
     .in('status', ['IN_PROGRESS', 'active'])
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return {
@@ -238,7 +238,7 @@ async function createWorkforceEnrollment(
       status: 'IN_PROGRESS',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     return { success: false, error: 'Operation failed', table: 'program_enrollments' };
@@ -305,7 +305,7 @@ export async function checkEnrollmentStatus(
       .select('status')
       .eq('user_id', userId)
       .eq('course_id', options.courseId)
-      .single();
+      .maybeSingle();
     
     if (data) {
       return { enrolled: true, enrollmentType: 'course', status: data.status };
@@ -320,7 +320,7 @@ export async function checkEnrollmentStatus(
       .eq('student_id', userId)
       .or(`program_id.eq.${options.programId},program_slug.eq.${options.programSlug}`)
       .eq('status', 'active')
-      .single();
+      .maybeSingle();
 
     if (studentEnroll) {
       return { enrolled: true, enrollmentType: 'program', status: studentEnroll.status };
@@ -333,7 +333,7 @@ export async function checkEnrollmentStatus(
       .eq('student_id', userId)
       .eq('program_id', options.programId || options.programSlug)
       .in('status', ['IN_PROGRESS', 'active'])
-      .single();
+      .maybeSingle();
 
     if (workforceEnroll) {
       return { enrolled: true, enrollmentType: 'workforce', status: workforceEnroll.status };

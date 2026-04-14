@@ -33,7 +33,7 @@ export async function GET(
     .select('id, user_id, gross_pay, net_pay, created_at, pdf_url, payroll_run_id')
     .eq('id', stubId)
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (error || !stub) return safeError('Pay stub not found', 404);
 

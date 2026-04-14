@@ -43,7 +43,7 @@ async function getInstructorProfile(db: any, userId: string) {
     .from('profiles')
     .select('id, role, full_name, email')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (!profile) return null;
 
@@ -137,7 +137,7 @@ async function _POST(req: NextRequest) {
     .from('profiles')
     .select('id')
     .eq('id', student_id)
-    .single();
+    .maybeSingle();
 
   if (!student) {
     return NextResponse.json({ error: 'Student not found' }, { status: 404 });
@@ -202,7 +202,7 @@ async function _POST(req: NextRequest) {
       attestation_method,
     })
     .select('*')
-    .single();
+    .maybeSingle();
 
   if (insertErr) {
     logger.error('[attestation] Insert error:', insertErr);
@@ -259,7 +259,7 @@ async function _GET(req: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const isAdmin = profile?.role === 'admin' || profile?.role === 'super_admin';
 

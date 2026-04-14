@@ -27,7 +27,7 @@ async function _GET(request: Request) {
       .from('profiles')
       .select('id, full_name, first_name, email, phone')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
@@ -46,7 +46,7 @@ async function _GET(request: Request) {
       `)
       .eq('user_id', user.id)
       .eq('role', 'apprentice')
-      .single();
+      .maybeSingle();
 
     // Get total hours
     const { data: progressEntries } = await supabase

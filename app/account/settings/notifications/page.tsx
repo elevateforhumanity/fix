@@ -25,7 +25,7 @@ export default async function NotificationSettingsPage() {
     .from('notification_preferences')
     .select('*')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   // Default values if no preferences exist
   const prefs = preferences || {

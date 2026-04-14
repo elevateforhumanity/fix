@@ -45,7 +45,7 @@ export async function generateCertificate(
     .select('*')
     .eq('user_id', userId)
     .eq('course_id', courseId)
-    .single();
+    .maybeSingle();
 
   if (existing) return existing as Certificate;
 
@@ -69,7 +69,7 @@ export async function generateCertificate(
       },
     ])
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -94,7 +94,7 @@ export async function getCertificate(certificateId: string): Promise<any> {
     .from('certificates')
     .select('*, courses(title, code), profiles(email)')
     .eq('id', certificateId)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -107,7 +107,7 @@ export async function verifyCertificate(
     .from('certificates')
     .select('*, courses(title, code), profiles(email)')
     .eq('certificate_number', certificateNumber)
-    .single();
+    .maybeSingle();
 
   if (error) return null;
   return data;

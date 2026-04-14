@@ -52,7 +52,7 @@ export default async function EmployeeDetailPage({ params }: Props) {
       )
     `)
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !employee) {
     notFound();

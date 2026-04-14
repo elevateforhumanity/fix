@@ -23,7 +23,7 @@ async function _GET(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['admin', 'super_admin'].includes(profile?.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -65,7 +65,7 @@ async function _POST(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['admin', 'super_admin'].includes(profile?.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -111,7 +111,7 @@ async function _POST(request: NextRequest) {
       is_active: true,
     })
     .select('id, version')
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ ok: false }, { status: 500 });

@@ -22,7 +22,7 @@ async function _GET(request: NextRequest) {
       .from('shops')
       .select('*')
       .eq('owner_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (shopError || !shop) {
       return NextResponse.json({ error: 'Shop not found' }, { status: 404 });
@@ -66,7 +66,7 @@ async function _PUT(request: NextRequest) {
       .from('shops')
       .select('id')
       .eq('owner_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (shopError || !shop) {
       return NextResponse.json({ error: 'Shop not found' }, { status: 404 });

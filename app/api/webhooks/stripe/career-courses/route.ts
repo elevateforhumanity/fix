@@ -63,7 +63,7 @@ async function _POST(req: Request) {
           .from('profiles')
           .select('id')
           .eq('email', customerEmail)
-          .single();
+          .maybeSingle();
         
         userId = profile?.id || null;
       }

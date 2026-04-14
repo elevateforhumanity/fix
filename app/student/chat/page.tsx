@@ -174,7 +174,7 @@ export default function StudentChatPage() {
         body: newMessage.trim(),
       })
       .select('id, created_at')
-      .single();
+      .maybeSingle();
 
     if (!error && data) {
       setMessages(prev => [...prev, {

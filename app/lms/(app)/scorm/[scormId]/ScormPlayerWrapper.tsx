@@ -50,7 +50,7 @@ export function ScormPlayerWrapper({
           .in('status', ['not_started', 'incomplete', 'in_progress'])
           .order('created_at', { ascending: false })
           .limit(1)
-          .single();
+          .maybeSingle();
 
         if (existing) {
           attemptId.current = existing.id;
@@ -64,7 +64,7 @@ export function ScormPlayerWrapper({
               status: 'not_started',
             })
             .select('id')
-            .single();
+            .maybeSingle();
 
           if (newAttempt) {
             attemptId.current = newAttempt.id;
@@ -168,7 +168,7 @@ export function ScormPlayerWrapper({
           status: 'not_started',
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (newAttempt) {
         attemptId.current = newAttempt.id;

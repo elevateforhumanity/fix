@@ -18,7 +18,7 @@ export default async function ProgramStudentsPage({
     .from('programs')
     .select('id, name, title')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (!program) return <div className="p-8 text-center text-gray-500">Program not found.</div>;
 

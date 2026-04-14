@@ -50,7 +50,7 @@ export async function POST(
     .from('program_external_courses')
     .select('id, title, description, partner_name, stripe_product_id, stripe_price_id, cost_cents')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (fetchErr || !row) return safeError('External course not found', 404);
 
@@ -113,7 +113,7 @@ export async function POST(
     })
     .eq('id', id)
     .select('id, title, cost_cents, payer_rule, stripe_product_id, stripe_price_id')
-    .single();
+    .maybeSingle();
 
   if (updateErr) {
     logger.error('DB update after Stripe sync failed', updateErr);

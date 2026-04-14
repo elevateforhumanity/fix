@@ -55,7 +55,7 @@ async function _POST(request: NextRequest) {
         *,
         service:curvature_services(name, duration_minutes, price)
       `)
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Appointment creation error:', error);

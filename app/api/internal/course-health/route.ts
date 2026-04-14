@@ -48,7 +48,7 @@ export async function GET(_request: NextRequest) {
     }
 
     const { data: profile } = await supabase
-      .from('profiles').select('role').eq('id', user.id).single();
+      .from('profiles').select('role').eq('id', user.id).maybeSingle();
 
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

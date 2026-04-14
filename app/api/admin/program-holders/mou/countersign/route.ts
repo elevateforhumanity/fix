@@ -86,7 +86,7 @@ const _POST = withAuth(
         mou_final_pdf_url
       `
       )
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Update error:', error);

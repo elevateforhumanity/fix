@@ -43,7 +43,7 @@ async function _POST(request: NextRequest) {
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Failed to save career application:', error);

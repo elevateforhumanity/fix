@@ -71,7 +71,7 @@ export async function signAgreement(params: SignParams): Promise<{ success: true
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const timestamp = new Date().toISOString();
 

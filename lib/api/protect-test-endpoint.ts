@@ -38,7 +38,7 @@ export function protectTestEndpoint<T = any>(
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin') {
       return NextResponse.json(

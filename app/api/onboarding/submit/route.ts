@@ -135,7 +135,7 @@ async function _POST(request: NextRequest) {
         created_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (onboardingError) {
       logger.error('Error storing onboarding data:', onboardingError);
@@ -262,7 +262,7 @@ async function _GET(request: NextRequest) {
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (error && error.code !== 'PGRST116') {
       // PGRST116 = no rows returned

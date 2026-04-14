@@ -89,7 +89,7 @@ export async function POST(req: Request) {
         approved: false,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (shopError) {
       // Error: $1

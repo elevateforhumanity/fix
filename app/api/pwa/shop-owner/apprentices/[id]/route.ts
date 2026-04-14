@@ -37,7 +37,7 @@ async function _GET(
       .from('partner_users')
       .select('partner_id, role')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ 
@@ -52,7 +52,7 @@ async function _GET(
       .eq('user_id', apprenticeId)
       .eq('partner_id', partnerUser.partner_id)
       .eq('role', 'apprentice')
-      .single();
+      .maybeSingle();
 
     if (!apprenticeAssignment) {
       return NextResponse.json({ 
@@ -65,7 +65,7 @@ async function _GET(
       .from('profiles')
       .select('id, full_name, first_name, email, phone, created_at')
       .eq('id', apprenticeId)
-      .single();
+      .maybeSingle();
 
     if (!profile) {
       return NextResponse.json({ error: 'Apprentice profile not found' }, { status: 404 });

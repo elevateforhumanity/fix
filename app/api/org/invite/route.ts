@@ -118,7 +118,7 @@ async function _POST(req: NextRequest) {
         cohort_id:       cohort_id ?? null,
       })
       .select('id, email, role, expires_at')
-      .single();
+      .maybeSingle();
 
     if (inviteError) return safeInternalError(inviteError, 'POST /api/org/invite insert');
 

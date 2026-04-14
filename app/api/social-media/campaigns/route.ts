@@ -60,7 +60,7 @@ async function _POST(req: Request) {
         status: body.status || 'draft',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

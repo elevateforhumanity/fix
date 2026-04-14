@@ -29,7 +29,7 @@ const { id } = await params;
       signatures(*)
     `)
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error || !doc) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

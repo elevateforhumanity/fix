@@ -80,7 +80,7 @@ async function _POST(request: NextRequest) {
         status: 'completed'
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (trainingError) {
       // Error: $1

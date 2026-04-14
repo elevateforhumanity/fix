@@ -123,7 +123,7 @@ async function _POST(request: NextRequest) {
         .select('messages')
         .eq('id', conversationId)
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (history) {
         messages = history.messages || [];
@@ -193,7 +193,7 @@ async function _POST(request: NextRequest) {
           title: message.substring(0, 50),
         })
         .select()
-        .single();
+        .maybeSingle();
 
       newConversationId = newConv?.id;
     } else {

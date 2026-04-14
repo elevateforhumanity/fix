@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     .from('programs')
     .select('title')
     .or(`id.eq.${programId},slug.eq.${programId},code.eq.${programId}`)
-    .single();
+    .maybeSingle();
 
   return {
     title: program ? `${program.title} | My Program` : 'My Program | Elevate LMS',
@@ -47,7 +47,7 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
     .from('programs')
     .select('id, title, slug, code, description, duration_weeks, completion_criteria')
     .or(`id.eq.${programId},slug.eq.${programId},code.eq.${programId}`)
-    .single();
+    .maybeSingle();
 
   if (!program) notFound();
 

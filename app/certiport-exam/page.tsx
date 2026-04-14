@@ -48,7 +48,7 @@ function CertiportExamContent() {
         .eq('user_id', user.id)
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       const source = enrollment?.funding_source || 'SELF_PAY';
       setFundingStatus(source === 'SELF_PAY' ? 'self_pay' : 'funded');
@@ -64,7 +64,7 @@ function CertiportExamContent() {
         .in('status', ['pending', 'paid', 'voucher_assigned'])
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         setExistingRequest({

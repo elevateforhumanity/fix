@@ -54,7 +54,7 @@ export async function createDiscussion(params: {
       created_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to create discussion:', error);
@@ -85,7 +85,7 @@ export async function replyToDiscussion(params: {
       created_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to create reply:', error);
@@ -127,7 +127,7 @@ export async function createStudyGroup(params: {
       created_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to create study group:', error);
@@ -157,7 +157,7 @@ export async function joinStudyGroup(groupId: string, userId: string) {
     .select('id')
     .eq('group_id', groupId)
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return { success: false, error: 'Already a member' };
@@ -168,7 +168,7 @@ export async function joinStudyGroup(groupId: string, userId: string) {
     .from('study_groups')
     .select('max_members')
     .eq('id', groupId)
-    .single();
+    .maybeSingle();
 
   const { count } = await supabase
     .from('study_group_members')

@@ -37,7 +37,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!staffProfile || !['admin', 'super_admin', 'instructor', 'staff'].includes(staffProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -77,7 +77,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('id')
       .eq('email', email)
-      .single();
+      .maybeSingle();
 
     let profileId: string;
 
@@ -109,7 +109,7 @@ async function _POST(request: NextRequest) {
           enrollment_status: 'active',
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (profileError) {
         logger.error('Profile creation error:', profileError);
@@ -149,7 +149,7 @@ async function _POST(request: NextRequest) {
         .from('programs')
         .select('title, total_hours')
         .eq('id', programId)
-        .single();
+        .maybeSingle();
       
       if (program) {
         programName = program.name;
@@ -171,7 +171,7 @@ async function _POST(request: NextRequest) {
         docs_verified_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       logger.error('Enrollment creation error:', enrollmentError);

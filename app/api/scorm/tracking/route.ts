@@ -52,7 +52,7 @@ async function _POST(request: Request) {
         onConflict: 'scorm_package_id,user_id'
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       logger.error('Error updating SCORM enrollment:', enrollmentError);
@@ -118,7 +118,7 @@ async function _GET(request: Request) {
       .select('*')
       .eq('scorm_package_id', scormPackageId)
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
 
     if (error && error.code !== 'PGRST116') {
       logger.error('Error fetching SCORM enrollment:', error);

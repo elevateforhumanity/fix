@@ -21,7 +21,7 @@ export async function reviewDocument(docId: string, approved: boolean, notes?: s
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profileError || !profile) return { error: 'Forbidden' };
   if (!ADMIN_ROLES.includes(profile.role)) return { error: 'Forbidden' };
@@ -31,7 +31,7 @@ export async function reviewDocument(docId: string, approved: boolean, notes?: s
     .from('program_holder_documents')
     .select('id, user_id, status, approved')
     .eq('id', docId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !doc) return { error: 'Document not found' };
 

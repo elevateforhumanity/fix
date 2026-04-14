@@ -64,7 +64,7 @@ async function _POST(req: NextRequest) {
         stripe_price_id: priceObj.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Supabase error:', error);

@@ -20,7 +20,7 @@ export async function getClientById(clientId: string) {
     .from('tax_clients')
     .select('id, firm_id, first_name, last_name, email, phone, ssn_last4, dob, created_at')
     .eq('id', clientId)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -50,7 +50,7 @@ export async function createClient_(input: {
       dob: input.dob ?? null,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;

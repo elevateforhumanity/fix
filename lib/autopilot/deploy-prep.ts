@@ -164,7 +164,7 @@ export async function buildCourse(courseData: {
       created_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) return { ok: false, error: 'Operation failed' };
 

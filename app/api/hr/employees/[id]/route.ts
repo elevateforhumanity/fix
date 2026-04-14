@@ -57,7 +57,7 @@ async function _GET(
       `
       )
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 
@@ -118,7 +118,7 @@ async function _PATCH(
         position:positions(*)
       `
       )
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 
@@ -163,7 +163,7 @@ async function _DELETE(
       })
       .eq('id', id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

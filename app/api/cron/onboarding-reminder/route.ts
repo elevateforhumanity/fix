@@ -53,7 +53,7 @@ export async function GET(request: Request) {
       .eq('tenant_id', tenantId)
       .eq('role', 'provider_admin')
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (!contact?.email) continue;
 
@@ -64,7 +64,7 @@ export async function GET(request: Request) {
       .from('tenants')
       .select('name')
       .eq('id', tenantId)
-      .single();
+      .maybeSingle();
 
     // Get the next incomplete step
     const { data: nextStep } = await db
@@ -74,7 +74,7 @@ export async function GET(request: Request) {
       .eq('completed', false)
       .order('created_at')
       .limit(1)
-      .single();
+      .maybeSingle();
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.elevateforhumanity.org';
     const nextStepHref = nextStep?.step === 'profile_complete' ? `${siteUrl}/provider/settings`

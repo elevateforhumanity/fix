@@ -23,7 +23,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile?.role || !['admin', 'super_admin', 'staff', 'instructor'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -38,7 +38,7 @@ async function _POST(request: NextRequest) {
       .from('program_enrollments')
       .select('id, user_id, course_id, program_id, status')
       .eq('id', enrollment_id)
-      .single();
+      .maybeSingle();
 
     if (enrollError || !enrollment) {
       return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 });
@@ -83,7 +83,7 @@ async function _POST(request: NextRequest) {
         tenant_id: '6ba71334-58f4-4104-9b2a-5114f2a7614c',
       })
       .select('id, certificate_number')
-      .single();
+      .maybeSingle();
 
     if (certError) {
       logger.error('Certificate issuance failed', certError);

@@ -178,7 +178,7 @@ export async function getUserCohort(userId: string): Promise<Cohort | null> {
     .eq('status', 'active')
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) return null;
 

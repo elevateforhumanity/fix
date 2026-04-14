@@ -32,7 +32,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
 
@@ -43,7 +43,7 @@ async function _GET(request: NextRequest) {
         .from('franchise_preparers')
         .select('id')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (preparer) {
         const result = await returnService.getPreparerReturns(preparer.id, {
@@ -67,7 +67,7 @@ async function _GET(request: NextRequest) {
         .from('franchise_offices')
         .select('owner_id')
         .eq('id', officeId)
-        .single();
+        .maybeSingle();
 
       if (office?.owner_id !== user.id) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -80,7 +80,7 @@ async function _GET(request: NextRequest) {
         .from('franchise_preparers')
         .select('user_id, office_id')
         .eq('id', preparerId)
-        .single();
+        .maybeSingle();
 
       const isSelf = preparer?.user_id === user.id;
       
@@ -90,7 +90,7 @@ async function _GET(request: NextRequest) {
           .from('franchise_offices')
           .select('owner_id')
           .eq('id', preparer.office_id)
-          .single();
+          .maybeSingle();
         isOwner = office?.owner_id === user.id;
       }
 
@@ -165,7 +165,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
 
@@ -175,7 +175,7 @@ async function _POST(request: NextRequest) {
         .from('franchise_preparers')
         .select('user_id, office_id')
         .eq('id', body.preparerId)
-        .single();
+        .maybeSingle();
 
       const isSelf = preparer?.user_id === user.id;
 
@@ -185,7 +185,7 @@ async function _POST(request: NextRequest) {
         .from('franchise_offices')
         .select('owner_id')
         .eq('id', body.officeId)
-        .single();
+        .maybeSingle();
       isOwner = office?.owner_id === user.id;
 
       if (!isSelf && !isOwner) {

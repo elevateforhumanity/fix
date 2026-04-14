@@ -52,7 +52,7 @@ async function _POST(request: NextRequest) {
         mou_version: '2025-01',
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (sigError) {
       logger.error('MOU signature storage failed', sigError);

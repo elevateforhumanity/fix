@@ -24,7 +24,7 @@ export default async function ProgramHolderMOUPage() {
     .from('profiles')
     .select('full_name, program_holder_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.program_holder_id) redirect('/program-holder/onboarding');
 
@@ -32,7 +32,7 @@ export default async function ProgramHolderMOUPage() {
     .from('program_holders')
     .select('organization_name, contact_name, mou_signed, mou_signed_at, mou_status, mou_type')
     .eq('id', profile.program_holder_id)
-    .single();
+    .maybeSingle();
 
   if (!holder) redirect('/program-holder/onboarding');
 

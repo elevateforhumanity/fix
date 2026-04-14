@@ -46,7 +46,7 @@ export default async function LearnerDetailPage({ params }: Props) {
     .from('profiles')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !learner) {
     notFound();

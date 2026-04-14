@@ -24,7 +24,7 @@ export default async function PartnerAttendancePage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/partner/login');
 
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['partner', 'admin', 'super_admin', 'staff'].includes(profile.role)) redirect('/unauthorized');
 
   let sessions: any[] = [];
@@ -37,7 +37,7 @@ export default async function PartnerAttendancePage() {
       .from('partner_users')
       .select('partner_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     const orgId = partnerUser?.partner_id;
 

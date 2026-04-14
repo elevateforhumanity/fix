@@ -14,7 +14,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { scormId } = await params;
   const supabase = await createClient();
-  const { data: scorm } = await supabase.from('scorm_packages').select('title').eq('id', scormId).single();
+  const { data: scorm } = await supabase.from('scorm_packages').select('title').eq('id', scormId).maybeSingle();
   return { title: scorm?.title ?? 'SCORM Player' };
 }
 
@@ -29,7 +29,7 @@ export default async function ScormPage({ params }: Props) {
     .from('scorm_packages')
     .select('id, title, description, course_id, launch_url, version, created_at')
     .eq('id', scormId)
-    .single();
+    .maybeSingle();
   if (error || !scorm) notFound();
 
   const { data: enrollment } = await supabase
@@ -37,7 +37,7 @@ export default async function ScormPage({ params }: Props) {
     .select('*')
     .eq('scorm_package_id', scormId)
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   const course = scorm.courses as { id: string; title: string } | null;
   const launchUrl =

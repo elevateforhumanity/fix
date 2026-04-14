@@ -36,7 +36,7 @@ async function getAuthedUser(req: NextRequest): Promise<AuthedUser | null> {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   return {
     id: user.id,

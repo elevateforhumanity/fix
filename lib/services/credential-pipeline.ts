@@ -282,7 +282,7 @@ export async function startCredentialAttempt(
       attempted_at: new Date().toISOString(),
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (attemptError || !attempt) {
     return { error: 'Failed to create credential attempt' };
@@ -368,7 +368,7 @@ export async function approveFundingAuthorization(
     .from('exam_funding_authorizations')
     .select('funding_source')
     .eq('id', authorizationId)
-    .single();
+    .maybeSingle();
 
   if (auth?.funding_source === 'self_pay') {
     return { ok: false, error: 'Cannot approve a self_pay authorization — learner must pay via checkout' };
@@ -478,7 +478,7 @@ export async function verifyLearnerCredential(
       certificate_url: opts.certificateUrl ?? null,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (lcError || !lc) return { ok: false, error: 'Failed to create learner credential record' };
 
@@ -536,7 +536,7 @@ export async function issueCompletionCertificate(
       status: 'active',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error || !cert) return { ok: false, error: 'Failed to issue certificate' };
   return { ok: true, certificateId: cert.id };

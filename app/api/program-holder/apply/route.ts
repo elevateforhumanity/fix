@@ -71,7 +71,7 @@ async function _POST(req: NextRequest) {
       .select('id, status')
       .eq('email', body.contactEmail.toLowerCase())
       .eq('status', 'pending')
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(
@@ -109,7 +109,7 @@ async function _POST(req: NextRequest) {
         submitted_at: new Date().toISOString(),
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       return NextResponse.json(

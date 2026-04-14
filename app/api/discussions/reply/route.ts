@@ -21,7 +21,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('full_name, avatar_url')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const { data, error } = await supabase
       .from('discussion_replies')
@@ -31,7 +31,7 @@ async function _POST(req: Request) {
         author_id: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Failed to post reply' }, { status: 500 });

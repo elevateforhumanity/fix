@@ -42,7 +42,7 @@ export class PreparerService {
       .from('franchise_offices')
       .select('max_preparers')
       .eq('id', input.office_id)
-      .single();
+      .maybeSingle();
 
     if (office.data) {
       const { count } = await this.supabase
@@ -79,7 +79,7 @@ export class PreparerService {
         notes: input.notes
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw new Error(`Failed to create preparer`);
     
@@ -103,7 +103,7 @@ export class PreparerService {
       .from('franchise_preparers')
       .select('*')
       .eq('id', preparerId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       if (error.code === 'PGRST116') return null;
@@ -121,7 +121,7 @@ export class PreparerService {
       .from('franchise_preparers')
       .select('*')
       .eq('ptin', ptin.toUpperCase())
-      .single();
+      .maybeSingle();
 
     if (error) {
       if (error.code === 'PGRST116') return null;
@@ -139,7 +139,7 @@ export class PreparerService {
       .from('franchise_preparers')
       .select('*')
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       if (error.code === 'PGRST116') return null;
@@ -250,7 +250,7 @@ export class PreparerService {
       })
       .eq('id', preparerId)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw new Error(`Failed to update preparer`);
     

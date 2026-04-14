@@ -41,7 +41,7 @@ async function _POST(request: NextRequest) {
       .eq('email', email.toLowerCase())
       .eq('program_slug', programSlug)
       .eq('status', 'waiting')
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json({ error: 'You are already on the waitlist for this program.' }, { status: 409 });
@@ -70,14 +70,14 @@ async function _POST(request: NextRequest) {
         status:           'waiting',
       })
       .select('id, position')
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 
     // Send confirmation email — non-fatal
     try {
       const { data: sgSecret } = await supabase
-        .from('app_secrets').select('value').eq('key', 'SENDGRID_API_KEY').single();
+        .from('app_secrets').select('value').eq('key', 'SENDGRID_API_KEY').maybeSingle();
       if (sgSecret?.value) {
         const programLabel = PROGRAM_NAMES[programSlug] ?? programSlug;
         const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.elevateforhumanity.org';

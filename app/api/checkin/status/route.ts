@@ -22,7 +22,7 @@ async function _GET(request: NextRequest) {
       .from('apprentices')
       .select('id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (apprenticeError || !apprentice) {
       return NextResponse.json({ activeSession: null });
@@ -34,7 +34,7 @@ async function _GET(request: NextRequest) {
       .select('id, checkin_time, shop_id, shops(name)')
       .eq('apprentice_id', apprentice.id)
       .is('checkout_time', null)
-      .single();
+      .maybeSingle();
 
     if (sessionError || !session) {
       return NextResponse.json({ activeSession: null });

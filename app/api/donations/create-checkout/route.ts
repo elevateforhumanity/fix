@@ -70,7 +70,7 @@ async function _POST(request: Request) {
         user_id: user?.id || null,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (donationError) {
       return NextResponse.json(

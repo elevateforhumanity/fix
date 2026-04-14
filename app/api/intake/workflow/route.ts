@@ -74,7 +74,7 @@ async function _POST(request: NextRequest) {
     .select('id, status')
     .eq('user_id', user.id)
     .eq('program_id', programId)
-    .single();
+    .maybeSingle();
   
   if (existing) {
     return NextResponse.json({ 
@@ -94,7 +94,7 @@ async function _POST(request: NextRequest) {
       intake_started_at: new Date().toISOString(),
     })
     .select('id')
-    .single();
+    .maybeSingle();
   
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -131,7 +131,7 @@ const supabase = await createClient();
     .from('intake_records')
     .select('user_id, status')
     .eq('id', intakeId)
-    .single();
+    .maybeSingle();
   
   if (!intake) {
     return NextResponse.json({ error: 'Intake not found' }, { status: 404 });
@@ -142,7 +142,7 @@ const supabase = await createClient();
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
   
   const isStaff = profile?.role && ['admin', 'advisor', 'super_admin'].includes(profile.role);
   

@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .from('programs')
     .select('title')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   return {
     title: program ? `${program.title || program?.title || program?.name} | Program Holder` : 'Program | Program Holder',
@@ -51,7 +51,7 @@ export default async function ProgramHolderProgramPage({ params }: Props) {
     .from('programs')
     .select('*')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (error || !program) notFound();
 

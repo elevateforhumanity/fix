@@ -40,7 +40,7 @@ async function _POST(req: Request) {
         appointment_type: type || 'enrollment_consultation',
         status: 'scheduled',
         source: 'website',
-      }).select().single(),
+      }).select().maybeSingle(),
       'Failed to create booking'
     );
 

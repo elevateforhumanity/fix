@@ -114,7 +114,7 @@ export async function getCurrentUser() {
     .from('profiles')
     .select('*')
     .eq('id', session.user.id)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching profile', error as Error, { userId: session.user.id });
@@ -155,7 +155,7 @@ export async function getAuthUser(): Promise<AuthUser | null> {
       .from('profiles')
       .select('role, first_name, last_name')
       .eq('id', session.user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile) return null;
 
@@ -274,7 +274,7 @@ export async function canAccessStudent(studentId: string): Promise<boolean> {
       .select('id')
       .eq('student_id', studentId)
       .eq('delegate_id', user.id)
-      .single();
+      .maybeSingle();
 
     return !!data;
   }
@@ -289,7 +289,7 @@ export async function canAccessStudent(studentId: string): Promise<boolean> {
       .select('id')
       .eq('student_id', studentId)
       .eq('program_holder_id', user.profile.id)
-      .single();
+      .maybeSingle();
 
     return !!data;
   }
@@ -310,7 +310,7 @@ export async function canAccessEnrollment(
     .from('program_enrollments')
     .select('student_id, delegate_id, program_holder_id')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) return false;
 

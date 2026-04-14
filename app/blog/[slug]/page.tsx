@@ -32,7 +32,7 @@ async function getBlogPost(slug: string): Promise<BlogPost | null> {
       .select('*')
       .eq('slug', slug)
       .eq('published', true)
-      .single();
+      .maybeSingle();
 
     if (error || !post) return null;
 

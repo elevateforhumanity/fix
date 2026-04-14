@@ -32,7 +32,7 @@ export async function sendWelcomeSequence(enrollmentId: string) {
       programs (name)
     `)
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) return { success: false, error: 'Enrollment not found' };
 
@@ -215,7 +215,7 @@ export async function autoAssignCourses(enrollmentId: string) {
     .from('program_enrollments')
     .select('student_id, program_id')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) return { success: false, error: 'Enrollment not found' };
 

@@ -24,7 +24,7 @@ export default async function AdminProvidersPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     redirect('/unauthorized');

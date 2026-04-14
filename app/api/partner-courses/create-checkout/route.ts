@@ -55,7 +55,7 @@ async function _POST(request: NextRequest) {
       `
       )
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (courseError || !course) { /* Condition handled */ }
 

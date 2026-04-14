@@ -106,7 +106,7 @@ export async function POST(req: Request) {
         application_date: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (dbError) throw dbError;
 

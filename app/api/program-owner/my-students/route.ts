@@ -26,7 +26,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role, program_holder_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['program_holder', 'program_owner', 'admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

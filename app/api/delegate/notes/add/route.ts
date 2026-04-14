@@ -24,7 +24,7 @@ async function _POST(req: NextRequest) {
     .from('user_profiles')
     .select('role, program_holder_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!prof?.program_holder_id) {
     return new Response('No program holder', { status: 403 });

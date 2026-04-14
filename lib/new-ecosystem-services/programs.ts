@@ -25,7 +25,7 @@ export async function getProgramBySlug(slug: string) {
     .from('programs')
     .select('id, slug, title, track, blurb, hours, cover_url')
     .eq('slug', slug)
-    .single();
+    .maybeSingle();
   if (error) throw error;
   return data as Program;
 }

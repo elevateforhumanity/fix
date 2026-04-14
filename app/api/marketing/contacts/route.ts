@@ -91,7 +91,7 @@ async function _POST(req: NextRequest) {
         tags: tags || [],
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (error) {
       // Handle duplicate email

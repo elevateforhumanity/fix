@@ -85,7 +85,7 @@ export async function POST(req: Request) {
         }),
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Supabase insert error:', error);

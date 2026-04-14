@@ -49,7 +49,7 @@ export default async function GrantWorkflowPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   await requireAdmin();
 

@@ -28,7 +28,7 @@ async function _GET(request: NextRequest) {
     .from("user_points")
     .select("*")
     .eq("user_id", user.id)
-    .single();
+    .maybeSingle();
 
   if (!userPoints) {
     const { data: newPoints } = await supabase
@@ -41,7 +41,7 @@ async function _GET(request: NextRequest) {
         points_to_next_level: 100,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     return NextResponse.json(newPoints);
   }
@@ -76,7 +76,7 @@ async function _POST(request: NextRequest) {
     .from("user_points")
     .select("*")
     .eq("user_id", user.id)
-    .single();
+    .maybeSingle();
 
   const newTotal = (currentPoints?.total_points || 0) + points;
   const newLevel = Math.floor(newTotal / 1000) + 1;
@@ -93,7 +93,7 @@ async function _POST(request: NextRequest) {
     })
     .eq("user_id", user.id)
     .select()
-    .single();
+    .maybeSingle();
 
   return NextResponse.json(updatedPoints);
 }

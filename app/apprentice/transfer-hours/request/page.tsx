@@ -26,7 +26,7 @@ export default async function TransferRequestPage() {
     .from('apprentices')
     .select('*, program:program_id(name, total_hours, allows_transfer)')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!apprentice) {
     redirect('/apprentice');

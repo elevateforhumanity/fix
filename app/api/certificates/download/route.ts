@@ -36,7 +36,7 @@ async function _GET(request: NextRequest) {
         programs:program_id (name, title, credential)
       `)
       .eq('id', certificateId)
-      .single();
+      .maybeSingle();
 
     if (error || !certificate) {
       return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
@@ -47,7 +47,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isOwner = certificate.user_id === user.id;
     const isAdmin = profile?.role === 'admin' || profile?.role === 'super_admin';

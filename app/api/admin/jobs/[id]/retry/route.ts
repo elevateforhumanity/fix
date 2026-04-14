@@ -32,7 +32,7 @@ async function _POST(
       .from('profiles')
       .select('role')
       .eq('id', tenantContext.userId)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'super_admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -43,7 +43,7 @@ async function _POST(
       .from('provisioning_jobs')
       .select('*')
       .eq('id', jobId)
-      .single();
+      .maybeSingle();
 
     if (!job) {
       return NextResponse.json({ error: 'Job not found' }, { status: 404 });

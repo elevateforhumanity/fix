@@ -32,7 +32,7 @@ export default async function CredentialSharePage({ params }: PageProps) {
     .from('credential_share_links')
     .select('*')
     .eq('token', token)
-    .single();
+    .maybeSingle();
 
   if (error || !shareLink) {
     logger.warn('Invalid share token', { token });

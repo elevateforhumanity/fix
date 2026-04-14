@@ -37,7 +37,7 @@ export default async function MentorLayout({ children }: { children: React.React
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !ALLOWED_ROLES.includes(profile.role)) {
     redirect('/unauthorized');

@@ -97,7 +97,7 @@ async function _POST(request: NextRequest) {
         .select('id, status')
         .eq('provider', 'jotform')
         .eq('event_id', eventId)
-        .single();
+        .maybeSingle();
 
       // Already processed or currently being processed — short-circuit
       if (existing && (existing.status === 'processed' || existing.status === 'processing')) {
@@ -175,7 +175,7 @@ async function _POST(request: NextRequest) {
         onConflict: 'email',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (clientError) {
       return NextResponse.json({ error: 'Failed to save client data' }, { status: 500 });
@@ -229,7 +229,7 @@ async function _POST(request: NextRequest) {
         created_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (returnError) {
       return NextResponse.json({ error: 'Failed to save tax return' }, { status: 500 });

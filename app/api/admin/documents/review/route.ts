@@ -30,7 +30,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (
       !profile ||
@@ -82,7 +82,7 @@ async function _POST(request: NextRequest) {
       .from('documents')
       .select('*')
       .eq('id', documentId)
-      .single();
+      .maybeSingle();
 
     if (!document) {
       return NextResponse.json({ success: true, document: updatedDoc });
@@ -126,7 +126,7 @@ async function _POST(request: NextRequest) {
           .from('profiles')
           .select('role')
           .eq('id', studentUserId)
-          .single();
+          .maybeSingle();
 
         if (ownerProfile?.role === 'employer') {
           const { tryAutoActivate } = await import('@/lib/employer/check-onboarding-complete');

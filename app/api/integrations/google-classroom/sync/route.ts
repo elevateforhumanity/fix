@@ -54,7 +54,7 @@ const supabase = await createClient();
     .from('google_classroom_sync')
     .select('last_sync_at, settings, status')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (error && error.code !== 'PGRST116') {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

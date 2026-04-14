@@ -37,7 +37,7 @@ async function _POST(req: Request) {
       .from('user_profiles')
       .select('role, employer_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'sponsor', 'employer'].includes(profile.role)) {
       return NextResponse.json(
@@ -51,7 +51,7 @@ async function _POST(req: Request) {
       .from('hour_entries')
       .select('user_id, source_type, status')
       .eq('id', hour_id)
-      .single();
+      .maybeSingle();
 
     if (!hourEntry) {
       return NextResponse.json({ error: 'Hour entry not found' }, { status: 404 });
@@ -76,7 +76,7 @@ async function _POST(req: Request) {
         .from('user_profiles')
         .select('employer_id')
         .eq('user_id', hourEntry.user_id)
-        .single();
+        .maybeSingle();
 
       if (studentProfile?.employer_id !== profile.employer_id) {
         return NextResponse.json(
@@ -145,7 +145,7 @@ async function _PUT(req: Request) {
       .from('user_profiles')
       .select('role, employer_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'sponsor', 'employer'].includes(profile.role)) {
       return NextResponse.json(

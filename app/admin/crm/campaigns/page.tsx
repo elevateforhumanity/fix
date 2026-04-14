@@ -20,7 +20,7 @@ export default async function CampaignsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     redirect('/dashboard');

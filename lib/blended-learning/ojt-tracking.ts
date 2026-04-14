@@ -105,7 +105,7 @@ export async function logOJTHours(data: {
     .select('*')
     .eq('id', data.placement_id)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
   if (!placement) {
     throw new Error('Placement not found or not active');
   }
@@ -115,7 +115,7 @@ export async function logOJTHours(data: {
     .select('*')
     .eq('placement_id', data.placement_id)
     .eq('work_date', data.work_date)
-    .single();
+    .maybeSingle();
   if (existing) {
     throw new Error('Hours already logged for this date');
   }
@@ -146,7 +146,7 @@ export async function verifyOJTHours(
     .from('ojt_hours_log')
     .select('*, ojt_placements(*)')
     .eq('id', log_id)
-    .single();
+    .maybeSingle();
   if (!log) {
     throw new Error('Hours log not found');
   }
@@ -163,7 +163,7 @@ export async function verifyOJTHours(
     })
     .eq('id', log_id)
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Check if placement is complete
   await checkPlacementCompletion(log.placement_id);
@@ -178,7 +178,7 @@ export async function getOJTProgress(placement_id: string): Promise<OJTProgressS
     .from('ojt_placements')
     .select('*')
     .eq('id', placement_id)
-    .single();
+    .maybeSingle();
   if (!placement) {
     throw new Error('Placement not found');
   }
@@ -283,7 +283,7 @@ export async function completeOJTPlacement(
     })
     .eq('id', placement_id)
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Send completion notification
   await sendCompletionNotification(placement);
@@ -305,7 +305,7 @@ export async function terminateOJTPlacement(
     })
     .eq('id', placement_id)
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Log termination reason
   await supabase

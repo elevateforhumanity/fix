@@ -32,7 +32,7 @@ export default async function HSISuccessPage({
         .from('hsi_enrollment_queue')
         .select('*, course:hsi_course_products(*)')
         .eq('stripe_session_id', session_id)
-        .single();
+        .maybeSingle();
       enrollment = data;
     }
   }

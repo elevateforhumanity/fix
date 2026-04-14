@@ -54,7 +54,7 @@ async function _POST(req: Request) {
       `
       )
       .eq('student_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!assignment || assignmentError) {
       return NextResponse.json(
@@ -80,7 +80,7 @@ async function _POST(req: Request) {
           program_slug: assignment.program_slug,
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (sessionError) {
         // Error: $1
@@ -178,7 +178,7 @@ async function _GET(req: Request) {
       .from('ai_chat_sessions')
       .select('id')
       .eq('student_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!session) {
       return NextResponse.json({ messages: [] });

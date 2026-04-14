@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
         provider_meeting_id: String(meeting.id),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Database error:', error);

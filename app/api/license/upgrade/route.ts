@@ -102,7 +102,7 @@ async function _POST(request: NextRequest) {
       .from('licenses')
       .select('id, tenant_id, tier, status, stripe_customer_id')
       .eq('id', licenseId)
-      .single();
+      .maybeSingle();
 
     if (licenseError || !license) {
       return NextResponse.json(
@@ -128,7 +128,7 @@ async function _POST(request: NextRequest) {
         .from('profiles')
         .select('email, full_name')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       const customer = await stripe.customers.create({
         email: profile?.email || user.email,

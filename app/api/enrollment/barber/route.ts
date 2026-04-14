@@ -35,7 +35,7 @@ async function _POST(request: NextRequest) {
       .select('id')
       .eq('user_id', user.id)
       .eq('role', 'apprentice')
-      .single();
+      .maybeSingle();
 
     if (existingEnrollment) {
       return NextResponse.json({ 
@@ -48,7 +48,7 @@ async function _POST(request: NextRequest) {
       .from('partners')
       .select('id, name, status')
       .eq('id', partnerId)
-      .single();
+      .maybeSingle();
 
     if (!partner) {
       return NextResponse.json({ error: 'Partner shop not found' }, { status: 404 });

@@ -29,7 +29,7 @@ async function _GET(request: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
@@ -121,7 +121,7 @@ async function _POST(request: Request) {
       .from('qa_checklists')
       .select('*')
       .eq('id', checklist_id)
-      .single();
+      .maybeSingle();
 
     if (checklistError || !checklist) {
       return NextResponse.json(
@@ -140,7 +140,7 @@ async function _POST(request: Request) {
         completed_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (completionError) {
       return NextResponse.json(

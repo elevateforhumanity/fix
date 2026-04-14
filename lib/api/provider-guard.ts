@@ -29,7 +29,7 @@ export async function providerApiGuard(): Promise<GuardSuccess | GuardFailure> {
     .from('profiles')
     .select('role, tenant_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || profile.role !== 'provider_admin' || !profile.tenant_id) {
     return { error: safeError('Forbidden', 403) };
@@ -43,7 +43,7 @@ export async function providerApiGuard(): Promise<GuardSuccess | GuardFailure> {
     .from('tenants')
     .select('status')
     .eq('id', profile.tenant_id)
-    .single();
+    .maybeSingle();
 
   if (!tenant) return { error: safeError('Tenant not found', 404) };
   if (tenant.status === 'suspended') {

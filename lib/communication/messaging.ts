@@ -48,7 +48,7 @@ export async function getOrCreateDirectConversation(
     .select('*')
     .eq('type', 'direct')
     .contains('participants', [user1_id, user2_id])
-    .single();
+    .maybeSingle();
   if (existing) {
     return existing;
   }
@@ -61,7 +61,7 @@ export async function getOrCreateDirectConversation(
       last_message_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   return conversation;
 }
@@ -85,7 +85,7 @@ export async function createGroupConversation(
       last_message_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   return conversation;
 }
@@ -104,7 +104,7 @@ export async function sendMessage(
     .from('conversations')
     .select('participants')
     .eq('id', conversation_id)
-    .single();
+    .maybeSingle();
   if (!conversation?.participants.includes(sender_id)) {
     throw new Error('User is not a participant in this conversation');
   }
@@ -121,7 +121,7 @@ export async function sendMessage(
       edited: false,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Update conversation last_message_at
   await supabase
@@ -152,7 +152,7 @@ export async function editMessage(
     .eq('id', message_id)
     .eq('sender_id', sender_id)
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   return message;
 }
@@ -169,7 +169,7 @@ export async function deleteMessage(
     .from('messages')
     .select('deleted_by')
     .eq('id', message_id)
-    .single();
+    .maybeSingle();
   if (!message) {
     throw new Error('Message not found');
   }
@@ -193,7 +193,7 @@ export async function markMessageRead(
     .from('messages')
     .select('read_by, conversation_id')
     .eq('id', message_id)
-    .single();
+    .maybeSingle();
   if (!message) {
     throw new Error('Message not found');
   }
@@ -287,7 +287,7 @@ export async function getConversationMessages(
     .from('conversations')
     .select('participants')
     .eq('id', conversation_id)
-    .single();
+    .maybeSingle();
   if (!conversation?.participants.includes(user_id)) {
     throw new Error('User is not a participant in this conversation');
   }
@@ -306,7 +306,7 @@ export async function getConversationMessages(
       .from('messages')
       .select('created_at')
       .eq('id', options.before)
-      .single();
+      .maybeSingle();
     if (beforeMessage) {
       query = query.lt('created_at', beforeMessage.created_at);
     }
@@ -360,7 +360,7 @@ export async function addParticipant(
     .select('*')
     .eq('id', conversation_id)
     .eq('type', 'group')
-    .single();
+    .maybeSingle();
   if (!conversation) {
     throw new Error('Group conversation not found');
   }
@@ -393,7 +393,7 @@ export async function removeParticipant(
     .select('*')
     .eq('id', conversation_id)
     .eq('type', 'group')
-    .single();
+    .maybeSingle();
   if (!conversation) {
     throw new Error('Group conversation not found');
   }

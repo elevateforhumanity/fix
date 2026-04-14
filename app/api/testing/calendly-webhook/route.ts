@@ -199,7 +199,7 @@ export const POST = withRuntime(
         created_at:            new Date().toISOString(),
       }, { onConflict: 'calendly_invitee_uri' })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (apptError) {
       logger.error('Failed to store testing appointment', apptError);
@@ -275,7 +275,7 @@ export const POST = withRuntime(
       .from('testing_appointments')
       .select('id')
       .eq('calendly_invitee_uri', inviteeUri)
-      .single();
+      .maybeSingle();
 
     if (appt?.id) {
       await db

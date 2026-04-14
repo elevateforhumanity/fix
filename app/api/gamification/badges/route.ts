@@ -74,7 +74,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -97,7 +97,7 @@ async function _POST(req: NextRequest) {
       .from('badges')
       .select('points')
       .eq('id', badge_id)
-      .single();
+      .maybeSingle();
 
     if (badge) {
       await supabase.rpc('update_leaderboard', {

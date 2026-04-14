@@ -31,7 +31,7 @@ export default async function SocialPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   return (
     <div className="min-h-screen bg-white">

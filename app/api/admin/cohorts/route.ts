@@ -10,7 +10,7 @@ async function requireAdmin() {
   const supabase = await createClient();
 const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
@@ -100,7 +100,7 @@ async function _POST(request: Request) {
         reporting_notes: body.reporting_notes || null,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -142,7 +142,7 @@ const auth = await requireAdmin();
       .from('cohorts')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     const { data: cohort, error } = await auth.supabase
       .from('cohorts')
@@ -152,7 +152,7 @@ const auth = await requireAdmin();
       })
       .eq('id', id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -195,7 +195,7 @@ const auth = await requireAdmin();
       .from('cohorts')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     // Soft delete by setting status to cancelled
     const { error } = await auth.supabase

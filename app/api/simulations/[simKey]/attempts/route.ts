@@ -20,7 +20,7 @@ export async function GET(
     .select('id, title, passing_score, difficulty')
     .eq('sim_key', simKey)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (!sim) return NextResponse.json({ error: 'Simulation not found' }, { status: 404 });
 
@@ -67,7 +67,7 @@ export async function POST(
     .select('id, title, passing_score')
     .eq('sim_key', simKey)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (!sim) return NextResponse.json({ error: 'Simulation not found' }, { status: 404 });
 
@@ -79,7 +79,7 @@ export async function POST(
       steps_taken:   [],
     })
     .select('id, started_at')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('POST sim attempt error', error);

@@ -135,7 +135,7 @@ export async function completeProgramEnrollment(
 
   // 2. Fetch learner profile and program details
   const [{ data: profile }, { data: program }] = await Promise.all([
-    db.from('profiles').select('full_name, email').eq('id', userId).single(),
+    db.from('profiles').select('full_name, email').eq('id', userId).maybeSingle(),
     db.from('training_programs').select('name, required_hours').eq('id', programId).maybeSingle(),
   ]);
 
@@ -167,7 +167,7 @@ export async function completeProgramEnrollment(
       { onConflict: 'user_id,program_enrollment_id', ignoreDuplicates: false }
     )
     .select('id')
-    .single();
+    .maybeSingle();
 
   // 5. Generate certificate PDF and upload to storage
   let pdfUrl: string | null = null;

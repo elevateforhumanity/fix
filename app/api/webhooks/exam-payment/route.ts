@@ -142,13 +142,13 @@ export async function POST(req: NextRequest) {
         .from('profiles')
         .select('email, full_name')
         .eq('id', learnerId)
-        .single();
+        .maybeSingle();
 
       const { data: credential } = await db
         .from('credentials')
         .select('name, issuing_authority')
         .eq('id', credentialId)
-        .single();
+        .maybeSingle();
 
       if (profile?.email && credential) {
         const { resend } = await import('@/lib/resend');

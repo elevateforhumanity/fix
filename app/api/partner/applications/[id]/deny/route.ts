@@ -36,7 +36,7 @@ async function _POST(
       .from('partner_applications')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !application) {
       return NextResponse.json({ error: 'Application not found' }, { status: 404 });

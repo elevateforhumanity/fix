@@ -17,9 +17,9 @@ export default async function LearnPage({ params }: { params: Promise<{ courseId
   if (!user) redirect('/login');
 
   // Use underlying tables directly to avoid VIEW permission issues
-  const { data: course } = await supabase.from('training_courses').select('*').eq('id', courseId).single();
+  const { data: course } = await supabase.from('training_courses').select('*').eq('id', courseId).maybeSingle();
   const { data: lessons } = await supabase.from('training_lessons').select('*').eq('course_id', courseId).order('order_index');
-  const { data: enrollment } = await supabase.from('training_enrollments').select('*').eq('course_id', courseId).eq('user_id', user.id).single();
+  const { data: enrollment } = await supabase.from('training_enrollments').select('*').eq('course_id', courseId).eq('user_id', user.id).maybeSingle();
 
   return (
     <div className="min-h-screen bg-white">

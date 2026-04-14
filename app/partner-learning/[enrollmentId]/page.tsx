@@ -45,7 +45,7 @@ export default async function PartnerLearningPage({ params }: Props) {
     `)
     .eq('id', enrollmentId)
     .eq('student_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (error || !enrollment) {
     notFound();

@@ -87,7 +87,7 @@ async function _POST(req: Request) {
         .select('*')
         .eq('code', promoCode.toUpperCase())
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
       if (promo) {
         // Create a Stripe coupon for this promo

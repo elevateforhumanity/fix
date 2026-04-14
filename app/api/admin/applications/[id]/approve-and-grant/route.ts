@@ -44,7 +44,7 @@ export async function POST(
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return safeError('Unauthorized', 401);
 
-    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return safeError('Forbidden', 403);
     }

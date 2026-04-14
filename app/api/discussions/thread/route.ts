@@ -39,7 +39,7 @@ async function _POST(req: Request) {
         author_id: user.id,
       })
       .select('*, replies:discussion_replies(*)')
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Discussion thread error:', error);
@@ -51,7 +51,7 @@ async function _POST(req: Request) {
       .from('badges')
       .select('*')
       .eq('slug', 'first-post')
-      .single();
+      .maybeSingle();
 
     if (badge) {
       await supabase.from('user_badges').upsert(

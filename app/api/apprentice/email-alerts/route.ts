@@ -24,7 +24,7 @@ async function _POST(request: Request) {
       employer:profiles!apprenticeship_enrollments_employer_contact_id_fkey(email, full_name)
     `)
     .eq('id', apprenticeshipId)
-    .single();
+    .maybeSingle();
 
   if (!apprenticeship) {
     return NextResponse.json({ error: 'Apprenticeship not found' }, { status: 404 });
@@ -139,7 +139,7 @@ const supabase = await createClient();
       .select('id')
       .eq('apprenticeship_id', apprenticeship.id)
       .eq('work_date', today)
-      .single();
+      .maybeSingle();
 
     if (!todayLog && apprenticeship.employer_contact_id) {
       // Send alert

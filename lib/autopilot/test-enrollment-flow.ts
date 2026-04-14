@@ -109,7 +109,7 @@ export async function testEnrollmentFlow(
       .from('programs')
       .select('*')
       .eq('slug', config.programSlug)
-      .single();
+      .maybeSingle();
 
     if (programError || !program) {
       throw new Error(`Program not found: ${config.programSlug}`);
@@ -164,7 +164,7 @@ export async function testEnrollmentFlow(
           enrolled_at: new Date().toISOString(),
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (enrollError || !newEnrollment) {
         throw new Error(`Failed to create enrollment: ${enrollError?.message}`);
@@ -237,7 +237,7 @@ export async function testEnrollmentFlow(
             status: 'active',
           })
           .select()
-          .single();
+          .maybeSingle();
 
         if (assignError || !assignment) {
           throw new Error(
@@ -310,7 +310,7 @@ export async function testEnrollmentFlow(
           title: 'Autopilot Test Conversation',
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (convError) {
         results.push({

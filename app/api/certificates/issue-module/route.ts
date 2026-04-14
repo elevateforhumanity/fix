@@ -21,7 +21,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile?.role || !['admin', 'super_admin', 'staff', 'instructor'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -50,7 +50,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('full_name')
       .eq('id', user_id)
-      .single();
+      .maybeSingle();
 
     const { data: cert, error: certError } = await supabase
       .from('module_certificates')
@@ -65,7 +65,7 @@ async function _POST(request: NextRequest) {
         issued_at: new Date().toISOString(),
       })
       .select('id, certificate_number')
-      .single();
+      .maybeSingle();
 
     if (certError) {
       logger.error('Module certificate issuance failed', certError);

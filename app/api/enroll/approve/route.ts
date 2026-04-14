@@ -56,7 +56,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin =
       profile?.role === 'admin' || profile?.role === 'super_admin';
@@ -93,7 +93,7 @@ async function _POST(req: NextRequest) {
       .from('program_enrollments')
       .select('id, user_id, program_id, status, program_holder_id')
       .eq('id', enrollment_id)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !enrollment) {
       logger.error('Enrollment not found', { enrollment_id, enrollmentError });
@@ -123,7 +123,7 @@ async function _POST(req: NextRequest) {
       .from('apprentices')
       .select('id')
       .eq('user_id', enrollment.user_id)
-      .single();
+      .maybeSingle();
 
     if (apprentice) {
       const verificationGate = await canApproveApprentice(apprentice.id);
@@ -230,7 +230,7 @@ async function _POST(req: NextRequest) {
       .from('apprentices')
       .select('id')
       .eq('user_id', enrollment.user_id)
-      .single();
+      .maybeSingle();
 
     if (!existingApprentice) {
       // Get program info
@@ -238,7 +238,7 @@ async function _POST(req: NextRequest) {
         .from('programs')
         .select('id, title, total_hours')
         .eq('id', enrollment.program_id)
-        .single();
+        .maybeSingle();
 
       const { error: apprenticeError } = await supabase
         .from('apprentices')
@@ -318,7 +318,7 @@ async function _POST(req: NextRequest) {
         .from('profiles')
         .select('email, full_name')
         .eq('id', enrollment.user_id)
-        .single();
+        .maybeSingle();
 
       if (studentProfile?.email) {
         // Try outbox pattern first
@@ -343,7 +343,7 @@ async function _POST(req: NextRequest) {
             .from('programs')
             .select('title')
             .eq('id', enrollment.program_id)
-            .single();
+            .maybeSingle();
 
           await sendWelcomeEmail({
             email: studentProfile.email,
@@ -371,14 +371,14 @@ async function _POST(req: NextRequest) {
           .from('program_holders')
           .select('user_id, organization_name')
           .eq('id', enrollment.program_holder_id)
-          .single();
+          .maybeSingle();
 
         if (programHolder?.user_id) {
           const { data: phProfile } = await supabase
             .from('profiles')
             .select('id, email, full_name')
             .eq('id', programHolder.user_id)
-            .single();
+            .maybeSingle();
 
           if (phProfile) {
             await supabase.from('notifications').insert({

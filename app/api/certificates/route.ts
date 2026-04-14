@@ -79,7 +79,7 @@ async function _POST(request: Request) {
         issued_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

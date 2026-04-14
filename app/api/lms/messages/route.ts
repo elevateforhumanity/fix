@@ -119,7 +119,7 @@ async function _POST(request: NextRequest) {
     .from('profiles')
     .select('id')
     .eq('id', recipientId)
-    .single();
+    .maybeSingle();
 
   if (!recipient) {
     return NextResponse.json({ error: 'Recipient not found' }, { status: 404 });
@@ -140,7 +140,7 @@ async function _POST(request: NextRequest) {
       sender:profiles!messages_sender_id_fkey(id, full_name, avatar_url),
       recipient:profiles!messages_recipient_id_fkey(id, full_name, avatar_url)
     `)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error sending message:', error);

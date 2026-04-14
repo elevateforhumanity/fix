@@ -29,7 +29,7 @@ export async function processLicenseProvision(job: ProvisioningJob): Promise<voi
     .from('licenses')
     .select('id')
     .eq('tenant_id', tenantId)
-    .single();
+    .maybeSingle();
   
   if (existing) {
     // Update existing license

@@ -34,7 +34,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -52,7 +52,7 @@ async function _POST(request: NextRequest) {
         .from('programs')
         .select('*')
         .eq('slug', programSlug)
-        .single();
+        .maybeSingle();
 
       if (program) {
         context = `Program: ${program.title || program?.title || program?.name}\nDescription: ${program.description}\nOutcomes: ${program.outcomes?.join(', ')}\n`;
@@ -134,7 +134,7 @@ async function _POST(request: NextRequest) {
         tags: [topic, programSlug].filter(Boolean),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

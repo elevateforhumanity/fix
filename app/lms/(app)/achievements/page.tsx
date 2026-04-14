@@ -44,7 +44,7 @@ export default async function AchievementsPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const { data: enrollments } = await supabase
     .from('program_enrollments')

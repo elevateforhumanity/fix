@@ -27,7 +27,7 @@ export default async function ReviewVerificationPage({
     .from('id_verifications')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (!rawVerification) {
     redirect('/admin/verifications/review');

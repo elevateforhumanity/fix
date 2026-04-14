@@ -38,7 +38,7 @@ const { searchParams } = new URL(request.url);
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -102,7 +102,7 @@ async function getEntityStatus(
       .from('profiles')
       .select('enrollment_status, agreement_signed_at')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
     // Check documents verification status
     const docTypes = getDocTypesForCategory(category || 'all');
@@ -149,7 +149,7 @@ async function getEntityStatus(
       .from('program_enrollments')
       .select('status, agreement_signed')
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
 
     const intakeComplete = !!profile && (
       profile.enrollment_status === 'pending' || 

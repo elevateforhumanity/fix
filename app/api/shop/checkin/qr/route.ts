@@ -27,7 +27,7 @@ async function _GET(request: NextRequest) {
       .from('shops')
       .select('id, name')
       .eq('owner_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (shopError || !shop) {
       return NextResponse.json({ error: 'Shop not found' }, { status: 404 });
@@ -41,7 +41,7 @@ async function _GET(request: NextRequest) {
       .gt('expires_at', new Date().toISOString())
       .order('expires_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (existingCode) {
       // Get today's check-ins
@@ -111,7 +111,7 @@ async function _POST(request: NextRequest) {
       .from('shops')
       .select('id, name')
       .eq('owner_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (shopError || !shop) {
       return NextResponse.json({ error: 'Shop not found' }, { status: 404 });

@@ -525,7 +525,7 @@ export async function awardCredential(
       status: 'active',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to award credential', error);
@@ -577,7 +577,7 @@ export async function verifyCredential(verificationCode: string): Promise<any> {
     `
     )
     .eq('verification_code', verificationCode)
-    .single();
+    .maybeSingle();
 
   if (error || !data) {
     return null;

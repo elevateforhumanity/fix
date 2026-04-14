@@ -27,7 +27,7 @@ export default async function SpeedGraderPage({ params }: { params: Params }) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff', 'instructor'].includes(profile.role)) {
     redirect('/learner/dashboard');
@@ -39,7 +39,7 @@ export default async function SpeedGraderPage({ params }: { params: Params }) {
     .select('id, title, description, max_points, course_id, due_date')
     .eq('id', assignmentId)
     .eq('course_id', courseId)
-    .single();
+    .maybeSingle();
 
   if (assignmentError || !assignment) {
     notFound();
@@ -50,7 +50,7 @@ export default async function SpeedGraderPage({ params }: { params: Params }) {
     .from('assignment_rubrics')
     .select('rubric_id, rubrics(*)')
     .eq('assignment_id', assignmentId)
-    .single();
+    .maybeSingle();
 
   // Fetch submissions
   const { data: rawGradeSubmissions } = await supabase

@@ -21,7 +21,7 @@ export async function createDrugTest(order: DrugTestOrder): Promise<string | nul
     .from('program_enrollments')
     .select('organization_id')
     .eq('id', order.enrollment_id)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) return null;
 
@@ -43,7 +43,7 @@ export async function createDrugTest(order: DrugTestOrder): Promise<string | nul
       created_by: user.id,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error creating drug test:', error);
@@ -324,7 +324,7 @@ export async function getProgramDrugTestingPolicy(programId: string) {
     .select('*')
     .eq('program_id', programId)
     .eq('active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching drug testing policy:', error);
@@ -352,7 +352,7 @@ export async function checkDrugTestRequired(enrollmentId: string): Promise<{
       programs(id, name)
     `)
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) {
     return { required: false };

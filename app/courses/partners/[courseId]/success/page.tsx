@@ -39,7 +39,7 @@ export default async function EnrollmentSuccessPage({
     )
     .eq('user_id', user.id)
     .eq('partner_course_id', params.courseId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) {
     redirect('/courses/partners');

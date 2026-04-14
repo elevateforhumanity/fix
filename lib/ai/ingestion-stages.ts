@@ -117,7 +117,7 @@ export async function persistIngestionDraft(draft: Omit<IngestionDraft, 'job_id'
       attempts: 0,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error || !data) throw new Error('Failed to persist ingestion draft');
   return data.id;
@@ -133,7 +133,7 @@ export async function loadIngestionDraft(jobId: string): Promise<IngestionDraft 
     .select('id, payload, status')
     .eq('id', jobId)
     .eq('type', 'course_ingestion')
-    .single();
+    .maybeSingle();
 
   if (!data) return null;
   return { ...(data.payload as IngestionDraft), job_id: data.id, stage: data.status as IngestionStage };
@@ -152,7 +152,7 @@ export async function updateIngestionDraftStage(
     .from('job_queue')
     .select('payload')
     .eq('id', jobId)
-    .single();
+    .maybeSingle();
 
   await db
     .from('job_queue')

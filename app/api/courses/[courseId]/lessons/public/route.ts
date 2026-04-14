@@ -160,7 +160,7 @@ async function _GET(
     .from('courses')
     .select('id, title, description, is_active')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (courseErr || !course) {
     const slug = COURSE_ID_TO_SLUG[courseId];

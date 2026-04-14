@@ -28,7 +28,7 @@ export async function resolveTenantFromDomain(domain: string): Promise<TenantFro
     
     const { data, error } = await supabase
       .rpc('get_tenant_by_domain', { p_domain: domain })
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return null;

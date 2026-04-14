@@ -18,7 +18,7 @@ export async function requireCosmetologyEnrollment(
     .eq('status', 'active')
     .eq('programs.slug', 'cosmetology-apprenticeship')
     .limit(1)
-    .single();
+    .maybeSingle();
 
   return data ?? null;
 }

@@ -76,7 +76,7 @@ async function _POST(request: NextRequest) {
           status: 'scheduled',
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (scheduleError) {
         return NextResponse.json(
@@ -133,7 +133,7 @@ async function _POST(request: NextRequest) {
           platform_post_id: result.post_id,
         })
         .select()
-        .single();
+        .maybeSingle();
 
       return NextResponse.json({
         success: true,
@@ -166,7 +166,7 @@ async function postToLinkedIn(data: any) {
       .from('social_media_settings')
       .select('*')
       .eq('platform', 'linkedin')
-      .single();
+      .maybeSingle();
 
     if (settingsError || !settings) {
       return {

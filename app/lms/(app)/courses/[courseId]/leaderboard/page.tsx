@@ -29,7 +29,7 @@ export default function CourseLeaderboardPage() {
       .from('training_courses')
       .select('*')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     setCourse(courseData);
 

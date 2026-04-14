@@ -38,7 +38,7 @@ const { id } = await params;
       .from('leave_requests')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (existingError) throw existingError;
     if (!existing) {
@@ -59,7 +59,7 @@ const { id } = await params;
       })
       .eq('id', id)
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (updateError) throw updateError;
 

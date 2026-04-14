@@ -122,7 +122,7 @@ async function ensurePartnerEnrollment(params: {
         enrollment_date: new Date().toISOString(),
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 
@@ -136,7 +136,7 @@ async function ensurePartnerEnrollment(params: {
         .eq('partner_id', partnerId)
         .eq('student_id', studentId)
         .eq('program_id', programId)
-        .single();
+        .maybeSingle();
 
       if (raceErr || !raceRow) {
         throw new Error(`partner_enrollment race recovery failed: ${raceErr?.message}`);
@@ -192,7 +192,7 @@ async function ensureCmiStudent(params: {
         .from('cmi_students')
         .select('id')
         .eq('application_id', applicationId)
-        .single();
+        .maybeSingle();
 
       if (raceErr || !raceRow) {
         throw new Error(`cmi_student race recovery failed: ${raceErr?.message}`);

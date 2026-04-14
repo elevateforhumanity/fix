@@ -30,7 +30,7 @@ export async function POST(
     .from('exam_authorizations')
     .select('id, status')
     .eq('id', authId)
-    .single();
+    .maybeSingle();
 
   if (fetchErr || !existing) return safeError('Authorization not found', 404);
 

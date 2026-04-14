@@ -519,7 +519,7 @@ export async function createDocumentRecord(params: {
       uploaded_by: params.uploadedBy,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error creating document record:', error);

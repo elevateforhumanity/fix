@@ -75,7 +75,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
     .select('id, full_name, first_name, last_name, email, phone, address, city, state, zip, created_at, updated_at, enrollment_status, is_active, onboarding_completed, funding_source, student_number, date_of_birth, emergency_contact_name, emergency_contact_phone, last_login_at')
     .eq('id', id)
     .eq('role', 'student')
-    .single();
+    .maybeSingle();
 
   if (!student) notFound();
 

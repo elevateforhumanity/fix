@@ -26,7 +26,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role ?? '')) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     .from('job_queue')
     .select('id, status, type')
     .eq('id', jobId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !job) {
     return NextResponse.json({ error: 'Job not found' }, { status: 404 });

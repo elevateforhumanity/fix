@@ -28,7 +28,7 @@ export async function submitVerificationDecision(
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (actorError || !actorProfile) return { error: 'Forbidden' };
   if (!ADMIN_ROLES.includes(actorProfile.role)) return { error: 'Forbidden' };
@@ -38,7 +38,7 @@ export async function submitVerificationDecision(
     .from('program_holders')
     .select('id, user_id, status, primary_program_id')
     .eq('id', holderId)
-    .single();
+    .maybeSingle();
 
   if (holderError || !holder) return { error: 'Program holder not found' };
 

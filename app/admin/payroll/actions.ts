@@ -23,7 +23,7 @@ export async function markPayrollPaid(payrollId: string) {
     .from('apprentice_payroll')
     .select('id, status')
     .eq('id', payrollId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !record) throw new Error('Payroll record not found');
   if (record.status === 'paid') return { error: 'Already marked as paid' };

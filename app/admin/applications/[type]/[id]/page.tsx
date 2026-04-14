@@ -64,7 +64,7 @@ export default async function ApplicationDetailPage({
     .select('*')
     .eq('application_type', type)
     .eq('application_id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !application) {
     notFound();

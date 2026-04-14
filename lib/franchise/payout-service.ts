@@ -65,7 +65,7 @@ class PayoutService {
       .eq('preparer_id', input.preparer_id)
       .eq('period_start', input.period_start)
       .eq('period_end', input.period_end)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       throw new Error('Payout already exists for this period');
@@ -88,7 +88,7 @@ class PayoutService {
         updated_at: new Date().toISOString()
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to create payout`);
@@ -105,7 +105,7 @@ class PayoutService {
       .from('franchise_preparer_payouts')
       .select('*')
       .eq('id', payoutId)
-      .single();
+      .maybeSingle();
 
     if (error && error.code !== 'PGRST116') {
       throw new Error(`Failed to get payout`);
@@ -209,7 +209,7 @@ class PayoutService {
       .eq('id', payoutId)
       .eq('status', 'pending')
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to approve payout`);
@@ -237,7 +237,7 @@ class PayoutService {
       .eq('id', payoutId)
       .eq('status', 'approved')
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to mark payout as paid`);

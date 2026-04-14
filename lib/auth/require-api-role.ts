@@ -53,7 +53,7 @@ export async function requireApiRole(
     .from('profiles')
     .select('id, role, full_name, tenant_id, is_active')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile) {
     return NextResponse.json(

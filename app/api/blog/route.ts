@@ -34,7 +34,7 @@ async function _GET(request: Request) {
         .select('*')
         .eq('slug', slug)
         .eq('published', true)
-        .single();
+        .maybeSingle();
 
       if (error || !post) {
         return NextResponse.json(

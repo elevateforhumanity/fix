@@ -111,7 +111,7 @@ async function _POST(
       { onConflict: 'course_id,user_id' }
     )
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('course_reviews upsert error', error);

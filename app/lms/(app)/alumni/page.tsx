@@ -65,7 +65,7 @@ export default async function AlumniPage() {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     isAlumni = profile?.role === 'alumni';
   }
 

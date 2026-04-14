@@ -11,7 +11,7 @@ async function requireAdmin() {
   const supabase = await createClient();
 const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
@@ -113,7 +113,7 @@ async function _POST(request: Request) {
         zip_code: body.zip_code,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

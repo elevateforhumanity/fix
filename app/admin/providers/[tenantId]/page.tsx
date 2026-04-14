@@ -36,7 +36,7 @@ export default async function ProviderDetailPage({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     redirect('/unauthorized');
@@ -47,7 +47,7 @@ export default async function ProviderDetailPage({
     .from('tenants')
     .select('*')
     .eq('id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (!tenant) notFound();
 

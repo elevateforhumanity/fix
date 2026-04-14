@@ -49,7 +49,7 @@ export default function InstructorProgramAnnouncementsPage() {
       .from('programs')
       .select('id, title, name')
       .eq('id', programId)
-      .single();
+      .maybeSingle();
 
     if (!programData) {
       router.push('/instructor/programs');

@@ -15,8 +15,8 @@ export default async function QuizPage({ params }: { params: { courseId: string;
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  const { data: lesson } = await supabase.from('training_lessons').select('*').eq('id', params.lessonId).single();
-  const { data: quiz } = await supabase.from('quizzes').select('*').eq('lesson_id', params.lessonId).single();
+  const { data: lesson } = await supabase.from('training_lessons').select('*').eq('id', params.lessonId).maybeSingle();
+  const { data: quiz } = await supabase.from('quizzes').select('*').eq('lesson_id', params.lessonId).maybeSingle();
   const { data: questions } = await supabase.from('quiz_questions').select('*').eq('quiz_id', quiz?.id).order('order_index');
 
   return (

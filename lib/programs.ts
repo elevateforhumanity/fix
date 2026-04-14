@@ -68,7 +68,7 @@ export async function getProgramBySlug(slug: string): Promise<Program | null> {
     .select('*')
     .eq('slug', slug)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     // Error: $1

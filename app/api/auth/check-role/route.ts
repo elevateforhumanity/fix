@@ -29,7 +29,7 @@ const searchParams = request.nextUrl.searchParams;
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const allowedRoles = [requiredRole, 'admin', 'super_admin'];
   const hasRole = profile && allowedRoles.includes(profile.role);

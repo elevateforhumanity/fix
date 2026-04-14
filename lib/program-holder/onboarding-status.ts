@@ -88,7 +88,7 @@ export async function getProgramHolderOnboardingStatus(
     .from('profiles')
     .select('role')
     .eq('id', currentUserId)
-    .single();
+    .maybeSingle();
 
   const isProgramHolder = profile?.role === 'program_holder';
 
@@ -121,7 +121,7 @@ export async function getProgramHolderOnboardingStatus(
     .from('program_holders')
     .select('status, approved_at, mou_type')
     .eq('user_id', currentUserId)
-    .single();
+    .maybeSingle();
 
   const isApproved =
     programHolder?.status === 'approved' || !!programHolder?.approved_at;
@@ -156,7 +156,7 @@ export async function getProgramHolderOnboardingStatus(
     .select('id, agreed_at')
     .eq('user_id', currentUserId)
     .eq('user_type', 'program_holder')
-    .single();
+    .maybeSingle();
 
   const mouSigned = !!mouSignature;
   const mouSignedAt = mouSignature?.agreed_at || null;
@@ -191,7 +191,7 @@ export async function getProgramHolderOnboardingStatus(
     .select('id, acknowledged_at')
     .eq('user_id', currentUserId)
     .eq('document_type', 'handbook')
-    .single();
+    .maybeSingle();
 
   const handbookAcknowledged = !!handbookAck;
   const handbookAcknowledgedAt = handbookAck?.acknowledged_at || null;
@@ -226,7 +226,7 @@ export async function getProgramHolderOnboardingStatus(
     .select('id, acknowledged_at')
     .eq('user_id', currentUserId)
     .eq('document_type', 'rights')
-    .single();
+    .maybeSingle();
 
   const rightsAcknowledged = !!rightsAck;
   const rightsAcknowledgedAt = rightsAck?.acknowledged_at || null;

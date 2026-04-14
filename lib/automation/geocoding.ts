@@ -86,7 +86,7 @@ export async function geocodePartner(partnerId: string): Promise<GeocodingResult
     .from('partners')
     .select('address_line1, city, state, zip')
     .eq('id', partnerId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !partner) {
     return {

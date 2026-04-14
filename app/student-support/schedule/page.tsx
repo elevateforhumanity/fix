@@ -48,7 +48,7 @@ export default async function SchedulePage() {
     .from('profiles')
     .select('full_name, email, phone')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch available advisors
   const { data: advisors } = await supabase

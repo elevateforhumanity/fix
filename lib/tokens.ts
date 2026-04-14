@@ -67,7 +67,7 @@ export async function createAccessToken(params: {
       uses_count: 0,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error creating access token:', error);
@@ -96,7 +96,7 @@ export async function validateToken(
     .from('access_tokens')
     .select('*')
     .eq('token', token)
-    .single();
+    .maybeSingle();
 
   if (error || !data) {
     return null;

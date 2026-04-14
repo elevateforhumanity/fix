@@ -32,7 +32,7 @@ export default function CourseDiscussionsPage() {
       .from('training_courses')
       .select('*')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     setCourse(courseData);
 

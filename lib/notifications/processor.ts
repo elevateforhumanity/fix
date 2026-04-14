@@ -189,7 +189,7 @@ export async function getQueueStats(): Promise<{
       .eq('status', 'queued')
       .order('created_at', { ascending: true })
       .limit(1)
-      .single(),
+      .maybeSingle(),
   ]);
 
   return {

@@ -49,7 +49,7 @@ async function getLicenseContext() {
     .from('profiles')
     .select('role, tenant_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
   // Degrade gracefully — profile missing or RLS block should not lock out the admin portal
   if (profileError || !profile?.tenant_id) return null;
 

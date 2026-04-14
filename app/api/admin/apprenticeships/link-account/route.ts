@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     .from('apprentices')
     .select('id, user_id, email')
     .eq('id', apprenticeId)
-    .single();
+    .maybeSingle();
 
   if (fetchErr || !existing) return safeError('Apprentice record not found', 404);
   if (existing.user_id) return safeError('Apprentice already has a linked user_id', 409);

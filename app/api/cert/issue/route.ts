@@ -32,7 +32,7 @@ async function _POST(req: NextRequest) {
     .from('user_profiles')
     .select('role')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['admin', 'partner', 'instructor'].includes(prof?.role)) {
     return new Response('Forbidden', { status: 403 });

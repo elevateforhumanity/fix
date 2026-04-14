@@ -114,7 +114,7 @@ export async function GET(req: NextRequest) {
       .from('job_postings')
       .select('id, title, skills_required, education_required, employer_id')
       .eq('id', job_id)
-      .single();
+      .maybeSingle();
 
     if (!job) return NextResponse.json({ error: 'Job posting not found' }, { status: 404 });
 
@@ -124,7 +124,7 @@ export async function GET(req: NextRequest) {
         .from('employers')
         .select('id')
         .eq('owner_user_id', auth.id)
-        .single();
+        .maybeSingle();
       if (!emp || emp.id !== job.employer_id) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
       }

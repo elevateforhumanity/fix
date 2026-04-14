@@ -89,7 +89,7 @@ export default function ClientDetailPage() {
         .from('franchise_clients')
         .select('*')
         .eq('id', clientId)
-        .single();
+        .maybeSingle();
 
       if (error || !clientData) {
         toast({ title: 'Client not found', variant: 'destructive' });

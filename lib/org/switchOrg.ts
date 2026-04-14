@@ -17,7 +17,7 @@ export async function switchOrg(
     .select('role')
     .eq('user_id', userId)
     .eq('organization_id', orgId)
-    .single();
+    .maybeSingle();
 
   if (membershipError || !membership) {
     throw new Error('User does not have access to this organization');

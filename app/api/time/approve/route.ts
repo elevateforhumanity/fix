@@ -110,7 +110,7 @@ export async function POST(req: Request) {
     .from('hour_entries')
     .select('id,status')
     .eq('id', entry_id)
-    .single();
+    .maybeSingle();
 
   if (readErr) return jsonError('Failed to read time entry', 500);
   if (!entry) return jsonError('Entry not found', 404);

@@ -46,7 +46,7 @@ export async function getCurrentProfile(): Promise<CurrentProfile> {
     .from('profiles')
     .select('id, full_name, role, program_holder_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (error || !profile) {
     // Error: $1

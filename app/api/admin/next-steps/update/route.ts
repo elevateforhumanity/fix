@@ -27,7 +27,7 @@ async function _POST(req: Request) {
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+  const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!_roleProfile || !['admin', 'super_admin', 'staff'].includes(_roleProfile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }

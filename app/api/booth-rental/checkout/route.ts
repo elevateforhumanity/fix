@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
         .from('profiles')
         .select('stripe_customer_id')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
       stripeCustomerId = profile?.stripe_customer_id ?? undefined;
     }
 

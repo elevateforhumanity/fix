@@ -50,7 +50,7 @@ async function _POST(request: Request) {
       max_storage_gb: maxStorageGb ?? 50,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json(

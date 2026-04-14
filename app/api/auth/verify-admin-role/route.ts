@@ -24,7 +24,7 @@ export async function POST() {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !ADMIN_ROLES.includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

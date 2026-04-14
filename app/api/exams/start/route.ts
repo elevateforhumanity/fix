@@ -30,7 +30,7 @@ async function _POST(request: Request) {
     .from('exams')
     .select('*')
     .eq('id', examId)
-    .single();
+    .maybeSingle();
 
   if (examError || !exam) {
     return NextResponse.json({ error: 'Exam not found' }, { status: 404 });
@@ -71,7 +71,7 @@ async function _POST(request: Request) {
       user_agent: ua,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (attemptError || !attempt) {
     return NextResponse.json(

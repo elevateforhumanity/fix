@@ -44,7 +44,7 @@ export default async function StoreSuccessPage({
       .select('*')
       .eq('id', orderId)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
     order = orderData;
 
     if (order) {

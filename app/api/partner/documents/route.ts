@@ -27,7 +27,7 @@ async function _GET(request: NextRequest) {
       .from('partner_users')
       .select('partner_id, partners(state)')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ error: 'Not a partner' }, { status: 403 });
@@ -112,7 +112,7 @@ async function _POST(request: NextRequest) {
       .from('partner_users')
       .select('partner_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ error: 'Not a partner' }, { status: 403 });
@@ -181,7 +181,7 @@ async function _POST(request: NextRequest) {
         reviewed_at: new Date().toISOString(), // System review
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       logger.error('Insert error:', insertError);

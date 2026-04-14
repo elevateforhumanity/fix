@@ -28,7 +28,7 @@ export const getOrgSubscription = cache(
       .from('organization_subscriptions')
       .select('*')
       .eq('organization_id', organizationId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       // No subscription is valid state

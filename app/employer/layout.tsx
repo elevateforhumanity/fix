@@ -69,7 +69,7 @@ export default async function EmployerLayout({
     .from('profiles')
     .select('role, verified')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Non-employer logged-in users can still see the public page
   if (!profile || profile.role !== 'employer') {
@@ -83,7 +83,7 @@ export default async function EmployerLayout({
     .eq('employer_id', user.id)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   const isActive = onboarding?.status === 'active';
   const isApprovedOnboarding = onboarding?.status === 'approved';

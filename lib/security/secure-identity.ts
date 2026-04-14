@@ -13,7 +13,7 @@ export async function getSSNLast4(userId: string): Promise<string | null> {
     .from('secure_identity')
     .select('ssn_last4')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
   return data.ssn_last4;
@@ -61,7 +61,7 @@ export async function hasSSNOnFile(userId: string): Promise<boolean> {
     .from('secure_identity')
     .select('ssn_last4')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   return !!(data?.ssn_last4);
 }

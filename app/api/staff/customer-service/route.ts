@@ -28,7 +28,7 @@ async function _GET(request: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (
       !profile ||

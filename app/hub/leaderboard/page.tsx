@@ -30,7 +30,7 @@ export default async function LeaderboardPage() {
     .from('profiles')
     .select('points')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const userRank = topLearners?.findIndex(l => l.id === user.id) ?? -1;
 

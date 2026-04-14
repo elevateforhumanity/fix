@@ -88,7 +88,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
         .from('profiles')
         .select('organization_id')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!profile?.organization_id) {
         setIsLoading(false);
@@ -100,7 +100,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
         .from('organizations')
         .select('*')
         .eq('id', profile.organization_id)
-        .single();
+        .maybeSingle();
 
       if (org) {
         setOrganization(org);
@@ -111,7 +111,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
         .from('licenses')
         .select('*')
         .eq('organization_id', profile.organization_id)
-        .single();
+        .maybeSingle();
 
       if (lic) {
         setLicense(lic);
@@ -121,7 +121,7 @@ export function TenantProvider({ children }: { children: ReactNode }) {
           .from('license_usage')
           .select('*')
           .eq('license_id', lic.id)
-          .single();
+          .maybeSingle();
 
         if (usg) {
           setUsage(usg);

@@ -92,7 +92,7 @@ export async function GET(request: Request) {
               .from('profiles')
               .select('role')
               .eq('id', user.id)
-              .single();
+              .maybeSingle();
             if (profile?.role && allowedRoles.includes(profile.role)) {
               resolvedRole = profile.role;
             }

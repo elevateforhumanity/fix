@@ -25,7 +25,7 @@ export default async function EnrollmentSuccessPage({
     .from('training_courses')
     .select('id, title, slug')
     .eq('id', params.courseId)
-    .single();
+    .maybeSingle();
   return (
     <div className="min-h-screen bg-white py-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     .from('applications')
     .select('id, status, user_id, program_slug, program_interest, email, first_name, last_name, full_name, funding_verified, payment_received_at, eligibility_status, has_workone_approval')
     .eq('id', application_id)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !application) {
     return NextResponse.json({ error: 'Application not found' }, { status: 404 });
@@ -156,7 +156,7 @@ export async function POST(req: NextRequest) {
           source: 'admin-transition',
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (enrollError) {
         logger.error('[transition] enrollment insert failed', enrollError);

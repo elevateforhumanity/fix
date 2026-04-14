@@ -94,7 +94,7 @@ async function _POST(request: NextRequest) {
         apprentices!inner(user_id)
       `)
       .eq('id', progress_entry_id)
-      .single();
+      .maybeSingle();
     
     // Verify user owns this entry via apprentice relationship
     if (entry && entry.apprentices && (entry.apprentices as any).user_id !== user.id) {
@@ -126,7 +126,7 @@ async function _POST(request: NextRequest) {
       .from('apprentice_sites')
       .select('id, latitude, longitude, radius_meters')
       .eq('id', entry.site_id)
-      .single();
+      .maybeSingle();
 
     if (siteError || !site) {
       return NextResponse.json(
@@ -176,7 +176,7 @@ async function _POST(request: NextRequest) {
       .from('progress_entries')
       .select('clock_out_at, auto_clocked_out, auto_clock_out_reason')
       .eq('id', progress_entry_id)
-      .single();
+      .maybeSingle();
 
     if (reloadError) {
       return NextResponse.json(

@@ -14,7 +14,7 @@ export default async function EmployerProposalPage({ params }: { params: { id: s
   await requireRole(['admin', 'super_admin']);
   const supabase = await createClient();
 
-  const { data: employer } = await supabase.from('employers').select('*').eq('id', params.id).single();
+  const { data: employer } = await supabase.from('employers').select('*').eq('id', params.id).maybeSingle();
 
   return (
     <div className="min-h-screen bg-white">

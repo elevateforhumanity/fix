@@ -56,7 +56,7 @@ export async function verify2FAToken(
     .from('two_factor_auth')
     .select('secret, enabled')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (!twoFactor || !twoFactor.enabled) {
     return false;
@@ -85,7 +85,7 @@ export async function enable2FA(
     .from('two_factor_auth')
     .select('secret')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (!twoFactor) {
     return false;
@@ -140,7 +140,7 @@ export async function verifyBackupCode(
     .from('two_factor_auth')
     .select('backup_codes')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (!twoFactor || !twoFactor.backup_codes) {
     return false;
@@ -184,7 +184,7 @@ export async function is2FAEnabled(userId: string): Promise<boolean> {
     .from('two_factor_auth')
     .select('enabled')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   return twoFactor?.enabled || false;
 }

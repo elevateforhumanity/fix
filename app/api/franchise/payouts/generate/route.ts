@@ -31,7 +31,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
 
@@ -40,7 +40,7 @@ async function _POST(request: NextRequest) {
         .from('franchise_offices')
         .select('owner_id')
         .eq('id', body.officeId)
-        .single();
+        .maybeSingle();
 
       if (office?.owner_id !== user.id) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

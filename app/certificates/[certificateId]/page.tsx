@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .from('certificates')
     .select('title')
     .eq('id', certificateId)
-    .single();
+    .maybeSingle();
 
   return {
     title: certificate ? `${certificate.title} | Certificate` : 'Certificate | Elevate for Humanity',
@@ -50,7 +50,7 @@ export default async function CertificateViewPage({ params }: Props) {
       profiles (first_name, last_name, full_name)
     `)
     .eq('id', certificateId)
-    .single();
+    .maybeSingle();
 
   if (error || !certificate) {
     notFound();

@@ -60,7 +60,7 @@ export async function provisionTenant(params: ProvisionTenantParams): Promise<Te
       .from('profiles')
       .select('id, tenant_id')
       .eq('email', email)
-      .single();
+      .maybeSingle();
 
     if (existingProfile?.tenant_id) {
       logger.info('Tenant already exists for email', { email, tenantId: existingProfile.tenant_id });
@@ -88,7 +88,7 @@ export async function provisionTenant(params: ProvisionTenantParams): Promise<Te
         },
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (tenantError || !tenant) {
       logger.error('Failed to create tenant', tenantError);
@@ -226,7 +226,7 @@ export async function isLicenseProvisioned(licenseId: string): Promise<boolean> 
     .from('licenses')
     .select('tenant_id')
     .eq('id', licenseId)
-    .single();
+    .maybeSingle();
   
   return !!data?.tenant_id;
 }

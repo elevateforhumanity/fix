@@ -28,7 +28,7 @@ export default async function ProviderLayout({
     .from('profiles')
     .select('role, tenant_id, full_name, email')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || profile.role !== 'provider_admin') {
     redirect('/unauthorized');
@@ -39,7 +39,7 @@ export default async function ProviderLayout({
     .from('tenants')
     .select('name, slug, status')
     .eq('id', profile.tenant_id)
-    .single();
+    .maybeSingle();
 
   if (!tenant || tenant.status === 'suspended') {
     // Suspended providers see a holding page, not the portal

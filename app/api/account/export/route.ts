@@ -30,7 +30,7 @@ async function _GET(request: Request) {
       .from('users')
       .select('*')
       .eq('email', email)
-      .single();
+      .maybeSingle();
 
     if (userError) {
       logger.error('Failed to fetch user for export', userError as Error, { email });

@@ -27,7 +27,7 @@ export default async function PartnerHoursPage() {
     .from('partner_users')
     .select('partner_id, role')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!partnerUser) {
     redirect('/partner');

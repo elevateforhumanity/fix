@@ -56,7 +56,7 @@ async function handler(req: Request) {
       .from('training_courses')
       .select('*')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (courseError || !course) {
       return NextResponse.json(

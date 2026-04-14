@@ -15,7 +15,7 @@ async function _POST() {
       .from('profiles')
       .select('stripe_customer_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile?.stripe_customer_id) {
       return NextResponse.json({ error: 'No billing account found' }, { status: 404 });

@@ -33,7 +33,7 @@ export default async function HoursHistoryPage() {
     `)
     .eq('apprentice_id', user.id)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
 
   // Fetch hours log from consolidated hour_entries
   const { data: hoursLog } = await supabase

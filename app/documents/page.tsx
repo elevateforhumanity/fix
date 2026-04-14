@@ -35,7 +35,7 @@ export default async function DocumentsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch user's documents
   const { data: userDocuments } = await supabase

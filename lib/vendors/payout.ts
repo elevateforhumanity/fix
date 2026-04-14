@@ -129,7 +129,7 @@ export async function processVendorPayout(
         created_at: new Date().toISOString(),
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (payoutError) {
       logger.error('[vendor-payout] DB insert error:', payoutError);

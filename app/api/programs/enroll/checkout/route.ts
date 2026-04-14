@@ -78,7 +78,7 @@ async function _POST(request: NextRequest) {
       .from('programs')
       .select('id, title, slug, total_cost, status')
       .eq('id', program_id)
-      .single();
+      .maybeSingle();
 
     if (programError || !program) {
       return NextResponse.json({ error: 'Program not found' }, { status: 404 });
@@ -98,7 +98,7 @@ async function _POST(request: NextRequest) {
       .eq('student_id', user.id)
       .eq('program_id', program_id)
       .in('status', ['active', 'pending'])
-      .single();
+      .maybeSingle();
 
     if (existingEnrollment) {
       return NextResponse.json(
@@ -123,7 +123,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('email, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const customerEmail = profile?.email || user.email || '';
 

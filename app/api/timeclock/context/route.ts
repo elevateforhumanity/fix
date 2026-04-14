@@ -37,7 +37,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('id, role, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const role = profile?.role || 'student';
     const isAdmin = ['admin', 'super_admin', 'staff'].includes(role);
@@ -97,7 +97,7 @@ async function _GET(request: NextRequest) {
         .from('shops')
         .select('id, name')
         .eq('id', apprentice.employer_id)
-        .single();
+        .maybeSingle();
       if (shop) {
         shopId = shop.id;
         shopName = shop.name;

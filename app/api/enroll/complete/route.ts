@@ -66,7 +66,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('id')
       .eq('email', emailLower)
-      .single();
+      .maybeSingle();
 
     if (existingUser) {
       userId = existingUser.id;
@@ -141,7 +141,7 @@ async function _POST(req: Request) {
       .select('id')
       .eq('user_id', userId)
       .eq('program_id', program.id)
-      .single();
+      .maybeSingle();
 
     let enrollmentId: string;
 
@@ -176,7 +176,7 @@ async function _POST(req: Request) {
             : {}),
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (enrollError) {
         logger.error('Enrollment creation error', enrollError);

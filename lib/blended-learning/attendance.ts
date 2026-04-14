@@ -70,7 +70,7 @@ export async function createAttendanceSession(data: {
       qr_code,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return session;
@@ -93,7 +93,7 @@ export async function checkInStudent(
     .select('*')
     .eq('student_id', student_id)
     .eq('session_id', session_id)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     throw new Error('Student already checked in for this session');
@@ -104,7 +104,7 @@ export async function checkInStudent(
     .from('attendance_sessions')
     .select('*')
     .eq('id', session_id)
-    .single();
+    .maybeSingle();
 
   if (!session) {
     throw new Error('Session not found');
@@ -127,7 +127,7 @@ export async function checkInStudent(
       check_in_method: 'manual',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return record;
@@ -147,7 +147,7 @@ export async function checkInWithQRCode(
     .from('attendance_sessions')
     .select('*')
     .eq('qr_code', qr_code)
-    .single();
+    .maybeSingle();
 
   if (!session) {
     throw new Error('Invalid QR code');
@@ -165,7 +165,7 @@ export async function checkInWithQRCode(
     .select('*')
     .eq('student_id', student_id)
     .eq('session_id', session.id)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     throw new Error('Already checked in for this session');
@@ -187,7 +187,7 @@ export async function checkInWithQRCode(
       check_in_method: 'qr_code',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return record;
@@ -210,7 +210,7 @@ export async function checkOutStudent(
     .eq('student_id', student_id)
     .eq('session_id', session_id)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return record;
@@ -237,7 +237,7 @@ export async function markAbsent(
       check_in_method: 'manual',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return record;

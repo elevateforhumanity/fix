@@ -49,7 +49,7 @@ async function _POST(req: NextRequest) {
       .from('leads')
       .select('id, stage')
       .eq('email', data.email)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       // Update existing lead
@@ -65,7 +65,7 @@ async function _POST(req: NextRequest) {
         })
         .eq('id', existing.id)
         .select()
-        .single();
+        .maybeSingle();
 
       if (error) {
         logger.error('Failed to update lead', { error, email: data.email });
@@ -98,7 +98,7 @@ async function _POST(req: NextRequest) {
         created_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Failed to create lead', { error, data });

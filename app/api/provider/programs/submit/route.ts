@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     .from('programs')
     .select('id, title, tenant_id, is_published')
     .eq('id', program_id)
-    .single();
+    .maybeSingle();
 
   if (programErr || !program) {
     return NextResponse.json({ error: 'Program not found' }, { status: 404 });
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
       program_snapshot: { title: program.title },
     }, { onConflict: 'tenant_id,program_id' })
     .select()
-    .single();
+    .maybeSingle();
 
   if (approvalErr) {
     return NextResponse.json({ error: 'Failed to submit program for review' }, { status: 500 });

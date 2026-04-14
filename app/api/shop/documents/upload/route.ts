@@ -41,7 +41,7 @@ async function _POST(req: Request) {
       .select('id')
       .eq('shop_id', shopId)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!staff) {
       return NextResponse.json(

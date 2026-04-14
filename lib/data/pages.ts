@@ -30,7 +30,7 @@ export async function getPage(slug: string): Promise<Page | null> {
     .select('id, slug, path, title, description, section, status, meta_title, meta_desc, is_published, requires_auth, roles_allowed, created_at, updated_at')
     .eq('slug', slug)
     .eq('status', 'published')
-    .single();
+    .maybeSingle();
 
   if (!page) return null;
 

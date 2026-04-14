@@ -159,7 +159,7 @@ async function checkCoverageGate(
     .from('programs')
     .select('slug')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (progErr) {
     // Network/DB error — infrastructure failure, fail open and log
@@ -351,7 +351,7 @@ async function publishCompiledDraft(
       },
     })
     .select('id, slug')
-    .single();
+    .maybeSingle();
 
   if (courseErr || !courseRow)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -572,7 +572,7 @@ async function _POST(req: NextRequest) {
         },
       })
       .select('id, slug')
-      .single();
+      .maybeSingle();
 
     if (courseErr) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     const courseId = courseRow.id;

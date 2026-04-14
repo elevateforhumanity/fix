@@ -96,7 +96,7 @@ async function _POST(req: Request) {
     .select('id, student_id, transfer_hours')
     .eq('id', enrollment_id)
     .eq('student_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (enrollmentError || !enrollment) {
     return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 });

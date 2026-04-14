@@ -88,7 +88,7 @@ export default async function WIOAVerifyPage({
     .from('wioa_participants')
     .select('*')
     .eq('id', participantId)
-    .single();
+    .maybeSingle();
 
   if (!participant) {
     return (

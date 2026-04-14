@@ -26,7 +26,7 @@ export async function getCalendlyToken(): Promise<string> {
     .from('app_secrets')
     .select('value')
     .eq('key', 'CALENDLY_PAT')
-    .single();
+    .maybeSingle();
 
   if (error || !data?.value) {
     throw new Error('CALENDLY_PAT not found in app_secrets');

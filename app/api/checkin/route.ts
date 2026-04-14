@@ -29,7 +29,7 @@ async function _POST(request: NextRequest) {
       .from('apprentices')
       .select('id, shop_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (apprenticeError || !apprentice) {
       return NextResponse.json({ error: 'Apprentice record not found' }, { status: 404 });
@@ -41,7 +41,7 @@ async function _POST(request: NextRequest) {
       .select('id')
       .eq('apprentice_id', apprentice.id)
       .is('checkout_time', null)
-      .single();
+      .maybeSingle();
 
     if (existingSession) {
       return NextResponse.json({ error: 'Already checked in. Please check out first.' }, { status: 400 });
@@ -53,7 +53,7 @@ async function _POST(request: NextRequest) {
       .select('shop_id, shops(name)')
       .eq('code', code.toUpperCase())
       .gt('expires_at', new Date().toISOString())
-      .single();
+      .maybeSingle();
 
     if (qrError || !qrCode) {
       return NextResponse.json({ error: 'Invalid or expired check-in code' }, { status: 400 });
@@ -70,7 +70,7 @@ async function _POST(request: NextRequest) {
         checkin_code: code.toUpperCase(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (sessionError) {
       logger.error('Error creating session:', sessionError);

@@ -19,7 +19,7 @@ export const getOrgContext = cache(
       .from('profiles')
       .select('organization_id')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
     if (profileError || !profile?.organization_id) {
       throw new Error('User not associated with any organization');
@@ -42,7 +42,7 @@ export const getOrgContext = cache(
       )
       .eq('user_id', userId)
       .eq('organization_id', profile.organization_id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to get org context`);

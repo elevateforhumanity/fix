@@ -90,7 +90,7 @@ async function _POST(request: NextRequest) {
       folder_id: folderId,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });
@@ -124,7 +124,7 @@ const supabase = await createClient();
     .select('storage_path')
     .eq('id', id)
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (file) {
     // Delete from storage

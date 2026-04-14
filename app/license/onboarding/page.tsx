@@ -30,7 +30,7 @@ export default async function LicenseeOnboardingPage() {
       organizations(id, name, onboarding_completed)
     `)
     .eq('stripe_customer_id', user.id)
-    .single();
+    .maybeSingle();
 
   // Check agreement acceptance status
   const { data: acceptances } = await supabase

@@ -174,7 +174,7 @@ export async function reportContent(
       status: 'pending',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -260,7 +260,7 @@ export async function reviewReport(
     .from('moderation_reports')
     .select('*')
     .eq('id', reportId)
-    .single();
+    .maybeSingle();
 
   if (!report) throw new Error('Report not found');
 
@@ -394,7 +394,7 @@ async function sendModerationWarning(
     .from(tableName)
     .select('user_id, author_id, instructor_id')
     .eq('id', contentId)
-    .single();
+    .maybeSingle();
 
   if (!content) return;
 

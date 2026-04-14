@@ -53,7 +53,7 @@ export async function provisionLicense(
         status: 'active',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (tenantError || !tenant) {
       throw new Error(`Failed to create tenant: ${tenantError?.message}`);
@@ -108,7 +108,7 @@ export async function provisionLicense(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (licenseError || !license) {
       throw new Error(`Failed to create license: ${licenseError?.message}`);

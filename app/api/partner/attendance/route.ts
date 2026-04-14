@@ -28,7 +28,7 @@ const supabase = await createClient();
     .from("profiles")
     .select("role, tenant_id")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== "partner") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
@@ -75,7 +75,7 @@ async function _POST(request: Request) {
     .from("profiles")
     .select("role, tenant_id")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== "partner") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
@@ -95,7 +95,7 @@ async function _POST(request: Request) {
     .from("program_enrollments")
     .select("id, tenant_id")
     .eq("id", enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) {
     return NextResponse.json(
@@ -120,7 +120,7 @@ async function _POST(request: Request) {
       notes: notes || null,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

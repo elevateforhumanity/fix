@@ -53,7 +53,7 @@ export async function checkOnboardingComplete(
     .eq('employer_id', employerId)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   // Get documents with their approval status
   const { data: documents } = await db
@@ -151,7 +151,7 @@ export async function tryAutoActivate(
     .eq('employer_id', employerId)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (!onboarding) return false;
   if (!['approved', 'onboarding_in_progress'].includes(onboarding.status)) return false;

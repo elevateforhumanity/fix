@@ -23,7 +23,7 @@ export async function getStateRules(state: string): Promise<StateRules | null> {
     .from('state_rules')
     .select('*')
     .eq('state', state.toUpperCase())
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to fetch state rules:', error);

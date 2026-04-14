@@ -51,7 +51,7 @@ export async function withLicense(
       .from('licenses')
       .select('id, tier, features, max_users, max_deployments, expires_at, current_period_end, stripe_subscription_id, stripe_customer_id, status')
       .eq('tenant_id', tenant.tenantId)
-      .single();
+      .maybeSingle();
 
     if (error || !license) {
       await logLicenseViolation(adminSupabase, tenant.tenantId, 'no_license');
@@ -136,7 +136,7 @@ export async function hasFeature(
     .select('features')
     .eq('tenant_id', tenantId)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
 
   if (!license) return false;
 
@@ -157,7 +157,7 @@ export async function checkUserLimit(
       .select('max_users')
       .eq('tenant_id', tenantId)
       .eq('status', 'active')
-      .single(),
+      .maybeSingle(),
     adminSupabase
       .from('profiles')
       .select('id', { count: 'exact' })

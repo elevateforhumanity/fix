@@ -25,14 +25,14 @@ export default async function SettingsPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch user preferences if they exist
   const { data: preferences } = await supabase
     .from('user_preferences')
     .select('*')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   return (
     <div className="min-h-screen bg-white py-8">

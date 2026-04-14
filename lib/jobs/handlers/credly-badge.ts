@@ -42,7 +42,7 @@ export async function handleCredlyBadgeIssue(payload: Record<string, any>): Prom
     .from('learner_credentials')
     .select('id, credly_badge_id')
     .eq('id', learner_credential_id)
-    .single();
+    .maybeSingle();
 
   if (existing?.credly_badge_id) {
     logger.info('Credly badge already issued — skipping', { learner_credential_id });

@@ -43,7 +43,7 @@ async function _POST(request: NextRequest) {
         status: 'active',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

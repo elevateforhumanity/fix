@@ -36,7 +36,7 @@ async function _POST(
       .select('id')
       .eq('assignment_id', id)
       .eq('student_id', user.id)
-      .single();
+      .maybeSingle();
 
     let submission;
     let error;
@@ -55,7 +55,7 @@ async function _POST(
         })
         .eq('id', existing.id)
         .select()
-        .single();
+        .maybeSingle();
 
       submission = result.data;
       error = result.error;
@@ -73,7 +73,7 @@ async function _POST(
           submitted_at: new Date().toISOString(),
         })
         .select()
-        .single();
+        .maybeSingle();
 
       submission = result.data;
       error = result.error;

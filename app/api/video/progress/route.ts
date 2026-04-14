@@ -79,7 +79,7 @@ async function _POST(req: NextRequest) {
       { onConflict: "user_id,lesson_id" }
     )
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error("video_progress POST error", error);

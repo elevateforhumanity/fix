@@ -66,7 +66,7 @@ async function _POST(req: Request) {
         is_active: true,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       if (error.code === '23505') {

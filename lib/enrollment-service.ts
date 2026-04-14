@@ -183,7 +183,7 @@ export async function linkOrphanedBarberSubscriptions(
     .from('profiles')
     .select('id')
     .eq('email', normalizedEmail)
-    .single();
+    .maybeSingle();
 
   if (!profile?.id) return { linked: 0 };
 
@@ -224,7 +224,7 @@ export async function linkOrphanedApplications(
     .from('profiles')
     .select('id')
     .eq('email', normalizedEmail)
-    .single();
+    .maybeSingle();
 
   if (!profile?.id) return { linked: 0 };
 
@@ -261,7 +261,7 @@ export async function linkOrphanedEnrollments(
     .from('profiles')
     .select('id')
     .eq('email', normalizedEmail)
-    .single();
+    .maybeSingle();
 
   if (!profile?.id) return { linked: 0 };
 

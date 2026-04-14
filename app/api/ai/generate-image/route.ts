@@ -136,7 +136,7 @@ async function _POST(request: NextRequest) {
       file_size_bytes: fileSize,
       metadata: { mode, category },
       created_by: user?.id,
-    }).select('id').single();
+    }).select('id').maybeSingle();
 
     // 5. Complete task
     if (task?.id) {

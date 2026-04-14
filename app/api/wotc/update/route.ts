@@ -23,7 +23,7 @@ async function requireAdminUser() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !ADMIN_ROLES.includes(profile.role ?? '')) {
     return { user: null, db: null, error: 'Forbidden' as const };

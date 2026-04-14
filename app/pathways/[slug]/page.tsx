@@ -40,7 +40,7 @@ export default async function PathwayDetailPage({ params }: { params: Promise<{ 
     .from('pathways')
     .select('*')
     .eq('slug', slug)
-    .single();
+    .maybeSingle();
 
   const pathway = dbPathway || PATHWAYS.find((p) => p.slug === slug);
   if (!pathway) return notFound();

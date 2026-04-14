@@ -78,7 +78,7 @@ export async function updateWOTCApplication(id: string, formData: FormData) {
   const { data: _p2 } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!_p2 || !['admin', 'super_admin'].includes(_p2.role)) return { error: 'Forbidden' };
 
-  const { data: _existing } = await db.from('wotc_applications').select('id').eq('id', id).single();
+  const { data: _existing } = await db.from('wotc_applications').select('id').eq('id', id).maybeSingle();
   if (!_existing) return { error: 'WOTC application not found' };
 
   const targetGroups = formData.getAll('targetGroups') as string[];
@@ -135,7 +135,7 @@ export async function submitWOTCApplication(id: string) {
   const { data: _p3 } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!_p3 || !['admin', 'super_admin'].includes(_p3.role)) return { error: 'Forbidden' };
 
-  const { data: _rec } = await db.from('wotc_applications').select('id, status').eq('id', id).single();
+  const { data: _rec } = await db.from('wotc_applications').select('id, status').eq('id', id).maybeSingle();
   if (!_rec) return { error: 'WOTC application not found' };
   if (_rec.status !== 'draft') return { error: 'Only draft applications can be submitted' };
 
@@ -165,7 +165,7 @@ export async function updateWOTCStatus(id: string, status: string, notes?: strin
   const { data: _p4 } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!_p4 || !['admin', 'super_admin'].includes(_p4.role)) return { error: 'Forbidden' };
 
-  const { data: _rec2 } = await db.from('wotc_applications').select('id').eq('id', id).single();
+  const { data: _rec2 } = await db.from('wotc_applications').select('id').eq('id', id).maybeSingle();
   if (!_rec2) return { error: 'WOTC application not found' };
 
   const updateData: Record<string, unknown> = {
@@ -204,7 +204,7 @@ export async function deleteWOTCApplication(id: string) {
   const { data: _p5 } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!_p5 || !['admin', 'super_admin'].includes(_p5.role)) return { error: 'Forbidden' };
 
-  const { data: _rec3 } = await db.from('wotc_applications').select('id').eq('id', id).single();
+  const { data: _rec3 } = await db.from('wotc_applications').select('id').eq('id', id).maybeSingle();
   if (!_rec3) return { error: 'WOTC application not found' };
 
   const { error } = await db

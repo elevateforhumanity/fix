@@ -78,14 +78,14 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const { data: enrollment } = await db
       .from('program_enrollments')
       .select('*, program:programs(*)')
       .eq('student_id', user.id)
       .eq('status', 'active')
-      .single();
+      .maybeSingle();
 
     let contextMessage = `Student: ${profile?.full_name || 'Unknown'}`;
     if (enrollment) {

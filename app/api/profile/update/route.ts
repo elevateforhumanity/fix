@@ -65,7 +65,7 @@ async function _GET(request: NextRequest) {
     const { data: profile, error } = await db.from('profiles')
       .select('*')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Failed to load profile' }, { status: 500 });

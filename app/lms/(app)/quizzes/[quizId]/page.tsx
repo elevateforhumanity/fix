@@ -14,7 +14,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { quizId } = await params;
   const supabase = await createClient();
-  const { data: quiz } = await supabase.from('quizzes').select('title').eq('id', quizId).single();
+  const { data: quiz } = await supabase.from('quizzes').select('title').eq('id', quizId).maybeSingle();
   return { title: quiz?.title ?? 'Quiz' };
 }
 
@@ -29,7 +29,7 @@ export default async function QuizPage({ params }: Props) {
     .from('quizzes')
     .select('id, title, description, course_id, time_limit_minutes, passing_score, max_attempts, shuffle_questions, show_correct_answers, requires_proctoring, created_at')
     .eq('id', quizId)
-    .single();
+    .maybeSingle();
   if (quizError || !quiz) notFound();
 
   // Hydrate course title separately (no FK on quizzes.course_id)
@@ -66,7 +66,7 @@ export default async function QuizPage({ params }: Props) {
         .from('exam_sessions')
         .select('id')
         .eq('quiz_attempt_id', inProgressAttempt.id)
-        .single();
+        .maybeSingle();
       examSessionId = examSession?.id;
     }
     return (

@@ -147,7 +147,7 @@ async function _POST(req: Request) {
         // transfer_hours_verified is null until staff reviews documentation
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       const errorCode = (error as any)?.code || "UNKNOWN";

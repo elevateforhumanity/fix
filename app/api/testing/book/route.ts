@@ -81,7 +81,7 @@ export const POST = withRuntime(
       .from('testing_slots')
       .select('id, capacity, booked_count, is_cancelled')
       .eq('id', slotId)
-      .single();
+      .maybeSingle();
 
     if (slotErr || !slot) {
       return NextResponse.json({ error: 'Selected slot not found' }, { status: 400 });

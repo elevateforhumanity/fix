@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', auth.user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     return safeError('Only admins can mark payouts as paid', 403);
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     .eq('id', enrollment_id)
     .neq('payout_status', 'paid') // idempotency guard
     .select('id, payout_status, payout_paid_date, payout_due_date')
-    .single();
+    .maybeSingle();
 
   if (error) return safeInternalError(error, 'Failed to mark payout paid');
   if (!updated) return safeError('Already marked as paid or not found', 409);

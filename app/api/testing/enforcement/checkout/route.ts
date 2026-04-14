@@ -59,7 +59,7 @@ export const POST = withRuntime(
     .select('id, enforcement_type, fee_cents, fee_paid')
     .eq('id', enforcementId)
     .eq('email', email.toLowerCase().trim())
-    .single();
+    .maybeSingle();
 
   if (error || !hold) return safeError('Enforcement hold not found', 404);
   if (hold.fee_paid) return safeError('This fee has already been paid', 400);

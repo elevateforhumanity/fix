@@ -37,7 +37,7 @@ async function _POST(request: NextRequest) {
       .select('partner_id, role')
       .eq('user_id', user.id)
       .in('role', ['owner', 'manager', 'admin'])
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ 
@@ -50,7 +50,7 @@ async function _POST(request: NextRequest) {
       .from('progress_entries')
       .select('id, partner_id, apprentice_id, hours_worked')
       .eq('id', entryId)
-      .single();
+      .maybeSingle();
 
     if (!entry) {
       return NextResponse.json({ error: 'Entry not found' }, { status: 404 });
@@ -85,7 +85,7 @@ async function _POST(request: NextRequest) {
         .from('apprentice_progress')
         .select('total_hours')
         .eq('user_id', entry.apprentice_id)
-        .single();
+        .maybeSingle();
 
       const currentHours = currentProgress?.total_hours || 0;
       const newTotal = currentHours + parseFloat(entry.hours_worked || 0);

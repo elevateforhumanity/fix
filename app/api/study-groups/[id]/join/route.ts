@@ -38,7 +38,7 @@ async function _POST(
       .from("study_groups")
       .select("id, max_members")
       .eq("id", groupId)
-      .single();
+      .maybeSingle();
 
     if (groupError || !group) {
       return NextResponse.json(
@@ -53,7 +53,7 @@ async function _POST(
       .select("id")
       .eq("group_id", groupId)
       .eq("user_id", user.id)
-      .single();
+      .maybeSingle();
 
     if (existingMembership) {
       return NextResponse.json(

@@ -86,7 +86,7 @@ export async function publishProgram(programId: string, publishedBy: string) {
     .from('programs')
     .select('*')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !program) {
     throw new Error('Program not found');
@@ -108,7 +108,7 @@ export async function publishProgram(programId: string, publishedBy: string) {
     })
     .eq('id', programId)
     .select()
-    .single();
+    .maybeSingle();
 
   if (updateError) {
     logger.error('Failed to publish program', { error: updateError, programId });
@@ -146,7 +146,7 @@ export async function archiveProgram(programId: string, archivedBy: string) {
     })
     .eq('id', programId)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to archive program', { error, programId });
@@ -206,7 +206,7 @@ export async function linkCredentialToProgram(params: {
     })
     .eq('id', params.credentialId)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to link credential to program', { error, params });

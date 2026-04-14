@@ -25,7 +25,7 @@ export default async function InstructorStudentsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['instructor', 'admin', 'super_admin'].includes(profile.role)) {
     redirect('/');

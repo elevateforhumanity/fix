@@ -219,7 +219,7 @@ export async function requestExamScheduling(
       status:          'pending',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error || !newReq) {
     logger.error('requestExamScheduling: insert failed', { req, error });

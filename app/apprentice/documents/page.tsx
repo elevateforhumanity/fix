@@ -25,7 +25,7 @@ export default async function ApprenticeDocumentsPage() {
     .from('apprentices')
     .select('*')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   // Get documents
   const { data: documents } = await supabase

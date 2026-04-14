@@ -39,7 +39,7 @@ async function _GET(request: NextRequest) {
         created_at
       `)
       .eq('stripe_payment_intent_id', paymentIntent)
-      .single();
+      .maybeSingle();
 
     if (purchaseError || !purchase) {
       logger.warn('License purchase not found', { paymentIntent });
@@ -57,7 +57,7 @@ async function _GET(request: NextRequest) {
         .select('id, tier, status, features, max_users, max_programs, valid_until')
         .eq('tenant_id', purchase.tenant_id)
         .eq('status', 'active')
-        .single();
+        .maybeSingle();
       license = licenseData;
     }
 

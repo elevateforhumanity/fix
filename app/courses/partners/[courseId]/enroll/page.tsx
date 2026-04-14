@@ -65,7 +65,7 @@ export default function EnrollPage({
         `
         )
         .eq('id', params.courseId)
-        .single();
+        .maybeSingle();
 
       if (courseError || !courseData) {
         setError('Course not found');

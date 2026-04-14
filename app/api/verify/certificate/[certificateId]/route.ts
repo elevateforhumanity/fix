@@ -34,7 +34,7 @@ async function _GET(_req: NextRequest, { params }: Params) {
         is_revoked
       `)
       .eq("id", certificateId)
-      .single();
+      .maybeSingle();
 
     if (certError || !certificate) {
       return NextResponse.json(
@@ -55,14 +55,14 @@ async function _GET(_req: NextRequest, { params }: Params) {
       .from("profiles")
       .select("full_name, email")
       .eq("id", certificate.user_id)
-      .single();
+      .maybeSingle();
 
     // Get course details
     const { data: course } = await supabase
       .from("training_courses")
       .select("title, description")
       .eq("id", certificate.course_id)
-      .single();
+      .maybeSingle();
 
     const response = {
       valid: true,

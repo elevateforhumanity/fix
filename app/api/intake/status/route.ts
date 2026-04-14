@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
       .from('applications')
       .select('full_name, email, program_interest, intake_stage, created_at, updated_at')
       .eq('public_status_token', token)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json({ error: 'Application not found.' }, { status: 404 });

@@ -14,7 +14,7 @@ async function requireAdmin() {
   const user = await getCurrentUser();
   if (!user) return null;
   const db = await getAdminClient();
-  const { data: p } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: p } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!p || !['admin','super_admin','org_admin','staff'].includes(p.role)) return null;
   return user;
 }

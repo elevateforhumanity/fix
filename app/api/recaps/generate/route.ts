@@ -40,7 +40,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('organization_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile?.organization_id) {
       return NextResponse.json(
@@ -131,7 +131,7 @@ ${transcript}
         source: 'manual',
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (recapErr) {
       return NextResponse.json({ error: 'Operation failed' }, { status: 500 });

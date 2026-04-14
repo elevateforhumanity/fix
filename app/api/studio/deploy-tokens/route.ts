@@ -111,7 +111,7 @@ async function _POST(req: NextRequest) {
         }
       )
       .select('id, provider, project_id, created_at, updated_at')
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 
@@ -153,7 +153,7 @@ const userId = req.headers.get('x-user-id');
       .select('encrypted_token, project_id')
       .eq('user_id', userId)
       .eq('provider', provider)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json({ error: 'Token not found' }, { status: 404 });

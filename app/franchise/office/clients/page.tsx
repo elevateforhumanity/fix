@@ -72,7 +72,7 @@ export default function ClientsPage() {
         .from('franchise_offices')
         .select('*')
         .eq('owner_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!officeData) {
         // Check if preparer
@@ -80,7 +80,7 @@ export default function ClientsPage() {
           .from('franchise_preparers')
           .select('*, office:franchise_offices(*)')
           .eq('user_id', user.id)
-          .single();
+          .maybeSingle();
 
         if (preparer?.office) {
           setOffice(preparer.office);

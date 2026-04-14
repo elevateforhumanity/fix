@@ -110,7 +110,7 @@ export async function POST(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       logger.error('Failed to insert partner application', insertError);

@@ -25,7 +25,7 @@ export default async function PartnerReportsPage() {
     .from('profiles')
     .select('role, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['partner', 'admin', 'super_admin', 'staff'].includes(profile.role)) {
     redirect('/unauthorized');
@@ -36,7 +36,7 @@ export default async function PartnerReportsPage() {
     .from('partner_users')
     .select('partner_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   const orgId = partnerUser?.partner_id;
 

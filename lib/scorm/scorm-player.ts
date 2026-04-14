@@ -56,7 +56,7 @@ export async function initializeSCORMSession(
     .eq('user_id', userId)
     .eq('package_id', packageId)
     .eq('status', 'running')
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return existing as SCORMSession;
@@ -73,7 +73,7 @@ export async function initializeSCORMSession(
       started_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to create SCORM session', error);
@@ -131,7 +131,7 @@ async function updateCourseProgress(sessionId: string, score?: number): Promise<
     .from('scorm_sessions')
     .select('enrollment_id, user_id, package_id')
     .eq('id', sessionId)
-    .single();
+    .maybeSingle();
 
   if (!session) return;
 

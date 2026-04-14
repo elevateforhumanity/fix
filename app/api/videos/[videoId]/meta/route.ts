@@ -37,7 +37,7 @@ async function _GET(req: NextRequest, { params }: Params) {
       .from("video_transcripts")
       .select("*")
       .eq("lesson_id", videoId)
-      .single();
+      .maybeSingle();
 
     if (transcriptError && transcriptError.code !== "PGRST116") {
       logger.error("Error fetching transcript:", transcriptError);
@@ -77,7 +77,7 @@ async function _POST(req: NextRequest, { params }: Params) {
       .from("profiles")
       .select("role")
       .eq("id", user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== "admin" && profile?.role !== "super_admin") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
@@ -121,7 +121,7 @@ async function _POST(req: NextRequest, { params }: Params) {
         .from("video_transcripts")
         .select("id")
         .eq("lesson_id", videoId)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         // Update existing

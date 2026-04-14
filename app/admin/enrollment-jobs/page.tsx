@@ -21,7 +21,7 @@ export default async function EnrollmentJobsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'staff'].includes(profile.role)) {
     redirect('/');

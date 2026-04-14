@@ -51,7 +51,7 @@ async function _POST(req: Request) {
       .eq('email', body.email.toLowerCase())
       .eq('program_interest', programId)
       .not('status', 'in', '("rejected","withdrawn")')
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(

@@ -94,7 +94,7 @@ export async function processUI3Results(
       .from('profiles')
       .select('id')
       .eq('ssn_last_4', record.ssn.slice(-4))
-      .single();
+      .maybeSingle();
 
     if (!profile) continue;
 
@@ -105,7 +105,7 @@ export async function processUI3Results(
       .eq('student_id', profile.id)
       .order('completion_date', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (!enrollment) continue;
 

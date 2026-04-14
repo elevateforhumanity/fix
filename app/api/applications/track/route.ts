@@ -49,7 +49,7 @@ async function _GET(request: NextRequest) {
     const { data, error } = await query
       .order('submitted_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json(

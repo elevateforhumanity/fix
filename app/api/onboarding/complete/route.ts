@@ -94,7 +94,7 @@ async function _POST(request: NextRequest) {
       db.from('profiles')
         .select('first_name, full_name, email, onboarding_completed, enrollment_status')
         .eq('id', userId)
-        .single(),
+        .maybeSingle(),
       db.from('applications')
         .select('id, status, program_id, program_interest')
         .eq('user_id', userId)

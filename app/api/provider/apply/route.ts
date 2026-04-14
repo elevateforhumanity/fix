@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
         status: 'pending',
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (error) {
       return safeInternalError(error, 'Failed to submit application');

@@ -67,7 +67,7 @@ async function _POST(req: NextRequest) {
         mou_version: mou_version || '2025-cosmetology-01',
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       logger.error('[cosmetology sign-mou] Insert error:', insertError);

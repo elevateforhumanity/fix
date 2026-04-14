@@ -74,7 +74,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -116,7 +116,7 @@ async function _POST(request: NextRequest) {
         published_at: status === 'published' ? new Date().toISOString() : null,
       })
       .select()
-      .single();
+      .maybeSingle();
     
     if (error) {
       logger.error('Blog create error:', error);

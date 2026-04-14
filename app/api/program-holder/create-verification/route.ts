@@ -44,7 +44,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('email')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
     if (!profile) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });

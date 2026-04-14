@@ -28,7 +28,7 @@ const supabase = await createClient();
     .eq("user_id", user.id)
     .eq("entitlement_code", "capital_readiness")
     .is("revoked_at", null)
-    .single();
+    .maybeSingle();
 
   if (entitlementError || !entitlement) {
     return NextResponse.json(

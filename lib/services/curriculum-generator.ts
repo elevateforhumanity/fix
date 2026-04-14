@@ -284,7 +284,7 @@ export class CurriculumGenerator {
         { onConflict: 'program_id,slug' }
       )
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       const msg = `upsertModule(${def.slug}): ${error?.message ?? 'no row returned'}`;
@@ -413,7 +413,7 @@ export class CurriculumGenerator {
         { onConflict: 'program_id,lesson_slug' }
       )
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (lessonErr || !lessonRow) {
       const msg = `upsertLesson(${def.lessonSlug}): ${lessonErr?.message ?? 'no row returned'}`;

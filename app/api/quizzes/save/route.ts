@@ -43,7 +43,7 @@ async function _POST(request: NextRequest) {
         created_by: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (quizError) throw quizError;
 

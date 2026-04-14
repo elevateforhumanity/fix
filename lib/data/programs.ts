@@ -19,7 +19,7 @@ export async function getProgram(slug: string): Promise<Program | null> {
       .select('*')
       .eq('slug', slug)
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (!error && supabaseProgram) {
       // Map Supabase data to Program type

@@ -41,7 +41,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('id, email, full_name, first_name, last_name')
       .eq('id', studentId)
-      .single();
+      .maybeSingle();
 
     if (profileError || !profile?.email) {
       logger.error('Student profile not found', {
@@ -59,7 +59,7 @@ async function _POST(req: Request) {
       .from('programs')
       .select('id, title, slug, total_cost')
       .eq('id', programId)
-      .single();
+      .maybeSingle();
 
     if (!program) {
       return NextResponse.json(

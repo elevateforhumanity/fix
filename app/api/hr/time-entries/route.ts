@@ -122,7 +122,7 @@ async function _POST(request: NextRequest) {
         notes,
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

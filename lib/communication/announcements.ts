@@ -58,7 +58,7 @@ export async function createAnnouncement(data: {
       published_at: data.published ? new Date().toISOString() : null,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Create recipient records and send notifications
   if (announcement.published) {

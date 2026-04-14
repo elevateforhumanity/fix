@@ -52,7 +52,7 @@ async function getCourseWithLessons(courseId: string) {
       generator_prompt, last_generated_at, updated_at
     `)
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (error || !course) return null;
 

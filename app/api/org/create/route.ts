@@ -52,7 +52,7 @@ async function _POST(req: NextRequest) {
         status: 'active',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (orgError) {
       if (orgError.code === '23505') {

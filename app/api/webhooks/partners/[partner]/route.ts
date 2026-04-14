@@ -164,7 +164,7 @@ async function handleCourseCompleted(
     .select('id, enrollment_id, provider_id')
     .eq('external_enrollment_id', data.enrollmentId)
     .eq('status', 'in_progress')
-    .single();
+    .maybeSingle();
 
   if (stepError || !step) {
     logger.error('[Webhook] Failed to find enrollment step:', stepError);
@@ -210,7 +210,7 @@ async function handleCourseCompleted(
         '*, provider:partner_lms_providers(*), enrollment:enrollments(user_id)'
       )
       .eq('id', nextStepId)
-      .single();
+      .maybeSingle();
 
     if (nextStep) {
       // Trigger auto-enrollment in next partner

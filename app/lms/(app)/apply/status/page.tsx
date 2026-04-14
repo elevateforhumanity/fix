@@ -42,7 +42,7 @@ export default function ApplicationStatusPage() {
       .eq('email', user.email)
       .order('submitted_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     setApplication(data);
     setLoading(false);

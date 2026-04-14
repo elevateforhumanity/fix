@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
       program_id:        body.programId ?? null,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (courseErr || !courseRow) {
     return safeInternalError(courseErr, 'Failed to create course record');

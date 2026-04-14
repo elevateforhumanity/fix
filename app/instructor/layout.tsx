@@ -58,7 +58,7 @@ export default async function InstructorLayout({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Allow admin or instructor roles
   if (profile?.role !== 'instructor' && profile?.role !== 'admin') {

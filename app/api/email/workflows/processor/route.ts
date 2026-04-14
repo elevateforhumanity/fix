@@ -164,7 +164,7 @@ async function processNewTriggers(supabase: any, workflow: any, now: Date) {
       .select('id')
       .eq('workflow_id', workflow.id)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (existing) continue; // Already enrolled
 
@@ -222,7 +222,7 @@ async function processPendingEmails(supabase: any, workflow: any, now: Date) {
         .from('students')
         .select('*')
         .eq('id', enrollment.user_id)
-        .single();
+        .maybeSingle();
 
       if (!user) continue;
 

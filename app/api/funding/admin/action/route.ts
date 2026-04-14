@@ -28,7 +28,7 @@ async function _POST(req: NextRequest) {
     .from('user_profiles')
     .select('role')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'partner'].includes(profile.role)) {
     return new Response('Forbidden', { status: 403 });
@@ -42,7 +42,7 @@ async function _POST(req: NextRequest) {
     .from('funding_applications')
     .select('id, user_id, course_id, program_id, status')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !app) {
     return new Response('Application not found', { status: 404 });

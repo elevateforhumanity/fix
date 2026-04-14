@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
     .from('profiles')
     .select('tenant_id')
     .eq('id', body.learner_id)
-    .single();
+    .maybeSingle();
 
   const { data: record, error } = await db
     .from('placement_records')
@@ -106,7 +106,7 @@ export async function POST(req: NextRequest) {
       notes:               body.notes ?? null,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) return NextResponse.json({ error: 'Failed to create placement record' }, { status: 500 });
 

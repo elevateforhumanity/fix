@@ -36,7 +36,7 @@ async function _GET(_req: NextRequest, { params }: Params) {
         is_locked
       `)
       .eq("id", threadId)
-      .single();
+      .maybeSingle();
 
     if (threadError || !thread) {
       logger.error("[thread detail] error:", threadError);
@@ -57,7 +57,7 @@ async function _GET(_req: NextRequest, { params }: Params) {
       .from("profiles")
       .select("full_name, avatar_url")
       .eq("id", thread.user_id)
-      .single();
+      .maybeSingle();
 
     // Get posts
     const { data: posts, error: postsError } = await supabase
@@ -151,7 +151,7 @@ async function _POST(req: NextRequest, { params }: Params) {
       .from("discussion_threads")
       .select("is_locked")
       .eq("id", threadId)
-      .single();
+      .maybeSingle();
 
     if (thread?.is_locked) {
       return NextResponse.json(

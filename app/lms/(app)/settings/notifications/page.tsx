@@ -89,7 +89,7 @@ export default function NotificationSettingsPage() {
       .from('profiles')
       .select('notification_preferences')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     
     if (profile?.notification_preferences) {
       setSettings(profile.notification_preferences as NotificationSettings);

@@ -36,7 +36,7 @@ export async function enrollCertiport(
       .from('profiles')
       .select('*')
       .eq('id', request.studentId)
-      .single();
+      .maybeSingle();
 
     if (!student) {
       throw new Error('Student not found');
@@ -47,7 +47,7 @@ export async function enrollCertiport(
       .from('partner_lms_providers')
       .select('*')
       .eq('id', request.providerId)
-      .single();
+      .maybeSingle();
 
     if (!provider) {
       throw new Error('Provider not found');
@@ -68,7 +68,7 @@ export async function enrollCertiport(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       throw enrollmentError;
@@ -112,7 +112,7 @@ export async function enrollHSI(
       .from('profiles')
       .select('*')
       .eq('id', request.studentId)
-      .single();
+      .maybeSingle();
 
     if (!student) {
       throw new Error('Student not found');
@@ -132,7 +132,7 @@ export async function enrollHSI(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       throw enrollmentError;
@@ -175,7 +175,7 @@ export async function enrollJRI(
       .from('profiles')
       .select('*')
       .eq('id', request.studentId)
-      .single();
+      .maybeSingle();
 
     if (!student) {
       throw new Error('Student not found');
@@ -195,7 +195,7 @@ export async function enrollJRI(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       throw enrollmentError;
@@ -239,7 +239,7 @@ export async function enrollNRFRiseUp(
       .from('profiles')
       .select('*')
       .eq('id', request.studentId)
-      .single();
+      .maybeSingle();
 
     if (!student) {
       throw new Error('Student not found');
@@ -259,7 +259,7 @@ export async function enrollNRFRiseUp(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       throw enrollmentError;
@@ -303,7 +303,7 @@ export async function enrollCareerSafe(
       .from('profiles')
       .select('*')
       .eq('id', request.studentId)
-      .single();
+      .maybeSingle();
 
     if (!student) {
       throw new Error('Student not found');
@@ -323,7 +323,7 @@ export async function enrollCareerSafe(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       throw enrollmentError;
@@ -369,7 +369,7 @@ export async function enrollStudent(
       .from('partner_lms_providers')
       .select('provider_type')
       .eq('id', request.providerId)
-      .single();
+      .maybeSingle();
 
     if (!provider) {
       throw new Error('Provider not found');

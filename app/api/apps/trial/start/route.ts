@@ -30,7 +30,7 @@ async function _POST(request: NextRequest) {
       .select('*')
       .eq('user_id', user.id)
       .eq('app_slug', appSlug)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       // If trial expired, redirect to upgrade
@@ -67,7 +67,7 @@ async function _POST(request: NextRequest) {
         current_period_end: trialEndsAt.toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Error creating trial:', error);

@@ -74,7 +74,7 @@ class EROService {
       .select('*')
       .eq('office_id', officeId)
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (error && error.code !== 'PGRST116') {
       throw new Error(`Failed to get ERO config`);
@@ -92,7 +92,7 @@ class EROService {
       .from('franchise_preparers')
       .select('*')
       .eq('id', input.ero_preparer_id)
-      .single();
+      .maybeSingle();
 
     if (preparerError || !preparer) {
       throw new Error('ERO preparer not found');
@@ -119,7 +119,7 @@ class EROService {
         updated_at: new Date().toISOString()
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to create ERO config`);
@@ -150,7 +150,7 @@ class EROService {
           owner:franchise_preparers!franchise_offices_owner_id_fkey(*)
         `)
         .eq('id', officeId)
-        .single();
+        .maybeSingle();
 
       if (officeError || !office) {
         throw new Error('Office not found');
@@ -178,7 +178,7 @@ class EROService {
       .from('franchise_preparers')
       .select('*')
       .eq('id', config.ero_preparer_id)
-      .single();
+      .maybeSingle();
 
     if (eroError || !eroPreparer) {
       throw new Error('ERO preparer not found');
@@ -209,7 +209,7 @@ class EROService {
         .from('franchise_offices')
         .select('owner_id, efin')
         .eq('id', officeId)
-        .single();
+        .maybeSingle();
 
       if (!office?.owner_id) {
         errors.push('No ERO configured and no office owner set');
@@ -220,7 +220,7 @@ class EROService {
         .from('franchise_preparers')
         .select('*')
         .eq('id', office.owner_id)
-        .single();
+        .maybeSingle();
 
       if (!owner?.is_ero_authorized) {
         errors.push('Office owner is not ERO authorized');
@@ -238,7 +238,7 @@ class EROService {
       .from('franchise_preparers')
       .select('*')
       .eq('id', config.ero_preparer_id)
-      .single();
+      .maybeSingle();
 
     if (!eroPreparer) {
       errors.push('ERO preparer not found');

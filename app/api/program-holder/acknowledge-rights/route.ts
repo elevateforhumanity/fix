@@ -38,7 +38,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('email, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     // Insert acknowledgement — only live schema columns
     const { data, error }: any = await supabase

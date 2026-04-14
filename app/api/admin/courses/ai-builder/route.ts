@@ -42,7 +42,7 @@ async function requireAdmin() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'instructor'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 as const };
@@ -144,7 +144,7 @@ async function _POST(request: NextRequest) {
         },
       })
       .select('id, course_name, title, slug')
-      .single();
+      .maybeSingle();
 
     if (courseErr || !course) {
       logger.error('[AI Course Builder] Course insert failed', courseErr);
@@ -179,7 +179,7 @@ async function _POST(request: NextRequest) {
             : null,
         })
         .select('id, title, lesson_number')
-        .single();
+        .maybeSingle();
 
       if (lessonErr || !lesson) {
         logger.error('[AI Course Builder] Lesson insert failed', { lessonNumber, error: lessonErr });

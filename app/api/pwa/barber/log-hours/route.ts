@@ -43,7 +43,7 @@ async function _POST(request: NextRequest) {
       .from('partner_users')
       .select('partner_id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ 
@@ -67,7 +67,7 @@ async function _POST(request: NextRequest) {
       .eq('partner_id', partnerUser.partner_id)
       .eq('program_id', 'BARBER')
       .eq('week_ending', weekEndingStr)
-      .single();
+      .maybeSingle();
 
     if (existingEntry) {
       // Update existing entry

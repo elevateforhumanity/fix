@@ -36,7 +36,7 @@ export function withAuth(handler: Handler, options?: { roles?: Role[] }) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profileError) {
       // Error: $1

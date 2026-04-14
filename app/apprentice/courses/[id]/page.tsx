@@ -42,7 +42,7 @@ export default async function ApprenticeCourseDetailPage({
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (!enrollment) {
     redirect('/programs');
@@ -64,7 +64,7 @@ export default async function ApprenticeCourseDetailPage({
     .from('training_courses')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   // Get course modules
   const { data: modules } = await supabase

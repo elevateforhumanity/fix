@@ -98,7 +98,7 @@ export default function AuthResetPasswordPage() {
             .from('profiles')
             .select('role')
             .eq('id', user.id)
-            .single();
+            .maybeSingle();
           setPortal(portalFor(profile?.role));
         }
         await supabase.auth.signOut();

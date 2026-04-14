@@ -109,7 +109,7 @@ async function _POST(request: NextRequest) {
         }),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Certificate creation error:', error);

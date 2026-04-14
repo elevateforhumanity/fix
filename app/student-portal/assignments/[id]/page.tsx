@@ -17,7 +17,7 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
     .from('assignments')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (!assignment) notFound();
 

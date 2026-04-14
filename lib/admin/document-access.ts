@@ -35,7 +35,7 @@ export async function getAdminDocumentUrl(params: {
     .from('documents')
     .select('file_path, user_id, document_type')
     .eq('id', documentId)
-    .single();
+    .maybeSingle();
 
   if (!doc?.file_path) return null;
 

@@ -31,7 +31,7 @@ const supabase = await createClient();
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -77,7 +77,7 @@ async function _POST(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -96,7 +96,7 @@ async function _POST(request: NextRequest) {
     .select('id')
     .eq('audit_month', month)
     .eq('audit_year', year)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return NextResponse.json({ 
@@ -197,7 +197,7 @@ async function _POST(request: NextRequest) {
       status: 'draft',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -233,7 +233,7 @@ const supabase = await createClient();
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !['admin', 'super_admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
@@ -290,7 +290,7 @@ const supabase = await createClient();
         .from('compliance_audits')
         .select('admissions_lead_signed, program_director_signed')
         .eq('id', auditId)
-        .single();
+        .maybeSingle();
 
       if (audit?.admissions_lead_signed && audit?.program_director_signed) {
         updateData.status = 'completed';

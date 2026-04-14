@@ -105,7 +105,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('stripe_customer_id, email, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.stripe_customer_id) {
       stripeCustomerId = profile.stripe_customer_id;

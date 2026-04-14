@@ -135,7 +135,7 @@ async function _POST(req: NextRequest) {
       .from('leads')
       .select('id, stage')
       .eq('id', data.leadId)
-      .single();
+      .maybeSingle();
 
     if (leadError || !lead) {
       return NextResponse.json(

@@ -67,7 +67,7 @@ async function _POST(request: NextRequest) {
       .select('id, status, program_slug, user_id')
       .eq('id', application_id)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (appError || !application) {
       return NextResponse.json(
@@ -97,7 +97,7 @@ async function _POST(request: NextRequest) {
       .from('program_enrollments')
       .select('id, status')
       .eq('application_id', application_id)
-      .single();
+      .maybeSingle();
 
     if (existingEnrollment && ['enrolled_pending_approval', 'active'].includes(existingEnrollment.status)) {
       return NextResponse.json(
@@ -111,7 +111,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('email, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const customerEmail = profile?.email || user.email;
     const pricing = PRICING[payment_option];

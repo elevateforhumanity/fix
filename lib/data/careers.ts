@@ -67,7 +67,7 @@ export async function getPositionById(id: string): Promise<JobPosition | null> {
     )
     .eq('id', id)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching position:', error);

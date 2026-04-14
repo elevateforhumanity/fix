@@ -39,7 +39,7 @@ export default async function EnrollProgramPage({ params }: Props) {
     .from('training_courses')
     .select('*')
     .eq('slug', programSlug)
-    .single();
+    .maybeSingle();
 
   const programTitle = course?.title || programSlug
     .split('-')

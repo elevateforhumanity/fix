@@ -29,7 +29,7 @@ async function _POST(request: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (
       !profile ||
@@ -71,7 +71,7 @@ async function _POST(request: Request) {
         assigned:assigned_to(id, first_name, last_name)
       `
       )
-      .single();
+      .maybeSingle();
 
     if (ticketError) {
       return NextResponse.json({ error: 'Ticket operation failed' }, { status: 500 });

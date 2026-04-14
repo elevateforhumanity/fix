@@ -50,7 +50,7 @@ async function _POST(request: NextRequest) {
       .from('training_courses')
       .select('*')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (courseError || !course) {
       return NextResponse.json({ error: 'Course not found' }, { status: 404 });
@@ -74,7 +74,7 @@ async function _POST(request: NextRequest) {
       .select('id, payment_status')
       .eq('user_id', user.id)
       .eq('course_id', courseId)
-      .single();
+      .maybeSingle();
 
     if (existing && existing.payment_status === 'paid') {
       return NextResponse.json(

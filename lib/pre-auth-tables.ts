@@ -165,7 +165,7 @@ export async function reconcilePreAuthRows(
     .from('profiles')
     .select('id')
     .eq('email', normalizedEmail)
-    .single();
+    .maybeSingle();
 
   if (profileError || !profile?.id) return {};
 

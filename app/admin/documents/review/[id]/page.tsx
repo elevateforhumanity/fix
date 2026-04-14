@@ -28,7 +28,7 @@ export default async function ReviewDocumentPage({
     .from('documents')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (!rawDocument) {
     redirect('/admin/documents/review');

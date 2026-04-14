@@ -148,7 +148,7 @@ async function importStudents(
         .select('id')
         .eq('email', student.email)
         .eq('tenant_id', tenantId)
-        .single();
+        .maybeSingle();
 
       if (existing && !options?.upsert) {
         results.failed++;
@@ -223,7 +223,7 @@ async function importCourses(
         .select('id')
         .eq('course_code', courseCode)
         .eq('tenant_id', tenantId)
-        .single();
+        .maybeSingle();
 
       if (existing && !options?.upsert) {
         results.failed++;
@@ -282,7 +282,7 @@ async function importEnrollments(
         .select('id')
         .eq('email', enrollment.student_email)
         .eq('tenant_id', tenantId)
-        .single();
+        .maybeSingle();
 
       if (!student) {
         results.failed++;
@@ -296,7 +296,7 @@ async function importEnrollments(
         .select('id')
         .eq('course_code', enrollment.course_code)
         .eq('tenant_id', tenantId)
-        .single();
+        .maybeSingle();
 
       if (!course) {
         results.failed++;
@@ -310,7 +310,7 @@ async function importEnrollments(
         .select('id')
         .eq('user_id', student.id)
         .eq('course_id', course.id)
-        .single();
+        .maybeSingle();
 
       if (existing && !options?.upsert) {
         results.failed++;

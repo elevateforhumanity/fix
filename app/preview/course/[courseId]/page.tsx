@@ -108,7 +108,7 @@ export default function CoursePreviewPage() {
       .from('training_courses')
       .select('*')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     const { data: lessonsData } = await supabase
       .from('training_lessons')

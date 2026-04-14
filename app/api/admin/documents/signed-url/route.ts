@@ -37,7 +37,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const allowedRoles = ['admin', 'super_admin', 'org_admin'];
     if (!profile || !allowedRoles.includes(profile.role)) {
@@ -80,7 +80,7 @@ async function _GET(request: NextRequest) {
       .from('documents')
       .select('id, user_id, document_type')
       .eq('file_path', filePath)
-      .single();
+      .maybeSingle();
 
     if (!matchingDoc) {
       return NextResponse.json({ error: 'Document not found' }, { status: 404 });

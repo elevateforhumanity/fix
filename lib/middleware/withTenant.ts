@@ -70,7 +70,7 @@ export async function validateTenantAccess(
     .from('profiles')
     .select('tenant_id')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   return profile?.tenant_id === tenantId;
 }

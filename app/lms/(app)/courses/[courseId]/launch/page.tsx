@@ -33,7 +33,7 @@ export default async function LaunchCourse({ params }: { params: Params }) {
       'id, slug, title, delivery_mode, partner_url, launch_mode, allow_iframe'
     )
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (error || !course) redirect('/lms/courses');
 

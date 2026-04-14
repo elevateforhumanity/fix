@@ -24,7 +24,7 @@ export default async function NewPlacementPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== 'employer') {
     redirect('/unauthorized');

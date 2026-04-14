@@ -27,7 +27,7 @@ export default async function UploadDocumentPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || profile.role !== 'employer') redirect('/');
 

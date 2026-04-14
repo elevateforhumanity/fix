@@ -129,7 +129,7 @@ async function _POST(req: NextRequest, { params }: Params) {
         last_post_at: now,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (threadError || !thread) {
       logger.error("[threads create] thread error:", threadError);

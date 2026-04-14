@@ -38,7 +38,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     
     const adminClient = await getAdminClient();
 
@@ -112,7 +112,7 @@ async function _POST(request: NextRequest) {
         attachments: validatedData.attachments || [],
       })
       .select()
-      .single();
+      .maybeSingle();
     
     if (error) {
       logger.error('Ticket create error:', error);

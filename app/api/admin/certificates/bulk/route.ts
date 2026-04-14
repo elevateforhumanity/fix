@@ -14,7 +14,7 @@ async function _POST(req: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
@@ -35,7 +35,7 @@ async function _POST(req: NextRequest) {
         .from('enrollments')
         .select('id, user_id, course_id, completed_at, profiles(full_name, email), courses(title)')
         .eq('id', enrollmentId)
-        .single();
+        .maybeSingle();
 
       if (!enrollment) { failed++; continue; }
 

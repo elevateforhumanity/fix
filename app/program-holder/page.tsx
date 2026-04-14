@@ -40,7 +40,7 @@ export default async function ProgramHolderLanding() {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     isProgramHolder = profile?.role === 'program_holder';
   }
 

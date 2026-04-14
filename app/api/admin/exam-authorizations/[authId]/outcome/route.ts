@@ -38,7 +38,7 @@ export async function POST(
     .eq('authorization_id', authId)
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (schedErr || !schedRow) return safeError('No scheduling record found for this authorization', 404);
   if (schedRow.outcome) return safeError('Outcome already recorded for this scheduling row', 409);

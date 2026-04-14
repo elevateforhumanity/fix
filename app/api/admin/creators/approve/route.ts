@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!adminProfile || !['admin', 'super_admin'].includes(adminProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       .from('marketplace_creators')
       .select('user_id, status, profiles(email, full_name)')
       .eq('id', creatorId)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !creator) {
       return NextResponse.json({ error: 'Creator not found' }, { status: 404 });

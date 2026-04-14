@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       .from('review_queue')
       .select('*')
       .eq('id', queue_item_id)
-      .single();
+      .maybeSingle();
 
     if (itemError || !item) {
       return NextResponse.json({ error: 'Queue item not found' }, { status: 404 });

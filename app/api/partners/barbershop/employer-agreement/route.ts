@@ -57,7 +57,7 @@ async function _POST(request: NextRequest) {
       })
       .eq('contact_email', contact_email)
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (partnerErr) {
       logger.error('Partner update failed', partnerErr);

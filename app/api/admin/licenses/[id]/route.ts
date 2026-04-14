@@ -39,7 +39,7 @@ async function _PATCH(
       .from('profiles')
       .select('role')
       .eq('id', tenantContext.userId)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'super_admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -53,7 +53,7 @@ async function _PATCH(
       .from('licenses')
       .select('tenant_id, status')
       .eq('id', licenseId)
-      .single();
+      .maybeSingle();
 
     if (!license) {
       return NextResponse.json({ error: 'License not found' }, { status: 404 });
@@ -166,7 +166,7 @@ async function _DELETE(
       .from('profiles')
       .select('role')
       .eq('id', tenantContext.userId)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'super_admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

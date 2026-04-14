@@ -89,7 +89,7 @@ export default async function ApprenticeCompetenciesPage() {
     .from('programs')
     .select('id, title')
     .eq('slug', 'barber-apprenticeship')
-    .single();
+    .maybeSingle();
 
   const programId = program?.id ?? null;
 

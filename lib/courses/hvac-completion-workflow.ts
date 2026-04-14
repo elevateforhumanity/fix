@@ -258,7 +258,7 @@ export async function advanceHvacWorkflow(userId: string): Promise<{
     .from('profiles')
     .select('id, email, full_name, first_name, last_name')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (!profile?.email) return { action: 'no_profile', emailSent: false };
 
@@ -341,7 +341,7 @@ export async function advanceHvacWorkflow(userId: string): Promise<{
           }),
         })
         .select('id, verification_code')
-        .single();
+        .maybeSingle();
 
       const certUrl = `${APP_URL}/certificates/${cert?.id || ''}`;
       const verCode = cert?.verification_code || cert?.id || '';

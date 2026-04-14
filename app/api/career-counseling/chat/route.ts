@@ -67,7 +67,7 @@ async function _POST(req: NextRequest) {
           started_at: new Date().toISOString(),
         })
         .select('id')
-        .single();
+        .maybeSingle();
       convId = newConv?.id;
     }
 

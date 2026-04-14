@@ -27,7 +27,7 @@ async function _GET(req: Request, { params }: { params: Promise<{ caseId: string
       .from('enrollment_cases')
       .select('*')
       .eq('id', caseId)
-      .single();
+      .maybeSingle();
 
     if (error || !enrollmentCase) {
       return NextResponse.json({ error: 'Case not found' }, { status: 404 });
@@ -40,7 +40,7 @@ async function _GET(req: Request, { params }: { params: Promise<{ caseId: string
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
       
       if (!profile || !['admin', 'staff'].includes(profile.role)) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -89,7 +89,7 @@ async function _PATCH(req: Request, { params }: { params: Promise<{ caseId: stri
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const success = await transitionCaseStatus(caseId, status, user.id, profile?.role || 'student');
 

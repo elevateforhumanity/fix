@@ -31,7 +31,7 @@ async function verifyAdminAuth(request: NextRequest): Promise<{ isAdmin: boolean
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     
     const isAdmin = profile?.role === 'admin' || profile?.role === 'super_admin';
     return { isAdmin, userId: user.id };
@@ -138,7 +138,7 @@ async function _POST(request: NextRequest) {
       .from('organizations')
       .select('id')
       .eq('slug', tenantSubdomain)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(
@@ -161,7 +161,7 @@ async function _POST(request: NextRequest) {
         domain: customDomain || `${tenantSubdomain}.elevatelms.com`,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (orgError) {
       logger.error('Org creation error:', orgError);
@@ -187,7 +187,7 @@ async function _POST(request: NextRequest) {
         stripe_subscription_id: stripeSubscriptionId,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (licenseError) {
       logger.error('License creation error:', licenseError);
@@ -284,7 +284,7 @@ const subdomain = request.nextUrl.searchParams.get('subdomain');
     .from('organizations')
     .select('id')
     .eq('slug', normalized)
-    .single();
+    .maybeSingle();
 
   return NextResponse.json({ 
     available: !data,

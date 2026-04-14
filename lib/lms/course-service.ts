@@ -99,7 +99,7 @@ export async function createDraftCourse(
       is_active:         true,
     })
     .select('*')
-    .single();
+    .maybeSingle();
 
   if (courseErr) throw courseErr;
   if (!course) throw new Error('Failed to create course row');
@@ -115,7 +115,7 @@ export async function createDraftCourse(
         order_index: mi + 1,
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (modErr) throw modErr;
     if (!moduleRow) throw new Error(`Failed to create module: ${mod.title}`);
@@ -197,7 +197,7 @@ export async function publishCourse(
         created_by:     actorUserId ?? null,
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (versionErr) {
       logger.error('[publishCourse] course_versions insert failed:', versionErr.message);
@@ -247,7 +247,7 @@ export async function enrollStudentInCourse(
     .eq('id', courseId)
     .eq('status', 'published')
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (courseErr || !course) {
     throw new Error(`Course ${courseId} is not published or does not exist`);

@@ -33,7 +33,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!currentProfile || currentProfile.role !== 'super_admin') {
       return NextResponse.json({ error: 'Only super admins can change roles' }, { status: 403 });
@@ -110,7 +110,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!currentProfile || currentProfile.role !== 'super_admin') {
       return NextResponse.json({ error: 'Only super admins can view roles' }, { status: 403 });

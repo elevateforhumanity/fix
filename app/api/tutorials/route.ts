@@ -33,7 +33,7 @@ async function _GET(request: NextRequest) {
         .select('*')
         .eq('user_id', user.id)
         .eq('tutorial_id', tutorialId)
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         return NextResponse.json({ progress: null });
@@ -80,7 +80,7 @@ async function _POST(request: NextRequest) {
         .select('completed_steps')
         .eq('user_id', user.id)
         .eq('tutorial_id', tutorialId)
-        .single();
+        .maybeSingle();
 
       const completedSteps = current?.completed_steps || [];
       if (!completedSteps.includes(stepId)) {

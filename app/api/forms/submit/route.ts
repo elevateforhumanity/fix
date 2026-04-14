@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       .from('forms')
       .select('id')
       .eq('id', formId)
-      .single();
+      .maybeSingle();
 
     if (!form) return safeError('Form not found', 404);
 

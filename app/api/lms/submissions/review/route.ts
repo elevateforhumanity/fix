@@ -64,7 +64,7 @@ export async function PATCH(request: NextRequest) {
     .from('step_submissions')
     .select('id, user_id, course_lesson_id, lesson_id, course_id, step_type, status, competency_key')
     .eq('id', submission_id)
-    .single();
+    .maybeSingle();
 
   if (fetchErr || !submission) return safeError('Submission not found', 404);
 
@@ -87,7 +87,7 @@ export async function PATCH(request: NextRequest) {
     })
     .eq('id', submission_id)
     .select('id, status, reviewed_at, competency_key')
-    .single();
+    .maybeSingle();
 
   if (updateErr) return safeDbError(updateErr, 'Failed to update submission');
 

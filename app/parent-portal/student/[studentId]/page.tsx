@@ -47,7 +47,7 @@ export default async function ParentStudentDetailPage({
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       notFound();
     }
@@ -58,7 +58,7 @@ export default async function ParentStudentDetailPage({
     .from('profiles')
     .select('full_name, email, created_at')
     .eq('id', studentId)
-    .single();
+    .maybeSingle();
 
   if (!student) notFound();
 

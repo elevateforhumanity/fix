@@ -29,7 +29,7 @@ export async function createProgramEnrollment(
       payment_mode: partial.paymentMode,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     // Error: $1

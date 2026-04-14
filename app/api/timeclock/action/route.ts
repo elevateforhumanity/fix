@@ -133,7 +133,7 @@ async function _POST(request: NextRequest) {
       .from('apprentice_sites')
       .select('id, latitude, longitude, radius_meters, name')
       .eq('id', site_id)
-      .single();
+      .maybeSingle();
 
     if (siteError || !site) {
       return NextResponse.json(
@@ -199,7 +199,7 @@ async function _POST(request: NextRequest) {
             auto_clocked_out: false,
           })
           .select('id')
-          .single();
+          .maybeSingle();
 
         if (insertError) {
           logger.error('[Timeclock] clock_in insert error:', insertError);
@@ -230,7 +230,7 @@ async function _POST(request: NextRequest) {
           .from('progress_entries')
           .select('id, clock_in_at, clock_out_at, lunch_start_at')
           .eq('id', progress_entry_id)
-          .single();
+          .maybeSingle();
 
         if (entryError || !entry) {
           return NextResponse.json(
@@ -286,7 +286,7 @@ async function _POST(request: NextRequest) {
           .from('progress_entries')
           .select('id, clock_in_at, clock_out_at, lunch_start_at, lunch_end_at')
           .eq('id', progress_entry_id)
-          .single();
+          .maybeSingle();
 
         if (entryError || !entry) {
           return NextResponse.json(
@@ -360,7 +360,7 @@ async function _POST(request: NextRequest) {
           .from('progress_entries')
           .select('id, clock_in_at, clock_out_at, lunch_start_at, lunch_end_at')
           .eq('id', progress_entry_id)
-          .single();
+          .maybeSingle();
 
         if (entryError || !entry) {
           return NextResponse.json(
@@ -408,7 +408,7 @@ async function _POST(request: NextRequest) {
           .from('progress_entries')
           .select('hours_worked')
           .eq('id', progress_entry_id)
-          .single();
+          .maybeSingle();
 
         return NextResponse.json({
           success: true,

@@ -67,7 +67,7 @@ async function _POST(req: NextRequest) {
     .eq('repo_id', repo_id)
     .eq('file_path', file_path)
     .eq('branch', branch || '')
-    .single();
+    .maybeSingle();
 
   const { data, error } = await supabase
     .from('studio_recent_files')
@@ -81,7 +81,7 @@ async function _POST(req: NextRequest) {
       access_count: (existing?.access_count || 0) + 1
     }, { onConflict: 'user_id,repo_id,file_path,branch' })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

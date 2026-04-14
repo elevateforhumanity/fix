@@ -34,7 +34,7 @@ export default async function ProductPage({
     )
     .eq('id', id)
     .eq('status', 'approved')
-    .single();
+    .maybeSingle();
 
   if (!product) {
     notFound();

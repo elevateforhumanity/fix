@@ -157,7 +157,7 @@ export async function getRoutingRecommendations(
         )
       `)
       .eq('id', applicationId)
-      .single();
+      .maybeSingle();
     
     if (appError || !application) {
       return { success: false, recommendations: [], error: 'Application not found' };
@@ -169,7 +169,7 @@ export async function getRoutingRecommendations(
       .select('rules, version')
       .eq('rule_type', 'shop_routing')
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
     
     const rules = ruleset?.rules || {
       max_distance_miles: 25,
@@ -309,7 +309,7 @@ export async function getRoutingRecommendations(
         actor: 'system',
       })
       .select()
-      .single();
+      .maybeSingle();
     
     // 9. Add to review queue if needed
     let reviewQueueId: string | undefined;
@@ -328,7 +328,7 @@ export async function getRoutingRecommendations(
           },
         })
         .select()
-        .single();
+        .maybeSingle();
       
       reviewQueueId = queueItem?.id;
     }

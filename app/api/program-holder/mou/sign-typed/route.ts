@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     .from('profiles')
     .select('program_holder_id, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.program_holder_id) {
     return NextResponse.json({ error: 'No program holder record found' }, { status: 400 });

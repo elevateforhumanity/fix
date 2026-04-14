@@ -60,7 +60,7 @@ export async function issueCredential(params: {
       metadata: params.metadata || {},
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to issue credential', { error, params });
@@ -115,7 +115,7 @@ export async function createShareLink(params: {
       one_time_use: params.oneTimeUse || false,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to create share link', { error, params });
@@ -152,7 +152,7 @@ export async function revokeCredential(
     })
     .eq('id', credentialId)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to revoke credential', { error, credentialId });
@@ -189,7 +189,7 @@ export async function isCredentialValid(code: string): Promise<boolean> {
     .from('credentials')
     .select('issued_at, expires_at, revoked_at')
     .eq('code', code)
-    .single();
+    .maybeSingle();
 
   if (!credential) return false;
 

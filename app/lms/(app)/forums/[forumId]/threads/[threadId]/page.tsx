@@ -21,7 +21,7 @@ interface ThreadReply {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { threadId } = await params;
   const supabase = await createClient();
-  const { data: thread } = await supabase.from('forum_threads').select('title').eq('id', threadId).single();
+  const { data: thread } = await supabase.from('forum_threads').select('title').eq('id', threadId).maybeSingle();
   return { title: thread?.title ?? 'Thread' };
 }
 
@@ -36,7 +36,7 @@ export default async function ThreadPage({ params }: Props) {
     .from('forum_threads')
     .select('*, profiles (full_name, avatar_url), forums (name)')
     .eq('id', threadId)
-    .single();
+    .maybeSingle();
   if (error || !thread) notFound();
 
   const { data: replies } = await supabase

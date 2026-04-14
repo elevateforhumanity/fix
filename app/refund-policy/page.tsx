@@ -22,7 +22,7 @@ export default async function RefundPolicyPage() {
     .from('legal_documents')
     .select('*')
     .eq('type', 'refund_policy')
-    .single();
+    .maybeSingle();
   return (
     <div className="min-h-screen bg-white">
             <div className="max-w-7xl mx-auto px-4 py-4">

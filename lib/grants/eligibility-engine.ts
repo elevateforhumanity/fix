@@ -56,7 +56,7 @@ export async function checkEntityEligibility(
     .from('entities')
     .select('*')
     .eq('id', entityId)
-    .single();
+    .maybeSingle();
 
   if (error || !entity) {
     throw new Error(`Entity not found: ${entityId}`);
@@ -225,7 +225,7 @@ export async function checkGrantEligibility(
     .from('grant_opportunities')
     .select('*')
     .eq('id', grantId)
-    .single();
+    .maybeSingle();
 
   if (grantError || !grant) {
     throw new Error(`Grant not found: ${grantId}`);
@@ -235,7 +235,7 @@ export async function checkGrantEligibility(
     .from('entities')
     .select('*')
     .eq('id', entityId)
-    .single();
+    .maybeSingle();
 
   if (entityError || !entity) {
     throw new Error(`Entity not found: ${entityId}`);

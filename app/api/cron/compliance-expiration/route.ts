@@ -62,7 +62,7 @@ export async function GET(request: Request) {
       .eq('tenant_id', tenantId)
       .eq('role', 'provider_admin')
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (!contact?.email) continue;
 
@@ -70,7 +70,7 @@ export async function GET(request: Request) {
       .from('tenants')
       .select('name')
       .eq('id', tenantId)
-      .single();
+      .maybeSingle();
 
     for (const artifact of artifacts) {
       const daysLeft = Math.ceil(

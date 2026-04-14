@@ -28,7 +28,7 @@ export default async function NewWeeklyReportPage({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== 'employer') {
     redirect('/unauthorized');
@@ -39,7 +39,7 @@ export default async function NewWeeklyReportPage({
     .from('apprentice_placements')
     .select('id, student_id, shop_id, program_slug, shops(name)')
     .eq('id', params.placement_id)
-    .single();
+    .maybeSingle();
 
   if (!placement) {
     redirect('/employer/dashboard');
@@ -51,7 +51,7 @@ export default async function NewWeeklyReportPage({
     .select('shop_id')
     .eq('user_id', user.id)
     .eq('shop_id', placement.shop_id)
-    .single();
+    .maybeSingle();
 
   if (!shopAccess) {
     redirect('/unauthorized');

@@ -41,7 +41,7 @@ async function _GET(
       .from('profiles')
       .select('organization_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile?.organization_id) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -53,7 +53,7 @@ async function _GET(
         'id,organization_id,title,meeting_date,attendee_email,summary,key_points,decisions,follow_up_email,created_at'
       )
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (recapErr) {
       return NextResponse.json({ error: 'Operation failed' }, { status: 404 });

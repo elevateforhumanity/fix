@@ -74,7 +74,7 @@ async function _GET(req: NextRequest) {
     .from('funding_applications')
     .select('id, user_id, course_id, program_id, status')
     .eq('id', tokenData.application_id)
-    .single();
+    .maybeSingle();
 
   if (!app) {
     return new Response('Application not found', { status: 404 });

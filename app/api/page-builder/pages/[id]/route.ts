@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, { params }: Params) {
       .from('pages')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error || !page) return safeError('Page not found', 404);
 
@@ -55,7 +55,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
 
     // Verify page exists
     const supabase = await createClient();
-    const { data: existing } = await supabase.from('pages').select('id').eq('id', id).single();
+    const { data: existing } = await supabase.from('pages').select('id').eq('id', id).maybeSingle();
     if (!existing) return safeError('Page not found', 404);
 
     await upsertPage(slug, { title, status, meta_title, meta_desc });

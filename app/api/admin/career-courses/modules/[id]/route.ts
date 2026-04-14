@@ -11,7 +11,7 @@ async function getAdminUser() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) return null;
   return user;
 }
@@ -40,7 +40,7 @@ async function _PATCH(
       .from('career_course_modules')
       .select('id')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !existing) {
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });

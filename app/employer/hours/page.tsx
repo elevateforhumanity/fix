@@ -24,7 +24,7 @@ export default async function EmployerHoursPage() {
     .from('user_profiles')
     .select('role, employer_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['employer', 'admin', 'sponsor'].includes(profile.role || '')) {
     redirect('/employer');

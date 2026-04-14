@@ -26,7 +26,7 @@ export default async function MobileAppPage() {
     .from('site_settings')
     .select('*')
     .eq('key', 'mobile_app')
-    .single();
+    .maybeSingle();
 
   return (
     <div className="min-h-screen bg-white">

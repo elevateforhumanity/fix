@@ -70,7 +70,7 @@ async function _POST(request: NextRequest) {
         'id, partner_course_id, payment_status, payment_mode, billing_lock'
       )
       .eq('id', enrollmentId)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !enrollment) {
       logger.error('Enrollment not found:', enrollmentError);
@@ -114,7 +114,7 @@ async function _POST(request: NextRequest) {
       .from('partner_lms_courses')
       .select('id, course_name, retail_price_cents, stripe_price_id')
       .eq('id', enrollment.partner_course_id)
-      .single();
+      .maybeSingle();
 
     if (courseError || !partnerCourse) {
       logger.error('Partner course not found:', courseError);

@@ -22,7 +22,7 @@ export default async function ImpersonatePage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['admin', 'super_admin'].includes(profile?.role ?? '')) {
     redirect('/unauthorized');

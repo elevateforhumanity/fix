@@ -32,7 +32,7 @@ export default async function ProgramHolderRightsPage() {
     .select('*')
     .eq('user_id', user.id)
     .eq('document_type', 'rights')
-    .single();
+    .maybeSingle();
 
   if (acknowledgement) {
     redirect('/program-holder/dashboard?rights=acknowledged');

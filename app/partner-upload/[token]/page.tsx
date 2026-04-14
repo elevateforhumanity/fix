@@ -9,7 +9,7 @@ export default async function PartnerUploadPage({ params }: { params: { token: s
     .from('partners')
     .select('id, name, contact_name, onboarding_step')
     .eq('onboarding_step', params.token)
-    .single()
+    .maybeSingle()
 
   if (!partner) notFound()
 

@@ -66,7 +66,7 @@ async function _POST(request: NextRequest) {
       .eq('user_id', user.id)
       .eq('program_id', programId)
       .eq('status', 'completed')
-      .single();
+      .maybeSingle();
 
     if (!intake) {
       return NextResponse.json({
@@ -81,7 +81,7 @@ async function _POST(request: NextRequest) {
       .select('id, status')
       .eq('user_id', user.id)
       .eq('program_id', programId)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json({
@@ -96,7 +96,7 @@ async function _POST(request: NextRequest) {
       .from('programs')
       .select('price, title')
       .eq('id', programId)
-      .single();
+      .maybeSingle();
 
     const tuitionAmount = program?.price || 5000;
 
@@ -151,7 +151,7 @@ async function _POST(request: NextRequest) {
             status: 'pending',
           })
           .select('id')
-          .single();
+          .maybeSingle();
 
         paymentSetup = {
           type: 'employer_sponsored',

@@ -28,7 +28,7 @@ export function FeatureGate({ feature, fallback, children }: FeatureGateProps) {
         .from('profiles')
         .select('tenant_id')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!profile?.tenant_id) {
         setLoading(false);
@@ -42,7 +42,7 @@ export function FeatureGate({ feature, fallback, children }: FeatureGateProps) {
         .eq('status', 'active')
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (license?.features?.[feature]) {
         setEnabled(true);

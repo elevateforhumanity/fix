@@ -31,7 +31,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'staff') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

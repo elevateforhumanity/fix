@@ -31,7 +31,7 @@ export async function GET(
       program:programs!program_id(id, title, slug)
     `)
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return NextResponse.json({ error: 'Placement not found' }, { status: 404 });
 
@@ -58,7 +58,7 @@ export async function PATCH(
     .from('placement_records')
     .select('id, status')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (!existing) return NextResponse.json({ error: 'Placement not found' }, { status: 404 });
 

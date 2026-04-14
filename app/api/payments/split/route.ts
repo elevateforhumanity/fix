@@ -55,7 +55,7 @@ async function _POST(request: NextRequest) {
       .from('program_enrollments')
       .select('*, programs(*)')
       .eq('id', enrollment_id)
-      .single();
+      .maybeSingle();
 
     if (enrollError || !enrollment) {
       return NextResponse.json(
@@ -87,7 +87,7 @@ async function _POST(request: NextRequest) {
         transaction_id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (splitError) {
       // Error: $1

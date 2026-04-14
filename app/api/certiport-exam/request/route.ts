@@ -60,7 +60,7 @@ async function _POST(request: NextRequest) {
       .eq('user_id', user.id)
       .eq('exam_code', examCode)
       .in('status', ['pending', 'paid', 'voucher_assigned'])
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json({
@@ -103,7 +103,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('full_name, email, phone')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     // Determine funding status from enrollment
     let fundingSource = 'SELF_PAY';
@@ -115,7 +115,7 @@ async function _POST(request: NextRequest) {
         .eq('program_slug', programSlug)
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (enrollment?.funding_source) {
         fundingSource = enrollment.funding_source;
@@ -143,7 +143,7 @@ async function _POST(request: NextRequest) {
           status: 'pending',
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (error) {
         logger.error('Failed to create exam request:', error);

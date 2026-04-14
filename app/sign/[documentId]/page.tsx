@@ -43,7 +43,7 @@ export default function SignDocumentPage() {
         .from('signature_documents')
         .select('id, title, body, type, created_at')
         .eq('id', documentId)
-        .single();
+        .maybeSingle();
 
       if (fetchError || !data) {
         setError('Document not found or you do not have access.');

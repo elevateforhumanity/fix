@@ -20,7 +20,7 @@ export async function requireAdmin() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !ADMIN_ROLES.includes(profile.role as AdminRole)) {
     redirect('/unauthorized');
@@ -43,7 +43,7 @@ export async function isAdmin(): Promise<boolean> {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     return !!profile && ADMIN_ROLES.includes(profile.role as AdminRole);
   } catch {

@@ -25,7 +25,7 @@ export default async function SignupPage() {
       .from('site_settings')
       .select('*')
       .eq('key', 'signup_enabled')
-      .single();
+      .maybeSingle();
     if (settings?.value === 'false') {
       signupsEnabled = false;
     }

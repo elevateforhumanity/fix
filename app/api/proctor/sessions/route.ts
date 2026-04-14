@@ -21,7 +21,7 @@ async function getProctor() {
     .from('profiles')
     .select('id, full_name, role, tenant_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !ALLOWED_ROLES.includes(profile.role)) return null;
   return { supabase, db, user, profile };
@@ -149,7 +149,7 @@ async function _POST(req: NextRequest) {
         result: 'pending',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('[Proctor] Failed to create session:', error.message);

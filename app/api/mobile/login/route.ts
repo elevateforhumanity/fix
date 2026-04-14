@@ -53,7 +53,7 @@ async function _POST(request: NextRequest) {
       .from("profiles")
       .select("full_name, role")
       .eq("id", data.user.id)
-      .single();
+      .maybeSingle();
 
     return NextResponse.json({
       token: data.session.access_token,

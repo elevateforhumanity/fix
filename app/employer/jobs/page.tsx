@@ -24,7 +24,7 @@ export default async function EmployerJobsPage() {
     .from('profiles')
     .select('role, verified')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || profile.role !== 'employer') {
     redirect('/');

@@ -62,7 +62,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
     .from('apprentices')
     .select('id, user_id, program_id, programs(total_hours)')
     .eq('id', apprenticeId)
-    .single();
+    .maybeSingle();
 
   if (apprenticeError || !apprentice) {
     throw APIErrors.notFound('Apprentice');
@@ -121,7 +121,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
       docs_verified: verificationCheck.allowed,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (insertError) {
     throw APIErrors.database('Failed to create transfer request');

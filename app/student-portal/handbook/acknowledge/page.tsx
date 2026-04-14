@@ -142,7 +142,7 @@ export default function HandbookAcknowledgePage() {
         .from('handbook_acknowledgments')
         .select('id')
         .eq('user_id', data.user.id)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         setAlreadyAcknowledged(true);

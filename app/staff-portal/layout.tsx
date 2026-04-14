@@ -41,7 +41,7 @@ export default async function StaffPortalLayout({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.role || !ALLOWED_ROLES.includes(profile.role)) {
     redirect('/unauthorized');

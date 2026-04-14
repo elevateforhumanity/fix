@@ -118,7 +118,7 @@ export async function seedPartnerCourses(
         { onConflict: 'provider_name' }
       )
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (provErr || !providerRow) {
       errors.push(`Provider "${provider.name}": ${provErr?.message ?? 'no row returned'}`);

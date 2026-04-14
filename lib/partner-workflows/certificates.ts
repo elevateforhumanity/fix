@@ -48,7 +48,7 @@ export async function createCertificate(
       `
       )
       .eq('id', enrollmentId)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !enrollment) {
       throw new Error('Enrollment not found');
@@ -63,7 +63,7 @@ export async function createCertificate(
       .from('partner_certificates')
       .select('id')
       .eq('enrollment_id', enrollmentId)
-      .single();
+      .maybeSingle();
 
     if (existingCert) {
       return {
@@ -99,7 +99,7 @@ export async function createCertificate(
         },
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (certError) {
       throw certError;
@@ -176,7 +176,7 @@ export async function generateCertificatePDF(
       .from('partner_certificates')
       .select('*')
       .eq('id', certificateId)
-      .single();
+      .maybeSingle();
 
     if (certError || !certificate) {
       throw new Error('Certificate not found');
@@ -230,7 +230,7 @@ export async function verifyCertificate(certificateNumber: string): Promise<{
       .from('partner_certificates')
       .select('*')
       .eq('certificate_number', certificateNumber)
-      .single();
+      .maybeSingle();
 
     if (error || !certificate) {
       return {

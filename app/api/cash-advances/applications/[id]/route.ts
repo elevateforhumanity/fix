@@ -31,7 +31,7 @@ async function _GET(
       .from('cash_advance_applications')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: toErrorMessage(error) }, { status: 404 });

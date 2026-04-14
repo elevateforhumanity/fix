@@ -57,7 +57,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('stripe_customer_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const stripe = getStripe();
     

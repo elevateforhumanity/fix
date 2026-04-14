@@ -80,7 +80,7 @@ async function _GET(request: NextRequest) {
     .eq('provider', 'affirm')
     .eq('order_id', orderId)
     .eq('status', 'pending')
-    .single();
+    .maybeSingle();
 
   if (contextError || !context) {
     logger.error('Checkout context not found or already used', { orderId, error: contextError });

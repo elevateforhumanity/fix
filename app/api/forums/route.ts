@@ -82,7 +82,7 @@ async function _GET(request: NextRequest) {
           .in("thread_id", threadIds)
           .order("created_at", { ascending: false })
           .limit(1)
-          .single();
+          .maybeSingle();
 
         return {
           id: forum.id,

@@ -48,7 +48,7 @@ async function _POST(request: NextRequest) {
       .eq('role', role)
       .eq('payment_type', paymentType)
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (rateConfig) {
       const rateNum = parseFloat(rate);
@@ -68,7 +68,7 @@ async function _POST(request: NextRequest) {
       .select('id, status')
       .eq('user_id', user.id)
       .eq('role', role)
-      .single();
+      .maybeSingle();
 
     if (existingProfile) {
       // Update existing profile

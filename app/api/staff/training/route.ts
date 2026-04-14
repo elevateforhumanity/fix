@@ -102,7 +102,7 @@ async function _POST(request: Request) {
       .from('training_modules')
       .select('*')
       .eq('id', module_id)
-      .single();
+      .maybeSingle();
 
     if (moduleError || !module) {
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });
@@ -126,7 +126,7 @@ async function _POST(request: Request) {
         }
       )
       .select()
-      .single();
+      .maybeSingle();
 
     if (progressError) {
       return NextResponse.json(

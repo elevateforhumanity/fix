@@ -64,7 +64,7 @@ async function _POST(req: Request) {
         scheduled_for: body.scheduledFor || null,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

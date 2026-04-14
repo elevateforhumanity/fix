@@ -54,7 +54,7 @@ export async function checkEnrollmentAccess(
   const { data: enrollment, error } = await query
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (error || !enrollment) {
     return {
@@ -226,7 +226,7 @@ export async function hasSubmittedApplication(
     .in('status', ['submitted', 'approved', 'payment_received'])
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   return {
     hasApplication: !!application,
@@ -248,7 +248,7 @@ export async function approveEnrollment(
     .from('program_enrollments')
     .select('id, status, user_id, program_slug')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !enrollment) {
     return { success: false, error: 'Enrollment not found' };

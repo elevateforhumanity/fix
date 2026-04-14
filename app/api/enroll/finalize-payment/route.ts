@@ -73,7 +73,7 @@ async function _POST(req: Request) {
         `*, course:courses(id, title, slug, partner_id, wholesale_cost_cents, retail_price_cents)`
       )
       .eq('id', enrollmentId)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !rawEnrollment) {
       return NextResponse.json(
@@ -165,7 +165,7 @@ async function _POST(req: Request) {
         .from('program_enrollments')
         .select('*, programs(*), users(*)')
         .eq('id', enrollmentId)
-        .single();
+        .maybeSingle();
 
       if (!enrollment) {
         return NextResponse.json(

@@ -18,7 +18,7 @@ export async function requireAdmin() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (error) throw new Error(`PROFILE_FETCH_FAILED: ${error.message}`);
   if (!data) throw new Error('PROFILE_NOT_FOUND');

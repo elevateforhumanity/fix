@@ -64,7 +64,7 @@ async function _POST(request: NextRequest) {
         applied_at: new Date().toISOString(),
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (partnerError) {
       logger.error('Cosmetology salon application insert error:', partnerError);

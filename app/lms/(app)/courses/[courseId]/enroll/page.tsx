@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .from('courses')
     .select('title, description')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
   return {
     title: course ? `Enroll in ${course.title}` : 'Enroll',
     description: course?.description ?? undefined,
@@ -39,7 +39,7 @@ export default async function EnrollPage({ params }: Props) {
     .from('courses')
     .select('id, title, description, program_id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
   if (error || !course) notFound();
 
   const { data: existingByCourse } = await db
@@ -65,7 +65,7 @@ export default async function EnrollPage({ params }: Props) {
     .from('profiles')
     .select('first_name, last_name, email')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const { count: lessonCount } = await db
     .from('course_lessons')

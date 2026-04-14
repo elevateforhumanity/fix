@@ -34,7 +34,7 @@ async function _POST(
       .from('events')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
     if (eErr || !event) throw eErr || new Error('Event not found');
 
     // Check if event is published
@@ -80,7 +80,7 @@ async function _POST(
         answers,
       })
       .select('*')
-      .single();
+      .maybeSingle();
     if (error) throw error;
 
     return NextResponse.json(

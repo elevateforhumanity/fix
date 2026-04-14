@@ -18,7 +18,7 @@ async function requireAdmin() {
   if (!db) return NextResponse.json({ error: 'Admin client failed to initialize' }, { status: 500 });
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'sponsor'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
     .from('cohorts')
     .select('*, programs:program_id(title, slug, issuance_policy)')
     .eq('id', cohortId)
-    .single();
+    .maybeSingle();
 
   if (!cohort) {
     return NextResponse.json({ error: 'Cohort not found' }, { status: 404 });

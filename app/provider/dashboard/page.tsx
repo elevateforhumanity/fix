@@ -22,7 +22,7 @@ export default async function ProviderDashboardPage() {
     .from('profiles')
     .select('tenant_id, full_name, role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.tenant_id) redirect('/unauthorized');
 

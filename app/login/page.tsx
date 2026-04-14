@@ -43,7 +43,7 @@ function LoginForm() {
         .from('profiles')
         .select('role, onboarding_completed, enrollment_status')
         .eq('id', data.user.id)
-        .single();
+        .maybeSingle();
 
       if (profileError) {
         console.error('Profile fetch failed:', profileError.message);

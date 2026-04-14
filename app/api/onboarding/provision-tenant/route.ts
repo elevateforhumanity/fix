@@ -63,7 +63,7 @@ async function _POST(request: NextRequest) {
         status: 'active',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (tenantError || !tenant) {
       return NextResponse.json({ error: 'Failed to create tenant' }, { status: 500 });

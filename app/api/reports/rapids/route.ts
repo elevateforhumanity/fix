@@ -30,7 +30,7 @@ async function _GET(req: Request) {
       .from('user_profiles')
       .select('role')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'admin') {
       return NextResponse.json(

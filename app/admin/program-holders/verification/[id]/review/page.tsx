@@ -25,7 +25,7 @@ export default async function ReviewVerificationPage({
     .from('program_holders')
     .select('*')
     .eq('id', params.id)
-    .single();
+    .maybeSingle();
 
   if (!rawHolder) {
     redirect('/admin/program-holders/verification');

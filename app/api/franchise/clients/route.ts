@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
 
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
         .from('franchise_offices')
         .select('owner_id')
         .eq('id', officeId)
-        .single();
+        .maybeSingle();
 
       const isOwner = office?.owner_id === user.id;
 
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
           .select('id')
           .eq('office_id', officeId)
           .eq('user_id', user.id)
-          .single();
+          .maybeSingle();
 
         if (!preparer) {
           return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
 
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
         .from('franchise_offices')
         .select('owner_id')
         .eq('id', body.office_id)
-        .single();
+        .maybeSingle();
 
       const isOwner = office?.owner_id === user.id;
 
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
           .select('id')
           .eq('office_id', body.office_id)
           .eq('user_id', user.id)
-          .single();
+          .maybeSingle();
 
         if (!preparer) {
           return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

@@ -21,7 +21,7 @@ export async function createShop(formData: FormData) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== 'employer') {
     redirect('/unauthorized');
@@ -54,7 +54,7 @@ export async function createShop(formData: FormData) {
       active: true,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (shopError || !shop) {
     throw new Error('Failed to create shop');

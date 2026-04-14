@@ -28,7 +28,7 @@ async function _GET(request: Request) {
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!_roleProfile || !['admin', 'super_admin', 'staff'].includes(_roleProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -68,7 +68,7 @@ async function _POST(request: NextRequest) {
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!_roleProfile || !['admin', 'super_admin', 'staff'].includes(_roleProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -89,7 +89,7 @@ async function _POST(request: NextRequest) {
       .select('id, status')
       .eq('copilot_type', copilot_type)
       .eq('status', 'active')
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(
@@ -160,7 +160,7 @@ async function _PATCH(request: NextRequest) {
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!_roleProfile || !['admin', 'super_admin', 'staff'].includes(_roleProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -185,7 +185,7 @@ async function _PATCH(request: NextRequest) {
       })
       .eq('id', deployment_id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw error;
@@ -218,7 +218,7 @@ async function _DELETE(request: NextRequest) {
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!_roleProfile || !['admin', 'super_admin', 'staff'].includes(_roleProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }

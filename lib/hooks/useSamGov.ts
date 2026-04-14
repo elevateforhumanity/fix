@@ -149,7 +149,7 @@ export function useSamGov() {
           current_step: 1,
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
       
@@ -252,7 +252,7 @@ export function useSamGov() {
           file_size: file.size,
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
       

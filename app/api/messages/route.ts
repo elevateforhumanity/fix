@@ -111,7 +111,7 @@ async function _POST(request: Request) {
         body: messageBody,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Error sending message:', error);

@@ -138,7 +138,7 @@ export async function getLessonById(lessonId: string): Promise<ProgramLesson | n
     .from('training_lessons')
     .select('*')
     .eq('id', lessonId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
 
@@ -159,12 +159,12 @@ export async function getLessonNav(
       .select('*')
       .eq('course_id', courseId)
       .eq('lesson_number', lessonNumber - 1)
-      .single(),
+      .maybeSingle(),
     db.from('training_lessons')
       .select('*')
       .eq('course_id', courseId)
       .eq('lesson_number', lessonNumber + 1)
-      .single(),
+      .maybeSingle(),
   ]);
 
   return {
@@ -183,7 +183,7 @@ export async function getCourseById(courseId: string): Promise<ProgramCourse | n
     .from('training_courses')
     .select('*')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
 
@@ -209,7 +209,7 @@ export async function getProgramBySlug(slug: string) {
     .from('programs')
     .select('id, slug, title, category, description, completion_criteria')
     .eq('slug', slug)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
   return data;

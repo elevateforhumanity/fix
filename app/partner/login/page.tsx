@@ -55,7 +55,7 @@ function PartnerLoginPageInner() {
         .from('partner_users')
         .select('partner_id, role, status')
         .eq('user_id', data.user.id)
-        .single();
+        .maybeSingle();
 
       if (partnerError || !partnerUser) {
         // Check if they have partner role in profiles
@@ -63,7 +63,7 @@ function PartnerLoginPageInner() {
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
-          .single();
+          .maybeSingle();
 
         if (profile?.role === 'partner' || profile?.role === 'partner_admin') {
           // They have partner role but no partner_users entry - allow access

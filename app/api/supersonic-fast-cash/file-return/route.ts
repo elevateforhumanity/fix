@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
         filing_status: taxReturn.filingStatus,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (clientError) {
       return NextResponse.json(
@@ -183,7 +183,7 @@ export async function POST(request: NextRequest) {
         status: 'filed',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (returnError) {
       /* Return record error handled silently */

@@ -47,7 +47,7 @@ async function _POST(request: NextRequest) {
         status: 'confirmed',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       // Table might not exist, return success anyway for demo

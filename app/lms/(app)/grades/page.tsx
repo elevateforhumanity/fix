@@ -40,7 +40,7 @@ export default async function GradesPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const { data: enrollments } = await supabase
     .from('program_enrollments')

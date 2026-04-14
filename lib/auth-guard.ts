@@ -60,7 +60,7 @@ export async function getCurrentUser() {
     .from('profiles')
     .select('*')
     .eq('id', session.user.id)
-    .single();
+    .maybeSingle();
 
   if (error || !profile) {
     logger.error('Failed to load user profile', { userId: session.user.id, error });
@@ -93,7 +93,7 @@ export async function requirePartnerIdentity() {
     .from('profiles')
     .select('id, role, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile) {
     // Auto-heal: create minimal profile from auth metadata
@@ -113,7 +113,7 @@ export async function requirePartnerIdentity() {
     .from('partner_users')
     .select('partner_id, role, partners:partner_id(id, name, city, state, status)')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!partnerUser || !partnerUser.partner_id) {
     logger.warn('Partner user has no partner_users mapping', { userId: user.id, email: user.email });

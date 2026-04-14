@@ -31,7 +31,7 @@ export async function POST(
     .from('exam_authorizations')
     .select('id, status, user_id, program_id')
     .eq('id', authId)
-    .single();
+    .maybeSingle();
 
   if (fetchErr || !existing) return safeError('Authorization not found', 404);
   if (!['authorized', 'pending', 'fee_charged'].includes(existing.status)) {

@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
         utm_campaign:     utmCampaign || null,
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (insertError || !application) {
       logger.error('[school/apply] insert error', insertError);

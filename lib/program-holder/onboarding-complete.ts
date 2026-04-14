@@ -51,7 +51,7 @@ export async function checkAndSendOnboardingCompleteEmail(
     .from('profiles')
     .select('email, full_name')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (!profile?.email) return { sent: false, reason: 'no_profile_email' };
 

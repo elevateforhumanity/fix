@@ -52,7 +52,7 @@ async function _POST(request: NextRequest) {
       .from('stripe_webhook_events')
       .select('id')
       .eq('stripe_event_id', event.id)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json({ received: true, duplicate: true });

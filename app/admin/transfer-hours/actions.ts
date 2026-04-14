@@ -15,7 +15,7 @@ async function requireAdminActor() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
     throw new Error('Forbidden');
@@ -36,7 +36,7 @@ export async function approveTransferHours(
     .from('transfer_hours')
     .select('id, status')
     .eq('id', requestId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !record) throw new Error('Transfer hours request not found');
   if (record.status !== 'pending' && record.status !== 'needs_review') {
@@ -76,7 +76,7 @@ export async function denyTransferHours(requestId: string, notes?: string) {
     .from('transfer_hours')
     .select('id, status')
     .eq('id', requestId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !record) throw new Error('Transfer hours request not found');
   if (record.status !== 'pending' && record.status !== 'needs_review') {

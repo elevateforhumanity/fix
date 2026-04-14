@@ -77,7 +77,7 @@ export async function createEnrollmentCase(params: CreateCaseParams): Promise<En
       status: 'draft',
     })
     .select('*')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('[createEnrollmentCase] Error:', error);
@@ -118,7 +118,7 @@ export async function checkSignatureCompleteness(caseId: string): Promise<Signat
     .from('enrollment_cases')
     .select('signatures_required, signatures_completed')
     .eq('id', caseId)
-    .single();
+    .maybeSingle();
 
   if (!caseData) {
     return { complete: false, required: [], completed: [], missing: [] };
@@ -154,7 +154,7 @@ export async function addSignature(params: SignatureParams): Promise<{ success: 
       user_agent: 'case-management',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('[addSignature] Error:', error);
@@ -185,7 +185,7 @@ export async function transitionCaseStatus(caseId: string, newStatus: CaseStatus
     .from('enrollment_cases')
     .select('status')
     .eq('id', caseId)
-    .single();
+    .maybeSingle();
 
   if (!currentCase) return false;
 
@@ -262,7 +262,7 @@ export async function completeTask(taskId: string, completedBy: string, evidence
     })
     .eq('id', taskId)
     .select('case_id, task_type, title, assigned_to_role')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('[completeTask] Error:', error);

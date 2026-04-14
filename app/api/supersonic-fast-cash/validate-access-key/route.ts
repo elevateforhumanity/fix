@@ -41,7 +41,7 @@ async function _POST(request: NextRequest) {
       .eq('access_key', accessKey.toUpperCase())
       .eq('email', email.toLowerCase())
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (keyError || !keyData) {
       return NextResponse.json(

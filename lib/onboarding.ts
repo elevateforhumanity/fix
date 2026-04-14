@@ -249,7 +249,7 @@ export async function hasCompletedOnboarding(
     .select('completed')
     .eq('user_id', userId)
     .eq('flow_id', flowId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return false;
   return data.completed;
@@ -271,7 +271,7 @@ export async function getOnboardingProgress(
     .select('*')
     .eq('user_id', userId)
     .eq('flow_id', flowId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
 
@@ -316,7 +316,7 @@ export async function updateOnboardingProgress(
     .select('completed_steps')
     .eq('user_id', userId)
     .eq('flow_id', flowId)
-    .single();
+    .maybeSingle();
 
   const completedSteps = current?.completed_steps || [];
   if (!completedSteps.includes(stepId)) {
@@ -631,7 +631,7 @@ export async function getTutorialProgress(
     .select('*')
     .eq('user_id', userId)
     .eq('tutorial_id', tutorialId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
 
@@ -656,7 +656,7 @@ export async function updateTutorialProgress(
     .select('completed_steps')
     .eq('user_id', userId)
     .eq('tutorial_id', tutorialId)
-    .single();
+    .maybeSingle();
 
   const completedSteps = current?.completed_steps || [];
   if (!completedSteps.includes(stepId)) {

@@ -26,7 +26,7 @@ export function useAuth() {
           .from('profiles')
           .select('id, email, full_name, role')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
         setUser(data as Profile);
       } else setUser(null);
       setLoading(false);
@@ -38,7 +38,7 @@ export function useAuth() {
           .from('profiles')
           .select('id, email, full_name, role')
           .eq('id', session.user.id)
-          .single();
+          .maybeSingle();
         setUser(data as Profile);
       } else setUser(null);
     });
@@ -118,7 +118,7 @@ export async function getCurrentUser(): Promise<User | null> {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   return {
     id: user.id,

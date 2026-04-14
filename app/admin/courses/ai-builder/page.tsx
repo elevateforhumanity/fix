@@ -23,7 +23,7 @@ export default async function AICourseBuilderPage() {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     if (!profile || !['admin', 'super_admin', 'instructor'].includes(profile.role)) {
       redirect('/unauthorized');
     }

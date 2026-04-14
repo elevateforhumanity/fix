@@ -31,7 +31,7 @@ const userId = req.headers.get('x-user-id');
     query = query.eq('repo_id', repoId);
   }
 
-  const { data, error } = await query.order('updated_at', { ascending: false }).limit(1).single();
+  const { data, error } = await query.order('updated_at', { ascending: false }).limit(1).maybeSingle();
 
   if (error && error.code !== 'PGRST116') {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -69,7 +69,7 @@ const userId = req.headers.get('x-user-id');
       updated_at: new Date().toISOString()
     }, { onConflict: 'user_id,repo_id' })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

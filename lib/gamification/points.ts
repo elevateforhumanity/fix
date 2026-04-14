@@ -14,7 +14,7 @@ export async function addPoints(
     .select("*")
     .eq("user_id", userId)
     .eq("course_id", courseId)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     await supabase
@@ -62,7 +62,7 @@ export async function awardBadge(userId: string, badgeKey: string) {
     .from("badges")
     .select("id")
     .eq("key", badgeKey)
-    .single();
+    .maybeSingle();
 
   if (!badge) {
     logger.warn(`Badge ${badgeKey} not found`, { badgeKey, userId });

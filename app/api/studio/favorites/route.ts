@@ -66,7 +66,7 @@ async function _POST(req: NextRequest) {
       label
     }, { onConflict: 'user_id,repo_id,file_path,line_number' })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

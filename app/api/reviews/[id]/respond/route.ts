@@ -33,7 +33,7 @@ async function _POST(
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -60,7 +60,7 @@ async function _POST(
       })
       .eq('id', id)
       .select()
-      .single();
+      .maybeSingle();
 
     if (updateError) {
       return NextResponse.json({ error: 'Update failed' }, { status: 500 });

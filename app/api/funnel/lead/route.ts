@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
           status: 'new',
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (error) {
         logger.error('[funnel/lead] DB insert failed', new Error(`${error.code}: ${error.message}`));

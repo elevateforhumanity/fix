@@ -75,7 +75,7 @@ export async function getCourseById(id: string, supabase?: SupabaseClient) {
     .select('*')
     .eq('id', id)
     .eq('active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching course:', error);

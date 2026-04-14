@@ -44,7 +44,7 @@ export async function generateWelcomePacket(data: WelcomePacketData): Promise<{
       created_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error || !packet) {
     throw new Error(`Failed to create welcome packet: ${error?.message}`);
@@ -296,7 +296,7 @@ async function sendWelcomePacketCompletionEmail(
     .from('profiles')
     .select('full_name, email')
     .eq('id', studentId)
-    .single();
+    .maybeSingle();
 
   if (!profile) return;
 
@@ -345,7 +345,7 @@ export async function getWelcomePacketStatus(packetId: string): Promise<{
     .from('welcome_packets')
     .select('*')
     .eq('id', packetId)
-    .single();
+    .maybeSingle();
 
   const { data: items } = await supabase
     .from('welcome_packet_items')
@@ -403,7 +403,7 @@ export async function sendWelcomePacketReminder(
     `
     )
     .eq('id', packetId)
-    .single();
+    .maybeSingle();
 
   if (!packet || packet.status === 'completed') return;
 

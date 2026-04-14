@@ -31,7 +31,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (
       !profile ||
@@ -151,7 +151,7 @@ async function _POST(request: NextRequest) {
         clicked_count: 0,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (campaignError || !campaign) {
       return NextResponse.json(

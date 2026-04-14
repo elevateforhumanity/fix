@@ -28,7 +28,7 @@ async function _GET(request: NextRequest) {
       .select('*')
       .eq('user_id', user.id)
       .eq('app_slug', appSlug)
-      .single();
+      .maybeSingle();
 
     if (!subscription) {
       return NextResponse.json({ 

@@ -46,7 +46,7 @@ export default function BillingPage() {
         .from('profiles')
         .select('stripe_customer_id, subscription_status, subscription_plan, trial_ends_at, current_period_end')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (profileError && profileError.code !== 'PGRST116') {
         console.error('Error fetching profile:', profileError);

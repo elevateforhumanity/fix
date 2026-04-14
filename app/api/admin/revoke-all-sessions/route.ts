@@ -27,7 +27,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin' && profile?.role !== 'staff') {
       return NextResponse.json({ error: 'Forbidden - Admin only' }, { status: 403 });

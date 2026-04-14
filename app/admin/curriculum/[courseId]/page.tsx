@@ -28,7 +28,7 @@ export default async function CurriculumCourseEditorPage({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['admin', 'super_admin', 'staff'].includes(profile?.role ?? '')) {
     redirect('/unauthorized');

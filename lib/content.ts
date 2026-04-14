@@ -271,7 +271,7 @@ export async function getMainOffice(): Promise<Location | null> {
     .select('*')
     .eq('is_main_office', true)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
   
   if (error) {
     logger.error('Error fetching main office:', error);

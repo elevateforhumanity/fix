@@ -18,7 +18,7 @@ async function _POST(req: Request) {
       .from('discussion_threads')
       .select('likes')
       .eq('id', threadId)
-      .single();
+      .maybeSingle();
 
     const currentLikes = thread?.likes || 0;
 

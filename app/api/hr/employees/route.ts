@@ -128,7 +128,7 @@ async function _POST(request: NextRequest) {
       .from('employees')
       .select('id')
       .eq('employee_number', employee_number)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(
@@ -163,7 +163,7 @@ async function _POST(request: NextRequest) {
         position:positions(*)
       `
       )
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

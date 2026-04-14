@@ -124,7 +124,7 @@ export async function provisionLicense(ctx: ProvisioningContext): Promise<Provis
         currency,
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (purchaseError || !purchase) throw new Error(`Failed to create purchase: ${purchaseError?.message}`);
     purchaseId = purchase.id;
@@ -150,7 +150,7 @@ export async function provisionLicense(ctx: ProvisioningContext): Promise<Provis
         },
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (tenantError || !tenant) throw new Error(`Failed to create tenant: ${tenantError?.message}`);
     tenantId = tenant.id;
@@ -175,7 +175,7 @@ export async function provisionLicense(ctx: ProvisioningContext): Promise<Provis
         metadata: { product_id: productId, correlation_id: correlationId },
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (licenseError || !license) throw new Error(`Failed to create license: ${licenseError?.message}`);
     licenseId = license.id;
@@ -316,7 +316,7 @@ export async function suspendLicense(tenantId: string, reason: string): Promise<
 
 export async function enforceSubscriptionStatus(subscriptionId: string): Promise<void> {
   const supabase = await getAdminClient();
-  const { data: tenant } = await supabase.from('tenants').select('id').eq('stripe_subscription_id', subscriptionId).single();
+  const { data: tenant } = await supabase.from('tenants').select('id').eq('stripe_subscription_id', subscriptionId).maybeSingle();
   if (tenant) await suspendLicense(tenant.id, 'subscription_payment_failed');
 }
 

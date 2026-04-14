@@ -57,7 +57,7 @@ const _POST = withAuth(
         mime_type: file.type,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (dbError) {
       return NextResponse.json({ error: 'Database operation failed' }, { status: 500 });

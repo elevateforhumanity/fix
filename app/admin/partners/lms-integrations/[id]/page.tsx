@@ -47,7 +47,7 @@ export default async function LMSIntegrationDetailPage({ params }: Props) {
     .from('partner_lms_providers')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !provider) {
     notFound();

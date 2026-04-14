@@ -24,7 +24,7 @@ export async function getTenantCompliance(tenantId: string): Promise<TenantCompl
     .from('tenants')
     .select('compliance_wioa, compliance_ferpa, compliance_hipaa')
     .eq('id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (!tenant) {
     return { wioa: false, ferpa: false, hipaa: false };

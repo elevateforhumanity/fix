@@ -78,7 +78,7 @@ export async function createForumCategory(data: {
       active: true,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return category;
@@ -136,7 +136,7 @@ export async function createForumThread(data: {
       last_activity_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (threadError) throw threadError;
 
@@ -152,7 +152,7 @@ export async function createForumThread(data: {
       moderated: false,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (postError) throw postError;
 
@@ -215,7 +215,7 @@ export async function getThreadWithPosts(thread_id: string): Promise<{
     .from('forum_threads')
     .select('*, profiles(full_name, avatar_url)')
     .eq('id', thread_id)
-    .single();
+    .maybeSingle();
 
   if (!thread) {
     throw new Error('Thread not found');
@@ -257,7 +257,7 @@ export async function createForumPost(data: {
     .from('forum_threads')
     .select('locked')
     .eq('id', data.thread_id)
-    .single();
+    .maybeSingle();
 
   if (thread?.locked) {
     throw new Error('Thread is locked');
@@ -273,7 +273,7 @@ export async function createForumPost(data: {
       moderated: false,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -312,7 +312,7 @@ export async function editForumPost(
     .eq('id', post_id)
     .eq('author_id', author_id)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return post;
@@ -384,7 +384,7 @@ export async function moderatePost(
     })
     .eq('id', post_id)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -415,7 +415,7 @@ export async function toggleThreadPin(
     .from('forum_threads')
     .select('pinned')
     .eq('id', thread_id)
-    .single();
+    .maybeSingle();
 
   const { data: updated, error } = await supabase
     .from('forum_threads')
@@ -441,7 +441,7 @@ export async function toggleThreadLock(
     .from('forum_threads')
     .select('locked')
     .eq('id', thread_id)
-    .single();
+    .maybeSingle();
 
   const { data: updated, error } = await supabase
     .from('forum_threads')
@@ -471,7 +471,7 @@ export async function subscribeToThread(
     .select('*')
     .eq('thread_id', thread_id)
     .eq('user_id', user_id)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return existing;
@@ -486,7 +486,7 @@ export async function subscribeToThread(
       notify_sms,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return subscription;

@@ -41,7 +41,7 @@ async function _POST(request: NextRequest) {
           order: module.order,
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (moduleError) throw moduleError;
 
@@ -63,7 +63,7 @@ async function _POST(request: NextRequest) {
             order: lesson.order,
           })
           .select()
-          .single();
+          .maybeSingle();
 
         if (lessonError) throw lessonError;
 

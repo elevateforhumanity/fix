@@ -50,7 +50,7 @@ export async function reconcileTrialOnboarding(
       .from('organizations')
       .select('onboarding_started_at')
       .eq('id', organizationId)
-      .single();
+      .maybeSingle();
 
     if (!org || org.onboarding_started_at) {
       reconcileCache.set(organizationId, Date.now()); // Already set — cache and skip

@@ -86,7 +86,7 @@ async function _POST(
     .from('program_holders')
     .select('id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (holderErr || !holder) return safeError('Program holder not found', 403);
 
@@ -97,7 +97,7 @@ async function _POST(
     .from('program_holder_courses')
     .select('id, program_holder_id, credential_id, program_id')
     .eq('id', courseAssignmentId)
-    .single();
+    .maybeSingle();
 
   if (rowErr || !row) return safeError('Course assignment not found', 404);
 
@@ -117,7 +117,7 @@ async function _POST(
       .select('id')
       .eq('program_holder_id', holder.id)
       .eq('program_id', row.program_id)
-      .single();
+      .maybeSingle();
 
     if (authErr || !authRow) {
       return safeError('Forbidden: not authorized for this program', 403);

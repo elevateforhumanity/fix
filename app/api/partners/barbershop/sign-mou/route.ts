@@ -65,7 +65,7 @@ async function _POST(request: NextRequest) {
         updated_at: now,
       }, { onConflict: 'contact_email' })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (partnerErr) {
       logger.error('Partner upsert failed', partnerErr);

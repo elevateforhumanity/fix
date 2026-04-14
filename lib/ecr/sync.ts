@@ -146,7 +146,7 @@ export async function generateECRReport(studentId: string) {
     .from('profiles')
     .select('id, full_name, email')
     .eq('id', studentId)
-    .single();
+    .maybeSingle();
 
   const { data: enrollment } = await supabase
     .from('program_enrollments')

@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
     .eq('route', 'enrollment-health')
     .order('ran_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (lastRun?.ran_at) {
     const hoursSinceLast = (now.getTime() - new Date(lastRun.ran_at).getTime()) / 3_600_000;

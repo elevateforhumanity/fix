@@ -24,7 +24,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -41,7 +41,7 @@ async function _POST(req: Request) {
       .from('shops')
       .select('id, name, address1, address2, city, state, zip')
       .eq('id', shop_id)
-      .single();
+      .maybeSingle();
 
     if (shopError || !shop) {
       return NextResponse.json({ error: 'Shop not found' }, { status: 404 });

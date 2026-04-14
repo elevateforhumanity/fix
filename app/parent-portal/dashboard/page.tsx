@@ -31,7 +31,7 @@ export default async function ParentDashboardPage() {
     .from('profiles')
     .select('full_name, email, role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch linked students
   const { data: links } = await supabase

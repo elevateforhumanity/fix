@@ -48,7 +48,7 @@ export default function InstructorAnnouncementsPage() {
       .from('training_courses')
       .select('id, title, instructor_id')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (!courseData || courseData.instructor_id !== user.id) {
       router.push('/instructor/courses');

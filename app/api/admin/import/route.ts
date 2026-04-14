@@ -86,7 +86,7 @@ async function importStudents(
         .select('id')
         .eq('email', email)
         .eq('tenant_id', tenantId)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         // Update existing profile
@@ -207,7 +207,7 @@ async function importEnrollments(
         .select('id')
         .eq('email', studentEmail)
         .eq('tenant_id', tenantId)
-        .single();
+        .maybeSingle();
 
       if (!student) {
         result.failed++;
@@ -234,7 +234,7 @@ async function importEnrollments(
         .select('id')
         .eq('user_id', student.id)
         .eq('course_id', course.id)
-        .single();
+        .maybeSingle();
 
       const enrollmentData = {
         user_id: student.id,
@@ -286,7 +286,7 @@ async function importEmployers(
         .select('id')
         .eq('company_name', companyName)
         .eq('tenant_id', tenantId)
-        .single();
+        .maybeSingle();
 
       const employerData = {
         company_name: companyName,
@@ -335,7 +335,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('tenant_id, role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });

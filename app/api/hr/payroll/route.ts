@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
         processed_by: user?.id ?? null,
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (runError) throw runError;
 
@@ -321,7 +321,7 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', payrollRun.id)
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (updateError) throw updateError;
 

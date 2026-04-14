@@ -85,7 +85,7 @@ async function _POST(request: NextRequest) {
       .from('programs')
       .select('*')
       .eq('id', programId)
-      .single();
+      .maybeSingle();
 
     if (programError || !program) {
       return NextResponse.json(
@@ -117,7 +117,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('stripe_customer_id, email, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     let customerId: string | undefined = profile?.stripe_customer_id;
 

@@ -23,7 +23,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -45,7 +45,7 @@ async function _POST(request: NextRequest) {
         created_by: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Campaign error:', error);

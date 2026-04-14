@@ -36,7 +36,7 @@ async function _PATCH(req: Request, { params }: { params: Params }) {
       .from('employer_onboarding')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     const { data, error }: any = await supabase
       .from('employer_onboarding')

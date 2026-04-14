@@ -36,7 +36,7 @@ export default async function VerificationPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['program_holder','admin','super_admin','staff'].includes(profile.role)) {
     redirect('/login');
@@ -47,7 +47,7 @@ export default async function VerificationPage() {
     .from('program_holders')
     .select('*')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   // Fetch uploaded documents
   const { data: documents } = await supabase

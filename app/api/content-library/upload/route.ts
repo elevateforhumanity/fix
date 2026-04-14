@@ -23,7 +23,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -75,7 +75,7 @@ async function _POST(request: NextRequest) {
           tags: [],
         })
         .select('id, title, file_url')
-        .single();
+        .maybeSingle();
 
       if (dbError) {
         logger.error('Content item insert error:', dbError);

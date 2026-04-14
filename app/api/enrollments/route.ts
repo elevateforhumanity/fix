@@ -76,7 +76,7 @@ async function _POST(request: Request) {
       .select('id')
       .eq('user_id', user.id)
       .eq('course_id', courseId)
-      .single();
+      .maybeSingle();
 
     if (existing) {
       return NextResponse.json(
@@ -96,7 +96,7 @@ async function _POST(request: Request) {
         started_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

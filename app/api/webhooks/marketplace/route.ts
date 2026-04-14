@@ -62,7 +62,7 @@ export async function POST(req: Request) {
       .from('marketplace_creators')
       .select('revenue_split')
       .eq('id', creatorId)
-      .single();
+      .maybeSingle();
 
     const revenueSplit = creator?.revenue_split || 0.7;
     const creatorEarnings = Math.floor(amountTotal * revenueSplit);

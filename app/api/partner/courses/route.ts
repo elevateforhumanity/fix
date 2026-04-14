@@ -24,7 +24,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['partner', 'program_holder'].includes(profile.role)) {
       return NextResponse.json(
@@ -57,7 +57,7 @@ async function _POST(request: NextRequest) {
         .select('*')
         .eq('id', license_id)
         .eq('license_holder_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!license) {
         return NextResponse.json({ error: 'Invalid license' }, { status: 400 });
@@ -99,7 +99,7 @@ async function _POST(request: NextRequest) {
         is_active: true,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Course creation error:', error);

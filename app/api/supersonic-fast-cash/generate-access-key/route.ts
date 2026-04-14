@@ -52,7 +52,7 @@ async function _POST(request: NextRequest) {
       .select('*')
       .eq('email', email.toLowerCase())
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (existingKey) {
       return NextResponse.json({

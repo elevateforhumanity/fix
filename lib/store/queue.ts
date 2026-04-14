@@ -37,7 +37,7 @@ export async function enqueueJob(
       max_attempts: job.maxAttempts || 3,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Failed to enqueue job', error);

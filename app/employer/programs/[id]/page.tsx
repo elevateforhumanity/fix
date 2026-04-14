@@ -17,7 +17,7 @@ export default async function EmployerProgramDetailPage({ params }: Props) {
     .from('programs')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (!program) notFound();
 

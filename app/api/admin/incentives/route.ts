@@ -27,7 +27,7 @@ async function _GET(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -95,7 +95,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -136,7 +136,7 @@ async function _POST(req: NextRequest) {
         created_by: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       // Error: $1

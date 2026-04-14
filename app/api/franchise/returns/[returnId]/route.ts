@@ -31,7 +31,7 @@ async function _GET(
         office:franchise_offices(*)
       `)
       .eq('id', returnId)
-      .single();
+      .maybeSingle();
 
     if (error || !submission) {
       return NextResponse.json({ error: 'Return not found' }, { status: 404 });
@@ -42,7 +42,7 @@ async function _GET(
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
 
@@ -91,7 +91,7 @@ async function _PATCH(
       .from('franchise_return_submissions')
       .select('*, office:franchise_offices(owner_id)')
       .eq('id', returnId)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !submission) {
       return NextResponse.json({ error: 'Return not found' }, { status: 404 });
@@ -102,7 +102,7 @@ async function _PATCH(
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const isAdmin = profile?.role === 'super_admin' || profile?.role === 'franchise_admin';
     const isOwner = submission.office?.owner_id === user.id;
@@ -118,7 +118,7 @@ async function _PATCH(
         .from('franchise_preparers')
         .select('*')
         .eq('id', body.preparer_id)
-        .single();
+        .maybeSingle();
 
       if (preparerError || !newPreparer) {
         return NextResponse.json({ error: 'New preparer not found' }, { status: 400 });

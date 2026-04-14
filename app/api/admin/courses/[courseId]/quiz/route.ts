@@ -21,7 +21,7 @@ async function requireAdmin() {
 const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized', status: 401 };
   const { data: profile } = await supabase
-    .from('profiles').select('role').eq('id', user.id).single();
+    .from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'org_admin', 'instructor'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
@@ -54,7 +54,7 @@ export async function GET(
     .from('courses')
     .select('metadata')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error?.code === 'PGRST116') return NextResponse.json({ error: 'Course not found' }, { status: 404 });
   if (error) return NextResponse.json({ error: 'Database error' }, { status: 500 });
@@ -112,7 +112,7 @@ export async function PUT(
     .from('courses')
     .select('metadata')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   const existingMeta = (existing?.metadata || {}) as Record<string, any>;
   const updatedMeta = {

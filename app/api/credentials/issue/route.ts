@@ -78,7 +78,7 @@ async function _POST(req: NextRequest) {
         metadata: data.metadata || {},
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Failed to issue credential', { error, data });

@@ -47,7 +47,7 @@ function LogCompetencyForm() {
         .from('programs')
         .select('id')
         .eq('slug', 'barber-apprenticeship')
-        .single();
+        .maybeSingle();
 
       if (!program) { setLoadingSkills(false); return; }
 
@@ -110,7 +110,7 @@ function LogCompetencyForm() {
         .from('programs')
         .select('id')
         .eq('slug', 'barber-apprenticeship')
-        .single();
+        .maybeSingle();
 
       const { error: insertError } = await supabase
         .from('competency_log')

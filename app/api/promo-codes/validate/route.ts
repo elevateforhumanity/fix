@@ -26,7 +26,7 @@ async function _POST(req: Request) {
       .select('*')
       .eq('code', code.toUpperCase().trim())
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (error || !promo) {
       return NextResponse.json({ 

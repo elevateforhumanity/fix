@@ -43,7 +43,7 @@ export default async function HSILearnPage({
     .from('hsi_course_products')
     .select('*')
     .eq('course_type', params.courseType)
-    .single();
+    .maybeSingle();
 
   if (!course) {
     return (
@@ -66,7 +66,7 @@ export default async function HSILearnPage({
     .eq('student_id', user.id)
     .eq('course_type', params.courseType)
     .eq('enrollment_status', 'enrolled')
-    .single();
+    .maybeSingle();
 
   if (!enrollment) {
     // Check for pending enrollment
@@ -76,7 +76,7 @@ export default async function HSILearnPage({
       .eq('student_id', user.id)
       .eq('course_type', params.courseType)
       .eq('enrollment_status', 'pending')
-      .single();
+      .maybeSingle();
 
     if (pendingEnrollment) {
       return (

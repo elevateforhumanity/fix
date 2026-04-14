@@ -54,7 +54,7 @@ export default function CompanySetupPage() {
         .from('employer_profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (profile) {
         setForm({

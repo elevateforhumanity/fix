@@ -190,7 +190,7 @@ export const handleCheckoutSessionCompleted: StripeEventHandler = async (
           { onConflict: 'user_id,external_course_id' },
         )
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (upsertErr) {
         logger.error('[webhook/checkout] external_course_purchase upsert failed', upsertErr);

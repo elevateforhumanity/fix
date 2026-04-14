@@ -58,7 +58,7 @@ export default function CreateGroupForm({ userId, userName, programs }: Props) {
           created_by: userId,
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (groupError) throw groupError;
 

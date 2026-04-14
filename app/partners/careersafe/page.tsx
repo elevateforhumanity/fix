@@ -32,7 +32,7 @@ export default async function CAREERSAFEPage() {
     .from('partners')
     .select('*')
     .eq('slug', 'careersafe')
-    .single();
+    .maybeSingle();
   return (
     <div className="min-h-screen bg-white">
             <div className="max-w-7xl mx-auto px-4 py-4">

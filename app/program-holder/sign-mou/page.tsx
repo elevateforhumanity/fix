@@ -87,7 +87,7 @@ export default async function SignMOUPage() {
     .from('program_holders')
     .select('mou_type, primary_program_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   const rawMouType = programHolder?.mou_type ?? null;
 

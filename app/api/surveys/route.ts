@@ -27,7 +27,7 @@ async function _POST(request: NextRequest) {
         submitted_at: new Date().toISOString(),
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Survey submission error:', error);
@@ -55,7 +55,7 @@ async function _GET(request: NextRequest) {
         .from('surveys')
         .select('*')
         .eq('id', surveyId)
-        .single();
+        .maybeSingle();
 
       if (error) {
         return NextResponse.json({ error: 'Survey not found' }, { status: 404 });

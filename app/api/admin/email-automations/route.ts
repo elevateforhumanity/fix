@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       metadata: body.metadata ?? {},
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) return safeDbError(error, 'Failed to create automation');
   return NextResponse.json({ data }, { status: 201 });
 }

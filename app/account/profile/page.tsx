@@ -24,7 +24,7 @@ export default async function ProfilePage() {
     .from('users')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   return (
     <div className="min-h-screen bg-white">

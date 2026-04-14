@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     .from('program_holders')
     .select('id, contact_email, contact_name, organization_name, user_id')
     .eq('id', holderId)
-    .single();
+    .maybeSingle();
 
   if (holderError || !holder) {
     return NextResponse.json({ error: 'Program holder not found' }, { status: 404 });

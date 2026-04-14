@@ -18,7 +18,7 @@ async function getStudentData(userId: string, email: string) {
       .from('profiles')
       .select('first_name, last_name, full_name, enrollment_status, onboarding_completed, funding_confirmed, orientation_completed, schedule_selected, avatar_url')
       .eq('id', userId)
-      .single(),
+      .maybeSingle(),
 
     // Program enrollments (no join — FK points to training_programs, not programs)
     supabase

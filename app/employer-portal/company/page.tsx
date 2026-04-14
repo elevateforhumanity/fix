@@ -26,7 +26,7 @@ export default async function CompanyProfilePage() {
     .from('rapids_employers')
     .select('*')
     .eq('contact_email', user.email)
-    .single();
+    .maybeSingle();
 
   // Get job stats if employer exists
   let activeJobs = 0;

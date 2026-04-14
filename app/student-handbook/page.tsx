@@ -34,7 +34,7 @@ export default async function StudentHandbookPage() {
     .select('*')
     .eq('user_id', user.id)
     .eq('handbook_type', 'student')
-    .single() : { data: null };
+    .maybeSingle() : { data: null };
 
   const sections = [
     { title: '1. Welcome & Mission', description: 'Who we are and what we expect', icon: BookOpen },

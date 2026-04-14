@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
         status:              status ?? 'pending',
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (error) return safeInternalError(error, 'POST /api/case-manager/placements');
 

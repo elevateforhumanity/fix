@@ -9,7 +9,7 @@ const ADMIN_ROLES = ['admin', 'super_admin', 'org_admin', 'staff'];
 async function authorize(supabase: any, db: any) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !ADMIN_ROLES.includes(profile.role)) return null;
   return user;
 }

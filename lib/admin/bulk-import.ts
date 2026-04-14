@@ -215,7 +215,7 @@ export async function importUsers(
         .from('profiles')
         .select('id')
         .eq('email', user.email)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         errors.push({

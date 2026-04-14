@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   const isAdmin = ['admin', 'super_admin', 'staff'].includes(profile?.role ?? '');
 
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       .from('applications')
       .select('user_id')
       .eq('id', application_id)
-      .single();
+      .maybeSingle();
     if (!app || app.user_id !== user.id) {
       return safeError('Forbidden', 403);
     }
@@ -87,7 +87,7 @@ async function reconcileApplication(
     .from('applications')
     .select('id, user_id, program_slug, status, payment_status, funding_verified')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (appErr || !app) return safeError('Application not found', 404);
 

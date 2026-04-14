@@ -18,7 +18,7 @@ async function requireAdmin(supabase: Awaited<ReturnType<typeof createClient>>) 
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) return { user: null, profile: null };
   const { data: profile } = await supabase
-    .from('profiles').select('role').eq('id', user.id).single();
+    .from('profiles').select('role').eq('id', user.id).maybeSingle();
   return { user, profile };
 }
 
@@ -78,7 +78,7 @@ export async function DELETE(
       .from('courses')
       .select('id')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     if (fetchErr || !existing) return NextResponse.json({ error: 'Course not found' }, { status: 404 });
 

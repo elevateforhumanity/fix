@@ -126,7 +126,7 @@ export async function createAppointment(data: {
       status: 'scheduled'
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error creating appointment:', error);
@@ -161,7 +161,7 @@ export async function handleCalendlyWebhook(
         .from('profiles')
         .select('id, first_name')
         .eq('email', studentEmail)
-        .single();
+        .maybeSingle();
 
       if (!profile) {
         return false;

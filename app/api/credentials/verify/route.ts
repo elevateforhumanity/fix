@@ -68,7 +68,7 @@ async function _POST(req: NextRequest) {
       `
       )
       .eq('code', code)
-      .single();
+      .maybeSingle();
 
     if (error || !credential) {
       // Generic response to prevent scraping

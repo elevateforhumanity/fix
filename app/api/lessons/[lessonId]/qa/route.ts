@@ -95,7 +95,7 @@ async function _POST(
         body,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error("lesson_questions POST error", error);
@@ -121,7 +121,7 @@ async function _POST(
       body,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error("lesson_answers POST error", error);

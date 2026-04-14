@@ -41,7 +41,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || (profile.role !== 'admin' && profile.role !== 'super_admin')) {
       logger.warn('[Creator Rejection] Unauthorized attempt', { userId: user.id, role: profile?.role });
@@ -80,7 +80,7 @@ async function _POST(req: Request) {
       .from('marketplace_creators')
       .select('id, status, user_id, profiles(email, full_name)')
       .eq('id', creatorId)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !creator) {
       logger.warn('[Creator Rejection] Creator not found', { creatorId });

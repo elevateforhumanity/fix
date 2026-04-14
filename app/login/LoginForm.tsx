@@ -42,7 +42,7 @@ export default function LoginForm() {
         .from('profiles')
         .select('role, onboarding_completed')
         .eq('id', data.user.id)
-        .single();
+        .maybeSingle();
 
       // ?redirect param always takes priority over role-based destination
       if (redirectParam) {

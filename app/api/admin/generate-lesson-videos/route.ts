@@ -198,7 +198,7 @@ async function _POST(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    const { data: _roleProfile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
     if (!_roleProfile || !['admin', 'super_admin', 'staff'].includes(_roleProfile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
@@ -216,7 +216,7 @@ async function _POST(request: NextRequest) {
         .from('training_lessons')
         .select('*, training_courses(course_name)')
         .eq('id', lessonId)
-        .single();
+        .maybeSingle();
       if (data) lessons = [data];
     } else if (courseId) {
       const { data } = await supabase

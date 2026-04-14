@@ -44,7 +44,7 @@ async function _POST(
     .from("signature_documents")
     .select("id, title, type")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (!doc) {
     return NextResponse.json({ error: "Document not found" }, { status: 404 });
@@ -67,7 +67,7 @@ async function _POST(
       ip_address: ip,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

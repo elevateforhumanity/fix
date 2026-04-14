@@ -86,7 +86,7 @@ async function _POST(req: NextRequest) {
         title,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

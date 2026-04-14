@@ -40,7 +40,7 @@ async function validateAdminSession(sessionId: string): Promise<boolean> {
     .from('admin_checkout_sessions')
     .select('id, expires_at, used')
     .eq('id', sessionId)
-    .single();
+    .maybeSingle();
 
   if (!session) return false;
   if (session.used) return false;
@@ -60,7 +60,7 @@ async function validatePaymentLink(linkId: string): Promise<boolean> {
     .from('approved_payment_links')
     .select('id, expires_at, max_uses, use_count, active')
     .eq('id', linkId)
-    .single();
+    .maybeSingle();
 
   if (!link) return false;
   if (!link.active) return false;

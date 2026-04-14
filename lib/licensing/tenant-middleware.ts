@@ -32,7 +32,7 @@ export async function getTenantContext(request: NextRequest): Promise<TenantCont
       .from('profiles')
       .select('tenant_id, role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile?.tenant_id) {
       return null;
@@ -43,7 +43,7 @@ export async function getTenantContext(request: NextRequest): Promise<TenantCont
       .from('tenants')
       .select('license_status')
       .eq('id', profile.tenant_id)
-      .single();
+      .maybeSingle();
 
     return {
       tenantId: profile.tenant_id,
@@ -112,7 +112,7 @@ export async function validateTenantAccess(
     .from('profiles')
     .select('tenant_id, role')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (!profile) return false;
 
@@ -137,7 +137,7 @@ export async function hasLicenseFeature(
     .select('features, status')
     .eq('tenant_id', tenantId)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
 
   if (!license) return false;
 
@@ -158,7 +158,7 @@ export async function getLicenseFeatures(
     .select('features')
     .eq('tenant_id', tenantId)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
 
   return (license?.features as Record<string, boolean>) || {};
 }

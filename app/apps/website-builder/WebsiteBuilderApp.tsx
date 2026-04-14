@@ -42,7 +42,7 @@ export function WebsiteBuilderApp({ user, subscription, websites: initialWebsite
         is_published: false,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (!error && data) {
       // Create default pages

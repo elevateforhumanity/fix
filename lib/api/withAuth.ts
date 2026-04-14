@@ -38,7 +38,7 @@ export function withAuth(handler: AuthedHandler, options: WithAuthOptions = {}) 
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (profileError || !profile) {
         return safeError('Unauthorized', 401);

@@ -32,7 +32,7 @@ export async function GET(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'sponsor', 'staff'].includes(profile.role)) {
       return NextResponse.json(

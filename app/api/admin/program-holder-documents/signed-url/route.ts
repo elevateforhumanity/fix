@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   const db = await getAdminClient();
   if (!db) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
 
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !ADMIN_ROLES.includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }

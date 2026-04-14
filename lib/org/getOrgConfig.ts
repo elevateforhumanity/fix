@@ -49,7 +49,7 @@ export const getOrgConfig = cache(
       .from('organization_settings')
       .select('config')
       .eq('organization_id', organizationId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to get org config`);

@@ -44,7 +44,7 @@ export default async function HubPage() {
     .from('profiles')
     .select('full_name, role, points, onboarding_completed')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Redirect to onboarding only if explicitly false (new students).
   // Null/undefined means existing user — grandfathered in.

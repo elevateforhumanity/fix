@@ -22,7 +22,7 @@ async function _POST(request: NextRequest) {
       .from('apprentices')
       .select('id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (apprenticeError || !apprentice) {
       return NextResponse.json({ error: 'Apprentice record not found' }, { status: 404 });
@@ -34,7 +34,7 @@ async function _POST(request: NextRequest) {
       .select('id, checkin_time, shop_id')
       .eq('apprentice_id', apprentice.id)
       .is('checkout_time', null)
-      .single();
+      .maybeSingle();
 
     if (sessionError || !session) {
       return NextResponse.json({ error: 'No active check-in session found' }, { status: 400 });

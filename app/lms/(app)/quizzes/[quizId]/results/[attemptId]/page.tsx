@@ -49,7 +49,7 @@ export default async function QuizResultsPage({ params }: Props) {
     `)
     .eq('id', attemptId)
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (attemptError || !attempt) {
     notFound();

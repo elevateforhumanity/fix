@@ -154,7 +154,7 @@ export async function POST(req: Request) {
       fetch_status: 'pending',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (slErr || !sourceLink) {
     logger.error('Failed to create source_link', slErr);
@@ -234,7 +234,7 @@ export async function POST(req: Request) {
       profiled_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (oppErr || !opportunity) {
     logger.error('Failed to create opportunity', oppErr);

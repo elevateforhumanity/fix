@@ -74,7 +74,7 @@ export const POST = withRuntime(
         notes: notes ?? null,
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (error) return safeInternalError(error, 'Failed to create slot');
     return NextResponse.json({ slot: data }, { status: 201 });

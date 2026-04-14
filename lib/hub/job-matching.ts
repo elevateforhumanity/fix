@@ -56,7 +56,7 @@ export async function getJobMatches(userId: string, limit = 10): Promise<JobMatc
     .from('profiles')
     .select('*')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   // Get completed programs
   const { data: completedEnrollments } = await supabase
@@ -212,7 +212,7 @@ export async function applyToJob(userId: string, jobId: string): Promise<{ succe
     .select('id')
     .eq('user_id', userId)
     .eq('job_id', jobId)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return { success: false, error: 'Already applied to this job' };

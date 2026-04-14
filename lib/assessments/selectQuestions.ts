@@ -24,7 +24,7 @@ export async function selectQuestionsForExamAttempt(
     .from('exams')
     .select('*, bank:question_banks(*, questions(*))')
     .eq('id', examId)
-    .single();
+    .maybeSingle();
 
   if (examError || !exam || !exam.bank) {
     throw new Error('Exam or bank not found');

@@ -63,7 +63,7 @@ export async function getStudentRiskStatus(enrollmentId: string): Promise<RiskSt
     .from('student_risk_status')
     .select('*')
     .eq('enrollment_id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching risk status:', error);
@@ -175,7 +175,7 @@ export async function createRequirement(
       status: 'pending'
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error creating requirement:', error);

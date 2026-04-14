@@ -107,7 +107,7 @@ export default async function AchievementsPage() {
     .from('profiles')
     .select('full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Calculate stats
   const earnedIds = new Set(earnedAchievements?.map((ea: any) => ea.achievements?.id) || []);

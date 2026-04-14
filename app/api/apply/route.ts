@@ -87,11 +87,11 @@ export const POST = withRateLimit(
           ...insertData,
           pathway_slug: pathway_slug || null,
           source: source || 'direct',
-        }).select('id').single();
+        }).select('id').maybeSingle();
 
         if (result.error?.message?.includes('column') || result.error?.code === '42703') {
           // Columns don't exist yet, insert without them
-          const fallback = await insertWithPreAuthCheck(supabase, 'applications', insertData).select('id').single();
+          const fallback = await insertWithPreAuthCheck(supabase, 'applications', insertData).select('id').maybeSingle();
           application = fallback.data;
           error = fallback.error;
         } else {

@@ -395,7 +395,7 @@ async function autoApprove(
       processing_time_ms: processingTimeMs,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   // Write audit log
   await supabase.from('audit_logs').insert({
@@ -476,7 +476,7 @@ async function routeToReview(
       created_at: new Date().toISOString(),
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   // Record automated decision
   const { data: decision } = await supabase
@@ -501,7 +501,7 @@ async function routeToReview(
       processing_time_ms: processingTimeMs,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   // Write audit log
   await supabase.from('audit_logs').insert({

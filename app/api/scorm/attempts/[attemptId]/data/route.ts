@@ -28,7 +28,7 @@ async function _GET(
     .select('*')
     .eq('id', attemptId)
     .eq('student_id', (session as string).userId)
-    .single();
+    .maybeSingle();
 
   if (!attempt) {
     return NextResponse.json({ error: 'Attempt not found' }, { status: 404 });
@@ -64,7 +64,7 @@ async function _POST(
     .select('*')
     .eq('id', attemptId)
     .eq('student_id', (session as string).userId)
-    .single();
+    .maybeSingle();
 
   if (!attempt) {
     return NextResponse.json({ error: 'Attempt not found' }, { status: 404 });

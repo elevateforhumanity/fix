@@ -91,7 +91,7 @@ async function _POST(request: NextRequest) {
       .from('apprentice_document_types')
       .select('*')
       .eq('id', documentTypeId)
-      .single();
+      .maybeSingle();
 
     if (!docType) {
       return NextResponse.json({ error: 'Invalid document type' }, { status: 400 });
@@ -154,7 +154,7 @@ async function _POST(request: NextRequest) {
         uploaded_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (recordError) {
       logger.error('[Documents API] Record error:', recordError);
@@ -168,7 +168,7 @@ async function _POST(request: NextRequest) {
         .from('profiles')
         .select('full_name, email')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       // Get admin emails
       const { data: admins } = await supabase
@@ -239,7 +239,7 @@ async function _DELETE(request: NextRequest) {
       .select('*')
       .eq('id', docId)
       .eq('student_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!doc) {
       return NextResponse.json({ error: 'Document not found' }, { status: 404 });

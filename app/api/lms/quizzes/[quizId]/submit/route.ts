@@ -44,7 +44,7 @@ async function _POST(
     .eq('user_id', user.id)
     .eq('quiz_id', quizId)
     .is('completed_at', null)
-    .single();
+    .maybeSingle();
 
   if (attemptError || !attempt) {
     return NextResponse.json({ error: 'Invalid or completed attempt' }, { status: 400 });
@@ -55,7 +55,7 @@ async function _POST(
     .from('quizzes')
     .select('passing_score')
     .eq('id', quizId)
-    .single();
+    .maybeSingle();
 
   // Get questions with correct answers
   const { data: questions } = await db

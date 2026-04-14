@@ -33,7 +33,7 @@ async function _POST() {
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (!application) {
       return NextResponse.json({ error: 'Application not yet approved' }, { status: 400 });
@@ -44,7 +44,7 @@ async function _POST() {
       .from('onboarding_progress')
       .select('status')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (existing?.status === 'approval_emailed') {
       return NextResponse.json({ already_sent: true });

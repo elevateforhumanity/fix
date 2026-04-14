@@ -34,7 +34,7 @@ export default async function ManageProgramPage({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) {
     redirect('/unauthorized');

@@ -63,7 +63,7 @@ async function _POST(req: Request) {
         status: 'pending_review',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (dbError) {
       logger.error('Database error:', dbError);

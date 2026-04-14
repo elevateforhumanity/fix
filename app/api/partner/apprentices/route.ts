@@ -29,7 +29,7 @@ async function _GET(request: NextRequest) {
       .select('partner_id')
       .eq('user_id', user.id)
       .eq('status', 'active')
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ error: 'Not a partner' }, { status: 403 });
@@ -43,7 +43,7 @@ async function _GET(request: NextRequest) {
         .eq('partner_id', partnerUser.partner_id)
         .eq('program_id', programId)
         .is('revoked_at', null)
-        .single();
+        .maybeSingle();
 
       if (!access) {
         return NextResponse.json({ error: 'No access to this program' }, { status: 403 });

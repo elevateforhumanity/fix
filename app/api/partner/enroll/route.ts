@@ -36,7 +36,7 @@ async function _POST(request: Request) {
         provider:partner_lms_providers(*)
       `)
       .eq('id', partnerCourseId)
-      .single();
+      .maybeSingle();
 
     if (courseError || !partnerCourse) {
       return NextResponse.json({ error: 'Partner course not found' }, { status: 404 });
@@ -48,7 +48,7 @@ async function _POST(request: Request) {
       .select('*')
       .eq('student_id', user.id)
       .eq('course_id', partnerCourseId)
-      .single();
+      .maybeSingle();
 
     if (existingEnrollment) {
       return NextResponse.json({
@@ -71,7 +71,7 @@ async function _POST(request: Request) {
           .from('profiles')
           .select('*')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
 
         // Call partner API to create enrollment
         const enrollmentResponse = await fetch(`${provider.api_endpoint}/enrollments`, {
@@ -118,7 +118,7 @@ async function _POST(request: Request) {
         enrolled_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (enrollmentError) {
       logger.error('Error creating partner enrollment:', enrollmentError);
@@ -134,7 +134,7 @@ async function _POST(request: Request) {
       `)
       .eq('partner_course_id', partnerCourseId)
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     // If SCORM package exists, create SCORM enrollment
     if (mapping?.scorm_package) {

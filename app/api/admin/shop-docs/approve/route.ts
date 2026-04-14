@@ -29,7 +29,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -75,7 +75,7 @@ async function _POST(req: Request) {
       .from('shop_documents')
       .select('shop_id')
       .eq('id', shop_document_id)
-      .single();
+      .maybeSingle();
 
     if (doc) {
       const { data: allDocs } = await supabase
@@ -105,14 +105,14 @@ async function _POST(req: Request) {
             .from('shops')
             .select('owner_id, name')
             .eq('id', doc.shop_id)
-            .single();
+            .maybeSingle();
 
           if (shop?.owner_id) {
             const { data: ownerProfile } = await supabase
               .from('profiles')
               .select('email, full_name')
               .eq('id', shop.owner_id)
-              .single();
+              .maybeSingle();
 
             if (ownerProfile?.email) {
               const { notifyHostShopDecision } = await import('@/lib/notifications');

@@ -47,7 +47,7 @@ async function _POST(req: Request) {
       .from('apprentice_placements')
       .select('shop_id, shops!inner(id)')
       .eq('id', placementId)
-      .single();
+      .maybeSingle();
 
     if (!placement) {
       return NextResponse.json(
@@ -62,7 +62,7 @@ async function _POST(req: Request) {
       .select('id')
       .eq('shop_id', placement.shop_id)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!staff) {
       return NextResponse.json(

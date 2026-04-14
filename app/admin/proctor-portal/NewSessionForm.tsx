@@ -42,7 +42,7 @@ export default function NewSessionForm({ session, onSaved, onCancel }: Props) {
           .from('profiles')
           .select('tenant_id')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
         if (profile) setTenantId(profile.tenant_id);
       }
     })();

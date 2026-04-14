@@ -47,7 +47,7 @@ export default async function SystemJobsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['admin', 'super_admin'].includes(profile?.role ?? '')) {
     redirect('/unauthorized');

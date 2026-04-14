@@ -134,7 +134,7 @@ export async function createClinicalPlacement(data: {
     .select('*, clinical_placements(count)')
     .eq('id', data.site_id)
     .eq('active', true)
-    .single();
+    .maybeSingle();
   if (!site) {
     throw new Error('Clinical site not found or inactive');
   }
@@ -184,7 +184,7 @@ export async function logClinicalHours(data: {
     .select('*')
     .eq('placement_id', data.placement_id)
     .eq('clinical_date', data.clinical_date)
-    .single();
+    .maybeSingle();
   if (existing) {
     throw new Error('Hours already logged for this date');
   }
@@ -196,7 +196,7 @@ export async function logClinicalHours(data: {
       supervisor_verified: false,
     })
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Send verification request to supervisor
   await sendClinicalVerificationRequest(log);
@@ -216,7 +216,7 @@ export async function verifyClinicalHours(
     .from('clinical_hours_logs')
     .select('*, clinical_placements(*)')
     .eq('id', log_id)
-    .single();
+    .maybeSingle();
   if (!log) {
     throw new Error('Clinical hours log not found');
   }
@@ -233,7 +233,7 @@ export async function verifyClinicalHours(
     })
     .eq('id', log_id)
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Check if placement is complete
   await checkClinicalCompletion(log.placement_id);
@@ -271,7 +271,7 @@ export async function getClinicalProgress(placement_id: string): Promise<Clinica
     .from('clinical_placements')
     .select('*')
     .eq('id', placement_id)
-    .single();
+    .maybeSingle();
   if (!placement) {
     throw new Error('Placement not found');
   }
@@ -298,7 +298,7 @@ export async function getClinicalProgress(placement_id: string): Promise<Clinica
     .from('programs')
     .select('required_skills')
     .eq('id', placement.program_id)
-    .single();
+    .maybeSingle();
   const skills_required = program?.required_skills?.length || 0;
   const skills_completion_percentage = skills_required > 0
     ? (skills_completed / skills_required) * 100
@@ -393,7 +393,7 @@ export async function completeClinicalPlacement(
     })
     .eq('id', placement_id)
     .select()
-    .single();
+    .maybeSingle();
   if (error) throw error;
   // Send completion notification
   await sendClinicalCompletionNotification(placement);

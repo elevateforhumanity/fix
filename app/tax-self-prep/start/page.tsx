@@ -25,7 +25,7 @@ export default async function TaxSelfPrepStartPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Check for existing draft
   const { data: existingDraft } = await supabase
@@ -34,7 +34,7 @@ export default async function TaxSelfPrepStartPage() {
     .eq('user_id', user.id)
     .eq('tax_year', new Date().getFullYear() - 1)
     .eq('status', 'draft')
-    .single();
+    .maybeSingle();
 
   return (
     <div className="min-h-screen bg-white py-8">

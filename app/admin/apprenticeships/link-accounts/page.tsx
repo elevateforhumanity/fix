@@ -37,7 +37,7 @@ export default async function LinkAccountsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     redirect('/admin/dashboard');

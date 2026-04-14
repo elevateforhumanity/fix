@@ -102,7 +102,7 @@ async function _POST(req: Request) {
         support_notes: notes,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

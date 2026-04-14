@@ -27,7 +27,7 @@ export default async function ProgramHolderHandbookPage() {
     .select('*')
     .eq('user_id', user.id)
     .eq('document_type', 'handbook')
-    .single();
+    .maybeSingle();
 
   if (acknowledgement) redirect('/program-holder/dashboard?handbook=acknowledged');
 

@@ -30,7 +30,7 @@ async function _GET(request: Request) {
       .from('employees')
       .select('id')
       .eq('profile_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!employee) {
       return NextResponse.json(

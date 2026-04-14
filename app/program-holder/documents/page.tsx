@@ -37,7 +37,7 @@ export default async function ProgramHolderDocumentsPage({
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['program_holder','admin','super_admin','staff'].includes(profile.role)) redirect('/login');
 

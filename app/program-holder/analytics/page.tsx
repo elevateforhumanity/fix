@@ -21,7 +21,7 @@ export default async function ProgramHolderAnalyticsPage() {
     .from('program_holders')
     .select('id, name, payout_share')
     .eq('id', holderId)
-    .single();
+    .maybeSingle();
 
   if (!programHolder) {
     // Should not happen since requireProgramHolder validates, but guard anyway

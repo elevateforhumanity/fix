@@ -30,7 +30,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'program_holder') {
       return NextResponse.json(
@@ -44,7 +44,7 @@ async function _POST(request: NextRequest) {
       .from('program_holders')
       .select('id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (phError || !programHolder) {
       return NextResponse.json(
@@ -83,7 +83,7 @@ async function _POST(request: NextRequest) {
         submitted_by: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       return NextResponse.json(

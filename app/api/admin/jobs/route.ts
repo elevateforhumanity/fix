@@ -29,7 +29,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', tenantContext.userId)
-      .single();
+      .maybeSingle();
 
     if (profile?.role !== 'super_admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

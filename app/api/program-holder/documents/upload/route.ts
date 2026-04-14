@@ -30,7 +30,7 @@ async function _POST(req: Request) {
       .from('profiles')
       .select('role, organization_id')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'program_holder') {
       return NextResponse.json(
@@ -116,7 +116,7 @@ async function _POST(req: Request) {
         approved: null, // null = pending review; false = rejected; true = approved
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (dbError) {
       // Clean up uploaded file
@@ -166,7 +166,7 @@ async function _POST(req: Request) {
         .from('profiles')
         .select('full_name, email')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       const sgKey = process.env.SENDGRID_API_KEY;
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org';

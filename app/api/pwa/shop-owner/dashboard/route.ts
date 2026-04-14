@@ -26,7 +26,7 @@ async function _GET(request: Request) {
       .from('partner_users')
       .select('partner_id, role')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ 
@@ -40,7 +40,7 @@ async function _GET(request: Request) {
       .from('partners')
       .select('*')
       .eq('id', partnerUser.partner_id)
-      .single();
+      .maybeSingle();
 
     if (!partner) {
       return NextResponse.json({ error: 'Partner not found' }, { status: 404 });

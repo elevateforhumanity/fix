@@ -34,7 +34,7 @@ export async function requireDemo(): Promise<DemoAuthResult> {
     .from('profiles')
     .select('role, tenant_id, tenants(slug)')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
   
   const tenantSlug = (profile?.tenants as any)?.slug || null;
   const userRole = profile?.role as DemoRole;
@@ -72,7 +72,7 @@ export async function checkDemoContext(): Promise<DemoAuthResult | null> {
       .from('profiles')
       .select('role, tenant_id, tenants(slug)')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     
     const tenantSlug = (profile?.tenants as any)?.slug || null;
     const userRole = profile?.role as DemoRole;

@@ -57,7 +57,7 @@ async function _POST(req: NextRequest) {
       .from('grant_opportunities')
       .select('*')
       .eq('id', grantId)
-      .single();
+      .maybeSingle();
 
     if (grantError || !grant) {
       logger.error(grantError);
@@ -68,7 +68,7 @@ async function _POST(req: NextRequest) {
       .from('entities')
       .select('*')
       .eq('id', entityId)
-      .single();
+      .maybeSingle();
 
     if (entityError || !entity) {
       logger.error(entityError);
@@ -140,7 +140,7 @@ Focus on workforce, community impact, and elevation if applicable.
         { onConflict: 'grant_id,entity_id' }
       )
       .select()
-      .single();
+      .maybeSingle();
 
     if (appError || !app) {
       logger.error(appError);

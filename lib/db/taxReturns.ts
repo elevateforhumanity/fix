@@ -20,7 +20,7 @@ export async function createTaxReturn(input: {
       created_by_user_id: input.createdByUserId,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -32,7 +32,7 @@ export async function getTaxReturnById(returnId: string) {
     .from('tax_returns')
     .select('*')
     .eq('id', returnId)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -50,7 +50,7 @@ export async function updateTaxReturnStatus(
     .from('tax_returns')
     .select('status')
     .eq('id', returnId)
-    .single();
+    .maybeSingle();
 
   const { data, error } = await supabase
     .from('tax_returns')

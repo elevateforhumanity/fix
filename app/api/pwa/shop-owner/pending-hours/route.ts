@@ -27,7 +27,7 @@ async function _GET(request: Request) {
       .select('partner_id, role')
       .eq('user_id', user.id)
       .in('role', ['owner', 'manager', 'admin'])
-      .single();
+      .maybeSingle();
 
     if (!partnerUser) {
       return NextResponse.json({ 

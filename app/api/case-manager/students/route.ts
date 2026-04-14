@@ -27,7 +27,7 @@ async function _GET(request: Request) {
       .from('user_profiles')
       .select('role')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || profile.role !== 'case_manager') {
       return NextResponse.json(
@@ -87,7 +87,7 @@ async function _GET(request: Request) {
           .from('exam_readiness')
           .select('*')
           .eq('student_id', student.user_id)
-          .single();
+          .maybeSingle();
 
         return {
           ...student,

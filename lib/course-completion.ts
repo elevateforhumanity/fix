@@ -280,14 +280,14 @@ async function generateCourseCertificate(
     .from('training_courses')
     .select('title')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   // Get student details
   const { data: student } = await supabase
     .from('profiles')
     .select('full_name, email')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (!course || !student) return;
 

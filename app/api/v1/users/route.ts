@@ -158,7 +158,7 @@ async function _POST(request: NextRequest) {
         role: body.role || 'student',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (profileError) throw profileError;
 

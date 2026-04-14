@@ -23,7 +23,7 @@ async function _POST(
     .from('quizzes')
     .select('id, course_id, lesson_id, max_attempts, requires_proctoring')
     .eq('id', quizId)
-    .single();
+    .maybeSingle();
 
   if (quizError || !quiz) {
     return NextResponse.json({ error: 'Quiz not found' }, { status: 404 });
@@ -146,7 +146,7 @@ async function _POST(
       started_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (attemptError) {
     logger.error('Error creating quiz attempt:', attemptError);
@@ -159,7 +159,7 @@ async function _POST(
       .from('profiles')
       .select('full_name, email')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const { error: sessionError } = await db
       .from('exam_sessions')
@@ -178,7 +178,7 @@ async function _POST(
         quiz_attempt_id: newAttempt.id,
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (sessionError) {
       logger.error('Error creating exam session for proctored quiz:', sessionError);

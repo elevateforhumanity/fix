@@ -87,7 +87,7 @@ export async function createWebhook(
       created_by: createdBy,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
 
@@ -126,7 +126,7 @@ export async function getWebhook(webhookId: string): Promise<Webhook | null> {
     .from('webhooks')
     .select('*')
     .eq('id', webhookId)
-    .single();
+    .maybeSingle();
 
   if (error) return null;
 
@@ -253,7 +253,7 @@ async function deliverWebhook(
       payload,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (deliveryError) {
     // Error: $1
@@ -337,7 +337,7 @@ export async function retryWebhookDelivery(deliveryId: string): Promise<void> {
     .from('webhook_deliveries')
     .select('*, webhook:webhooks(*)')
     .eq('id', deliveryId)
-    .single();
+    .maybeSingle();
 
   if (!delivery || !delivery.webhook) {
     throw new Error('Delivery or webhook not found');

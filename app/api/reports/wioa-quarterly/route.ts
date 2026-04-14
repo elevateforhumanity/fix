@@ -324,7 +324,7 @@ async function _POST(request: NextRequest) {
         generated_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Error saving report:', error);

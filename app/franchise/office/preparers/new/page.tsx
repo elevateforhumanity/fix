@@ -63,7 +63,7 @@ export default function NewPreparerPage() {
         .from('franchise_offices')
         .select('*')
         .eq('owner_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!officeData) {
         toast({

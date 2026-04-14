@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       verified: false,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) return safeInternalError(error, 'Failed to save document');
 

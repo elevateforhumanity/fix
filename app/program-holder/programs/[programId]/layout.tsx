@@ -24,7 +24,7 @@ export default async function ProgramScopedLayout({
     .from('programs')
     .select('id, name, title, is_active')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (!program) {
     redirect('/program-holder/programs?error=not-found');

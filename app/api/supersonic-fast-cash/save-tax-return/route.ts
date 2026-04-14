@@ -86,7 +86,7 @@ async function _POST(request: NextRequest) {
         onConflict: 'email,tax_year'
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

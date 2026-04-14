@@ -21,7 +21,7 @@ export async function createPlacement(formData: FormData) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== 'employer') {
     redirect('/unauthorized');
@@ -40,7 +40,7 @@ export async function createPlacement(formData: FormData) {
     .select('shop_id')
     .eq('user_id', user.id)
     .eq('shop_id', shop_id)
-    .single();
+    .maybeSingle();
 
   if (!shopAccess) {
     throw new Error('You do not have access to this shop');
@@ -52,7 +52,7 @@ export async function createPlacement(formData: FormData) {
     .select('id')
     .eq('email', student_email)
     .eq('role', 'student')
-    .single();
+    .maybeSingle();
 
   if (!student) {
     throw new Error('Student not found with that email');
@@ -71,7 +71,7 @@ export async function createPlacement(formData: FormData) {
       supervisor_user_id: user.id,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (placementError || !placement) {
     throw new Error('Failed to create placement');

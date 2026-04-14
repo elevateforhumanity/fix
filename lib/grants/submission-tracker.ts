@@ -84,7 +84,7 @@ export async function recordSubmission(
       timeline: timeline,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     // Error: $1
@@ -136,7 +136,7 @@ export async function addTimelineEvent(
     .from('grant_submissions')
     .select('timeline')
     .eq('id', submissionId)
-    .single();
+    .maybeSingle();
 
   if (!submission) {
     throw new Error('Submission not found');
@@ -195,7 +195,7 @@ export async function recordEmailSubmission(
     .from('grant_applications')
     .select('grant_id, entity_id')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (!app) {
     throw new Error('Application not found');
@@ -230,7 +230,7 @@ export async function recordPortalSubmission(
     .from('grant_applications')
     .select('grant_id, entity_id')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (!app) {
     throw new Error('Application not found');
@@ -260,7 +260,7 @@ export async function getSubmissionHistory(
     .from('grant_submissions')
     .select('*')
     .eq('application_id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) {
     return null;

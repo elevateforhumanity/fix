@@ -33,7 +33,7 @@ async function _GET(
       .select('*, profiles(full_name)')
       .eq('id', certificateId)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!certificate) {
       return NextResponse.json(

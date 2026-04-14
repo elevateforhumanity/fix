@@ -187,7 +187,7 @@ async function _POST(request: NextRequest) {
         created_by: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       logger.error('Course insert error:', insertError);

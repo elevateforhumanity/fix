@@ -50,7 +50,7 @@ export async function issueCertificate(formData: FormData) {
       status: 'issued',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     redirect('/admin/certificates/issue?error=insert_failed');
@@ -86,7 +86,7 @@ export async function revokeCertificate(formData: FormData) {
     .from('issued_certificates')
     .select('description')
     .eq('id', certId)
-    .single();
+    .maybeSingle();
 
   const desc = existing?.description
     ? `${existing.description} | Revoked: ${reason}`

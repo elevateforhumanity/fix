@@ -34,7 +34,7 @@ async function _POST(request: NextRequest) {
     .from('forum_threads')
     .select('id, is_locked')
     .eq('id', threadId)
-    .single();
+    .maybeSingle();
 
   if (threadError || !thread) {
     return NextResponse.json({ error: 'Thread not found' }, { status: 404 });
@@ -54,7 +54,7 @@ async function _POST(request: NextRequest) {
       created_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error creating reply:', error);

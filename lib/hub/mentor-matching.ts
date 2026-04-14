@@ -50,7 +50,7 @@ export async function getMentorMatches(userId: string, limit = 10): Promise<Ment
     .eq('status', 'active')
     .order('created_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (!studentEnrollment) return [];
 
@@ -168,7 +168,7 @@ export async function requestMentor(
     .eq('mentee_id', menteeId)
     .eq('mentor_id', mentorId)
     .in('status', ['pending', 'active'])
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return { success: false, error: 'Already have a pending or active mentorship' };
@@ -218,7 +218,7 @@ export async function respondToMentorshipRequest(
     .select('mentee_id')
     .eq('id', requestId)
     .eq('mentor_id', mentorId)
-    .single();
+    .maybeSingle();
 
   if (!request) {
     return { success: false, error: 'Request not found' };
@@ -283,7 +283,7 @@ export async function getUserMentorships(userId: string): Promise<{
     .from('mentors')
     .select('id')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   let myMentees: any[] = [];
   if (mentor) {
@@ -324,7 +324,7 @@ export async function registerAsMentor(
     .eq('user_id', userId)
     .eq('status', 'completed')
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (!completion) {
     return { success: false, error: 'Must complete a program to become a mentor' };

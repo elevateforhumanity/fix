@@ -57,7 +57,7 @@ async function _POST(request: NextRequest) {
       .from('tenants')
       .select('id')
       .eq('slug', 'efh-core')
-      .single();
+      .maybeSingle();
 
     if (!defaultTenant) {
       return NextResponse.json(
@@ -85,7 +85,7 @@ async function _POST(request: NextRequest) {
         submitted_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (appError) {
       return NextResponse.json(

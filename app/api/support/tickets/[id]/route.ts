@@ -32,7 +32,7 @@ async function _GET(request: NextRequest, { params }: { params: Params }) {
       .from('support_tickets')
       .select('*, support_messages(id, message, created_at, is_staff, user_id)')
       .eq('id', id)
-      .single();
+      .maybeSingle();
     
     if (error || !ticket) {
       return NextResponse.json({ error: 'Ticket not found' }, { status: 404 });
@@ -44,7 +44,7 @@ async function _GET(request: NextRequest, { params }: { params: Params }) {
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
       
       const isAdmin = profile?.role && ['admin', 'super_admin', 'staff'].includes(profile.role);
       if (!isAdmin && ticket.user_id !== user.id) {
@@ -79,7 +79,7 @@ async function _PATCH(request: NextRequest, { params }: { params: Params }) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     
     const isStaff = profile?.role && ['admin', 'super_admin', 'staff'].includes(profile.role);
     
@@ -129,7 +129,7 @@ async function _PATCH(request: NextRequest, { params }: { params: Params }) {
       .from('support_tickets')
       .select('*, support_messages(id, message, created_at, is_staff)')
       .eq('id', id)
-      .single();
+      .maybeSingle();
     
     return NextResponse.json({ success: true, ticket });
   } catch (error) {

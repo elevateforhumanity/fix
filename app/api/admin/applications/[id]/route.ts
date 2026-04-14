@@ -20,7 +20,7 @@ async function requireAdmin() {
   // can return null when RLS policies restrict the session JWT in Route Handlers.
   const db = await getAdminClient();
   if (!db) return { error: 'Database unavailable', status: 500 };
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     return { error: 'Forbidden', status: 403 };
   }
@@ -46,7 +46,7 @@ async function findOrCreateUser(
     .from('profiles')
     .select('id')
     .eq('email', normalizedEmail)
-    .single();
+    .maybeSingle();
 
   if (existingProfile?.id) return existingProfile.id;
 

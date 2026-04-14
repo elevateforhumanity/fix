@@ -12,7 +12,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { credentialId } = await params;
   const db = await getAdminClient();
-  const { data } = await supabase.from('credential_registry').select('name').eq('id', credentialId).single();
+  const { data } = await supabase.from('credential_registry').select('name').eq('id', credentialId).maybeSingle();
   return { title: data ? `${data.name} | Credential Registry` : 'Edit Credential | Admin' };
 }
 
@@ -34,7 +34,7 @@ export default async function EditCredentialPage({
     .from('credential_registry')
     .select('*')
     .eq('id', credentialId)
-    .single();
+    .maybeSingle();
 
   if (!credential) notFound();
 

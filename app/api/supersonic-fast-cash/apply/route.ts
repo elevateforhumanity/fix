@@ -60,7 +60,7 @@ async function _POST(request: NextRequest) {
         created_at: new Date().toISOString(),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (appError) {
       return NextResponse.json(

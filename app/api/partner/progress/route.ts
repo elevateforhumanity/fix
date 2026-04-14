@@ -25,7 +25,7 @@ async function _GET(request: NextRequest) {
     .from('partner_users')
     .select('organization_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!partnerUser) {
     return NextResponse.json({ error: 'Not a partner' }, { status: 403 });
@@ -57,7 +57,7 @@ async function _GET(request: NextRequest) {
     .select('*')
     .eq('organization_id', orgId)
     .limit(1)
-    .single();
+    .maybeSingle();
 
   return NextResponse.json({
     completions: completions || [],
@@ -85,7 +85,7 @@ async function _POST(request: NextRequest) {
     .from('partner_users')
     .select('organization_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!partnerUser) {
     return NextResponse.json({ error: 'Not a partner' }, { status: 403 });
@@ -102,7 +102,7 @@ async function _POST(request: NextRequest) {
       recorded_by: user.id,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Failed to record progress' }, { status: 500 });

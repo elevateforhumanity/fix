@@ -24,7 +24,7 @@ export default async function ProgramHolderApplicationPage() {
     .from('site_settings')
     .select('*')
     .eq('key', 'program_holder_applications')
-    .single();
+    .maybeSingle();
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}

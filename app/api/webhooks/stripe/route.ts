@@ -101,7 +101,7 @@ async function flagCertificatesForRefund(
         .from('program_enrollments')
         .select('course_id, program_id, user_id')
         .eq('id', enrollmentId)
-        .single();
+        .maybeSingle();
 
       if (enrollment) {
         certQuery = certQuery.eq('student_id', enrollment.user_id || userId);
@@ -295,7 +295,7 @@ async function _POST(request: NextRequest) {
         .from('stripe_webhook_events')
         .select('id, status')
         .eq('stripe_event_id', event.id)
-        .single();
+        .maybeSingle();
       existingEvent = data;
     } catch (idempotencyErr) {
       idempotencyAvailable = false;
@@ -449,7 +449,7 @@ async function _POST(request: NextRequest) {
               onConflict: 'student_id,program_slug',
             })
             .select('id')
-            .single();
+            .maybeSingle();
 
           if (enrollError) {
             logger.error('[webhook] Async payment: failed to upsert enrollment', enrollError);
@@ -756,7 +756,7 @@ async function _POST(request: NextRequest) {
               .from('profiles')
               .select('id')
               .eq('stripe_customer_id', customerId)
-              .single();
+              .maybeSingle();
             
             if (profile) {
               // Revoke all recent entitlements for this user from this charge
@@ -832,7 +832,7 @@ async function _POST(request: NextRequest) {
             .from('store_products')
             .select('grants_course_access, course_id')
             .eq('id', productId)
-            .single();
+            .maybeSingle();
 
           if (product?.grants_course_access && product.course_id) {
             const { error: lmsError } = await supabase

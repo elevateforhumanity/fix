@@ -54,7 +54,7 @@ async function _POST(req: NextRequest) {
       created_at: new Date().toISOString(),
     })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

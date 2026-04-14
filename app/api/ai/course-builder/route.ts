@@ -84,7 +84,7 @@ async function _POST(req: Request) {
       modules_count: modulesCount,
       lessons_count: lessonsCount,
       created_by: user.id,
-    }).select('id').single();
+    }).select('id').maybeSingle();
 
     // 4. Complete task
     if (task?.id) {

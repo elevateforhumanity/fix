@@ -64,7 +64,7 @@ export async function resumeCourseGeneration(formData: FormData) {
   const { data: course } = await db.from('courses')
     .select('generator_prompt')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   const { error } = await db.from('courses').update({
     generation_paused:   false,
@@ -209,7 +209,7 @@ export async function regenerateLessonAction(formData: FormData) {
     .from('course_lessons')
     .select('id, title, locked, generator_prompt')
     .eq('id', lessonId)
-    .single();
+    .maybeSingle();
 
   if (lessonErr || !lesson) throw new Error('Lesson not found');
   if (lesson.locked) throw new Error('Lesson is locked — unlock before regenerating');
@@ -218,7 +218,7 @@ export async function regenerateLessonAction(formData: FormData) {
     .from('courses')
     .select('title, generator_prompt')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   // Mark regenerating
   await db.from('course_lessons')

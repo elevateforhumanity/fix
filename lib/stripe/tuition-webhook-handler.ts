@@ -43,14 +43,14 @@ async function sendWelcomeLetterEmail(studentId: string, programId: string): Pro
     .from('profiles')
     .select('email, full_name, phone')
     .eq('id', studentId)
-    .single();
+    .maybeSingle();
 
   // Get program info
   const { data: program } = await supabaseClient
     .from('programs')
     .select('title, name, duration, start_date')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (!student?.email) {
     logger.error('No student email found');
@@ -339,7 +339,7 @@ async function createRAPIDSPendingRecord(
       .from('programs')
       .select('type, rapids_required, occupation_code')
       .eq('id', programId)
-      .single();
+      .maybeSingle();
 
     const isApprenticeship = program?.type === 'apprenticeship' || program?.rapids_required;
     
@@ -379,14 +379,14 @@ async function sendPaymentFailedEmail(studentId: string, programId: string): Pro
     .from('profiles')
     .select('email, full_name')
     .eq('id', studentId)
-    .single();
+    .maybeSingle();
 
   // Get program info
   const { data: program } = await supabaseClient
     .from('programs')
     .select('title')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (!student?.email) return;
 
@@ -588,7 +588,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
     .from('tuition_subscriptions')
     .select('installments_paid, total_installments')
     .eq('stripe_subscription_id', subscriptionId)
-    .single();
+    .maybeSingle();
   
   if (tuitionSub) {
     const newCount = (tuitionSub.installments_paid || 0) + 1;
@@ -634,7 +634,7 @@ async function handleInvoicePaid(invoice: Stripe.Invoice): Promise<void> {
     .from('student_subscriptions')
     .select('weeks_paid')
     .eq('stripe_subscription_id', subscriptionId)
-    .single();
+    .maybeSingle();
   
   if (studentSub) {
     await supabase
@@ -667,7 +667,7 @@ async function sendPaymentConfirmationEmail(
     .from('profiles')
     .select('email, full_name')
     .eq('id', studentId)
-    .single();
+    .maybeSingle();
 
   if (!student?.email) return;
 
@@ -699,13 +699,13 @@ async function sendPaymentCompletionEmail(studentId: string, programId: string):
     .from('profiles')
     .select('email, full_name')
     .eq('id', studentId)
-    .single();
+    .maybeSingle();
 
   const { data: program } = await supabase
     .from('programs')
     .select('title')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (!student?.email) return;
 
@@ -793,7 +793,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription): Pro
     .from('tuition_subscriptions')
     .select('installments_paid, total_installments, status')
     .eq('stripe_subscription_id', subscription.id)
-    .single();
+    .maybeSingle();
   
   if (sub) {
     const isComplete = sub.installments_paid >= sub.total_installments;

@@ -18,7 +18,7 @@ export default async function ProgramLayout({
     .select('id')
     .eq('slug', slug)
     .eq('status', 'active')
-    .single();
+    .maybeSingle();
 
   if (!program) notFound();
 

@@ -78,7 +78,7 @@ export class IRSTransmitter {
             created_at: new Date().toISOString()
           } as Record<string, unknown>)
           .select()
-          .single();
+          .maybeSingle();
         
         if (dbError) {
           logger.warn(`Database error: ${dbError.message}`);
@@ -255,7 +255,7 @@ export class IRSTransmitter {
       .from('mef_submissions')
       .select('*')
       .eq('submission_id', submissionId)
-      .single();
+      .maybeSingle();
     
     if (error || !data) return null;
     

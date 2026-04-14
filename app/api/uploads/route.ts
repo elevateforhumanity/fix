@@ -48,7 +48,7 @@ async function _POST(request: NextRequest) {
         file_type,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

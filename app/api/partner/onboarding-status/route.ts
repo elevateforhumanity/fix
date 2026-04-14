@@ -22,7 +22,7 @@ async function _GET(request: Request) {
       .from('partners')
       .select('id, shop_name, onboarding_completed, onboarding_step, status')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (partnerError || !partner) {
       return NextResponse.json({ 

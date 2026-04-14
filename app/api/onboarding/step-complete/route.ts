@@ -36,7 +36,7 @@ async function _POST(request: NextRequest) {
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (!app) {
       return NextResponse.json({ error: 'No application found' }, { status: 404 });
@@ -50,7 +50,7 @@ async function _POST(request: NextRequest) {
       .from('onboarding_progress')
       .select('profile_completed, agreements_completed, handbook_acknowledged, documents_uploaded')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     const completedSteps = [
       progress?.profile_completed && 'Profile',

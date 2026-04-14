@@ -102,7 +102,7 @@ export async function recordAgreementAcceptance(
     .eq('user_id', userId)
     .eq('agreement_type', agreementType)
     .eq('document_version', documentVersion)
-    .single();
+    .maybeSingle();
 
   if (existing) {
     return {
@@ -136,7 +136,7 @@ export async function recordAgreementAcceptance(
       is_immutable: true,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) {
     // Handle unique constraint violation (race condition)
@@ -147,7 +147,7 @@ export async function recordAgreementAcceptance(
         .eq('user_id', userId)
         .eq('agreement_type', agreementType)
         .eq('document_version', documentVersion)
-        .single();
+        .maybeSingle();
 
       if (raceExisting) {
         return {

@@ -75,7 +75,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('stripe_customer_id, email, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.stripe_customer_id) {
       stripeCustomerId = profile.stripe_customer_id;
@@ -104,7 +104,7 @@ async function _POST(request: NextRequest) {
       .from('organizations')
       .select('id')
       .eq('contact_email', billing_email || user.email)
-      .single();
+      .maybeSingle();
 
     if (existingOrg) {
       organizationId = existingOrg.id;
@@ -118,7 +118,7 @@ async function _POST(request: NextRequest) {
           contact_email: billing_email || user.email,
         })
         .select('id')
-        .single();
+        .maybeSingle();
       
       organizationId = newOrg?.id;
 

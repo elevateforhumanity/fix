@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
         status: 'new',
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (leadError) {
       logger.error('Failed to create lead', leadError);
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
         },
       })
       .select('id, public_status_token')
-      .single();
+      .maybeSingle();
 
     if (appError) {
       logger.error('Failed to create application', appError);

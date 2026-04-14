@@ -23,7 +23,7 @@ export default async function EmployerSettingsPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['employer', 'admin', 'super_admin'].includes(profile.role)) {
     redirect('/');

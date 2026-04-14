@@ -29,7 +29,7 @@ async function _POST(req: Request) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['instructor', 'admin'].includes(profile.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -84,7 +84,7 @@ async function _POST(req: Request) {
         duration_minutes: durationMinutes,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

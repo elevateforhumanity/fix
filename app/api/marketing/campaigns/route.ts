@@ -99,7 +99,7 @@ async function _POST(req: NextRequest) {
         created_by: user?.id ?? null,
       })
       .select('*')
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

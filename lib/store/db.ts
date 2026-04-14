@@ -309,7 +309,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
     `)
     .eq('slug', slug)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching product:', error);
@@ -405,7 +405,7 @@ export async function getCategory(slug: string): Promise<Category | null> {
     .select('*')
     .eq('slug', slug)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching category:', error);
@@ -442,7 +442,7 @@ export async function getCart(cartId?: string, sessionId?: string): Promise<Cart
     return null;
   }
 
-  const { data, error } = await query.single();
+  const { data, error } = await query.maybeSingle();
 
   if (error) {
     logger.error('Error fetching cart:', error);
@@ -470,7 +470,7 @@ export async function addToCart(
     .from('products')
     .select('price')
     .eq('id', productId)
-    .single();
+    .maybeSingle();
 
   if (!product) return null;
 
@@ -490,7 +490,7 @@ export async function addToCart(
       onConflict: 'cart_id,product_id',
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error adding to cart:', error);
@@ -511,7 +511,7 @@ export async function updateCartItem(
     .from('cart_items')
     .select('price')
     .eq('id', itemId)
-    .single();
+    .maybeSingle();
 
   if (!item) return null;
 
@@ -524,7 +524,7 @@ export async function updateCartItem(
     })
     .eq('id', itemId)
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error updating cart item:', error);
@@ -590,7 +590,7 @@ export async function getOrder(orderId: string): Promise<Order | null> {
       order_items (*)
     `)
     .eq('id', orderId)
-    .single();
+    .maybeSingle();
 
   if (error) {
     logger.error('Error fetching order:', error);
@@ -706,7 +706,7 @@ export async function getPageGuide(pageId: string): Promise<PageGuide | null> {
     .select('*')
     .eq('page_id', pageId)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (guideError || !guide) {
     return null;
@@ -769,7 +769,7 @@ export async function getAvatarSalesMessage(productId: string): Promise<{
     .select('*')
     .eq('product_id', productId)
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error) {
     return null;
@@ -795,7 +795,7 @@ export async function validateCoupon(code: string, cartTotal: number): Promise<{
     .select('*')
     .eq('code', code.toUpperCase())
     .eq('is_active', true)
-    .single();
+    .maybeSingle();
 
   if (error || !coupon) {
     return { valid: false, discount: 0, message: 'Invalid coupon code' };

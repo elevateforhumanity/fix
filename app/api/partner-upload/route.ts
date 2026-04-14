@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       .select('id, onboarding_step')
       .eq('id', partnerId)
       .eq('onboarding_step', token)
-      .single()
+      .maybeSingle()
 
     if (!partner) {
       return safeError('Invalid upload link', 403)

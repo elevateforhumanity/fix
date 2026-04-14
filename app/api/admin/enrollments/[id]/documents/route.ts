@@ -32,7 +32,7 @@ export async function GET(
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!adminProfile || !['admin', 'super_admin', 'staff'].includes(adminProfile.role)) {
     return safeError('Forbidden', 403);
@@ -45,7 +45,7 @@ export async function GET(
     .from('program_enrollments')
     .select('user_id, program_slug')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (enrollErr || !enrollment) return safeError('Enrollment not found', 404);
 

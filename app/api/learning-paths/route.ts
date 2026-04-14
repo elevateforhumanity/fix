@@ -55,7 +55,7 @@ async function _POST(request: NextRequest) {
       progress_percentage: 0,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: toErrorMessage(error) }, { status: 500 });

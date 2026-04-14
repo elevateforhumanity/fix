@@ -71,7 +71,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!['admin', 'instructor'].includes(profile?.role || '')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -108,7 +108,7 @@ async function _POST(req: NextRequest) {
         meeting_url,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

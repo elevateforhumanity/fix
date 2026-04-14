@@ -50,7 +50,7 @@ async function _POST(req: Request) {
         author_id: user.id,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Failed to create thread' }, { status: 500 });

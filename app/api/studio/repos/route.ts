@@ -56,7 +56,7 @@ async function _POST(req: NextRequest) {
       last_accessed_at: new Date().toISOString()
     }, { onConflict: 'user_id,repo_full_name' })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

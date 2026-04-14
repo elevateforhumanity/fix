@@ -46,7 +46,7 @@ export async function validateLicenseForAPI(
     .from('profiles')
     .select('organization_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile?.organization_id) {
     // User not associated with an organization - might be direct student
@@ -59,7 +59,7 @@ export async function validateLicenseForAPI(
     .from('licenses')
     .select('*')
     .eq('organization_id', profile.organization_id)
-    .single();
+    .maybeSingle();
 
   if (!license) {
     return {
@@ -113,7 +113,7 @@ export async function validateLicenseForAPI(
       .from('license_usage')
       .select('*')
       .eq('license_id', license.id)
-      .single();
+      .maybeSingle();
 
     if (usage) {
       const countKey = `${options.checkLimit.slice(0, -1)}_count`;

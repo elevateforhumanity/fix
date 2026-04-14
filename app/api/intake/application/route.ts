@@ -72,7 +72,7 @@ async function _POST(req: NextRequest) {
       .from('leads')
       .select('id, stage, eligibility_data, first_name, last_name, email, phone')
       .eq('id', data.leadId)
-      .single();
+      .maybeSingle();
 
     if (leadError || !lead) {
       return NextResponse.json(

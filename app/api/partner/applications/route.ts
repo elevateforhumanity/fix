@@ -82,7 +82,7 @@ async function _POST(request: NextRequest) {
       .select('id, status')
       .eq('contact_email', email.toLowerCase())
       .in('status', ['pending', 'approved'])
-      .single();
+      .maybeSingle();
 
     if (existingApp) {
       return NextResponse.json(
@@ -110,7 +110,7 @@ async function _POST(request: NextRequest) {
         intake: {},
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       logger.error('Failed to create partner application:', insertError);
@@ -240,7 +240,7 @@ async function _GET(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
     
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

@@ -37,7 +37,7 @@ async function _GET(request: Request) {
       `
       )
       .eq('profile_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(

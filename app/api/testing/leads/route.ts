@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
         }
       )
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('[testing/leads] Upsert failed', { error });

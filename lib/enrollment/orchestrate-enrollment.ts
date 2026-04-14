@@ -126,8 +126,8 @@ async function triggerWelcomeEmail(
 ): Promise<void> {
   // Get student and program info for email
   const [studentResult, programResult] = await Promise.all([
-    supabase.from('profiles').select('full_name, email').eq('id', studentId).single(),
-    supabase.from('programs').select('name').eq('id', programId).single(),
+    supabase.from('profiles').select('full_name, email').eq('id', studentId).maybeSingle(),
+    supabase.from('programs').select('name').eq('id', programId).maybeSingle(),
   ]);
 
   const studentName = studentResult.data?.full_name || 'Student';

@@ -41,7 +41,7 @@ async function _POST(req: NextRequest) {
         .from('job_applications')
         .select('*, job_postings(title)')
         .eq('id', applicationId)
-        .single();
+        .maybeSingle();
 
       if (app) {
         const { data: profile } = await db

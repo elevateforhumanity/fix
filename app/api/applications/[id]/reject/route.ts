@@ -28,7 +28,7 @@ async function _POST(
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff', 'org_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -41,7 +41,7 @@ async function _POST(
       .from('applications')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (appError || !application) {
       return NextResponse.json({ error: 'Application not found' }, { status: 404 });

@@ -15,7 +15,7 @@ export async function handleDashboard(request: NextRequest, discipline: string) 
       .from('profiles')
       .select('first_name, last_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     const name = profile
       ? `${profile.first_name ?? ''} ${profile.last_name ?? ''}`.trim() || 'Apprentice'

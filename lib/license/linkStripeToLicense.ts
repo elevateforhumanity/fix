@@ -292,7 +292,7 @@ export async function handleSubscriptionDeleted(
     })
     .eq('stripe_subscription_id', subscriptionId)
     .select('id, tenant_id')
-    .single();
+    .maybeSingle();
 
   if (data) {
     return { success: true, license_id: data.id, tenant_id: data.tenant_id };
@@ -323,7 +323,7 @@ export async function handlePaymentFailed(
     })
     .eq('stripe_subscription_id', subscriptionId)
     .select('id, tenant_id')
-    .single();
+    .maybeSingle();
 
   if (data) {
     return { success: true, license_id: data.id, tenant_id: data.tenant_id };

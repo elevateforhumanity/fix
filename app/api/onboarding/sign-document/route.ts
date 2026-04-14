@@ -42,7 +42,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
@@ -61,7 +61,7 @@ async function _POST(request: NextRequest) {
       .from('onboarding_documents')
       .select('content, packet_id')
       .eq('id', documentId)
-      .single();
+      .maybeSingle();
 
     if (!document) {
       return NextResponse.json(
@@ -75,7 +75,7 @@ async function _POST(request: NextRequest) {
       .from('onboarding_packets')
       .select('version')
       .eq('id', document.packet_id)
-      .single();
+      .maybeSingle();
 
     if (!packet) {
       return NextResponse.json({ error: 'Packet not found' }, { status: 404 });
@@ -141,7 +141,7 @@ async function _POST(request: NextRequest) {
           .from('partners')
           .select('id')
           .eq('user_id', user.id)
-          .single();
+          .maybeSingle();
         
         if (partnerRecord?.id) {
           checkPartnerApproval(partnerRecord.id).catch((err) => {

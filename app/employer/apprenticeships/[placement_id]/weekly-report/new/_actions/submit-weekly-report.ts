@@ -21,7 +21,7 @@ export async function submitWeeklyReport(formData: FormData) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profile?.role !== 'employer') {
     redirect('/unauthorized');
@@ -43,7 +43,7 @@ export async function submitWeeklyReport(formData: FormData) {
     .from('apprentice_placements')
     .select('shop_id')
     .eq('id', placement_id)
-    .single();
+    .maybeSingle();
 
   if (!placement) {
     throw new Error('Placement not found');
@@ -55,7 +55,7 @@ export async function submitWeeklyReport(formData: FormData) {
     .select('shop_id')
     .eq('user_id', user.id)
     .eq('shop_id', placement.shop_id)
-    .single();
+    .maybeSingle();
 
   if (!shopAccess) {
     throw new Error('You do not have access to this placement');

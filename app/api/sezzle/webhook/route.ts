@@ -385,7 +385,7 @@ async function handleOrderCaptured(event: SezzleWebhookEvent, supabase: any) {
       .from('payments')
       .select('enrollment_id')
       .eq('provider_order_id', order_uuid)
-      .single();
+      .maybeSingle();
 
     if (payment?.enrollment_id) {
       await supabase
@@ -444,7 +444,7 @@ async function handleOrderRefunded(event: SezzleWebhookEvent, supabase: any) {
     .from('payments')
     .select('enrollment_id')
     .eq('provider_order_id', order_uuid)
-    .single();
+    .maybeSingle();
 
   if (payment?.enrollment_id) {
     await supabase

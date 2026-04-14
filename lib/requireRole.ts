@@ -10,7 +10,7 @@ export async function requireRole(userId: string, role: UserRole) {
     .select('*')
     .eq('user_id', userId)
     .eq('role', role)
-    .single();
+    .maybeSingle();
 
   if (error || !data) {
     throw new Error('Unauthorized: Required role not found');

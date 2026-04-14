@@ -90,8 +90,8 @@ export async function initiateCertification(
     .eq('is_active', true);
 
   const { data: pathway } = pathwayId
-    ? await pathwayQuery.eq('id', pathwayId).single()
-    : await pathwayQuery.eq('is_primary', true).single();
+    ? await pathwayQuery.eq('id', pathwayId).maybeSingle()
+    : await pathwayQuery.eq('is_primary', true).maybeSingle();
 
   if (!pathway) return { ok: false, error: 'No certification pathway found for this program' };
 
@@ -136,7 +136,7 @@ export async function initiateCertification(
         } : {}),
       })
       .select('id, authorization_code')
-      .single();
+      .maybeSingle();
 
     if (createErr || !created) {
       logger.error('[ExamAuth] Failed to create certification_request', createErr);
@@ -292,12 +292,12 @@ export async function confirmPaymentAndAuthorize(
 
   // Resolve student profile + program + credential details for email
   const [profileRes, programRes, credRes] = await Promise.all([
-    db.from('profiles').select('full_name, email').eq('id', certReq.user_id).single(),
-    db.from('programs').select('title').eq('id', certReq.program_id).single(),
+    db.from('profiles').select('full_name, email').eq('id', certReq.user_id).maybeSingle(),
+    db.from('programs').select('title').eq('id', certReq.program_id).maybeSingle(),
     db.from('credential_registry')
       .select('name, delivery, credential_providers(name, exam_scheduling_url)')
       .eq('id', certReq.credential_id)
-      .single(),
+      .maybeSingle(),
   ]);
 
   const student = profileRes.data;
@@ -346,7 +346,7 @@ export async function markForwarded(
     .from('certification_requests')
     .select('id, status, user_id')
     .eq('id', certRequestId)
-    .single();
+    .maybeSingle();
 
   if (!req) return { ok: false, error: 'Request not found' };
   if (req.status !== 'exam_authorized') return { ok: false, error: `Cannot mark forwarded from status: ${req.status}` };
@@ -405,7 +405,7 @@ export async function recordUpload(
     .select('id, status, program_id, credential_id, user_id')
     .eq('id', certRequestId)
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (!req) return { ok: false, error: 'Request not found' };
   if (!['awaiting_upload', 'upload_rejected'].includes(req.status)) {
@@ -424,7 +424,7 @@ export async function recordUpload(
       verification_status: 'pending',
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (uploadErr || !upload) {
     logger.error('[ExamAuth] Upload record creation failed', uploadErr);
@@ -469,7 +469,7 @@ export async function verifyUploadAndIssueCertificate(
     .from('certification_requests')
     .select('id, status, user_id, program_id, credential_id, exam_result_upload_id')
     .eq('id', certRequestId)
-    .single();
+    .maybeSingle();
 
   if (!req) return { ok: false, error: 'Request not found' };
   if (req.status !== 'upload_pending') return { ok: false, error: `Cannot verify from status: ${req.status}` };
@@ -547,7 +547,7 @@ export async function verifyUploadAndIssueCertificate(
       tenant_id: '6ba71334-58f4-4104-9b2a-5114f2a7614c',
     })
     .select('id, certificate_number')
-    .single();
+    .maybeSingle();
 
   if (certErr || !cert) {
     logger.error('[ExamAuth] Certificate issuance failed', certErr);
@@ -577,9 +577,9 @@ export async function verifyUploadAndIssueCertificate(
 
   // Send certificate email to student
   const [profileRes, programRes, credRes] = await Promise.all([
-    db.from('profiles').select('full_name, email').eq('id', req.user_id).single(),
-    db.from('programs').select('title').eq('id', req.program_id).single(),
-    db.from('credential_registry').select('name').eq('id', req.credential_id).single(),
+    db.from('profiles').select('full_name, email').eq('id', req.user_id).maybeSingle(),
+    db.from('programs').select('title').eq('id', req.program_id).maybeSingle(),
+    db.from('credential_registry').select('name').eq('id', req.credential_id).maybeSingle(),
   ]);
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://elevateforhumanity.org';

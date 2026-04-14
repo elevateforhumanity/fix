@@ -28,7 +28,7 @@ export default async function EmployerDocumentsPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || profile.role !== 'employer') redirect('/');
 

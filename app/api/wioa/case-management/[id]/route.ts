@@ -28,7 +28,7 @@ const _authCheck = await requireApiRole(['workforce_board', 'staff', 'admin', 's
       .from('case_management')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

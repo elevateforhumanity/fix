@@ -83,7 +83,7 @@ class FeeService {
         updated_at: new Date().toISOString()
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to create fee schedule`);
@@ -100,7 +100,7 @@ class FeeService {
       .from('franchise_fee_schedules')
       .select('*')
       .eq('id', scheduleId)
-      .single();
+      .maybeSingle();
 
     if (error && error.code !== 'PGRST116') {
       throw new Error(`Failed to get fee schedule`);
@@ -118,7 +118,7 @@ class FeeService {
       .select('*')
       .eq('office_id', officeId)
       .eq('is_default', true)
-      .single();
+      .maybeSingle();
 
     if (error && error.code !== 'PGRST116') {
       throw new Error(`Failed to get default fee schedule`);
@@ -172,7 +172,7 @@ class FeeService {
       })
       .eq('id', scheduleId)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       throw new Error(`Failed to update fee schedule`);

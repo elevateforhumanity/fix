@@ -53,7 +53,7 @@ export class OfficeService {
         notes: input.notes
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw new Error(`Failed to create office`);
     
@@ -71,7 +71,7 @@ export class OfficeService {
       .from('franchise_offices')
       .select('*')
       .eq('id', officeId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       if (error.code === 'PGRST116') return null;
@@ -89,7 +89,7 @@ export class OfficeService {
       .from('franchise_offices')
       .select('*')
       .eq('office_code', officeCode)
-      .single();
+      .maybeSingle();
 
     if (error) {
       if (error.code === 'PGRST116') return null;
@@ -153,7 +153,7 @@ export class OfficeService {
       })
       .eq('id', officeId)
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) throw new Error(`Failed to update office`);
     
@@ -257,7 +257,7 @@ export class OfficeService {
         .from('franchise_preparers')
         .select('first_name, last_name')
         .eq('id', topPreparerId)
-        .single();
+        .maybeSingle();
       
       if (preparer) {
         topPreparerName = `${preparer.first_name} ${preparer.last_name}`;

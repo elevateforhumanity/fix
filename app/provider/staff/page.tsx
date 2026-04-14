@@ -18,7 +18,7 @@ export default async function ProviderStaffPage() {
   if (!user) redirect('/login?redirect=/provider/staff');
 
   const db = await getAdminClient();
-  const { data: profile } = await supabase.from('profiles').select('tenant_id').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('tenant_id').eq('id', user.id).maybeSingle();
   if (!profile?.tenant_id) redirect('/unauthorized');
 
   const { data: staff } = await supabase

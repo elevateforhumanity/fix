@@ -156,7 +156,7 @@ async function persistCourse(
         updated_at:  new Date().toISOString(),
       }, { onConflict: 'course_id,slug' })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (modErr || !moduleRow) {
       errors.push(`module '${mod.slug}' upsert failed: ${modErr?.message}`);

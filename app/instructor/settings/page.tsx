@@ -24,7 +24,7 @@ export default async function InstructorSettingsPage() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['instructor', 'admin', 'super_admin'].includes(profile.role)) {
     redirect('/');

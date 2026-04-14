@@ -54,7 +54,7 @@ export async function requireRole(allowedRoles: string[]): Promise<AuthResult> {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !allowedRoles.includes(profile.role)) {
     redirect('/unauthorized');
@@ -84,7 +84,7 @@ export async function hasRole(requiredRole: string): Promise<boolean> {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   return (
     profile?.role === requiredRole ||

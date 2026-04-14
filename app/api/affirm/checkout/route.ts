@@ -119,7 +119,7 @@ async function _POST(request: NextRequest) {
         overpay_amount_cents: Math.round(resolution.overpayAmount * 100),
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (contextError) {
       logger.error('Failed to create checkout context:', contextError);

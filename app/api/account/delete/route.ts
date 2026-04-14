@@ -26,7 +26,7 @@ async function _POST(request: Request) {
     .from('users')
     .select('id, email')
     .eq('email', email)
-    .single();
+    .maybeSingle();
 
   if (userError || !user) {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });

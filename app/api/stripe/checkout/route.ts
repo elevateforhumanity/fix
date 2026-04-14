@@ -54,7 +54,7 @@ async function handler(req: Request) {
         .from('tenant_memberships')
         .select('tenant_id')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
       tenantId = membership?.tenant_id || null;
     }
 

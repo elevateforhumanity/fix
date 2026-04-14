@@ -22,7 +22,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('user_profiles')
     .select('role')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
   if (!['admin', 'partner'].includes(prof?.role))
     return new Response('Forbidden', { status: 403 });
 

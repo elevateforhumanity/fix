@@ -33,7 +33,7 @@ const code = req.nextUrl.searchParams.get('code');
     .from('studio_shares')
     .select('*, studio_repos(repo_full_name)')
     .eq('share_code', code)
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Share not found' }, { status: 404 });
@@ -86,7 +86,7 @@ async function _POST(req: NextRequest) {
       expires_at: expiresAt
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

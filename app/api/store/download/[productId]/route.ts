@@ -32,7 +32,7 @@ async function verifyDownloadToken(
       .select('*, user_id')
       .eq('download_token', token)
       .eq('product_id', productId)
-      .single();
+      .maybeSingle();
 
     if (!purchase) return { valid: false };
 
@@ -62,7 +62,7 @@ async function verifyUserEntitlement(
       .eq('user_id', userId)
       .eq('product_id', productId)
       .eq('status', 'active')
-      .single();
+      .maybeSingle();
 
     return !!entitlement;
   } catch (error) {

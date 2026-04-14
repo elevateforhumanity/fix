@@ -29,7 +29,7 @@ async function _POST(request: NextRequest) {
       .select('id, user_id, course_id')
       .eq('id', enrollment_id)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!enrollment) {
       return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 });

@@ -21,7 +21,7 @@ async function getProctor() {
     .from('profiles')
     .select('id, full_name, role, tenant_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !ALLOWED_ROLES.includes(profile.role)) return null;
   return { db, user, profile };
@@ -43,7 +43,7 @@ async function _GET(
       .from('exam_sessions')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error || !data) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
@@ -74,7 +74,7 @@ async function _PATCH(
       .from('exam_sessions')
       .select('id, status, result, id_verified, delivery_method, evidence_url')
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !current) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });

@@ -102,7 +102,7 @@ export async function generateFundingSourceAuditExport(
     .from('funding_sources')
     .select('id')
     .eq('code', fundingSourceCode)
-    .single();
+    .maybeSingle();
 
   if (!fundingSource) {
     return '';

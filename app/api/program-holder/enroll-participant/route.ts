@@ -35,7 +35,7 @@ async function _POST(req: NextRequest) {
     .from('profiles')
     .select('id, role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['program_holder', 'admin', 'super_admin', 'staff'].includes(profile.role)) {
     return safeError('Forbidden — program holder role required', 403);
@@ -89,7 +89,7 @@ async function _POST(req: NextRequest) {
     .from('programs')
     .select('id, title, status')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   if (programError || !program) {
     return safeError('Program not found', 404);
@@ -128,7 +128,7 @@ async function _POST(req: NextRequest) {
       enrolled_at: new Date().toISOString(),
     })
     .select('id, status, enrolled_at')
-    .single();
+    .maybeSingle();
 
   if (enrollError) {
     return safeInternalError(enrollError, 'Failed to create enrollment');

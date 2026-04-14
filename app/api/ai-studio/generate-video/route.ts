@@ -77,7 +77,7 @@ async function handleCourseVideo(body: any) {
     scenes: [],
     voice: 'onyx',
     created_by: user?.id,
-  }).select('id').single();
+  }).select('id').maybeSingle();
 
   // 2. Create task record
   const { data: task } = await supabase.from('ai_generation_tasks').insert({

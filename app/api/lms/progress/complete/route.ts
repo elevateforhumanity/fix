@@ -119,7 +119,7 @@ async function _POST(req: NextRequest) {
       .from('courses')
       .select('slug, title, metadata')
       .eq('id', courseId)
-      .single();
+      .maybeSingle();
 
     // ── PROCTORED EXAM GATE ──────────────────────────────────────────
     // Courses with industry certification exams (e.g., EPA 608) require
@@ -202,7 +202,7 @@ async function _POST(req: NextRequest) {
       .from('profiles')
       .select('full_name, email')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     // Award points for course completion (100 points per course)
     try {
@@ -210,7 +210,7 @@ async function _POST(req: NextRequest) {
         .from('profiles')
         .select('points')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       await db
         .from('profiles')
@@ -391,7 +391,7 @@ async function getLatestExamSession(
     .from('courses')
     .select('slug')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course?.slug) return null;
 

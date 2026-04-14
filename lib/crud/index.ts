@@ -90,7 +90,7 @@ export async function requireAuth(
     .from('profiles')
     .select('id, role, full_name, email')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (profileError || !profile) {
     return { error: unauthorized('Profile not found') };
@@ -120,7 +120,7 @@ export async function dbCreate<T>(
       updated_at: new Date().toISOString(),
     })
     .select(select)
-    .single();
+    .maybeSingle();
 
   if (error) return { error: 'Operation failed' };
   return { data: result as T };
@@ -193,7 +193,7 @@ export async function dbGet<T>(
     query = query.is('deleted_at', null);
   }
 
-  const { data, error } = await query.single();
+  const { data, error } = await query.maybeSingle();
 
   if (error) {
     if (error.code === 'PGRST116') {
@@ -222,7 +222,7 @@ export async function dbUpdate<T>(
     .eq('id', id)
     .is('deleted_at', null)
     .select(select)
-    .single();
+    .maybeSingle();
 
   if (error) {
     if (error.code === 'PGRST116') {

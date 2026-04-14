@@ -36,7 +36,7 @@ async function grantLmsAccess(
     .from('training_courses')
     .select('id, course_name, slug')
     .eq(isUuid ? 'id' : 'slug', courseSlugOrId)
-    .single();
+    .maybeSingle();
 
   if (!course) {
     logger.warn('grantLmsAccess: course not found', { courseSlugOrId, userId });

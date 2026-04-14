@@ -22,7 +22,7 @@ export default async function LMSCourseLayout({
     .from('courses')
     .select('id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course) notFound();
 

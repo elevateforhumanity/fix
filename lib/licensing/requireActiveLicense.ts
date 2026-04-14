@@ -19,7 +19,7 @@ export async function requireActiveLicense(tenantId: string): Promise<void> {
     .from('licenses')
     .select('status, ends_at')
     .eq('tenant_id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (error || !license) {
     // No license found - redirect to account
@@ -65,7 +65,7 @@ export async function requireFeatureAccess(
     .from('licenses')
     .select('features')
     .eq('tenant_id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (error || !license) {
     redirect('/account?error=no_license');
@@ -103,7 +103,7 @@ export async function checkLicenseStatus(
     .from('licenses')
     .select('status, ends_at')
     .eq('tenant_id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (error || !license) {
     return 'none';
@@ -138,7 +138,7 @@ export async function checkFeatureAccess(
     .from('licenses')
     .select('features')
     .eq('tenant_id', tenantId)
-    .single();
+    .maybeSingle();
 
   if (error || !license) {
     return false;

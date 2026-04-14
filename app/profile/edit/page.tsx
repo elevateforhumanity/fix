@@ -47,7 +47,7 @@ export default async function EditProfilePage({
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).maybeSingle();
 
   return (
     <div className="min-h-screen bg-white p-6">

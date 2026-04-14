@@ -357,7 +357,7 @@ export async function scheduleWageFollowUp(enrollmentId: string) {
     .from('program_enrollments')
     .select('completion_date')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (!enrollment?.completion_date) return;
 

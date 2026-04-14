@@ -23,7 +23,7 @@ export default async function PartnerEnrollmentsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
   if (profile?.role !== 'admin' && profile?.role !== 'super_admin')
     redirect('/unauthorized');
 

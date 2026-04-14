@@ -35,7 +35,7 @@ export default async function CourseLayout({
     .from('training_courses')
     .select('id')
     .eq('id', courseId)
-    .single();
+    .maybeSingle();
 
   if (!course) notFound();
 

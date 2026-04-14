@@ -22,7 +22,7 @@ interface Thread {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { forumId } = await params;
   const supabase = await createClient();
-  const { data: forum } = await supabase.from('forums').select('name').eq('id', forumId).single();
+  const { data: forum } = await supabase.from('forums').select('name').eq('id', forumId).maybeSingle();
   return { title: forum?.name ?? 'Forum' };
 }
 
@@ -33,7 +33,7 @@ export default async function ForumPage({ params }: Props) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login?redirect=/lms/forums/' + forumId);
 
-  const { data: forum, error } = await supabase.from('forums').select('*').eq('id', forumId).single();
+  const { data: forum, error } = await supabase.from('forums').select('*').eq('id', forumId).maybeSingle();
   if (error || !forum) notFound();
 
   const { data: threads } = await supabase

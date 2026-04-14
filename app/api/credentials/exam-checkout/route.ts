@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     .from('credentials')
     .select('name, abbreviation, stripe_price_id, exam_fee_cents')
     .eq('id', attempt.credential_id)
-    .single();
+    .maybeSingle();
 
   if (!credential) {
     return NextResponse.json({ error: 'Credential not found' }, { status: 404 });
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
     .from('profiles')
     .select('email, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   // Determine amount — authorization record takes precedence, then credential row, else 0
   const amountCents = decision.amountCents ?? credential.exam_fee_cents ?? 0;

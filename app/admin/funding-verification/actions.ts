@@ -15,7 +15,7 @@ async function requireAdmin() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     throw new Error('Forbidden');
@@ -35,7 +35,7 @@ export async function verifyFunding(enrollmentId: string, note?: string) {
     .from('program_enrollments')
     .select('enrollment_state, status')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   const { error } = await db
     .from('program_enrollments')
@@ -95,7 +95,7 @@ export async function rejectFunding(enrollmentId: string, reason: string) {
     .from('program_enrollments')
     .select('enrollment_state, status')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   const { error } = await db
     .from('program_enrollments')

@@ -88,7 +88,7 @@ async function handleScheduleCallback(phoneNumber: string, message: string) {
       requested_at: new Date().toISOString(),
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) {
     throw error;

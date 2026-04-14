@@ -25,7 +25,7 @@ export async function checkIdempotency(eventId: string): Promise<IdempotencyResu
     .from('processed_stripe_events')
     .select('id')
     .eq('stripe_event_id', eventId)
-    .single();
+    .maybeSingle();
   
   return {
     isDuplicate: !!data,

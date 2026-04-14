@@ -30,7 +30,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('role')
       .eq('id', session.user.id)
-      .single();
+      .maybeSingle();
 
     if (!profile || !['admin', 'instructor'].includes(profile.role)) {
       return NextResponse.json(
@@ -71,7 +71,7 @@ async function _POST(request: NextRequest) {
         ),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (courseError) {
       logger.error('Course creation error:', courseError);

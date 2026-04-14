@@ -35,7 +35,7 @@ export async function POST(
     .from('provider_program_approvals')
     .select('id, program_id, tenant_id, status')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (fetchErr || !approval) {
     return NextResponse.json({ error: 'Approval record not found' }, { status: 404 });
@@ -59,7 +59,7 @@ export async function POST(
     })
     .eq('id', id)
     .select()
-    .single();
+    .maybeSingle();
 
   if (updateErr) {
     return NextResponse.json({ error: 'Failed to update approval' }, { status: 500 });

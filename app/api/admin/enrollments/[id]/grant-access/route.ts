@@ -37,7 +37,7 @@ export async function POST(
     .from('profiles')
     .select('role, full_name')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!adminProfile || !['admin', 'super_admin', 'staff'].includes(adminProfile.role)) {
     return safeError('Forbidden', 403);
@@ -51,7 +51,7 @@ export async function POST(
     .from('program_enrollments')
     .select('id, user_id, program_id, program_slug, full_name, email, access_granted_at')
     .eq('id', enrollmentId)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !enrollment) return safeError('Enrollment not found', 404);
   if (enrollment.access_granted_at) return safeError('Access already granted', 409);
@@ -94,7 +94,7 @@ export async function POST(
       .from('profiles')
       .select('email, full_name, first_name')
       .eq('id', enrollment.user_id)
-      .single();
+      .maybeSingle();
     studentEmail = studentProfile?.email;
     studentName = studentProfile?.full_name || studentProfile?.first_name || studentName;
   }

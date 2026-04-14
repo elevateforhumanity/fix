@@ -49,7 +49,7 @@ export default async function EmployerDashboardOrchestrated() {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile) redirect('/unauthorized');
 

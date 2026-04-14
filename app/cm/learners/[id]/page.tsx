@@ -46,7 +46,7 @@ export default async function CMLearnerDetailPage({ params }: Props) {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!['case_manager', 'admin', 'staff'].includes(profile?.role || '')) {
     redirect('/unauthorized');
@@ -57,7 +57,7 @@ export default async function CMLearnerDetailPage({ params }: Props) {
     .from('profiles')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !learner) notFound();
 

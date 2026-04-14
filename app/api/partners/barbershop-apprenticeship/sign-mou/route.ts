@@ -105,7 +105,7 @@ async function _POST(req: NextRequest) {
         mou_version: mou_version || '2025-01',
       })
       .select('id')
-      .single();
+      .maybeSingle();
 
     if (insertError) {
       logger.error('[sign-mou] Insert error:', insertError);

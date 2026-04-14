@@ -31,7 +31,7 @@ async function _POST(request: NextRequest) {
           status: 'new',
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (error) {
         logger.error('Feedback submission error:', error);

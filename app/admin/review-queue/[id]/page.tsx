@@ -40,7 +40,7 @@ export default async function ReviewDetailPage({
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     redirect('/unauthorized');
@@ -51,7 +51,7 @@ export default async function ReviewDetailPage({
     .from('review_queue')
     .select('*')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !item) {
     notFound();

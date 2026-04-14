@@ -21,7 +21,7 @@ async function _POST(req: Request) {
         status: 'queued',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json({ error: 'Failed to queue campaign' }, { status: 500 });

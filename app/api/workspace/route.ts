@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
         status: 'active',
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('[workspace] Create error:', error);

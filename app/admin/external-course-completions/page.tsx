@@ -23,7 +23,7 @@ export default async function ExternalCourseApprovalsPage() {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
     redirect('/unauthorized');

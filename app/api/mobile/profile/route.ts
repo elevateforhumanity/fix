@@ -42,7 +42,7 @@ async function _GET(request: NextRequest) {
       .from("profiles")
       .select("full_name, avatar_url")
       .eq("id", user.id)
-      .single();
+      .maybeSingle();
 
     // 2) Get course counts
     const { count: totalCourses } = await supabase
@@ -101,7 +101,7 @@ async function _GET(request: NextRequest) {
       .from("learning_activity")
       .select("current_streak")
       .eq("user_id", user.id)
-      .single();
+      .maybeSingle();
 
     const response = {
       name: profile?.full_name || user.email?.split("@")[0] || "Elevate Learner",

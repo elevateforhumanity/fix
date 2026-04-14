@@ -140,7 +140,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
       metadata: { ...parsedMetadata, original_type: rawDocumentType },
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (dbError) {
     // Clean up uploaded file
@@ -196,7 +196,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
       .from('profiles')
       .select('role')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
     if (profile?.role === 'employer') {
       const { tryAutoActivate } = await import('@/lib/employer/check-onboarding-complete');

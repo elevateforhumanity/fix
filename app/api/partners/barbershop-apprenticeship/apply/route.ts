@@ -273,7 +273,7 @@ async function _POST(req: Request) {
         ip_hash: hashIP(ipRaw),
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('Failed to insert barbershop partner application', error);

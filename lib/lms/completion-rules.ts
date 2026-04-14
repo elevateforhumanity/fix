@@ -69,7 +69,7 @@ export async function evaluateCompletion(
     .from('programs')
     .select('completion_criteria')
     .eq('id', programId)
-    .single();
+    .maybeSingle();
 
   const criteria: CompletionCriteria = program?.completion_criteria?.rules
     ? program.completion_criteria

@@ -27,7 +27,7 @@ export default async function PartnerProgramPage({ params }: { params: Promise<{
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['partner', 'admin', 'super_admin', 'staff'].includes(profile.role)) {
     redirect('/unauthorized');
@@ -38,7 +38,7 @@ export default async function PartnerProgramPage({ params }: { params: Promise<{
     .from('partner_users')
     .select('partner_id')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   const orgId = partnerUser?.partner_id ?? null;
 
@@ -47,7 +47,7 @@ export default async function PartnerProgramPage({ params }: { params: Promise<{
     .from('programs')
     .select('title, name')
     .eq('slug', slug)
-    .single();
+    .maybeSingle();
 
   const programName = program?.title || program?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 

@@ -92,7 +92,7 @@ async function _POST(request: NextRequest) {
         parent:departments!parent_department_id(id, name, code)
       `
       )
-      .single();
+      .maybeSingle();
 
     if (error) throw error;
 

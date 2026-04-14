@@ -118,7 +118,7 @@ export const POST = withRuntime(
       fee_paid:         false,
     })
     .select('id')
-    .single();
+    .maybeSingle();
 
   if (error) return safeInternalError(error, 'Failed to create retake hold');
 

@@ -10,7 +10,7 @@ export async function exportUserData(userId: string) {
   try {
     // Collect all user data from various tables
     const [profile, enrollments, certificates, assignments, grades, notes, messages] = await Promise.all([
-      supabase.from('profiles').select('*').eq('id', userId).single(),
+      supabase.from('profiles').select('*').eq('id', userId).maybeSingle(),
       supabase.from('program_enrollments').select('*').eq('student_id', userId),
       supabase.from('certificates').select('*').eq('student_id', userId),
       supabase.from('assignments').select('*').eq('student_id', userId),
@@ -254,7 +254,7 @@ export async function getConsentPreferences(userId: string) {
     .from('consent_preferences')
     .select('*')
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
   if (error) {
     // Return default preferences if none exist

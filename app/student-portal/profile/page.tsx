@@ -64,7 +64,7 @@ export default function StudentProfilePage() {
         .from('profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (profile) {
         setForm({

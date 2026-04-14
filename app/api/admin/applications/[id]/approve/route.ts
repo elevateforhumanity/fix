@@ -68,7 +68,7 @@ async function _POST(
         .from('applications')
         .select('email, first_name, last_name, phone, program_interest, program_slug')
         .eq('id', id)
-        .single();
+        .maybeSingle();
 
       if (app?.email) {
         const studentName = [app.first_name, app.last_name].filter(Boolean).join(' ') || app.email;

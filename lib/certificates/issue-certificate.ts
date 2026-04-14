@@ -170,7 +170,7 @@ export async function issueCertificate(
         metadata: certMetadata,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (certError) {
       logger.error('Failed to create certificate', certError as Error);

@@ -39,7 +39,7 @@ async function _POST(req: Request) {
       .select('id')
       .eq('id', program_holder_id)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!programHolder) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -62,7 +62,7 @@ async function _POST(req: Request) {
         { onConflict: 'program_holder_id' }
       )
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('[Notification Preferences] Update failed', error);

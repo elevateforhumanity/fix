@@ -69,7 +69,7 @@ async function _POST(req: Request) {
       .from('licenses')
       .select('id, customer_email, domain, tier, status, features, max_deployments, max_users, expires_at, created_at')
       .eq('license_key', licenseHash)
-      .single();
+      .maybeSingle();
 
     if (error || !license) {
       logger.info('License validation failed - not found', { ip: clientIp });

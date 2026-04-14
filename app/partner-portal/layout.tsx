@@ -28,7 +28,7 @@ export default async function PartnerPortalLayout({
 
   const db = await getAdminClient();
   if (!db) throw new Error('Admin client failed to initialize');
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   const isAdmin = ['admin', 'super_admin'].includes(profile?.role || '');
 
   return (

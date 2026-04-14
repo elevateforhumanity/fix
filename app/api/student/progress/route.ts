@@ -48,7 +48,7 @@ async function _POST(request: NextRequest) {
       .select('id, user_id, course_id, progress_percent, status')
       .eq('id', enrollmentId)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (enrollmentError || !enrollment) {
       return NextResponse.json(
@@ -170,7 +170,7 @@ async function _GET(request: NextRequest) {
       `)
       .eq('id', enrollmentId)
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (error || !enrollment) {
       return NextResponse.json(

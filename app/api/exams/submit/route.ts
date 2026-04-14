@@ -33,7 +33,7 @@ async function _POST(request: Request) {
       '*, exam:exams(*), exam_attempt_questions(*, question:questions(*))'
     )
     .eq('id', attemptId)
-    .single();
+    .maybeSingle();
 
   if (attemptError || !attempt) {
     return NextResponse.json({ error: 'Attempt not found' }, { status: 404 });

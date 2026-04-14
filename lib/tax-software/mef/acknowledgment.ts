@@ -144,7 +144,7 @@ export class AcknowledgmentHandler {
       .from('mef_submissions')
       .select('*')
       .eq('submission_id', acknowledgment.submissionId)
-      .single();
+      .maybeSingle();
     
     if (!submission) return;
     
@@ -189,7 +189,7 @@ export class AcknowledgmentHandler {
       .from('mef_submissions')
       .select('*')
       .eq('submission_id', acknowledgment.submissionId)
-      .single();
+      .maybeSingle();
     
     if (!submission) return;
     
@@ -250,7 +250,7 @@ export class AcknowledgmentHandler {
       .from('mef_acknowledgments')
       .select('*')
       .eq('submission_id', submissionId)
-      .single();
+      .maybeSingle();
     
     if (error || !data) return null;
     
@@ -298,7 +298,7 @@ export class AcknowledgmentHandler {
       .from('mef_submissions')
       .select('status, resubmission_count')
       .eq('submission_id', submissionId)
-      .single();
+      .maybeSingle();
     
     if (!data) return false;
     

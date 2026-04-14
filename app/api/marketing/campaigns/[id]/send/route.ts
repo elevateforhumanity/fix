@@ -30,7 +30,7 @@ async function _POST(
       .from('marketing_campaigns')
       .select('*')
       .eq('id', id)
-      .single();
+      .maybeSingle();
     if (cErr || !campaign) throw cErr || new Error('Campaign not found');
 
     // 2) Build audience (simple version: all active contacts not unsubscribed)

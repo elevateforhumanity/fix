@@ -69,7 +69,7 @@ export default function OfficeSettingsPage() {
         .from('franchise_offices')
         .select('*')
         .eq('owner_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (!officeData) {
         setLoading(false);
@@ -102,7 +102,7 @@ export default function OfficeSettingsPage() {
         .select('*')
         .eq('office_id', officeData.id)
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
       if (eroData) {
         setEroConfig(eroData);

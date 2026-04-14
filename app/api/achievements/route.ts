@@ -202,7 +202,7 @@ async function _POST(request: Request) {
         awarded_at: new Date().toISOString(),
       })
       .select('id, earned_at')
-      .single();
+      .maybeSingle();
 
     if (error) return safeInternalError(error, 'Failed to award badge');
 

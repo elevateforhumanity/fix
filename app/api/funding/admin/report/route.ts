@@ -28,7 +28,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('user_profiles')
     .select('role')
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'partner', 'instructor'].includes(profile.role)) {
     return new Response('Forbidden', { status: 403 });
@@ -44,7 +44,7 @@ const supabase = await createRouteHandlerClient({ cookies });
     .from('funding_programs')
     .select('id')
     .eq('code', code)
-    .single();
+    .maybeSingle();
 
   if (!program) {
     return new Response('Program not found', { status: 404 });

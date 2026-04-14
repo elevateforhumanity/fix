@@ -282,7 +282,7 @@ async function handleChargeCaptured(
           created_at: new Date().toISOString(),
         })
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (subError) {
         logger.error('Failed to create barber subscription from Affirm webhook', subError);

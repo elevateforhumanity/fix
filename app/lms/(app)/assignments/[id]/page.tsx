@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .from('assignments')
     .select('title')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   return {
     title: assignment ? `${assignment.title} | Elevate LMS` : 'Assignment | Elevate LMS',
@@ -49,7 +49,7 @@ export default async function AssignmentDetailPage({ params }: Props) {
     .from('assignments')
     .select('id, title, description, due_date, course_id, max_points, submission_type, instructions')
     .eq('id', id)
-    .single();
+    .maybeSingle();
 
   if (error || !assignment) notFound();
 
@@ -65,7 +65,7 @@ export default async function AssignmentDetailPage({ params }: Props) {
     .select('*')
     .eq('assignment_id', id)
     .eq('user_id', user.id)
-    .single();
+    .maybeSingle();
 
   const course = assignment.courses as { id: string; title: string } | null;
   const isOverdue = assignment.due_date && new Date(assignment.due_date) < new Date();

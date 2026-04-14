@@ -64,7 +64,7 @@ async function _POST(request: Request) {
         .from('programs')
         .select('id, title, slug, issuance_policy, min_rti_hours, min_ojl_hours, credential_type, credential_name, requires_instructor_attestation, min_engagement_hours')
         .eq('slug', programSlug)
-        .single();
+        .maybeSingle();
 
       if (!prog) {
         return NextResponse.json({ error: 'Program not found' }, { status: 404 });
@@ -122,7 +122,7 @@ async function _POST(request: Request) {
         )
         .eq(enrollmentId ? 'id' : 'course_id', enrollmentId ?? courseId)
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (enrollmentError || !enroll) {
         logger.error('Enrollment error:', enrollmentError);

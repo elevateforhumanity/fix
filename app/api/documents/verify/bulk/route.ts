@@ -36,7 +36,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
     .from('profiles')
     .select('role')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
     throw APIErrors.forbidden('Only admins can verify documents');
@@ -72,7 +72,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
         .from('documents')
         .select('*')
         .eq('id', documentId)
-        .single();
+        .maybeSingle();
 
       if (fetchError || !document) {
         results.push({ documentId, success: false, error: 'Document not found' });

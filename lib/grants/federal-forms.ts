@@ -255,7 +255,7 @@ export async function generateSF424(
     .from('entities')
     .select('*')
     .eq('id', entityId)
-    .single();
+    .maybeSingle();
 
   if (entityError || !entity) {
     throw new Error('Entity not found');
@@ -265,7 +265,7 @@ export async function generateSF424(
     .from('grant_opportunities')
     .select('*')
     .eq('id', grantId)
-    .single();
+    .maybeSingle();
 
   if (grantError || !grant) {
     throw new Error('Grant not found');
@@ -335,7 +335,7 @@ export async function generateSF424A(
     .from('grant_opportunities')
     .select('*')
     .eq('id', grantId)
-    .single();
+    .maybeSingle();
 
   if (!grant) {
     throw new Error('Grant not found');
@@ -383,13 +383,13 @@ export async function generateSFLLL(
     .from('entities')
     .select('*')
     .eq('id', entityId)
-    .single();
+    .maybeSingle();
 
   const { data: grant } = await getDb()
     .from('grant_opportunities')
     .select('*')
     .eq('id', grantId)
-    .single();
+    .maybeSingle();
 
   if (!entity || !grant) {
     throw new Error('Entity or grant not found');
@@ -435,7 +435,7 @@ export async function generateAllFederalForms(
     .from('grant_applications')
     .select('*, grant:grant_opportunities(*), entity:entities(*)')
     .eq('id', applicationId)
-    .single();
+    .maybeSingle();
 
   if (error || !app) {
     throw new Error('Application not found');

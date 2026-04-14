@@ -42,7 +42,7 @@ async function loadAttempt(db: any, attemptId: string, learnerId: string) {
     `)
     .eq('id', attemptId)
     .eq('learner_id', learnerId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) return null;
   return data;
@@ -112,7 +112,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
       })
       .eq('id', attemptId)
       .select('id, correct_steps, total_steps, steps_taken')
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('record_step error', error);
@@ -141,7 +141,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
       })
       .eq('id', attemptId)
       .select('id, score, passed, completed_at, correct_steps, total_steps, time_seconds')
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error('complete attempt error', error);

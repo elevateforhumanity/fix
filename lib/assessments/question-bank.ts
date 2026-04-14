@@ -254,7 +254,7 @@ export async function createQuestionBank(
       created_by: user.user?.id,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -280,7 +280,7 @@ export async function addQuestionToBank(
       created_by: user.user?.id,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -350,7 +350,7 @@ export async function createAssessmentFromBank(
       created_by: user.user?.id,
     })
     .select()
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
   return data;
@@ -374,7 +374,7 @@ export async function gradeAssessmentAttempt(
       answers:student_answers(*)
     `)
     .eq('id', attemptId)
-    .single();
+    .maybeSingle();
 
   if (!attempt) throw new Error('Attempt not found');
 
@@ -426,7 +426,7 @@ export async function gradeAssessmentAttempt(
     })
     .eq('id', attemptId)
     .select()
-    .single();
+    .maybeSingle();
 
   return updated;
 }

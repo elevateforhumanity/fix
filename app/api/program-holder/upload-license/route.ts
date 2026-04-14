@@ -24,7 +24,7 @@ async function _POST(req: NextRequest) {
     .from('profiles')
     .select('program_holder_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!prof?.program_holder_id) {
     return NextResponse.json({ error: 'No program holder assigned' }, { status: 400 });
@@ -80,7 +80,7 @@ async function _POST(req: NextRequest) {
       .from('program_holders')
       .select('organization_name, contact_name, contact_email')
       .eq('id', phId)
-      .single();
+      .maybeSingle();
 
     await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',

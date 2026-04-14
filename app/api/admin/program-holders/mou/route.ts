@@ -40,7 +40,7 @@ const _GET = withAuth(
       `
       )
       .eq('id', id)
-      .single();
+      .maybeSingle();
 
     if (error || !holder) {
       return new Response('Program holder not found', { status: 404 });

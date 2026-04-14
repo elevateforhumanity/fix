@@ -110,7 +110,7 @@ export default function CoursePreviewPage() {
       .from('training_courses')
       .select('*')
       .eq(isUUID ? 'id' : 'slug', courseId)
-      .single();
+      .maybeSingle();
 
     const resolvedId = courseData?.id || courseId;
     const { data: lessonsData } = await supabase

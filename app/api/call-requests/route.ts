@@ -35,7 +35,7 @@ async function _POST(req: Request) {
         requested_at: requestedAt,
       })
       .select()
-      .single();
+      .maybeSingle();
 
     if (error) {
       logger.error("Database error:", error);
