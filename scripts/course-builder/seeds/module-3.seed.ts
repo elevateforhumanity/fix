@@ -93,6 +93,21 @@ export const module3: ModuleSeed = {
         { id: 'hairline-cleanup', type: 'TECHNIQUE', description: 'Cleans hairline with trimmers after fading', required: true },
       ],
     },
+    {
+      slug: 'barber-trichology-hair-loss-science',
+      title: 'Trichology: Hair Loss Science',
+      durationMin: 45,
+      domain: 'HAIR_SCALP',
+      ojtCategory: 'TECHNICAL_INSTRUCTION',
+      hoursCredit: 0.75,
+      miladyChapter: 'Barbering Ch. 6 — Hair and Scalp Disorders & Diseases',
+      content: 'See sidecar.',
+      competencyChecks: [
+        { id: 'trich-alopecia-types', type: 'KNOWLEDGE', description: 'Identifies androgenetic, alopecia areata, traction, and telogen effluvium alopecia', required: true },
+        { id: 'trich-dht', type: 'KNOWLEDGE', description: 'Explains the role of DHT in androgenetic alopecia', required: true },
+        { id: 'trich-referral', type: 'KNOWLEDGE', description: 'Identifies scalp conditions requiring physician referral', required: true },
+      ],
+    },
   ],
   checkpoint: {
     slug: 'barber-module-3-checkpoint',
