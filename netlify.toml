@@ -142,9 +142,11 @@
   external_node_modules = [
     # Database
     "pg",
+    "pg-native",
     # Google APIs (194MB)
     "googleapis",
     "google-auth-library",
+    "google-gax",
     # Editor / terminal (browser-only)
     "monaco-editor",
     "node-pty",
@@ -152,22 +154,29 @@
     "tesseract.js",
     "tesseract.js-core",
     "sharp",
-    "@img/sharp-libvips-linux-x64",
-    "@napi-rs/canvas",
-    "@napi-rs/canvas-linux-x64-gnu",
+    "@img",
+    "@napi-rs",
     # PDF libraries
     "pdf-parse",
     "pdfkit",
     "pdf-lib",
+    "@pdf-lib",
     "pdfjs-dist",
     "jspdf",
     "jspdf-autotable",
     "@react-pdf/renderer",
     # Video (browser-only)
     "video.js",
-    # AWS SDK
+    # FFmpeg
+    "@ffmpeg-installer/ffmpeg",
+    "@ffprobe-installer/ffprobe",
+    "fluent-ffmpeg",
+    # AWS SDK (large, handled separately)
     "@aws-sdk/client-s3",
     "@aws-sdk/s3-request-presigner",
+    "@aws-sdk/client-ses",
+    "@aws-sdk/client-sns",
+    "@aws-sdk/credential-providers",
     # Cache
     "ioredis",
     "redis",
@@ -178,12 +187,15 @@
     "stripe",
     # Email
     "@sendgrid/mail",
+    "@sendgrid/helpers",
     "nodemailer",
+    "resend",
     # Observability
     "@sentry/nextjs",
     "@sentry/node",
     "@sentry/core",
     "@sentry/cli-linux-x64",
+    "@sentry/cli",
     "@opentelemetry/api",
     "@opentelemetry/sdk-node",
     "@opentelemetry/exporter-trace-otlp-http",
@@ -195,6 +207,9 @@
     "playwright",
     "playwright-core",
     "chromium-bidi",
+    "@playwright/test",
+    "@sparticuz/chromium",
+    "chrome-aws-lambda",
     # DOM / test (not needed in SSR)
     "jsdom",
     "happy-dom",
@@ -211,28 +226,49 @@
     "eslint-plugin-react-hooks",
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
+    "@typescript-eslint/utils",
+    "@typescript-eslint/types",
+    "@typescript-eslint/typescript-estree",
+    "esbuild",
+    "@esbuild",
+    "webpack",
+    "webpack-sources",
+    "@swc/core",
+    "@swc/helpers",
+    # Next.js SWC binaries (113MB — build-time only)
+    "@next/swc-linux-x64-gnu",
+    "@next/swc-linux-x64-musl",
+    "@next/swc-darwin-x64",
+    "@next/swc-darwin-arm64",
+    "@next/swc-win32-x64-msvc",
     # Sockets (not used in serverless)
     "socket.io",
     "socket.io-client",
+    "ws",
     # 3D / WebGL (browser-only, ~43MB)
     "three",
     "@react-three/fiber",
     "@react-three/drei",
+    "three-stdlib",
     # Icon library (browser-only, 42MB)
     "lucide-react",
     # Charting (browser-only)
     "recharts",
+    "d3",
+    "d3-array",
+    "d3-scale",
+    "d3-shape",
     # Canvas / screenshot (browser-only)
     "html2canvas",
+    "canvas",
     # Video / media (browser-only)
     "hls.js",
     # MediaPipe (browser-only, 20MB)
     "@mediapipe/tasks-vision",
-    # 3D stdlib (browser-only, 29MB)
-    "three-stdlib",
     # Document generation / parsing
     "docx",
     "mammoth",
+    "xlsx",
     # Collaborative editing (browser-only)
     "yjs",
     "y-protocols",
@@ -243,14 +279,41 @@
     "@mailchimp/mailchimp_marketing",
     # Not needed in SSR hot path
     "csv-parse",
+    "csv-stringify",
     "sitemap",
     "schema-dts",
     "jszip",
     "fast-xml-parser",
     "marked",
     "cheerio",
+    "jsdom",
+    "node-html-parser",
     # Test-only
     "vitest",
+    "@vitest/ui",
+    "jest",
+    "@jest/core",
+    # Misc large packages
+    "framer-motion",
+    "react-spring",
+    "@react-spring/web",
+    "lottie-web",
+    "@lottiefiles/react-lottie-player",
+    "prismjs",
+    "highlight.js",
+    "shiki",
+    "codemirror",
+    "@codemirror",
+    "ace-builds",
+    "quill",
+    "draft-js",
+    "slate",
+    "slate-react",
+    "tiptap",
+    "@tiptap",
+    "prosemirror-model",
+    "prosemirror-state",
+    "prosemirror-view",
   ]
 
 [functions."run-migrations"]
