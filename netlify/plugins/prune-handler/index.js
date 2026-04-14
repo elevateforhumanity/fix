@@ -99,46 +99,53 @@ async function prunePnpm(pnpmDir) {
 }
 
 module.exports = {
-  onPostBuild: async ({ constants, utils }) => {
-    // The handler is built into .netlify/functions-internal/___netlify-server-handler/
-    const handlerDir = join(
-      constants.PUBLISH_DIR || '.next',
-      '..', '.netlify', 'functions-internal', '___netlify-server-handler'
-    );
+  onPostBuild: async ({ constants }) => {
+    try {
+      const cwd = process.cwd();
 
-    // Also try the v5 plugin path
-    const handlerDirV5 = join(process.cwd(), '.netlify', 'functions-internal', '___netlify-server-handler');
+      // Candidate handler directories — @netlify/plugin-nextjs v4 and v5 paths
+      const candidates = [
+        join(cwd, '.netlify', 'functions-internal', '___netlify-server-handler'),
+        join(cwd, '.netlify', 'v1', 'functions', '___netlify-server-handler'),
+        // Fallback using PUBLISH_DIR when set
+        ...(constants.PUBLISH_DIR
+          ? [join(constants.PUBLISH_DIR, '..', '.netlify', 'functions-internal', '___netlify-server-handler')]
+          : []),
+      ];
 
-    const dirs = [handlerDir, handlerDirV5].filter(d => existsSync(d));
+      const dirs = candidates.filter(d => existsSync(d));
 
-    if (dirs.length === 0) {
-      console.log('[prune-handler] handler directory not found — skipping');
-      console.log('[prune-handler] searched:', handlerDir);
-      console.log('[prune-handler] searched:', handlerDirV5);
-      return;
-    }
+      if (dirs.length === 0) {
+        console.log('[prune-handler] handler directory not found — skipping (bundle size unchanged)');
+        candidates.forEach(d => console.log('[prune-handler] searched:', d));
+        return;
+      }
 
-    let total = 0;
-    for (const dir of dirs) {
-      console.log(`[prune-handler] pruning ${dir}`);
-      const nm = join(dir, 'node_modules');
-      total += await pruneDir(nm);
-      total += await prunePnpm(join(nm, '.pnpm'));
+      let total = 0;
+      for (const dir of dirs) {
+        console.log(`[prune-handler] pruning ${dir}`);
+        const nm = join(dir, 'node_modules');
+        total += await pruneDir(nm);
+        total += await prunePnpm(join(nm, '.pnpm'));
 
-      // Also check nested paths
-      if (existsSync(dir)) {
-        const entries = await readdir(dir);
-        for (const entry of entries) {
-          if (entry === 'node_modules') continue;
-          const nested = join(dir, entry, 'node_modules');
-          if (existsSync(nested)) {
-            total += await pruneDir(nested);
-            total += await prunePnpm(join(nested, '.pnpm'));
+        // Check one level of nested node_modules
+        if (existsSync(dir)) {
+          const entries = await readdir(dir).catch(() => []);
+          for (const entry of entries) {
+            if (entry === 'node_modules') continue;
+            const nested = join(dir, entry, 'node_modules');
+            if (existsSync(nested)) {
+              total += await pruneDir(nested);
+              total += await prunePnpm(join(nested, '.pnpm'));
+            }
           }
         }
       }
-    }
 
-    console.log(`[prune-handler] done — removed ${total} packages`);
+      console.log(`[prune-handler] done — removed ${total} packages`);
+    } catch (err) {
+      // Never fail the build — pruning is best-effort
+      console.warn('[prune-handler] non-fatal error:', err.message);
+    }
   },
 };
