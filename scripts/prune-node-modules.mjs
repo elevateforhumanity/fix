@@ -24,62 +24,95 @@ if (!process.env.CI && !process.env.NETLIFY) {
 const PNPM_DIR = resolve('node_modules/.pnpm');
 
 const PRUNE_PACKAGES = [
-  // Next.js SWC compiler binaries (113 MB — build-time only)
-  '@next+swc-linux-x64-gnu', '@next+swc-linux-x64-musl',
-  '@next+swc-darwin-x64', '@next+swc-darwin-arm64', '@next+swc-win32-x64-msvc',
-  // esbuild, webpack, swc
-  '@esbuild', 'esbuild', 'webpack', 'webpack-sources', '@swc+core-linux-x64-gnu',
+  // Next.js SWC compiler binaries (113 MB each)
+  '@next+swc-linux-x64-gnu',
+  '@next+swc-linux-x64-musl',
+  '@next+swc-darwin-x64',
+  '@next+swc-darwin-arm64',
+  '@next+swc-win32-x64-msvc',
+  // esbuild binary
+  '@esbuild',
+  'esbuild',
+  // webpack
+  'webpack',
+  'webpack-sources',
   // Google APIs (194 MB)
-  'googleapis', 'google-auth-library', 'google-gax',
+  'googleapis',
+  'google-auth-library',
   // OCR (44 MB wasm)
-  'tesseract.js', 'tesseract.js-core',
+  'tesseract.js',
+  'tesseract.js-core',
   // Sharp / image
-  'sharp', '@img', '@napi-rs+canvas-linux-x64-gnu', '@img+sharp-libvips-linux-x64',
-  // Canvas (24 MB)
+  'sharp',
+  '@img',
+  '@napi-rs',
+  // Canvas
   'canvas',
   // PDF
-  'pdf-lib', 'pdf-parse', 'pdfkit', 'pdfjs-dist', 'jspdf', 'jspdf-autotable', '@react-pdf+renderer',
-  // FFmpeg (66 MB + 76 MB)
-  '@ffmpeg-installer+linux-x64', '@ffprobe-installer+linux-x64', 'fluent-ffmpeg',
+  'pdf-lib',
+  'pdf-parse',
+  'pdfkit',
+  'pdfjs-dist',
+  'jspdf',
+  '@react-pdf',
+  // FFmpeg
+  '@ffmpeg-installer',
+  '@ffprobe-installer',
+  'fluent-ffmpeg',
   // Browser automation
-  'puppeteer', 'puppeteer-core', 'playwright', 'playwright-core',
-  'chromium-bidi', '@playwright+test', '@sparticuz+chromium', 'chrome-aws-lambda',
-  // Editor / terminal (75 MB + 63 MB)
-  'monaco-editor', 'node-pty',
+  'puppeteer',
+  'puppeteer-core',
+  'playwright',
+  'playwright-core',
+  'chromium-bidi',
+  '@playwright',
+  '@sparticuz',
+  // Editor / terminal
+  'monaco-editor',
+  'node-pty',
   // Video / media
-  'video.js', 'hls.js',
-  // MediaPipe (20 MB)
-  '@mediapipe+tasks-vision',
+  'video.js',
+  'hls.js',
+  // MediaPipe
+  '@mediapipe',
   // 3D
-  'three', 'three-stdlib', '@react-three+fiber', '@react-three+drei',
+  'three',
+  'three-stdlib',
+  '@react-three',
   // Icons (42 MB)
   'lucide-react',
   // Charting
-  'recharts', 'd3',
+  'recharts',
   // Screenshot
   'html2canvas',
-  // Sentry CLI (21 MB)
-  '@sentry+cli-linux-x64', '@sentry+cli',
+  // Sentry CLI
+  '@sentry+cli-linux-x64',
   // Build / dev tools
-  'typescript', 'core-js', 'prettier', 'tailwindcss', 'autoprefixer',
-  'postcss', 'eslint', '@typescript-eslint+eslint-plugin', '@typescript-eslint+parser',
-  'vitest', 'jest',
+  'typescript',
+  'prettier',
+  'tailwindcss',
+  'autoprefixer',
+  'eslint',
+  '@typescript-eslint',
+  'vitest',
   // DOM / test
-  'jsdom', 'happy-dom',
+  'jsdom',
+  'happy-dom',
   // Document generation
-  'docx', 'mammoth', 'xlsx',
+  'docx',
+  'mammoth',
   // Collaborative editing
-  'yjs', 'y-protocols', 'lib0',
+  'yjs',
+  'y-protocols',
+  'lib0',
   // WebContainer
-  '@webcontainer+api',
+  '@webcontainer',
   // Misc
-  '@mailchimp+mailchimp_marketing', 'csv-parse', 'csv-stringify',
-  'sitemap', 'jszip', 'fast-xml-parser', 'marked', 'cheerio', 'node-html-parser',
-  // Animation / editors
-  'framer-motion', 'lottie-web', 'prismjs', 'highlight.js', 'shiki',
-  'codemirror', 'ace-builds', 'quill',
-  // Large runtime deps not needed in SSR
-  'es-toolkit', 'web-streams-polyfill',
+  '@mailchimp',
+  'jszip',
+  'fast-xml-parser',
+  'marked',
+  'cheerio',
 ];
 
 async function main() {
