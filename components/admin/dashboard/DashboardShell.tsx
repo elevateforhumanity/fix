@@ -1,471 +1,599 @@
 // Server component — no "use client", no useState, no useEffect.
-// All date formatting uses fixed locale + UTC timezone to prevent hydration mismatches.
 
 import Link from "next/link";
+import Image from "next/image";
+import { AdminGreeting } from "@/components/admin/AdminGreeting";
 import {
-  Users, FileText, TrendingUp, Award, AlertTriangle,
-  CheckCircle, Clock, ArrowRight, Activity, BookOpen,
-  DollarSign, Shield, Bell, ChevronRight, Zap,
+  FileText, Users, DollarSign, Award, AlertTriangle,
+  ArrowRight, BookOpen, TrendingUp, BarChart3,
+  CheckCircle2, XCircle, Clock, ShieldAlert,
 } from "lucide-react";
-import type { AdminDashboardData, KPICard, RecentApplication, RecentStudent, InactiveLearner, PendingSubmission, TopProgramPoint, ActivityItem, BlockedProgram, EnrollmentTrendPoint, StatusPoint } from "./types";
+import type { AdminDashboardData, SystemHealth } from "./types";
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
-
-function fmt(n: number) { return n.toLocaleString("en-US"); }
-function dollars(cents: number) { return "$" + (cents / 100).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
-function statusColor(s: string) {
-  if (s === "approved" || s === "enrolled") return "bg-emerald-100 text-emerald-800";
-  if (s === "rejected") return "bg-red-100 text-red-800";
-  if (s === "in_review" || s === "under_review") return "bg-blue-100 text-blue-800";
-  if (s === "waitlisted") return "bg-amber-100 text-amber-800";
-  return "bg-slate-100 text-slate-700";
+// ── Formatters ────────────────────────────────────────────────────────────────
+function fmtUsd(cents: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency", currency: "USD", maximumFractionDigits: 0,
+  }).format(cents / 100);
+}
+function fmtNum(n: number) { return new Intl.NumberFormat("en-US").format(n); }
+function fmtDate(iso: string | null) {
+  if (!iso) return "—";
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+function fmtAge(days: number) {
+  if (days === 0) return "Today";
+  if (days === 1) return "1 day ago";
+  return `${days} days ago`;
 }
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
 
-function HeroHeader({ data }: { data: AdminDashboardData }) {
-  const name = data.profile?.full_name?.split(" ")[0] ?? "Admin";
-  const date = new Date(data.generatedAt).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "UTC" });
-  const health = data.systemHealth;
+// ── Status pill ───────────────────────────────────────────────────────────────
+const STATUS_COLORS: Record<string, string> = {
+  submitted: "bg-amber-100 text-amber-800",
+  pending:   "bg-amber-100 text-amber-800",
+  in_review: "bg-blue-100 text-blue-800",
+  active:    "bg-emerald-100 text-emerald-800",
+  completed: "bg-slate-100 text-slate-600",
+  draft:     "bg-slate-100 text-slate-500",
+  inactive:  "bg-slate-100 text-slate-500",
+};
+function StatusPill({ status }: { status: string }) {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-brand-blue-900 to-slate-900 text-white">
-      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #e63946 0%, transparent 50%), radial-gradient(circle at 80% 20%, #1d3557 0%, transparent 50%)" }} />
-      <div className="relative max-w-7xl mx-auto px-6 py-10">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <p className="text-slate-400 text-sm font-medium uppercase tracking-widest mb-1">{date}</p>
-            <h1 className="text-3xl font-bold">Welcome back, {name}</h1>
-            <p className="text-slate-300 mt-1 text-sm">Elevate for Humanity — Operations Center</p>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide ${STATUS_COLORS[status] ?? "bg-slate-100 text-slate-600"}`}>
+      {status.replace(/_/g, " ")}
+    </span>
+  );
+}
+
+function Empty({ message }: { message: string }) {
+  return <p className="text-slate-400 text-sm py-10">{message}</p>;
+}
+
+// Never hide the dashboard — even an empty DB should show system health,
+// the courses panel, and navigation. The "no data" state is shown inline
+// within each section rather than replacing the whole page.
+function isOperationallyEmpty(_data: AdminDashboardData): boolean {
+  return false;
+}
+
+function NoOperationalData() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
+      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-50 border border-amber-200 mb-6">
+        <AlertTriangle className="w-8 h-8 text-amber-500" />
+      </div>
+      <h2 className="text-2xl font-bold text-slate-900 mb-3">No operational data</h2>
+      <p className="text-slate-500 max-w-sm mb-8 leading-relaxed">
+        All KPIs returned zero. The database is either empty or the connection is not returning data.
+      </p>
+      <div className="flex flex-wrap gap-3 justify-center">
+        <Link href="/admin/applications"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-colors">
+          Check Applications
+        </Link>
+        <Link href="/admin/students"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-50 transition-colors">
+          Check Students
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+const DEGRADED_LABELS: Record<string, string> = {
+  inactive_learners:      "Inactive learners",
+  unpublished_programs:   "Unpublished programs",
+  recent_students:        "Recent students",
+  enrollments_by_program: "Enrollment breakdown",
+};
+function DegradedBanner({ sections }: { sections: string[] }) {
+  return (
+    <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-800">
+      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+      <div>
+        <span className="font-semibold">Some sections are temporarily unavailable.</span>
+        {" "}KPI counts are accurate.{" "}
+        {sections.map(s => DEGRADED_LABELS[s] ?? s).join(", ")} could not be loaded.
+      </div>
+    </div>
+  );
+}
+
+// ── System Health Panel ───────────────────────────────────────────────────────
+const SEVERITY_STYLES = {
+  critical: { row: "border-rose-200 bg-rose-50", icon: "text-rose-500", text: "text-rose-800" },
+  warning:  { row: "border-amber-200 bg-amber-50", icon: "text-amber-500", text: "text-amber-800" },
+  info:     { row: "border-blue-200 bg-blue-50", icon: "text-blue-500", text: "text-blue-800" },
+};
+
+function SystemHealthPanel({ health }: { health: SystemHealth }) {
+  const hasCritical = health.alerts.some(a => a.severity === "critical");
+  const hasWarning  = health.alerts.some(a => a.severity === "warning");
+  const allClear    = health.alerts.length === 0;
+
+  return (
+    <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
+      <div className="flex items-end justify-between mb-8 sm:mb-12">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Infrastructure</p>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none flex items-center gap-4">
+            System Health
+            {hasCritical && <XCircle className="w-8 h-8 text-rose-500" />}
+            {!hasCritical && hasWarning && <AlertTriangle className="w-8 h-8 text-amber-500" />}
+            {allClear && <CheckCircle2 className="w-8 h-8 text-emerald-500" />}
+          </h2>
+        </div>
+        <Link href="/admin/settings" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
+          Settings <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+
+      {/* Status indicators */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+        {[
+          { label: "Stripe Webhook",    ok: health.stripeWebhookOk },
+          { label: "Build Env Vars",    ok: health.buildEnvOk },
+          { label: "Stale Jobs",        ok: health.staleJobs === 0,        badge: health.staleJobs > 0 ? String(health.staleJobs) : null },
+          { label: "Unresolved Flags",  ok: health.unresolvedFlags === 0,  badge: health.unresolvedFlags > 0 ? String(health.unresolvedFlags) : null },
+        ].map(({ label, ok, badge }) => (
+          <div key={label} className={`rounded-xl border px-4 py-4 flex items-center gap-3 ${ok ? "border-emerald-200 bg-emerald-50" : "border-rose-200 bg-rose-50"}`}>
+            {ok
+              ? <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+              : <XCircle className="w-5 h-5 text-rose-500 flex-shrink-0" />}
+            <div className="min-w-0">
+              <p className={`text-xs font-semibold truncate ${ok ? "text-emerald-800" : "text-rose-800"}`}>{label}</p>
+              {badge && <p className="text-lg font-black tabular-nums text-rose-600">{badge}</p>}
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            {health.degraded ? (
-              <span className="flex items-center gap-2 bg-red-500/20 border border-red-500/40 text-red-300 px-4 py-2 rounded-full text-sm font-medium">
-                <AlertTriangle className="w-4 h-4" /> System Degraded
-              </span>
-            ) : (
-              <span className="flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 px-4 py-2 rounded-full text-sm font-medium">
-                <CheckCircle className="w-4 h-4" /> All Systems Operational
-              </span>
+        ))}
+      </div>
+
+      {/* Missing documents row */}
+      {health.missingDocuments > 0 && (
+        <div className="flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 mb-4">
+          <ShieldAlert className="w-5 h-5 text-amber-500 flex-shrink-0" />
+          <p className="text-sm font-semibold text-amber-800">
+            {health.missingDocuments} active enrollment{health.missingDocuments !== 1 ? "s" : ""} missing required documents
+          </p>
+          <Link href="/admin/enrollments?docs_verified=false" className="ml-auto text-xs font-bold text-amber-700 hover:text-amber-900 flex items-center gap-1">
+            Review <ArrowRight className="w-3 h-3" />
+          </Link>
+        </div>
+      )}
+
+      {/* Alert list */}
+      {health.alerts.length === 0 ? (
+        <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-4">
+          <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+          <p className="text-sm font-semibold text-emerald-800">All systems operational</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {health.alerts.map((alert, i) => {
+            const s = SEVERITY_STYLES[alert.severity] ?? SEVERITY_STYLES.info;
+            return (
+              <div key={`${alert.code}-${i}`} className={`flex items-start gap-3 rounded-xl border px-5 py-4 ${s.row}`}>
+                {alert.severity === "critical"
+                  ? <XCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${s.icon}`} />
+                  : alert.severity === "warning"
+                  ? <AlertTriangle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${s.icon}`} />
+                  : <Clock className={`w-5 h-5 flex-shrink-0 mt-0.5 ${s.icon}`} />}
+                <div>
+                  <p className={`text-sm font-semibold ${s.text}`}>{alert.message}</p>
+                  <p className={`text-xs mt-0.5 font-mono opacity-60 ${s.text}`}>{alert.code}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
+
+// ── Shell ─────────────────────────────────────────────────────────────────────
+export function DashboardShell({ data }: { data: AdminDashboardData }) {
+  if (isOperationallyEmpty(data)) return <NoOperationalData />;
+
+  const firstName = data.profile?.full_name?.split(" ")[0] ?? "Admin";
+  const updatedAt = new Date(data.generatedAt).toLocaleString("en-US", {
+    month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+  });
+
+  const { pendingApplications, activeEnrollments, revenueThisMonthCents, certificatesIssued } = data.counts;
+  const maxEnrollments = Math.max(...data.topPrograms.map(p => p.learners), 1);
+
+  return (
+    <div className="pb-16 sm:pb-32">
+
+      {(data.degradedSections ?? []).length > 0 && (
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <DegradedBanner sections={data.degradedSections ?? []} />
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════════
+          HERO — full-bleed image, all text below it
+      ══════════════════════════════════════════════════════════ */}
+      <section>
+        {/* Hero image — no text on top */}
+        <div className="relative w-full h-48 sm:h-72 lg:h-96 overflow-hidden">
+          <Image
+            src="/images/pages/admin-dashboard-hero.jpg"
+            alt=""
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          {/* Subtle bottom fade only */}
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
+        </div>
+
+        {/* Headline — below the image, full-width content area */}
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10 sm:pt-10 sm:pb-16">
+          <p className="text-sm font-medium text-slate-400 uppercase tracking-widest mb-4" suppressHydrationWarning>
+            <AdminGreeting name={firstName} />
+          </p>
+          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black text-slate-900 leading-none tracking-tight mb-10">
+            Operations
+          </h1>
+
+          {/* Urgent CTAs */}
+          <div className="flex flex-wrap gap-3 mb-10">
+            {pendingApplications > 0 && (
+              <Link
+                href="/admin/applications?status=submitted"
+                className="inline-flex items-center gap-3 bg-rose-600 hover:bg-rose-700 text-white px-7 py-4 rounded-2xl font-bold text-lg transition-colors"
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-white/80 animate-pulse" />
+                {pendingApplications} application{pendingApplications !== 1 ? "s" : ""} waiting for review
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             )}
-            <Link href="/admin/applications" className="flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition-colors">
-              <Bell className="w-4 h-4" />
-              {data.counts.pendingApplications > 0 && <span>{data.counts.pendingApplications} Pending</span>}
-              {data.counts.pendingApplications === 0 && <span>Applications</span>}
+            {(data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0) > 0 && (
+              <Link
+                href="/admin/program-holders"
+                className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-600 text-white px-7 py-4 rounded-2xl font-bold text-lg transition-colors"
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-white/80 animate-pulse" />
+                {data.kpis.find(k => k.label === 'Pending Program Holders')?.value} program holder{(data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0) !== 1 ? "s" : ""} pending approval
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            )}
+            {(data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0) > 0 && (
+              <Link
+                href="/admin/program-holder-documents"
+                className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-7 py-4 rounded-2xl font-bold text-lg transition-colors"
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-white/80 animate-pulse" />
+                {data.kpis.find(k => k.label === 'Pending Documents')?.value} document{(data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0) !== 1 ? "s" : ""} to review
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            )}
+          </div>
+
+          {/* Quick-nav — same pill style as marketing site */}
+          <div className="flex flex-wrap gap-3">
+            {[
+              { label: "Applications", href: "/admin/applications",                    icon: FileText   },
+              { label: "Students",     href: "/admin/students",                        icon: Users      },
+              { label: "Programs",     href: "/admin/programs",                        icon: BookOpen   },
+              { label: "Analytics",    href: "/admin/analytics",                       icon: BarChart3  },
+              { label: "Certificates", href: "/admin/certificates",                    icon: Award      },
+              { label: "Revenue",      href: "/admin/enrollments?payment_status=paid", icon: DollarSign },
+              { label: "At-Risk",      href: "/admin/at-risk",                         icon: TrendingUp },
+              { label: "Program Holders", href: "/admin/program-holders",              icon: Users      },
+              { label: "PH Documents", href: "/admin/program-holder-documents",        icon: FileText   },
+            ].map(({ label, href, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-all shadow-sm"
+              >
+                <Icon className="w-4 h-4 text-slate-400" />
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          NUMBERS — ruled list, big typographic values
+      ══════════════════════════════════════════════════════════ */}
+      <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
+        <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-10">At a glance</p>
+        <div className="divide-y divide-slate-100">
+          {[
+            { label: "Applications waiting",       value: fmtNum(pendingApplications),       href: "/admin/applications?status=submitted",       urgent: pendingApplications > 0 },
+            { label: "Active enrollments",         value: fmtNum(activeEnrollments),         href: "/admin/enrollments?status=active",            urgent: false },
+            { label: "Revenue this month",         value: fmtUsd(revenueThisMonthCents),     href: "/admin/enrollments?payment_status=paid",      urgent: false },
+            { label: "Certificates issued",        value: fmtNum(certificatesIssued),        href: "/admin/certificates",                         urgent: false },
+            { label: "Program holders pending",    value: fmtNum(data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0), href: "/admin/program-holders",              urgent: (data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0) > 0 },
+            { label: "Documents to review",        value: fmtNum(data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0),       href: "/admin/program-holder-documents",     urgent: (data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0) > 0 },
+          ].map(({ label, value, href, urgent }) => (
+            <Link
+              key={label}
+              href={href}
+              className="group flex items-center justify-between py-5 sm:py-8 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
+            >
+              <span className="text-base font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
+                {label}
+              </span>
+              <div className="flex items-center gap-5">
+                <span className={`text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight ${urgent ? "text-rose-600" : "text-slate-900"}`}>
+                  {value}
+                </span>
+                <ArrowRight className="w-5 h-5 text-slate-200 group-hover:text-slate-500 transition-colors" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          APPLICATIONS
+      ══════════════════════════════════════════════════════════ */}
+      <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
+        <div className="flex items-end justify-between mb-8 sm:mb-12">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Review queue</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Applications</h2>
+          </div>
+          <Link href="/admin/applications" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
+            View all <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {data.recentApplications.length === 0 ? (
+          <Empty message="No pending applications." />
+        ) : (
+          <div className="divide-y divide-slate-100">
+            {data.recentApplications.slice(0, 8).map(app => {
+              const name = app.full_name ||
+                [app.first_name, app.last_name].filter(Boolean).join(" ") || "Unnamed";
+              return (
+                <Link
+                  key={app.id}
+                  href={app.href}
+                  className="group flex items-center gap-4 sm:gap-6 py-4 sm:py-6 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
+                >
+                  <div className={`w-1 h-14 rounded-full flex-shrink-0 ${app.urgent ? "bg-rose-500" : "bg-slate-200"}`} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-lg font-bold text-slate-900 truncate">{name}</p>
+                    <p className="text-sm text-slate-400 truncate mt-0.5">{app.program_interest ?? "No program selected"}</p>
+                  </div>
+                  <div className="flex items-center gap-4 flex-shrink-0">
+                    <StatusPill status={app.status} />
+                    <span className={`text-sm font-medium hidden sm:block ${app.urgent ? "text-rose-600" : "text-slate-400"}`}>
+                      {fmtAge(app.age_days)}
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-slate-500 transition-colors" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          PROGRAM HOLDERS
+      ══════════════════════════════════════════════════════════ */}
+      {(() => {
+        const pendingHolders = data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0;
+        const pendingDocs    = data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0;
+        if (pendingHolders === 0 && pendingDocs === 0) return null;
+        return (
+          <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
+            <div className="flex items-end justify-between mb-8 sm:mb-12">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Partner onboarding</p>
+                <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Program Holders</h2>
+              </div>
+              <Link href="/admin/program-holders" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
+                View all <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+            <div className="divide-y divide-slate-100">
+              {pendingHolders > 0 && (
+                <Link
+                  href="/admin/program-holders"
+                  className="group flex items-center justify-between py-5 sm:py-8 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-1 h-14 rounded-full bg-amber-400 flex-shrink-0" />
+                    <div>
+                      <p className="text-lg font-bold text-slate-900">Applications pending approval</p>
+                      <p className="text-sm text-slate-400 mt-0.5">Review and approve program holder applications</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-5">
+                    <span className="text-3xl sm:text-4xl font-black tabular-nums text-amber-600">{pendingHolders}</span>
+                    <ArrowRight className="w-5 h-5 text-slate-200 group-hover:text-slate-500 transition-colors" />
+                  </div>
+                </Link>
+              )}
+              {pendingDocs > 0 && (
+                <Link
+                  href="/admin/program-holder-documents"
+                  className="group flex items-center justify-between py-5 sm:py-8 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-1 h-14 rounded-full bg-blue-400 flex-shrink-0" />
+                    <div>
+                      <p className="text-lg font-bold text-slate-900">Documents pending review</p>
+                      <p className="text-sm text-slate-400 mt-0.5">View, approve, or reject uploaded documents</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-5">
+                    <span className="text-3xl sm:text-4xl font-black tabular-nums text-blue-600">{pendingDocs}</span>
+                    <ArrowRight className="w-5 h-5 text-slate-200 group-hover:text-slate-500 transition-colors" />
+                  </div>
+                </Link>
+              )}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* ══════════════════════════════════════════════════════════
+          PROGRAMS
+      ══════════════════════════════════════════════════════════ */}
+      <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
+        <div className="flex items-end justify-between mb-8 sm:mb-12">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Enrollment</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Programs</h2>
+          </div>
+          <Link href="/admin/programs" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
+            All programs <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {data.topPrograms.length === 0 ? (
+          <Empty message="No program enrollment data yet." />
+        ) : (
+          <div className="space-y-10">
+            {data.topPrograms.map(p => (
+              <Link key={p.id} href={`/admin/programs/${p.id}`} className="group block">
+                <div className="flex items-baseline justify-between mb-3">
+                  <span className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    {p.name}
+                  </span>
+                  <div className="flex items-center gap-8 text-sm flex-shrink-0 ml-4">
+                    <span className="text-slate-500 tabular-nums">{fmtNum(p.learners)} enrolled</span>
+                    <span className="font-bold text-emerald-600 tabular-nums">{p.completionRate}% complete</span>
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+                    <div className="h-full rounded-full bg-blue-500" style={{ width: `${Math.round((p.learners / maxEnrollments) * 100)}%` }} />
+                  </div>
+                  <div className="h-1 rounded-full bg-slate-100 overflow-hidden">
+                    <div className="h-full rounded-full bg-emerald-400" style={{ width: `${p.completionRate}%` }} />
+                  </div>
+                </div>
+              </Link>
+            ))}
+            <div className="flex items-center gap-6 pt-2 text-xs text-slate-400">
+              <span className="flex items-center gap-2"><span className="w-3 h-2 rounded-full bg-blue-500 inline-block" /> Enrollment</span>
+              <span className="flex items-center gap-2"><span className="w-3 h-1 rounded-full bg-emerald-400 inline-block" /> Completion</span>
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          STUDENTS + AT-RISK
+      ══════════════════════════════════════════════════════════ */}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:gap-24 lg:grid-cols-2 mb-16 lg:mb-28">
+
+        <section>
+          <div className="flex items-end justify-between mb-8 sm:mb-12">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Recently enrolled</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Students</h2>
+            </div>
+            <Link href="/admin/students" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
+              All students <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function KPIGrid({ kpis, counts }: { kpis: KPICard[]; counts: AdminDashboardData["counts"] }) {
-  const cards = [
-    { label: "Pending Applications", value: fmt(counts.pendingApplications), icon: FileText, color: "from-amber-500 to-orange-600", href: "/admin/applications", urgent: counts.pendingApplications > 10 },
-    { label: "Active Enrollments", value: fmt(counts.activeEnrollments), icon: Users, color: "from-brand-blue-500 to-brand-blue-700", href: "/admin/students" },
-    { label: "Revenue This Month", value: dollars(counts.revenueThisMonthCents), icon: DollarSign, color: "from-emerald-500 to-teal-600", href: "/admin/students?payment_status=paid" },
-    { label: "Certificates Issued", value: fmt(counts.certificatesIssued), icon: Award, color: "from-purple-500 to-violet-600", href: "/admin/certifications" },
-    { label: "Pending Docs", value: fmt(counts.pendingDocuments), icon: Clock, color: "from-rose-500 to-brand-red-600", href: "/admin/documents", urgent: counts.pendingDocuments > 0 },
-    { label: "Program Holders", value: fmt(counts.pendingProgramHolders), icon: Shield, color: "from-slate-500 to-slate-700", href: "/admin/program-holders" },
-  ];
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-      {cards.map((c) => (
-        <Link key={c.label} href={c.href} className="group relative overflow-hidden rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
-          <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${c.color}`} />
-          <div className="p-5">
-            <div className={`inline-flex p-2 rounded-xl bg-gradient-to-br ${c.color} mb-3`}>
-              <c.icon className="w-4 h-4 text-white" />
+          {data.recentStudents.length === 0 ? (
+            <Empty message="No students yet." />
+          ) : (
+            <div className="divide-y divide-slate-100">
+              {data.recentStudents.map(s => (
+                <Link key={s.id} href={s.href} className="group flex items-center gap-4 py-5 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-base font-bold text-slate-900 truncate">{s.full_name ?? s.email ?? "Unknown"}</p>
+                    <p className="text-sm text-slate-400 truncate mt-0.5">{s.program_name ?? "No program"}</p>
+                  </div>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    {s.enrollment_status && <StatusPill status={s.enrollment_status} />}
+                    <span className="text-xs text-slate-400 hidden sm:block">{fmtDate(s.created_at)}</span>
+                  </div>
+                </Link>
+              ))}
             </div>
-            <div className="text-2xl font-bold text-slate-900">{c.value}</div>
-            <div className="text-xs text-slate-500 mt-0.5 leading-tight">{c.label}</div>
-            {c.urgent && <div className="mt-2 w-2 h-2 rounded-full bg-brand-red-500 animate-pulse" />}
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-}
+          )}
+        </section>
 
-function ApplicationsPanel({ apps }: { apps: RecentApplication[] }) {
-  if (!apps.length) return null;
-  return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-amber-50"><FileText className="w-4 h-4 text-amber-600" /></div>
-          <h2 className="font-semibold text-slate-900">Recent Applications</h2>
-        </div>
-        <Link href="/admin/applications" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
-          View all <ChevronRight className="w-3 h-3" />
-        </Link>
-      </div>
-      <div className="divide-y divide-slate-50">
-        {apps.slice(0, 8).map((a) => (
-          <Link key={a.id} href={a.href} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
-            <div className="min-w-0">
-              <p className="font-medium text-slate-900 text-sm truncate">{a.full_name ?? (`${a.first_name ?? ""} ${a.last_name ?? ""}`.trim() || "—")}</p>
-              <p className="text-xs text-slate-500 truncate">{a.program_interest ?? "No program"}</p>
-            </div>
-            <div className="flex items-center gap-3 ml-4 shrink-0">
-              {a.urgent && <span className="text-xs text-brand-red-600 font-medium">{a.age_days}d old</span>}
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor(a.status)}`}>{a.status.replace(/_/g, " ")}</span>
-              <ChevronRight className="w-3 h-3 text-slate-300 group-hover:text-slate-500 transition-colors" />
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function StudentsPanel({ students }: { students: RecentStudent[] }) {
-  if (!students.length) return null;
-  return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-blue-50"><Users className="w-4 h-4 text-brand-blue-600" /></div>
-          <h2 className="font-semibold text-slate-900">Recent Students</h2>
-        </div>
-        <Link href="/admin/students" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
-          View all <ChevronRight className="w-3 h-3" />
-        </Link>
-      </div>
-      <div className="divide-y divide-slate-50">
-        {students.slice(0, 6).map((s) => (
-          <Link key={s.id} href={s.href} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-blue-400 to-brand-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
-                {(s.full_name ?? s.email ?? "?")[0].toUpperCase()}
-              </div>
-              <div className="min-w-0">
-                <p className="font-medium text-slate-900 text-sm truncate">{s.full_name ?? s.email ?? "—"}</p>
-                <p className="text-xs text-slate-500 truncate">{s.program_name ?? "No program"}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 ml-4 shrink-0">
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor(s.enrollment_status ?? "")}`}>{s.enrollment_status ?? "—"}</span>
-              <ChevronRight className="w-3 h-3 text-slate-300 group-hover:text-slate-500 transition-colors" />
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function SubmissionsPanel({ submissions }: { submissions: PendingSubmission[] }) {
-  if (!submissions.length) return null;
-  return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-purple-50"><BookOpen className="w-4 h-4 text-purple-600" /></div>
-          <h2 className="font-semibold text-slate-900">Pending Sign-Offs</h2>
-        </div>
-        <Link href="/instructor/submissions" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
-          Review all <ChevronRight className="w-3 h-3" />
-        </Link>
-      </div>
-      <div className="divide-y divide-slate-50">
-        {submissions.slice(0, 6).map((s) => (
-          <Link key={s.id} href={`/instructor/submissions/${s.id}`} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
-            <div className="min-w-0">
-              <p className="font-medium text-slate-900 text-sm capitalize">{s.step_type ?? "submission"}</p>
-              <p className="text-xs text-slate-500">{s.submitted_at ? new Date(s.submitted_at).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }) : "—"}</p>
-            </div>
-            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-amber-100 text-amber-800 shrink-0">{s.status}</span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function InactivePanel({ learners }: { learners: InactiveLearner[] }) {
-  if (!learners.length) return null;
-  return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-rose-50"><Activity className="w-4 h-4 text-rose-600" /></div>
-          <h2 className="font-semibold text-slate-900">At-Risk Learners</h2>
-        </div>
-        <Link href="/admin/students?filter=at_risk" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
-          View all <ChevronRight className="w-3 h-3" />
-        </Link>
-      </div>
-      <div className="divide-y divide-slate-50">
-        {learners.slice(0, 5).map((l) => (
-          <Link key={l.enrollmentId} href={l.href} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
-            <div className="min-w-0">
-              <p className="font-medium text-slate-900 text-sm truncate">{l.fullName ?? l.email ?? "—"}</p>
-              <p className="text-xs text-slate-500 truncate">{l.programTitle ?? "No program"}</p>
-            </div>
-            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-rose-100 text-rose-800 shrink-0">{l.daysInactive}d inactive</span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function QuickActions() {
-  const actions = [
-    { label: "Review Applications", href: "/admin/applications", icon: FileText, color: "bg-amber-500" },
-    { label: "Manage Students", href: "/admin/students", icon: Users, color: "bg-brand-blue-600" },
-    { label: "Programs", href: "/admin/programs", icon: BookOpen, color: "bg-purple-600" },
-    { label: "Payments", href: "/admin/payout-queue", icon: DollarSign, color: "bg-emerald-600" },
-    { label: "Certifications", href: "/admin/certifications", icon: Award, color: "bg-violet-600" },
-    { label: "Monitoring", href: "/admin/monitoring", icon: Activity, color: "bg-slate-700" },
-    { label: "Audit Logs", href: "/admin/audit-logs", icon: Shield, color: "bg-rose-600" },
-    { label: "Settings", href: "/admin/settings", icon: Zap, color: "bg-teal-600" },
-  ];
-  return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-slate-100">
-        <h2 className="font-semibold text-slate-900">Quick Actions</h2>
-      </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-100">
-        {actions.map((a) => (
-          <Link key={a.label} href={a.href} className="flex flex-col items-center gap-2 p-5 bg-white hover:bg-slate-50 transition-colors group">
-            <div className={`p-2.5 rounded-xl ${a.color}`}>
-              <a.icon className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xs font-medium text-slate-700 text-center leading-tight">{a.label}</span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function SystemHealthPanel({ health }: { health: AdminDashboardData["systemHealth"] }) {
-  return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-4 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <div className={`p-1.5 rounded-lg ${health.degraded ? "bg-red-50" : "bg-emerald-50"}`}>
-            <Activity className={`w-4 h-4 ${health.degraded ? "text-red-600" : "text-emerald-600"}`} />
-          </div>
-          <h2 className="font-semibold text-slate-900">System Health</h2>
-        </div>
-      </div>
-      <div className="p-6 space-y-3">
-        {[
-          { label: "Stripe Webhooks", ok: health.stripeWebhookOk },
-          { label: "Build Environment", ok: health.buildEnvOk },
-          { label: "Stale Jobs", ok: health.staleJobs === 0, note: health.staleJobs > 0 ? `${health.staleJobs} stale` : undefined },
-          { label: "Missing Documents", ok: health.missingDocuments === 0, note: health.missingDocuments > 0 ? `${health.missingDocuments} missing` : undefined },
-          { label: "Unresolved Flags", ok: health.unresolvedFlags === 0, note: health.unresolvedFlags > 0 ? `${health.unresolvedFlags} open` : undefined },
-        ].map((row) => (
-          <div key={row.label} className="flex items-center justify-between">
-            <span className="text-sm text-slate-600">{row.label}</span>
-            <div className="flex items-center gap-2">
-              {row.note && <span className="text-xs text-amber-600 font-medium">{row.note}</span>}
-              {row.ok
-                ? <CheckCircle className="w-4 h-4 text-emerald-500" />
-                : <AlertTriangle className="w-4 h-4 text-amber-500" />}
-            </div>
-          </div>
-        ))}
-        {health.alerts.filter(a => a.severity === "critical").map((a) => (
-          <div key={a.code} className="mt-2 p-3 bg-red-50 border border-red-100 rounded-lg text-xs text-red-700">{a.message}</div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Main Shell ──────────────────────────────────────────────────────────────
-
-// ─── Enrollment Trend ────────────────────────────────────────────────────────
-function EnrollmentTrendPanel({ trend }: { trend: EnrollmentTrendPoint[] }) {
-  if (!trend.length) return null;
-  const max = Math.max(...trend.map(t => t.enrollments), 1);
-  return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6">
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base font-semibold text-slate-900">Enrollment Trend</h2>
-        <span className="text-xs text-slate-400">Last 12 months</span>
-      </div>
-      <div className="flex items-end gap-1.5 h-28">
-        {trend.map((t) => {
-          const pct = Math.round((t.enrollments / max) * 100);
-          return (
-            <div key={t.month} className="flex-1 flex flex-col items-center gap-1">
-              <span className="text-[10px] text-slate-400 tabular-nums">{t.enrollments || ''}</span>
-              <div className="w-full rounded-t bg-brand-blue-500" style={{ height: `${Math.max(pct, 2)}%` }} />
-              <span className="text-[10px] text-slate-400">{t.month}</span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// ─── Top Programs ─────────────────────────────────────────────────────────────
-function TopProgramsPanel({ programs }: { programs: TopProgramPoint[] }) {
-  if (!programs.length) return null;
-  return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6">
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base font-semibold text-slate-900">Top Programs</h2>
-        <Link href="/admin/programs" className="text-xs text-blue-600 hover:underline flex items-center gap-1">
-          All <ChevronRight className="w-3 h-3" />
-        </Link>
-      </div>
-      <div className="space-y-3">
-        {programs.map((p) => (
-          <div key={p.id}>
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-medium text-slate-800 truncate max-w-[60%]">{p.title}</span>
-              <span className="text-xs text-slate-500 tabular-nums">{p.learners} learners · {p.completionRate}%</span>
-            </div>
-            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-              <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${p.completionRate}%` }} />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Student Status Breakdown ─────────────────────────────────────────────────
-function StudentStatusPanel({ statuses }: { statuses: StatusPoint[] }) {
-  if (!statuses.length) return null;
-  const total = statuses.reduce((s, p) => s + p.value, 0) || 1;
-  const colors: Record<string, string> = {
-    active: 'bg-emerald-500', enrolled: 'bg-blue-500',
-    pending: 'bg-amber-500', inactive: 'bg-slate-300',
-    graduated: 'bg-purple-500', withdrawn: 'bg-red-400',
-  };
-  return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6">
-      <h2 className="text-base font-semibold text-slate-900 mb-5">Student Statuses</h2>
-      <div className="flex h-3 rounded-full overflow-hidden mb-4 gap-0.5">
-        {statuses.map((s) => (
-          <div
-            key={s.name}
-            className={`${colors[s.name] ?? 'bg-slate-200'} rounded-full`}
-            style={{ width: `${Math.round((s.value / total) * 100)}%` }}
-            title={`${s.name}: ${s.value}`}
-          />
-        ))}
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        {statuses.map((s) => (
-          <div key={s.name} className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${colors[s.name] ?? 'bg-slate-200'}`} />
-            <span className="text-xs text-slate-600 capitalize">{s.name}</span>
-            <span className="text-xs font-semibold text-slate-900 ml-auto tabular-nums">{s.value}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Recent Activity Feed ─────────────────────────────────────────────────────
-function ActivityFeedPanel({ items }: { items: ActivityItem[] }) {
-  if (!items.length) return null;
-  return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6">
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base font-semibold text-slate-900">Recent Activity</h2>
-        <Activity className="w-4 h-4 text-slate-400" />
-      </div>
-      <div className="space-y-3">
-        {items.slice(0, 10).map((item) => (
-          <div key={item.id} className="flex items-start gap-3">
-            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm text-slate-700 leading-snug">{item.title}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{item.timestamp}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Blocked / Unpublished Programs ──────────────────────────────────────────
-function BlockedProgramsPanel({ programs }: { programs: BlockedProgram[] }) {
-  if (!programs.length) return null;
-  return (
-    <div className="bg-white rounded-2xl border border-amber-200 p-6">
-      <div className="flex items-center gap-2 mb-5">
-        <AlertTriangle className="w-4 h-4 text-amber-500" />
-        <h2 className="text-base font-semibold text-slate-900">Unpublished Programs</h2>
-        <span className="ml-auto text-xs font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">{programs.length}</span>
-      </div>
-      <div className="space-y-2">
-        {programs.map((p) => (
-          <Link key={p.id} href={p.href}
-            className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group">
+        <section>
+          <div className="flex items-end justify-between mb-8 sm:mb-12">
             <div>
-              <p className="text-sm font-medium text-slate-800 group-hover:text-blue-600">{p.title}</p>
-              <p className="text-xs text-slate-400 capitalize">{p.status} · updated {p.updatedAt}</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Inactive 3+ days</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">
+                At-Risk
+                {data.inactiveLearners.length > 0 && (
+                  <span className="ml-3 text-rose-600">{data.inactiveLearners.length}</span>
+                )}
+              </h2>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500" />
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function DashboardShell({ data }: { data: AdminDashboardData }) {
-  return (
-    <div className="min-h-screen bg-slate-50">
-      <HeroHeader data={data} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-        {data.degradedSections.length > 0 && (
-          <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3">
-            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
-            <p className="text-sm text-amber-800 font-medium">Some sections unavailable: {data.degradedSections.join(", ")}</p>
+            {data.inactiveLearners.length > 0 && (
+              <Link href="/admin/at-risk" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
+                View all <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            )}
           </div>
-        )}
-        <KPIGrid kpis={data.kpis} counts={data.counts} />
-        <QuickActions />
-
-        {/* Trend + Status row */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <EnrollmentTrendPanel trend={data.enrollmentTrend} />
-          </div>
-          <StudentStatusPanel statuses={data.studentStatuses} />
-        </div>
-
-        {/* Applications + Students */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ApplicationsPanel apps={data.recentApplications} />
-          <StudentsPanel students={data.recentStudents} />
-        </div>
-
-        {/* Top Programs + Activity Feed */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <TopProgramsPanel programs={data.topPrograms} />
-          <ActivityFeedPanel items={data.recentActivity} />
-        </div>
-
-        {/* Submissions + Inactive Learners */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <SubmissionsPanel submissions={data.pendingSubmissions} />
-          <InactivePanel learners={data.inactiveLearners} />
-        </div>
-
-        {/* Blocked Programs */}
-        {data.blockedPrograms.length > 0 && (
-          <BlockedProgramsPanel programs={data.blockedPrograms} />
-        )}
-
-        <SystemHealthPanel health={data.systemHealth} />
+          {data.inactiveLearners.length === 0 ? (
+            <Empty message="All students are engaged." />
+          ) : (
+            <div className="divide-y divide-slate-100">
+              {data.inactiveLearners.map(l => (
+                <Link key={l.enrollmentId} href={l.href} className="group flex items-center gap-4 py-5 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors">
+                  <div className="w-1 h-10 rounded-full bg-amber-400 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-base font-bold text-slate-900 truncate">{l.fullName ?? "Unknown"}</p>
+                    <p className="text-sm text-slate-400 truncate mt-0.5">{l.email ?? "No email"}</p>
+                  </div>
+                  <span className="text-xs font-semibold text-amber-600 flex-shrink-0">Since {fmtDate(l.enrolledAt)}</span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
       </div>
+
+      {/* ══════════════════════════════════════════════════════════
+          UNPUBLISHED PROGRAMS
+      ══════════════════════════════════════════════════════════ */}
+      {data.blockedPrograms.length > 0 && (
+        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
+          <div className="flex items-end justify-between mb-8 sm:mb-12">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Not yet live</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Unpublished</h2>
+            </div>
+            <Link href="/admin/programs?status=draft" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
+              All drafts <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <div className="divide-y divide-slate-100">
+            {data.blockedPrograms.map(p => (
+              <Link key={p.id} href={p.href} className="group flex items-center gap-4 py-5 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors">
+                <div className="flex-1 min-w-0">
+                  <p className="text-base font-bold text-slate-900 truncate">{p.title}</p>
+                  <p className="text-sm text-slate-400 truncate mt-0.5">{p.slug}</p>
+                </div>
+                <div className="flex items-center gap-3 flex-shrink-0">
+                  <StatusPill status={p.status} />
+                  <span className="text-xs text-slate-400 hidden sm:block">{fmtDate(p.updatedAt)}</span>
+                  <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-slate-500 transition-colors" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ══════════════════════════════════════════════════════════
+          SYSTEM HEALTH
+      ══════════════════════════════════════════════════════════ */}
+      <SystemHealthPanel health={data.systemHealth} />
+
     </div>
   );
 }

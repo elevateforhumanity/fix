@@ -12,7 +12,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { credentialId } = await params;
   const db = await getAdminClient();
-  const { data } = await supabase.from('credential_registry').select('name').eq('id', credentialId).maybeSingle();
+  const { data } = await supabase.from('credential_registry').select('name').eq('id', credentialId).single();
   return { title: data ? `${data.name} | Credential Registry` : 'Edit Credential | Admin' };
 }
 
@@ -23,13 +23,18 @@ export default async function EditCredentialPage({
 }) {
   const { credentialId } = await params;
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
   const db = await getAdminClient();
+
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!profile || !['admin','super_admin','org_admin','staff'].includes(profile.role)) redirect('/unauthorized');
 
   const { data: credential } = await supabase
     .from('credential_registry')
     .select('*')
     .eq('id', credentialId)
-    .maybeSingle();
+    .single();
 
   if (!credential) notFound();
 

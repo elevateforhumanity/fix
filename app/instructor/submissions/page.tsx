@@ -67,8 +67,8 @@ export default async function InstructorSubmissionsPage({
       reviewed_at,
       created_at,
       competency_key,
-      profiles:user_id ( full_name, email ),
-      course_lessons:course_lesson_id ( title, slug )
+      profiles!step_submissions_user_id_fkey ( full_name, email ),
+      course_lessons!step_submissions_course_lesson_id_fkey ( title, slug )
     `)
     .order('created_at', { ascending: false })
     .limit(100);

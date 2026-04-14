@@ -2,6 +2,7 @@
 import NextImage from 'next/image';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Upload, Image as ImageIcon, Video, FileText, Search, Grid, List } from 'lucide-react';
 
@@ -14,6 +15,11 @@ export const metadata: Metadata = {
 
 export default async function MediaLibraryPage() {
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
+
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!['admin', 'super_admin', 'staff'].includes(profile?.role ?? '')) redirect('/unauthorized');
 
   return (
     <div className="min-h-screen bg-white">
