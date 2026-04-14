@@ -3,385 +3,287 @@
     "passingScore": 70,
     "questions": [
       {
-        "prompt": "What is the primary purpose of a test curl in a chemical texture service?",
+        "prompt": "What is the primary chemical process involved in both permanent waving and chemical relaxing?",
         "choices": [
-          "To determine the appropriate processing time",
-          "To check for allergies",
-          "To measure hair length",
-          "To assess scalp health"
+          "Altering disulfide bonds",
+          "Breaking hydrogen bonds",
+          "Changing peptide bonds",
+          "Modifying salt bonds"
         ],
         "answerIndex": 0,
-        "rationale": "A test curl helps determine the appropriate processing time and ensures the desired results without causing damage to the hair.",
-        "type": "recall"
+        "rationale": "Both processes chemically alter the disulfide bonds in the hair's cortex."
       },
       {
-        "prompt": "Which of the following is a contraindication for performing a chemical texture service?",
+        "prompt": "Which type of perm is known for being the strongest and is used on resistant hair?",
         "choices": [
-          "Healthy scalp",
-          "Scalp abrasions",
-          "Thick hair",
-          "Natural hair color"
+          "Acid-balanced perm",
+          "Alkaline (cold wave) perm",
+          "Exothermic perm",
+          "Neutral perm"
         ],
         "answerIndex": 1,
-        "rationale": "Scalp abrasions are a contraindication because chemical solutions can exacerbate irritation or damage.",
-        "type": "recall"
+        "rationale": "Alkaline perms have a higher pH and are used on resistant hair due to their strength."
       },
       {
-        "prompt": "What is the role of a neutralizer in a chemical texture service?",
+        "prompt": "What is the active ingredient in an alkaline perm?",
         "choices": [
-          "To soften the hair",
-          "To break disulfide bonds",
-          "To re-harden disulfide bonds",
-          "To add color"
+          "Ammonium thioglycolate",
+          "Glyceryl monothioglycolate",
+          "Sodium hydroxide",
+          "Hydrogen peroxide"
+        ],
+        "answerIndex": 0,
+        "rationale": "Alkaline perms use ammonium thioglycolate as the active ingredient."
+      },
+      {
+        "prompt": "Why should clients avoid shampooing their hair for 48 hours after a perm?",
+        "choices": [
+          "To prevent color fading",
+          "To allow disulfide bonds to fully stabilize",
+          "To avoid scalp irritation",
+          "To enhance shine"
+        ],
+        "answerIndex": 1,
+        "rationale": "Avoiding shampooing helps the newly formed disulfide bonds stabilize in their new configuration."
+      },
+      {
+        "prompt": "Which perm type requires external heat to activate?",
+        "choices": [
+          "Alkaline perm",
+          "Acid-balanced perm",
+          "Exothermic perm",
+          "Neutral perm"
+        ],
+        "answerIndex": 1,
+        "rationale": "Acid-balanced perms require heat to activate the chemical process."
+      },
+      {
+        "prompt": "What is the effect of using smaller rods during a perm?",
+        "choices": [
+          "Looser waves",
+          "Tighter curls",
+          "No effect on curl size",
+          "Straight hair"
+        ],
+        "answerIndex": 1,
+        "rationale": "Smaller rods create tighter curls due to the increased curvature."
+      },
+      {
+        "prompt": "What can result from under-neutralizing during a perm?",
+        "choices": [
+          "Weak, limp curls",
+          "Overly tight curls",
+          "Hair straightening",
+          "Hair discoloration"
+        ],
+        "answerIndex": 0,
+        "rationale": "Under-neutralizing results in weak, limp curls because the disulfide bonds are not fully reformed."
+      },
+      {
+        "prompt": "Which condition is a contraindication for performing a perm?",
+        "choices": [
+          "Healthy hair",
+          "Previously relaxed hair",
+          "Thick hair",
+          "Curly hair"
+        ],
+        "answerIndex": 1,
+        "rationale": "Previously relaxed hair is a contraindication due to the high risk of breakage from already broken disulfide bonds."
+      },
+      {
+        "prompt": "A client with fine, color-treated hair wants a perm. Which type is most suitable?",
+        "choices": [
+          "Alkaline perm",
+          "Acid-balanced perm",
+          "Exothermic perm",
+          "Neutral perm"
+        ],
+        "answerIndex": 1,
+        "rationale": "Acid-balanced perms are gentler and suitable for fine, color-treated, or damaged hair."
+      },
+      {
+        "prompt": "What should be avoided for the first week after a perm to maintain hair health?",
+        "choices": [
+          "Sulfate-free products",
+          "Heat styling",
+          "Cold water rinses",
+          "Brushing"
+        ],
+        "answerIndex": 1,
+        "rationale": "Avoiding heat styling helps prevent damage to the newly formed curls."
+      },
+      {
+        "prompt": "What is the role of a neutralizer in the perming process?",
+        "choices": [
+          "Breaks disulfide bonds",
+          "Reforms disulfide bonds",
+          "Adds moisture",
+          "Cleanses the hair"
+        ],
+        "answerIndex": 1,
+        "rationale": "The neutralizer reforms the disulfide bonds in the new configuration to lock in the curl."
+      },
+      {
+        "prompt": "What pH range is typical for an alkaline (cold wave) perm?",
+        "choices": [
+          "4.5–5.5",
+          "6.5–7.0",
+          "8.5–9.5",
+          "10.0–11.0"
         ],
         "answerIndex": 2,
-        "rationale": "The neutralizer re-hardens the disulfide bonds that were broken during the waving process, locking in the new shape of the hair.",
-        "type": "recall"
+        "rationale": "Alkaline perms typically have a pH range of 8.5–9.5, making them strong and effective on resistant hair."
       },
       {
-        "prompt": "Which personal protective equipment (PPE) is essential for a barber performing chemical texture services?",
+        "prompt": "During a perm, what effect does rod placement have?",
         "choices": [
-          "Gloves",
-          "Hat",
-          "Scarf",
-          "Boots"
-        ],
-        "answerIndex": 0,
-        "rationale": "Gloves are essential to prevent skin contact with chemicals, reducing the risk of irritation or allergic reactions.",
-        "type": "recall"
-      },
-      {
-        "prompt": "What should a barber do after applying the waving lotion during a test curl?",
-        "choices": [
-          "Apply the neutralizer immediately",
-          "Check for curl formation after the recommended time",
-          "Rinse the hair immediately",
-          "Cut the hair"
-        ],
-        "answerIndex": 1,
-        "rationale": "The barber should check for curl formation after the recommended time to assess if additional processing is needed.",
-        "type": "recall"
-      },
-      {
-        "prompt": "Why is it important to thoroughly rinse out the waving lotion before applying the neutralizer?",
-        "choices": [
-          "To prevent continued processing",
-          "To add shine to the hair",
-          "To increase volume",
-          "To change hair color"
-        ],
-        "answerIndex": 0,
-        "rationale": "Rinsing out the waving lotion stops the chemical action, preventing continued processing that can weaken the hair.",
-        "type": "recall"
-      },
-      {
-        "prompt": "What is the main chemical action involved in permanent waving?",
-        "choices": [
-          "Breaking and reforming disulfide bonds",
-          "Adding moisture to the hair",
-          "Changing hair color",
-          "Removing hair length"
-        ],
-        "answerIndex": 0,
-        "rationale": "Permanent waving involves breaking and reforming disulfide bonds to alter the hair's natural structure.",
-        "type": "recall"
-      },
-      {
-        "prompt": "What factor should be considered when selecting a section of hair for a test curl?",
-        "choices": [
-          "Visibility",
-          "Scalp condition",
+          "Curl size",
           "Hair color",
+          "Volume and direction",
           "Hair length"
         ],
-        "answerIndex": 0,
-        "rationale": "A section from the back of the head is typically chosen for a test curl because it is less visible.",
-        "type": "recall"
-      },
-      {
-        "prompt": "A client presents with a history of frequent hair coloring and heat styling. What should the barber do before proceeding with a chemical texture service?",
-        "choices": [
-          "Perform a test curl",
-          "Proceed without caution",
-          "Use a stronger chemical solution",
-          "Ignore the client's history"
-        ],
-        "answerIndex": 0,
-        "rationale": "Performing a test curl is essential to assess how the hair will react to the chemical texture service, given its compromised condition.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "During a service, you notice the client has scalp abrasions. What is the best course of action?",
-        "choices": [
-          "Proceed with the service",
-          "Apply a soothing lotion",
-          "Postpone the service",
-          "Use a stronger chemical solution"
-        ],
         "answerIndex": 2,
-        "rationale": "Postponing the service is the best course of action to prevent exacerbating the scalp abrasions with chemical solutions.",
-        "type": "scenario"
+        "rationale": "Rod placement affects the volume and direction of the curls or waves."
       },
       {
-        "prompt": "A new client asks for a permanent wave but mentions they have an allergy to certain chemicals. What should the barber do?",
+        "prompt": "What is a potential consequence of over-neutralizing during a perm?",
         "choices": [
-          "Perform a patch test",
-          "Ignore the allergy",
-          "Proceed with the service",
-          "Use any available product"
-        ],
-        "answerIndex": 0,
-        "rationale": "Performing a patch test helps determine if the client will have an allergic reaction to the chemicals used in the service.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "During a chemical texture service, you accidentally spill waving lotion on your apron. What should you do?",
-        "choices": [
-          "Ignore it",
-          "Wipe it with your hand",
-          "Change the apron",
-          "Continue the service"
-        ],
-        "answerIndex": 2,
-        "rationale": "Changing the apron is essential to maintain safety and hygiene, preventing potential chemical exposure.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "A client with thick, coarse hair requests a permanent wave. What should the barber consider when selecting the product?",
-        "choices": [
-          "Use a milder solution",
-          "Use a stronger solution",
-          "Use any available solution",
-          "Avoid using any solution"
+          "Stronger curls",
+          "Hair damage",
+          "Longer-lasting curls",
+          "Increased shine"
         ],
         "answerIndex": 1,
-        "rationale": "A stronger solution may be necessary to effectively alter the texture of thick, coarse hair.",
-        "type": "scenario"
+        "rationale": "Over-neutralizing can cause damage to the hair by over-processing the disulfide bonds."
       },
       {
-        "prompt": "During a test curl, the hair does not form a curl after the recommended processing time. What should the barber do?",
+        "prompt": "A client has scalp abrasions. What should be your course of action regarding a perm?",
         "choices": [
-          "Rinse immediately",
-          "Apply more waving lotion",
-          "Allow additional processing time",
-          "Neutralize immediately"
+          "Proceed with caution",
+          "Use a milder perm",
+          "Postpone the perm",
+          "Apply a protective cream"
         ],
         "answerIndex": 2,
-        "rationale": "Allowing additional processing time can help achieve the desired curl formation if the initial time was insufficient.",
-        "type": "scenario"
+        "rationale": "Scalp abrasions are a contraindication for perms, so the service should be postponed."
       },
       {
-        "prompt": "A client with previously relaxed hair requests a permanent wave. What is the best approach?",
+        "prompt": "What type of perm generates its own heat through a chemical reaction?",
         "choices": [
-          "Perform a strand test",
-          "Proceed without testing",
-          "Use a strong chemical solution",
-          "Ignore the client's hair history"
+          "Alkaline perm",
+          "Acid-balanced perm",
+          "Exothermic perm",
+          "Neutral perm"
         ],
-        "answerIndex": 0,
-        "rationale": "Performing a strand test helps assess how the previously relaxed hair will react to the permanent wave chemicals.",
-        "type": "scenario"
+        "answerIndex": 2,
+        "rationale": "Exothermic perms generate their own heat and do not require external heat sources."
       },
       {
-        "prompt": "A client requests a chemical texture service but has a known allergy to a common ingredient. What is the best approach?",
+        "prompt": "If a client has severely damaged hair, what is the recommended action regarding a perm?",
         "choices": [
-          "Use a hypoallergenic product",
-          "Ignore the allergy",
-          "Use the usual product",
-          "Perform the service without chemicals"
+          "Use a stronger perm",
+          "Proceed with a mild perm",
+          "Avoid perming",
+          "Use a conditioning treatment before perming"
         ],
-        "answerIndex": 0,
-        "rationale": "Using a hypoallergenic product tailored to the client's needs is the best approach to avoid allergic reactions.",
-        "type": "applied"
+        "answerIndex": 2,
+        "rationale": "Severely damaged hair is a contraindication for perming due to the risk of further damage."
       },
       {
-        "prompt": "What is the best way to ensure the longevity of the curl after a chemical texture service?",
+        "prompt": "What is the effect of using larger rods during a perm?",
         "choices": [
-          "Apply the neutralizer correctly",
-          "Use a strong shampoo",
-          "Avoid using conditioner",
-          "Rinse with cold water"
-        ],
-        "answerIndex": 0,
-        "rationale": "Applying the neutralizer correctly is crucial for re-hardening the disulfide bonds and ensuring the curl's longevity.",
-        "type": "applied"
-      },
-      {
-        "prompt": "What would you do if a client experiences a burning sensation during a chemical texture service?",
-        "choices": [
-          "Continue the service",
-          "Rinse the hair immediately",
-          "Apply more product",
-          "Ignore the sensation"
+          "Tighter curls",
+          "Looser waves",
+          "No effect on curl size",
+          "Straight hair"
         ],
         "answerIndex": 1,
-        "rationale": "Rinsing the hair immediately is essential to stop the chemical process and prevent further irritation or damage.",
-        "type": "applied"
+        "rationale": "Larger rods create looser waves due to the decreased curvature."
       },
       {
-        "prompt": "Which is the best approach to ensure client safety during a chemical texture service?",
+        "prompt": "Which ingredient is used in acid-balanced perms?",
         "choices": [
-          "Use appropriate PPE",
-          "Skip the test curl",
-          "Use any available product",
-          "Ignore contraindications"
+          "Ammonium thioglycolate",
+          "Glyceryl monothioglycolate",
+          "Sodium hydroxide",
+          "Hydrogen peroxide"
         ],
-        "answerIndex": 0,
-        "rationale": "Using appropriate PPE is crucial for protecting both the barber and the client from potential chemical exposure.",
-        "type": "applied"
+        "answerIndex": 1,
+        "rationale": "Glyceryl monothioglycolate is the active ingredient in acid-balanced perms."
       },
       {
-        "prompt": "Which of the following steps is crucial before applying the neutralizer in a chemical texture service?",
+        "prompt": "What should clients use post-perm to enhance curl definition?",
         "choices": [
-          "Rinsing out the waving lotion thoroughly",
-          "Applying more waving lotion",
-          "Cutting the hair",
-          "Blow drying the hair"
+          "Sulfate-free, curl-enhancing products",
+          "Regular shampoo",
+          "Clarifying shampoo",
+          "Volumizing mousse"
         ],
         "answerIndex": 0,
-        "rationale": "Rinsing out the waving lotion thoroughly is crucial to stop the chemical action and prevent further processing, which could damage the hair.",
-        "type": "recall"
+        "rationale": "Sulfate-free, curl-enhancing products help maintain and define curls without stripping moisture."
       }
     ]
   },
   "flashcards": [
     {
       "term": "Permanent Wave",
-      "definition": "A chemical hair service that creates curls or waves by breaking and reforming disulfide bonds."
+      "definition": "A chemical process that alters the disulfide bonds in the hair's cortex to create curls or waves."
     },
     {
-      "term": "Chemical Texture Services",
-      "definition": "Services that alter the natural structure of the hair using chemical solutions to achieve different styles and textures."
+      "term": "Chemical Relaxing",
+      "definition": "A process that chemically alters the disulfide bonds in the hair's cortex to straighten the hair."
     },
     {
       "term": "Disulfide Bonds",
-      "definition": "Strong chemical bonds in the hair that are broken and reformed during chemical texture services to change hair shape."
-    },
-    {
-      "term": "Test Curl",
-      "definition": "A preliminary step in chemical waving to determine processing time and ensure desired results without damaging the hair."
-    },
-    {
-      "term": "Neutralizer",
-      "definition": "A chemical solution applied after processing to re-harden disulfide bonds and lock in the new hair shape."
-    },
-    {
-      "term": "Contraindications",
-      "definition": "Conditions or factors that make a chemical service unsuitable, such as scalp abrasions or allergies."
-    },
-    {
-      "term": "Personal Protective Equipment (PPE)",
-      "definition": "Safety gear like gloves and aprons used to protect against chemical exposure during services."
-    },
-    {
-      "term": "Relaxing",
-      "definition": "A chemical process that straightens curly or wavy hair by breaking disulfide bonds."
-    },
-    {
-      "term": "Retexturizing",
-      "definition": "A chemical service that alters the hair's texture, making it either curlier or straighter."
-    },
-    {
-      "term": "Processing Time",
-      "definition": "The duration a chemical solution is left on the hair to achieve the desired texture change."
+      "definition": "Strong chemical side bonds in the hair's cortex that are altered during perming or relaxing."
     },
     {
       "term": "Waving Lotion",
-      "definition": "A chemical solution used in permanent waving to break disulfide bonds and form curls or waves."
+      "definition": "A reducing agent applied to hair to break disulfide bonds and allow it to take the shape of perm rods."
     },
     {
-      "term": "pH Balance",
-      "definition": "The level of acidity or alkalinity in hair, which is restored by the neutralizer after chemical processing."
+      "term": "Neutralizer",
+      "definition": "An oxidizing agent applied after waving lotion to reform disulfide bonds in the new shape."
     },
     {
-      "term": "Scalp Abrasions",
-      "definition": "Injuries or irritations on the scalp that can be exacerbated by chemical solutions, serving as a contraindication."
+      "term": "Alkaline (Cold Wave) Perm",
+      "definition": "A type of perm with a pH of 8.5–9.5 that processes at room temperature using ammonium thioglycolate."
     },
     {
-      "term": "Safety Protocols",
-      "definition": "Guidelines followed to ensure safe application of chemical services, including the use of PPE and proper handling of solutions."
+      "term": "Acid-Balanced Perm",
+      "definition": "A gentler perm with a pH of 6.5–7.0 that requires heat to activate, using glyceryl monothioglycolate."
     },
     {
-      "term": "Client Consultation",
-      "definition": "A discussion with the client to assess hair history, allergies, and suitability for chemical services."
-    }
-  ],
-  "content": "# Permanent Waves & Chemical Texture Services\n\nIn the world of barbering, understanding permanent waves and chemical texture services is essential for any professional seeking to offer a full range of styling options to clients. In Indiana, where hair texture and style preferences are as diverse as the population itself, mastering these techniques can significantly enhance a barber's service offerings. As a crucial component of the barbering curriculum, this topic not only prepares you for the state board exam but also equips you with the skills needed to meet client expectations and maintain professional standards.\n\n## Understanding Chemical Texture Services\n\nChemical texture services involve altering the natural structure of the hair to achieve desired styles and textures. These services, which include permanent waving, relaxing, and retexturizing, rely on chemical solutions to break and reform the disulfide bonds in the hair. This process allows barbers to transform straight hair into curls or waves and vice versa. Understanding the science behind these changes is vital for ensuring client satisfaction and maintaining hair health.\n\nThe Indiana state board exam dedicates 15% of its content to chemical services, emphasizing the importance of this domain in your professional practice. The exam assesses your knowledge of chemical processes, safety protocols, and the ability to identify contraindications. By mastering these aspects, you not only improve your chances of passing the exam but also enhance your ability to provide safe and effective services.\n\n## Performing a Test Curl\n\nBefore performing a full chemical texture service, it's essential to conduct a test curl. This step helps determine the appropriate processing time and ensures the desired results without causing damage to the hair. A test curl involves applying the waving lotion to a small section of hair and observing the curl formation.\n\n1. **Select a small section of hair**: Choose a section from the back of the head, as this area is typically less visible.\n2. **Apply waving lotion**: Follow the manufacturer's instructions for application, ensuring the section is evenly saturated.\n3. **Check for curl formation**: After the recommended time, gently unwind the hair to assess the curl. If the curl is not well-formed, additional processing time may be needed.\n4. **Rinse and neutralize**: Once the desired curl is achieved, rinse the section thoroughly and apply the neutralizer to re-harden the disulfide bonds.\n\nConducting a test curl is a crucial step in ensuring the success of the service and preventing over-processing, which can lead to hair damage.\n\n## Application of Neutralizer\n\nAfter the processing phase, applying the neutralizer is a critical step in chemical texture services. The neutralizer serves to re-harden the disulfide bonds that were broken during the waving process, locking in the new shape of the hair. Proper application of the neutralizer is essential to ensure the longevity and integrity of the curl or wave.\n\nBegin by thoroughly rinsing out the waving lotion to stop the chemical action. It's crucial to remove all traces of the lotion to prevent continued processing, which can weaken the hair. Once rinsed, apply the neutralizer evenly throughout the hair, following the manufacturer's guidelines for timing and application. The neutralizer not only solidifies the new shape but also restores the hair's pH balance, which is disrupted during the chemical process.\n\nUnderstanding the role of the neutralizer and executing its application correctly is vital for achieving the desired results and maintaining hair health. This knowledge will be tested in the Indiana state board exam, where you must demonstrate competency in applying chemical solutions safely and effectively.\n\n## Identifying Contraindications\n\nBefore performing any chemical texture service, it's imperative to identify any contraindications that may affect the outcome or safety of the procedure. Contraindications are conditions or factors that increase the risk of adverse effects, making the service unsuitable for certain clients. These may include scalp abrasions, allergies to chemicals, or previously compromised hair due to excessive coloring or heat styling.\n\nDuring the consultation, ask the client about their hair history and any known allergies. Examine the scalp for signs of irritation or damage, as these can be exacerbated by chemical solutions. It's also important to consider the client's hair type and texture, as these factors influence the choice of product and processing time.\n\nBeing able to identify contraindications is a key competency for barbers, ensuring client safety and satisfaction. The Indiana state board exam will assess your ability to recognize these factors and make informed decisions about service suitability.\n\n## Personal Protective Equipment (PPE)\n\nWearing appropriate personal protective equipment (PPE) is a fundamental aspect of performing chemical texture services. PPE protects both the barber and the client from potential chemical exposure and ensures compliance with health and safety regulations. Essential PPE items include gloves, aprons, and eye protection.\n\nGloves are crucial for preventing skin contact with chemicals, reducing the risk of irritation or allergic reactions. Aprons protect clothing from spills and splashes, while eye protection shields against accidental splashes that could cause eye damage. Ensuring that PPE is worn correctly and consistently is a professional responsibility that enhances safety and demonstrates a commitment to best practices.\n\nIncorporating PPE into your routine is not only a best practice but also a requirement assessed in the Indiana state board exam. Demonstrating proper use of PPE reflects your understanding of safety protocols and readiness to perform chemical services professionally.\n\n## Key Takeaway\n\nMastering permanent waves and chemical texture services is essential for any barber seeking to expand their skill set and meet diverse client needs. By understanding the science behind these services, performing test curls, applying neutralizers correctly, identifying contraindications, and using appropriate PPE, you ensure both client satisfaction and safety. These competencies are critical for passing the Indiana state board exam and establishing yourself as a knowledgeable and capable professional in the industry. As you continue to refine your skills, remember that excellence in chemical services is a mark of distinction that sets you apart in the barbering field.",
-  "procedures": [
-    {
-      "step": 1,
-      "instruction": "Consult with the client to discuss desired results and assess hair condition.",
-      "safetyNote": "Ensure no contraindications such as scalp abrasions or allergies."
+      "term": "Exothermic Perm",
+      "definition": "A perm that generates its own heat through a chemical reaction, requiring no external heat."
     },
     {
-      "step": 2,
-      "instruction": "Perform a patch test with the chemical solution to check for allergic reactions.",
-      "safetyNote": "Wait 24 hours to observe any adverse reactions."
+      "term": "Rod Size",
+      "definition": "Determines the size of the curl: smaller rods create tighter curls, larger rods create looser waves."
     },
     {
-      "step": 3,
-      "instruction": "Prepare the workstation by disinfecting all tools and surfaces.",
-      "safetyNote": "SAFETY: Disinfect before use to maintain hygiene standards."
+      "term": "Neutralization",
+      "definition": "The process of stopping the waving action and reforming disulfide bonds in the new configuration."
     },
     {
-      "step": 4,
-      "instruction": "Put on personal protective equipment including gloves and apron.",
-      "safetyNote": "SAFETY: Use PPE to prevent skin contact with chemicals."
+      "term": "Under-Neutralizing",
+      "definition": "Results in weak, limp curls due to insufficient reformation of disulfide bonds."
     },
     {
-      "step": 5,
-      "instruction": "Section the hair into manageable parts for even application.",
-      "safetyNote": null
+      "term": "Over-Neutralizing",
+      "definition": "Can cause hair damage due to excessive reformation of disulfide bonds."
     },
     {
-      "step": 6,
-      "instruction": "Select a small section of hair from the back of the head for a test curl.",
-      "safetyNote": null
+      "term": "Contraindications for Perms",
+      "definition": "Conditions like previously relaxed hair, severe damage, or scalp abrasions that increase risk of damage."
     },
     {
-      "step": 7,
-      "instruction": "Apply the waving lotion to the test curl section, following manufacturer instructions.",
-      "safetyNote": null
+      "term": "Post-Perm Care",
+      "definition": "Includes avoiding shampooing for 48 hours, using sulfate-free products, and avoiding heat styling for a week."
     },
     {
-      "step": 8,
-      "instruction": "Check the test curl formation after the recommended processing time.",
-      "safetyNote": null
-    },
-    {
-      "step": 9,
-      "instruction": "Rinse the test curl thoroughly and apply the neutralizer to re-harden the bonds.",
-      "safetyNote": null
-    },
-    {
-      "step": 10,
-      "instruction": "Apply the waving lotion to the entire head, ensuring even saturation.",
-      "safetyNote": null
-    },
-    {
-      "step": 11,
-      "instruction": "Process the hair according to the manufacturer's recommended time.",
-      "safetyNote": null
-    },
-    {
-      "step": 12,
-      "instruction": "Rinse the hair thoroughly to remove all waving lotion.",
-      "safetyNote": "Ensure all lotion is removed to prevent over-processing."
-    },
-    {
-      "step": 13,
-      "instruction": "Apply the neutralizer evenly throughout the hair, following timing guidelines.",
-      "safetyNote": "Neutralizer restores pH balance and solidifies new shape."
-    },
-    {
-      "step": 14,
-      "instruction": "Rinse the hair again to remove all traces of the neutralizer.",
-      "safetyNote": null
-    },
-    {
-      "step": 15,
-      "instruction": "Style the hair as desired and conduct a final check for client satisfaction.",
-      "safetyNote": null
+      "term": "Base Placement",
+      "definition": "Rod placement technique affecting volume and direction of curls: base, off-base, or half-base."
     }
   ]
 }

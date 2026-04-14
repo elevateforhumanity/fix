@@ -3,308 +3,287 @@
     "passingScore": 70,
     "questions": [
       {
-        "prompt": "What is the primary role of lines in hair design?",
+        "prompt": "What is the overall 3D shape of a hairstyle known as?",
         "choices": [
-          "To create movement and guide the eye",
-          "To add color and texture",
-          "To determine the length of the haircut",
-          "To establish the density of hair"
-        ],
-        "answerIndex": 0,
-        "rationale": "Lines in hair design are used to create movement and guide the eye, which helps in shaping the overall appearance of a hairstyle.",
-        "type": "recall"
-      },
-      {
-        "prompt": "Which element of hair design refers to the overall shape and structure of a hairstyle?",
-        "choices": [
-          "Texture",
           "Form",
-          "Space",
-          "Color"
-        ],
-        "answerIndex": 1,
-        "rationale": "Form is the element that refers to the overall shape and structure of a hairstyle, providing its silhouette.",
-        "type": "recall"
-      },
-      {
-        "prompt": "A client presents with a round face shape. Which hairstyle would be most suitable?",
-        "choices": [
-          "Chin-length bob",
-          "Style with volume on top",
-          "Short, even cut",
-          "Long, straight hair"
-        ],
-        "answerIndex": 1,
-        "rationale": "For a round face shape, styles with volume on top help create the illusion of length and narrowness.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "During a consultation, a client with an oblong face shape asks for a style recommendation. What should you suggest?",
-        "choices": [
-          "A style with added width on the sides",
-          "A high top fade",
-          "A long, straight style",
-          "A style with minimal volume"
-        ],
-        "answerIndex": 0,
-        "rationale": "For an oblong face shape, adding width to the sides helps balance the facial proportions.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "Which design principle involves the relationship between different parts of the hairstyle?",
-        "choices": [
-          "Rhythm",
-          "Proportion",
-          "Balance",
-          "Harmony"
-        ],
-        "answerIndex": 1,
-        "rationale": "Proportion involves the relationship between different parts of the hairstyle, ensuring they work together harmoniously.",
-        "type": "recall"
-      },
-      {
-        "prompt": "A new client asks for a modern and edgy look. Which balance should you consider using?",
-        "choices": [
-          "Symmetrical balance",
-          "Asymmetrical balance",
-          "Vertical balance",
-          "Horizontal balance"
-        ],
-        "answerIndex": 1,
-        "rationale": "Asymmetrical balance creates a modern and edgy appearance, which is what the client is seeking.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "What is the effect of using horizontal lines in a hairstyle?",
-        "choices": [
-          "Add length",
-          "Add width",
-          "Create movement",
-          "Highlight features"
-        ],
-        "answerIndex": 1,
-        "rationale": "Horizontal lines add width to a hairstyle, which can make a face appear wider.",
-        "type": "recall"
-      },
-      {
-        "prompt": "Which element of hair design can create contrast and highlight features?",
-        "choices": [
-          "Line",
-          "Space",
-          "Color",
-          "Form"
-        ],
-        "answerIndex": 2,
-        "rationale": "Color adds dimension and depth, creating contrast and highlighting features in a hairstyle.",
-        "type": "recall"
-      },
-      {
-        "prompt": "A client with a heart-shaped face wants to balance their wider forehead. What style should you recommend?",
-        "choices": [
-          "Style with volume around the chin",
-          "High ponytail",
-          "Short, even cut",
-          "Flat top"
-        ],
-        "answerIndex": 0,
-        "rationale": "For a heart-shaped face, adding volume around the chin helps balance the wider forehead.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "During a service, you notice a client has a square face shape. Which texture would help soften their strong jawline?",
-        "choices": [
-          "Straight texture",
-          "Curly or wavy texture",
-          "Flat texture",
-          "Spiky texture"
-        ],
-        "answerIndex": 1,
-        "rationale": "Curly or wavy textures can help soften the angular features of a square face shape.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "What is the principle of design that ensures all elements work together seamlessly?",
-        "choices": [
-          "Rhythm",
-          "Emphasis",
-          "Harmony",
-          "Balance"
-        ],
-        "answerIndex": 2,
-        "rationale": "Harmony is achieved when all elements and principles work together seamlessly, resulting in an attractive and suitable hairstyle.",
-        "type": "recall"
-      },
-      {
-        "prompt": "A client wants a hairstyle that emphasizes their eyes. Which design principle should you focus on?",
-        "choices": [
-          "Proportion",
-          "Rhythm",
-          "Emphasis",
-          "Harmony"
-        ],
-        "answerIndex": 2,
-        "rationale": "Emphasis is the focal point of the hairstyle, which can be used to draw attention to features like the eyes.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "Which element of hair design refers to the surface quality of the hair?",
-        "choices": [
-          "Line",
           "Texture",
-          "Space",
+          "Movement",
+          "Wave pattern"
+        ],
+        "answerIndex": 0,
+        "rationale": "Form refers to the silhouette or overall 3D shape of the hairstyle."
+      },
+      {
+        "prompt": "Which element of hair design describes the surface quality of the hair?",
+        "choices": [
+          "Form",
+          "Texture",
+          "Movement",
           "Color"
         ],
         "answerIndex": 1,
-        "rationale": "Texture refers to the surface quality of the hair, such as whether it is smooth, wavy, curly, or coiled.",
-        "type": "recall"
+        "rationale": "Texture refers to the surface quality of the hair, whether it is smooth or rough."
       },
       {
-        "prompt": "What is the best approach when a client with a diamond face shape requests a style that reduces width at the cheekbones?",
-        "choices": [
-          "Add height on top",
-          "Add width at the forehead and chin",
-          "Create a flat top",
-          "Use a central part"
-        ],
-        "answerIndex": 1,
-        "rationale": "For a diamond face shape, adding width at the forehead and chin helps reduce the appearance of width at the cheekbones.",
-        "type": "applied"
-      },
-      {
-        "prompt": "Which design principle involves the flow or movement within a hairstyle?",
+        "prompt": "Which principle of design focuses on the relationship between the size of the style and the client's body?",
         "choices": [
           "Proportion",
-          "Rhythm",
           "Balance",
+          "Rhythm",
           "Emphasis"
         ],
+        "answerIndex": 0,
+        "rationale": "Proportion is about the relationship between the size of the hairstyle and the client's body or head."
+      },
+      {
+        "prompt": "In hair design, what does balance refer to?",
+        "choices": [
+          "The focal point of the style",
+          "Symmetrical or asymmetrical arrangement",
+          "Repetition of lines",
+          "Unified look"
+        ],
         "answerIndex": 1,
-        "rationale": "Rhythm involves the flow or movement within a hairstyle, guiding the eye smoothly from one part of the style to another.",
-        "type": "recall"
+        "rationale": "Balance refers to whether the hairstyle is symmetrical or asymmetrical."
       },
       {
-        "prompt": "What is the best approach for creating a balanced hairstyle for a client with a triangle face shape?",
+        "prompt": "Which face shape is characterized by a wide forehead and narrow chin?",
         "choices": [
-          "Add volume on top",
-          "Keep hair flat",
-          "Avoid layers",
-          "Add width at the chin"
+          "Oval",
+          "Round",
+          "Heart",
+          "Diamond"
+        ],
+        "answerIndex": 2,
+        "rationale": "A heart-shaped face has a wide forehead and a narrow chin."
+      },
+      {
+        "prompt": "For a round face shape, which styling technique is recommended?",
+        "choices": [
+          "Add height at crown",
+          "Add width at sides",
+          "Minimize volume at jaw",
+          "Soften with textured sides"
         ],
         "answerIndex": 0,
-        "rationale": "For a triangle face shape, adding volume on top helps balance the narrow forehead with the wider jawline.",
-        "type": "applied"
+        "rationale": "Adding height at the crown can help elongate a round face shape."
       },
       {
-        "prompt": "A client with an oval face shape requests a hairstyle recommendation. What should you avoid?",
+        "prompt": "What is the focal point of a hairstyle referred to as?",
         "choices": [
-          "Adding too much height on top",
-          "Creating a bob",
-          "Adding layers",
-          "Using a side part"
+          "Harmony",
+          "Proportion",
+          "Emphasis",
+          "Rhythm"
         ],
-        "answerIndex": 0,
-        "rationale": "For an oval face shape, it is important to avoid styles that add too much height on top, as they can elongate the face.",
-        "type": "scenario"
+        "answerIndex": 2,
+        "rationale": "Emphasis is the element of design that refers to the focal point of the hairstyle."
       },
       {
-        "prompt": "What is the best approach when a client wants a hairstyle that is both modern and suitable for a professional setting?",
+        "prompt": "Which element of hair design is determined by growth patterns, cutting technique, and styling?",
         "choices": [
-          "Use symmetrical balance with a unique element",
-          "Opt for a wild, asymmetrical style",
-          "Choose a style with heavy emphasis",
-          "Use only horizontal lines"
+          "Form",
+          "Movement",
+          "Texture",
+          "Color"
         ],
-        "answerIndex": 0,
-        "rationale": "Using symmetrical balance with a unique element can create a modern look that remains suitable for a professional setting.",
-        "type": "applied"
+        "answerIndex": 1,
+        "rationale": "Movement is the direction in which hair flows, influenced by growth patterns, cutting technique, and styling."
       },
       {
-        "prompt": "Which design principle is focused on the distribution of visual weight within the hairstyle?",
+        "prompt": "A client with a square face shape should have which styling adjustment?",
         "choices": [
-          "Rhythm",
+          "Add height at crown",
+          "Add width at sides",
+          "Soften with textured sides",
+          "Minimize width at temples"
+        ],
+        "answerIndex": 2,
+        "rationale": "Textured sides can help soften the strong jawline and wide forehead of a square face shape."
+      },
+      {
+        "prompt": "Which principle of design involves the repetition of lines or patterns?",
+        "choices": [
           "Proportion",
           "Balance",
+          "Rhythm",
           "Harmony"
         ],
         "answerIndex": 2,
-        "rationale": "Balance refers to the distribution of visual weight within the hairstyle, which can be symmetrical or asymmetrical.",
-        "type": "recall"
+        "rationale": "Rhythm involves the repetition of lines or patterns to create movement in the hairstyle."
       },
       {
-        "prompt": "What is the best approach for a client with a square face shape who wants to soften their features?",
+        "prompt": "If a client has an oblong face shape, what should be avoided?",
         "choices": [
-          "Use straight lines",
-          "Add height on top",
-          "Use curly or wavy textures",
-          "Create a flat top"
+          "Adding height at crown",
+          "Adding width at sides",
+          "Textured sides",
+          "Volume at jaw"
+        ],
+        "answerIndex": 0,
+        "rationale": "Avoiding height at the crown helps prevent an oblong face from appearing even longer."
+      },
+      {
+        "prompt": "What is the term for the natural curl or wave of the hair?",
+        "choices": [
+          "Form",
+          "Texture",
+          "Wave pattern",
+          "Color"
         ],
         "answerIndex": 2,
-        "rationale": "Using curly or wavy textures can help soften the angular features of a square face shape.",
-        "type": "applied"
+        "rationale": "Wave pattern refers to the natural curl or wave of the hair, such as straight, wavy, curly, or coily."
+      },
+      {
+        "prompt": "When considering head shape, what area can significantly affect the overall silhouette?",
+        "choices": [
+          "Crown",
+          "Sides",
+          "Jawline",
+          "Cheekbones"
+        ],
+        "answerIndex": 0,
+        "rationale": "The crown area is one of the key zones that can significantly affect the overall silhouette of the hairstyle."
+      },
+      {
+        "prompt": "For a client with a diamond face shape, where should width be added?",
+        "choices": [
+          "At the crown",
+          "At the sides",
+          "At the forehead and chin",
+          "At the jaw"
+        ],
+        "answerIndex": 2,
+        "rationale": "Adding width at the forehead and chin can help balance the narrow forehead and jaw of a diamond face shape."
+      },
+      {
+        "prompt": "Which principle of design ensures all elements work together for a unified look?",
+        "choices": [
+          "Proportion",
+          "Balance",
+          "Harmony",
+          "Emphasis"
+        ],
+        "answerIndex": 2,
+        "rationale": "Harmony ensures that all elements of the hairstyle work together to create a unified look."
+      },
+      {
+        "prompt": "If a client has a prominent occipital bone, how should the barber adjust the cut?",
+        "choices": [
+          "Add volume at crown",
+          "Soften with textured sides",
+          "Create illusion of ideal proportions",
+          "Minimize width at temples"
+        ],
+        "answerIndex": 2,
+        "rationale": "The barber should adjust the cut to create the illusion of ideal proportions when dealing with a prominent occipital bone."
+      },
+      {
+        "prompt": "Which element of hair design involves light and dark areas creating visual weight?",
+        "choices": [
+          "Form",
+          "Texture",
+          "Color",
+          "Movement"
+        ],
+        "answerIndex": 2,
+        "rationale": "Color involves the use of light and dark areas to create visual weight and dimension in the hairstyle."
+      },
+      {
+        "prompt": "A client with an oval face shape is considered to have what kind of proportions?",
+        "choices": [
+          "Ideal",
+          "Wide and full",
+          "Strong jaw",
+          "Long and narrow"
+        ],
+        "answerIndex": 0,
+        "rationale": "An oval face shape is considered to have ideal proportions, allowing most styles to work well."
+      },
+      {
+        "prompt": "In hair design, what does the term 'emphasis' refer to?",
+        "choices": [
+          "The overall 3D shape",
+          "The focal point of the style",
+          "The surface quality",
+          "The direction hair flows"
+        ],
+        "answerIndex": 1,
+        "rationale": "Emphasis refers to the focal point of the hairstyle, where the eye is drawn first."
+      },
+      {
+        "prompt": "What should be the primary focus during a client consultation for hair design?",
+        "choices": [
+          "Identifying hair color",
+          "Identifying face shape",
+          "Choosing styling products",
+          "Selecting cutting tools"
+        ],
+        "answerIndex": 1,
+        "rationale": "Identifying the client's face shape is the foundation of a successful client consultation in hair design."
       }
     ]
   },
   "flashcards": [
     {
-      "term": "Elements of Hair Design",
-      "definition": "The foundational components of a hairstyle: line, form, space, texture, and color."
-    },
-    {
-      "term": "Line",
-      "definition": "Directional cues in a hairstyle that guide the eye and create movement; can be horizontal, vertical, or diagonal."
-    },
-    {
       "term": "Form",
-      "definition": "The overall shape and structure of a hairstyle, providing its silhouette."
-    },
-    {
-      "term": "Space",
-      "definition": "The area surrounding the form in a hairstyle, used to create openness or fullness."
+      "definition": "The overall 3D shape of the hairstyle — the silhouette."
     },
     {
       "term": "Texture",
-      "definition": "The surface quality of hair, such as smooth, wavy, curly, or coiled, affecting light reflection and style appearance."
+      "definition": "The surface quality of the hair — smooth (unactivated) or rough/wavy (activated)."
+    },
+    {
+      "term": "Movement",
+      "definition": "The direction hair flows — determined by growth patterns, cutting technique, and styling."
+    },
+    {
+      "term": "Wave pattern",
+      "definition": "The natural curl or wave of the hair — straight, wavy, curly, or coily."
     },
     {
       "term": "Color",
-      "definition": "Adds dimension and depth to a hairstyle, creating contrast and highlighting features."
+      "definition": "Light and dark areas create visual weight and dimension."
     },
     {
       "term": "Proportion",
-      "definition": "The relationship between different parts of a hairstyle, ensuring elements work together harmoniously."
+      "definition": "The relationship between the size of the style and the client's body/head."
     },
     {
       "term": "Balance",
-      "definition": "The distribution of visual weight in a hairstyle, which can be symmetrical or asymmetrical."
+      "definition": "Symmetrical (equal on both sides) or asymmetrical (intentionally unequal)."
     },
     {
       "term": "Rhythm",
-      "definition": "The flow or movement within a hairstyle, achieved through repetition of lines or shapes."
+      "definition": "Repetition of lines or patterns that create movement through the style."
     },
     {
       "term": "Emphasis",
-      "definition": "The focal point of a hairstyle that draws attention, created through color, volume, or a unique design element."
+      "definition": "The focal point of the style — where the eye is drawn first."
     },
     {
       "term": "Harmony",
-      "definition": "The overall cohesion of a hairstyle, where all elements and principles work together seamlessly."
+      "definition": "All elements working together to create a unified look."
     },
     {
-      "term": "Oval Face Shape",
-      "definition": "Considered the ideal face shape; most hairstyles are suitable, but avoid adding too much height on top."
+      "term": "Oval face shape",
+      "definition": "Ideal proportions — most styles work well."
     },
     {
-      "term": "Round Face Shape",
-      "definition": "Requires styles with volume on top and minimal volume on the sides to create the illusion of length."
+      "term": "Round face shape",
+      "definition": "Wide and full — add height at crown, keep sides close to elongate."
     },
     {
-      "term": "Square Face Shape",
-      "definition": "Best suited to styles that add height on top and length around the sides to soften a strong jawline."
+      "term": "Square face shape",
+      "definition": "Strong jaw and wide forehead — soften with textured sides and height."
     },
     {
-      "term": "Heart Face Shape",
-      "definition": "Balanced by styles that add volume around the chin, such as side-swept bangs or chin-length bobs."
+      "term": "Oblong/Rectangle face shape",
+      "definition": "Long and narrow — add width at sides, avoid height."
+    },
+    {
+      "term": "Head Shape Considerations",
+      "definition": "Assess head shape and adjust the cut to create the illusion of ideal proportions."
     }
-  ],
-  "content": "## Introduction to the Principles of Hair Design\n\nUnderstanding the principles of hair design is crucial for any barber in Indiana. Not only does it enhance your ability to create styles that satisfy your clients, but it also prepares you for the Indiana barber written exam, where the domain of Hair and Scalp covers 20% of the content. Mastery of these principles ensures that you can provide professional and personalized services, building a loyal clientele and a successful career.\n\n## The Five Elements of Hair Design\n\nThe foundation of any great hairstyle lies in the five elements of hair design: line, form, space, texture, and color. Each element plays a critical role in shaping the overall appearance and suitability of a hairstyle.\n\nLines are the directional cues that guide the eye and create movement within a hairstyle. Horizontal lines add width, vertical lines add length, and diagonal lines create interest and movement. Understanding how to manipulate these lines allows you to create the desired illusion of volume or sleekness.\n\nForm refers to the overall shape and structure of the hairstyle. It is the three-dimensional aspect that provides the silhouette. A well-executed form complements the client's facial features and personal style.\n\nSpace is the area surrounding the form. It can be used to create a sense of openness or fullness. Manipulating space effectively can enhance the overall balance and proportion of the hairstyle.\n\nTexture refers to the surface quality of the hair, whether smooth, wavy, curly, or coiled. Texture affects the light reflection and can influence the final appearance of the style.\n\nColor adds dimension and depth. It can create contrast, highlight features, and enhance the overall design. Choosing the right color can significantly impact the client’s satisfaction with the final look.\n\n## Design Principles: Proportion, Balance, Rhythm, Emphasis, and Harmony\n\nDesign principles are the rules that guide how the elements of hair design are combined. These principles ensure that the final hairstyle is aesthetically pleasing and suitable for the client.\n\nProportion involves the relationship between different parts of the hairstyle. A well-proportioned style ensures that all elements work together harmoniously, complementing the client's face shape and features.\n\nBalance is the distribution of visual weight within the hairstyle. Symmetrical balance offers a more traditional and formal look, while asymmetrical balance can create a more modern and edgy appearance.\n\nRhythm is the flow or movement within the hairstyle. It can be achieved through repetition of lines or shapes, guiding the eye smoothly from one part of the style to another.\n\nEmphasis is the focal point of the hairstyle. It draws attention and can be created through color, volume, or a unique design element. The emphasis should highlight the client’s best features.\n\nHarmony is the overall cohesion of the hairstyle. It is achieved when all elements and principles work together seamlessly, resulting in a style that is both attractive and suitable for the client.\n\n## Recommending Styles for Different Face Shapes\n\nOne of the most important skills for a barber is recommending hairstyles that suit different face shapes. Understanding face shapes helps in creating styles that enhance the client’s natural beauty.\n\n1. **Oval Face Shape**: This is considered the ideal face shape. Almost any hairstyle suits an oval face, but it is important to avoid styles that add too much height on top, which can elongate the face.\n\n2. **Round Face Shape**: To create the illusion of length, choose styles with volume on top and minimal volume on the sides. Avoid chin-length bobs or styles that add width to the sides.\n\n3. **Square Face Shape**: Soften the strong jawline with styles that add height on top and length around the sides. Curly or wavy textures can help soften the angular features.\n\n4. **Heart Face Shape**: Balance the wider forehead with styles that add volume around the chin. Side-swept bangs or chin-length bobs can be flattering.\n\n5. **Diamond Face Shape**: Reduce the width at the cheekbones with styles that add width at the forehead and chin. Avoid styles that add height on top without balancing the width at the chin.\n\n6. **Oblong Face Shape**: Add width to the sides with layers or curls. Avoid styles that are too long and straight, which can elongate the face further.\n\n7. **Triangle Face Shape**: Balance the narrow forehead with styles that add volume on top. A layered cut or side part can help create a balanced look.\n\n## Step-by-Step: Creating a Balanced Hairstyle\n\nCreating a balanced hairstyle involves several steps:\n\n1. **Analyze the Client’s Face Shape and Hair Texture**: Determine the client’s face shape and hair texture to select a suitable style.\n\n2. **Choose the Right Elements**: Decide on the lines, form, space, texture, and color that will best complement the client’s features.\n\n3. **Consider the Design Principles**: Ensure that the style maintains proportion, balance, rhythm, emphasis, and harmony.\n\n4. **Consult with the Client**: Discuss the chosen style with the client, ensuring it meets their preferences and lifestyle needs.\n\n5. **Execute the Style**: Use your technical skills to bring the design to life, paying attention to detail and making adjustments as necessary.\n\n6. **Finalize and Review**: Review the finished style with the client, making any final adjustments to ensure satisfaction.\n\n## Exam Preparation and Relevance\n\nThe principles of hair design are not only essential for practical barbering but also for passing the Indiana state board exam. This topic constitutes 20% of the written exam, testing your understanding of the elements and principles of design, as well as your ability to recommend suitable styles for different face shapes. Mastery of this content is crucial for both exam success and professional competence.\n\n## Key Takeaway\n\nMastering the principles of hair design is essential for any barber looking to excel in their craft. By understanding and applying these principles, you can create styles that are both aesthetically pleasing and tailored to your client's unique features. This knowledge is not only vital for client satisfaction but also for passing the Indiana state board exam, ensuring a successful and fulfilling career in barbering."
+  ]
 }

@@ -3,365 +3,287 @@
     "passingScore": 70,
     "questions": [
       {
-        "prompt": "What is the primary purpose of using a heat protectant spray before styling hair with thermal tools?",
+        "prompt": "What is the primary purpose of using a diffuser in hairstyling?",
         "choices": [
-          "To add volume to the hair",
-          "To shield the hair from thermal damage",
-          "To make the hair shinier",
-          "To help the hair dry faster"
-        ],
-        "answerIndex": 1,
-        "rationale": "A heat protectant spray is used to shield the hair from thermal damage caused by high temperatures of styling tools.",
-        "type": "recall"
-      },
-      {
-        "prompt": "Which thermal tool is typically used to create soft waves in hair?",
-        "choices": [
-          "Curling iron",
-          "Flat iron",
-          "Blow dryer",
-          "Crimping iron"
-        ],
-        "answerIndex": 1,
-        "rationale": "A flat iron is commonly used to create soft waves by twisting the iron while gliding it down the hair.",
-        "type": "recall"
-      },
-      {
-        "prompt": "What should a barber do if they notice a thermal tool has a damaged cord?",
-        "choices": [
-          "Use it carefully",
-          "Wrap the cord with tape",
-          "Replace the tool",
-          "Continue using it"
-        ],
-        "answerIndex": 2,
-        "rationale": "A damaged cord can be a safety hazard, so the tool should be replaced to ensure safety.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "A client presents with fine hair and wants to add volume. Which product should the barber use?",
-        "choices": [
-          "Smoothing serum",
-          "Volumizing spray",
-          "Heavy pomade",
-          "Oil-based gel"
-        ],
-        "answerIndex": 1,
-        "rationale": "A volumizing spray is designed to add lift and body to fine hair, enhancing volume.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "During a service, you notice the client's hair is very coarse. What is the best temperature setting for thermal tools?",
-        "choices": [
-          "Low",
-          "Medium",
-          "High",
-          "Very high"
-        ],
-        "answerIndex": 2,
-        "rationale": "Coarse hair can withstand higher temperatures, so a medium to high setting is appropriate.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "What is the best approach to ensure even distribution of styling products in the hair?",
-        "choices": [
-          "Apply to the scalp first",
-          "Start with a small amount and use a comb",
-          "Use a large amount immediately",
-          "Apply only to the ends"
-        ],
-        "answerIndex": 1,
-        "rationale": "Starting with a small amount and using a comb ensures even distribution without weighing down the hair.",
-        "type": "applied"
-      },
-      {
-        "prompt": "Which of the following is a key benefit of mastering curl and wave techniques for a barber?",
-        "choices": [
-          "Increased client satisfaction",
-          "Reduced service time",
-          "Lower product costs",
-          "Easier tool maintenance"
+          "Enhance natural curl and reduce frizz",
+          "Straighten hair",
+          "Add volume",
+          "Create tight curls"
         ],
         "answerIndex": 0,
-        "rationale": "Mastering these techniques allows barbers to offer a wider range of styles, leading to increased client satisfaction.",
-        "type": "recall"
+        "rationale": "A diffuser is a blow dryer attachment that disperses airflow to enhance natural curl and reduce frizz."
       },
       {
-        "prompt": "A new client asks for a polished and controlled look for their naturally curly hair. What technique should the barber use?",
+        "prompt": "Which styling product is known for adding shine and reducing frizz with minimal hold?",
         "choices": [
-          "Introduce tight curls",
-          "Create soft waves",
-          "Use a crimping iron",
-          "Straighten the hair"
+          "Mousse",
+          "Gel",
+          "Pomade",
+          "Serum"
+        ],
+        "answerIndex": 3,
+        "rationale": "Serum is used to add shine and reduce frizz, providing minimal hold."
+      },
+      {
+        "prompt": "When using a flat iron, what is the recommended temperature range for fine hair?",
+        "choices": [
+          "150°F",
+          "300°F",
+          "400°F",
+          "450°F"
         ],
         "answerIndex": 1,
-        "rationale": "Creating soft waves can help tame and define naturally curly hair, offering a polished look.",
-        "type": "scenario"
+        "rationale": "Fine hair should be styled with a flat iron at around 300°F to prevent damage."
       },
       {
-        "prompt": "What is the primary reason for dividing hair into sections before styling with a flat iron?",
+        "prompt": "Which technique involves twisting damp hair with styling cream and allowing it to dry before unraveling?",
         "choices": [
-          "To dry the hair faster",
-          "To ensure even styling",
-          "To apply more product",
-          "To make the hair shinier"
+          "Finger waves",
+          "Twist-out",
+          "Braid-out",
+          "Roller sets"
         ],
         "answerIndex": 1,
-        "rationale": "Dividing hair into sections ensures even styling and allows for better control of the tool.",
-        "type": "recall"
+        "rationale": "A twist-out involves twisting damp hair with styling cream, allowing it to dry, and then unraveling for a defined curl pattern."
       },
       {
-        "prompt": "Which styling product is best suited for controlling frizz in curly hair?",
+        "prompt": "What determines the curl size when using a curling iron?",
         "choices": [
-          "Volumizing spray",
-          "Smoothing serum",
-          "Texturizing powder",
-          "Dry shampoo"
+          "Hair length",
+          "Barrel size",
+          "Hair texture",
+          "Heat setting"
         ],
         "answerIndex": 1,
-        "rationale": "A smoothing serum is designed to control frizz and add shine to curly hair.",
-        "type": "recall"
+        "rationale": "The barrel size of the curling iron determines the curl size."
       },
       {
-        "prompt": "What should a barber do if a client expresses discomfort from the heat during styling?",
+        "prompt": "Which wet styling technique is best for creating S-shaped waves?",
         "choices": [
-          "Ignore the complaint",
-          "Continue with the same setting",
-          "Lower the heat setting",
-          "Use more product"
-        ],
-        "answerIndex": 2,
-        "rationale": "Lowering the heat setting can help alleviate discomfort and prevent burns.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "A client presents with naturally straight hair and wants more movement. What technique should the barber consider?",
-        "choices": [
-          "Straightening",
-          "Creating curls",
-          "Using a crimping iron",
-          "Shaving the sides"
+          "Pin curls",
+          "Finger waves",
+          "Roller sets",
+          "Braid-out"
         ],
         "answerIndex": 1,
-        "rationale": "Introducing curls can add volume and movement to naturally straight hair.",
-        "type": "scenario"
+        "rationale": "Finger waves are created using the fingers, a comb, and setting lotion to mold hair into S-shaped waves."
       },
       {
-        "prompt": "Which is the BEST approach to ensure client safety when using a curling iron?",
+        "prompt": "In a roller set, what effect do larger rollers have on the hair?",
         "choices": [
-          "Use the highest heat setting",
-          "Keep the heated section away from the scalp",
-          "Use the curling iron quickly",
-          "Apply extra styling product"
+          "Tighter curls",
+          "Looser waves",
+          "More volume",
+          "Less volume"
         ],
         "answerIndex": 1,
-        "rationale": "Keeping the heated section away from the scalp helps prevent burns and ensures client safety.",
-        "type": "applied"
+        "rationale": "Larger rollers create looser waves in a roller set."
       },
       {
-        "prompt": "What is the role of a light-hold hairspray in finishing a hairstyle?",
+        "prompt": "What is the key difference between a twist-out and a braid-out?",
         "choices": [
-          "To add moisture",
-          "To set the style",
-          "To straighten the hair",
-          "To add color"
+          "The use of heat",
+          "The use of setting lotion",
+          "The type of braid used",
+          "The method of twisting versus braiding"
+        ],
+        "answerIndex": 3,
+        "rationale": "A twist-out involves twisting sections of hair, while a braid-out involves braiding sections, resulting in different wave patterns."
+      },
+      {
+        "prompt": "Which product is ideal for adding volume with a light hold?",
+        "choices": [
+          "Mousse",
+          "Gel",
+          "Pomade",
+          "Serum"
+        ],
+        "answerIndex": 0,
+        "rationale": "Mousse is known for adding volume with a light hold."
+      },
+      {
+        "prompt": "During blow drying with a round brush, why is it important to use a heat protectant?",
+        "choices": [
+          "To enhance curl",
+          "To protect hair from heat damage",
+          "To add shine",
+          "To reduce drying time"
         ],
         "answerIndex": 1,
-        "rationale": "A light-hold hairspray is used to set the style, helping maintain the desired look.",
-        "type": "recall"
+        "rationale": "Using a heat protectant helps prevent damage to the hair from the high temperatures involved in blow drying."
       },
       {
-        "prompt": "Which tool is most appropriate for achieving tight, defined curls?",
+        "prompt": "What is a key characteristic of pin curls?",
+        "choices": [
+          "They use a flat iron",
+          "They are secured with clips",
+          "They require a diffuser",
+          "They are best for long hair only"
+        ],
+        "answerIndex": 1,
+        "rationale": "Pin curls involve winding small sections of hair into circles and securing them with clips."
+      },
+      {
+        "prompt": "Which technique is used to create volume, smoothness, and bend while blow drying?",
         "choices": [
           "Flat iron",
-          "Curling iron",
-          "Blow dryer",
-          "Crimping iron"
-        ],
-        "answerIndex": 1,
-        "rationale": "A curling iron is specifically designed to create tight, defined curls.",
-        "type": "recall"
-      },
-      {
-        "prompt": "What is the best action if a barber notices uneven heating in a flat iron?",
-        "choices": [
-          "Continue using it",
-          "Use it only on low heat",
-          "Replace or repair the tool",
-          "Shake the iron"
+          "Diffuser",
+          "Round brush",
+          "Pin curls"
         ],
         "answerIndex": 2,
-        "rationale": "Uneven heating can damage hair or cause burns, so the tool should be replaced or repaired.",
-        "type": "applied"
+        "rationale": "Blow drying with a round brush is used to create volume, smoothness, and bend."
       },
       {
-        "prompt": "A client with damaged hair requests styling with a flat iron. What should the barber consider?",
+        "prompt": "What is the effect of using a stand-up base in pin curls?",
         "choices": [
-          "Use high heat settings",
-          "Avoid using a heat protectant",
-          "Use a lower heat setting",
-          "Apply more styling product"
-        ],
-        "answerIndex": 2,
-        "rationale": "Using a lower heat setting helps prevent further damage to already compromised hair.",
-        "type": "scenario"
-      },
-      {
-        "prompt": "What is a key consideration when selecting styling products for a client?",
-        "choices": [
-          "Client's hair type",
-          "Client's age",
-          "Time of day",
-          "Weather conditions"
-        ],
-        "answerIndex": 0,
-        "rationale": "The client's hair type is crucial in selecting the appropriate styling products to achieve the desired outcome.",
-        "type": "recall"
-      },
-      {
-        "prompt": "Which is the BEST method to prevent burns when using thermal tools near the scalp?",
-        "choices": [
-          "Use a comb as a barrier",
-          "Apply more styling product",
-          "Use the tool quickly",
-          "Lower the heat setting"
-        ],
-        "answerIndex": 0,
-        "rationale": "Using a comb as a barrier between the tool and the scalp helps prevent burns.",
-        "type": "applied"
-      },
-      {
-        "prompt": "Why is it important to communicate with clients during the styling process?",
-        "choices": [
-          "To sell more products",
-          "To ensure their comfort and safety",
-          "To reduce service time",
-          "To increase service costs"
+          "Flat curl",
+          "Volume",
+          "Tight curl",
+          "Loose wave"
         ],
         "answerIndex": 1,
-        "rationale": "Communication ensures that clients are comfortable and safe during the styling process.",
-        "type": "recall"
+        "rationale": "A stand-up base in pin curls creates volume."
+      },
+      {
+        "prompt": "Which styling product provides strong hold and defines curls but can cause crunch if over-applied?",
+        "choices": [
+          "Mousse",
+          "Gel",
+          "Pomade",
+          "Serum"
+        ],
+        "answerIndex": 1,
+        "rationale": "Gel provides strong hold and defines curls but can cause crunch if over-applied."
+      },
+      {
+        "prompt": "What is the purpose of a wash-and-go technique?",
+        "choices": [
+          "To straighten hair",
+          "To enhance natural curl pattern",
+          "To create tight curls",
+          "To add volume"
+        ],
+        "answerIndex": 1,
+        "rationale": "A wash-and-go technique involves applying product to wet hair and allowing it to air dry to enhance the natural curl pattern."
+      },
+      {
+        "prompt": "Which styling product is ideal for classic barber styles due to its medium to strong hold and shine?",
+        "choices": [
+          "Mousse",
+          "Gel",
+          "Pomade",
+          "Serum"
+        ],
+        "answerIndex": 2,
+        "rationale": "Pomade is ideal for classic barber styles because it offers medium to strong hold and adds shine."
+      },
+      {
+        "prompt": "Why should a flat iron be used only on completely dry hair?",
+        "choices": [
+          "To prevent frizz",
+          "To avoid burning the hair",
+          "To create tighter curls",
+          "To enhance volume"
+        ],
+        "answerIndex": 1,
+        "rationale": "Using a flat iron on wet hair can cause the water in the hair to boil, leading to damage and burning."
+      },
+      {
+        "prompt": "What is the effect of using a leave-in conditioner?",
+        "choices": [
+          "Adds shine and reduces frizz",
+          "Moisturizes and detangles",
+          "Provides strong hold",
+          "Creates tight curls"
+        ],
+        "answerIndex": 1,
+        "rationale": "Leave-in conditioner moisturizes and detangles hair, providing light hold."
+      },
+      {
+        "prompt": "Which technique involves molding hair into waves using fingers and a comb?",
+        "choices": [
+          "Pin curls",
+          "Finger waves",
+          "Roller sets",
+          "Braid-out"
+        ],
+        "answerIndex": 1,
+        "rationale": "Finger waves are created by molding hair into S-shaped waves using fingers and a comb."
+      },
+      {
+        "prompt": "For which hair texture is a flat iron temperature of up to 450°F suitable?",
+        "choices": [
+          "Fine hair",
+          "Coarse hair",
+          "Curly hair",
+          "Wavy hair"
+        ],
+        "answerIndex": 1,
+        "rationale": "Coarse hair can withstand higher temperatures, up to 450°F, when using a flat iron."
       }
     ]
   },
   "flashcards": [
     {
-      "term": "Curl Patterns",
-      "definition": "Techniques used to create tight, defined curls using thermal tools like curling irons."
+      "term": "Finger waves",
+      "definition": "A wet styling technique using fingers, a comb, and setting lotion to create S-shaped waves in short, straight to wavy hair."
     },
     {
-      "term": "Wave Patterns",
-      "definition": "Techniques for creating soft, flowing waves using tools such as flat irons and wands."
+      "term": "Pin curls",
+      "definition": "Small sections of hair wound into circles and secured with clips, with the base direction determining curl direction and volume."
     },
     {
-      "term": "Thermal Tools",
-      "definition": "Equipment like curling irons and flat irons used to style hair by applying heat."
+      "term": "Roller sets",
+      "definition": "Hair is wound onto rollers of varying sizes to create different wave or curl patterns; larger rollers create looser waves."
     },
     {
-      "term": "Heat Protectant Spray",
-      "definition": "A product applied to hair before using thermal tools to prevent heat damage."
+      "term": "Blow drying with a round brush",
+      "definition": "A thermal styling technique that creates volume, smoothness, and bend using a round brush and heat protectant."
     },
     {
-      "term": "Sectioning Hair",
-      "definition": "Dividing hair into manageable parts to ensure even styling and easier handling."
+      "term": "Flat iron",
+      "definition": "A thermal tool used to straighten or create bends and waves in hair, with temperature adjusted based on hair texture."
     },
     {
-      "term": "Flat Iron",
-      "definition": "A tool used to straighten hair or create waves by applying heat and pressure."
+      "term": "Curling iron",
+      "definition": "A tool used to create curls and waves, where the barrel size determines the curl size."
     },
     {
-      "term": "Volumizing Spray",
-      "definition": "A styling product that adds lift and body to fine or limp hair."
+      "term": "Diffuser",
+      "definition": "A blow dryer attachment that disperses airflow to enhance natural curl and reduce frizz."
     },
     {
-      "term": "Smoothing Serum",
-      "definition": "A product used to reduce frizz and add shine to curly or wavy hair."
+      "term": "Twist-out",
+      "definition": "A natural texture technique where hair is twisted with styling cream and unraveled after drying to reveal a defined curl pattern."
     },
     {
-      "term": "Alternating Waves",
-      "definition": "A technique where waves are styled in different directions to achieve a natural look."
+      "term": "Braid-out",
+      "definition": "Similar to a twist-out, but using braids to create a more angular wave pattern."
     },
     {
-      "term": "Client Safety",
-      "definition": "Ensuring the client's well-being by properly handling tools and communicating during styling."
+      "term": "Wash-and-go",
+      "definition": "A natural texture technique where product is applied to wet hair and allowed to air dry to enhance the natural curl pattern."
     },
     {
-      "term": "Tool Inspection",
-      "definition": "Checking thermal tools for damage or malfunction before use to ensure safety."
+      "term": "Mousse",
+      "definition": "A styling product that provides light hold and adds volume to hair."
     },
     {
-      "term": "Temperature Adjustment",
-      "definition": "Setting the thermal tool's heat level according to the client's hair type to prevent damage."
+      "term": "Gel",
+      "definition": "A strong hold styling product that defines curls but can cause crunch if over-applied."
     },
     {
-      "term": "Product Application",
-      "definition": "The process of applying styling products to hair, focusing on mid-lengths and ends."
+      "term": "Pomade",
+      "definition": "A medium to strong hold product that adds shine, ideal for classic barber styles."
     },
     {
-      "term": "Indiana State Board Exam",
-      "definition": "A certification test for barbers in Indiana that includes a focus on curl, wave, and texture techniques."
+      "term": "Serum",
+      "definition": "A product that adds shine and reduces frizz with minimal hold."
     },
     {
-      "term": "Light-hold Hairspray",
-      "definition": "A finishing product used to set hairstyles without making hair stiff or sticky."
-    }
-  ],
-  "content": "# Hairstyling: Curl, Wave & Texture Techniques\n\nIn the world of barbering, mastering the art of hairstyling is crucial for delivering versatile and satisfying results to your clients. In Indiana, where the barbering industry is vibrant and competitive, being proficient in curl, wave, and texture techniques can set you apart. These skills are not only essential for client satisfaction but are also a significant component of the Indiana barber written exam, forming 25% of the total exam content.\n\n## Understanding Curl and Wave Patterns\n\nCurl and wave patterns are fundamental techniques that every barber must understand. These patterns form the basis of many popular hairstyles and can dramatically alter a client's appearance. A solid grasp of these techniques allows barbers to offer a wider range of styles, from classic looks to modern trends.\n\nTo create curls and waves, barbers typically use thermal tools such as curling irons, flat irons, and wands. Each tool can produce different effects, and choosing the right one depends on the desired outcome. For instance, a curling iron can create tight, defined curls, while a flat iron may be used to achieve soft waves. Understanding the nuances of these tools and how they interact with different hair types is crucial for achieving optimal results.\n\nMoreover, the ability to manipulate curl and wave patterns can help barbers correct or enhance natural hair textures. For clients with naturally straight hair, introducing curls can add volume and movement. Conversely, for clients with naturally curly hair, waves can help to tame and define the texture, offering a polished and controlled look.\n\n## Safe Use of Thermal Tools\n\nThe use of thermal tools is a staple in hairstyling, but it comes with the responsibility of ensuring client safety. Proper handling and usage of these tools are essential to prevent burns and other injuries, both to the client and the barber.\n\nBefore using any thermal tool, it's important to inspect it for any damage or malfunction. Ensure that cords are intact and that the tool heats evenly. When using the tool, always adjust the temperature according to the client's hair type. Fine or damaged hair requires lower heat settings, while coarser hair can withstand higher temperatures.\n\nTo prevent burns, always keep the heated section of the tool away from the client's scalp and skin. When curling or waving, use a comb or your fingers to create a barrier between the tool and the scalp. Additionally, communicate with your client throughout the process to ensure their comfort and safety.\n\n## Selecting and Applying Styling Products\n\nStyling products play a crucial role in achieving and maintaining the desired texture and hold of a hairstyle. The correct selection and application of these products can enhance the longevity and appearance of curls and waves.\n\nWhen selecting a styling product, consider the client's hair type and the desired outcome. For example, a mousse or volumizing spray can add lift and body to fine hair, while a smoothing serum or cream can help control frizz in curly hair. Always read the product label for instructions and recommendations.\n\nTo apply the product, start with a small amount and distribute it evenly through the hair, focusing on the mid-lengths and ends. Avoid applying too much product near the scalp, as this can weigh the hair down and create an oily appearance. Using a comb or your fingers, work the product through the hair to ensure even coverage.\n\n## Step-by-Step: Creating Soft Waves with a Flat Iron\n\nCreating soft waves with a flat iron is a versatile technique that can be used on various hair types. Follow these steps to achieve a natural, wavy look:\n\n1. **Prepare the Hair:** Begin by washing and drying the hair. Apply a heat protectant spray to shield the hair from thermal damage.\n2. **Section the Hair:** Divide the hair into manageable sections using clips. Start with the bottom layers and work your way up.\n3. **Heat the Flat Iron:** Set the flat iron to an appropriate temperature for the client's hair type.\n4. **Create the Waves:** Take a small section of hair and place the flat iron near the roots. Twist the iron away from the face while gliding it down the length of the hair. Release the hair and allow the wave to set.\n5. **Repeat:** Continue this process throughout the hair, alternating the direction of the waves for a more natural look.\n6. **Finish with Product:** Once all sections are waved, apply a light-hold hairspray to set the style.\n\n## Exam Relevance: Indiana State Board\n\nIn Indiana, the state board exam for barbers includes a significant focus on haircutting and styling, which encompasses curl, wave, and texture techniques. This domain represents 25% of the written exam, testing your understanding of proper tool usage, styling techniques, and product application. Being well-versed in these areas not only prepares you for the exam but also ensures you can deliver professional and safe hairstyling services.\n\n## Key Takeaway\n\nMastering curl, wave, and texture techniques is essential for any successful barber in Indiana. These skills not only enhance your service offerings but are also a critical component of the state board exam. By understanding the use of thermal tools, selecting the right styling products, and practicing safe handling, you can achieve a wide range of styles while ensuring client safety and satisfaction.",
-  "procedures": [
-    {
-      "step": 1,
-      "instruction": "Wash and dry the client's hair thoroughly to ensure a clean base for styling.",
-      "safetyNote": "SAFETY: Ensure all tools and hands are sanitized before starting."
-    },
-    {
-      "step": 2,
-      "instruction": "Apply a heat protectant spray evenly throughout the hair to prevent thermal damage.",
-      "safetyNote": null
-    },
-    {
-      "step": 3,
-      "instruction": "Divide the hair into manageable sections using clips, starting from the bottom layers.",
-      "safetyNote": null
-    },
-    {
-      "step": 4,
-      "instruction": "Inspect the flat iron for any damage and ensure it heats evenly.",
-      "safetyNote": "SAFETY: Check the tool for damage and ensure cords are intact."
-    },
-    {
-      "step": 5,
-      "instruction": "Set the flat iron to an appropriate temperature based on the client's hair type.",
-      "safetyNote": "SAFETY: Use lower heat settings for fine or damaged hair."
-    },
-    {
-      "step": 6,
-      "instruction": "Take a small section of hair and place the flat iron near the roots.",
-      "safetyNote": "SAFETY: Keep the heated section away from the scalp to prevent burns."
-    },
-    {
-      "step": 7,
-      "instruction": "Twist the flat iron away from the face while gliding it down the length of the hair to create a wave.",
-      "safetyNote": null
-    },
-    {
-      "step": 8,
-      "instruction": "Release the hair gently and allow the wave to set naturally.",
-      "safetyNote": null
-    },
-    {
-      "step": 9,
-      "instruction": "Repeat the waving process throughout all sections of the hair, alternating the direction of the waves for a natural look.",
-      "safetyNote": null
-    },
-    {
-      "step": 10,
-      "instruction": "Once all sections are waved, apply a light-hold hairspray to set the style.",
-      "safetyNote": null
-    },
-    {
-      "step": 11,
-      "instruction": "Check the overall style for evenness and make any necessary adjustments.",
-      "safetyNote": null
+      "term": "Leave-in conditioner",
+      "definition": "A product that moisturizes and detangles hair, providing a light hold."
     }
   ]
 }
