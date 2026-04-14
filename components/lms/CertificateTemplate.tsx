@@ -96,9 +96,9 @@ export function CertificatePreview({
   instructorName,
 }: CertificateProps) {
   const downloadPDF = async () => {
-    // Import html2canvas and jsPDF dynamically
-    const html2canvas = (await import('html2canvas')).default;
-    const { jsPDF } = await import('jspdf');
+    // Import html2canvas and jsPDF dynamically — webpackIgnore keeps them out of the SSR bundle
+    const html2canvas = (await import(/* webpackIgnore: true */ 'html2canvas')).default;
+    const { jsPDF } = await import(/* webpackIgnore: true */ 'jspdf');
 
     const element = document.getElementById('certificate-template');
     if (!element) return;

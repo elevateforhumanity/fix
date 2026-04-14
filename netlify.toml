@@ -64,9 +64,8 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# prune-handler disabled — rewrite pending
-# [[plugins]]
-#   package = "./netlify/plugins/prune-handler"
+[[plugins]]
+  package = "./netlify/plugins/prune-handler"
 
 # CDN caching — pages cached 60s at edge, static assets cached 1 year
 [[headers]]

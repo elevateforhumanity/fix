@@ -5,7 +5,6 @@
  */
 
 import fs from 'fs/promises';
-import FormData from 'form-data';
 import { createReadStream } from 'fs';
 
 export interface CloudflareStreamConfig {
