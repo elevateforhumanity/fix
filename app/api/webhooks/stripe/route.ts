@@ -187,7 +187,12 @@ async function _POST(request: NextRequest) {
   // In production, STRIPE_WEBHOOK_SECRET lives in app_secrets (not Netlify env vars)
   // because Netlify's Lambda 4KB env var limit prevents injecting all secrets.
   // This must run before any process.env.STRIPE_* access.
-  await hydrateProcessEnv();
+  // Wrapped in try/catch — a hydration failure must never produce a 500 to Stripe.
+  try {
+    await hydrateProcessEnv();
+  } catch (hydrateErr) {
+    logger.error('[webhook] hydrateProcessEnv failed — continuing with process.env as-is', hydrateErr as Error);
+  }
 
   // Resolve per-request AFTER hydration — secrets are now in process.env.
   const supabase = getSupabase();
