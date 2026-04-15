@@ -1,8 +1,6 @@
 "use client";
 
-import React from 'react';
-
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface SocialShareProps {
   url: string;
@@ -14,7 +12,9 @@ export function SocialShare({ url, title, description }: SocialShareProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const shareUrl = typeof window !== 'undefined' ? window.location.origin + url : url;
+  const [origin, setOrigin] = useState('');
+  useEffect(() => { setOrigin(window.location.origin); }, []);
+  const shareUrl = origin ? origin + url : url;
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(title);
   const encodedDescription = encodeURIComponent(description || '');

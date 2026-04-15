@@ -167,6 +167,8 @@ export default function RootLayout({
           sizes="180x180"
         />
         <meta name="theme-color" content="#dc2626" />
+        {/* Prevent iOS Safari from auto-linking phone numbers/dates — causes hydration mismatches */}
+        <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
         {/* LCP preload is set per-page in each page's metadata/head, not globally */}
         {!isProduction && (
           <>

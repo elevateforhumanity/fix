@@ -1,4 +1,5 @@
 // Server component — no "use client", no useState, no useEffect.
+// All date formatting uses fixed locale + UTC timezone to prevent server/client hydration mismatches.
 
 import Link from "next/link";
 import { AdminGreeting } from "@/components/admin/AdminGreeting";
@@ -22,7 +23,7 @@ function fmtUsd(cents: number) {
 function fmtNum(n: number) { return new Intl.NumberFormat("en-US").format(n); }
 function fmtDate(iso: string | null) {
   if (!iso) return "—";
-  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return new Date(iso).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" });
 }
 function fmtAge(days: number) {
   if (days === 0) return "Today";
@@ -119,8 +120,9 @@ function QuickLink({ href, title, sub, badge }: {
 
 // ═════════════════════════════════════════════════════════════════════════════
 export function DashboardShell({ data }: { data: AdminDashboardData }) {
+  // Fixed locale + UTC — prevents server/client hydration mismatch
   const updatedAt = new Date(data.generatedAt).toLocaleString("en-US", {
-    month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+    timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
   });
 
   const {

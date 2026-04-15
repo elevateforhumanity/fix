@@ -36,7 +36,7 @@ export function InactiveLearnersList({ items }: { items: InactiveLearner[] }) {
                 <div className="text-xs text-slate-400 mt-0.5">
                   Enrolled{" "}
                   {l.enrolledAt
-                    ? new Date(l.enrolledAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                    ? new Date(l.enrolledAt).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" })
                     : "—"}{" "}
                   · No activity 3+ days
                 </div>

@@ -184,10 +184,12 @@ export function CopyrightFooter() {
  * Adds invisible tracking to content
  */
 export function ContentIdentifier({ pageId }: { pageId: string }) {
+  // Date.now() must NOT be called in render — it differs between server and client.
+  // The pageId alone is sufficient as a stable content identifier.
   return (
     <div
       style={{ display: 'none' }}
-      data-content-id={`EFH-${pageId}-${Date.now().toString(36)}`}
+      data-content-id={`EFH-${pageId}`}
       data-copyright="Elevate-for-Humanity-2025"
       data-owner="Elizabeth-L-Greene"
       data-protection="DMCA-Protected"

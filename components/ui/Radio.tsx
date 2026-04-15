@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 export interface RadioOption {
   value: string;
@@ -68,7 +68,8 @@ export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
 
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   ({ label, helperText, className = '', id, ...props }, ref) => {
-    const radioId = id || `radio-${Math.random().toString(36).substr(2, 9)}`;
+    const generatedId = useId();
+    const radioId = id || `radio-${generatedId}`;
 
     return (
       <div className="flex items-start">
