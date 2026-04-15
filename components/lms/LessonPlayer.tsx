@@ -339,8 +339,7 @@ export default function LessonPlayer({
           {/* Error */}
           {hasError && (
             <div className="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3">
-              <p className="text-sm text-red-300">Audio failed to load.</p>
-              <p className="mt-1 text-xs text-red-300/50 break-all">{videoUrl}</p>
+              <p className="text-sm text-red-300">Audio failed to load. Please try again or contact support.</p>
               <button type="button" onClick={() => { setHasError(false); audioRef.current?.load(); }}
                 className="mt-2 rounded-lg bg-white/10 px-3 py-1.5 text-xs text-white hover:bg-white/20">Retry</button>
             </div>
@@ -425,7 +424,7 @@ export default function LessonPlayer({
                 </svg>
               </div>
               <p className="text-sm text-white/70">Video could not be loaded</p>
-              <p className="mt-1 max-w-md text-center text-xs text-white/30 break-all px-4">{videoUrl}</p>
+              <p className="mt-1 max-w-md text-center text-xs text-white/30 px-4">Please try again or contact your program coordinator.</p>
               <button type="button" onClick={() => { setHasError(false); videoRef.current?.load(); }}
                 className="mt-3 rounded-lg bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20">Retry</button>
             </div>
