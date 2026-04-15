@@ -175,6 +175,13 @@ public/audio/*.mp3
 public/audio/*.wav
 public/videos/*.mp4
 public/videos/**/*.mp4
+public/videos/*.mp3
+public/videos/**/*.mp3
+public/videos/*.txt
+public/videos/**/*.txt
+public/videos/*.md
+public/videos/**/*.md
+public/videos/**/*.json
 
 # lesson MP3s are committed so they deploy to Netlify without an API key at build time
 /reports/
