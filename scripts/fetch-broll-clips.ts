@@ -95,8 +95,8 @@ const TOPICS: { key: string; queries: string[]; mustMatch?: RegExp }[] = [
     mustMatch: /barber|hair|salon|licens|cosmetol/ },
 
   { key: 'state-board-exam-prep',
-    queries: ['barber student studying state board exam', 'cosmetology exam preparation books notes', 'barber written exam test taking'],
-    mustMatch: /barber|hair|salon|exam|cosmetol/ },
+    queries: ['barber student reading textbook barbershop', 'barber studying cosmetology book notes', 'barber apprentice learning theory classroom'],
+    mustMatch: /barber|hair|salon|cosmetol|book|study/ },
 
   { key: 'scope-of-practice',
     queries: ['barber performing full service client barbershop', 'barber complete haircut shave service', 'professional barber services barbershop'],
