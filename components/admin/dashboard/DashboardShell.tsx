@@ -1,15 +1,17 @@
 // Server component — no "use client", no useState, no useEffect.
 
 import Link from "next/link";
-import Image from "next/image";
 import { AdminGreeting } from "@/components/admin/AdminGreeting";
 import {
   FileText, Users, DollarSign, Award, AlertTriangle,
   ArrowRight, BookOpen, ChevronRight, ShieldAlert,
   CheckCircle2, XCircle, Building2, GraduationCap, Bell,
+  ClipboardList,
 } from "lucide-react";
 import type { AdminDashboardData, SystemHealth } from "./types";
 import { KpiGrid } from "./KpiGrid";
+import { EnrollmentSparkline } from "./EnrollmentSparkline";
+import { SystemHealthPanel } from "./SystemHealthPanel";
 
 // ── Formatters ────────────────────────────────────────────────────────────────
 function fmtUsd(cents: number) {
@@ -98,26 +100,18 @@ function SectionCard({ title, href, hrefLabel = "View all", children }: {
   );
 }
 
-function FeatureCard({ href, image, title, sub, badge }: {
-  href: string; image: string; title: string; sub: string; badge?: string;
+function QuickLink({ href, title, sub, badge }: {
+  href: string; title: string; sub: string; badge?: string;
 }) {
   return (
-    <Link href={href} className="group relative flex flex-col overflow-hidden rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-      <div className="relative h-32 w-full">
-        <Image src={image} alt={title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent" />
-        {badge && (
-          <span className="absolute top-3 right-3 bg-amber-400 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full">{badge}</span>
-        )}
+    <Link href={href} className="group flex items-center justify-between gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 hover:border-brand-blue-300 hover:shadow-sm transition-all">
+      <div className="min-w-0">
+        <p className="text-sm font-semibold text-slate-900 truncate">{title}</p>
+        <p className="text-xs text-slate-400 truncate">{sub}</p>
       </div>
-      <div className="p-4 flex-1">
-        <p className="font-bold text-slate-900 text-sm leading-snug">{title}</p>
-        <p className="text-xs text-slate-500 mt-1">{sub}</p>
-      </div>
-      <div className="px-4 pb-4">
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 group-hover:gap-2 transition-all">
-          Open <ArrowRight className="w-3.5 h-3.5" />
-        </span>
+      <div className="flex items-center gap-2 flex-shrink-0">
+        {badge && <span className="bg-amber-400 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full">{badge}</span>}
+        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-blue-500 transition-colors" />
       </div>
     </Link>
   );
@@ -140,25 +134,21 @@ export function DashboardShell({ data }: { data: AdminDashboardData }) {
   return (
     <div className="pb-24">
 
-      {/* HERO */}
-      <div className="relative w-full h-[340px] sm:h-[420px]">
-        <Image src="/images/pages/admin-dashboard-hero.jpg" alt="Admin Operations Dashboard" fill priority className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/80" />
-        <div className="absolute inset-0 flex flex-col justify-end px-6 sm:px-10 pb-10 max-w-screen-xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <div>
-              <p className="text-brand-blue-300 text-sm font-semibold tracking-widest uppercase mb-2">Operations Center</p>
-              <AdminGreeting className="text-white text-3xl sm:text-5xl font-extrabold leading-tight drop-shadow-lg" />
-              <p className="text-slate-300 text-sm mt-2">Last updated {updatedAt}</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {data.systemHealth && <HealthBadge health={data.systemHealth} />}
-              {pendingApplications > 0 && (
-                <Link href="/admin/applications" className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-500 text-slate-900 text-xs font-bold px-4 py-2 rounded-full transition-colors">
-                  <Bell className="w-3.5 h-3.5" /> {pendingApplications} pending
-                </Link>
-              )}
-            </div>
+      {/* PAGE HEADER — no image, no hero */}
+      <div className="border-b border-slate-100 bg-white px-4 sm:px-6 lg:px-8 py-6 max-w-screen-xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Operations Center</p>
+            <AdminGreeting className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight" />
+            <p className="text-xs text-slate-400 mt-1">Last updated {updatedAt}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {data.systemHealth && <HealthBadge health={data.systemHealth} />}
+            {pendingApplications > 0 && (
+              <Link href="/admin/applications" className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-500 text-slate-900 text-xs font-bold px-4 py-2 rounded-full transition-colors">
+                <Bell className="w-3.5 h-3.5" /> {pendingApplications} pending
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -192,14 +182,63 @@ export function DashboardShell({ data }: { data: AdminDashboardData }) {
         {/* KPI CARDS */}
         <div className="mt-8"><KpiGrid kpis={data.kpis} /></div>
 
-        {/* QUICK NAV FEATURE CARDS */}
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <FeatureCard href="/admin/applications"    image="/images/pages/admin-applications-hero.jpg"   title="Applications"    sub={`${pendingApplications} pending`}              badge={pendingApplications > 0 ? String(pendingApplications) : undefined} />
-          <FeatureCard href="/admin/students"        image="/images/pages/admin-students-hero.jpg"       title="Students"        sub={`${fmtNum(activeEnrollments)} active`} />
-          <FeatureCard href="/admin/programs"        image="/images/pages/programs-admin-hero.jpg"       title="Programs"        sub="Manage curriculum" />
-          <FeatureCard href="/admin/analytics"       image="/images/pages/admin-analytics-hero.jpg"      title="Analytics"       sub="Enrollment & revenue" />
-          <FeatureCard href="/admin/program-holders" image="/images/pages/admin-applicants-hero.jpg"     title="Program Holders" sub={pendingProgramHolders > 0 ? `${pendingProgramHolders} pending` : "Manage holders"} badge={pendingProgramHolders > 0 ? String(pendingProgramHolders) : undefined} />
-          <FeatureCard href="/admin/settings"        image="/images/pages/admin-advanced-tools-hero.jpg" title="Settings"        sub="System configuration" />
+        {/* SPARKLINE + SYSTEM HEALTH */}
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <EnrollmentSparkline data={data.enrollmentTrend} />
+          <SystemHealthPanel health={data.systemHealth} />
+        </div>
+
+        {/* PENDING SUBMISSIONS */}
+        {data.pendingSubmissions.length > 0 && (
+          <div className="mt-6">
+            <SectionCard
+              title="Pending Lab & Assignment Sign-Offs"
+              href="/instructor/submissions"
+              hrefLabel={`Review all ${data.pendingSubmissions.length}`}
+            >
+              <div className="divide-y divide-slate-50">
+                {data.pendingSubmissions.slice(0, 6).map((s) => {
+                  const age = s.submitted_at
+                    ? Math.floor((Date.now() - new Date(s.submitted_at).getTime()) / 86_400_000)
+                    : 0;
+                  return (
+                    <div key={s.id} className="flex items-center justify-between py-3 gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                          <ClipboardList className="w-4 h-4 text-amber-600" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-slate-900 truncate capitalize">
+                            {s.step_type ?? "Submission"} — sign-off needed
+                          </p>
+                          <p className="text-xs text-slate-400">{fmtAge(age)}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 flex-shrink-0">
+                        <StatusPill status={s.status} />
+                        <Link
+                          href={`/instructor/submissions`}
+                          className="text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700 flex items-center gap-0.5"
+                        >
+                          Review <ChevronRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </SectionCard>
+          </div>
+        )}
+
+        {/* QUICK NAV */}
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <QuickLink href="/admin/applications"    title="Applications"    sub={`${pendingApplications} pending`}                                                              badge={pendingApplications > 0 ? String(pendingApplications) : undefined} />
+          <QuickLink href="/admin/students"        title="Students"        sub={`${fmtNum(activeEnrollments)} active`} />
+          <QuickLink href="/admin/programs"        title="Programs"        sub="Manage curriculum" />
+          <QuickLink href="/admin/analytics"       title="Analytics"       sub="Enrollment & revenue" />
+          <QuickLink href="/admin/program-holders" title="Program Holders" sub={pendingProgramHolders > 0 ? `${pendingProgramHolders} pending` : "Manage holders"}             badge={pendingProgramHolders > 0 ? String(pendingProgramHolders) : undefined} />
+          <QuickLink href="/admin/settings"        title="Settings"        sub="System configuration" />
         </div>
 
         {/* APPLICATIONS + QUICK STATS */}
@@ -347,12 +386,12 @@ export function DashboardShell({ data }: { data: AdminDashboardData }) {
           </div>
         )}
 
-        {/* SECOND FEATURE ROW */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <FeatureCard href="/admin/analytics/learning" image="/images/pages/admin-analytics-learning-hero.jpg" title="Learning Analytics" sub="Completion rates & engagement" />
-          <FeatureCard href="/admin/analytics/programs" image="/images/pages/admin-analytics-programs-hero.jpg" title="Program Analytics"  sub="Enrollment trends by program" />
-          <FeatureCard href="/admin/certificates"       image="/images/pages/admin-certificates-hero.jpg"       title="Certificates"       sub={`${fmtNum(certificatesIssued)} issued`} />
-          <FeatureCard href="/admin/activity"           image="/images/pages/admin-activity-hero.jpg"           title="Activity Log"       sub="Recent system events" />
+        {/* SECONDARY QUICK LINKS */}
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <QuickLink href="/admin/analytics/learning" title="Learning Analytics" sub="Completion & engagement" />
+          <QuickLink href="/admin/analytics/programs" title="Program Analytics"  sub="Enrollment trends" />
+          <QuickLink href="/admin/certificates"       title="Certificates"       sub={`${fmtNum(certificatesIssued)} issued`} />
+          <QuickLink href="/admin/activity"           title="Activity Log"       sub="Recent system events" />
         </div>
 
         {/* EMPTY STATE */}

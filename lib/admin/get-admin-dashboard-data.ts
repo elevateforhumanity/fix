@@ -642,6 +642,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     recentApplications: pendingApps,
     blockedPrograms,
     inactiveLearners,
+    pendingSubmissions,
     profile: adminProfile,
     generatedAt: new Date().toISOString(),
     degradedSections,

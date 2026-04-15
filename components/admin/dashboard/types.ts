@@ -117,6 +117,15 @@ export type DegradedSection =
   | 'recent_students'
   | 'enrollments_by_program';
 
+export interface PendingSubmission {
+  id: string;
+  user_id: string | null;
+  course_lesson_id: string | null;
+  step_type: string | null;
+  submitted_at: string | null;
+  status: string;
+}
+
 export interface AdminDashboardData {
   counts: DashboardCounts;
   kpis: KPICard[];
@@ -128,6 +137,7 @@ export interface AdminDashboardData {
   recentApplications: RecentApplication[];
   blockedPrograms: BlockedProgram[];
   inactiveLearners: InactiveLearner[];
+  pendingSubmissions: PendingSubmission[];
   profile: { full_name: string | null } | null;
   generatedAt: string;
   /** Non-empty when one or more non-critical sections failed to load. */
