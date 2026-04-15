@@ -115,6 +115,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     recentAppsActivityRes,
     pendingHoldersRes,
     pendingHolderDocsRes,
+    pendingSubmissionsRes,
   ] = await Promise.all([
     db.from('applications')
       .select('id, first_name, last_name, full_name, email, program_interest, program_slug, status, created_at, submitted_at, next_step_due_date, funding_type')
@@ -197,6 +198,13 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     db.from('program_holder_documents')
       .select('id', { count: 'exact', head: true })
       .is('approved', null),
+
+    // Pending lab/assignment submissions awaiting instructor sign-off
+    db.from('step_submissions')
+      .select('id, user_id, course_lesson_id, step_type, submitted_at, status')
+      .in('status', ['submitted', 'under_review'])
+      .order('submitted_at', { ascending: true })
+      .limit(10),
   ]);
 
   // Log failures but never throw — the error boundary shows a blank page with
@@ -213,6 +221,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   const certsThisMonth       = certsThisMonthRes.error ? 0 : (certsThisMonthRes.count ?? 0);
   const pendingHoldersCount  = pendingHoldersRes.error ? 0 : (pendingHoldersRes.count ?? 0);
   const pendingHolderDocsCount = pendingHolderDocsRes.error ? 0 : (pendingHolderDocsRes.count ?? 0);
+  const pendingSubmissions = pendingSubmissionsRes.error ? [] : (pendingSubmissionsRes.data ?? []);
 
   // Track which non-critical sections failed — UI renders a partial-failure notice.
   const degradedSections: DegradedSection[] = [];

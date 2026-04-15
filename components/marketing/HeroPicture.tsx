@@ -48,8 +48,8 @@ export interface HeroPictureProps {
   /** Render below-hero content as children instead of structured props */
   children?: React.ReactNode;
   /**
-   * Image height class — defaults to 'clamp(400px, 56vw, 780px)' matching HeroVideo.
-   * Pass a Tailwind height class to override, e.g. 'h-[480px]'.
+   * Image height class — defaults to 'clamp(260px, 40vw, 480px)' matching HeroVideo.
+   * Pass a Tailwind height class to override, e.g. 'h-[360px]'.
    */
   heightStyle?: string;
   /** Next/Image priority — true for above-the-fold heroes (default: true) */
@@ -77,7 +77,7 @@ export default function HeroPicture({
 
   const frameStyle = heightStyle
     ? undefined
-    : { height: 'clamp(400px, 56vw, 780px)' };
+    : { height: 'clamp(260px, 40vw, 480px)' };
 
   return (
     <div className={`w-full ${className}`}>

@@ -151,7 +151,7 @@ export default function HeaderMobileMenu({ items }: HeaderMobileMenuProps) {
           {/* Mobile CTAs */}
           <div className="mt-6 space-y-3">
             <Link
-              href="/portals"
+              href="/login"
               onClick={() => setIsOpen(false)}
               className="block w-full text-center py-3 border border-slate-300 rounded-lg text-slate-700 font-medium"
             >
