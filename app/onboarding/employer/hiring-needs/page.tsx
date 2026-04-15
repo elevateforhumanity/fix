@@ -99,7 +99,6 @@ export default function HiringNeedsPage() {
       // If no employers row yet (user navigated here before the index page ran),
       // create it now so the FK constraint is satisfied.
       if (!empId) {
-        const { data: { user } } = await supabase.auth.getUser();
         const { data: profile } = await supabase
           .from('profiles')
           .select('first_name, last_name, email')

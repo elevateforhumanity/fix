@@ -89,6 +89,7 @@ export default async function GrantIntakePage() {
                 <select className="w-full rounded-md border-gray-300 shadow-sm focus:border-brand-blue-500 focus:ring-brand-blue-500">
                   <option value="">Select type</option>
                   <option value="wioa">WIOA</option>
+                  <option value="fssa">FSSA</option>
                   <option value="wrg">WRG</option>
                   <option value="jri">Job Ready Indy</option>
                   <option value="federal">Federal</option>

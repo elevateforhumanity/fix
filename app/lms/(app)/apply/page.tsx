@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { FileText, AlertCircle } from 'lucide-react';
@@ -40,11 +40,7 @@ export default function StudentApplicationPage() {
     hear_about: '',
   });
 
-  useEffect(() => {
-    loadUserData();
-  }, []);
-
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     const supabase = createClient();
     const { data: { user: authUser } } = await supabase.auth.getUser();
 
@@ -77,7 +73,11 @@ export default function StudentApplicationPage() {
     }
 
     setLoading(false);
-  };
+  }, [router]);
+
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -303,6 +303,7 @@ export default function StudentApplicationPage() {
           >
             <option value="">Select...</option>
             <option value="wioa">WIOA / Next Level Jobs (Free if eligible)</option>
+            <option value="fssa">FSSA (Family &amp; Social Services Administration)</option>
             <option value="employer">Employer Sponsored</option>
             <option value="self-pay">Self Pay</option>
             <option value="financial-aid">Financial Aid</option>

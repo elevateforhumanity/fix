@@ -222,7 +222,8 @@ function IntakeForm() {
                   <select id="workforce_connection" name="workforce_connection" className="w-full border border-slate-300 bg-white text-slate-900 p-3 rounded-lg focus:ring-2 focus:ring-brand-red-500 focus:border-brand-red-500">
                     <option value="">None / Not sure</option>
                     <option value="workone">WorkOne Indiana</option>
-                    <option value="employer-indy">Employer Indy</option>
+                    <option value="fssa">FSSA (Family &amp; Social Services Administration)</option>
+                    <option value="employer-indy">EmployIndy</option>
                     <option value="goodwill">Goodwill</option>
                     <option value="reclaim-academy">Reclaim Academy</option>
                     <option value="other">Other workforce program</option>

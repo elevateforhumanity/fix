@@ -1,8 +1,16 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Mail, Phone, Calendar, CheckCircle, UserCheck, FileText, BookOpen } from 'lucide-react';
+import { ArrowRight, Mail, Phone, Calendar, CheckCircle, UserCheck, FileText, BookOpen, ExternalLink, DollarSign } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ResendMagicLinkForm } from '@/components/auth/ResendMagicLinkForm';
+
+// Funding sources that require Indiana Career Connect / WorkOne referral
+const WORKFORCE_FUNDING = ['wioa', 'workone', 'workforce ready grant', 'employindy', 'impact', 'dwd', 'workforce', 'fssa'];
+function needsCareerConnect(funding: string | null): boolean {
+  if (!funding) return false;
+  const f = funding.toLowerCase();
+  return WORKFORCE_FUNDING.some(k => f.includes(k));
+}
 
 export const metadata: Metadata = {
   title: 'Application Submitted | Elevate for Humanity',
@@ -88,26 +96,29 @@ const ROLE_CONFIG: Record<string, {
 };
 
 const ENROLLED_CONFIG = {
-  title: "Application Submitted!",
-  message: "Your account has been created. We sent you an email with a one-click login link — open it to start your onboarding.",
+  title: "You're Approved — Let's Get Started!",
+  message: "Your enrollment has been approved. Create your account now to access your courses and complete onboarding.",
   steps: [
-    { icon: <Mail className="w-5 h-5 text-brand-blue-600" />, title: 'Check your email now', description: 'Look for an email from Elevate for Humanity. It contains a magic login link — click "Start My Onboarding" to sign in instantly. No password needed. Check your spam folder if you don\'t see it within a few minutes.' },
-    { icon: <UserCheck className="w-5 h-5 text-brand-blue-600" />, title: 'Complete your onboarding steps', description: 'After clicking the link, you\'ll land on your onboarding page. Fill in your profile, upload your ID, confirm funding, and complete a short orientation.' },
-    { icon: <BookOpen className="w-5 h-5 text-brand-blue-600" />, title: 'Get enrolled and start learning', description: 'Once all onboarding steps are done, you\'re automatically enrolled and your courses unlock in the student dashboard.' },
+    { icon: <UserCheck className="w-5 h-5 text-brand-green-600" />, title: 'Create your account', description: 'Click "Create My Account" below to set your password and activate your student profile. This takes less than 2 minutes.', link: '/signup?redirect=/onboarding/learner', linkLabel: 'Create My Account →' },
+    { icon: <FileText className="w-5 h-5 text-brand-blue-600" />, title: 'Complete onboarding', description: 'Upload your government-issued ID, sign your enrollment agreement, and complete a short 10-minute orientation module.' },
+    { icon: <BookOpen className="w-5 h-5 text-brand-blue-600" />, title: 'Start your courses', description: 'Once onboarding is complete your courses unlock immediately in your student dashboard.' },
+    { icon: <Mail className="w-5 h-5 text-slate-400" />, title: 'Check your email too', description: 'We also sent a one-click login link to your email. Either method works — whichever is faster for you.' },
   ],
-  primaryLink: '/login?redirect=/my-dashboard',
-  primaryLabel: 'Or Sign In With Password',
+  primaryLink: '/signup?redirect=/onboarding/learner',
+  primaryLabel: 'Create My Account',
 };
 
 export default async function ApplicationSuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ role?: string; ref?: string; enrolled?: string; pw?: string }>;
+  searchParams: Promise<{ role?: string; ref?: string; enrolled?: string; pw?: string; funding?: string; program?: string }>;
 }) {
   const params = await searchParams;
   const role = params.role || 'student';
   const referenceNumber = params.ref || null;
   const isEnrolled = params.enrolled === 'true';
+  const funding = params.funding ?? null;
+  const showCareerConnect = needsCareerConnect(funding);
   // pw=1 means the student set a password on the application form — skip the "set password" step
   const hasPassword = params.pw === '1';
 
@@ -190,13 +201,55 @@ export default async function ApplicationSuccessPage({
             </ol>
           </div>
 
-          {/* Timeline Notice */}
-          {role === 'student' && !isEnrolled && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6">
-              <h3 className="font-semibold text-amber-900 mb-1">WorkOne / Funding Verification</h3>
-              <p className="text-amber-800 text-sm leading-relaxed">
-                If you&apos;re applying for WIOA or Workforce Ready Grant funding, we&apos;ll coordinate with WorkOne on your behalf.
-                This process typically takes 3-5 business days. You can begin onboarding while funding is being verified.
+          {/* Indiana Career Connect — shown when student selected workforce funding */}
+          {role === 'student' && !isEnrolled && showCareerConnect && (
+            <div className="bg-amber-50 border-2 border-amber-400 rounded-xl p-6 mb-6">
+              <div className="flex items-start gap-3 mb-3">
+                <DollarSign className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-bold text-amber-900 text-base">Action Required — Register on Indiana Career Connect</h3>
+                  <p className="text-amber-800 text-sm mt-1 leading-relaxed">
+                    You selected a workforce funding source ({funding}). To receive WIOA, Workforce Ready Grant, or WorkOne funding,
+                    you <strong>must be registered on Indiana Career Connect</strong> and have an active case with your local WorkOne office
+                    before enrollment can be finalized.
+                  </p>
+                </div>
+              </div>
+              <ol className="space-y-2 text-sm text-amber-900 mb-4 ml-9">
+                <li className="flex items-start gap-2"><span className="font-bold flex-shrink-0">1.</span> Create or log in to your Indiana Career Connect account</li>
+                <li className="flex items-start gap-2"><span className="font-bold flex-shrink-0">2.</span> Complete your profile and upload your résumé</li>
+                <li className="flex items-start gap-2"><span className="font-bold flex-shrink-0">3.</span> Contact your local WorkOne office and mention Elevate for Humanity</li>
+                <li className="flex items-start gap-2"><span className="font-bold flex-shrink-0">4.</span> Ask your case manager to approve Elevate training under your IEP/ITA</li>
+              </ol>
+              <div className="flex flex-col sm:flex-row gap-3 ml-9">
+                <a
+                  href="https://www.indianacareerconnect.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-5 py-2.5 rounded-lg text-sm transition-colors"
+                >
+                  Go to Indiana Career Connect <ExternalLink className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://www.workone.in.gov/find-a-workone"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border border-amber-400 text-amber-800 hover:bg-amber-100 font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors"
+                >
+                  Find My WorkOne Office <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Generic funding notice for non-workforce-funded students */}
+          {role === 'student' && !isEnrolled && !showCareerConnect && (
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-6">
+              <h3 className="font-semibold text-slate-800 mb-1">Funding Verification</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                If you plan to use WIOA, WorkOne, or Workforce Ready Grant funding, you must register on{' '}
+                <a href="https://www.indianacareerconnect.com" target="_blank" rel="noopener noreferrer" className="text-brand-blue-600 underline font-semibold">Indiana Career Connect</a>{' '}
+                and have written approval from your funding agency before enrollment is finalized.
               </p>
             </div>
           )}
@@ -229,18 +282,36 @@ export default async function ApplicationSuccessPage({
             </div>
           </div>
 
+          {/* Enrolled — prominent account creation CTA */}
+          {isEnrolled && (
+            <div className="bg-brand-green-50 border-2 border-brand-green-400 rounded-xl p-6 mb-4 text-center">
+              <CheckCircle className="w-10 h-10 text-brand-green-600 mx-auto mb-3" />
+              <h3 className="text-lg font-bold text-brand-green-900 mb-1">Your enrollment is confirmed</h3>
+              <p className="text-brand-green-800 text-sm mb-4">Create your account to unlock your courses and start learning today.</p>
+              <Link
+                href="/signup?redirect=/onboarding/learner"
+                className="inline-flex items-center gap-2 bg-brand-green-600 hover:bg-brand-green-700 text-white font-bold px-8 py-3 rounded-xl text-base transition-colors shadow-sm"
+              >
+                Create My Account <ArrowRight className="w-5 h-5" />
+              </Link>
+              <p className="text-xs text-brand-green-700 mt-3">Already have an account? <Link href="/login?redirect=/onboarding/learner" className="underline font-semibold">Sign in instead</Link></p>
+            </div>
+          )}
+
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href={config.primaryLink}
-              className="flex-1 bg-brand-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-brand-blue-700 transition inline-flex items-center justify-center gap-2"
-            >
-              {config.primaryLabel}
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            {!isEnrolled && (
+              <Link
+                href={config.primaryLink}
+                className="flex-1 bg-brand-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-brand-blue-700 transition inline-flex items-center justify-center gap-2"
+              >
+                {config.primaryLabel}
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            )}
             <Link
               href="/"
-              className="flex-1 border border-slate-300 text-slate-700 px-6 py-3 rounded-lg font-semibold text-center hover:bg-white transition"
+              className={`${isEnrolled ? 'flex-1' : 'flex-1'} border border-slate-300 text-slate-700 px-6 py-3 rounded-lg font-semibold text-center hover:bg-slate-50 transition`}
             >
               Return Home
             </Link>

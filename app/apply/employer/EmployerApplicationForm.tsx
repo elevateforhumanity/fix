@@ -52,13 +52,7 @@ export default function EmployerApplicationForm() {
     if (result.success) {
       router.push(result.redirectTo!);
     } else {
-      const subject = encodeURIComponent(`Employer Application: ${data.firstName} ${data.lastName} - ${data.companyName}`);
-      const body = encodeURIComponent(
-        `Name: ${data.firstName} ${data.lastName}\nCompany: ${data.companyName}\n` +
-        `Email: ${data.email}\nPhone: ${data.phone}\n` +
-        `Industry: ${data.industry || 'N/A'}\nHiring Needs: ${data.hiringNeeds || 'N/A'}\n`
-      );
-      window.location.href = "/contact";
+      setError(result.error ?? 'Something went wrong. Please try again or call 317-314-3757.');
       setLoading(false);
     }
   }

@@ -11,7 +11,8 @@ export const dynamic = 'force-dynamic';
 
 interface ValidationResult {
   valid: boolean;
-  status: 'approved' | 'pending_review' | 'rejected';
+  // 'approved' is intentionally excluded — all documents require manual admin review.
+  status: 'pending_review' | 'rejected';
   checks: { name: string; passed: boolean; detail: string }[];
 }
 
@@ -142,9 +143,11 @@ async function _POST(request: NextRequest) {
     // Determine overall result
     const result = buildResult(checks);
 
-    // Update document status in DB
+    // Update document status in DB — never auto-approve, always route to admin review.
     const failedChecks = checks.filter(c => !c.passed);
-    const newStatus = failedChecks.length === 0 ? 'verified' : failedChecks.some(c => c.name === 'File accessible' || c.name === 'File size') ? 'rejected' : 'pending_review';
+    const newStatus = failedChecks.some(c => c.name === 'File accessible' || c.name === 'File size')
+      ? 'rejected'
+      : 'pending_review';
 
     await db
       .from('documents')
@@ -182,9 +185,11 @@ function buildResult(
     c.name === 'File accessible' || c.name === 'File size'
   );
 
+  // All documents route to pending_review after validation — never auto-approved.
+  // Admin must manually approve via /admin/documents/review.
   return {
     valid: failedChecks.length === 0,
-    status: hasCriticalFailure ? 'rejected' : failedChecks.length > 0 ? 'pending_review' : 'approved',
+    status: hasCriticalFailure ? 'rejected' : 'pending_review',
     checks,
   };
 }

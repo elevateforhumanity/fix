@@ -215,7 +215,7 @@ export default async function EmployerOnboardingPage() {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-white h-2 rounded-full transition-all"
+              className="bg-brand-blue-500 h-2 rounded-full transition-all"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -265,7 +265,7 @@ export default async function EmployerOnboardingPage() {
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                   step.status === 'complete' ? 'bg-green-100' :
                   step.status === 'current' ? 'bg-brand-blue-100' :
-                  'bg-white'
+                  'bg-slate-100'
                 }`}>
                   {step.status === 'complete' ? (
                     <CheckCircle className="w-5 h-5 text-green-600" />

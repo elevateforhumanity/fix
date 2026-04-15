@@ -324,8 +324,9 @@ export async function processDocument(
       return await routeToReview(supabase, documentId, detectedType, extractedData, confidence, failedRules, context, startTime);
     }
 
-    // Step 6: Auto-approve
-    return await autoApprove(supabase, documentId, detectedType, extractedData, confidence, warnings, context, startTime);
+    // Step 6: Route to human review — auto-approval is disabled.
+    // All documents require manual admin approval regardless of OCR confidence.
+    return await routeToReview(supabase, documentId, detectedType, extractedData, confidence, warnings.length > 0 ? warnings : ['ocr_passed_pending_admin_review'], context, startTime);
 
   } catch (error) {
     logger.error('[EvidenceProcessor] Processing failed', { documentId, error });
@@ -345,8 +346,11 @@ export async function processDocument(
 }
 
 /**
- * Auto-approve a document and record the decision.
+ * Auto-approval is disabled — all documents require manual admin review.
+ * This function is retained for reference but is no longer called.
+ * @deprecated Use routeToReview instead.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function autoApprove(
   supabase: ReturnType<typeof createAdminClient>,
   documentId: string,
@@ -602,8 +606,8 @@ export async function processTranscript(
     state,
   });
 
-  // If auto-approved and has hours, apply transfer hours
-  if (result.outcome === 'auto_approved' && result.extractedData.hours_completed) {
+  // Transfer hours are only applied after manual admin approval — not automatically.
+  if (false && result.outcome === 'auto_approved' && result.extractedData.hours_completed) {
     const supabase = await getAdminClient();
     await setAuditContext(supabase, { systemActor: 'evidence_processor' });
     const hours = result.extractedData.hours_completed as number;

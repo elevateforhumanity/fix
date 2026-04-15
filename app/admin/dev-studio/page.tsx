@@ -3,18 +3,19 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import React from 'react';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import FileTree from '@/components/dev-studio/FileTree';
-import Terminal from '@/components/dev-studio/Terminal';
 import PreviewPanel from '@/components/dev-studio/PreviewPanel';
+import XTerminal, { type XTerminalHandle } from '@/components/dev-studio/XTerminal';
 import {
   GitBranch,
   Play,
   Rocket,
   Save,
+  Send,
 } from 'lucide-react';
 
 // Lazy load Monaco to avoid SSR issues
@@ -49,11 +50,13 @@ export default function DevStudioPage() {
 
   // UI state
   const [loading, setLoading] = useState(false);
-  const [terminalOutput, setTerminalOutput] = useState<string[]>([
-    '$ Elevate Dev Studio initialized',
-    '$ Ready to code!',
-  ]);
   const [showCourseFilesOnly, setShowCourseFilesOnly] = useState(false);
+
+  // Command terminal
+  const terminalRef = useRef<XTerminalHandle>(null);
+  const [command, setCommand] = useState('');
+  const [executing, setExecuting] = useState(false);
+  const [cmdHistory, setCmdHistory] = useState<{ role: string; content: string }[]>([]);
 
   // Load GitHub token from localStorage
   useEffect(() => {
@@ -64,17 +67,18 @@ export default function DevStudioPage() {
     } else {
       addTerminalOutput('⚠  No GitHub token found. Please connect GitHub first.');
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Load repos when token changes
   useEffect(() => {
     if (token && selectedRepo) {
       loadFileTree();
     }
-  }, [token, selectedRepo, branch]);
+  }, [token, selectedRepo, branch]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Legacy terminal helper — kept for any remaining callers during transition
   const addTerminalOutput = (message: string) => {
-    setTerminalOutput((prev) => [...prev, `$ ${message}`]);
+    terminalRef.current?.write(`$ ${message}`);
   };
 
   const connectGitHub = () => {
@@ -237,6 +241,60 @@ export default function DevStudioPage() {
     setHasChanges(true);
   };
 
+  const executeCommand = async () => {
+    if (!command.trim() || executing) return;
+    const cmd = command.trim();
+    setCommand('');
+    setExecuting(true);
+
+    try {
+      const res = await fetch('/api/devstudio/execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: cmd, history: cmdHistory }),
+      });
+
+      if (!res.ok || !res.body) {
+        terminalRef.current?.write('\x1b[31m✗  Failed to connect to execute endpoint\x1b[0m');
+        return;
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split('\n\n');
+        buffer = parts.pop() ?? '';
+        for (const part of parts) {
+          if (!part.startsWith('data: ')) continue;
+          const payload = part.slice(6).trim();
+          if (payload === '[DONE]') break;
+          try {
+            const { line } = JSON.parse(payload);
+            if (line !== undefined) terminalRef.current?.write(line);
+          } catch { /* malformed chunk */ }
+        }
+      }
+
+      setCmdHistory(prev => [
+        ...prev,
+        { role: 'user', content: cmd },
+      ]);
+    } catch (err) {
+      terminalRef.current?.write(`\x1b[31m✗  ${err instanceof Error ? err.message : 'Unknown error'}\x1b[0m`);
+    } finally {
+      setExecuting(false);
+    }
+  };
+
+  const handleCommandKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') executeCommand();
+  };
+
   return (
     <div className="h-screen flex flex-col bg-slate-900">
 
@@ -368,12 +426,33 @@ export default function DevStudioPage() {
             )}
           </div>
 
-          {/* Terminal */}
-          <div className="h-48 border-t border-slate-700">
-            <Terminal
-              output={terminalOutput}
-              onClear={() => setTerminalOutput([])}
-            />
+          {/* Command terminal */}
+          <div className="h-64 border-t border-slate-700 flex flex-col">
+            <div className="flex-1 min-h-0">
+              <XTerminal ref={terminalRef} />
+            </div>
+            {/* Command input */}
+            <div className="flex items-center gap-2 px-3 py-2 bg-[#161b22] border-t border-[#30363d]">
+              <span className="text-[#3fb950] font-mono text-sm flex-shrink-0">$</span>
+              <input
+                type="text"
+                value={command}
+                onChange={e => setCommand(e.target.value)}
+                onKeyDown={handleCommandKey}
+                placeholder="Tell me what to do — &quot;generate a CNA course&quot;, &quot;show today's applications&quot;, &quot;run enrollment report&quot;"
+                disabled={executing}
+                className="flex-1 bg-transparent text-[#c9d1d9] font-mono text-sm outline-none placeholder:text-[#6e7681] disabled:opacity-50"
+              />
+              <button
+                onClick={executeCommand}
+                disabled={!command.trim() || executing}
+                className="flex-shrink-0 p-1.5 bg-[#238636] hover:bg-[#2ea043] text-white rounded disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                {executing
+                  ? <span className="w-4 h-4 block border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  : <Send className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
         </div>
 

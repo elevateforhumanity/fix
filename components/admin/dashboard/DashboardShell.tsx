@@ -5,10 +5,11 @@ import Image from "next/image";
 import { AdminGreeting } from "@/components/admin/AdminGreeting";
 import {
   FileText, Users, DollarSign, Award, AlertTriangle,
-  ArrowRight, BookOpen, TrendingUp, BarChart3,
-  CheckCircle2, XCircle, Clock, ShieldAlert,
+  ArrowRight, BookOpen, ChevronRight, ShieldAlert,
+  CheckCircle2, XCircle, Building2, GraduationCap, Bell,
 } from "lucide-react";
 import type { AdminDashboardData, SystemHealth } from "./types";
+import { KpiGrid } from "./KpiGrid";
 
 // ── Formatters ────────────────────────────────────────────────────────────────
 function fmtUsd(cents: number) {
@@ -26,7 +27,6 @@ function fmtAge(days: number) {
   if (days === 1) return "1 day ago";
   return `${days} days ago`;
 }
-
 
 // ── Status pill ───────────────────────────────────────────────────────────────
 const STATUS_COLORS: Record<string, string> = {
@@ -47,553 +47,332 @@ function StatusPill({ status }: { status: string }) {
 }
 
 function Empty({ message }: { message: string }) {
-  return <p className="text-slate-400 text-sm py-10">{message}</p>;
+  return <p className="text-sm text-slate-400 py-6 text-center">{message}</p>;
 }
 
-// Never hide the dashboard — even an empty DB should show system health,
-// the courses panel, and navigation. The "no data" state is shown inline
-// within each section rather than replacing the whole page.
-function isOperationallyEmpty(_data: AdminDashboardData): boolean {
-  return false;
-}
-
-function NoOperationalData() {
+function isOperationallyEmpty(d: AdminDashboardData): boolean {
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
-      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-50 border border-amber-200 mb-6">
-        <AlertTriangle className="w-8 h-8 text-amber-500" />
-      </div>
-      <h2 className="text-2xl font-bold text-slate-900 mb-3">No operational data</h2>
-      <p className="text-slate-500 max-w-sm mb-8 leading-relaxed">
-        All KPIs returned zero. The database is either empty or the connection is not returning data.
-      </p>
-      <div className="flex flex-wrap gap-3 justify-center">
-        <Link href="/admin/applications"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-colors">
-          Check Applications
-        </Link>
-        <Link href="/admin/students"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-50 transition-colors">
-          Check Students
-        </Link>
-      </div>
-    </div>
+    d.recentApplications.length === 0 &&
+    d.recentStudents.length === 0 &&
+    d.topPrograms.length === 0
   );
 }
 
-const DEGRADED_LABELS: Record<string, string> = {
-  inactive_learners:      "Inactive learners",
-  unpublished_programs:   "Unpublished programs",
-  recent_students:        "Recent students",
-  enrollments_by_program: "Enrollment breakdown",
-};
 function DegradedBanner({ sections }: { sections: string[] }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-800">
-      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+    <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6">
+      <AlertTriangle className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" />
       <div>
-        <span className="font-semibold">Some sections are temporarily unavailable.</span>
-        {" "}KPI counts are accurate.{" "}
-        {sections.map(s => DEGRADED_LABELS[s] ?? s).join(", ")} could not be loaded.
+        <p className="text-sm font-semibold text-amber-800">Some sections unavailable</p>
+        <p className="text-xs text-amber-700 mt-0.5">{sections.join(", ")} could not load.</p>
       </div>
     </div>
   );
 }
 
-// ── System Health Panel ───────────────────────────────────────────────────────
-const SEVERITY_STYLES = {
-  critical: { row: "border-rose-200 bg-rose-50", icon: "text-rose-500", text: "text-rose-800" },
-  warning:  { row: "border-amber-200 bg-amber-50", icon: "text-amber-500", text: "text-amber-800" },
-  info:     { row: "border-blue-200 bg-blue-50", icon: "text-blue-500", text: "text-blue-800" },
-};
-
-function SystemHealthPanel({ health }: { health: SystemHealth }) {
-  const hasCritical = health.alerts.some(a => a.severity === "critical");
-  const hasWarning  = health.alerts.some(a => a.severity === "warning");
-  const allClear    = health.alerts.length === 0;
-
+function HealthBadge({ health }: { health: SystemHealth }) {
+  const ok = health.status === "ok";
   return (
-    <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
-      <div className="flex items-end justify-between mb-8 sm:mb-12">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Infrastructure</p>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none flex items-center gap-4">
-            System Health
-            {hasCritical && <XCircle className="w-8 h-8 text-rose-500" />}
-            {!hasCritical && hasWarning && <AlertTriangle className="w-8 h-8 text-amber-500" />}
-            {allClear && <CheckCircle2 className="w-8 h-8 text-emerald-500" />}
-          </h2>
-        </div>
-        <Link href="/admin/settings" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
-          Settings <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
-      </div>
-
-      {/* Status indicators */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-        {[
-          { label: "Stripe Webhook",    ok: health.stripeWebhookOk },
-          { label: "Build Env Vars",    ok: health.buildEnvOk },
-          { label: "Stale Jobs",        ok: health.staleJobs === 0,        badge: health.staleJobs > 0 ? String(health.staleJobs) : null },
-          { label: "Unresolved Flags",  ok: health.unresolvedFlags === 0,  badge: health.unresolvedFlags > 0 ? String(health.unresolvedFlags) : null },
-        ].map(({ label, ok, badge }) => (
-          <div key={label} className={`rounded-xl border px-4 py-4 flex items-center gap-3 ${ok ? "border-emerald-200 bg-emerald-50" : "border-rose-200 bg-rose-50"}`}>
-            {ok
-              ? <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-              : <XCircle className="w-5 h-5 text-rose-500 flex-shrink-0" />}
-            <div className="min-w-0">
-              <p className={`text-xs font-semibold truncate ${ok ? "text-emerald-800" : "text-rose-800"}`}>{label}</p>
-              {badge && <p className="text-lg font-black tabular-nums text-rose-600">{badge}</p>}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Missing documents row */}
-      {health.missingDocuments > 0 && (
-        <div className="flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 mb-4">
-          <ShieldAlert className="w-5 h-5 text-amber-500 flex-shrink-0" />
-          <p className="text-sm font-semibold text-amber-800">
-            {health.missingDocuments} active enrollment{health.missingDocuments !== 1 ? "s" : ""} missing required documents
-          </p>
-          <Link href="/admin/enrollments?docs_verified=false" className="ml-auto text-xs font-bold text-amber-700 hover:text-amber-900 flex items-center gap-1">
-            Review <ArrowRight className="w-3 h-3" />
-          </Link>
-        </div>
-      )}
-
-      {/* Alert list */}
-      {health.alerts.length === 0 ? (
-        <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-4">
-          <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-          <p className="text-sm font-semibold text-emerald-800">All systems operational</p>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {health.alerts.map((alert, i) => {
-            const s = SEVERITY_STYLES[alert.severity] ?? SEVERITY_STYLES.info;
-            return (
-              <div key={`${alert.code}-${i}`} className={`flex items-start gap-3 rounded-xl border px-5 py-4 ${s.row}`}>
-                {alert.severity === "critical"
-                  ? <XCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${s.icon}`} />
-                  : alert.severity === "warning"
-                  ? <AlertTriangle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${s.icon}`} />
-                  : <Clock className={`w-5 h-5 flex-shrink-0 mt-0.5 ${s.icon}`} />}
-                <div>
-                  <p className={`text-sm font-semibold ${s.text}`}>{alert.message}</p>
-                  <p className={`text-xs mt-0.5 font-mono opacity-60 ${s.text}`}>{alert.code}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </section>
+    <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full ${ok ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
+      {ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
+      {ok ? "All systems operational" : (health.message ?? "Degraded")}
+    </span>
   );
 }
 
-// ── Shell ─────────────────────────────────────────────────────────────────────
-export function DashboardShell({ data }: { data: AdminDashboardData }) {
-  if (isOperationallyEmpty(data)) return <NoOperationalData />;
+function SectionCard({ title, href, hrefLabel = "View all", children }: {
+  title: string; href?: string; hrefLabel?: string; children: React.ReactNode;
+}) {
+  return (
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+        <h2 className="text-base font-bold text-slate-900">{title}</h2>
+        {href && (
+          <Link href={href} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700">
+            {hrefLabel} <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+        )}
+      </div>
+      <div className="px-6 py-4">{children}</div>
+    </div>
+  );
+}
 
-  const firstName = data.profile?.full_name?.split(" ")[0] ?? "Admin";
+function FeatureCard({ href, image, title, sub, badge }: {
+  href: string; image: string; title: string; sub: string; badge?: string;
+}) {
+  return (
+    <Link href={href} className="group relative flex flex-col overflow-hidden rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+      <div className="relative h-32 w-full">
+        <Image src={image} alt={title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent" />
+        {badge && (
+          <span className="absolute top-3 right-3 bg-amber-400 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full">{badge}</span>
+        )}
+      </div>
+      <div className="p-4 flex-1">
+        <p className="font-bold text-slate-900 text-sm leading-snug">{title}</p>
+        <p className="text-xs text-slate-500 mt-1">{sub}</p>
+      </div>
+      <div className="px-4 pb-4">
+        <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 group-hover:gap-2 transition-all">
+          Open <ArrowRight className="w-3.5 h-3.5" />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+export function DashboardShell({ data }: { data: AdminDashboardData }) {
   const updatedAt = new Date(data.generatedAt).toLocaleString("en-US", {
     month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
   });
 
-  const { pendingApplications, activeEnrollments, revenueThisMonthCents, certificatesIssued } = data.counts;
+  const {
+    pendingApplications, activeEnrollments,
+    revenueThisMonthCents, certificatesIssued,
+    pendingProgramHolders, pendingDocuments,
+  } = data.counts;
+
   const maxEnrollments = Math.max(...data.topPrograms.map(p => p.learners), 1);
 
   return (
-    <div className="pb-16 sm:pb-32">
+    <div className="pb-24">
 
-      {(data.degradedSections ?? []).length > 0 && (
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-          <DegradedBanner sections={data.degradedSections ?? []} />
-        </div>
-      )}
-
-      {/* ══════════════════════════════════════════════════════════
-          HERO — full-bleed image, all text below it
-      ══════════════════════════════════════════════════════════ */}
-      <section>
-        {/* Hero image — no text on top */}
-        <div className="relative w-full h-48 sm:h-72 lg:h-96 overflow-hidden">
-          <Image
-            src="/images/pages/admin-dashboard-hero.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          {/* Subtle bottom fade only */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
-        </div>
-
-        {/* Headline — below the image, full-width content area */}
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10 sm:pt-10 sm:pb-16">
-          <p className="text-sm font-medium text-slate-400 uppercase tracking-widest mb-4" suppressHydrationWarning>
-            <AdminGreeting name={firstName} />
-          </p>
-          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black text-slate-900 leading-none tracking-tight mb-10">
-            Operations
-          </h1>
-
-          {/* Urgent CTAs */}
-          <div className="flex flex-wrap gap-3 mb-10">
-            {pendingApplications > 0 && (
-              <Link
-                href="/admin/applications?status=submitted"
-                className="inline-flex items-center gap-3 bg-rose-600 hover:bg-rose-700 text-white px-7 py-4 rounded-2xl font-bold text-lg transition-colors"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-white/80 animate-pulse" />
-                {pendingApplications} application{pendingApplications !== 1 ? "s" : ""} waiting for review
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            )}
-            {(data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0) > 0 && (
-              <Link
-                href="/admin/program-holders"
-                className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-600 text-white px-7 py-4 rounded-2xl font-bold text-lg transition-colors"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-white/80 animate-pulse" />
-                {data.kpis.find(k => k.label === 'Pending Program Holders')?.value} program holder{(data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0) !== 1 ? "s" : ""} pending approval
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            )}
-            {(data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0) > 0 && (
-              <Link
-                href="/admin/program-holder-documents"
-                className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-7 py-4 rounded-2xl font-bold text-lg transition-colors"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-white/80 animate-pulse" />
-                {data.kpis.find(k => k.label === 'Pending Documents')?.value} document{(data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0) !== 1 ? "s" : ""} to review
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            )}
-          </div>
-
-          {/* Quick-nav — same pill style as marketing site */}
-          <div className="flex flex-wrap gap-3">
-            {[
-              { label: "Applications", href: "/admin/applications",                    icon: FileText   },
-              { label: "Students",     href: "/admin/students",                        icon: Users      },
-              { label: "Programs",     href: "/admin/programs",                        icon: BookOpen   },
-              { label: "Analytics",    href: "/admin/analytics",                       icon: BarChart3  },
-              { label: "Certificates", href: "/admin/certificates",                    icon: Award      },
-              { label: "Revenue",      href: "/admin/enrollments?payment_status=paid", icon: DollarSign },
-              { label: "At-Risk",      href: "/admin/at-risk",                         icon: TrendingUp },
-              { label: "Program Holders", href: "/admin/program-holders",              icon: Users      },
-              { label: "PH Documents", href: "/admin/program-holder-documents",        icon: FileText   },
-            ].map(({ label, href, icon: Icon }) => (
-              <Link
-                key={label}
-                href={href}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 transition-all shadow-sm"
-              >
-                <Icon className="w-4 h-4 text-slate-400" />
-                {label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          NUMBERS — ruled list, big typographic values
-      ══════════════════════════════════════════════════════════ */}
-      <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
-        <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-10">At a glance</p>
-        <div className="divide-y divide-slate-100">
-          {[
-            { label: "Applications waiting",       value: fmtNum(pendingApplications),       href: "/admin/applications?status=submitted",       urgent: pendingApplications > 0 },
-            { label: "Active enrollments",         value: fmtNum(activeEnrollments),         href: "/admin/enrollments?status=active",            urgent: false },
-            { label: "Revenue this month",         value: fmtUsd(revenueThisMonthCents),     href: "/admin/enrollments?payment_status=paid",      urgent: false },
-            { label: "Certificates issued",        value: fmtNum(certificatesIssued),        href: "/admin/certificates",                         urgent: false },
-            { label: "Program holders pending",    value: fmtNum(data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0), href: "/admin/program-holders",              urgent: (data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0) > 0 },
-            { label: "Documents to review",        value: fmtNum(data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0),       href: "/admin/program-holder-documents",     urgent: (data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0) > 0 },
-          ].map(({ label, value, href, urgent }) => (
-            <Link
-              key={label}
-              href={href}
-              className="group flex items-center justify-between py-5 sm:py-8 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
-            >
-              <span className="text-base font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
-                {label}
-              </span>
-              <div className="flex items-center gap-5">
-                <span className={`text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight ${urgent ? "text-rose-600" : "text-slate-900"}`}>
-                  {value}
-                </span>
-                <ArrowRight className="w-5 h-5 text-slate-200 group-hover:text-slate-500 transition-colors" />
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          APPLICATIONS
-      ══════════════════════════════════════════════════════════ */}
-      <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
-        <div className="flex items-end justify-between mb-8 sm:mb-12">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Review queue</p>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Applications</h2>
-          </div>
-          <Link href="/admin/applications" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
-            View all <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        {data.recentApplications.length === 0 ? (
-          <Empty message="No pending applications." />
-        ) : (
-          <div className="divide-y divide-slate-100">
-            {data.recentApplications.slice(0, 8).map(app => {
-              const name = app.full_name ||
-                [app.first_name, app.last_name].filter(Boolean).join(" ") || "Unnamed";
-              return (
-                <Link
-                  key={app.id}
-                  href={app.href}
-                  className="group flex items-center gap-4 sm:gap-6 py-4 sm:py-6 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
-                >
-                  <div className={`w-1 h-14 rounded-full flex-shrink-0 ${app.urgent ? "bg-rose-500" : "bg-slate-200"}`} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-lg font-bold text-slate-900 truncate">{name}</p>
-                    <p className="text-sm text-slate-400 truncate mt-0.5">{app.program_interest ?? "No program selected"}</p>
-                  </div>
-                  <div className="flex items-center gap-4 flex-shrink-0">
-                    <StatusPill status={app.status} />
-                    <span className={`text-sm font-medium hidden sm:block ${app.urgent ? "text-rose-600" : "text-slate-400"}`}>
-                      {fmtAge(app.age_days)}
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-slate-500 transition-colors" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          PROGRAM HOLDERS
-      ══════════════════════════════════════════════════════════ */}
-      {(() => {
-        const pendingHolders = data.kpis.find(k => k.label === 'Pending Program Holders')?.value ?? 0;
-        const pendingDocs    = data.kpis.find(k => k.label === 'Pending Documents')?.value ?? 0;
-        if (pendingHolders === 0 && pendingDocs === 0) return null;
-        return (
-          <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
-            <div className="flex items-end justify-between mb-8 sm:mb-12">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Partner onboarding</p>
-                <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Program Holders</h2>
-              </div>
-              <Link href="/admin/program-holders" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
-                View all <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+      {/* HERO */}
+      <div className="relative w-full h-[340px] sm:h-[420px]">
+        <Image src="/images/pages/admin-dashboard-hero.jpg" alt="Admin Operations Dashboard" fill priority className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/80" />
+        <div className="absolute inset-0 flex flex-col justify-end px-6 sm:px-10 pb-10 max-w-screen-xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div>
+              <p className="text-brand-blue-300 text-sm font-semibold tracking-widest uppercase mb-2">Operations Center</p>
+              <AdminGreeting className="text-white text-3xl sm:text-5xl font-extrabold leading-tight drop-shadow-lg" />
+              <p className="text-slate-300 text-sm mt-2">Last updated {updatedAt}</p>
             </div>
-            <div className="divide-y divide-slate-100">
-              {pendingHolders > 0 && (
-                <Link
-                  href="/admin/program-holders"
-                  className="group flex items-center justify-between py-5 sm:py-8 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-1 h-14 rounded-full bg-amber-400 flex-shrink-0" />
-                    <div>
-                      <p className="text-lg font-bold text-slate-900">Applications pending approval</p>
-                      <p className="text-sm text-slate-400 mt-0.5">Review and approve program holder applications</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-5">
-                    <span className="text-3xl sm:text-4xl font-black tabular-nums text-amber-600">{pendingHolders}</span>
-                    <ArrowRight className="w-5 h-5 text-slate-200 group-hover:text-slate-500 transition-colors" />
-                  </div>
-                </Link>
-              )}
-              {pendingDocs > 0 && (
-                <Link
-                  href="/admin/program-holder-documents"
-                  className="group flex items-center justify-between py-5 sm:py-8 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-1 h-14 rounded-full bg-blue-400 flex-shrink-0" />
-                    <div>
-                      <p className="text-lg font-bold text-slate-900">Documents pending review</p>
-                      <p className="text-sm text-slate-400 mt-0.5">View, approve, or reject uploaded documents</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-5">
-                    <span className="text-3xl sm:text-4xl font-black tabular-nums text-blue-600">{pendingDocs}</span>
-                    <ArrowRight className="w-5 h-5 text-slate-200 group-hover:text-slate-500 transition-colors" />
-                  </div>
+            <div className="flex flex-wrap gap-2">
+              {data.systemHealth && <HealthBadge health={data.systemHealth} />}
+              {pendingApplications > 0 && (
+                <Link href="/admin/applications" className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-500 text-slate-900 text-xs font-bold px-4 py-2 rounded-full transition-colors">
+                  <Bell className="w-3.5 h-3.5" /> {pendingApplications} pending
                 </Link>
               )}
             </div>
-          </section>
-        );
-      })()}
-
-      {/* ══════════════════════════════════════════════════════════
-          PROGRAMS
-      ══════════════════════════════════════════════════════════ */}
-      <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
-        <div className="flex items-end justify-between mb-8 sm:mb-12">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Enrollment</p>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Programs</h2>
           </div>
-          <Link href="/admin/programs" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
-            All programs <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
         </div>
-
-        {data.topPrograms.length === 0 ? (
-          <Empty message="No program enrollment data yet." />
-        ) : (
-          <div className="space-y-10">
-            {data.topPrograms.map(p => (
-              <Link key={p.id} href={`/admin/programs/${p.id}`} className="group block">
-                <div className="flex items-baseline justify-between mb-3">
-                  <span className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                    {p.name}
-                  </span>
-                  <div className="flex items-center gap-8 text-sm flex-shrink-0 ml-4">
-                    <span className="text-slate-500 tabular-nums">{fmtNum(p.learners)} enrolled</span>
-                    <span className="font-bold text-emerald-600 tabular-nums">{p.completionRate}% complete</span>
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
-                    <div className="h-full rounded-full bg-blue-500" style={{ width: `${Math.round((p.learners / maxEnrollments) * 100)}%` }} />
-                  </div>
-                  <div className="h-1 rounded-full bg-slate-100 overflow-hidden">
-                    <div className="h-full rounded-full bg-emerald-400" style={{ width: `${p.completionRate}%` }} />
-                  </div>
-                </div>
-              </Link>
-            ))}
-            <div className="flex items-center gap-6 pt-2 text-xs text-slate-400">
-              <span className="flex items-center gap-2"><span className="w-3 h-2 rounded-full bg-blue-500 inline-block" /> Enrollment</span>
-              <span className="flex items-center gap-2"><span className="w-3 h-1 rounded-full bg-emerald-400 inline-block" /> Completion</span>
-            </div>
-          </div>
-        )}
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          STUDENTS + AT-RISK
-      ══════════════════════════════════════════════════════════ */}
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:gap-24 lg:grid-cols-2 mb-16 lg:mb-28">
-
-        <section>
-          <div className="flex items-end justify-between mb-8 sm:mb-12">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Recently enrolled</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Students</h2>
-            </div>
-            <Link href="/admin/students" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
-              All students <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-          {data.recentStudents.length === 0 ? (
-            <Empty message="No students yet." />
-          ) : (
-            <div className="divide-y divide-slate-100">
-              {data.recentStudents.map(s => (
-                <Link key={s.id} href={s.href} className="group flex items-center gap-4 py-5 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors">
-                  <div className="flex-1 min-w-0">
-                    <p className="text-base font-bold text-slate-900 truncate">{s.full_name ?? s.email ?? "Unknown"}</p>
-                    <p className="text-sm text-slate-400 truncate mt-0.5">{s.program_name ?? "No program"}</p>
-                  </div>
-                  <div className="flex items-center gap-3 flex-shrink-0">
-                    {s.enrollment_status && <StatusPill status={s.enrollment_status} />}
-                    <span className="text-xs text-slate-400 hidden sm:block">{fmtDate(s.created_at)}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </section>
-
-        <section>
-          <div className="flex items-end justify-between mb-8 sm:mb-12">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Inactive 3+ days</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">
-                At-Risk
-                {data.inactiveLearners.length > 0 && (
-                  <span className="ml-3 text-rose-600">{data.inactiveLearners.length}</span>
-                )}
-              </h2>
-            </div>
-            {data.inactiveLearners.length > 0 && (
-              <Link href="/admin/at-risk" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
-                View all <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            )}
-          </div>
-          {data.inactiveLearners.length === 0 ? (
-            <Empty message="All students are engaged." />
-          ) : (
-            <div className="divide-y divide-slate-100">
-              {data.inactiveLearners.map(l => (
-                <Link key={l.enrollmentId} href={l.href} className="group flex items-center gap-4 py-5 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors">
-                  <div className="w-1 h-10 rounded-full bg-amber-400 flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-base font-bold text-slate-900 truncate">{l.fullName ?? "Unknown"}</p>
-                    <p className="text-sm text-slate-400 truncate mt-0.5">{l.email ?? "No email"}</p>
-                  </div>
-                  <span className="text-xs font-semibold text-amber-600 flex-shrink-0">Since {fmtDate(l.enrolledAt)}</span>
-                </Link>
-              ))}
-            </div>
-          )}
-        </section>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════
-          UNPUBLISHED PROGRAMS
-      ══════════════════════════════════════════════════════════ */}
-      {data.blockedPrograms.length > 0 && (
-        <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-28">
-          <div className="flex items-end justify-between mb-8 sm:mb-12">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Not yet live</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-none">Unpublished</h2>
-            </div>
-            <Link href="/admin/programs?status=draft" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1.5">
-              All drafts <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-          <div className="divide-y divide-slate-100">
-            {data.blockedPrograms.map(p => (
-              <Link key={p.id} href={p.href} className="group flex items-center gap-4 py-5 hover:bg-slate-50 -mx-4 px-4 rounded-xl transition-colors">
-                <div className="flex-1 min-w-0">
-                  <p className="text-base font-bold text-slate-900 truncate">{p.title}</p>
-                  <p className="text-sm text-slate-400 truncate mt-0.5">{p.slug}</p>
-                </div>
-                <div className="flex items-center gap-3 flex-shrink-0">
-                  <StatusPill status={p.status} />
-                  <span className="text-xs text-slate-400 hidden sm:block">{fmtDate(p.updatedAt)}</span>
-                  <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-slate-500 transition-colors" />
-                </div>
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {(data.degradedSections ?? []).length > 0 && (
+          <div className="mt-6"><DegradedBanner sections={data.degradedSections ?? []} /></div>
+        )}
+
+        {/* URGENT CTAs */}
+        {(pendingProgramHolders > 0 || pendingDocuments > 0) && (
+          <div className="mt-8 flex flex-wrap gap-3">
+            {pendingProgramHolders > 0 && (
+              <Link href="/admin/program-holders" className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-2xl font-bold text-sm transition-colors shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-white/80 animate-pulse" />
+                {pendingProgramHolders} program holder{pendingProgramHolders !== 1 ? "s" : ""} pending approval
+                <ArrowRight className="w-4 h-4" />
               </Link>
-            ))}
+            )}
+            {pendingDocuments > 0 && (
+              <Link href="/admin/program-holder-documents" className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-bold text-sm transition-colors shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-white/80 animate-pulse" />
+                {pendingDocuments} document{pendingDocuments !== 1 ? "s" : ""} to review
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            )}
           </div>
-        </section>
-      )}
+        )}
 
-      {/* ══════════════════════════════════════════════════════════
-          SYSTEM HEALTH
-      ══════════════════════════════════════════════════════════ */}
-      <SystemHealthPanel health={data.systemHealth} />
+        {/* KPI CARDS */}
+        <div className="mt-8"><KpiGrid kpis={data.kpis} /></div>
 
+        {/* QUICK NAV FEATURE CARDS */}
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <FeatureCard href="/admin/applications"    image="/images/pages/admin-applications-hero.jpg"   title="Applications"    sub={`${pendingApplications} pending`}              badge={pendingApplications > 0 ? String(pendingApplications) : undefined} />
+          <FeatureCard href="/admin/students"        image="/images/pages/admin-students-hero.jpg"       title="Students"        sub={`${fmtNum(activeEnrollments)} active`} />
+          <FeatureCard href="/admin/programs"        image="/images/pages/programs-admin-hero.jpg"       title="Programs"        sub="Manage curriculum" />
+          <FeatureCard href="/admin/analytics"       image="/images/pages/admin-analytics-hero.jpg"      title="Analytics"       sub="Enrollment & revenue" />
+          <FeatureCard href="/admin/program-holders" image="/images/pages/admin-applicants-hero.jpg"     title="Program Holders" sub={pendingProgramHolders > 0 ? `${pendingProgramHolders} pending` : "Manage holders"} badge={pendingProgramHolders > 0 ? String(pendingProgramHolders) : undefined} />
+          <FeatureCard href="/admin/settings"        image="/images/pages/admin-advanced-tools-hero.jpg" title="Settings"        sub="System configuration" />
+        </div>
+
+        {/* APPLICATIONS + QUICK STATS */}
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <SectionCard title="Recent Applications" href="/admin/applications" hrefLabel="Review all">
+              {data.recentApplications.length === 0 ? <Empty message="No applications yet." /> : (
+                <div className="divide-y divide-slate-50">
+                  {data.recentApplications.slice(0, 8).map(app => {
+                    const name = [app.first_name, app.last_name].filter(Boolean).join(" ") || app.email || "Applicant";
+                    const age  = Math.floor((Date.now() - new Date(app.submitted_at ?? app.created_at).getTime()) / 86_400_000);
+                    return (
+                      <div key={app.id} className="flex items-center justify-between py-3 gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-8 h-8 rounded-full bg-brand-blue-100 flex items-center justify-center flex-shrink-0">
+                            <span className="text-xs font-bold text-brand-blue-700">{name[0]?.toUpperCase() ?? "?"}</span>
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-slate-900 truncate">{name}</p>
+                            <p className="text-xs text-slate-400 truncate">{app.program_interest ?? "—"}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 flex-shrink-0">
+                          <StatusPill status={app.status} />
+                          <span className="text-xs text-slate-400 hidden sm:block">{fmtAge(age)}</span>
+                          <Link href={`/admin/applications/review/${app.id}`} className="text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700 flex items-center gap-0.5">
+                            Review <ChevronRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </SectionCard>
+          </div>
+
+          <div className="lg:col-span-1 flex flex-col gap-6">
+            <SectionCard title="Quick Stats">
+              <div className="space-y-3">
+                {([
+                  { label: "Active enrollments",     value: fmtNum(activeEnrollments),     href: "/admin/students",                 Icon: Users,      urgent: false },
+                  { label: "Revenue this month",      value: fmtUsd(revenueThisMonthCents), href: "/admin/analytics/revenue",        Icon: DollarSign, urgent: false },
+                  { label: "Certificates issued",     value: fmtNum(certificatesIssued),    href: "/admin/certificates",             Icon: Award,      urgent: false },
+                  { label: "Program holders pending", value: fmtNum(pendingProgramHolders), href: "/admin/program-holders",          Icon: Building2,  urgent: pendingProgramHolders > 0 },
+                  { label: "Documents to review",     value: fmtNum(pendingDocuments),      href: "/admin/program-holder-documents", Icon: FileText,   urgent: pendingDocuments > 0 },
+                ] as const).map(({ label, value, href, Icon, urgent }) => (
+                  <Link key={label} href={href} className="flex items-center justify-between group py-1.5">
+                    <div className="flex items-center gap-2">
+                      <Icon className={`w-4 h-4 ${urgent ? "text-amber-500" : "text-slate-400"}`} />
+                      <span className={`text-sm ${urgent ? "font-semibold text-amber-700" : "text-slate-600"}`}>{label}</span>
+                    </div>
+                    <span className={`text-sm font-bold ${urgent ? "text-amber-600" : "text-slate-900"}`}>{value}</span>
+                  </Link>
+                ))}
+              </div>
+            </SectionCard>
+
+            {data.inactiveLearners.length > 0 && (
+              <SectionCard title="At-Risk Learners" href="/admin/retention" hrefLabel={`View all ${data.inactiveLearners.length}`}>
+                <div className="space-y-2">
+                  {data.inactiveLearners.slice(0, 5).map(l => (
+                    <div key={l.userId} className="flex items-center justify-between">
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-slate-800 truncate">{l.fullName || l.email}</p>
+                        <p className="text-xs text-slate-400">{l.daysInactive}d inactive · {l.programTitle ?? "—"}</p>
+                      </div>
+                      <Link href={`/admin/students/${l.userId}`} className="text-xs text-brand-blue-600 hover:underline flex-shrink-0 ml-2">View</Link>
+                    </div>
+                  ))}
+                </div>
+              </SectionCard>
+            )}
+          </div>
+        </div>
+
+        {/* TOP PROGRAMS + RECENT STUDENTS */}
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <SectionCard title="Top Programs by Enrollment" href="/admin/programs">
+            {data.topPrograms.length === 0 ? <Empty message="No program data yet." /> : (
+              <div className="space-y-3">
+                {data.topPrograms.map(p => (
+                  <div key={p.id ?? p.title} className="flex items-center gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-sm font-semibold text-slate-800 truncate">{p.title}</p>
+                        <span className="text-xs font-bold text-slate-600 ml-2 flex-shrink-0">{fmtNum(p.learners)}</span>
+                      </div>
+                      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-brand-blue-500 rounded-full" style={{ width: `${Math.round((p.learners / maxEnrollments) * 100)}%` }} />
+                      </div>
+                    </div>
+                    {p.id && (
+                      <Link href={`/admin/programs/${p.id}`} className="flex-shrink-0 text-slate-400 hover:text-brand-blue-600">
+                        <ChevronRight className="w-4 h-4" />
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </SectionCard>
+
+          <SectionCard title="Recent Students" href="/admin/students">
+            {data.recentStudents.length === 0 ? <Empty message="No recent students." /> : (
+              <div className="divide-y divide-slate-50">
+                {data.recentStudents.slice(0, 8).map(s => (
+                  <div key={s.id} className="flex items-center justify-between py-2.5 gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                        <span className="text-[10px] font-bold text-emerald-700">{(s.full_name || s.email || "?")[0].toUpperCase()}</span>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-slate-800 truncate">{s.full_name || s.email}</p>
+                        <p className="text-xs text-slate-400">{fmtDate(s.created_at)}</p>
+                      </div>
+                    </div>
+                    <Link href={`/admin/students/${s.id}`} className="text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700 flex-shrink-0">View</Link>
+                  </div>
+                ))}
+              </div>
+            )}
+          </SectionCard>
+        </div>
+
+        {/* BLOCKED PROGRAMS */}
+        {data.blockedPrograms.length > 0 && (
+          <div className="mt-6">
+            <SectionCard title="Blocked Programs" href="/admin/programs" hrefLabel="Manage programs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {data.blockedPrograms.map(p => (
+                  <div key={p.id} className="flex items-start gap-3 p-3 bg-rose-50 border border-rose-100 rounded-xl">
+                    <ShieldAlert className="w-4 h-4 text-rose-500 mt-0.5 flex-shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-semibold text-rose-900 truncate">{p.title}</p>
+                      <p className="text-xs text-rose-600 mt-0.5">{p.reason}</p>
+                    </div>
+                    <Link href={`/admin/programs/${p.id}`} className="text-xs font-semibold text-rose-700 hover:text-rose-800 flex-shrink-0">
+                      Fix <ArrowRight className="w-3 h-3 inline" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </SectionCard>
+          </div>
+        )}
+
+        {/* SECOND FEATURE ROW */}
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <FeatureCard href="/admin/analytics/learning" image="/images/pages/admin-analytics-learning-hero.jpg" title="Learning Analytics" sub="Completion rates & engagement" />
+          <FeatureCard href="/admin/analytics/programs" image="/images/pages/admin-analytics-programs-hero.jpg" title="Program Analytics"  sub="Enrollment trends by program" />
+          <FeatureCard href="/admin/certificates"       image="/images/pages/admin-certificates-hero.jpg"       title="Certificates"       sub={`${fmtNum(certificatesIssued)} issued`} />
+          <FeatureCard href="/admin/activity"           image="/images/pages/admin-activity-hero.jpg"           title="Activity Log"       sub="Recent system events" />
+        </div>
+
+        {/* EMPTY STATE */}
+        {isOperationallyEmpty(data) && (
+          <div className="mt-16 text-center">
+            <GraduationCap className="w-16 h-16 text-slate-200 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">No operational data yet</h2>
+            <p className="text-slate-500 max-w-md mx-auto mb-8">Once students enroll and applications come in, this dashboard will populate automatically.</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link href="/admin/programs/new" className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-blue-700 transition-colors">
+                <BookOpen className="w-4 h-4" /> Create a Program
+              </Link>
+              <Link href="/admin/students/invite" className="inline-flex items-center gap-2 border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-colors">
+                <Users className="w-4 h-4" /> Invite Students
+              </Link>
+            </div>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 }

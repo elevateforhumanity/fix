@@ -151,6 +151,7 @@ export default function RequestInfoForm({ slug, programTitle, applyHref }: Props
         >
           <option value="" disabled>Select an option</option>
           <option value="wioa">WIOA / WorkOne funding</option>
+          <option value="fssa">FSSA (Family &amp; Social Services Administration)</option>
           <option value="jri">Job Ready Indy / Reentry funding</option>
           <option value="workforce-ready-grant">Workforce Ready Grant</option>
           <option value="employer-sponsored">Employer sponsored</option>

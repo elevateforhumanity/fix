@@ -171,7 +171,7 @@ export default async function StaffDashboard() {
             <div className="space-y-2">
               <Link
                 href="/admin/students"
-                className="block p-3 border rounded-lg hover:bg-white transition"
+                className="block p-3 border rounded-lg hover:bg-slate-50 transition"
               >
                 <div className="font-semibold">View All Students</div>
                 <div className="text-sm text-black">
@@ -180,7 +180,7 @@ export default async function StaffDashboard() {
               </Link>
               <Link
                 href="/admin/programs"
-                className="block p-3 border rounded-lg hover:bg-white transition"
+                className="block p-3 border rounded-lg hover:bg-slate-50 transition"
               >
                 <div className="font-semibold">View Programs</div>
                 <div className="text-sm text-black">
@@ -189,7 +189,7 @@ export default async function StaffDashboard() {
               </Link>
               <Link
                 href="/admin/reports"
-                className="block p-3 border rounded-lg hover:bg-white transition"
+                className="block p-3 border rounded-lg hover:bg-slate-50 transition"
               >
                 <div className="font-semibold">Generate Reports</div>
                 <div className="text-sm text-black">
@@ -265,7 +265,7 @@ export default async function StaffDashboard() {
                 </thead>
                 <tbody className="divide-y divide-slate-200">
                   {recentEnrollmentsWithProfiles.map((enrollment: any) => (
-                    <tr key={enrollment.id} className="hover:bg-white">
+                    <tr key={enrollment.id} className="hover:bg-slate-50">
                       <td className="px-6 py-4 text-sm text-black">
                         {enrollment.profiles?.full_name ||
                           enrollment.profiles?.email ||

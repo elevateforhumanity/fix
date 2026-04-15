@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ProgramHolderDashboard() {
+export default async function InstructorDashboard() {
   // Require instructor or admin role
   const { user, profile } = await requireRole([
     'instructor',

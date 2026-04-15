@@ -14,7 +14,7 @@ export default async function ProgramStudentsPage({
   const { programId } = await params;
   const { db } = await requireProgramAccess(programId);
 
-  const { data: program } = await supabase
+  const { data: program } = await db
     .from('programs')
     .select('id, name, title')
     .eq('id', programId)
@@ -22,21 +22,28 @@ export default async function ProgramStudentsPage({
 
   if (!program) return <div className="p-8 text-center text-gray-500">Program not found.</div>;
 
-  // Fetch students enrolled in THIS program only
-  const { data: enrollments } = await supabase
-    .from('student_enrollments')
-    .select('id, student_id, progress, status, created_at, profiles!student_enrollments_student_id_fkey(full_name, email)')
+  // Fetch students enrolled in THIS program — canonical enrollment table
+  const { data: enrollments } = await db
+    .from('program_enrollments')
+    .select('id, user_id, progress_percent, status, enrolled_at')
     .eq('program_id', programId)
-    .order('created_at', { ascending: false })
+    .order('enrolled_at', { ascending: false })
     .limit(100);
 
-  const students = (enrollments || []).map((e: any) => ({
+  // Hydrate profiles separately (user_id → profiles, no direct FK)
+  const userIds = [...new Set((enrollments ?? []).map((e: any) => e.user_id).filter(Boolean))];
+  const { data: profileRows } = userIds.length
+    ? await db.from('profiles').select('id, full_name, email').in('id', userIds)
+    : { data: [] };
+  const profileMap = Object.fromEntries((profileRows ?? []).map((p: any) => [p.id, p]));
+
+  const students = (enrollments ?? []).map((e: any) => ({
     id: e.id,
-    name: e.profiles?.full_name || 'Unknown',
-    email: e.profiles?.email || '',
-    progress: e.progress || 0,
+    name: profileMap[e.user_id]?.full_name || 'Unknown',
+    email: profileMap[e.user_id]?.email || '',
+    progress: e.progress_percent || 0,
     status: e.status || 'unknown',
-    enrolledAt: e.created_at,
+    enrolledAt: e.enrolled_at,
   }));
 
   return (
@@ -63,7 +70,7 @@ export default async function ProgramStudentsPage({
               </thead>
               <tbody className="divide-y">
                 {students.map((s) => (
-                  <tr key={s.id} className="hover:bg-white">
+                  <tr key={s.id} className="hover:bg-slate-50">
                     <td className="px-4 py-3">
                       <p className="font-medium text-gray-900">{s.name}</p>
                       <p className="text-xs text-gray-500">{s.email}</p>
@@ -71,7 +78,7 @@ export default async function ProgramStudentsPage({
                     <td className="px-4 py-3 text-center">
                       <div className="flex items-center justify-center gap-2">
                         <div className="w-16 bg-gray-200 rounded-full h-2">
-                          <div className="bg-white h-2 rounded-full" style={{ width: `${Math.min(s.progress, 100)}%` }} />
+                          <div className="bg-brand-blue-500 h-2 rounded-full" style={{ width: `${Math.min(s.progress, 100)}%` }} />
                         </div>
                         <span className="text-xs font-medium">{s.progress}%</span>
                       </div>
@@ -81,7 +88,7 @@ export default async function ProgramStudentsPage({
                         s.status === 'completed' ? 'bg-brand-green-100 text-brand-green-800' :
                         s.status === 'active' ? 'bg-brand-blue-100 text-brand-blue-800' :
                         s.status === 'pending' ? 'bg-amber-100 text-amber-800' :
-                        'bg-white text-gray-600'
+                        'bg-slate-100 text-gray-600'
                       }`}>{s.status}</span>
                     </td>
                     <td className="px-4 py-3 text-gray-500 text-xs">

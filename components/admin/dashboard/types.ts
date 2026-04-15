@@ -23,7 +23,7 @@ export interface StatusPoint {
 
 export interface TopProgramPoint {
   id: string;
-  name: string;
+  title: string;
   learners: number;
   completed: number;
   completionRate: number;
@@ -50,9 +50,11 @@ export interface RecentApplication {
   first_name: string | null;
   last_name: string | null;
   full_name: string | null;
+  email: string | null;
   program_interest: string | null;
   status: string;
   created_at: string;
+  submitted_at: string | null;
   age_days: number;
   urgent: boolean;
   href: string;
@@ -73,6 +75,8 @@ export interface InactiveLearner {
   enrolledAt: string;
   fullName: string | null;
   email: string | null;
+  daysInactive: number;
+  programTitle: string | null;
   href: string;         // resolved: /admin/students/[userId]
 }
 
@@ -83,6 +87,8 @@ export interface DashboardCounts {
   activeEnrollments: number;
   revenueThisMonthCents: number;
   certificatesIssued: number;
+  pendingProgramHolders: number;
+  pendingDocuments: number;
 }
 
 export interface SystemHealthAlert {

@@ -1,7 +1,7 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ArrowDownRight, Activity, FileClock, DollarSign, Award } from "lucide-react";
 import type { KPICard } from "./types";
 
@@ -12,11 +12,17 @@ function fmt(n: number) {
   return new Intl.NumberFormat("en-US").format(n);
 }
 
-function iconFor(label: string) {
+const ICON_MAP: [string[], React.ElementType][] = [
+  [["learner", "student"], Activity],
+  [["application"], FileClock],
+  [["revenue"], DollarSign],
+];
+
+function iconFor(label: string): React.ElementType {
   const l = label.toLowerCase();
-  if (l.includes("learner") || l.includes("student")) return Activity;
-  if (l.includes("application")) return FileClock;
-  if (l.includes("revenue")) return DollarSign;
+  for (const [keywords, Icon] of ICON_MAP) {
+    if (keywords.some(k => l.includes(k))) return Icon;
+  }
   return Award;
 }
 
@@ -40,9 +46,8 @@ function useCountUp(target: number) {
   return display;
 }
 
-function KpiCard({ card }: { card: KPICard }) {
+function KpiCard({ card, Icon }: { card: KPICard; Icon: React.ElementType }) {
   const pos = card.delta >= 0;
-  const Icon = iconFor(card.label);
   const isRevenue = card.label.toLowerCase().includes("revenue");
   const animated = useCountUp(card.value);
 
@@ -115,7 +120,7 @@ export function KpiGrid({ kpis }: { kpis: KPICard[] }) {
   return (
     <section className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
       {kpis.map((card) => (
-        <KpiCard key={card.label} card={card} />
+        <KpiCard key={card.label} card={card} Icon={iconFor(card.label)} />
       ))}
     </section>
   );

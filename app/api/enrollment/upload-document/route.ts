@@ -67,7 +67,20 @@ async function _POST(req: Request) {
 
     if (dbError) {
       logger.error('Database error:', dbError);
-      // Don't fail - file is uploaded, just log the error
+      // Don't fail — file is uploaded, just log the error
+    }
+
+    // Trigger OCR processing asynchronously — fire-and-forget.
+    // Only runs when the DB record was created successfully (we have a document.id).
+    if (document?.id) {
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXTAUTH_URL ?? '';
+      if (baseUrl) {
+        fetch(`${baseUrl}/api/automation/process-document`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-internal-trigger': '1' },
+          body: JSON.stringify({ document_id: document.id }),
+        }).catch(err => logger.warn('OCR trigger failed (non-fatal)', err));
+      }
     }
 
     return NextResponse.json({ 

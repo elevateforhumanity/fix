@@ -571,6 +571,7 @@ export default function NextStepsPage() {
               >
                 <option value="">Select</option>
                 <option value="WIOA">WIOA</option>
+                <option value="FSSA">FSSA</option>
                 <option value="WRG">WRG</option>
                 <option value="Job Ready Indy">Job Ready Indy</option>
                 <option value="Apprenticeship">Apprenticeship</option>

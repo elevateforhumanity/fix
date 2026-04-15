@@ -3,7 +3,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import React from 'react';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type Row = any;
 
@@ -29,7 +29,7 @@ export default function AdminNextStepsPage() {
     return p.toString();
   }, [q, status, needs]);
 
-  async function load() {
+  const load = useCallback(async function load() {
     setLoading(true);
     const res = await fetch(`/api/admin/next-steps?${queryString}`, {
       cache: 'no-store',
@@ -46,7 +46,7 @@ export default function AdminNextStepsPage() {
     setRows(json.rows || []);
     setSummary(json.summary || null);
     setLoading(false);
-  }
+  }, [queryString]);
 
   async function savePatch(id: string, patch: Record<string, any>) {
     setSaving(true);
@@ -77,7 +77,7 @@ export default function AdminNextStepsPage() {
 
   useEffect(() => {
     load();
-  }, [queryString]);
+  }, [queryString, load]);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -428,6 +428,7 @@ function QuickEdit({
             >
               <option value="">—</option>
               <option value="wioa">WIOA</option>
+              <option value="fssa">FSSA</option>
               <option value="wrg">WRG</option>
               <option value="jri">Job Ready Indy</option>
               <option value="employer_paid">Employer Paid</option>

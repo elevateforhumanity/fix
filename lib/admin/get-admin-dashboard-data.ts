@@ -294,9 +294,11 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       first_name: app.first_name ?? null,
       last_name: app.last_name ?? null,
       full_name: app.full_name ?? null,
+      email: app.email ?? null,
       program_interest: resolvedProgram,
       status: app.status ?? 'submitted',
       created_at: createdAt,
+      submitted_at: app.submitted_at ?? null,
       age_days: ageDays,
       urgent: ageDays >= 3,
       href: `/admin/applications/review/${app.id}`,
@@ -461,19 +463,42 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       inactiveProfileMap[p.id] = { full_name: (p as any).full_name ?? null, email: (p as any).email ?? null };
     }
   }
-  const inactiveLearners = inactiveEnrollments.map((e: any) => ({
-    enrollmentId: e.id,
-    userId: e.user_id,
-    enrolledAt: e.enrolled_at ?? '',
-    fullName: inactiveProfileMap[e.user_id]?.full_name ?? null,
-    email: inactiveProfileMap[e.user_id]?.email ?? null,
-    href: `/admin/students/${e.user_id}`,
-  }));
+
+  // Resolve program titles for inactive enrollments
+  const inactiveProgramIds = [...new Set(inactiveEnrollments.map((e: any) => e.program_id).filter(Boolean))];
+  const inactiveProgramTitleMap: Record<string, string> = {};
+  if (inactiveProgramIds.length > 0) {
+    const { data: inactiveProgramRows } = await db
+      .from('programs')
+      .select('id, name, title')
+      .in('id', inactiveProgramIds);
+    for (const p of inactiveProgramRows ?? []) {
+      inactiveProgramTitleMap[p.id] = (p as any).title || (p as any).name || null;
+    }
+  }
+
+  const nowMs = Date.now();
+  const inactiveLearners = inactiveEnrollments.map((e: any) => {
+    const lastActivityMs = e.enrolled_at ? new Date(e.enrolled_at).getTime() : nowMs;
+    const daysInactive = Math.floor((nowMs - lastActivityMs) / 86_400_000);
+    return {
+      enrollmentId: e.id,
+      userId: e.user_id,
+      enrolledAt: e.enrolled_at ?? '',
+      fullName: inactiveProfileMap[e.user_id]?.full_name ?? null,
+      email: inactiveProfileMap[e.user_id]?.email ?? null,
+      daysInactive,
+      programTitle: e.program_id ? (inactiveProgramTitleMap[e.program_id] ?? null) : null,
+      href: `/admin/students/${e.user_id}`,
+    };
+  });
 
   // ── Recent students ───────────────────────────────────────────────────────
   // Resolve each student's most recent enrollment + program name via separate queries.
   const recentStudentIds = recentStudentsData.map((s: any) => s.id).filter(Boolean);
   const studentProgramMap: Record<string, string | null> = {};
+  // Hoisted outside the if-block so recentStudents.map can reference them safely.
+  const enrollStatusByUser: Record<string, string> = {};
   if (recentStudentIds.length > 0) {
     const { data: enrollmentRows } = await db
       .from('program_enrollments')
@@ -484,7 +509,6 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     // Collect unique program_ids to look up names
     const seenUsers = new Set<string>();
     const programIdByUser: Record<string, string> = {};
-    const enrollStatusByUser: Record<string, string> = {};
     for (const row of enrollmentRows ?? []) {
       const uid = (row as any).user_id;
       if (uid && !seenUsers.has(uid)) {
@@ -550,7 +574,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     const p = programTotals[id];
     return {
       id,
-      name: programNamesMap[id] ?? id.slice(0, 8),
+      title: programNamesMap[id] ?? id.slice(0, 8),
       learners: toSafeNumber(p.total),
       completed: toSafeNumber(p.completed),
       completionRate: p.total > 0 ? clampPercent((p.completed / p.total) * 100) : 0,
@@ -597,6 +621,8 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       activeEnrollments:     activeEnrollCount,
       revenueThisMonthCents: revenueThisMonthCents,
       certificatesIssued:    certsCount,
+      pendingProgramHolders: pendingHoldersCount,
+      pendingDocuments:      pendingHolderDocsCount,
     },
     kpis,
     enrollmentTrend,

@@ -112,7 +112,7 @@ export default function ApplicationActions({
       )}
 
       <div className="flex flex-wrap gap-2">
-        {currentStatus === 'pending' || currentStatus === 'submitted' ? (
+        {(currentStatus === 'pending' || currentStatus === 'submitted') ? (
           <>
             <button
               onClick={() => handleStatusChange('in_review')}
@@ -136,8 +136,18 @@ export default function ApplicationActions({
               {loading === 'rejected' ? 'Rejecting...' : 'Reject'}
             </button>
           </>
-        ) : currentStatus === 'in_review' ? (
+        ) : (
+          // Covers in_review + any unexpected status — always show Approve & Reject
           <>
+            {currentStatus !== 'in_review' && (
+              <button
+                onClick={() => handleStatusChange('in_review')}
+                disabled={loading !== null}
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-brand-blue-600 hover:bg-brand-blue-700 text-white transition-colors disabled:opacity-50"
+              >
+                {loading === 'in_review' ? 'Updating...' : 'Start Review'}
+              </button>
+            )}
             <button
               onClick={handleApprove}
               disabled={loading !== null}
@@ -153,7 +163,7 @@ export default function ApplicationActions({
               {loading === 'rejected' ? 'Rejecting...' : 'Reject'}
             </button>
           </>
-        ) : null}
+        )}
       </div>
 
       {error && <p className="text-sm text-brand-red-600">{error}</p>}

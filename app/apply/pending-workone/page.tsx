@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import {
   ArrowRight, Mail, Phone, Calendar,
-  MapPin, Clock, FileText, CheckCircle,
+  MapPin, Clock, FileText, CheckCircle, ExternalLink,
 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import WorkOneChecklist from '@/components/workone/WorkOneChecklist';
@@ -18,6 +18,16 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const WORKONE_STEPS = [
+  {
+    icon: <ArrowRight className="w-5 h-5 text-amber-600" />,
+    title: 'Register on Indiana Career Connect',
+    description:
+      'Indiana Career Connect is the state job portal required for all WIOA and Workforce Ready Grant funding. You must have an active profile before WorkOne can open a case for you. Complete your profile and upload your résumé.',
+    link: 'https://www.indianacareerconnect.com',
+    linkLabel: 'Go to Indiana Career Connect →',
+    external: true,
+    highlight: true,
+  },
   {
     icon: <MapPin className="w-5 h-5 text-brand-blue-600" />,
     title: 'Find your nearest WorkOne center',
@@ -147,14 +157,15 @@ export default function PendingWorkOnePage({
           <h2 className="text-xl font-bold mb-6">What to do next</h2>
           <ol className="space-y-6">
             {WORKONE_STEPS.map((step, index) => (
-              <li key={index} className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-brand-blue-50 rounded-full flex items-center justify-center">
-                  <span className="text-brand-blue-700 font-bold text-sm">{index + 1}</span>
+              <li key={index} className={`flex items-start gap-4 ${'highlight' in step && step.highlight ? 'bg-amber-50 border-2 border-amber-300 rounded-xl p-4 -mx-2' : ''}`}>
+                <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${'highlight' in step && step.highlight ? 'bg-amber-100' : 'bg-brand-blue-50'}`}>
+                  <span className={`font-bold text-sm ${'highlight' in step && step.highlight ? 'text-amber-700' : 'text-brand-blue-700'}`}>{index + 1}</span>
                 </div>
                 <div className="flex-1 pt-0.5">
                   <div className="flex items-center gap-2 mb-1">
                     {step.icon}
-                    <h3 className="font-semibold text-gray-900">{step.title}</h3>
+                    <h3 className={`font-semibold ${'highlight' in step && step.highlight ? 'text-amber-900' : 'text-gray-900'}`}>{step.title}</h3>
+                    {'highlight' in step && step.highlight && <span className="text-[10px] font-bold bg-amber-400 text-amber-900 px-2 py-0.5 rounded-full uppercase tracking-wide">Required First</span>}
                   </div>
                   <p className="text-black text-sm leading-relaxed">{step.description}</p>
                   {step.link && step.linkLabel && (
@@ -162,7 +173,7 @@ export default function PendingWorkOnePage({
                       href={step.link}
                       target={step.external ? '_blank' : undefined}
                       rel={step.external ? 'noopener noreferrer' : undefined}
-                      className="inline-flex items-center gap-1.5 text-brand-blue-600 hover:text-brand-blue-800 font-medium text-sm mt-2"
+                      className={`inline-flex items-center gap-1.5 font-medium text-sm mt-2 ${'highlight' in step && step.highlight ? 'text-amber-700 hover:text-amber-900' : 'text-brand-blue-600 hover:text-brand-blue-800'}`}
                     >
                       {step.linkLabel}
                       <ArrowRight className="w-3.5 h-3.5" />
