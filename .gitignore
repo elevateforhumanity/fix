@@ -198,8 +198,13 @@ playwright-report/
 scripts/archive/
 public/videos/barber-lessons/barber-lesson-15.mp4
 
-# Barber video build artifacts — not committed, served from local dev or CDN
-public/videos/barber-lessons/*-captions*.mp4
+# All generated/binary video and audio assets — served from CDN, not committed to git
+public/videos/**/*.mp4
+public/videos/**/*.mp3
+public/videos/**/*.txt
+public/videos/**/*.jpg
+public/videos/*.mp4
+public/videos/*.mp3
 public/videos/barber-lessons/*-preview*.mp4
 public/videos/barber-lessons/*-fullframe*.mp4
 public/videos/barber-lessons/*-proof*.mp4
