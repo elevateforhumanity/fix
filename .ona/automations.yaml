@@ -1,14 +1,18 @@
 tasks:
   setup-env:
     name: Setup environment
-    description: Copy .env.example to .env.local if it does not exist.
+    description: Assemble .env.local from secret chunks, or fall back to .env.example.
     command: |
       if [ ! -f .env.local ]; then
-        if [ -f .env.example ]; then
+        # Reassemble from secret file chunks if they exist
+        if [ -f .env_local_1.txt ] && [ -f .env_local_2.txt ] && [ -f .env_local_3.txt ]; then
+          cat .env_local_1.txt .env_local_2.txt .env_local_3.txt > .env.local
+          echo "Assembled .env.local from secret chunks"
+        elif [ -f .env.example ]; then
           cp .env.example .env.local
           echo "Created .env.local from .env.example"
         else
-          echo "No .env.example found, skipping"
+          echo "No env source found, skipping"
         fi
       else
         echo ".env.local already exists"
@@ -28,51 +32,6 @@ tasks:
     dependsOn:
       - setup-env
 
-  generate-hvac-audio:
-    name: Generate HVAC lesson audio
-    description: >
-      Generate Marcus Johnson voiceover MP3s for all 94 HVAC lessons.
-      Skips immediately if 94+ MP3s already exist in public/hvac/audio/.
-      Exits cleanly if OPENAI_API_KEY is not set.
-      Once generated, MP3s are committed to the repo and never regenerated.
-    command: |
-      existing=$(find public/hvac/audio -name "*.mp3" 2>/dev/null | wc -l)
-      if [ "$existing" -ge 94 ]; then
-        echo "HVAC audio already complete ($existing files) — skipping"
-        exit 0
-      fi
-      if [ -z "$OPENAI_API_KEY" ]; then
-        echo "OPENAI_API_KEY not set — skipping audio generation"
-        exit 0
-      fi
-      npx tsx scripts/generate-hvac-audio.ts
-    triggeredBy:
-      - postDevcontainerStart
-    dependsOn:
-      - install-deps
-
-  generate-hvac-videos:
-    name: Generate HVAC lesson videos
-    description: >
-      Generate D-ID talking-head videos for all 94 HVAC lessons.
-      Skips immediately if 94+ MP4s already exist in public/hvac/videos/.
-      Exits cleanly if DID_API_KEY is not set.
-      Once generated, MP4s are committed to the repo permanently.
-    command: |
-      existing=$(find public/hvac/videos -name "*.mp4" 2>/dev/null | wc -l)
-      if [ "$existing" -ge 94 ]; then
-        echo "HVAC videos already complete ($existing files) — skipping"
-        exit 0
-      fi
-      if [ -z "$DID_API_KEY" ]; then
-        echo "DID_API_KEY not set — skipping video generation"
-        exit 0
-      fi
-      npx tsx scripts/generate-hvac-videos-did.ts
-    triggeredBy:
-      - postDevcontainerStart
-    dependsOn:
-      - generate-hvac-audio
 
 services:
   dev-server:
