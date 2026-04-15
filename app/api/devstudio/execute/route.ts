@@ -436,12 +436,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // Derive base URL from the incoming request so internal fetch() calls resolve
-  // correctly in all environments (Gitpod preview, localhost, Netlify).
-  // NEXT_PUBLIC_SITE_URL is used as a fallback for production only.
-  const host = req.headers.get('x-forwarded-host') || req.headers.get('host') || 'localhost:3000';
-  const proto = req.headers.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https');
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || `${proto}://${host}`;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
   const cookieHeader = req.headers.get('cookie') || '';
 
   const stream = new ReadableStream({

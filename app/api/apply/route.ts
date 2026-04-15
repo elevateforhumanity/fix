@@ -46,6 +46,12 @@ export const POST = withRateLimit(
       const { program, funding, name, email, phone, pathway_slug, source } = validatedData;
       const eligible = funding !== 'Self Pay' && program !== 'Not Sure';
 
+      // Funding sources that require WorkOne / Indiana Career Connect intake first
+      const WORKFORCE_FUNDING_KEYS = ['wioa', 'workone', 'workforce ready', 'workforce_ready', 'fssa', 'employindy', 'employ_indy', 'impact', 'dwd'];
+      const needsWorkOneIntake = WORKFORCE_FUNDING_KEYS.some(k =>
+        (funding ?? '').toLowerCase().includes(k)
+      );
+
       // Split name into first and last
       const nameParts = name.trim().split(' ');
       const firstName = nameParts[0] || '';
@@ -178,13 +184,22 @@ export const POST = withRateLimit(
       }
 
       if (contentType?.includes('application/json')) {
-        return NextResponse.json({ success: true });
+        return NextResponse.json({ success: true, pending_workone: needsWorkOneIntake });
       }
 
-      return NextResponse.redirect(
-        new URL('/apply/success', req.url),
-        { status: 303 }
-      );
+      // Workforce-funded applicants → WorkOne intake page
+      if (needsWorkOneIntake) {
+        const dest = new URL('/apply/pending-workone', req.url);
+        if (funding) dest.searchParams.set('funding', funding);
+        if (program) dest.searchParams.set('program', program);
+        return NextResponse.redirect(dest, { status: 303 });
+      }
+
+      // All other applicants → success page with funding param so Career Connect prompt can show
+      const dest = new URL('/apply/success', req.url);
+      if (funding) dest.searchParams.set('funding', funding);
+      if (program) dest.searchParams.set('program', program);
+      return NextResponse.redirect(dest, { status: 303 });
     } catch (err: any) {
       logger.error('Apply route error:', err);
       

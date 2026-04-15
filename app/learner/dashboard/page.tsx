@@ -491,14 +491,14 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                 </Link>
                 <Link
                   href="/credentials"
-                  className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-white transition"
+                  className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-slate-50 transition"
                 >
                   <FileText className="w-8 h-8 text-brand-orange-600 mb-2" />
                   <span className="text-sm font-medium text-gray-700">Credentials</span>
                 </Link>
                 <Link
                   href="/transcript"
-                  className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-white transition"
+                  className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-slate-50 transition"
                 >
                   <ScrollText className="w-8 h-8 text-slate-600 mb-2" />
                   <span className="text-sm font-medium text-gray-700">Transcript</span>
@@ -563,7 +563,7 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                   <div className="space-y-4">
                     {notifications.map((notification: any) => (
                       <div key={notification.id} className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-white rounded-full mt-2" />
+                        <div className="w-2 h-2 bg-brand-blue-500 rounded-full mt-2 flex-shrink-0" />
                         <div>
                           <p className="font-medium text-gray-900 text-sm">{notification.title}</p>
                           <p className="text-xs text-gray-500 line-clamp-2">{notification.message}</p>

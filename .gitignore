@@ -164,6 +164,18 @@ artifacts/
 # Netlify handler size: exclude generated media and dev artifacts
 public/generated/
 public/generated-images/
+
+# Binary media — must be served from Supabase Storage or CDN, not committed to git.
+# The existing committed files (public/hvac/audio, public/videos, public/audio) need
+# to be removed with: git rm -r --cached public/hvac/audio public/hvac/videos public/audio public/videos
+# after confirming all files are uploaded to the CDN. These rules prevent new ones being added.
+public/hvac/audio/*.mp3
+public/hvac/videos/*.mp4
+public/audio/*.mp3
+public/audio/*.wav
+public/videos/*.mp4
+public/videos/**/*.mp4
+
 # lesson MP3s are committed so they deploy to Netlify without an API key at build time
 /reports/
 lighthouse-*.json

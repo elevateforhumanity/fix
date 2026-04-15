@@ -28,8 +28,12 @@ const SERVICE_GROUPS: ServiceGroup[] = [
     keys: ['NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY', 'SUPABASE_SERVICE_ROLE_KEY', 'SUPABASE_SERVICE_KEY', 'SUPABASE_URL', 'SUPABASE_PROJECT_REF', 'DATABASE_URL', 'POSTGRES_URL', 'POSTGRES_PASSWORD'],
   },
   {
+    label: 'Email — Resend',
+    keys: ['RESEND_API_KEY', 'RESEND_WEBHOOK_SECRET', 'EMAIL_FROM', 'EMAIL_REPLY_TO', 'EMAIL_PROVIDER'],
+  },
+  {
     label: 'Email — SendGrid',
-    keys: ['SENDGRID_API_KEY', 'SENDGRID_FROM', 'EMAIL_FROM', 'EMAIL_REPLY_TO', 'MOU_ARCHIVE_EMAIL', 'SPONSOR_FINANCE_EMAIL'],
+    keys: ['SENDGRID_API_KEY', 'SENDGRID_KEY', 'SENDGRID_FROM'],
   },
   {
     label: 'Email — SMTP',
@@ -306,20 +310,13 @@ export default function EnvManagerClient() {
 
   useEffect(() => { load(); }, [load]);
 
-  // Track which keys the user has explicitly touched so that intentional
-  // empty-string edits (clearing a value) are not silently dropped on save.
-  const [touched, setTouched] = useState<Set<string>>(new Set());
-
   const handleChange = (key: string, value: string) => {
     setEdits(prev => ({ ...prev, [key]: value }));
-    setTouched(prev => new Set(prev).add(key));
   };
 
   const handleSave = async () => {
-    // Include all touched keys — even empty strings (intentional clears).
-    // Previously filtered out v === '', which made it impossible to delete a value.
     const entries = Object.entries(edits)
-      .filter(([key]) => touched.has(key))
+      .filter(([, v]) => v !== '')
       .map(([key, value]) => ({ key, value }));
     if (!entries.length) return;
     setSaving(true);
@@ -333,7 +330,6 @@ export default function EnvManagerClient() {
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? 'Save failed'); return; }
       setEdits({});
-      setTouched(new Set());
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
       await load();
@@ -463,7 +459,7 @@ export default function EnvManagerClient() {
                               )}
                               {entry?.updated_at && (
                                 <span className="text-xs text-slate-400">
-                                  updated {new Date(entry.updated_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
+                                  updated {new Date(entry.updated_at).toLocaleDateString()}
                                 </span>
                               )}
                             </div>
@@ -472,13 +468,7 @@ export default function EnvManagerClient() {
                                 type={isSecret && !show ? 'password' : 'text'}
                                 value={editVal || (show ? displayVal : '')}
                                 onChange={e => handleChange(key, e.target.value)}
-                                // Never put the actual secret value in placeholder — placeholder
-                                // text is rendered in plain text regardless of input type="password"
-                                placeholder={
-                                  isSecret && displayVal && !show
-                                    ? '(value set — click reveal to view)'
-                                    : displayVal || `Enter ${key}`
-                                }
+                                placeholder={displayVal || `Enter ${key}`}
                                 className="flex-1 text-sm font-mono border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-blue-500 bg-white"
                               />
                               {isSecret && (
