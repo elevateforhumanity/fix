@@ -107,7 +107,7 @@ const nextConfig = {
   output: 'standalone',
   // Restrict NFT tracing to the project root — prevents it from following
   // pnpm symlinks up into the global store and pulling in full package trees.
-  outputFileTracingRoot: '/opt/build/repo',
+  outputFileTracingRoot: process.env.NETLIFY ? '/opt/build/repo' : process.cwd(),
   reactStrictMode: true,
   trailingSlash: false,
   poweredByHeader: false,

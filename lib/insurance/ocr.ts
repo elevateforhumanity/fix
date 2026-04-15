@@ -3,7 +3,8 @@ import { promisify } from "node:util";
 import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-import Tesseract from "tesseract.js";
+// Dynamic import keeps tesseract.js out of the SSR bundle (44 MB wasm core)
+type TesseractStatic = typeof import('tesseract.js')['default'];
 
 const execFileAsync = promisify(execFile);
 
@@ -61,6 +62,7 @@ export async function ocrPdfFirstPages(
     const imgPath = `${outPrefix}-${i}.png`;
     try {
       await fs.access(imgPath);
+      const Tesseract = (await import(/* webpackIgnore: true */ 'tesseract.js')).default as TesseractStatic;
       const { data } = await Tesseract.recognize(imgPath, "eng");
       text += "\n" + (data.text || "");
       totalConfidence += data.confidence ?? 0;

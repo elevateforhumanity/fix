@@ -19,8 +19,8 @@ export const handler: Handler = async (event) => {
     }
 
     // Dynamic imports to keep these in this function's bundle only
-    const Tesseract = (await import("tesseract.js")).default;
-    const sharp = (await import("sharp")).default;
+    const Tesseract = (await import(/* webpackIgnore: true */ "tesseract.js")).default;
+    const sharp = (await import(/* webpackIgnore: true */ "sharp")).default;
 
     const { image, options = {} } = payload;
     const language = options.language || "eng";

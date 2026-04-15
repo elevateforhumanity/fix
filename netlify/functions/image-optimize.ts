@@ -19,7 +19,7 @@ export const handler: Handler = async (event) => {
     }
 
     // Dynamic import to keep Sharp in this function's bundle only
-    const sharp = (await import("sharp")).default;
+    const sharp = (await import(/* webpackIgnore: true */ "sharp")).default;
 
     const { image, options = {} } = payload;
     const {

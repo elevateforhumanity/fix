@@ -21,7 +21,7 @@ export async function extractTextFromImage(
   language = 'eng'
 ): Promise<OCRResult> {
   try {
-    const Tesseract = await import('tesseract.js');
+    const Tesseract = await import(/* webpackIgnore: true */ 'tesseract.js');
     const worker = await Tesseract.createWorker(language);
     const { data } = await worker.recognize(imageBuffer);
     await worker.terminate();
