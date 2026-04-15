@@ -193,7 +193,7 @@ export default function HoursTracker() {
                           <td className="py-3">
                             <div className="flex items-center gap-2 text-gray-900">
                               <Calendar className="w-4 h-4 text-gray-400" />
-                              {new Date(entry.logged_date).toLocaleDateString()}
+                              {new Date(entry.logged_date).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                             </div>
                           </td>
                           <td className="py-3 font-medium text-gray-900">
@@ -219,7 +219,7 @@ export default function HoursTracker() {
                             {entry.verified && entry.verified_at ? (
                               <div className="flex items-center gap-1">
                                 <User className="w-3 h-3" />
-                                {new Date(entry.verified_at).toLocaleDateString()}
+                                {new Date(entry.verified_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                               </div>
                             ) : (
                               '-'

@@ -308,7 +308,7 @@ export default function ShopOwnerProgressPage() {
                 <p className="text-slate-900 font-bold">{summary.nextGraduation.name}</p>
                 <p className="text-slate-500 text-xs">
                   {summary.nextGraduation.estimatedDate 
-                    ? `Est. ${new Date(summary.nextGraduation.estimatedDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`
+                    ? `Est. ${new Date(summary.nextGraduation.estimatedDate).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', year: 'numeric' })}`
                     : 'Calculating...'}
                 </p>
               </>

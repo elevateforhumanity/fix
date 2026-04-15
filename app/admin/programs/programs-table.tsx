@@ -148,7 +148,7 @@ export function ProgramsTable({ programs }: { programs: Program[] }) {
                       : 'Free'}
                   </td>
                   <td className="px-6 py-4 text-sm text-black">
-                    {new Date(program.created_at).toLocaleDateString()}
+                    {new Date(program.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                   </td>
                   <td className="px-6 py-4 text-right text-sm font-medium">
                     <div className="flex items-center justify-end gap-2">

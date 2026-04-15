@@ -163,7 +163,7 @@ export default function AdminApprenticeships() {
                       {log.apprenticeship?.employer_name}
                     </p>
                     <p className="text-sm text-black">
-                      {new Date(log.work_date).toLocaleDateString()} -{' '}
+                      {new Date(log.work_date).toLocaleDateString('en-US', { timeZone: 'UTC' })} -{' '}
                       {log.total_hours?.toFixed(1)} hours
                     </p>
                     {log.student_notes && (

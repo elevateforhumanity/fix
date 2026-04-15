@@ -370,7 +370,7 @@ export default function OpportunitiesPage() {
                         {opp.due_date && (
                           <span className={`flex items-center gap-1 ${due.urgent ? 'text-red-600 font-semibold' : ''}`}>
                             <Calendar className="w-3 h-3" />
-                            Due {new Date(opp.due_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                            Due {new Date(opp.due_date).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
                             {' '}
                             <span className={`px-1.5 py-0.5 rounded ${due.urgent ? 'bg-red-50' : 'bg-slate-50'}`}>
                               {due.label}

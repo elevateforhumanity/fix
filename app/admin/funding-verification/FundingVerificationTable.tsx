@@ -169,7 +169,7 @@ export default function FundingVerificationTable({ rows }: { rows: QueueRow[] })
                       )}
                     </td>
                     <td className="px-4 py-3 text-gray-500">
-                      {new Date(row.enrolled_at).toLocaleDateString()}
+                      {new Date(row.enrolled_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                       <div className="text-xs text-gray-400">{row.days_since_enrollment}d ago</div>
                     </td>
                     <td className="px-4 py-3">

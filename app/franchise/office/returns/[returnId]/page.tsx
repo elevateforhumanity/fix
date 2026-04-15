@@ -173,7 +173,7 @@ export default function ReturnDetailPage() {
               <div>
                 <p className="text-sm font-medium">Created</p>
                 <p className="text-xs text-muted-foreground">
-                  {new Date(returnData.created_at).toLocaleString()}
+                  {new Date(returnData.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}
                 </p>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function ReturnDetailPage() {
               <div>
                 <p className="text-sm font-medium">ERO Signed</p>
                 <p className="text-xs text-muted-foreground">
-                  {returnData.ero_signed_at ? new Date(returnData.ero_signed_at).toLocaleString() : 'Pending'}
+                  {returnData.ero_signed_at ? new Date(returnData.ero_signed_at).toLocaleString('en-US', { timeZone: 'UTC' }) : 'Pending'}
                 </p>
               </div>
             </div>
@@ -197,7 +197,7 @@ export default function ReturnDetailPage() {
               <div>
                 <p className="text-sm font-medium">Submitted</p>
                 <p className="text-xs text-muted-foreground">
-                  {returnData.submitted_at ? new Date(returnData.submitted_at).toLocaleString() : 'Pending'}
+                  {returnData.submitted_at ? new Date(returnData.submitted_at).toLocaleString('en-US', { timeZone: 'UTC' }) : 'Pending'}
                 </p>
               </div>
             </div>

@@ -386,7 +386,7 @@ export default function AutomationQAPage() {
                           : '—'}
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {new Date(decision.created_at).toLocaleString()}
+                        {new Date(decision.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -453,7 +453,7 @@ export default function AutomationQAPage() {
                         {item.system_recommendation || '—'}
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {new Date(item.created_at).toLocaleString()}
+                        {new Date(item.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}
                       </TableCell>
                     </TableRow>
                   ))}

@@ -59,7 +59,7 @@ export default function TrialPage() {
 
   // Success state
   if (result) {
-    const trialEnd = new Date(result.trialEndsAt).toLocaleDateString('en-US', {
+    const trialEnd = new Date(result.trialEndsAt).toLocaleDateString('en-US', { timeZone: 'UTC',
       weekday: 'long',
       month: 'long',
       day: 'numeric',

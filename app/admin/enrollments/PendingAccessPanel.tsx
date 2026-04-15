@@ -107,7 +107,7 @@ export default function PendingAccessPanel({ enrollments }: Props) {
           const program = e.program_slug?.replace(/-/g, ' ') || 'Unknown program';
           const paid = e.amount_paid_cents ? `$${(e.amount_paid_cents / 100).toFixed(0)}` : 'Paid';
           const onboarded = e.profile?.onboarding_completed;
-          const enrolledDate = new Date(e.enrolled_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          const enrolledDate = new Date(e.enrolled_at).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' });
           const isExpanded = expanded === e.id;
           const isGranting = granting === e.id;
           const isLoadingDocs = loadingDocs === e.id;

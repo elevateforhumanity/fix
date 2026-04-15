@@ -211,14 +211,14 @@ export default function ExamAuthWorkQueue({
 
                     {/* Authorized */}
                     <td className="px-4 py-3 text-gray-500 text-xs">
-                      {row.authorized_at ? new Date(row.authorized_at).toLocaleDateString() : '—'}
+                      {row.authorized_at ? new Date(row.authorized_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) : '—'}
                     </td>
 
                     {/* Expires */}
                     <td className="px-4 py-3 text-xs">
                       {row.expires_at ? (
                         <span className={row.expiring_soon ? 'text-orange-600 font-medium' : 'text-gray-500'}>
-                          {new Date(row.expires_at).toLocaleDateString()}
+                          {new Date(row.expires_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                           {row.days_until_expiry !== null && (
                             <span className="ml-1 text-gray-400">({row.days_until_expiry}d)</span>
                           )}

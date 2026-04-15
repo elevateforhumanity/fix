@@ -206,7 +206,7 @@ export default function SubmissionReviewPage() {
               <p className="text-sm text-slate-500 mt-1">
                 Submitted by <span className="font-medium text-slate-700">{learnerName}</span>
                 {' · '}<span className="capitalize">{submission.step_type}</span>
-                {' · '}{new Date(submission.created_at).toLocaleString()}
+                {' · '}{new Date(submission.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}
               </p>
             </div>
             <span className={`text-sm font-semibold px-3 py-1 rounded-full border ${STATUS_COLORS[submission.status]}`}>
@@ -307,7 +307,7 @@ export default function SubmissionReviewPage() {
           </div>
 
           {isResolved && submission.reviewed_at && (
-            <p className="text-xs text-slate-400 mt-3">Reviewed {new Date(submission.reviewed_at).toLocaleString()}</p>
+            <p className="text-xs text-slate-400 mt-3">Reviewed {new Date(submission.reviewed_at).toLocaleString('en-US', { timeZone: 'UTC' })}</p>
           )}
         </div>
 
@@ -333,7 +333,7 @@ export default function SubmissionReviewPage() {
                     <div>
                       <span className="font-medium text-slate-700">{actor}</span>
                       <span className="text-slate-400 mx-1">·</span>
-                      <span className="text-slate-400">{new Date(entry.created_at).toLocaleString()}</span>
+                      <span className="text-slate-400">{new Date(entry.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}</span>
                       {entry.note && <p className="text-slate-600 mt-0.5 italic">&ldquo;{entry.note}&rdquo;</p>}
                     </div>
                   </li>

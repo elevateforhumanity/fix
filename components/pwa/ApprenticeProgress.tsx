@@ -252,7 +252,7 @@ export default function ApprenticeProgress({
                     Averaging <strong className="text-slate-700">{data.weeklyAvgHours.toFixed(1)}h/week</strong>
                     {data.projectedCompletionDate && (
                       <> · on track to finish by <strong className="text-slate-700">
-                        {new Date(data.projectedCompletionDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                        {new Date(data.projectedCompletionDate).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' })}
                       </strong></>
                     )}
                   </p>

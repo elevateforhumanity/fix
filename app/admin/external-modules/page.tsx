@@ -206,7 +206,7 @@ export default function ExternalModulesPage() {
                       </p>
                       <p className="text-sm text-black">
                         Submitted:{' '}
-                        {new Date(module.created_at).toLocaleDateString()}
+                        {new Date(module.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                       </p>
                     </div>
                     <div className="flex gap-2">
@@ -251,7 +251,7 @@ export default function ExternalModulesPage() {
                       </p>
                       <p className="text-sm text-black">
                         Created:{' '}
-                        {new Date(module.created_at).toLocaleDateString()}
+                        {new Date(module.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">

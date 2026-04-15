@@ -271,7 +271,7 @@ export default function AdminSupportPage() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-1 text-sm text-gray-600">
                         <Calendar className="w-4 h-4" />
-                        {new Date(ticket.created_at).toLocaleDateString()}
+                        {new Date(ticket.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                       </div>
                     </td>
                   </tr>

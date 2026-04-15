@@ -286,7 +286,7 @@ export default function AdminProgramHolderDocuments() {
                         )}
                         <span>{formatFileSize(doc.file_size)}</span>
                         <span>
-                          {new Date(doc.created_at).toLocaleDateString()}
+                          {new Date(doc.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                         </span>
                       </div>
                     </div>

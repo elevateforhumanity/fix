@@ -250,7 +250,7 @@ export default function BillingPage() {
                 <Calendar className="w-5 h-5 text-brand-blue-600" />
                 <div>
                   <p className="font-medium text-brand-blue-900">
-                    Trial ends {license.trialEndsAt.toLocaleDateString('en-US', {
+                    Trial ends {license.trialEndsAt.toLocaleDateString('en-US', { timeZone: 'UTC',
                       weekday: 'long',
                       month: 'long',
                       day: 'numeric',

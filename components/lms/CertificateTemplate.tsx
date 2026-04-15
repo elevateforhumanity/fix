@@ -57,7 +57,7 @@ export function CertificateTemplate({
         {/* Date */}
         <p className="text-lg text-black mb-12">
           Completed on{' '}
-          {new Date(completionDate).toLocaleDateString('en-US', {
+          {new Date(completionDate).toLocaleDateString('en-US', { timeZone: 'UTC',
             month: 'long',
             day: 'numeric',
             year: 'numeric',

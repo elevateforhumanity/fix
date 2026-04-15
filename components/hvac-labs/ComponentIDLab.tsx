@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { CheckCircle, XCircle, RotateCcw, ChevronRight, Zap } from 'lucide-react';
 
 interface Component {
@@ -113,15 +113,15 @@ export default function ComponentIDLab() {
   const [quizAnswers, setQuizAnswers] = useState<Record<number, string>>({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
 
-  // Quiz: show a description, student picks the component name
-  const quizQuestions = useMemo(() => {
-    return COMPONENTS.map((c, i) => ({
+  // useState initializer runs once on mount (client only) — avoids server/client shuffle mismatch
+  const [quizQuestions] = useState(() =>
+    COMPONENTS.map((c, i) => ({
       idx: i,
       prompt: c.function,
       correctAnswer: c.name,
       options: shuffle([c.name, ...getDistractors(c.name, COMPONENTS)]),
-    })).sort(() => Math.random() - 0.5);
-  }, []);
+    })).sort(() => Math.random() - 0.5)
+  );
 
   const comp = COMPONENTS[currentIdx];
 

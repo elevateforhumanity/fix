@@ -117,7 +117,7 @@ export default function AnnouncementsFeed() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('en-US', { timeZone: 'UTC',
       month: 'long',
       day: 'numeric',
       year: 'numeric',

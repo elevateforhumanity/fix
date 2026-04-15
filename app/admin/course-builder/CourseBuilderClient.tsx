@@ -280,7 +280,7 @@ export default function CourseBuilderClient({ initialCourses, programs }: Props)
                   <div className="flex items-center gap-4 mt-2 text-xs text-gray-400">
                     {course.programs?.title && <span>Program: {course.programs.title}</span>}
                     {course.duration_hours && <span>{course.duration_hours} hours</span>}
-                    <span>Created: {new Date(course.created_at).toLocaleDateString()}</span>
+                    <span>Created: {new Date(course.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">

@@ -327,7 +327,7 @@ export default function DeployClient() {
                         {d.status}
                       </span>
                     </td>
-                    <td className="py-2 px-3">{new Date(d.deployed_at).toLocaleString()}</td>
+                    <td className="py-2 px-3">{new Date(d.deployed_at).toLocaleString('en-US', { timeZone: 'UTC' })}</td>
                   </tr>
                 ))}
               </tbody>

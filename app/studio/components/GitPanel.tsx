@@ -502,7 +502,7 @@ export function GitPanel({
                           {c.author.name || c.author.login}
                         </span>
                         <span>•</span>
-                        <span>{new Date(c.author.date).toLocaleDateString()}</span>
+                        <span>{new Date(c.author.date).toLocaleDateString('en-US', { timeZone: 'UTC' })}</span>
                       </div>
                       
                       {/* SHA */}

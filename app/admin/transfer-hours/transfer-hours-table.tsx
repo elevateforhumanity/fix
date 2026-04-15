@@ -219,7 +219,7 @@ export function TransferHoursTable({
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-black">
-                      {new Date(request.created_at).toLocaleDateString()}
+                      {new Date(request.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                     </td>
                     <td className="px-6 py-4 text-right text-sm font-medium">
                       <button
@@ -396,7 +396,7 @@ export function TransferHoursTable({
                   {selectedRequest.reviewed_at && (
                     <p className="text-sm text-black mt-2">
                       Reviewed on{' '}
-                      {new Date(selectedRequest.reviewed_at).toLocaleString()}
+                      {new Date(selectedRequest.reviewed_at).toLocaleString('en-US', { timeZone: 'UTC' })}
                     </p>
                   )}
                 </div>

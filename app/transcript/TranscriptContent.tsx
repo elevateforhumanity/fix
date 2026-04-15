@@ -66,8 +66,8 @@ export default function TranscriptContent({ student, domains, totalTheoryHours, 
             ))}
           </div>
           <div className="space-y-3">
-            <div><p className="text-xs text-slate-400 uppercase tracking-wide">Enrolled</p><p className="text-sm text-slate-700">{student.enrolled_at ? new Date(student.enrolled_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—'}</p></div>
-            <div><p className="text-xs text-slate-400 uppercase tracking-wide">Completion Date</p><p className="text-sm text-slate-700">{student.completed_at ? new Date(student.completed_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'In Progress'}</p></div>
+            <div><p className="text-xs text-slate-400 uppercase tracking-wide">Enrolled</p><p className="text-sm text-slate-700">{student.enrolled_at ? new Date(student.enrolled_at).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }) : '—'}</p></div>
+            <div><p className="text-xs text-slate-400 uppercase tracking-wide">Completion Date</p><p className="text-sm text-slate-700">{student.completed_at ? new Date(student.completed_at).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' }) : 'In Progress'}</p></div>
             <div><p className="text-xs text-slate-400 uppercase tracking-wide">Overall Progress</p><p className="text-sm font-semibold text-slate-900">{student.progress}%</p></div>
           </div>
         </div>

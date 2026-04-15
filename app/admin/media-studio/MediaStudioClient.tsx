@@ -347,7 +347,7 @@ export default function MediaStudioPage() {
                       {(file.size / 1024).toFixed(1)} KB
                     </td>
                     <td className="px-4 py-3 text-sm text-black">
-                      {new Date(file.created_at).toLocaleDateString()}
+                      {new Date(file.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <button

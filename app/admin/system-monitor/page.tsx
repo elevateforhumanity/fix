@@ -59,7 +59,7 @@ export default function SystemMonitorPage() {
             Status: {status?.status?.toUpperCase() || 'UNKNOWN'}
           </h2>
           <p className="text-black">
-            Last updated: {status?.timestamp ? new Date(status.timestamp).toLocaleString() : 'N/A'}
+            Last updated: {status?.timestamp ? new Date(status.timestamp).toLocaleString('en-US', { timeZone: 'UTC' }) : 'N/A'}
           </p>
         </div>
 

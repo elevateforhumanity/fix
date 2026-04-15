@@ -119,7 +119,7 @@ export default function CosmetologyProfilePage() {
             { icon: MapPin, label: (profile as any).salonAssigned && profile.shopCity
               ? `${profile.shopCity}${profile.shopState ? `, ${profile.shopState}` : ''}`
               : 'Salon placement pending' },
-            { icon: Calendar, label: `Started ${new Date(profile.startDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}` },
+            { icon: Calendar, label: `Started ${new Date(profile.startDate).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' })}` },
           ].map(({ icon: Icon, label }, i) => (
             <div key={i} className="flex items-center gap-3">
               <Icon className="w-4 h-4 text-slate-500 flex-shrink-0" />

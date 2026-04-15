@@ -316,7 +316,7 @@ export default function AdminIntakePage() {
                       )}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500">
-                      {new Date(intake.intake_started_at).toLocaleDateString()}
+                      {new Date(intake.intake_started_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button

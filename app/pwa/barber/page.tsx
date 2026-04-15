@@ -318,7 +318,7 @@ function Dashboard({ apprentice, onLogout }: { apprentice: ApprenticeData; onLog
           <p className="text-white font-medium">{apprentice.shopName}</p>
           {apprentice.startDate && (
             <p className="text-slate-500 text-sm mt-1">
-              Started {new Date(apprentice.startDate).toLocaleDateString()}
+              Started {new Date(apprentice.startDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}
             </p>
           )}
         </div>

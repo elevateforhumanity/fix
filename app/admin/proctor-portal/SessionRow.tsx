@@ -56,7 +56,7 @@ export default function SessionRow({ session: s, onEdit }: { session: ExamSessio
   return (
     <tr className="hover:bg-slate-50 transition-colors">
       <td className="px-4 py-3 text-slate-600 whitespace-nowrap">
-        {s.created_at ? new Date(s.created_at).toLocaleDateString() : '—'}
+        {s.created_at ? new Date(s.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) : '—'}
       </td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-1.5">

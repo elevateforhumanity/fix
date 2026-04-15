@@ -223,7 +223,7 @@ export function SamGovApp({ user, subscription, entities: initialEntities, docum
                       {entity.sam_expiration_date && (
                         <div className="flex justify-between">
                           <span className="text-gray-500">Expires</span>
-                          <span>{new Date(entity.sam_expiration_date).toLocaleDateString()}</span>
+                          <span>{new Date(entity.sam_expiration_date).toLocaleDateString('en-US', { timeZone: 'UTC' })}</span>
                         </div>
                       )}
                     </div>

@@ -107,7 +107,7 @@ export default function CohortView({ showBy = 'program' }: { showBy?: 'program' 
           enrollments.forEach((e: any) => {
             const date = new Date(e.created_at);
             const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-            const monthName = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            const monthName = date.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' });
             if (!monthMap[monthKey]) monthMap[monthKey] = { name: monthName, items: [] };
             monthMap[monthKey].items.push(e);
           });

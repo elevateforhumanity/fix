@@ -35,7 +35,7 @@ function RejectModal({
           <h3 className="font-bold text-slate-900">Reject Hours</h3>
           <p className="text-sm text-slate-500 mt-1">
             {entry.apprenticeName} — {entry.hours}h · week ending{' '}
-            {new Date(entry.weekEnding).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+            {new Date(entry.weekEnding).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })}
           </p>
         </div>
         <div className="p-5">
@@ -98,7 +98,7 @@ function EntryCard({
             <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-0.5">
               <Calendar className="w-3 h-3" />
               <span>
-                Week ending {weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                Week ending {weekEnd.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
             </div>
           </div>
@@ -110,8 +110,8 @@ function EntryCard({
 
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
           <p className="text-xs text-slate-400">
-            Submitted {submitted.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} at{' '}
-            {submitted.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
+            Submitted {submitted.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })} at{' '}
+            {submitted.toLocaleTimeString('en-US', { timeZone: 'UTC', hour: 'numeric', minute: '2-digit' })}
           </p>
           {entry.notes && (
             <button

@@ -119,7 +119,7 @@ export default function SalesforceIntegrationPage() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">Last Sync</span>
-                <span className="text-sm text-gray-500">{status.lastSync ? new Date(status.lastSync).toLocaleString() : 'Never'}</span>
+                <span className="text-sm text-gray-500">{status.lastSync ? new Date(status.lastSync).toLocaleString('en-US', { timeZone: 'UTC' }) : 'Never'}</span>
               </div>
               {status.connected && (
                 <button

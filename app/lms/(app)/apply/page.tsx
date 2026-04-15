@@ -147,7 +147,7 @@ export default function StudentApplicationPage() {
           </div>
           <h1 className="text-2xl font-bold mb-2">Application Already Submitted</h1>
           <p className="text-gray-600 mb-4">
-            You submitted an application on {new Date(existingApplication.submitted_at).toLocaleDateString()}
+            You submitted an application on {new Date(existingApplication.submitted_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
           </p>
           <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
             existingApplication.status === 'approved' ? 'bg-brand-green-100 text-brand-green-800' :

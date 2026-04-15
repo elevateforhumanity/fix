@@ -47,7 +47,7 @@ export function DiscussionForum({
           author: p.profiles?.full_name || 'Anonymous',
           avatar: p.profiles?.avatar_url || '/images/team/elizabeth-greene.jpg',
           content: p.content,
-          timestamp: new Date(p.created_at).toLocaleString(),
+          timestamp: new Date(p.created_at).toLocaleString('en-US', { timeZone: 'UTC' }),
           likes: p.likes_count || 0,
           replies: p.replies_count || 0,
         }));

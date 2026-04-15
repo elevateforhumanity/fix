@@ -253,7 +253,7 @@ export default function PartnerHoursPendingPage() {
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-gray-400" />
                         <span className="text-sm text-gray-700">
-                          {new Date(hour.work_date).toLocaleDateString('en-US', {
+                          {new Date(hour.work_date).toLocaleDateString('en-US', { timeZone: 'UTC',
                             weekday: 'short',
                             month: 'short',
                             day: 'numeric',

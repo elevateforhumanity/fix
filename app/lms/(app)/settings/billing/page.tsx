@@ -113,7 +113,7 @@ export default function BillingSettingsPage() {
   };
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('en-US', { timeZone: 'UTC',
       year: 'numeric',
       month: 'short',
       day: 'numeric',

@@ -68,7 +68,7 @@ function groupByWeek(entries: HoursEntry[]): WeekGroup[] {
       sunday.setDate(monday.getDate() + 6);
       map.set(key, {
         weekStart: key,
-        weekLabel: `${monday.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${sunday.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+        weekLabel: `${monday.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })} – ${sunday.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })}`,
         totalHours: 0,
         entries: [],
       });
@@ -93,7 +93,7 @@ function EntryRow({ entry }: { entry: HoursEntry }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm font-semibold text-slate-900">
-              {entryDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+              {entryDate.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric' })}
             </span>
             <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full border ${cfg.classes}`}>
               {cfg.icon} {cfg.label}

@@ -444,7 +444,7 @@ export function DeployPanel({ repo, branch, userId }: DeployPanelProps) {
                 </span>
               </div>
               <div style={{ fontSize: 11, color: '#888', marginBottom: 4 }}>
-                {d.branch} • {new Date(d.created_at).toLocaleString()}
+                {d.branch} • {new Date(d.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}
               </div>
               {d.url && (
                 <a

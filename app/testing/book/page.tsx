@@ -629,8 +629,8 @@ function BookingForm() {
                     {slots.map(slot => {
                       const start = new Date(slot.startTime);
                       const end   = new Date(slot.endTime);
-                      const dateLabel = start.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-                      const timeLabel = `${start.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} – ${end.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
+                      const dateLabel = start.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'long', month: 'long', day: 'numeric' });
+                      const timeLabel = `${start.toLocaleTimeString('en-US', { timeZone: 'UTC', hour: 'numeric', minute: '2-digit' })} – ${end.toLocaleTimeString('en-US', { timeZone: 'UTC', hour: 'numeric', minute: '2-digit' })}`;
                       const selected  = selectedSlotId === slot.id;
                       const almostFull = slot.spotsRemaining <= 2;
                       return (

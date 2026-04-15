@@ -249,7 +249,7 @@ export default function InstructorProgramAnnouncementsPage() {
                   <span>Posted by {announcement.author?.full_name || 'Instructor'}</span>
                   <span>•</span>
                   <span>
-                    {new Date(announcement.created_at).toLocaleDateString('en-US', {
+                    {new Date(announcement.created_at).toLocaleDateString('en-US', { timeZone: 'UTC',
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',

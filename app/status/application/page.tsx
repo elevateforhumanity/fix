@@ -194,7 +194,7 @@ function StatusContent() {
               <Clock className="h-4 w-4" /> Submitted
             </div>
             <div className="mt-1 font-medium text-gray-900">
-              {new Date(app.createdAt).toLocaleDateString()}
+              {new Date(app.createdAt).toLocaleDateString('en-US', { timeZone: 'UTC' })}
             </div>
           </div>
 
@@ -203,7 +203,7 @@ function StatusContent() {
               <Clock className="h-4 w-4" /> Last updated
             </div>
             <div className="mt-1 font-medium text-gray-900">
-              {new Date(app.updatedAt).toLocaleDateString()}
+              {new Date(app.updatedAt).toLocaleDateString('en-US', { timeZone: 'UTC' })}
             </div>
           </div>
         </div>

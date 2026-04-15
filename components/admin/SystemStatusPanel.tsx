@@ -21,7 +21,7 @@ export function SystemStatusPanel({
   const statusItems = [
     {
       label: 'Last Compliance Review',
-      value: new Date(lastComplianceReview).toLocaleDateString('en-US', { 
+      value: new Date(lastComplianceReview).toLocaleDateString('en-US', { timeZone: 'UTC', 
         year: 'numeric', 
         month: 'long', 
         day: 'numeric' 

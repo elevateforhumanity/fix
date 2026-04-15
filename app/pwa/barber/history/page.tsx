@@ -182,7 +182,7 @@ export default function BarberHistoryPage() {
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-slate-500" />
                   <span className="text-white font-medium">
-                    Week of {new Date(entry.weekEnding).toLocaleDateString('en-US', { 
+                    Week of {new Date(entry.weekEnding).toLocaleDateString('en-US', { timeZone: 'UTC', 
                       month: 'short', 
                       day: 'numeric' 
                     })}
@@ -193,7 +193,7 @@ export default function BarberHistoryPage() {
               
               <div className="flex items-center justify-between">
                 <span className="text-slate-500 text-sm">
-                  Submitted {new Date(entry.submittedAt).toLocaleDateString()}
+                  Submitted {new Date(entry.submittedAt).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                 </span>
                 <span className="text-2xl font-bold text-white">{entry.hours} hrs</span>
               </div>

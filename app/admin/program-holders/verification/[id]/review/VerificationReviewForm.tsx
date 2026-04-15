@@ -137,7 +137,7 @@ export default function VerificationReviewForm({
                 <div>
                   <p className="text-sm text-black">Applied</p>
                   <p className="font-medium">
-                    {new Date(holder.created_at).toLocaleDateString()}
+                    {new Date(holder.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                   </p>
                 </div>
                 <div>
@@ -176,7 +176,7 @@ export default function VerificationReviewForm({
                           </p>
                           <p className="text-xs text-black">
                             Uploaded:{' '}
-                            {new Date(doc.uploaded_at).toLocaleDateString()}
+                            {new Date(doc.uploaded_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                           </p>
                         </div>
                       </div>
@@ -265,7 +265,7 @@ export default function VerificationReviewForm({
                           {record.status}
                         </span>
                         <p className="text-sm text-black">
-                          {new Date(record.created_at).toLocaleDateString()}
+                          {new Date(record.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                         </p>
                       </div>
                       <p className="text-sm text-black">

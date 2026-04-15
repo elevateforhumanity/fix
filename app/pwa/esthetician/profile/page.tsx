@@ -113,7 +113,7 @@ export default function EstheticianProfilePage() {
               {profile.startDate && (
                 <div className="flex items-center gap-3 text-slate-300 text-sm">
                   <Calendar className="w-4 h-4 text-rose-400 flex-shrink-0" />
-                  <span>Started {new Date(profile.startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                  <span>Started {new Date(profile.startDate).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
               )}
             </div>

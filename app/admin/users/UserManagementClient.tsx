@@ -284,7 +284,7 @@ export default function UserManagementClient({ initialUsers, stats }: Props) {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600">
-                    {user.created_at ? new Date(user.created_at).toLocaleDateString() : '—'}
+                    {user.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) : '—'}
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2">

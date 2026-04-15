@@ -48,7 +48,7 @@ export function DiscussionForum({
           author: (c.profiles as any)?.full_name || 'Anonymous',
           avatar: (c.profiles as any)?.avatar_url || 'AU',
           content: c.content,
-          timestamp: new Date(c.created_at).toLocaleDateString(),
+          timestamp: new Date(c.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' }),
           likes: c.likes_count || 0,
           replies: [],
         }));

@@ -264,7 +264,7 @@ export default function EligibilityReviewPanel({ review, applicationId }: Props)
             <CheckCircle className="w-3.5 h-3.5 text-green-500" />
             Previously decided: <strong className="text-slate-700">{decisionConfig[review.reviewer_decision as keyof typeof decisionConfig]?.label || review.reviewer_decision}</strong>
             {review.reviewer_name && <> by {review.reviewer_name}</>}
-            {review.reviewed_at && <> on {new Date(review.reviewed_at).toLocaleDateString()}</>}
+            {review.reviewed_at && <> on {new Date(review.reviewed_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}</>}
           </div>
         )}
 

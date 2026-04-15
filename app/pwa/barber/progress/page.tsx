@@ -129,7 +129,7 @@ export default function ProgressPage() {
     return {
       week: index === 0 ? 'This Week' : index === 1 ? 'Last Week' : `${index + 1} Weeks Ago`,
       hours: week.hours,
-      date: `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+      date: `${startDate.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })} - ${weekDate.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })}`,
       status: week.status,
     };
   });
@@ -268,7 +268,7 @@ export default function ProgressPage() {
           <p className="text-white font-medium">{apprentice.shopName}</p>
           {apprentice.startDate && (
             <p className="text-slate-500 text-sm mt-1">
-              Started {new Date(apprentice.startDate).toLocaleDateString()}
+              Started {new Date(apprentice.startDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}
             </p>
           )}
         </div>

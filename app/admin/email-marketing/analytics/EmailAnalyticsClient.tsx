@@ -105,7 +105,7 @@ export default function AnalyticsPage() {
         c.clicks,
         `${c.openRate}%`,
         `${c.clickRate}%`,
-        new Date(c.sentAt).toLocaleDateString(),
+        new Date(c.sentAt).toLocaleDateString('en-US', { timeZone: 'UTC' }),
       ]),
     ]
       .map((row: any) => row.join(','))
@@ -330,7 +330,7 @@ export default function AnalyticsPage() {
             {data.timeline.map((day, index) => (
               <div key={index} className="flex items-center space-x-4">
                 <div className="w-24 text-sm text-black">
-                  {new Date(day.date).toLocaleDateString('en-US', {
+                  {new Date(day.date).toLocaleDateString('en-US', { timeZone: 'UTC',
                     month: 'short',
                     day: 'numeric',
                   })}
@@ -459,7 +459,7 @@ export default function AnalyticsPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
-                      {new Date(campaign.sentAt).toLocaleDateString()}
+                      {new Date(campaign.sentAt).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                     </td>
                   </tr>
                 ))}

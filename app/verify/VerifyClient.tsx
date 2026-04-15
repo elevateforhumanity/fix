@@ -22,7 +22,7 @@ function fmtDate(iso: string | null): string {
   if (!iso) return '—';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  return d.toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 export default function VerifyClient({ initialId }: { initialId?: string }) {

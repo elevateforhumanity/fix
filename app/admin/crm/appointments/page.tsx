@@ -116,7 +116,7 @@ export default function AppointmentsPage() {
                     </td>
                     <td className="px-6 py-3 text-sm text-gray-500 flex items-center gap-2">
                       <Clock className="w-3.5 h-3.5 text-gray-400" />
-                      {a.scheduled_at ? new Date(a.scheduled_at).toLocaleString() : '—'}
+                      {a.scheduled_at ? new Date(a.scheduled_at).toLocaleString('en-US', { timeZone: 'UTC' }) : '—'}
                     </td>
                     <td className="px-6 py-3">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${

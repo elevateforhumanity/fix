@@ -459,7 +459,7 @@ export default function EnvManagerClient() {
                               )}
                               {entry?.updated_at && (
                                 <span className="text-xs text-slate-400">
-                                  updated {new Date(entry.updated_at).toLocaleDateString()}
+                                  updated {new Date(entry.updated_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                                 </span>
                               )}
                             </div>

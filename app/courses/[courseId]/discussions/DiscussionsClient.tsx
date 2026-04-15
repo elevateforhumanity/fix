@@ -224,7 +224,7 @@ export default function DiscussionsClient({
               </div>
               <p className="mt-1 text-sm text-black">{t.body}</p>
               <p className="mt-1 text-[10px] text-black">
-                Posted {new Date(t.created_at).toLocaleString()}
+                Posted {new Date(t.created_at).toLocaleString('en-US', { timeZone: 'UTC' })}
               </p>
             </article>
           ))}

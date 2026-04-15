@@ -185,7 +185,7 @@ export default function MilestonesPage() {
                     )}
                     {isUnlocked && m.completed_at && (
                       <p className="text-xs text-amber-400/70 mt-2">
-                        Unlocked {new Date(m.completed_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        Unlocked {new Date(m.completed_at).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
                       </p>
                     )}
                   </div>

@@ -204,7 +204,7 @@ export default function ApprenticeDetailPage({ params }: { params: Promise<{ id:
           <div className="flex items-center gap-3">
             <Calendar className="w-5 h-5 text-slate-500" />
             <span className="text-slate-600">
-              Started {new Date(apprentice.startDate).toLocaleDateString()}
+              Started {new Date(apprentice.startDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}
             </span>
           </div>
 
@@ -212,7 +212,7 @@ export default function ApprenticeDetailPage({ params }: { params: Promise<{ id:
             <div className="flex items-center gap-3">
               <TrendingUp className="w-5 h-5 text-slate-500" />
               <span className="text-slate-600">
-                Est. completion: {new Date(apprentice.estimatedCompletion).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                Est. completion: {new Date(apprentice.estimatedCompletion).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', year: 'numeric' })}
               </span>
             </div>
           )}
@@ -266,7 +266,7 @@ export default function ApprenticeDetailPage({ params }: { params: Promise<{ id:
                     <div className="flex items-center justify-between mb-2">
                       <div>
                         <p className="text-slate-900 font-medium">
-                          Week of {weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          Week of {weekDate.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })}
                         </p>
                         <p className="text-slate-500 text-sm capitalize">{week.status}</p>
                       </div>

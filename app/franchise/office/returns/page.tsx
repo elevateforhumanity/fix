@@ -314,7 +314,7 @@ export default function ReturnsPage() {
                         {ret.submission_id} | SSN: ***-**-{ret.client?.ssn_last_four}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        Prepared by {ret.preparer?.first_name} {ret.preparer?.last_name} | {new Date(ret.created_at).toLocaleDateString()}
+                        Prepared by {ret.preparer?.first_name} {ret.preparer?.last_name} | {new Date(ret.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                       </p>
                     </div>
                   </div>

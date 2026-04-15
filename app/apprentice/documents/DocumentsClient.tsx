@@ -382,7 +382,7 @@ function DocRow({
                   {existing.file_size_bytes ? ` (${formatBytes(existing.file_size_bytes)})` : ''}
                 </span>
                 <span className="text-xs text-slate-400">
-                  Uploaded {new Date(existing.uploaded_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  Uploaded {new Date(existing.uploaded_at).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
                 </span>
                 {existing.signed_url && (
                   <a

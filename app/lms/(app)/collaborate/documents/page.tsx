@@ -149,7 +149,7 @@ export default function SharedDocumentsPage() {
                   <FileText className="w-8 h-8 text-brand-blue-600 mb-3" />
                   <h3 className="font-semibold text-gray-900 mb-1">{doc.title || 'Untitled'}</h3>
                   <p className="text-sm text-gray-500">
-                    Last edited {new Date(doc.updated_at).toLocaleDateString()}
+                    Last edited {new Date(doc.updated_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                   </p>
                 </button>
               )) : (

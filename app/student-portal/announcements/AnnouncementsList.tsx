@@ -130,7 +130,7 @@ export default function AnnouncementsList() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('en-US', { timeZone: 'UTC',
       weekday: 'long',
       month: 'long',
       day: 'numeric',

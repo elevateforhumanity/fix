@@ -428,7 +428,7 @@ export default function ContentLibrary() {
                         {item.usage_count}
                       </td>
                       <td className="p-4 text-sm text-black">
-                        {new Date(item.created_at).toLocaleDateString()}
+                        {new Date(item.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                       </td>
                       <td className="p-4">
                         <div className="flex gap-2">

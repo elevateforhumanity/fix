@@ -441,7 +441,7 @@ className="text-white hover:text-white transition-colors">
                     </div>
 
                     <p className="text-xs text-gray-500 mt-3">
-                      Completed: {new Date(project.completedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                      Completed: {new Date(project.completedDate).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' })}
                     </p>
                   </div>
                 </Card>
@@ -505,7 +505,7 @@ className="text-white hover:text-white transition-colors">
                       <h3 className="text-lg font-bold text-black mb-1">{cert.title}</h3>
                       <p className="text-sm text-black mb-2">{cert.issuer}</p>
                       <p className="text-xs text-gray-500 mb-3">
-                        Issued: {new Date(cert.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                        Issued: {new Date(cert.date).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' })}
                       </p>
                       <a
                         href={cert.credentialUrl}

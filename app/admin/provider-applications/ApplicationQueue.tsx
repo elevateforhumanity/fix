@@ -175,7 +175,7 @@ export default function ApplicationQueue({
                   <div className="min-w-0">
                     <div className="font-semibold text-slate-900 truncate">{app.org_name}</div>
                     <div className="text-xs text-slate-500 mt-0.5">
-                      {ORG_TYPE_LABELS[app.org_type] ?? app.org_type} · {app.city}, {app.state} · {new Date(app.created_at).toLocaleDateString()}
+                      {ORG_TYPE_LABELS[app.org_type] ?? app.org_type} · {app.city}, {app.state} · {new Date(app.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                     </div>
                   </div>
                 </div>
@@ -273,7 +273,7 @@ export default function ApplicationQueue({
                       <div className="font-semibold text-slate-700 text-xs uppercase tracking-wide mb-1">Review Notes</div>
                       <p className="text-slate-600">{app.review_notes}</p>
                       {app.reviewed_at && (
-                        <p className="text-xs text-slate-400 mt-1">Reviewed {new Date(app.reviewed_at).toLocaleDateString()}</p>
+                        <p className="text-xs text-slate-400 mt-1">Reviewed {new Date(app.reviewed_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}</p>
                       )}
                     </div>
                   )}

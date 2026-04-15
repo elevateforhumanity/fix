@@ -146,7 +146,7 @@ export default function ApprenticesPage() {
                           <p className="text-slate-900 font-medium text-lg">{apprentice.name}</p>
                           {apprentice.startDate && (
                             <p className="text-slate-500 text-sm">
-                              Started {new Date(apprentice.startDate).toLocaleDateString()}
+                              Started {new Date(apprentice.startDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                             </p>
                           )}
                         </div>

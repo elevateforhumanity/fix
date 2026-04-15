@@ -331,7 +331,7 @@ export function PRDiffViewer({
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                             <span style={{ fontWeight: 500, fontSize: 12 }}>{comment.user.login}</span>
                             <span style={{ color: '#888', fontSize: 10 }}>
-                              {new Date(comment.created_at).toLocaleDateString()}
+                              {new Date(comment.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                             </span>
                           </div>
                           <div style={{ fontSize: 12, color: '#ccc' }}>{comment.body}</div>

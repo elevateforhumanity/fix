@@ -184,7 +184,7 @@ export default function BarberProfilePage() {
           <div className="flex items-center gap-3">
             <Calendar className="w-5 h-5 text-slate-500" />
             <span className="text-slate-600">
-              Started {new Date(profile.startDate).toLocaleDateString()}
+              Started {new Date(profile.startDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}
             </span>
           </div>
         </div>

@@ -165,7 +165,7 @@ export default function VerifyCredentialPage() {
                         <div className="text-lg text-black">
                           {new Date(
                             result.credential.issued_at
-                          ).toLocaleDateString()}
+                          ).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                         </div>
                       </div>
 
@@ -177,7 +177,7 @@ export default function VerifyCredentialPage() {
                           <div className="text-lg text-black">
                             {new Date(
                               result.credential.expires_at
-                            ).toLocaleDateString()}
+                            ).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                           </div>
                         </div>
                       )}

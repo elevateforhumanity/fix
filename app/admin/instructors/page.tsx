@@ -214,7 +214,7 @@ export default function InstructorsPage() {
                         </span>
                         <span className="text-black">
                           Joined:{' '}
-                          {new Date(instructor.created_at).toLocaleDateString()}
+                          {new Date(instructor.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                         </span>
                       </div>
                       {instructor.instructor_courses &&

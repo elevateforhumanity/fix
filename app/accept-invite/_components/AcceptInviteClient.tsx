@@ -22,7 +22,7 @@ export default function AcceptInviteClient({ token, invite, isLoggedIn, userEmai
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [error, setError] = useState('');
 
-  const expiresDate = new Date(invite.expires_at).toLocaleDateString();
+  const expiresDate = new Date(invite.expires_at).toLocaleDateString('en-US', { timeZone: 'UTC' });
 
   async function handleAccept() {
     setState('loading');

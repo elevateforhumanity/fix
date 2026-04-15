@@ -172,7 +172,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                     )}
                   </div>
                   <div className="text-sm text-black">
-                    {new Date(review.date).toLocaleDateString('en-US', {
+                    {new Date(review.date).toLocaleDateString('en-US', { timeZone: 'UTC',
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',

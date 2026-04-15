@@ -55,14 +55,14 @@ function RepCard({
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
             <Calendar className="w-3 h-3 flex-shrink-0" />
             <span>
-              Performed {workDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              Performed {workDate.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-slate-400">
             <Clock className="w-3 h-3 flex-shrink-0" />
             <span>
-              Logged {submitted.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} at{' '}
-              {submitted.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
+              Logged {submitted.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })} at{' '}
+              {submitted.toLocaleTimeString('en-US', { timeZone: 'UTC', hour: 'numeric', minute: '2-digit' })}
             </span>
           </div>
           {entry.notes && (

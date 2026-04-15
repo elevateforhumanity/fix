@@ -490,7 +490,7 @@ export function ActionsPanel({ repo, repoId, branch, token, userId }: ActionsPan
                   <div style={{ fontSize: 11, color: '#888', display: 'flex', gap: 8 }}>
                     <span>{run.head_branch}</span>
                     <span>{run.event}</span>
-                    <span>{new Date(run.created_at).toLocaleDateString()}</span>
+                    <span>{new Date(run.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}</span>
                   </div>
                 </div>
               ))

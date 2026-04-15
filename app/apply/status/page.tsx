@@ -159,7 +159,7 @@ export default function ApplicationStatusPage() {
                   <div>
                     <span className="text-black">Submitted</span>
                     <p className="font-medium">
-                      {new Date(application.submitted_at).toLocaleDateString()}
+                      {new Date(application.submitted_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                     </p>
                   </div>
                 </div>

@@ -316,7 +316,7 @@ export default function CourseDiscussionsPage() {
                         </span>
                         <span>•</span>
                         <span>
-                          {new Date(discussion.created_at).toLocaleDateString()}
+                          {new Date(discussion.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                         </span>
                         <span>•</span>
                         <span>{discussion.replies?.length || 0} replies</span>

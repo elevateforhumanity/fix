@@ -103,7 +103,7 @@ export default function LicensingPage() {
                 <div>
                   <p className="text-sm text-black">Expires</p>
                   <p className="text-lg font-semibold">
-                    {license.expires_at ? new Date(license.expires_at).toLocaleDateString() : 'Never'}
+                    {license.expires_at ? new Date(license.expires_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) : 'Never'}
                   </p>
                 </div>
               </div>
