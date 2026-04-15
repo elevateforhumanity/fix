@@ -200,8 +200,10 @@ export function DashboardShell({ data }: { data: AdminDashboardData }) {
             >
               <div className="divide-y divide-slate-50">
                 {data.pendingSubmissions.slice(0, 6).map((s) => {
+                  // Age computed from generatedAt (server timestamp) — not Date.now() — to avoid hydration mismatch
+                  const serverNow = new Date(data.generatedAt).getTime();
                   const age = s.submitted_at
-                    ? Math.floor((Date.now() - new Date(s.submitted_at).getTime()) / 86_400_000)
+                    ? Math.floor((serverNow - new Date(s.submitted_at).getTime()) / 86_400_000)
                     : 0;
                   return (
                     <div key={s.id} className="flex items-center justify-between py-3 gap-3">
@@ -251,7 +253,9 @@ export function DashboardShell({ data }: { data: AdminDashboardData }) {
                 <div className="divide-y divide-slate-50">
                   {data.recentApplications.slice(0, 8).map(app => {
                     const name = [app.first_name, app.last_name].filter(Boolean).join(" ") || app.email || "Applicant";
-                    const age  = Math.floor((Date.now() - new Date(app.submitted_at ?? app.created_at).getTime()) / 86_400_000);
+                    // Use server-generated timestamp — not Date.now() — to avoid hydration mismatch
+                    const serverNow = new Date(data.generatedAt).getTime();
+                    const age  = Math.floor((serverNow - new Date(app.submitted_at ?? app.created_at).getTime()) / 86_400_000);
                     return (
                       <div key={app.id} className="flex items-center justify-between py-3 gap-3">
                         <div className="flex items-center gap-3 min-w-0">
