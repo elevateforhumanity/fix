@@ -113,7 +113,7 @@ async function ocrPdf(buffer: Buffer): Promise<{
     return { text: '', pageCount: 0, pagesOcrd: 0, method: 'ocr_failed' };
   }
 
-  const Tesseract = await import('tesseract.js').catch(() => null);
+  const Tesseract = await import(/* webpackIgnore: true */ 'tesseract.js').catch(() => null);
   if (!Tesseract) {
     return { text: '', pageCount: images.length, pagesOcrd: 0, method: 'ocr_failed' };
   }
