@@ -269,12 +269,7 @@ export default function MesmerizedByBeautyPage() {
                     ))}
                   </ul>
 
-                  <a href={`#apply?program=${prog.slug}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const el = document.getElementById('apply');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
+                  <a href="#apply"
                     className={`w-full text-center ${prog.color} hover:opacity-90 text-white font-bold py-3 rounded-xl transition-opacity text-sm flex items-center justify-center gap-2`}>
                     Apply for {prog.label} <ChevronRight className="w-4 h-4" />
                   </a>
