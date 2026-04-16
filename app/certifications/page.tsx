@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Award, ArrowRight, Shield, Clock, Users, Circle, } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const metadata: Metadata = {
   title: 'Industry Certifications | Elevate for Humanity',
@@ -27,10 +29,17 @@ export default function CertificationsPage() {
         </div>
       </div>
 
-      <section className="relative h-48 md:h-64 overflow-hidden">
-        <Image src="/images/pages/certifications-page-1.jpg" alt="Certifications" fill className="object-cover" priority sizes="100vw" />
-        
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['certifications'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['certifications'].voiceoverSrc}
+        microLabel={heroBanners['certifications'].microLabel}
+        headline={heroBanners['certifications'].belowHeroHeadline}
+        subheadline={heroBanners['certifications'].belowHeroSubheadline}
+        primaryCta={heroBanners['certifications'].primaryCta}
+        secondaryCta={heroBanners['certifications'].secondaryCta}
+        trustIndicators={heroBanners['certifications'].trustIndicators}
+        transcript={heroBanners['certifications'].transcript}
+      />
 
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">

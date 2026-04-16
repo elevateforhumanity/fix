@@ -60,19 +60,17 @@ export default function MissionPage() {
         </div>
       </div>
 
-      {/* Hero — image with title overlaid */}
-      <section className="relative h-[300px] sm:h-[400px] overflow-hidden">
-        <Image src="/images/pages/mission-page-1.jpg" alt="Our mission to elevate communities" fill sizes="100vw" className="object-cover" priority />
-        <div className="absolute inset-0 flex items-center justify-center text-center px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Our Mission</h1>
-            <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
-              To create pathways out of poverty and into prosperity by providing free,
-              high-quality career training to those who need it most.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['mission'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['mission'].voiceoverSrc}
+        microLabel={heroBanners['mission'].microLabel}
+        headline={heroBanners['mission'].belowHeroHeadline}
+        subheadline={heroBanners['mission'].belowHeroSubheadline}
+        primaryCta={heroBanners['mission'].primaryCta}
+        secondaryCta={heroBanners['mission'].secondaryCta}
+        trustIndicators={heroBanners['mission'].trustIndicators}
+        transcript={heroBanners['mission'].transcript}
+      />
 
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* The Problem */}

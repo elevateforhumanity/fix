@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { AuthorityStrip } from '@/components/InstitutionalAuthority';
 import { GraduationCap, Clock, Award, DollarSign, ArrowRight, Users, FileText, Phone, CheckCircle } from 'lucide-react';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const dynamic = 'force-dynamic';
 
@@ -110,22 +112,19 @@ export default async function EnrollmentPage() {
     <div className="min-h-screen bg-white">
       <Breadcrumbs items={[{ label: 'Enrollment' }]} />
 
-      {/* Hero — image only, title below */}
+      <HeroVideo
+        videoSrc={heroBanners['enrollment'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['enrollment'].voiceoverSrc}
+        microLabel={heroBanners['enrollment'].microLabel}
+        headline={heroBanners['enrollment'].belowHeroHeadline}
+        subheadline={heroBanners['enrollment'].belowHeroSubheadline}
+        primaryCta={heroBanners['enrollment'].primaryCta}
+        secondaryCta={heroBanners['enrollment'].secondaryCta}
+        trustIndicators={heroBanners['enrollment'].trustIndicators}
+        transcript={heroBanners['enrollment'].transcript}
+      />
       <section className="relative w-full">
-        <div className="relative h-[50vh] min-h-[320px] overflow-hidden">
-          <Image
-            src="/images/pages/enrollment-page-1.jpg"
-            alt="Elevate for Humanity enrollment"
-            fill sizes="100vw"
-            className="object-cover object-center"
-            priority
-          />
-        </div>
         <div className="bg-white border-t py-10 text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-black text-black mb-3">Enroll in a Program</h1>
-          <p className="text-black text-lg max-w-2xl mx-auto mb-8">
-            Short-term training. Real credentials. Most programs available at no cost to eligible Indiana residents.
-          </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/apply/student" className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold px-8 py-4 rounded-xl transition-colors text-base">
               Apply Now — Free

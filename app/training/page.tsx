@@ -3,6 +3,8 @@ import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';
 import Image from 'next/image';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const dynamic = 'force-static';
 export const revalidate = 86400;
@@ -95,17 +97,17 @@ export default function TrainingPage() {
         </div>
       </div>
 
-      {/* Hero — clean image, no text overlay */}
-      <section className="relative h-[45vh] min-h-[280px] max-h-[560px] w-full overflow-hidden">
-        <Image
-          src="/images/pages/training-page-3.jpg"
-          alt="Career training programs at Elevate for Humanity"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['training'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['training'].voiceoverSrc}
+        microLabel={heroBanners['training'].microLabel}
+        headline={heroBanners['training'].belowHeroHeadline}
+        subheadline={heroBanners['training'].belowHeroSubheadline}
+        primaryCta={heroBanners['training'].primaryCta}
+        secondaryCta={heroBanners['training'].secondaryCta}
+        trustIndicators={heroBanners['training'].trustIndicators}
+        transcript={heroBanners['training'].transcript}
+      />
 
       {/* Page identity — below hero */}
       <section className="border-b border-slate-100 py-10 px-4">

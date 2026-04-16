@@ -5,6 +5,8 @@ import { buildLoginRedirect } from '@/lib/lms/redirect';
 import { StudentToolsStrip } from '@/components/lms/dashboard/StudentToolsStrip';
 import Link from 'next/link';
 import Image from 'next/image';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import type { Metadata } from 'next';
 import { Clock, Award, ChevronRight } from 'lucide-react';
 
@@ -67,15 +69,19 @@ export default async function LmsPublicPage() {
       </nav>
 
       {/* HERO */}
-      <section className="py-16 sm:py-24 border-b border-slate-100">
+      <HeroVideo
+        videoSrc={heroBanners['lms'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['lms'].voiceoverSrc}
+        microLabel={heroBanners['lms'].microLabel}
+        headline={heroBanners['lms'].belowHeroHeadline}
+        subheadline={heroBanners['lms'].belowHeroSubheadline}
+        primaryCta={heroBanners['lms'].primaryCta}
+        secondaryCta={heroBanners['lms'].secondaryCta}
+        trustIndicators={heroBanners['lms'].trustIndicators}
+        transcript={heroBanners['lms'].transcript}
+      />
+      <section className="py-8 border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-xs font-bold text-brand-red-600 uppercase tracking-widest mb-4">Elevate for Humanity · Career Training</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-5">
-            Start Your Training.<br className="hidden sm:block" /> Build Your Career.
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10">
-            Industry-recognized credentials. Workforce funding available. Real job outcomes.
-          </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href={buildLoginRedirect("/lms/courses")} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-700 text-white font-bold px-8 py-4 rounded-xl text-base transition">
               Enter Student Portal <ChevronRight className="w-4 h-4" />

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { MessageSquare } from 'lucide-react';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import FAQSearch from './FAQSearch';
 
 export const metadata: Metadata = {
@@ -70,10 +72,17 @@ export default function FAQPage() {
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="relative h-[200px] sm:h-[260px] overflow-hidden">
-        <Image src="/images/pages/faq-page-1.jpg" alt="Students in a workforce training classroom" fill sizes="100vw" quality={90} className="object-cover" priority />
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['faq'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['faq'].voiceoverSrc}
+        microLabel={heroBanners['faq'].microLabel}
+        headline={heroBanners['faq'].belowHeroHeadline}
+        subheadline={heroBanners['faq'].belowHeroSubheadline}
+        primaryCta={heroBanners['faq'].primaryCta}
+        secondaryCta={heroBanners['faq'].secondaryCta}
+        trustIndicators={heroBanners['faq'].trustIndicators}
+        transcript={heroBanners['faq'].transcript}
+      />
       <div className="bg-white border-b border-slate-200 py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">Frequently Asked Questions</h1>

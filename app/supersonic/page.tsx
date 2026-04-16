@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { Zap, Rocket, Target, TrendingUp, Clock, Award, ArrowRight,
   Phone
 } from 'lucide-react';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 interface Program {
   name: string;
@@ -56,14 +58,17 @@ export default function SupersonicPage() {
             <div className="max-w-7xl mx-auto px-4 py-4">
         <Breadcrumbs items={[{ label: "Supersonic" }]} />
       </div>
-<div className="relative h-48 md:h-64 overflow-hidden">
-        <Image
-          src="/images/pages/supersonic-page-1.jpg"
-          alt="Supersonic Program"
-          fill
-          className="object-cover"
-         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-      </div>
+      <HeroVideo
+        videoSrc={heroBanners['supersonic'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['supersonic'].voiceoverSrc}
+        microLabel={heroBanners['supersonic'].microLabel}
+        headline={heroBanners['supersonic'].belowHeroHeadline}
+        subheadline={heroBanners['supersonic'].belowHeroSubheadline}
+        primaryCta={heroBanners['supersonic'].primaryCta}
+        secondaryCta={heroBanners['supersonic'].secondaryCta}
+        trustIndicators={heroBanners['supersonic'].trustIndicators}
+        transcript={heroBanners['supersonic'].transcript}
+      />
       <div className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-white text-center mb-12">Why Supersonic?</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

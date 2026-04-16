@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const metadata: Metadata = {
   title: 'Support Services | Elevate for Humanity',
@@ -80,16 +82,17 @@ export default function ServicesPage() {
       </div>
 
       {/* Hero */}
-      {/* Hero */}
-      <section className="relative w-full">
-        <div className="relative h-[300px] md:h-[400px] w-full overflow-hidden">
-          <Image src="/images/pages/services-page-1.jpg" alt="Support Services" fill className="object-cover" priority sizes="100vw" />
-        </div>
-        <div className="bg-white py-10">
-          <div className="max-w-5xl mx-auto px-4 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Support Services</h1>
-          </div>
-        </div>
+      <HeroVideo
+        videoSrc={heroBanners['services'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['services'].voiceoverSrc}
+        microLabel={heroBanners['services'].microLabel}
+        headline={heroBanners['services'].belowHeroHeadline}
+        subheadline={heroBanners['services'].belowHeroSubheadline}
+        primaryCta={heroBanners['services'].primaryCta}
+        secondaryCta={heroBanners['services'].secondaryCta}
+        trustIndicators={heroBanners['services'].trustIndicators}
+        transcript={heroBanners['services'].transcript}
+      />
       </section>
 
       {/* Services Grid */}

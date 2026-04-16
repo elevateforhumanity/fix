@@ -16,6 +16,8 @@ import {
   Phone,
 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const metadata: Metadata = {
   title: 'For Employers | Hire, Sponsor & Train | Elevate Workforce OS',
@@ -61,25 +63,17 @@ export default async function ForEmployersPage() {
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="relative h-[200px] sm:h-[260px] w-full overflow-hidden">
-        <Image src="/images/pages/for-employers-page-1.jpg" alt="Employer partner meeting with Elevate for Humanity team" fill className="object-cover" priority sizes="100vw" />
-      </section>
-      <div className="bg-white border-b border-slate-200 py-8 px-4">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-green-600 font-bold text-xs uppercase tracking-widest mb-2">For Employers</p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">Hire. Sponsor. Train.<br />Three ways to work with the Elevate OS.</h1>
-          <p className="text-slate-600 mt-2 max-w-3xl">Access our talent pipeline of job-ready candidates trained in healthcare, skilled trades, technology, and business. No recruitment fees. WIOA and WOTC eligible.</p>
-          <div className="flex flex-wrap gap-3 mt-5">
-            <Link href="/employer-portal" className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white px-6 py-2.5 rounded-lg font-bold transition text-sm">
-              <Building2 className="w-4 h-4" /> Employer Portal
-            </Link>
-            <Link href="/employers/post-job" className="inline-flex items-center gap-2 border-2 border-slate-300 text-slate-700 px-6 py-2.5 rounded-lg font-bold hover:bg-white transition text-sm">
-              Post a Job — Free
-            </Link>
-          </div>
-        </div>
-      </div>
+      <HeroVideo
+        videoSrc={heroBanners['for-employers'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['for-employers'].voiceoverSrc}
+        microLabel={heroBanners['for-employers'].microLabel}
+        headline={heroBanners['for-employers'].belowHeroHeadline}
+        subheadline={heroBanners['for-employers'].belowHeroSubheadline}
+        primaryCta={heroBanners['for-employers'].primaryCta}
+        secondaryCta={heroBanners['for-employers'].secondaryCta}
+        trustIndicators={heroBanners['for-employers'].trustIndicators}
+        transcript={heroBanners['for-employers'].transcript}
+      />
 
       {/* Stats Bar */}
       <section className="bg-brand-blue-700 text-white py-6">
