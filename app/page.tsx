@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import MarqueeBanner from '@/components/MarqueeBanner';
 import { ProgramVideoCards } from '@/components/marketing/ProgramVideoCards';
 import { HeroVideoBg } from '@/components/marketing/HeroVideoBg';
+import { VIDEO_HEROES } from '@/lib/hero-config';
 
 export const dynamic = 'force-static';
 export const revalidate = 60;
@@ -26,7 +27,7 @@ export default function HomePage() {
       <section className="flex flex-col lg:grid lg:grid-cols-2 gap-0">
         <div className="relative h-64 sm:h-80 lg:h-auto lg:min-h-[560px] overflow-hidden bg-slate-700">
           <HeroVideoBg
-            src="/videos/homepage-hero-new.mp4"
+            src={VIDEO_HEROES.homepage}
             poster="/images/pages/comp-home-hero-programs.jpg"
             audioSrc="/audio/heroes/programs.mp3"
           />

@@ -1,3 +1,4 @@
+import { VIDEO_HEROES } from '@/lib/hero-config';
 'use client';
 
 import { useState } from 'react';
@@ -114,7 +115,7 @@ export default function EducationLandingPage() {
       {/* VIDEO HERO */}
       <section className="pt-16">
         <HeroVideo
-          videoSrcDesktop="/videos/lms-learning.mp4"
+          videoSrcDesktop={VIDEO_HEROES.lmsCourses}
           posterImage="/images/pages/higher-ed-hero.jpg"
           voiceoverSrc="/audio/heroes/programs.mp3"
           microLabel="Career Training"

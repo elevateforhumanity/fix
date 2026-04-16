@@ -1,3 +1,4 @@
+import { VIDEO_HEROES } from '@/lib/hero-config';
 
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -50,7 +51,7 @@ export default function AgenciesPage() {
       </div>
 
       <HeroVideo
-        videoSrcDesktop="/videos/training-providers-hero.mp4"
+        videoSrcDesktop={VIDEO_HEROES.homepage}
         posterImage="/images/pages/agencies-page-1.jpg"
         microLabel="For Workforce Agencies"
         analyticsName="agencies"

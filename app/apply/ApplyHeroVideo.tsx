@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 import CanonicalVideo from '@/components/video/CanonicalVideo';
+import { VIDEO_HEROES } from '@/lib/hero-config';
 
 export default function ApplyHeroVideo() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -19,7 +20,7 @@ export default function ApplyHeroVideo() {
   return (
     <div ref={wrapperRef} className="absolute inset-0 w-full h-full">
       <CanonicalVideo
-        src="/videos/getting-started-hero.mp4"
+        src={VIDEO_HEROES.homepage}
         poster="/images/pages/apply-hero.jpg"
         className="absolute inset-0 w-full h-full object-cover"
         autoPlayOnMount
