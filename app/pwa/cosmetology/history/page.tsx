@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import ApprenticeHoursHistory from '@/components/pwa/ApprenticeHoursHistory';
 
 export default function CosmetologyHoursHistoryPage() {

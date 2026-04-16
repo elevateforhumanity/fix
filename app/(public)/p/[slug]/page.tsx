@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import { getPage } from '@/lib/data/pages';
 import PageRenderer from '@/components/PageRenderer';
 import { notFound } from 'next/navigation';

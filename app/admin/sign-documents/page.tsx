@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { requireAdmin } from '@/lib/authGuards';
 import { SignDocumentsClient } from './SignDocumentsClient';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Sign Documents | Elevate for Humanity',

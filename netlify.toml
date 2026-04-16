@@ -21,7 +21,10 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_OPTIONS = "--max-old-space-size=4096"
+  NODE_OPTIONS = "--max-old-space-size=6144"
+
+[[build.cache]]
+  path = ".next/cache"
   NEXT_DISABLE_MANAGED_TURBOPACK = "1"
   NETLIFY_USE_PNPM = "true"
   # Production build uses webpack (Next.js default)

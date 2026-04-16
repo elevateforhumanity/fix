@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 /**
  * @legacy Static healthcare course landing page.
  * This page is NOT DB-driven. It predates the DB-driven course engine.

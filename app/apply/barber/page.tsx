@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import { redirect } from 'next/navigation';
 
 // Barber Apprenticeship has a dedicated partner application flow.

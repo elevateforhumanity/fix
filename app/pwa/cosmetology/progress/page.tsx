@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import ApprenticeProgress from '@/components/pwa/ApprenticeProgress';
 
 export default function CosmetologyProgressPage() {

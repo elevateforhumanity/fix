@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle, Shield, Clock, CalendarDays, MapPin, Phone, ChevronRight } from 'lucide-react';
