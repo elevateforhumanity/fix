@@ -248,10 +248,7 @@ const nextConfig = {
     // OOMs during type-check on 4,450+ files in CI — keep enabled until project is split or memory increased
     ignoreBuildErrors: true,
   },
-  eslint: {
-    // ESLint runs separately in CI (legacy-lint job). Skipping during build saves ~500MB peak memory.
-    ignoreDuringBuilds: true,
-  },
+
   // Removed staticPageGenerationTimeout - use route segment config instead
   // See: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
   outputFileTracingExcludes: {

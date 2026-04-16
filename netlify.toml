@@ -10,6 +10,12 @@
   # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
   functions = "netlify/functions"
 
+[build.processing]
+  skip_processing = false
+
+[[build.cache]]
+  path = ".next/cache"
+
 # Block preview and branch deployments from search engine indexing
 [context.deploy-preview]
   [context.deploy-preview.environment]
