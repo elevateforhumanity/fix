@@ -8,6 +8,7 @@ import { headers } from 'next/headers';
 import Header from '@/components/site/Header';
 import ServerFooter from '@/components/site/ServerFooter';
 import ClientWidgets from './ClientWidgets';
+import { MarketingChromeGuard } from './PublicLayoutClient';
 
 // Routes that render their own shell — marketing header/footer must not appear.
 const APP_ROUTE_PREFIXES = [
@@ -58,13 +59,20 @@ export default async function PublicLayout({ children }: PublicLayoutProps) {
 
   return (
     <>
-      <Header />
+      {/* MarketingChromeGuard hides data-marketing-chrome elements via CSS
+          on client-side navigation to app routes — no DOM removal, no reconciliation errors. */}
+      <MarketingChromeGuard />
+      <div data-marketing-chrome="header">
+        <Header />
+      </div>
       <Suspense>
         <main id="main-content" className="pt-[70px] overflow-x-hidden" role="main" tabIndex={-1}>
           {children}
         </main>
       </Suspense>
-      <ServerFooter />
+      <div data-marketing-chrome="footer">
+        <ServerFooter />
+      </div>
       <ClientWidgets />
     </>
   );

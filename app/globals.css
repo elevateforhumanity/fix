@@ -1923,3 +1923,9 @@ header[role="banner"] a.\!text-white {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* Marketing chrome hidden on app routes (admin, lms, learner, etc.)
+   Applied by MarketingChromeGuard via useEffect — CSS-only, no DOM removal. */
+.marketing-chrome-hidden {
+  display: none !important;
+}
