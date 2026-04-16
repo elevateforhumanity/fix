@@ -6,9 +6,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { z } from 'zod';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { getCurrentUser } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
@@ -29,7 +29,11 @@ const PatchSchema = z.object({
   is_active:                z.boolean().optional(),
 });
 
-= await db.from('profiles').select('role').eq('id', auth.id).maybeSingle();
+async function requireAdmin() {
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const db = await getAdminClient();
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) return null;
   return user;
 }
@@ -39,8 +43,7 @@ export async function PATCH(
   { params }: { params: Promise<{ programId: string; itemId: string }> }
 ) {
   const { programId, itemId } = await params;
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const user = await requireAdmin();
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => null);
@@ -73,8 +76,7 @@ export async function DELETE(
   { params }: { params: Promise<{ programId: string; itemId: string }> }
 ) {
   const { programId, itemId } = await params;
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const user = await requireAdmin();
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();

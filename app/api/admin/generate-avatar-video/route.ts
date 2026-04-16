@@ -1,13 +1,13 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const maxDuration = 300;
 
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { createTalk, pollTalkResult } from '@/lib/d-id/generate-talk';
 import { logger } from '@/lib/logger';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-export const runtime = 'nodejs';
-export const maxDuration = 300;
-
-export const dynamic = 'force-dynamic';
 
 /**
  * POST /api/admin/generate-avatar-video
@@ -44,10 +44,23 @@ async function _POST(req: NextRequest) {
   }
 
   try {
-    const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+    const supabase = await createClient();
+    const db = await getAdminClient();
 
-      }
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { data: profile } = await db
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
     const body = await req.json();
     const { audioUrl, audioUrls } = body;
@@ -86,8 +99,8 @@ async function _POST(req: NextRequest) {
       const talk = await createTalk({ photoUrl, audioUrl });
       const result = await pollTalkResult(talk.id, 60, 5000);
 
-      await supabase.from('audit_logs').insert({
-        actor_id: auth.id,
+      await db.from('audit_logs').insert({
+        actor_id: user.id,
         actor_role: profile.role,
         action: 'generate_avatar_video',
         resource_type: 'avatar_video',
@@ -122,13 +135,13 @@ async function _POST(req: NextRequest) {
           part: i,
           talkId: '',
           status: 'error',
-          error: 'Video generation failed',
+          error: err instanceof Error ? err.message : String(err),
         });
       }
     }
 
-    await supabase.from('audit_logs').insert({
-      actor_id: auth.id,
+    await db.from('audit_logs').insert({
+      actor_id: user.id,
       actor_role: profile.role,
       action: 'generate_avatar_video_batch',
       resource_type: 'avatar_video',
