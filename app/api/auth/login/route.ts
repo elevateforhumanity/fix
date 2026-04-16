@@ -1,24 +1,12 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { rateLimitNew as rateLimit, getClientIdentifier, RATE_LIMITS } from '@/lib/rateLimit';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 export async function POST(request: Request) {
   try {
     const rateLimited = await applyRateLimit(request, 'strict');
     if (rateLimited) return rateLimited;
-
-    // Rate limit: 5 login attempts per minute per IP
-    const identifier = getClientIdentifier(request.headers);
-    const rateLimitResult = rateLimit(identifier, RATE_LIMITS.AUTH);
-    
-    if (!rateLimitResult.ok) {
-      return NextResponse.json(
-        { error: 'Too many login attempts. Please try again later.' },
-        { status: 429, headers: { 'Retry-After': '60' } }
-      );
-    }
 
     const { email, password } = await request.json();
 

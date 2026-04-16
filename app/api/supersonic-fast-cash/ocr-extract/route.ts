@@ -4,9 +4,6 @@ import { logger } from '@/lib/logger';
 import {
   extractTextFromImage,
   autoExtract,
-  extractW2Data,
-  extract1099Data,
-  extractIDData,
 } from '@/lib/ocr/tesseract-ocr';
 
 // Helper to check if file is PDF
@@ -190,20 +187,15 @@ export async function POST(request: NextRequest) {
       // Handle image files with OCR
       const buffer = Buffer.from(await file.arrayBuffer());
 
-      switch (documentType.toLowerCase()) {
-        case 'w2':
-          result = await extractW2Data(buffer);
-          break;
-        case '1099':
-          result = await extract1099Data(buffer);
-          break;
-        case 'id':
-          result = await extractIDData(buffer);
-          break;
-        case 'auto':
-        default:
-          result = await autoExtract(buffer);
-          break;
+      // Use autoExtract for all image types — structured parsing is done from raw text
+      result = await autoExtract(buffer);
+      const type = documentType.toLowerCase();
+      if (type === 'w2') {
+        result.documentType = 'w2';
+        result.data = parseW2FromText(result.raw);
+      } else if (type === '1099') {
+        result.documentType = '1099';
+        result.data = parse1099FromText(result.raw);
       }
 
       result.processingTime = Date.now() - startTime;

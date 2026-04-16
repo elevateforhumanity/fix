@@ -57,8 +57,8 @@ export async function POST(request: NextRequest) {
         'Content-Disposition': `attachment; filename="board-compliance-report-${Date.now()}.pdf"`,
       },
     });
-  } catch { /* Error handled silently */ 
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Failed to generate report' }, { status: 500 });
   }
 }
 
