@@ -1,7 +1,6 @@
 export const dynamic = 'force-static';
 export const revalidate = 3600;
 
-import { requireAdmin } from '@/lib/auth';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';

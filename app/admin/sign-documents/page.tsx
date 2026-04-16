@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { requireAdmin } from '@/lib/authGuards';
 import { SignDocumentsClient } from './SignDocumentsClient';
 
 export const dynamic = 'force-static';
@@ -11,6 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default async function SignDocumentsPage() {
-  await requireAdmin();
   return <SignDocumentsClient />;
 }
