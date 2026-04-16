@@ -2,9 +2,8 @@
 
 import { useEffect } from 'react';
 
-// Bump this string on every deploy to force SW update on all clients.
-// Format: YYYY-MM-DD-vN
-const DEPLOY_VERSION = '2026-06-17-v1';
+// Injected at build time — unique per deploy, no manual bumping needed.
+const DEPLOY_VERSION = process.env.NEXT_PUBLIC_BUILD_ID ?? 'dev';
 
 export default function PWAManager() {
   useEffect(() => {
@@ -17,14 +16,11 @@ export default function PWAManager() {
     // activated yet (e.g. first visit after a hard refresh).
     const lastDeploy = localStorage.getItem('elevate-deploy-version');
     if (lastDeploy !== DEPLOY_VERSION) {
+      // New deploy — wipe ALL caches so users get fresh assets immediately.
       if ('caches' in window) {
-        caches.keys().then(keys =>
-          Promise.all(
-            keys
-              .filter(k => !k.includes('v7')) // keep current cache version
-              .map(k => caches.delete(k))
-          )
-        ).catch(() => {});
+        caches.keys()
+          .then(keys => Promise.all(keys.map(k => caches.delete(k))))
+          .catch(() => {});
       }
       localStorage.setItem('elevate-deploy-version', DEPLOY_VERSION);
     }
