@@ -126,7 +126,7 @@ export default function TestingAccommodationsPage() {
           <div className="mt-10 pt-8 border-t border-slate-200">
             <p className="text-slate-500 text-sm mb-4">Ready to schedule your exam?</p>
             <Link
-              href="/testing/book?type=nha"
+              href="/testing/book?exam=nha"
               className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold px-8 py-4 rounded-full transition-colors"
             >
               Schedule Your Exam <ChevronRight className="w-5 h-5" />

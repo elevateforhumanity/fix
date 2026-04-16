@@ -20,7 +20,6 @@ const PROVIDER_HERO: Record<string, string> = {
   nrf:        '/images/pages/apply-employer-hero.jpg',
   workkeys:   '/images/pages/career-services-page-4.jpg',
   careersafe: '/images/pages/apprenticeships-hero.jpg',
-  lms:     '/images/pages/barber-apprenticeship.jpg',
 };
 
 const PROVIDER_ACCENT: Record<string, string> = {
@@ -30,7 +29,6 @@ const PROVIDER_ACCENT: Record<string, string> = {
   nrf:        'from-orange-900',
   workkeys:   'from-violet-900',
   careersafe: 'from-yellow-900',
-  lms:     'from-pink-900',
 };
 
 const CAPABILITY_LABEL: Record<string, { label: string; icon: typeof MapPin }> = {

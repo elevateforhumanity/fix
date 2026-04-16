@@ -210,9 +210,11 @@ export const POST = withRuntime(
   }
 
   // ── Enforcement fee paid (no-show / retake / reschedule) ─────────────────
-  if (meta.payment_type === 'testing_enforcement') {
-    const enforcementId = meta.enforcement_id;
-    const email = meta.email;
+  if (session.metadata?.payment_type === 'testing_enforcement') {
+    const enforcementMeta = parseWebhookMeta(TestingSessionMeta, session.metadata, event.id, logger);
+    if (!enforcementMeta) return NextResponse.json({ received: true });
+    const enforcementId = enforcementMeta.enforcement_id;
+    const email = enforcementMeta.email;
 
     if (!enforcementId) {
       logger.warn('[testing/webhook] enforcement_id missing in metadata');
@@ -234,12 +236,12 @@ export const POST = withRuntime(
       return NextResponse.json({ received: true });
     }
 
-    logger.info('[testing/webhook] Enforcement fee cleared', { enforcementId, type: meta.enforcement_type });
+    logger.info('[testing/webhook] Enforcement fee cleared', { enforcementId, type: enforcementMeta.enforcement_type });
 
     // Notify candidate that they can now rebook
     if (email) {
-      const label = meta.enforcement_type === 'no_show' ? 'no-show rescheduling fee'
-        : meta.enforcement_type === 'retake' ? 'retake fee'
+      const label = enforcementMeta.enforcement_type === 'no_show' ? 'no-show rescheduling fee'
+        : enforcementMeta.enforcement_type === 'retake' ? 'retake fee'
         : 'reschedule fee';
 
       await sendEmail({

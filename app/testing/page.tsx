@@ -173,6 +173,12 @@ export default function TestingPage() {
                           Book a Seat
                         </Link>
                       )}
+                      <Link
+                        href={`/testing/${provider.key}`}
+                        className="inline-flex items-center gap-2 border border-slate-300 text-slate-700 hover:border-slate-400 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+                      >
+                        View Details →
+                      </Link>
                       {provider.verifyUrl && (
                         <a
                           href={provider.verifyUrl}

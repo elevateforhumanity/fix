@@ -86,7 +86,7 @@ export const NAV_ITEMS = [
       { name: '— Certification Exams —', href: '/testing', isHeader: true },
       { name: 'All Testing Providers', href: '/testing' },
       { name: 'NHA Healthcare Exams', href: '/testing/nha' },
-      { name: 'EPA 608 Certification', href: '/testing/epa608' },
+      { name: 'EPA 608 Certification', href: '/testing/esco' },
       { name: 'Certiport (Microsoft, Adobe)', href: '/testing/certiport' },
       { name: 'WorkKeys / NCRC', href: '/testing/workkeys' },
       { name: '— Schedule —', href: '/testing/book', isHeader: true },

@@ -52,7 +52,7 @@ export default function CertificationTestingPage() {
             Fast, secure, and supported testing through our authorized NHA certification center in Indianapolis.
           </p>
           <Link
-            href="/testing/book?type=nha"
+            href="/testing/book?exam=nha"
             className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold text-lg px-8 py-4 rounded-full transition-colors"
           >
             Schedule Your Exam <ChevronRight className="w-5 h-5" />
@@ -121,7 +121,7 @@ export default function CertificationTestingPage() {
 
           <div className="mt-6 text-center">
             <Link
-              href="/testing/book?type=nha"
+              href="/testing/book?exam=nha"
               className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold text-lg px-8 py-4 rounded-full transition-colors w-full justify-center"
             >
               Schedule Your Exam <ChevronRight className="w-5 h-5" />
@@ -179,7 +179,7 @@ export default function CertificationTestingPage() {
             {NHA_EXAMS.map((exam) => (
               <Link
                 key={exam.code}
-                href={`/testing/book?type=nha&exam=${exam.code}`}
+                href={`/testing/book?exam=nha&examCode=${exam.code}`}
                 className="flex items-center justify-between bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl px-5 py-4 transition-colors group"
               >
                 <div>
@@ -210,7 +210,7 @@ export default function CertificationTestingPage() {
           </div>
           <div className="mt-10 text-center">
             <Link
-              href="/testing/book?type=nha"
+              href="/testing/book?exam=nha"
               className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold text-lg px-8 py-4 rounded-full transition-colors"
             >
               Schedule Your Exam <ChevronRight className="w-5 h-5" />
@@ -247,7 +247,7 @@ export default function CertificationTestingPage() {
           </div>
           <div className="mt-8">
             <Link
-              href="/testing/book?type=nha"
+              href="/testing/book?exam=nha"
               className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold text-lg px-8 py-4 rounded-full transition-colors"
             >
               Schedule Your Exam <ChevronRight className="w-5 h-5" />
