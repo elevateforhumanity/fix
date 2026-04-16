@@ -43,6 +43,33 @@ export async function getPrograms(): Promise<Program[]> {
   return (data ?? []).map(mapProgram);
 }
 
+/**
+ * Returns published programs filtered by category (case-insensitive substring match).
+ * Used by category landing pages (healthcare, skilled-trades, technology) to avoid
+ * a client-side fetch waterfall.
+ */
+export async function getProgramsByCategory(category: string): Promise<Program[]> {
+  const db = await getDb();
+  const { data, error } = await db
+    .from('programs')
+    .select(
+      'id, slug, title, description, short_description, excerpt, image_url, hero_image_url, ' +
+      'estimated_weeks, credential_name, credential, funding_tags, wioa_approved, ' +
+      'published, is_active, status, featured, display_order'
+    )
+    .eq('is_active', true)
+    .ilike('category', `%${category}%`)
+    .order('display_order', { ascending: true, nullsFirst: false })
+    .order('title', { ascending: true });
+
+  if (error) {
+    logger.error('getProgramsByCategory error:', error.message);
+    return [];
+  }
+
+  return (data ?? []).map(mapProgram);
+}
+
 export async function getProgramBySlug(slug: string): Promise<Program | null> {
   const db = await getDb();
   const { data, error } = await db
