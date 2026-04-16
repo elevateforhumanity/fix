@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { requireUser } from '@/lib/auth/require-user';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,6 +9,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function LearnerLayout({ children }: { children: React.ReactNode }) {
+export default async function LearnerLayout({ children }: { children: React.ReactNode }) {
+  // Single server-side gate — proxy.ts handles anonymous users at the edge,
+  // this confirms the session is valid before rendering any learner page.
+  await requireUser();
+
   return <>{children}</>;
 }

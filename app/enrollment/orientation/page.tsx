@@ -23,7 +23,7 @@ export default function EnrollmentOrientationPage() {
     async function checkEnrollment() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { router.push('/login'); return; }
+      if (!user) { router.push('/login?redirect=' + encodeURIComponent(window.location.pathname)); return; }
 
       const { data, error } = await supabase
         .from('program_enrollments')

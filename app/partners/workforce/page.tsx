@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import PublicLandingPage from '@/components/marketing/PublicLandingPage';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Workforce Agency Partnership | Elevate for Humanity',
   description: 'Partner with Elevate for Humanity on WIOA-funded workforce training. WorkOne centers, workforce boards, and DWD case managers — refer participants and track outcomes.',

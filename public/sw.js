@@ -1,6 +1,6 @@
 // Service Worker for Elevate for Humanity PWA
 // Version 4.0 - Re-enabled with deploy-time cache busting
-const CACHE_VERSION = 'v7';
+const CACHE_VERSION = 'v8';
 const STATIC_CACHE = `elevate-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `elevate-dynamic-${CACHE_VERSION}`;
 const COURSE_CACHE = `elevate-courses-${CACHE_VERSION}`;

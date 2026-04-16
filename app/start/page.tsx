@@ -16,6 +16,9 @@ import StartForm from '@/components/start/StartForm';
 import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Start Here | Elevate for Humanity',
   description:

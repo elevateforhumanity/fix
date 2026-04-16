@@ -624,4 +624,43 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
+# ============================================
+# BOT / SCANNER TRAP — die at the edge, never reach SSR
+# ============================================
+[[redirects]]
+  from = "/panel/*"
+  to = "/404"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/media-manager/*"
+  to = "/404"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/.env"
+  to = "/404"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/404"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/404"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/404"
+  status = 410
+  force = true
+
 

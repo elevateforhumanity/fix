@@ -3,7 +3,6 @@ export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 import { Metadata } from 'next';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -27,26 +26,21 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const supabase = await createClient();
-  const db = await getAdminClient();
-
-  if (!supabase) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Service Unavailable</h2>
-          <p className="text-gray-600">Please try again later.</p>
-        </div>
-      </div>
-    );
+  // program data is supplemental — page renders fully without it.
+  // getAdminClient() requires SUPABASE_SERVICE_ROLE_KEY which is not
+  // available at build time; guard so force-static pre-render succeeds.
+  let program: Record<string, unknown> | null = null;
+  try {
+    const db = await getAdminClient();
+    const { data } = await db
+      .from('programs')
+      .select('*')
+      .eq('slug', 'tax-preparation')
+      .single();
+    program = data ?? null;
+  } catch {
+    // Build-time or missing env — render without DB data
   }
-  
-  // Fetch tax preparation program
-  const { data: program } = await db
-    .from('programs')
-    .select('*')
-    .eq('slug', 'tax-preparation')
-    .single();
   return (
     <div className="min-h-screen bg-white">
       <Breadcrumbs

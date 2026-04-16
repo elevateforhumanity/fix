@@ -74,7 +74,7 @@ export default function DocumentsPage() {
     const supabase = createClient();
 
     supabase.auth.getUser().then(({ data, error: authErr }) => {
-      if (authErr || !data?.user) { router.push('/login'); return; }
+      if (authErr || !data?.user) { router.push('/login?redirect=' + encodeURIComponent(window.location.pathname)); return; }
       setUserId(data.user.id);
 
       // Fetch uploaded documents via API route (bypasses RLS)

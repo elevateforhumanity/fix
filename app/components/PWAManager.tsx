@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 // Bump this string on every deploy to force SW update on all clients.
 // Format: YYYY-MM-DD-vN
-const DEPLOY_VERSION = '2026-06-17-v1';
+const DEPLOY_VERSION = '2026-04-16-v8';
 
 export default function PWAManager() {
   useEffect(() => {
@@ -17,14 +17,12 @@ export default function PWAManager() {
     // activated yet (e.g. first visit after a hard refresh).
     const lastDeploy = localStorage.getItem('elevate-deploy-version');
     if (lastDeploy !== DEPLOY_VERSION) {
+      // Clear ALL caches on deploy — the new SW will repopulate with v8 keys.
+      // Do not filter by version string; that pattern silently keeps stale caches.
       if ('caches' in window) {
-        caches.keys().then(keys =>
-          Promise.all(
-            keys
-              .filter(k => !k.includes('v7')) // keep current cache version
-              .map(k => caches.delete(k))
-          )
-        ).catch(() => {});
+        caches.keys()
+          .then(keys => Promise.all(keys.map(k => caches.delete(k))))
+          .catch(() => {});
       }
       localStorage.setItem('elevate-deploy-version', DEPLOY_VERSION);
     }

@@ -70,6 +70,7 @@ export default function HeaderDesktopNav({ items }: HeaderDesktopNavProps) {
                     <Link
                       key={subItem.name}
                       href={subItem.href}
+                      prefetch={false}
                       className={`block py-1.5 text-sm hover:bg-slate-50 hover:text-brand-blue-600 focus-visible:bg-slate-50 focus-visible:text-brand-blue-600 ${
                         subItem.nested
                           ? 'pl-8 pr-4 text-slate-500 text-xs border-l-2 border-slate-200 ml-4'

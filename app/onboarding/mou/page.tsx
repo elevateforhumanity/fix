@@ -149,7 +149,7 @@ export default function MOUOnboardingPage() {
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(async ({ data }) => {
-      if (!data?.user) { router.push('/login'); return; }
+      if (!data?.user) { router.push('/login?redirect=' + encodeURIComponent(window.location.pathname)); return; }
       setSignerEmail(data.user.email ?? '');
 
       const { data: profile } = await supabase

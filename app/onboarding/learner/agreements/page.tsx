@@ -77,7 +77,7 @@ export default function AgreementsPage() {
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data, error }) => {
-      if (error || !data?.user) { router.push('/login'); return; }
+      if (error || !data?.user) { router.push('/login?redirect=' + encodeURIComponent(window.location.pathname)); return; }
       fetch('/api/compliance/record?type=agreements')
         .then(r => r.json())
         .then(result => {

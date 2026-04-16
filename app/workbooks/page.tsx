@@ -66,7 +66,7 @@ const workbooks = [
         pages: 100,
       },
       { title: 'Software Guide', file: 'tax-software-guide.pdf', pages: 60 },
-      { title: 'Ethics & Regulations', file: 'tax-ethics.pdf', pages: 50 },
+      // tax-ethics.pdf removed — file not yet available
     ],
   },
   {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { requireUser } from '@/lib/auth/require-user';
 
 export const metadata: Metadata = {
   title: {
@@ -20,11 +21,12 @@ const navItems = [
   { href: '/partner/programs/barber', label: 'Barber Program' },
 ];
 
-export default function PartnerLayout({
+export default async function PartnerLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  await requireUser({ allowedRoles: ['partner', 'admin', 'super_admin', 'org_admin', 'staff'] });
   return (
     <div className="min-h-screen bg-white">
       <nav className="bg-white border-b border-gray-200">
