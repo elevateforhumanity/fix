@@ -104,7 +104,7 @@ function ApplicationsPanel({ apps }: { apps: RecentApplication[] }) {
         {apps.slice(0, 8).map((a) => (
           <Link key={a.id} href={a.href} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
             <div className="min-w-0">
-              <p className="font-medium text-slate-900 text-sm truncate">{a.full_name ?? `${a.first_name ?? ""} ${a.last_name ?? ""}`.trim() || "—"}</p>
+              <p className="font-medium text-slate-900 text-sm truncate">{a.full_name ?? (`${a.first_name ?? ""} ${a.last_name ?? ""}`.trim() || "—")}</p>
               <p className="text-xs text-slate-500 truncate">{a.program_interest ?? "No program"}</p>
             </div>
             <div className="flex items-center gap-3 ml-4 shrink-0">
