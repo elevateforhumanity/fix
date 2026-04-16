@@ -112,15 +112,18 @@ export function logServiceStatus() {
   }
 }
 
-// Validate on import (only in Node.js environment)
+// Validate on import (only in Node.js environment, never during Next.js build phases)
 if (typeof window === 'undefined') {
-  try {
-    validateRequiredEnv();
-  } catch (error) {
-    if (process.env.NODE_ENV !== 'test') {
-      logger.error(error);
-      // Don't throw during build - let it fail gracefully
-      if (process.env.npm_lifecycle_event !== 'build') {
+  const isBuild =
+    process.env.npm_lifecycle_event === 'build' ||
+    process.env.NEXT_PHASE === 'phase-production-build' ||
+    process.env.NEXT_PHASE === 'phase-export';
+  if (!isBuild) {
+    try {
+      validateRequiredEnv();
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'test') {
+        logger.error(error);
         throw error;
       }
     }
