@@ -163,11 +163,6 @@ export default async function QAChecklistPage() {
                       {!checklist.completed && (
                         <button
                           className="w-full px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition-colors"
-                          onClick={() =>
-                            alert(
-                              'Mark complete functionality - will integrate with API'
-                            )
-                          }
                         >
                           Mark as Complete
                         </button>

@@ -155,10 +155,9 @@ const nextConfig = {
     '**.gitpod.dev',
   ],
 
-  // Experimental features for better performance
+  // Experimental — minimal set only. Removed optimizePackageImports and other
+  // memory-intensive experiments to stay within Netlify's 4GB build container.
   experimental: {
-    // Limit page-data workers to 1 — Netlify's build container OOMs at 2+ workers
-    cpus: 1,
     serverActions: {
       allowedOrigins: [
         'localhost:3000',
@@ -167,32 +166,8 @@ const nextConfig = {
         'elevateforhumanity.org',
       ],
     },
-    optimizePackageImports: [
-      'lucide-react',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-select',
-      '@radix-ui/react-tabs',
-      '@radix-ui/react-accordion',
-      '@radix-ui/react-tooltip',
-      '@radix-ui/react-popover',
-      'recharts',
-      'react-hot-toast',
-      '@react-three/fiber',
-      '@react-three/drei',
-      'three',
-      'date-fns',
-      'framer-motion',
-      '@stripe/stripe-js',
-      'zod',
-      'react-hook-form',
-      '@hookform/resolvers',
-      'swr',
-    ],
     webpackBuildWorker: false,
-    // optimizeCss runs critters over every page — too memory-intensive at 2800+ routes
     optimizeCss: false,
-    // Parallel routes for faster builds
     parallelServerCompiles: false,
     parallelServerBuildTraces: false,
   },
@@ -204,6 +179,9 @@ const nextConfig = {
     },
   },
   webpack: (config, { isServer }) => {
+    // Hard-limit parallelism to prevent OOM in Netlify's 4GB build container
+    config.parallelism = 1;
+
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,

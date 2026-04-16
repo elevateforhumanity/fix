@@ -259,11 +259,6 @@ export default async function StaffTrainingPage() {
                     {!module.isCompleted && (
                       <button
                         className="flex-1 px-4 py-2 bg-white text-black rounded-lg hover:bg-slate-200 transition-colors"
-                        onClick={() => {
-                          alert(
-                            'Quiz functionality will be implemented with interactive modal'
-                          );
-                        }}
                       >
                         Take Quiz
                       </button>
@@ -271,11 +266,6 @@ export default async function StaffTrainingPage() {
                     {module.isCompleted && !module.isCertified && (
                       <button
                         className="flex-1 px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200 transition-colors"
-                        onClick={() => {
-                          alert(
-                            'Retake quiz to improve score and earn certification (80%+ required)'
-                          );
-                        }}
                       >
                         Retake Quiz
                       </button>
