@@ -3,8 +3,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import MarqueeBanner from '@/components/MarqueeBanner';
 import { ProgramVideoCards } from '@/components/marketing/ProgramVideoCards';
-import { HeroVideoBg } from '@/components/marketing/HeroVideoBg';
-import { VIDEO_HEROES } from '@/lib/hero-config';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const dynamic = 'force-static';
 export const revalidate = 60;
@@ -24,43 +24,16 @@ export default function HomePage() {
     <main>
 
       {/* ── HERO ── */}
-      <section className="flex flex-col lg:grid lg:grid-cols-2 gap-0">
-        <div className="relative h-64 sm:h-80 lg:h-auto lg:min-h-[560px] overflow-hidden bg-slate-700">
-          <HeroVideoBg
-            src={VIDEO_HEROES.homepage}
-            poster="/images/pages/comp-home-hero-programs.jpg"
-            audioSrc="/audio/heroes/programs.mp3"
-          />
-        </div>
-        <div className="bg-slate-700 flex items-center">
-          <div className="px-5 py-10 sm:px-8 sm:py-12 lg:px-14 lg:py-16 w-full">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-red-400 mb-3">
-              DOL Registered · ETPL Approved · WIOA Compliant
-            </p>
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-5">
-              Workforce training for real jobs in Indiana.
-            </h1>
-            <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-8">
-              Short-term programs. Industry credentials. Funding that can cover the full cost for eligible participants.
-            </p>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3">
-              <Link href="/apply" className="bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold px-6 py-3.5 rounded-lg transition-colors text-sm text-center">
-                Apply Now
-              </Link>
-              <Link href="/programs" className="border-2 border-white text-white font-bold px-6 py-3.5 rounded-lg hover:bg-white/10 transition-colors text-sm text-center">
-                See All Programs
-              </Link>
-              <Link href="/check-eligibility" className="border-2 border-white/50 text-white/80 font-bold px-6 py-3.5 rounded-lg hover:bg-white/10 transition-colors text-sm text-center">
-                Check Funding Eligibility
-              </Link>
-            </div>
-            <p className="mt-5 text-white/60 text-xs">
-              Questions? Call or text{' '}
-              <a href="tel:3173143757" className="text-white/80 font-bold underline hover:text-brand-red-300 transition-colors">(317) 314-3757</a>
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroVideo
+        videoSrcDesktop={heroBanners.home.videoSrcDesktop}
+        voiceoverSrc={heroBanners.home.voiceoverSrc}
+        microLabel={heroBanners.home.microLabel}
+        belowHeroHeadline={heroBanners.home.belowHeroHeadline}
+        belowHeroSubheadline={heroBanners.home.belowHeroSubheadline}
+        ctas={[heroBanners.home.primaryCta, heroBanners.home.secondaryCta].filter(Boolean)}
+        trustIndicators={heroBanners.home.trustIndicators}
+        transcript={heroBanners.home.transcript}
+      />
 
       {/* ── MARQUEE ── */}
       <MarqueeBanner />
