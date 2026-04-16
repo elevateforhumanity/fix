@@ -23,7 +23,7 @@ export default function PharmacyTechnicianPage() {
       </div>
 
       <section className="relative h-48 md:h-64 overflow-hidden">
-        <Image src="/images/programs-hq/healthcare-hero.jpg" alt="Pharmacy technician training" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/healthcare-hero.jpg" alt="Pharmacy technician training" fill sizes="100vw" className="object-cover" priority />
       </section>
 
       <section className="bg-slate-900 py-5">

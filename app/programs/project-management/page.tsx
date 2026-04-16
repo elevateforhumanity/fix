@@ -31,7 +31,7 @@ export default function Page() {
       description: 'Earn the PMI Project Management Ready certification through Certiport. 8-week program covering PM foundations, scheduling, and Agile.',
       duration_weeks: 8,
       price: 4550,
-      image_url: `${SITE_URL}/images/programs-hq/business-training.jpg`,
+      image_url: `${SITE_URL}/images/pages/business-sector.jpg`,
       category: 'Business',
       outcomes: ['PMI Project Management Ready (Certiport/PMI)', 'Certificate of Completion'],
     }} />
@@ -40,7 +40,7 @@ export default function Page() {
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Project Management' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">
-          <Image src="/images/programs-hq/business-training.jpg" alt="Project Management Training" fill className="object-cover" priority />
+          <Image src="/images/pages/business-sector.jpg" alt="Project Management Training" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
           <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
             <div className="max-w-5xl mx-auto px-6 text-center text-white">

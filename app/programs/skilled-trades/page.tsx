@@ -21,23 +21,23 @@ interface Program {
 }
 
 const programImages: Record<string, string> = {
-  'hvac': '/images/trades/hero-program-hvac.jpg',
-  'hvac-tech': '/images/trades/hero-program-hvac.jpg',
-  'hvac-technician-wrg': '/images/trades/hero-program-hvac.jpg',
-  'cdl': '/images/trades/hero-program-cdl.jpg',
-  'cdl-training': '/images/trades/hero-program-cdl.jpg',
-  'cdl-training-wrg': '/images/trades/hero-program-cdl.jpg',
+  'hvac': '/images/pages/hvac-unit.jpg',
+  'hvac-tech': '/images/pages/hvac-unit.jpg',
+  'hvac-technician-wrg': '/images/pages/hvac-unit.jpg',
+  'cdl': '/images/pages/cdl-truck-highway.jpg',
+  'cdl-training': '/images/pages/cdl-truck-highway.jpg',
+  'cdl-training-wrg': '/images/pages/cdl-truck-highway.jpg',
   'barber-apprenticeship': '/images/beauty/program-barber-training.jpg',
   'barber-apprenticeship-wrg': '/images/beauty/program-barber-training.jpg',
   'barber-apprentice': '/images/beauty/program-barber-training.jpg',
   'barber': '/images/beauty/program-barber-training.jpg',
-  'solar-panel-installation': '/images/trades/hero-program-hvac.jpg',
-  'forklift-operator': '/images/trades/hero-program-hvac.jpg',
-  'manufacturing-technician': '/images/trades/hero-program-hvac.jpg',
-  'automotive-technician': '/images/trades/hero-program-hvac.jpg',
+  'solar-panel-installation': '/images/pages/hvac-unit.jpg',
+  'forklift-operator': '/images/pages/hvac-unit.jpg',
+  'manufacturing-technician': '/images/pages/hvac-unit.jpg',
+  'automotive-technician': '/images/pages/hvac-unit.jpg',
 
-  'building-maintenance-wrg': '/images/trades/hero-program-hvac.jpg',
-  'default': '/images/trades/hero-program-hvac.jpg',
+  'building-maintenance-wrg': '/images/pages/hvac-unit.jpg',
+  'default': '/images/pages/hvac-unit.jpg',
 };
 
 export default function SkilledTradesProgramsPage() {

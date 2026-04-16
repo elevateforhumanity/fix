@@ -124,7 +124,7 @@ export default function EntrepreneurshipPage() {
 
       {/* Hero Image */}
       <section className="relative h-[240px] sm:h-[320px] md:h-[400px]">
-        <Image src="/images/programs-hq/business-training.jpg" alt="Entrepreneurship and small business training workshop" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/business-sector.jpg" alt="Entrepreneurship and small business training workshop" fill sizes="100vw" className="object-cover" priority />
       </section>
 
       {/* Stats */}
@@ -231,7 +231,7 @@ export default function EntrepreneurshipPage() {
               {
                 title: "Control Your Income",
                 description: "Business owners set their own rates, choose their clients, and scale on their own terms. Your earning potential is limited only by your effort and market demand.",
-                image: "/images/programs-hq/business-office.jpg"
+                image: "/images/pages/office-admin-desk.jpg"
               },
               {
                 title: "Build Generational Wealth",
@@ -246,7 +246,7 @@ export default function EntrepreneurshipPage() {
               {
                 title: "Flexible Schedule",
                 description: "Design your work around your life, not the other way around. Many small business owners work hard but on their own terms — choosing when, where, and how they work.",
-                image: "/images/programs-hq/students-learning.jpg"
+                image: "/images/pages/barber-apprentice-learning.jpg"
               },
               {
                 title: "Community Impact",
@@ -256,7 +256,7 @@ export default function EntrepreneurshipPage() {
               {
                 title: "Stack with Other Programs",
                 description: "Combine entrepreneurship with our tax preparation, bookkeeping, barber, or trades programs. Learn a skill AND learn how to build a business around it.",
-                image: "/images/programs-hq/training-classroom.jpg"
+                image: "/images/pages/training-classroom.jpg"
               }
             ].map((item, index) => (
               <motion.div
@@ -328,9 +328,9 @@ export default function EntrepreneurshipPage() {
           <h2 className="text-3xl font-bold text-center mb-12">What You Graduate With</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {[
-              { title: "Registered Business Entity", desc: "LLC or DBA filed with Indiana Secretary of State, EIN obtained, business bank account opened.", image: "/images/programs-hq/business-office.jpg" },
-              { title: "Lender-Ready Business Plan", desc: "Complete business plan with market analysis, financial projections, and operational strategy — ready for SBA lenders.", image: "/images/programs-hq/business-training.jpg" },
-              { title: "Marketing Foundation", desc: "Google Business Profile, social media accounts, brand identity, and a 90-day marketing action plan.", image: "/images/programs-hq/students-learning.jpg" },
+              { title: "Registered Business Entity", desc: "LLC or DBA filed with Indiana Secretary of State, EIN obtained, business bank account opened.", image: "/images/pages/office-admin-desk.jpg" },
+              { title: "Lender-Ready Business Plan", desc: "Complete business plan with market analysis, financial projections, and operational strategy — ready for SBA lenders.", image: "/images/pages/business-sector.jpg" },
+              { title: "Marketing Foundation", desc: "Google Business Profile, social media accounts, brand identity, and a 90-day marketing action plan.", image: "/images/pages/barber-apprentice-learning.jpg" },
               { title: "Mentor & Network", desc: "Matched with an experienced business mentor for 3 months. Access to alumni network and quarterly meetups.", image: "/images/heroes-hq/career-services-hero.jpg" },
             ].map((item, index) => (
               <motion.div

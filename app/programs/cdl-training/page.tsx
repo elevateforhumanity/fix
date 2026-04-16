@@ -39,14 +39,14 @@ export const metadata: Metadata = {
     description: 'Get your Class A CDL in 4-8 weeks. Free training through WIOA funding. Job placement assistance.',
     url: `${SITE_URL}/programs/cdl-training`,
     siteName: 'Elevate for Humanity',
-    images: [{ url: `${SITE_URL}/images/trades/hero-program-cdl.jpg`, width: 1200, height: 630, alt: 'CDL Training Program' }],
+    images: [{ url: `${SITE_URL}/images/pages/cdl-truck-highway.jpg`, width: 1200, height: 630, alt: 'CDL Training Program' }],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CDL Training | Free Truck Driving School',
     description: 'Get your Class A CDL in 4-8 weeks. Free training through WIOA funding.',
-    images: [`${SITE_URL}/images/trades/hero-program-cdl.jpg`],
+    images: [`${SITE_URL}/images/pages/cdl-truck-highway.jpg`],
   },
 };
 
@@ -107,7 +107,7 @@ export default function CDLTrainingPage() {
       {/* Hero */}
       <section className="relative h-[55vh] min-h-[450px]">
         <Image 
-          src="/images/trades/hero-program-cdl.jpg" 
+          src="/images/pages/cdl-truck-highway.jpg" 
           alt="CDL Training Program" 
           fill 
           className="object-cover" 
@@ -212,7 +212,7 @@ export default function CDLTrainingPage() {
             </div>
             <div className="relative h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
               <Image 
-                src="/images/trades/program-cdl-commercial-driving.jpg" 
+                src="/images/pages/cdl-training.jpg" 
                 alt="CDL student with semi truck" 
                 fill 
                 className="object-cover" 

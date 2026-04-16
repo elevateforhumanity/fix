@@ -31,7 +31,7 @@ export default function Page() {
       description: 'Earn the Certiport IT Specialist — Device Configuration & Management certification. 8-week entry-level IT program.',
       duration_weeks: 8,
       price: 4550,
-      image_url: `${SITE_URL}/images/programs-hq/it-support.jpg`,
+      image_url: `${SITE_URL}/images/pages/it-help-desk.jpg`,
       category: 'Technology',
       outcomes: ['IT Specialist — Device Configuration & Management (Certiport)', 'Certificate of Completion'],
     }} />
@@ -40,7 +40,7 @@ export default function Page() {
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'IT Help Desk Technician' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">
-          <Image src="/images/programs-hq/it-support.jpg" alt="IT Help Desk Technician Training" fill className="object-cover" priority />
+          <Image src="/images/pages/it-help-desk.jpg" alt="IT Help Desk Technician Training" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
           <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
             <div className="max-w-5xl mx-auto px-6 text-center text-white">

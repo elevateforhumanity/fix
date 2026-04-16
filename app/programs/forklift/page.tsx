@@ -96,7 +96,7 @@ export default function ForkliftProgramPage() {
       <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-orange-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <Image
-            src="/images/programs-hq/skilled-trades-hero.jpg"
+            src="/images/pages/skilled-trades-sector.jpg"
             alt="Forklift operator in warehouse"
             fill
             className="object-cover"

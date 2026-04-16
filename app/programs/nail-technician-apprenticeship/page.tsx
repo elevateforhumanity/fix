@@ -118,7 +118,7 @@ export default function NailTechnicianApprenticeshipPage() {
 
       {/* Hero Image */}
       <section className="relative h-[240px] sm:h-[320px] md:h-[400px]">
-        <Image src="/images/programs-hq/barber-training.jpg" alt="Nail technician apprenticeship hands-on training in salon" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/barber-training.jpg" alt="Nail technician apprenticeship hands-on training in salon" fill sizes="100vw" className="object-cover" priority />
       </section>
 
       {/* Stats */}
@@ -225,17 +225,17 @@ export default function NailTechnicianApprenticeshipPage() {
               {
                 title: "Creative Expression",
                 description: "Nail art is one of the fastest-growing segments of the beauty industry. From minimalist designs to elaborate 3D art, your creativity becomes your signature and your brand.",
-                image: "/images/programs-hq/barber-hero.jpg"
+                image: "/images/pages/barber-hero-main.jpg"
               },
               {
                 title: "Flexible Work Options",
                 description: "Work in a salon, rent a booth, do mobile services, or open your own studio. Many nail techs set their own hours and build a schedule that fits their life.",
-                image: "/images/programs-hq/barber-training.jpg"
+                image: "/images/pages/barber-training.jpg"
               },
               {
                 title: "Low Startup Costs",
                 description: "Compared to other beauty careers, nail technology has low startup costs. A basic professional kit costs $500–$1,000. Booth rental starts at $200–$400/month.",
-                image: "/images/programs-hq/business-office.jpg"
+                image: "/images/pages/office-admin-desk.jpg"
               },
               {
                 title: "Repeat Clients",
@@ -250,7 +250,7 @@ export default function NailTechnicianApprenticeshipPage() {
               {
                 title: "Stack with Cosmetology",
                 description: "A nail technician license is a stepping stone. Many graduates later pursue full cosmetology licensure, adding hair and skin services to their repertoire.",
-                image: "/images/programs-hq/training-classroom.jpg"
+                image: "/images/pages/training-classroom.jpg"
               }
             ].map((item, index) => (
               <motion.div

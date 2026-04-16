@@ -33,7 +33,7 @@ export default function Page() {
       description: 'Earn the Certiport IT Specialist — Cybersecurity certification. 12-week program covering threat detection, security operations, and incident response.',
       duration_weeks: 12,
       price: 4950,
-      image_url: `${SITE_URL}/images/programs-hq/cybersecurity.jpg`,
+      image_url: `${SITE_URL}/images/pages/cybersecurity.jpg`,
       category: 'Technology',
       outcomes: ['IT Specialist — Cybersecurity (Certiport)', 'Certificate of Completion'],
     }} />
@@ -43,7 +43,7 @@ export default function Page() {
 
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">
-          <Image src="/images/programs-hq/cybersecurity.jpg" alt="Cybersecurity Analyst Training" fill className="object-cover" priority />
+          <Image src="/images/pages/cybersecurity.jpg" alt="Cybersecurity Analyst Training" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
           <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
             <div className="max-w-5xl mx-auto px-6 text-center text-white">

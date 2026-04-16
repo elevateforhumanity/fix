@@ -124,7 +124,7 @@ export default function BookkeepingPage() {
 
       {/* Hero Image */}
       <section className="relative h-[240px] sm:h-[320px] md:h-[400px]">
-        <Image src="/images/programs-hq/business-office.jpg" alt="Bookkeeping and accounting training classroom" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/office-admin-desk.jpg" alt="Bookkeeping and accounting training classroom" fill sizes="100vw" className="object-cover" priority />
       </section>
 
       {/* Stats */}
@@ -231,22 +231,22 @@ export default function BookkeepingPage() {
               {
                 title: "Stable, Recession-Resistant",
                 description: "Businesses need bookkeeping in good times and bad. Tax deadlines don't move. Payroll doesn't stop. This is one of the most stable career paths in business services.",
-                image: "/images/programs-hq/business-training.jpg"
+                image: "/images/pages/business-sector.jpg"
               },
               {
                 title: "Work Anywhere",
                 description: "Bookkeeping is increasingly remote. With cloud-based QuickBooks Online, you can manage clients from home, a coffee shop, or anywhere with internet access.",
-                image: "/images/programs-hq/students-learning.jpg"
+                image: "/images/pages/barber-apprentice-learning.jpg"
               },
               {
                 title: "Freelance Potential",
                 description: "Many bookkeepers run their own practice serving 10–20 small business clients. At $300–$500/month per client, a full book of business generates $60,000–$120,000/year.",
-                image: "/images/programs-hq/business-office.jpg"
+                image: "/images/pages/office-admin-desk.jpg"
               },
               {
                 title: "Pairs with Tax Preparation",
                 description: "Bookkeeping and tax prep are natural complements. Manage client books year-round, then prepare their tax returns in season. Year-round income, no slow months.",
-                image: "/images/programs-hq/tax-preparation.jpg"
+                image: "/images/pages/tax-preparation.jpg"
               },
               {
                 title: "No Degree Required",
@@ -329,7 +329,7 @@ export default function BookkeepingPage() {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-slate-50 rounded-2xl overflow-hidden">
               <div className="relative h-48">
-                <Image src="/images/programs-hq/business-office.jpg" alt="QuickBooks Certified User credential" fill className="object-cover" />
+                <Image src="/images/pages/office-admin-desk.jpg" alt="QuickBooks Certified User credential" fill className="object-cover" />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">QuickBooks Certified User</h3>
@@ -339,7 +339,7 @@ export default function BookkeepingPage() {
             </div>
             <div className="bg-slate-50 rounded-2xl overflow-hidden">
               <div className="relative h-48">
-                <Image src="/images/programs-hq/training-classroom.jpg" alt="Certificate of Completion" fill className="object-cover" />
+                <Image src="/images/pages/training-classroom.jpg" alt="Certificate of Completion" fill className="object-cover" />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">Certificate of Completion</h3>

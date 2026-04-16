@@ -31,7 +31,7 @@ export default function Page() {
       description: 'Earn the Adobe Certified Professional certification. 10-week program covering Photoshop, Illustrator, and visual design.',
       duration_weeks: 10,
       price: 4730,
-      image_url: `${SITE_URL}/images/programs-hq/business-office.jpg`,
+      image_url: `${SITE_URL}/images/pages/office-admin-desk.jpg`,
       category: 'Technology',
       outcomes: ['Adobe Certified Professional — Visual Design (Certiport/Adobe)', 'Certificate of Completion'],
     }} />
@@ -40,7 +40,7 @@ export default function Page() {
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Graphic Design Professional' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">
-          <Image src="/images/programs-hq/business-office.jpg" alt="Graphic Design Professional Training" fill className="object-cover" priority />
+          <Image src="/images/pages/office-admin-desk.jpg" alt="Graphic Design Professional Training" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
           <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
             <div className="max-w-5xl mx-auto px-6 text-center text-white">

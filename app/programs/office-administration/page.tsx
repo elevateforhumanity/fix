@@ -31,7 +31,7 @@ export default function Page() {
       description: 'Earn Microsoft Office Specialist certifications in Word, Excel, and PowerPoint. 6-week program.',
       duration_weeks: 6,
       price: 3950,
-      image_url: `${SITE_URL}/images/programs-hq/business-office.jpg`,
+      image_url: `${SITE_URL}/images/pages/office-admin-desk.jpg`,
       category: 'Business',
       outcomes: ['Microsoft Office Specialist — Word (Certiport/Microsoft)', 'Microsoft Office Specialist — Excel (Certiport/Microsoft)', 'Certificate of Completion'],
     }} />
@@ -40,7 +40,7 @@ export default function Page() {
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Office Administration' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">
-          <Image src="/images/programs-hq/business-office.jpg" alt="Office Administration Training" fill className="object-cover" priority />
+          <Image src="/images/pages/office-admin-desk.jpg" alt="Office Administration Training" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
           <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
             <div className="max-w-5xl mx-auto px-6 text-center text-white">

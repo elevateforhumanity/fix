@@ -45,7 +45,7 @@ export default function CPRFirstAidPage() {
       {/* Hero Image — no text overlay */}
       <section className="relative h-[240px] sm:h-[320px] md:h-[400px]">
         <Image
-          src="/images/programs-hq/healthcare-hero.jpg"
+          src="/images/pages/healthcare-hero.jpg"
           alt="CPR and First Aid training session"
           fill
           sizes="100vw"

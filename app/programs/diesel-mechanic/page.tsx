@@ -25,7 +25,7 @@ export default function DieselMechanicPage() {
       <section className="relative w-full h-[50vh] sm:h-[60vh]">
         <div className="absolute inset-0">
           <Image
-            src="/images/trades/hero-program-cdl.jpg"
+            src="/images/pages/cdl-truck-highway.jpg"
             alt="Diesel Mechanic Training"
             fill sizes="100vw"
             className="object-cover"
