@@ -216,7 +216,7 @@ function QuickActions() {
     { label: "Review Applications", href: "/admin/applications", icon: FileText, color: "bg-amber-500" },
     { label: "Manage Students", href: "/admin/students", icon: Users, color: "bg-brand-blue-600" },
     { label: "Programs", href: "/admin/programs", icon: BookOpen, color: "bg-purple-600" },
-    { label: "Payments", href: "/admin/payments", icon: DollarSign, color: "bg-emerald-600" },
+    { label: "Payments", href: "/admin/payout-queue", icon: DollarSign, color: "bg-emerald-600" },
     { label: "Certifications", href: "/admin/certifications", icon: Award, color: "bg-violet-600" },
     { label: "Monitoring", href: "/admin/monitoring", icon: Activity, color: "bg-slate-700" },
     { label: "Audit Logs", href: "/admin/audit-logs", icon: Shield, color: "bg-rose-600" },
