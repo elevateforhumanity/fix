@@ -1,3 +1,4 @@
+import { VIDEO_HEROES } from '@/lib/hero-config';
 
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -44,7 +45,7 @@ export default function EmployerPage() {
     <div className="min-h-screen bg-white">
 
       <HeroVideo
-        videoSrcDesktop="/videos/employer-hero.mp4"
+        videoSrcDesktop={VIDEO_HEROES.homepage}
         posterImage="/images/pages/employer-hero.jpg"
         voiceoverSrc="/audio/heroes/career-services.mp3"
         microLabel="For Employers"

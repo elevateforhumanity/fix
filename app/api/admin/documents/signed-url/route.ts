@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { getAdminDocumentUrl } from '@/lib/admin/document-access';
@@ -36,7 +36,7 @@ async function _GET(request: NextRequest) {
     const { data: profile } = await db
       .from('profiles')
       .select('role')
-      .eq('id', user.id)
+      .eq('id', auth.id)
       .maybeSingle();
 
     const allowedRoles = ['admin', 'super_admin', 'org_admin'];
@@ -50,7 +50,7 @@ async function _GET(request: NextRequest) {
     // Preferred path: delegate to centralized document access
     if (documentId) {
       const url = await getAdminDocumentUrl({
-        adminId: user.id,
+        adminId: auth.id,
         documentId,
         context: 'api_endpoint',
       });
@@ -108,7 +108,7 @@ async function _GET(request: NextRequest) {
 
     // Audit the legacy path access
     await db.from('admin_audit_events').insert({
-      actor_user_id: user.id,
+      actor_user_id: auth.id,
       action: 'DOCUMENT_URL_ISSUED',
       target_type: 'document',
       target_id: matchingDoc.id,

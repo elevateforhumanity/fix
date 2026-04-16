@@ -1,71 +1,49 @@
 // Server Component - NO 'use client'
-// Layout for public marketing pages - renders header/footer server-side.
-// Skips marketing chrome for authenticated app routes (/lms, /learner,
-// /admin, /instructor, /employer, /partner, /staff-portal, /mentor).
+// Layout for public marketing pages.
+//
+// MarketingChromeGuard (client) handles hiding chrome on app routes during
+// client-side navigation by toggling data-app-route on the root div.
+// CSS in globals.css hides [data-marketing-chrome] and resets padding.
+//
+// No headers() call — avoids forcing dynamic rendering on static pages.
 
-import { Suspense } from 'react';
-import { headers } from 'next/headers';
 import Header from '@/components/site/Header';
 import ServerFooter from '@/components/site/ServerFooter';
 import ClientWidgets from './ClientWidgets';
-
-// Routes that render their own shell — marketing header/footer must not appear.
-const APP_ROUTE_PREFIXES = [
-  '/lms',
-  '/learner',
-  '/admin',
-  '/instructor',
-  '/employer',
-  '/partner',
-  '/staff-portal',
-  '/mentor',
-  '/program-holder',
-];
-
-function isAppRoute(pathname: string): boolean {
-  return APP_ROUTE_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(prefix + '/')
-  );
-}
-
-function extractPathname(value: string): string {
-  try {
-    if (value.startsWith('http')) return new URL(value).pathname;
-    if (value.startsWith('/')) return value.split('?')[0];
-  } catch { /* ignore */ }
-  return '';
-}
+import MarketingChromeGuardLoader from './MarketingChromeGuardLoader';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function PublicLayout({ children }: PublicLayoutProps) {
-  const headersList = await headers();
-
-  const raw =
-    headersList.get('x-pathname') ||
-    headersList.get('x-invoke-path') ||
-    headersList.get('x-forwarded-uri') ||
-    headersList.get('x-url') ||
-    '/';
-
-  const pathname = extractPathname(raw);
-
-  if (isAppRoute(pathname)) {
-    return <>{children}</>;
-  }
-
+export default function PublicLayout({ children }: PublicLayoutProps) {
   return (
     <>
-      <Header />
-      <Suspense>
-        <main id="main-content" className="pt-[70px] overflow-x-hidden" role="main" tabIndex={-1}>
-          {children}
-        </main>
-      </Suspense>
-      <ServerFooter />
-      <ClientWidgets />
+      <div data-public-layout-root>
+        <div data-marketing-chrome>
+          <Header />
+        </div>
+
+        <div data-main-shell>
+          <main
+            id="main-content"
+            className="overflow-x-hidden"
+            data-marketing-main
+            role="main"
+            tabIndex={-1}
+          >
+            {children}
+          </main>
+        </div>
+
+        <div data-marketing-chrome>
+          <ServerFooter />
+        </div>
+
+        <ClientWidgets />
+      </div>
+
+      <MarketingChromeGuardLoader />
     </>
   );
 }

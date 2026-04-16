@@ -79,8 +79,11 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
   const adminRole = adminProfile.role as AdminRole;
   const hasApprovalAuthority = canApprove(adminRole);
 
+  // Use admin client for all data queries — RLS blocks session reads on these tables
+  const adb = await getAdminClient();
+
   // Fetch program holder
-  const { data: holder, error } = await supabase
+  const { data: holder, error } = await adb
     .from('program_holders')
     .select('*')
     .eq('id', id)
@@ -89,7 +92,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
   if (error || !holder) notFound();
 
   // Fetch assigned programs
-  const { data: assignments } = await supabase
+  const { data: assignments } = await adb
     .from('program_holder_programs')
     .select('id, program_id, role_in_program, is_primary, status, created_at')
     .eq('program_holder_id', id);
@@ -98,14 +101,14 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
 
   // Fetch program details for assigned programs
   const { data: assignedPrograms } = assignedProgramIds.length > 0
-    ? await supabase.from('programs').select('id, name, title, slug').in('id', assignedProgramIds)
+    ? await adb.from('programs').select('id, name, title, slug').in('id', assignedProgramIds)
     : { data: [] };
 
   const programMap: Record<string, any> = {};
   (assignedPrograms || []).forEach((p: any) => { programMap[p.id] = p; });
 
   // Fetch all active programs for dropdowns
-  const { data: allPrograms } = await supabase
+  const { data: allPrograms } = await adb
     .from('programs')
     .select('id, name, title, slug, is_active')
     .eq('is_active', true)
@@ -117,11 +120,11 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
 
   // Fetch linked user profile
   const { data: holderProfile } = holder.user_id
-    ? await supabase.from('profiles').select('id, email, full_name, role').eq('id', holder.user_id).maybeSingle()
+    ? await adb.from('profiles').select('id, email, full_name, role').eq('id', holder.user_id).maybeSingle()
     : { data: null };
 
   // Fetch audit events for this holder
-  const { data: auditEvents } = await supabase
+  const { data: auditEvents } = await adb
     .from('admin_audit_events')
     .select('action, actor_user_id, metadata, created_at')
     .eq('target_type', 'program_holder')

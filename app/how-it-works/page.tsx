@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ArrowRight } from 'lucide-react';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://www.elevateforhumanity.org/how-it-works' },
@@ -33,18 +35,17 @@ export default function HowItWorksPage() {
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] min-h-[320px] overflow-hidden">
-        <Image src="/images/pages/how-it-works-hero.jpg" alt="How Elevate works" fill sizes="100vw" className="object-cover" priority />
-        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-10">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-2xl sm:text-4xl font-bold text-slate-900 mb-2">How It Works</h1>
-            <p className="text-sm sm:text-lg text-white/90 max-w-xl">
-              From assessment to employment and ongoing support. Training, one-on-one coaching, employer placement, and follow-up — all in one program.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['how-it-works'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['how-it-works'].voiceoverSrc}
+        microLabel={heroBanners['how-it-works'].microLabel}
+        headline={heroBanners['how-it-works'].belowHeroHeadline}
+        subheadline={heroBanners['how-it-works'].belowHeroSubheadline}
+        primaryCta={heroBanners['how-it-works'].primaryCta}
+        secondaryCta={heroBanners['how-it-works'].secondaryCta}
+        trustIndicators={heroBanners['how-it-works'].trustIndicators}
+        transcript={heroBanners['how-it-works'].transcript}
+      />
 
       {/* 5 Steps — visual journey */}
       <section className="py-8 sm:py-14">

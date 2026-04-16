@@ -7,7 +7,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { createDraftCourse } from '@/lib/lms/course-service';
 import { safeInternalError } from '@/lib/api/safe-error';
 export const runtime = 'nodejs';
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { data: profile } = await supabase
-      .from('profiles').select('role').eq('id', user.id).maybeSingle();
+      .from('profiles').select('role').eq('id', auth.id).maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     const course = await createDraftCourse(supabase, {
-      actorUserId:      user.id,
+      actorUserId:      auth.id,
       programId:        program_id ?? undefined,
       slug,
       title,

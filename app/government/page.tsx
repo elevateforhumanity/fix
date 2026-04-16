@@ -1,3 +1,4 @@
+import { VIDEO_HEROES } from '@/lib/hero-config';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
@@ -33,7 +34,7 @@ export default async function GovernmentPage() {
       {/* Hero Section with Video Background */}
       <section className="relative w-full">
         <div className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] min-h-[320px] w-full overflow-hidden">
-          <LazyVideo src="/videos/training-providers-hero.mp4" poster="/images/pages/employer-hero.jpg"
+          <LazyVideo src={VIDEO_HEROES.homepage} poster="/images/pages/employer-hero.jpg"
             className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
         </div>
         <div className="bg-white py-10">

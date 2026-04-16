@@ -3,24 +3,21 @@
  * GET  /api/admin/credentials — list all credentials (with optional stack filter)
  */
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { getCurrentUser } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 import { mapCredentialRow, type RawCredentialRow } from '@/lib/domain';
 
 export const dynamic = 'force-dynamic';
 
-async function requireAdmin() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const db = await getAdminClient();
-  const { data: p } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
+= await db.from('profiles').select('role').eq('id', auth.id).maybeSingle();
   if (!p || !['admin','super_admin','org_admin','staff'].includes(p.role)) return null;
   return user;
 }
 
 export async function GET(req: NextRequest) {
-  const user = await requireAdmin();
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
@@ -38,7 +35,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await requireAdmin();
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => null);
@@ -58,7 +56,7 @@ export async function POST(req: NextRequest) {
   const db = await getAdminClient();
   const { data, error } = await db
     .from('credential_registry')
-    .insert({ ...body, metadata, created_by: user.id })
+    .insert({ ...body, metadata, created_by: auth.id })
     .select()
     .single();
 
@@ -67,6 +65,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 
-  logger.info('Credential created', { name: body.name, issuer_type: body.issuer_type, userId: user.id });
+  logger.info('Credential created', { name: body.name, issuer_type: body.issuer_type, userId: auth.id });
   return NextResponse.json({ credential: mapCredentialRow(data as RawCredentialRow) }, { status: 201 });
 }

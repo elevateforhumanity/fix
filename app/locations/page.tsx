@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock, Navigation } from 'lucide-react';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const metadata: Metadata = {
@@ -65,10 +67,17 @@ export default async function LocationsPage() {
         </div>
       </div>
 
-      {/* Hero Image */}
-      <section className="relative h-[200px] sm:h-[280px] md:h-[340px] overflow-hidden">
-        <Image src="/images/pages/locations-page-1.jpg" alt="Training locations in Indianapolis" fill sizes="100vw" className="object-cover" priority />
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['locations'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['locations'].voiceoverSrc}
+        microLabel={heroBanners['locations'].microLabel}
+        headline={heroBanners['locations'].belowHeroHeadline}
+        subheadline={heroBanners['locations'].belowHeroSubheadline}
+        primaryCta={heroBanners['locations'].primaryCta}
+        secondaryCta={heroBanners['locations'].secondaryCta}
+        trustIndicators={heroBanners['locations'].trustIndicators}
+        transcript={heroBanners['locations'].transcript}
+      />
 
       {/* Title */}
       <section className="py-12">

@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import ProgressSteps from '@/components/start/ProgressSteps';
 import StartForm from '@/components/start/StartForm';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const metadata: Metadata = {
   title: 'Start Here | Elevate for Humanity',
@@ -53,31 +55,17 @@ const PATHWAYS = [
 export default function StartPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-brand-blue-700 text-white">
-        <Image
-          src="/images/pages/how-it-works-hero.jpg"
-          alt="Career training students"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-        <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
-          <div className="max-w-2xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm backdrop-blur-sm">
-              <Shield className="h-4 w-4" /> ETPL-listed &middot; WIOA-approved &middot; Indiana
-            </div>
-            <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
-              Start here. We&apos;ll guide you through funding and enrollment.
-            </h1>
-            <p className="mt-5 text-lg text-blue-100">
-              One intake form. We figure out your eligibility, connect you with
-              the right program, and move you toward enrollment — no runaround.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['start'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['start'].voiceoverSrc}
+        microLabel={heroBanners['start'].microLabel}
+        headline={heroBanners['start'].belowHeroHeadline}
+        subheadline={heroBanners['start'].belowHeroSubheadline}
+        primaryCta={heroBanners['start'].primaryCta}
+        secondaryCta={heroBanners['start'].secondaryCta}
+        trustIndicators={heroBanners['start'].trustIndicators}
+        transcript={heroBanners['start'].transcript}
+      />
 
       {/* Main: Form + Steps */}
       <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">

@@ -1,3 +1,4 @@
+import { VIDEO_HEROES } from '@/lib/hero-config';
 
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -58,7 +59,7 @@ export default function CredentialsPage() {
 
       {/* Hero */}
       <HeroVideo
-        videoSrcDesktop="/videos/welding-trades.mp4"
+        videoSrcDesktop={VIDEO_HEROES.skilledTrades}
         posterImage="/images/pages/credentials-page-1.jpg"
         microLabel="System of Record"
         analyticsName="credentials"

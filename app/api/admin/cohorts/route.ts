@@ -1,27 +1,17 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-async function requireAdmin() {
-  const supabase = await createClient();
-const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 };
-  }
-  return { user, profile, supabase };
-}
-
 async function _GET(request: Request) {
   
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
-const auth = await requireAdmin();
+const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   
   try {
@@ -62,7 +52,8 @@ async function _POST(request: Request) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   
   try {
@@ -109,7 +100,7 @@ async function _POST(request: Request) {
     // Log audit
     await auth.supabase.from('audit_logs').insert({
       actor_id: auth.id,
-      actor_role: auth.profile.role,
+      actor_role: auth.auth.profile?.role,
       action: 'create',
       resource_type: 'cohort',
       resource_id: cohort.id,
@@ -126,7 +117,8 @@ async function _PATCH(request: Request) {
   
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
-const auth = await requireAdmin();
+const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   
   try {
@@ -161,7 +153,7 @@ const auth = await requireAdmin();
     // Log audit
     await auth.supabase.from('audit_logs').insert({
       actor_id: auth.id,
-      actor_role: auth.profile.role,
+      actor_role: auth.auth.profile?.role,
       action: 'update',
       resource_type: 'cohort',
       resource_id: id,
@@ -179,7 +171,8 @@ async function _DELETE(request: Request) {
   
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
-const auth = await requireAdmin();
+const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   
   try {
@@ -210,7 +203,7 @@ const auth = await requireAdmin();
     // Log audit
     await auth.supabase.from('audit_logs').insert({
       actor_id: auth.id,
-      actor_role: auth.profile.role,
+      actor_role: auth.auth.profile?.role,
       action: 'delete',
       resource_type: 'cohort',
       resource_id: id,

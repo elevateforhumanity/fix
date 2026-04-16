@@ -5,6 +5,8 @@ import { DollarSign, FileText, Phone, ArrowRight, Shield, Clock, Users, Calculat
 import { FinancialAidCalculator } from '@/components/FinancialAidCalculator';
 import { BNPL_PROVIDER_NAMES } from '@/lib/bnpl-config';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const metadata: Metadata = {
   title: 'Financial Aid & Funding | Elevate For Humanity',
@@ -68,16 +70,17 @@ export default function FinancialAidPage() {
         </div>
       </div>
 
-      {/* Hero with Image */}
-      <section className="relative min-h-48 md:h-64 flex items-center overflow-hidden">
-        <Image
-          src="/images/pages/financial-aid-page-1.jpg"
-          alt="Financial aid and funding options"
-          fill
-          className="object-cover"
-          priority
-         sizes="100vw" />
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['financial-aid'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['financial-aid'].voiceoverSrc}
+        microLabel={heroBanners['financial-aid'].microLabel}
+        headline={heroBanners['financial-aid'].belowHeroHeadline}
+        subheadline={heroBanners['financial-aid'].belowHeroSubheadline}
+        primaryCta={heroBanners['financial-aid'].primaryCta}
+        secondaryCta={heroBanners['financial-aid'].secondaryCta}
+        trustIndicators={heroBanners['financial-aid'].trustIndicators}
+        transcript={heroBanners['financial-aid'].transcript}
+      />
 
       {/* Quick Links to Related Pages */}
       <section className="py-8 border-b">

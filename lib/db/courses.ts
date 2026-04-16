@@ -472,7 +472,7 @@ export async function listApplications(filters?: { status?: string; programId?: 
 export async function getApplication(id: string) {
   // Use admin client — applications table RLS blocks session-based reads.
   // Callers are admin API routes that have already verified the caller's role.
-  const { createAdminClient } = await import('@/lib/supabase/admin');
+  const { getAdminClient } = await import('@/lib/supabase/admin');
   const { setAuditContext } = await import('@/lib/audit-context');
   const db = await getAdminClient();
   await setAuditContext(db, { systemActor: 'admin_applications_api' });
@@ -488,7 +488,7 @@ export async function getApplication(id: string) {
 
 export async function updateApplication(id: string, patch: ApplicationUpdate) {
   // Use admin client — applications table RLS blocks session-based updates.
-  const { createAdminClient } = await import('@/lib/supabase/admin');
+  const { getAdminClient } = await import('@/lib/supabase/admin');
   const { setAuditContext } = await import('@/lib/audit-context');
   const db = await getAdminClient();
   await setAuditContext(db, { systemActor: 'admin_applications_api' });
@@ -504,12 +504,12 @@ export async function updateApplication(id: string, patch: ApplicationUpdate) {
     .select('*, program:programs(id, title, code)')
     .single();
   if (error?.code === 'PGRST116') return null;
-  if (error) throw new Error('Database operation failed');
+  if (error) throw new Error(`DB update failed: ${error.message} (code: ${error.code})`);
   return data;
 }
 
 export async function deleteApplication(id: string) {
-  const { createAdminClient } = await import('@/lib/supabase/admin');
+  const { getAdminClient } = await import('@/lib/supabase/admin');
   const { setAuditContext } = await import('@/lib/audit-context');
   const db = await getAdminClient();
   await setAuditContext(db, { systemActor: 'admin_applications_api' });

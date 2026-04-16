@@ -1,3 +1,4 @@
+import { VIDEO_HEROES } from '@/lib/hero-config';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -29,7 +30,7 @@ export default function OjtAndFundingPage() {
 
       {/* Video hero */}
       <section className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] min-h-[320px] overflow-hidden">
-        <LazyVideo src="/videos/training-providers-hero.mp4" poster="/images/pages/ojt-and-funding-page-1.jpg"
+        <LazyVideo src={VIDEO_HEROES.homepage} poster="/images/pages/ojt-and-funding-page-1.jpg"
           className="absolute inset-0 w-full h-full object-cover" />
       </section>
 

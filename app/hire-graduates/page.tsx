@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 
 export const metadata: Metadata = {
@@ -27,19 +29,17 @@ export default async function HireGraduatesPage() {
             <div className="max-w-7xl mx-auto px-4 py-4">
         <Breadcrumbs items={[{ label: "Hire Graduates" }]} />
       </div>
-{/* Hero Section */}
-      <section className="relative h-48 md:h-64 overflow-hidden">
-        <Image
-          src="/images/pages/hire-graduates-page-1.jpg"
-          alt="Hire Graduates"
-          fill
-          className="object-cover"
-          quality={100}
-          priority
-          sizes="100vw"
-        />
-
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['hire-graduates'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['hire-graduates'].voiceoverSrc}
+        microLabel={heroBanners['hire-graduates'].microLabel}
+        headline={heroBanners['hire-graduates'].belowHeroHeadline}
+        subheadline={heroBanners['hire-graduates'].belowHeroSubheadline}
+        primaryCta={heroBanners['hire-graduates'].primaryCta}
+        secondaryCta={heroBanners['hire-graduates'].secondaryCta}
+        trustIndicators={heroBanners['hire-graduates'].trustIndicators}
+        transcript={heroBanners['hire-graduates'].transcript}
+      />
 
       {/* Content Section */}
       <section className="py-16 sm:py-20">

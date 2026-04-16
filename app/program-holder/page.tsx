@@ -9,6 +9,8 @@ import {
   LayoutDashboard, ArrowRight, LogIn,
 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,33 +54,17 @@ export default async function ProgramHolderLanding() {
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="relative min-h-48 md:h-80 flex items-end overflow-hidden bg-slate-900">
-        <Image src="/images/pages/program-holder-page-2.jpg" alt="Program Holder Portal" fill className="object-cover opacity-50" priority  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pb-10">
-          <p className="text-purple-300 font-bold text-xs uppercase tracking-widest mb-2">For Program Holders</p>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">Run your programs on the Elevate OS.</h1>
-          <p className="text-white/80 text-lg mb-6 max-w-2xl">
-            Partner with Elevate to deliver workforce training under our government credentials — ETPL, WIOA, DOL Registered Apprenticeship, and more.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {isProgramHolder ? (
-              <Link href="/program-holder/dashboard" className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-7 py-3 rounded-lg font-bold text-base hover:bg-brand-blue-700 transition">
-                <LayoutDashboard className="w-5 h-5" /> Go to Dashboard
-              </Link>
-            ) : (
-              <>
-                <Link href="/apply/program-holder" className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-7 py-3 rounded-lg font-bold text-base hover:bg-brand-blue-700 transition">
-                  Apply to Join Network <ArrowRight className="w-5 h-5" />
-                </Link>
-                <Link href="/login?redirect=/program-holder/dashboard" className="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white px-7 py-3 rounded-lg font-semibold text-base hover:bg-white/20 transition">
-                  <LogIn className="w-5 h-5" /> Log In
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['program-holder'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['program-holder'].voiceoverSrc}
+        microLabel={heroBanners['program-holder'].microLabel}
+        headline={heroBanners['program-holder'].belowHeroHeadline}
+        subheadline={heroBanners['program-holder'].belowHeroSubheadline}
+        primaryCta={heroBanners['program-holder'].primaryCta}
+        secondaryCta={heroBanners['program-holder'].secondaryCta}
+        trustIndicators={heroBanners['program-holder'].trustIndicators}
+        transcript={heroBanners['program-holder'].transcript}
+      />
 
       {/* Auth-aware action strip */}
       {isProgramHolder ? (

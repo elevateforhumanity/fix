@@ -129,16 +129,17 @@ export default function JRIPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-48 md:h-64 flex items-center overflow-hidden">
-        <Image
-          src="/images/pages/jri-hero.jpg"
-          alt="Job Ready Indy Program participants"
-          fill
-          className="object-cover"
-          priority
-         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-        
-      </section>
+      <HeroVideo
+        videoSrc={heroBanners['jri'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['jri'].voiceoverSrc}
+        microLabel={heroBanners['jri'].microLabel}
+        headline={heroBanners['jri'].belowHeroHeadline}
+        subheadline={heroBanners['jri'].belowHeroSubheadline}
+        primaryCta={heroBanners['jri'].primaryCta}
+        secondaryCta={heroBanners['jri'].secondaryCta}
+        trustIndicators={heroBanners['jri'].trustIndicators}
+        transcript={heroBanners['jri'].transcript}
+      />
 
       {/* Stats Section */}
       <section className="py-10">

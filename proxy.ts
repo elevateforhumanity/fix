@@ -531,6 +531,7 @@ export async function proxy(request: NextRequest) {
       '/admin/applicants',
       '/admin/cohorts',
       '/admin/gradebook',
+      '/admin/program-holders',
     ];
 
     if (FULL_ADMIN_ROLES.includes(profile.role)) {
