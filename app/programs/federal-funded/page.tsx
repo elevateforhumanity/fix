@@ -1,110 +1,321 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import ProgramPageLayout from '@/components/programs/ProgramPageLayout';
-import type { ProgramPageConfig } from '@/components/programs/ProgramPageLayout';
-import { InView } from '@/components/ui/InView';
-
+// Force static generation for performance
 export const dynamic = 'force-static';
 export const revalidate = 86400;
-const SITE_URL = 'https://www.elevateforhumanity.org';
+
+import Link from 'next/link';
+import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
+import Image from 'next/image';
+import { Metadata } from 'next';
+import { createClient } from '@/lib/supabase/server';
+import { programs } from '@/app/data/programs';
+import { Shield, CheckCircle, Users, Award } from 'lucide-react';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Federal-Funded Training Programs | WIOA & Job Ready Indy | Indianapolis',
-  description: 'No-cost career training for eligible participants through WIOA, WRG, and Job Ready Indy federal funding. Healthcare, Skilled Trades, Technology, and CDL programs in Indianapolis.',
-  alternates: { canonical: `${SITE_URL}/programs/federal-funded` },
-  openGraph: {
-    title: 'Federal-Funded Training Programs | WIOA & Job Ready Indy | Indianapolis',
-    description: 'No-cost career training for eligible participants through WIOA, WRG, and Job Ready Indy federal funding. Healthcare, Skilled Trades, Technology, and CDL programs in Indianapolis.',
-    url: `${SITE_URL}/programs/federal-funded`,
-    siteName: 'Elevate for Humanity',
-    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'Federal-Funded Training Programs | WIOA & Job Ready Indy | Indianapolis' }],
-    type: 'website',
+  title: 'Federal Funded Programs | WIOA & WRG | Elevate for Humanity',
+  description:
+    '100% free training programs funded by WIOA, WRG, and federal grants. Medical Assistant, CDL, Healthcare, and more. No cost to you.',
+  alternates: {
+    canonical: 'https://www.elevateforhumanity.org/programs/federal-funded',
   },
 };
 
-const config: ProgramPageConfig = {
-  heroImage: '/images/pages/funding-hero.jpg',
-  title: 'Federal-Funded Programs', subtitle: 'No-cost career training for eligible participants through WIOA, WRG, and Job Ready Indy. Tuition, books, supplies, and certifications covered.',
-  badge: 'Funded Training', badgeColor: 'green',
-  duration: '3–16 weeks', cost: '$0 for eligible participants', format: 'In-person, Indianapolis', credential: 'Varies by program',
-  overview: 'Federal workforce programs cover the full cost of training for eligible participants. WIOA (Workforce Innovation and Opportunity Act), WRG (Workforce Ready Grant), and Job Ready Indy fund tuition, textbooks, supplies, certification exams, and supportive services like transportation and childcare. Eligible participants pay nothing out of pocket. Credentials earned depend on the program — some are issued by Elevate (certificates of completion), while others are administered by external certifying bodies (state licenses, national exams).',
-  highlights: ['$0 tuition for eligible participants', 'Books, supplies, and uniforms included', 'Certification exam fees covered', 'Supportive services (transportation, childcare)', 'Career counseling and job placement', 'Available for unemployed, underemployed, and justice-involved individuals'],
-  overviewImage: '/images/pages/funding-impact-1.jpg', overviewImageAlt: 'Students in a funded training program',
-  salaryNumber: 0, salaryLabel: 'No-cost training for eligible participants', salaryPrefix: '',
-  curriculum: [
-    { title: 'Funding Sources', topics: ['WIOA (Workforce Innovation and Opportunity Act)', 'WRG (Workforce Ready Grant)', 'Job Ready Indy', 'Registered Apprenticeship incentives'] },
-    { title: 'What\'s Covered', topics: ['Tuition and training fees', 'Textbooks and training materials', 'Certification and licensing exam fees', 'Uniforms, tools, and required supplies'] },
-    { title: 'Support Services', topics: ['Transportation assistance', 'Childcare assistance', 'Work clothing and tools', 'Emergency support funds'] },
-    { title: 'Career Services', topics: ['Career counseling and assessment', 'Resume building and interview prep', 'Job placement assistance', 'Employer connections and referrals'] },
-  ],
-  careers: [
-    { title: 'Certified Nursing Assistant (CNA)', salary: '$35,000–$42,000' },
-    { title: 'Medical Assistant', salary: '$36,000–$44,000' },
-    { title: 'Phlebotomy Technician', salary: '$34,000–$40,000' },
-    { title: 'HVAC Technician', salary: '$42,000–$65,000' },
-    { title: 'Electrician Apprentice', salary: '$38,000–$55,000' },
-    { title: 'Welder', salary: '$40,000–$58,000' },
-    { title: 'CDL Class A Driver', salary: '$50,000–$75,000' },
-    { title: 'IT Support Specialist', salary: '$40,000–$55,000' },
-    { title: 'Cybersecurity Analyst', salary: '$55,000–$80,000' },
-    { title: 'Barber (Licensed)', salary: '$30,000–$60,000+' },
-  ],
-  credentials: [
-    'CNA Certification (state-issued — IN Dept. of Health)',
-    'CCMA (NHA exam)',
-    'CPT Phlebotomy (NHA exam)',
-    'EPA 608 (EPA-approved testing org)',
-    'OSHA 10/30 Safety (DOL card)',
-    'CDL Class A License (Indiana BMV)',
-    'CompTIA A+ (CompTIA exam)',
-    'CompTIA Security+ (CompTIA exam)',
-    'Barber License (state-issued — IN PLA)',
-    'ServSafe Food Handler (NRA exam)',
-    'Elevate Certificates of Completion (all programs)',
-  ],
-  steps: [
-    { title: 'Check Eligibility', desc: 'Take our 2-minute eligibility check or visit WorkOne.' },
-    { title: 'Choose a Program', desc: 'Pick from Healthcare, Skilled Trades, Technology, or CDL.' },
-    { title: 'Apply', desc: 'Complete our application and meet with an advisor.' },
-    { title: 'Start Training', desc: 'Begin your program — everything is covered.' },
-  ],
-  faqs: [
-    { question: 'Who qualifies for funded training?', answer: 'You may qualify if you are unemployed, underemployed, receiving public assistance (SNAP, TANF, Medicaid), a veteran, justice-involved, or have household income below 200% of the federal poverty level. Eligibility is determined by your local WorkOne office or our enrollment team.' },
-    { question: 'What does WIOA cover?', answer: 'WIOA covers tuition, textbooks, supplies, uniforms, certification exam fees, and supportive services (transportation, childcare, work tools). You pay nothing out of pocket.' },
-    { question: 'What is Job Ready Indy funding?', answer: 'Job Ready Indy is Indiana state funding specifically for justice-involved individuals. It covers the same costs as WIOA and is available for participants with criminal records.' },
-    { question: 'How do I check my eligibility?', answer: 'Take our 2-minute online eligibility check, or visit your local WorkOne office. You can also call us at (317) 314-3757 and we will help you determine your eligibility.' },
-  ],
-  applyHref: '/wioa-eligibility',
-  breadcrumbs: [{ label: 'Programs', href: '/programs' }, { label: 'Federal-Funded Programs' }],
-};
+// Note: CNA is self-pay, not federally funded
+const federalFundedSlugs = [
+  'medical-assistant',
+  'phlebotomy-technician',
+  'home-health-aide',
+  'direct-support-professional',
+  'cdl-training',
+];
 
-export default function Page() {
+export default async function FederalFundedProgramsPage() {
+  const supabase = await createClient();
+
+  if (!supabase) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Service Unavailable</h1>
+          <p className="text-gray-600">Please try again later.</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Fetch federal funded programs
+  const { data: dbPrograms } = await supabase
+    .from('programs')
+    .select('*')
+    .eq('funding_type', 'federal');
+
+  const federalPrograms = programs.filter((p) =>
+    federalFundedSlugs.includes(p.slug)
+  );
+
   return (
-    <ProgramPageLayout config={config}>
-      <InView animation="fade-up">
-        <section className="py-14 lg:py-20 border-t border-slate-100">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="text-center mb-10">
-              <p className="text-brand-red-600 font-semibold text-sm uppercase tracking-wider mb-2">Funded Programs</p>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Programs Available with Federal Funding</h2>
+    <div className="bg-white">
+      <Breadcrumbs
+        items={[
+          { label: 'Programs', href: '/programs' },
+          { label: 'Federal Funded Programs' },
+        ]}
+      />
+      {/* Hero */}
+      <section className="bg-white text-white px-6 sm:px-10 lg:px-12 py-20 lg:py-28">
+        <div className="mx-auto max-w-5xl text-center">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+            <Shield className="w-5 h-5" />
+            <span className="text-sm font-semibold">
+              Federal Funded Programs
+            </span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
+            100% Free Training.
+            <br />
+            Zero Cost to You.
+          </h1>
+
+          <p className="text-xl sm:text-2xl text-green-100 leading-relaxed max-w-3xl mx-auto">
+            These programs are fully funded by WIOA (Workforce Innovation and
+            Opportunity Act), ETPL (Eligible Training Provider List), and WRG
+            (Workforce Ready Grant). You pay nothing.
+          </p>
+        </div>
+      </section>
+
+      {/* Story Section */}
+      <section className="px-6 sm:px-10 lg:px-12 py-16 lg:py-20 bg-gray-50">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black text-center leading-tight mb-12">
+            How Federal Funding Works
+          </h2>
+
+          <div className="space-y-6 text-lg text-black leading-relaxed">
+            <p>
+              The federal government recognizes that workforce development is
+              essential for economic growth. That's why programs like WIOA
+              exist—to remove financial barriers and help people access the
+              training they need to succeed.
+            </p>
+
+            <p>
+              <span className="font-bold text-black">
+                You don't pay tuition.
+              </span>{' '}
+              Federal and state workforce boards cover 100% of your training
+              costs. This includes instruction, materials, certifications, and
+              sometimes even transportation or childcare assistance.
+            </p>
+
+            <p>
+              These aren't loans—there's nothing to pay back. The investment is
+              in you, because when you succeed, your community succeeds. You get
+              a better job, earn more money, and contribute to the economy.
+            </p>
+
+            <p className="text-xl font-bold text-black">
+              This is public investment in your future. Take advantage of it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Funding Programs */}
+      <section className="px-6 sm:px-10 lg:px-12 py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="text-3xl font-bold text-black text-center mb-12">
+            Federal Funding Sources
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-xl border-2 border-green-200 p-8">
+              <h3 className="text-2xl font-bold text-black mb-4">WIOA</h3>
+              <p className="text-black mb-4">
+                Workforce Innovation and Opportunity Act provides funding for
+                job training and employment services.
+              </p>
+              <Link
+                href="/wioa-eligibility"
+                className="text-brand-green-600 font-semibold hover:underline"
+              >
+                Check Eligibility →
+              </Link>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { label: 'Healthcare', href: '/programs/healthcare', desc: 'CNA, Medical Assistant, Phlebotomy' },
-                { label: 'Skilled Trades', href: '/programs/skilled-trades', desc: 'HVAC, Electrical, Welding, Plumbing' },
-                { label: 'Technology', href: '/programs/technology', desc: 'IT Support, Cybersecurity, Web Dev' },
-                { label: 'CDL Training', href: '/programs/cdl-training', desc: 'Class A License in 3-6 weeks' },
-              ].map((cat) => (
-                <Link key={cat.label} href={cat.href} className="bg-white rounded-xl p-5 border border-slate-200 hover:border-brand-red-400 hover:shadow-md transition-all text-center group">
-                  <h3 className="font-bold text-slate-900 group-hover:text-brand-red-600 transition-colors">{cat.label}</h3>
-                  <p className="text-xs text-black mt-1">{cat.desc}</p>
-                  <span className="text-brand-red-600 font-semibold text-sm mt-3 block group-hover:underline">View Programs →</span>
-                </Link>
-              ))}
+
+            <div className="bg-white rounded-xl border-2 border-green-200 p-8">
+              <h3 className="text-2xl font-bold text-black mb-4">ETPL</h3>
+              <p className="text-black mb-4">
+                Eligible Training Provider List certifies quality training
+                programs approved for federal funding.
+              </p>
+              <Link
+                href="/funding"
+                className="text-brand-green-600 font-semibold hover:underline"
+              >
+                Learn More →
+              </Link>
+            </div>
+
+            <div className="bg-white rounded-xl border-2 border-green-200 p-8">
+              <h3 className="text-2xl font-bold text-black mb-4">WRG</h3>
+              <p className="text-black mb-4">
+                Workforce Ready Grant supports training in high-demand
+                occupations with employer partnerships.
+              </p>
+              <Link
+                href="/funding"
+                className="text-brand-green-600 font-semibold hover:underline"
+              >
+                Learn More →
+              </Link>
             </div>
           </div>
-        </section>
-      </InView>
-    </ProgramPageLayout>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="px-6 sm:px-10 lg:px-12 py-16 lg:py-20 bg-gray-50">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="text-3xl font-bold text-black text-center mb-12">
+            What's Covered
+          </h2>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-green-100 text-brand-green-600 mb-4">
+                <CheckCircle className="w-8 h-8" />
+              </div>
+              <h3 className="font-bold text-black mb-2">Tuition</h3>
+              <p className="text-black">100% of training costs covered</p>
+            </div>
+
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-brand-blue-600 mb-4">
+                <Award className="w-8 h-8" />
+              </div>
+              <h3 className="font-bold text-black mb-2">Certifications</h3>
+              <p className="text-black">
+                Exam fees and credentials included
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 text-purple-600 mb-4">
+                <Users className="w-8 h-8" />
+              </div>
+              <h3 className="font-bold text-black mb-2">Support Services</h3>
+              <p className="text-black">
+                Career counseling and job placement
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 text-brand-orange-600 mb-4">
+                <Shield className="w-8 h-8" />
+              </div>
+              <h3 className="font-bold text-black mb-2">No Payback</h3>
+              <p className="text-black">Not a loan—nothing to repay</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Programs */}
+      <section className="px-6 sm:px-10 lg:px-12 py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="text-3xl font-bold text-black text-center mb-12">
+            Available Programs
+          </h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {federalPrograms.map((program: any) => (
+              <Link
+                key={program.slug}
+                href={`/programs/${program.slug}`}
+                className="group block bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-all"
+              >
+                <div className="relative h-48 w-full overflow-hidden">
+                  <Image
+                    priority
+                    src={program.heroImage}
+                    alt={program.heroImageAlt}
+                    fill
+                    sizes="100vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-black mb-2">
+                    {program.name}
+                  </h3>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <span className="px-3 py-2 bg-brand-green-100 text-green-700 text-xs font-semibold rounded-full">
+                      {program.duration}
+                    </span>
+                    <span className="px-3 py-2 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">
+                      $0 Cost
+                    </span>
+                  </div>
+                  <span className="inline-flex items-center font-semibold text-brand-green-600 group-hover:underline text-sm">
+                    Learn More →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Credentials & Outcomes */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <CredentialsOutcomes
+            programName="Federal-Funded Programs"
+            partnerCertifications={[
+              'Industry certifications based on chosen career pathway',
+              'State licenses where applicable',
+              'Nationally recognized credentials',
+            ]}
+            employmentOutcomes={[
+              'Employment in high-demand industries',
+              'Career pathway to family-sustaining wages',
+              'Foundation for career advancement',
+              'Access to employer partnerships',
+            ]}
+          />
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="px-6 sm:px-10 lg:px-12 py-16 lg:py-20 bg-gray-50">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-6">
+            Ready to Start Free Training?
+          </h2>
+          <p className="text-xl text-black mb-8">
+            Apply now to see if you qualify for federal funding.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/apply"
+              className="inline-flex px-8 py-4 bg-brand-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition text-lg"
+            >
+              Apply Now
+            </Link>
+            <Link
+              href="/wioa-eligibility"
+              className="inline-flex px-8 py-4 bg-white border-2 border-brand-green-600 text-brand-green-600 font-bold rounded-lg hover:bg-green-50 transition text-lg"
+            >
+              Check Eligibility
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
