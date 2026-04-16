@@ -6,7 +6,6 @@
 //   2. Client: MarketingChromeGuard toggles data-app-route on the root div,
 //              CSS handles hide/show. No conditional rendering, no DOM removal.
 
-import { Suspense } from 'react';
 import { headers } from 'next/headers';
 import Header from '@/components/site/Header';
 import ServerFooter from '@/components/site/ServerFooter';
@@ -90,9 +89,7 @@ export default async function PublicLayout({ children }: PublicLayoutProps) {
         <ClientWidgets />
       </div>
 
-      <Suspense>
-        <MarketingChromeGuard />
-      </Suspense>
+      <MarketingChromeGuard />
     </>
   );
 }
