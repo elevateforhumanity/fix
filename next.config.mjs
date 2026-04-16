@@ -189,7 +189,8 @@ const nextConfig = {
       'swr',
     ],
     webpackBuildWorker: false,
-    optimizeCss: true,
+    // optimizeCss runs critters over every page — too memory-intensive at 2800+ routes
+    optimizeCss: false,
     // Parallel routes for faster builds
     parallelServerCompiles: false,
     parallelServerBuildTraces: false,
