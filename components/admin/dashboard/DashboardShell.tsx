@@ -1,422 +1,307 @@
 // Server component — no "use client", no useState, no useEffect.
-// All date formatting uses fixed locale + UTC timezone to prevent server/client hydration mismatches.
+// All date formatting uses fixed locale + UTC timezone to prevent hydration mismatches.
 
 import Link from "next/link";
-import { AdminGreeting } from "@/components/admin/AdminGreeting";
 import {
-  FileText, Users, DollarSign, Award, AlertTriangle,
-  ArrowRight, BookOpen, ChevronRight, ShieldAlert,
-  CheckCircle2, XCircle, Building2, GraduationCap, Bell,
-  ClipboardList,
+  Users, FileText, TrendingUp, Award, AlertTriangle,
+  CheckCircle, Clock, ArrowRight, Activity, BookOpen,
+  DollarSign, Shield, Bell, ChevronRight, Zap,
 } from "lucide-react";
-import type { AdminDashboardData, SystemHealth } from "./types";
-import { KpiGrid } from "./KpiGrid";
-import { EnrollmentSparkline } from "./EnrollmentSparkline";
-import { SystemHealthPanel } from "./SystemHealthPanel";
+import type { AdminDashboardData, KPICard, RecentApplication, RecentStudent, InactiveLearner, PendingSubmission } from "./types";
 
-// ── Formatters ────────────────────────────────────────────────────────────────
-function fmtUsd(cents: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency", currency: "USD", maximumFractionDigits: 0,
-  }).format(cents / 100);
-}
-function fmtNum(n: number) { return new Intl.NumberFormat("en-US").format(n); }
-function fmtDate(iso: string | null) {
-  if (!iso) return "—";
-  return new Date(iso).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" });
-}
-function fmtAge(days: number) {
-  if (days === 0) return "Today";
-  if (days === 1) return "1 day ago";
-  return `${days} days ago`;
+// ─── Helpers ────────────────────────────────────────────────────────────────
+
+function fmt(n: number) { return n.toLocaleString("en-US"); }
+function dollars(cents: number) { return "$" + (cents / 100).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+function statusColor(s: string) {
+  if (s === "approved" || s === "enrolled") return "bg-emerald-100 text-emerald-800";
+  if (s === "rejected") return "bg-red-100 text-red-800";
+  if (s === "in_review" || s === "under_review") return "bg-blue-100 text-blue-800";
+  if (s === "waitlisted") return "bg-amber-100 text-amber-800";
+  return "bg-slate-100 text-slate-700";
 }
 
-// ── Status pill ───────────────────────────────────────────────────────────────
-const STATUS_COLORS: Record<string, string> = {
-  submitted: "bg-amber-100 text-amber-800",
-  pending:   "bg-amber-100 text-amber-800",
-  in_review: "bg-blue-100 text-blue-800",
-  active:    "bg-emerald-100 text-emerald-800",
-  completed: "bg-slate-100 text-slate-600",
-  draft:     "bg-slate-100 text-slate-500",
-  inactive:  "bg-slate-100 text-slate-500",
-};
-function StatusPill({ status }: { status: string }) {
+// ─── Sub-components ──────────────────────────────────────────────────────────
+
+function HeroHeader({ data }: { data: AdminDashboardData }) {
+  const name = data.profile?.full_name?.split(" ")[0] ?? "Admin";
+  const date = new Date(data.generatedAt).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "UTC" });
+  const health = data.systemHealth;
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide ${STATUS_COLORS[status] ?? "bg-slate-100 text-slate-600"}`}>
-      {status.replace(/_/g, " ")}
-    </span>
-  );
-}
-
-function Empty({ message }: { message: string }) {
-  return <p className="text-sm text-slate-400 py-6 text-center">{message}</p>;
-}
-
-function isOperationallyEmpty(d: AdminDashboardData): boolean {
-  return (
-    d.recentApplications.length === 0 &&
-    d.recentStudents.length === 0 &&
-    d.topPrograms.length === 0
-  );
-}
-
-function DegradedBanner({ sections }: { sections: string[] }) {
-  return (
-    <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6">
-      <AlertTriangle className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" />
-      <div>
-        <p className="text-sm font-semibold text-amber-800">Some sections unavailable</p>
-        <p className="text-xs text-amber-700 mt-0.5">{sections.join(", ")} could not load.</p>
-      </div>
-    </div>
-  );
-}
-
-function HealthBadge({ health }: { health: SystemHealth }) {
-  const ok = health.status === "ok";
-  return (
-    <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full ${ok ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
-      {ok ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-      {ok ? "All systems operational" : (health.message ?? "Degraded")}
-    </span>
-  );
-}
-
-function SectionCard({ title, href, hrefLabel = "View all", children }: {
-  title: string; href?: string; hrefLabel?: string; children: React.ReactNode;
-}) {
-  return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-        <h2 className="text-base font-bold text-slate-900">{title}</h2>
-        {href && (
-          <Link href={href} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700">
-            {hrefLabel} <ChevronRight className="w-3.5 h-3.5" />
-          </Link>
-        )}
-      </div>
-      <div className="px-6 py-4">{children}</div>
-    </div>
-  );
-}
-
-function QuickLink({ href, title, sub, badge }: {
-  href: string; title: string; sub: string; badge?: string;
-}) {
-  return (
-    <Link href={href} className="group flex items-center justify-between gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 hover:border-brand-blue-300 hover:shadow-sm transition-all">
-      <div className="min-w-0">
-        <p className="text-sm font-semibold text-slate-900 truncate">{title}</p>
-        <p className="text-xs text-slate-400 truncate">{sub}</p>
-      </div>
-      <div className="flex items-center gap-2 flex-shrink-0">
-        {badge && <span className="bg-amber-400 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full">{badge}</span>}
-        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-blue-500 transition-colors" />
-      </div>
-    </Link>
-  );
-}
-
-// ═════════════════════════════════════════════════════════════════════════════
-export function DashboardShell({ data }: { data: AdminDashboardData }) {
-  // Fixed locale + UTC — prevents server/client hydration mismatch
-  const updatedAt = new Date(data.generatedAt).toLocaleString("en-US", {
-    timeZone: "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
-  });
-
-  const {
-    pendingApplications, activeEnrollments,
-    revenueThisMonthCents, certificatesIssued,
-    pendingProgramHolders, pendingDocuments,
-  } = data.counts;
-
-  const maxEnrollments = Math.max(...data.topPrograms.map(p => p.learners), 1);
-
-  return (
-    <div className="pb-24">
-
-      {/* PAGE HEADER — no image, no hero */}
-      <div className="border-b border-slate-100 bg-white px-4 sm:px-6 lg:px-8 py-6 max-w-screen-xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-brand-blue-900 to-slate-900 text-white">
+      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #e63946 0%, transparent 50%), radial-gradient(circle at 80% 20%, #1d3557 0%, transparent 50%)" }} />
+      <div className="relative max-w-7xl mx-auto px-6 py-10">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Operations Center</p>
-            <AdminGreeting className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight" />
-            <p className="text-xs text-slate-400 mt-1">Last updated {updatedAt}</p>
+            <p className="text-slate-400 text-sm font-medium uppercase tracking-widest mb-1">{date}</p>
+            <h1 className="text-3xl font-bold">Welcome back, {name}</h1>
+            <p className="text-slate-300 mt-1 text-sm">Elevate for Humanity — Operations Center</p>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {data.systemHealth && <HealthBadge health={data.systemHealth} />}
-            {pendingApplications > 0 && (
-              <Link href="/admin/applications" className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-500 text-slate-900 text-xs font-bold px-4 py-2 rounded-full transition-colors">
-                <Bell className="w-3.5 h-3.5" /> {pendingApplications} pending
-              </Link>
+          <div className="flex items-center gap-3">
+            {health.degraded ? (
+              <span className="flex items-center gap-2 bg-red-500/20 border border-red-500/40 text-red-300 px-4 py-2 rounded-full text-sm font-medium">
+                <AlertTriangle className="w-4 h-4" /> System Degraded
+              </span>
+            ) : (
+              <span className="flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 px-4 py-2 rounded-full text-sm font-medium">
+                <CheckCircle className="w-4 h-4" /> All Systems Operational
+              </span>
             )}
+            <Link href="/admin/applications" className="flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition-colors">
+              <Bell className="w-4 h-4" />
+              {data.counts.pendingApplications > 0 && <span>{data.counts.pendingApplications} Pending</span>}
+              {data.counts.pendingApplications === 0 && <span>Applications</span>}
+            </Link>
           </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {(data.degradedSections ?? []).length > 0 && (
-          <div className="mt-6"><DegradedBanner sections={data.degradedSections ?? []} /></div>
-        )}
-
-        {/* URGENT CTAs */}
-        {(pendingProgramHolders > 0 || pendingDocuments > 0) && (
-          <div className="mt-8 flex flex-wrap gap-3">
-            {pendingProgramHolders > 0 && (
-              <Link href="/admin/program-holders" className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-2xl font-bold text-sm transition-colors shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-white/80 animate-pulse" />
-                {pendingProgramHolders} program holder{pendingProgramHolders !== 1 ? "s" : ""} pending approval
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            )}
-            {pendingDocuments > 0 && (
-              <Link href="/admin/program-holder-documents" className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-bold text-sm transition-colors shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-white/80 animate-pulse" />
-                {pendingDocuments} document{pendingDocuments !== 1 ? "s" : ""} to review
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            )}
+function KPIGrid({ kpis, counts }: { kpis: KPICard[]; counts: AdminDashboardData["counts"] }) {
+  const cards = [
+    { label: "Pending Applications", value: fmt(counts.pendingApplications), icon: FileText, color: "from-amber-500 to-orange-600", href: "/admin/applications", urgent: counts.pendingApplications > 10 },
+    { label: "Active Enrollments", value: fmt(counts.activeEnrollments), icon: Users, color: "from-brand-blue-500 to-brand-blue-700", href: "/admin/students" },
+    { label: "Revenue This Month", value: dollars(counts.revenueThisMonthCents), icon: DollarSign, color: "from-emerald-500 to-teal-600", href: "/admin/payments" },
+    { label: "Certificates Issued", value: fmt(counts.certificatesIssued), icon: Award, color: "from-purple-500 to-violet-600", href: "/admin/certifications" },
+    { label: "Pending Docs", value: fmt(counts.pendingDocuments), icon: Clock, color: "from-rose-500 to-brand-red-600", href: "/admin/documents", urgent: counts.pendingDocuments > 0 },
+    { label: "Program Holders", value: fmt(counts.pendingProgramHolders), icon: Shield, color: "from-slate-500 to-slate-700", href: "/admin/program-holders" },
+  ];
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {cards.map((c) => (
+        <Link key={c.label} href={c.href} className="group relative overflow-hidden rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+          <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${c.color}`} />
+          <div className="p-5">
+            <div className={`inline-flex p-2 rounded-xl bg-gradient-to-br ${c.color} mb-3`}>
+              <c.icon className="w-4 h-4 text-white" />
+            </div>
+            <div className="text-2xl font-bold text-slate-900">{c.value}</div>
+            <div className="text-xs text-slate-500 mt-0.5 leading-tight">{c.label}</div>
+            {c.urgent && <div className="mt-2 w-2 h-2 rounded-full bg-brand-red-500 animate-pulse" />}
           </div>
-        )}
+        </Link>
+      ))}
+    </div>
+  );
+}
 
-        {/* KPI CARDS */}
-        <div className="mt-8"><KpiGrid kpis={data.kpis} /></div>
-
-        {/* SPARKLINE + SYSTEM HEALTH */}
-        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <EnrollmentSparkline data={data.enrollmentTrend} />
-          <SystemHealthPanel health={data.systemHealth} />
+function ApplicationsPanel({ apps }: { apps: RecentApplication[] }) {
+  if (!apps.length) return null;
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-lg bg-amber-50"><FileText className="w-4 h-4 text-amber-600" /></div>
+          <h2 className="font-semibold text-slate-900">Recent Applications</h2>
         </div>
+        <Link href="/admin/applications" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
+          View all <ChevronRight className="w-3 h-3" />
+        </Link>
+      </div>
+      <div className="divide-y divide-slate-50">
+        {apps.slice(0, 8).map((a) => (
+          <Link key={a.id} href={a.href} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
+            <div className="min-w-0">
+              <p className="font-medium text-slate-900 text-sm truncate">{a.full_name ?? `${a.first_name ?? ""} ${a.last_name ?? ""}`.trim() || "—"}</p>
+              <p className="text-xs text-slate-500 truncate">{a.program_interest ?? "No program"}</p>
+            </div>
+            <div className="flex items-center gap-3 ml-4 shrink-0">
+              {a.urgent && <span className="text-xs text-brand-red-600 font-medium">{a.age_days}d old</span>}
+              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor(a.status)}`}>{a.status.replace(/_/g, " ")}</span>
+              <ChevronRight className="w-3 h-3 text-slate-300 group-hover:text-slate-500 transition-colors" />
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-        {/* PENDING SUBMISSIONS */}
-        {data.pendingSubmissions.length > 0 && (
-          <div className="mt-6">
-            <SectionCard
-              title="Pending Lab & Assignment Sign-Offs"
-              href="/instructor/submissions"
-              hrefLabel={`Review all ${data.pendingSubmissions.length}`}
-            >
-              <div className="divide-y divide-slate-50">
-                {data.pendingSubmissions.slice(0, 6).map((s) => {
-                  // Age computed from generatedAt (server timestamp) — not Date.now() — to avoid hydration mismatch
-                  const serverNow = new Date(data.generatedAt).getTime();
-                  const age = s.submitted_at
-                    ? Math.floor((serverNow - new Date(s.submitted_at).getTime()) / 86_400_000)
-                    : 0;
-                  return (
-                    <div key={s.id} className="flex items-center justify-between py-3 gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
-                          <ClipboardList className="w-4 h-4 text-amber-600" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold text-slate-900 truncate capitalize">
-                            {s.step_type ?? "Submission"} — sign-off needed
-                          </p>
-                          <p className="text-xs text-slate-400">{fmtAge(age)}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3 flex-shrink-0">
-                        <StatusPill status={s.status} />
-                        <Link
-                          href={`/instructor/submissions`}
-                          className="text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700 flex items-center gap-0.5"
-                        >
-                          Review <ChevronRight className="w-3.5 h-3.5" />
-                        </Link>
-                      </div>
-                    </div>
-                  );
-                })}
+function StudentsPanel({ students }: { students: RecentStudent[] }) {
+  if (!students.length) return null;
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-lg bg-blue-50"><Users className="w-4 h-4 text-brand-blue-600" /></div>
+          <h2 className="font-semibold text-slate-900">Recent Students</h2>
+        </div>
+        <Link href="/admin/students" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
+          View all <ChevronRight className="w-3 h-3" />
+        </Link>
+      </div>
+      <div className="divide-y divide-slate-50">
+        {students.slice(0, 6).map((s) => (
+          <Link key={s.id} href={s.href} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-blue-400 to-brand-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                {(s.full_name ?? s.email ?? "?")[0].toUpperCase()}
               </div>
-            </SectionCard>
+              <div className="min-w-0">
+                <p className="font-medium text-slate-900 text-sm truncate">{s.full_name ?? s.email ?? "—"}</p>
+                <p className="text-xs text-slate-500 truncate">{s.program_name ?? "No program"}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 ml-4 shrink-0">
+              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor(s.enrollment_status ?? "")}`}>{s.enrollment_status ?? "—"}</span>
+              <ChevronRight className="w-3 h-3 text-slate-300 group-hover:text-slate-500 transition-colors" />
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SubmissionsPanel({ submissions }: { submissions: PendingSubmission[] }) {
+  if (!submissions.length) return null;
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-lg bg-purple-50"><BookOpen className="w-4 h-4 text-purple-600" /></div>
+          <h2 className="font-semibold text-slate-900">Pending Sign-Offs</h2>
+        </div>
+        <Link href="/instructor/submissions" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
+          Review all <ChevronRight className="w-3 h-3" />
+        </Link>
+      </div>
+      <div className="divide-y divide-slate-50">
+        {submissions.slice(0, 6).map((s) => (
+          <Link key={s.id} href={`/instructor/submissions/${s.id}`} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
+            <div className="min-w-0">
+              <p className="font-medium text-slate-900 text-sm capitalize">{s.step_type ?? "submission"}</p>
+              <p className="text-xs text-slate-500">{s.submitted_at ? new Date(s.submitted_at).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }) : "—"}</p>
+            </div>
+            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-amber-100 text-amber-800 shrink-0">{s.status}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function InactivePanel({ learners }: { learners: InactiveLearner[] }) {
+  if (!learners.length) return null;
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-lg bg-rose-50"><Activity className="w-4 h-4 text-rose-600" /></div>
+          <h2 className="font-semibold text-slate-900">At-Risk Learners</h2>
+        </div>
+        <Link href="/admin/students?filter=at_risk" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium flex items-center gap-1">
+          View all <ChevronRight className="w-3 h-3" />
+        </Link>
+      </div>
+      <div className="divide-y divide-slate-50">
+        {learners.slice(0, 5).map((l) => (
+          <Link key={l.enrollmentId} href={l.href} className="flex items-center justify-between px-6 py-3.5 hover:bg-slate-50 transition-colors group">
+            <div className="min-w-0">
+              <p className="font-medium text-slate-900 text-sm truncate">{l.fullName ?? l.email ?? "—"}</p>
+              <p className="text-xs text-slate-500 truncate">{l.programTitle ?? "No program"}</p>
+            </div>
+            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-rose-100 text-rose-800 shrink-0">{l.daysInactive}d inactive</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function QuickActions() {
+  const actions = [
+    { label: "Review Applications", href: "/admin/applications", icon: FileText, color: "bg-amber-500" },
+    { label: "Manage Students", href: "/admin/students", icon: Users, color: "bg-brand-blue-600" },
+    { label: "Programs", href: "/admin/programs", icon: BookOpen, color: "bg-purple-600" },
+    { label: "Payments", href: "/admin/payments", icon: DollarSign, color: "bg-emerald-600" },
+    { label: "Certifications", href: "/admin/certifications", icon: Award, color: "bg-violet-600" },
+    { label: "Monitoring", href: "/admin/monitoring", icon: Activity, color: "bg-slate-700" },
+    { label: "Audit Logs", href: "/admin/audit-logs", icon: Shield, color: "bg-rose-600" },
+    { label: "Settings", href: "/admin/settings", icon: Zap, color: "bg-teal-600" },
+  ];
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="px-6 py-4 border-b border-slate-100">
+        <h2 className="font-semibold text-slate-900">Quick Actions</h2>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-slate-100">
+        {actions.map((a) => (
+          <Link key={a.label} href={a.href} className="flex flex-col items-center gap-2 p-5 bg-white hover:bg-slate-50 transition-colors group">
+            <div className={`p-2.5 rounded-xl ${a.color}`}>
+              <a.icon className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xs font-medium text-slate-700 text-center leading-tight">{a.label}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SystemHealthPanel({ health }: { health: AdminDashboardData["systemHealth"] }) {
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="px-6 py-4 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <div className={`p-1.5 rounded-lg ${health.degraded ? "bg-red-50" : "bg-emerald-50"}`}>
+            <Activity className={`w-4 h-4 ${health.degraded ? "text-red-600" : "text-emerald-600"}`} />
           </div>
-        )}
-
-        {/* QUICK NAV */}
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          <QuickLink href="/admin/applications"    title="Applications"    sub={`${pendingApplications} pending`}                                                              badge={pendingApplications > 0 ? String(pendingApplications) : undefined} />
-          <QuickLink href="/admin/students"        title="Students"        sub={`${fmtNum(activeEnrollments)} active`} />
-          <QuickLink href="/admin/programs"        title="Programs"        sub="Manage curriculum" />
-          <QuickLink href="/admin/analytics"       title="Analytics"       sub="Enrollment & revenue" />
-          <QuickLink href="/admin/program-holders" title="Program Holders" sub={pendingProgramHolders > 0 ? `${pendingProgramHolders} pending` : "Manage holders"}             badge={pendingProgramHolders > 0 ? String(pendingProgramHolders) : undefined} />
-          <QuickLink href="/admin/settings"        title="Settings"        sub="System configuration" />
+          <h2 className="font-semibold text-slate-900">System Health</h2>
         </div>
-
-        {/* APPLICATIONS + QUICK STATS */}
-        <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <SectionCard title="Recent Applications" href="/admin/applications" hrefLabel="Review all">
-              {data.recentApplications.length === 0 ? <Empty message="No applications yet." /> : (
-                <div className="divide-y divide-slate-50">
-                  {data.recentApplications.slice(0, 8).map(app => {
-                    const name = [app.first_name, app.last_name].filter(Boolean).join(" ") || app.email || "Applicant";
-                    // Use server-generated timestamp — not Date.now() — to avoid hydration mismatch
-                    const serverNow = new Date(data.generatedAt).getTime();
-                    const age  = Math.floor((serverNow - new Date(app.submitted_at ?? app.created_at).getTime()) / 86_400_000);
-                    return (
-                      <div key={app.id} className="flex items-center justify-between py-3 gap-3">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-8 h-8 rounded-full bg-brand-blue-100 flex items-center justify-center flex-shrink-0">
-                            <span className="text-xs font-bold text-brand-blue-700">{name[0]?.toUpperCase() ?? "?"}</span>
-                          </div>
-                          <div className="min-w-0">
-                            <p className="text-sm font-semibold text-slate-900 truncate">{name}</p>
-                            <p className="text-xs text-slate-400 truncate">{app.program_interest ?? "—"}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3 flex-shrink-0">
-                          <StatusPill status={app.status} />
-                          <span className="text-xs text-slate-400 hidden sm:block">{fmtAge(age)}</span>
-                          <Link href={`/admin/applications/review/${app.id}`} className="text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700 flex items-center gap-0.5">
-                            Review <ChevronRight className="w-3.5 h-3.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </SectionCard>
-          </div>
-
-          <div className="lg:col-span-1 flex flex-col gap-6">
-            <SectionCard title="Quick Stats">
-              <div className="space-y-3">
-                {([
-                  { label: "Active enrollments",     value: fmtNum(activeEnrollments),     href: "/admin/students",                 Icon: Users,      urgent: false },
-                  { label: "Revenue this month",      value: fmtUsd(revenueThisMonthCents), href: "/admin/analytics/revenue",        Icon: DollarSign, urgent: false },
-                  { label: "Certificates issued",     value: fmtNum(certificatesIssued),    href: "/admin/certificates",             Icon: Award,      urgent: false },
-                  { label: "Program holders pending", value: fmtNum(pendingProgramHolders), href: "/admin/program-holders",          Icon: Building2,  urgent: pendingProgramHolders > 0 },
-                  { label: "Documents to review",     value: fmtNum(pendingDocuments),      href: "/admin/program-holder-documents", Icon: FileText,   urgent: pendingDocuments > 0 },
-                ] as const).map(({ label, value, href, Icon, urgent }) => (
-                  <Link key={label} href={href} className="flex items-center justify-between group py-1.5">
-                    <div className="flex items-center gap-2">
-                      <Icon className={`w-4 h-4 ${urgent ? "text-amber-500" : "text-slate-400"}`} />
-                      <span className={`text-sm ${urgent ? "font-semibold text-amber-700" : "text-slate-600"}`}>{label}</span>
-                    </div>
-                    <span className={`text-sm font-bold ${urgent ? "text-amber-600" : "text-slate-900"}`}>{value}</span>
-                  </Link>
-                ))}
-              </div>
-            </SectionCard>
-
-            {data.inactiveLearners.length > 0 && (
-              <SectionCard title="At-Risk Learners" href="/admin/retention" hrefLabel={`View all ${data.inactiveLearners.length}`}>
-                <div className="space-y-2">
-                  {data.inactiveLearners.slice(0, 5).map(l => (
-                    <div key={l.userId} className="flex items-center justify-between">
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-slate-800 truncate">{l.fullName || l.email}</p>
-                        <p className="text-xs text-slate-400">{l.daysInactive}d inactive · {l.programTitle ?? "—"}</p>
-                      </div>
-                      <Link href={`/admin/students/${l.userId}`} className="text-xs text-brand-blue-600 hover:underline flex-shrink-0 ml-2">View</Link>
-                    </div>
-                  ))}
-                </div>
-              </SectionCard>
-            )}
-          </div>
-        </div>
-
-        {/* TOP PROGRAMS + RECENT STUDENTS */}
-        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <SectionCard title="Top Programs by Enrollment" href="/admin/programs">
-            {data.topPrograms.length === 0 ? <Empty message="No program data yet." /> : (
-              <div className="space-y-3">
-                {data.topPrograms.map(p => (
-                  <div key={p.id ?? p.title} className="flex items-center gap-3">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
-                        <p className="text-sm font-semibold text-slate-800 truncate">{p.title}</p>
-                        <span className="text-xs font-bold text-slate-600 ml-2 flex-shrink-0">{fmtNum(p.learners)}</span>
-                      </div>
-                      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-brand-blue-500 rounded-full" style={{ width: `${Math.round((p.learners / maxEnrollments) * 100)}%` }} />
-                      </div>
-                    </div>
-                    {p.id && (
-                      <Link href={`/admin/programs/${p.id}`} className="flex-shrink-0 text-slate-400 hover:text-brand-blue-600">
-                        <ChevronRight className="w-4 h-4" />
-                      </Link>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </SectionCard>
-
-          <SectionCard title="Recent Students" href="/admin/students">
-            {data.recentStudents.length === 0 ? <Empty message="No recent students." /> : (
-              <div className="divide-y divide-slate-50">
-                {data.recentStudents.slice(0, 8).map(s => (
-                  <div key={s.id} className="flex items-center justify-between py-2.5 gap-3">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                        <span className="text-[10px] font-bold text-emerald-700">{(s.full_name || s.email || "?")[0].toUpperCase()}</span>
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-slate-800 truncate">{s.full_name || s.email}</p>
-                        <p className="text-xs text-slate-400">{fmtDate(s.created_at)}</p>
-                      </div>
-                    </div>
-                    <Link href={`/admin/students/${s.id}`} className="text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700 flex-shrink-0">View</Link>
-                  </div>
-                ))}
-              </div>
-            )}
-          </SectionCard>
-        </div>
-
-        {/* BLOCKED PROGRAMS */}
-        {data.blockedPrograms.length > 0 && (
-          <div className="mt-6">
-            <SectionCard title="Blocked Programs" href="/admin/programs" hrefLabel="Manage programs">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {data.blockedPrograms.map(p => (
-                  <div key={p.id} className="flex items-start gap-3 p-3 bg-rose-50 border border-rose-100 rounded-xl">
-                    <ShieldAlert className="w-4 h-4 text-rose-500 mt-0.5 flex-shrink-0" />
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-semibold text-rose-900 truncate">{p.title}</p>
-                      <p className="text-xs text-rose-600 mt-0.5">{p.reason}</p>
-                    </div>
-                    <Link href={`/admin/programs/${p.id}`} className="text-xs font-semibold text-rose-700 hover:text-rose-800 flex-shrink-0">
-                      Fix <ArrowRight className="w-3 h-3 inline" />
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </SectionCard>
-          </div>
-        )}
-
-        {/* SECONDARY QUICK LINKS */}
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <QuickLink href="/admin/analytics/learning" title="Learning Analytics" sub="Completion & engagement" />
-          <QuickLink href="/admin/analytics/programs" title="Program Analytics"  sub="Enrollment trends" />
-          <QuickLink href="/admin/certificates"       title="Certificates"       sub={`${fmtNum(certificatesIssued)} issued`} />
-          <QuickLink href="/admin/activity"           title="Activity Log"       sub="Recent system events" />
-        </div>
-
-        {/* EMPTY STATE */}
-        {isOperationallyEmpty(data) && (
-          <div className="mt-16 text-center">
-            <GraduationCap className="w-16 h-16 text-slate-200 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">No operational data yet</h2>
-            <p className="text-slate-500 max-w-md mx-auto mb-8">Once students enroll and applications come in, this dashboard will populate automatically.</p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link href="/admin/programs/new" className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-blue-700 transition-colors">
-                <BookOpen className="w-4 h-4" /> Create a Program
-              </Link>
-              <Link href="/admin/students/invite" className="inline-flex items-center gap-2 border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-colors">
-                <Users className="w-4 h-4" /> Invite Students
-              </Link>
+      </div>
+      <div className="p-6 space-y-3">
+        {[
+          { label: "Stripe Webhooks", ok: health.stripeWebhookOk },
+          { label: "Build Environment", ok: health.buildEnvOk },
+          { label: "Stale Jobs", ok: health.staleJobs === 0, note: health.staleJobs > 0 ? `${health.staleJobs} stale` : undefined },
+          { label: "Missing Documents", ok: health.missingDocuments === 0, note: health.missingDocuments > 0 ? `${health.missingDocuments} missing` : undefined },
+          { label: "Unresolved Flags", ok: health.unresolvedFlags === 0, note: health.unresolvedFlags > 0 ? `${health.unresolvedFlags} open` : undefined },
+        ].map((row) => (
+          <div key={row.label} className="flex items-center justify-between">
+            <span className="text-sm text-slate-600">{row.label}</span>
+            <div className="flex items-center gap-2">
+              {row.note && <span className="text-xs text-amber-600 font-medium">{row.note}</span>}
+              {row.ok
+                ? <CheckCircle className="w-4 h-4 text-emerald-500" />
+                : <AlertTriangle className="w-4 h-4 text-amber-500" />}
             </div>
           </div>
-        )}
+        ))}
+        {health.alerts.filter(a => a.severity === "critical").map((a) => (
+          <div key={a.code} className="mt-2 p-3 bg-red-50 border border-red-100 rounded-lg text-xs text-red-700">{a.message}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
+// ─── Main Shell ──────────────────────────────────────────────────────────────
+
+export function DashboardShell({ data }: { data: AdminDashboardData }) {
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <HeroHeader data={data} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        {data.degradedSections.length > 0 && (
+          <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3">
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+            <p className="text-sm text-amber-800 font-medium">Some sections unavailable: {data.degradedSections.join(", ")}</p>
+          </div>
+        )}
+        <KPIGrid kpis={data.kpis} counts={data.counts} />
+        <QuickActions />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <ApplicationsPanel apps={data.recentApplications} />
+          <StudentsPanel students={data.recentStudents} />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <SubmissionsPanel submissions={data.pendingSubmissions} />
+          <InactivePanel learners={data.inactiveLearners} />
+        </div>
+        <SystemHealthPanel health={data.systemHealth} />
       </div>
     </div>
   );
