@@ -7,7 +7,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { Clock, Award, ChevronRight, DollarSign } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: 'Programs | Elevate for Humanity',
