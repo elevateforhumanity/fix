@@ -76,8 +76,7 @@ export default async function LmsPublicPage() {
         microLabel={heroBanners['lms'].microLabel}
         belowHeroHeadline={heroBanners['lms'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['lms'].belowHeroSubheadline}
-        ctas={[heroBanners['lms'].primaryCta}
-        secondaryCta={heroBanners['lms'].secondaryCta}
+        ctas={[heroBanners['lms'].primaryCta, heroBanners['lms'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['lms'].trustIndicators}
         transcript={heroBanners['lms'].transcript}
       />

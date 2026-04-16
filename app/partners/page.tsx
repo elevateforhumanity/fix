@@ -234,8 +234,7 @@ export default function PartnersIndexPage() {
         microLabel={banner.microLabel}
         belowHeroHeadline={banner.belowHeroHeadline}
         belowHeroSubheadline={banner.belowHeroSubheadline}
-        ctas={[banner.primaryCta}
-        secondaryCta={banner.secondaryCta}
+        ctas={[banner.primaryCta, banner.secondaryCta].filter(Boolean)}
         trustIndicators={banner.trustIndicators}
         transcript={banner.transcript}
       />

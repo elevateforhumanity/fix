@@ -65,8 +65,7 @@ export default function SupersonicPage() {
         microLabel={heroBanners['supersonic'].microLabel}
         belowHeroHeadline={heroBanners['supersonic'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['supersonic'].belowHeroSubheadline}
-        ctas={[heroBanners['supersonic'].primaryCta}
-        secondaryCta={heroBanners['supersonic'].secondaryCta}
+        ctas={[heroBanners['supersonic'].primaryCta, heroBanners['supersonic'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['supersonic'].trustIndicators}
         transcript={heroBanners['supersonic'].transcript}
       />

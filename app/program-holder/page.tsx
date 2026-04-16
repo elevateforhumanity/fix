@@ -61,8 +61,7 @@ export default async function ProgramHolderLanding() {
         microLabel={heroBanners['program-holder'].microLabel}
         belowHeroHeadline={heroBanners['program-holder'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['program-holder'].belowHeroSubheadline}
-        ctas={[heroBanners['program-holder'].primaryCta}
-        secondaryCta={heroBanners['program-holder'].secondaryCta}
+        ctas={[heroBanners['program-holder'].primaryCta, heroBanners['program-holder'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['program-holder'].trustIndicators}
         transcript={heroBanners['program-holder'].transcript}
       />

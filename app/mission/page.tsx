@@ -67,8 +67,7 @@ export default function MissionPage() {
         microLabel={heroBanners['mission'].microLabel}
         belowHeroHeadline={heroBanners['mission'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['mission'].belowHeroSubheadline}
-        ctas={[heroBanners['mission'].primaryCta}
-        secondaryCta={heroBanners['mission'].secondaryCta}
+        ctas={[heroBanners['mission'].primaryCta, heroBanners['mission'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['mission'].trustIndicators}
         transcript={heroBanners['mission'].transcript}
       />

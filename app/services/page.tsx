@@ -89,8 +89,7 @@ export default function ServicesPage() {
         microLabel={heroBanners['services'].microLabel}
         belowHeroHeadline={heroBanners['services'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['services'].belowHeroSubheadline}
-        ctas={[heroBanners['services'].primaryCta}
-        secondaryCta={heroBanners['services'].secondaryCta}
+        ctas={[heroBanners['services'].primaryCta, heroBanners['services'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['services'].trustIndicators}
         transcript={heroBanners['services'].transcript}
       />

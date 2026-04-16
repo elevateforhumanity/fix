@@ -62,8 +62,7 @@ export default function StartPage() {
         microLabel={heroBanners['start'].microLabel}
         belowHeroHeadline={heroBanners['start'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['start'].belowHeroSubheadline}
-        ctas={[heroBanners['start'].primaryCta}
-        secondaryCta={heroBanners['start'].secondaryCta}
+        ctas={[heroBanners['start'].primaryCta, heroBanners['start'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['start'].trustIndicators}
         transcript={heroBanners['start'].transcript}
       />

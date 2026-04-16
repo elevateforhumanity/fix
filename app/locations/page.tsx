@@ -74,8 +74,7 @@ export default async function LocationsPage() {
         microLabel={heroBanners['locations'].microLabel}
         belowHeroHeadline={heroBanners['locations'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['locations'].belowHeroSubheadline}
-        ctas={[heroBanners['locations'].primaryCta}
-        secondaryCta={heroBanners['locations'].secondaryCta}
+        ctas={[heroBanners['locations'].primaryCta, heroBanners['locations'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['locations'].trustIndicators}
         transcript={heroBanners['locations'].transcript}
       />

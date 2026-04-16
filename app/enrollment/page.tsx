@@ -119,8 +119,7 @@ export default async function EnrollmentPage() {
         microLabel={heroBanners['enrollment'].microLabel}
         belowHeroHeadline={heroBanners['enrollment'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['enrollment'].belowHeroSubheadline}
-        ctas={[heroBanners['enrollment'].primaryCta}
-        secondaryCta={heroBanners['enrollment'].secondaryCta}
+        ctas={[heroBanners['enrollment'].primaryCta, heroBanners['enrollment'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['enrollment'].trustIndicators}
         transcript={heroBanners['enrollment'].transcript}
       />

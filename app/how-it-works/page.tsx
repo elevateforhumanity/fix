@@ -42,8 +42,7 @@ export default function HowItWorksPage() {
         microLabel={heroBanners['how-it-works'].microLabel}
         belowHeroHeadline={heroBanners['how-it-works'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['how-it-works'].belowHeroSubheadline}
-        ctas={[heroBanners['how-it-works'].primaryCta}
-        secondaryCta={heroBanners['how-it-works'].secondaryCta}
+        ctas={[heroBanners['how-it-works'].primaryCta, heroBanners['how-it-works'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['how-it-works'].trustIndicators}
         transcript={heroBanners['how-it-works'].transcript}
       />

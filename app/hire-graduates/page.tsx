@@ -36,8 +36,7 @@ export default async function HireGraduatesPage() {
         microLabel={heroBanners['hire-graduates'].microLabel}
         belowHeroHeadline={heroBanners['hire-graduates'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['hire-graduates'].belowHeroSubheadline}
-        ctas={[heroBanners['hire-graduates'].primaryCta}
-        secondaryCta={heroBanners['hire-graduates'].secondaryCta}
+        ctas={[heroBanners['hire-graduates'].primaryCta, heroBanners['hire-graduates'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['hire-graduates'].trustIndicators}
         transcript={heroBanners['hire-graduates'].transcript}
       />

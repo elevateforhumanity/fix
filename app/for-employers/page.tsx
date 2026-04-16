@@ -70,8 +70,7 @@ export default async function ForEmployersPage() {
         microLabel={heroBanners['for-employers'].microLabel}
         belowHeroHeadline={heroBanners['for-employers'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['for-employers'].belowHeroSubheadline}
-        ctas={[heroBanners['for-employers'].primaryCta}
-        secondaryCta={heroBanners['for-employers'].secondaryCta}
+        ctas={[heroBanners['for-employers'].primaryCta, heroBanners['for-employers'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['for-employers'].trustIndicators}
         transcript={heroBanners['for-employers'].transcript}
       />

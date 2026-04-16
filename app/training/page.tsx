@@ -104,8 +104,7 @@ export default function TrainingPage() {
         microLabel={heroBanners['training'].microLabel}
         belowHeroHeadline={heroBanners['training'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['training'].belowHeroSubheadline}
-        ctas={[heroBanners['training'].primaryCta}
-        secondaryCta={heroBanners['training'].secondaryCta}
+        ctas={[heroBanners['training'].primaryCta, heroBanners['training'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['training'].trustIndicators}
         transcript={heroBanners['training'].transcript}
       />

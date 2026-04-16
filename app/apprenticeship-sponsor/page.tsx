@@ -22,8 +22,7 @@ export default function ApprenticeshipSponsorPage() {
         microLabel={heroBanners['apprenticeship-sponsor'].microLabel}
         belowHeroHeadline={heroBanners['apprenticeship-sponsor'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['apprenticeship-sponsor'].belowHeroSubheadline}
-        ctas={[heroBanners['apprenticeship-sponsor'].primaryCta}
-        secondaryCta={heroBanners['apprenticeship-sponsor'].secondaryCta}
+        ctas={[heroBanners['apprenticeship-sponsor'].primaryCta, heroBanners['apprenticeship-sponsor'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['apprenticeship-sponsor'].trustIndicators}
         transcript={heroBanners['apprenticeship-sponsor'].transcript}
       />

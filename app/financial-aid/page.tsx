@@ -77,8 +77,7 @@ export default function FinancialAidPage() {
         microLabel={heroBanners['financial-aid'].microLabel}
         belowHeroHeadline={heroBanners['financial-aid'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['financial-aid'].belowHeroSubheadline}
-        ctas={[heroBanners['financial-aid'].primaryCta}
-        secondaryCta={heroBanners['financial-aid'].secondaryCta}
+        ctas={[heroBanners['financial-aid'].primaryCta, heroBanners['financial-aid'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['financial-aid'].trustIndicators}
         transcript={heroBanners['financial-aid'].transcript}
       />

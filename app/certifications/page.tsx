@@ -36,8 +36,7 @@ export default function CertificationsPage() {
         microLabel={heroBanners['certifications'].microLabel}
         belowHeroHeadline={heroBanners['certifications'].belowHeroHeadline}
         belowHeroSubheadline={heroBanners['certifications'].belowHeroSubheadline}
-        ctas={[heroBanners['certifications'].primaryCta}
-        secondaryCta={heroBanners['certifications'].secondaryCta}
+        ctas={[heroBanners['certifications'].primaryCta, heroBanners['certifications'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['certifications'].trustIndicators}
         transcript={heroBanners['certifications'].transcript}
       />
