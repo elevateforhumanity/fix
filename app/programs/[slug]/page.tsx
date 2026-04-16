@@ -1,7 +1,6 @@
 import { getAdminClient } from '@/lib/supabase/admin';
 
 import { notFound } from 'next/navigation';
-import { createPublicClient } from '@/lib/supabase/server';
 import fs from 'fs';
 import path from 'path';
 import { programs } from '@/app/data/programs';
@@ -33,10 +32,9 @@ const VISUAL_TEMPLATE_PROGRAMS = [
   'tax-preparation', 'cdl', 'jri',
 ];
 
-// Cache program pages for 10 minutes - eliminates 21s+ load times
-// force-dynamic: skip generateStaticParams at build time — too many slugs causes OOM.
-// Pages are rendered on first request and cached at the CDN edge via Cache-Control headers.
-export const dynamic = 'force-dynamic';
+// ISR: render on first request, cache for 10 minutes.
+// generateStaticParams is intentionally absent — pre-building all slugs causes OOM.
+// Next.js renders unknown slugs on demand and caches them at the CDN edge.
 export const revalidate = 600;
 
 type Params = Promise<{ slug: string }>;
@@ -61,42 +59,6 @@ async function loadProgram(slug: string): Promise<Program | null> {
   return programs.find((p) => p.slug === slug) || null;
 }
 
-// Generate static paths for all programs at build time
-export async function generateStaticParams() {
-  const programSlugs: string[] = [];
-
-  // Get slugs from TypeScript data
-  programSlugs.push(...programs.map((p) => p.slug));
-
-  // Get slugs from JSON files
-  const jsonDir = path.join(process.cwd(), 'data', 'programs');
-  if (fs.existsSync(jsonDir)) {
-    const files = fs.readdirSync(jsonDir);
-    const jsonSlugs = files
-      .filter((file) => file.endsWith('.json'))
-      .map((file) => file.replace(/\.json$/, ''));
-    programSlugs.push(...jsonSlugs);
-  }
-
-  // Get all active slugs from DB
-  try {
-    const supabase = await getAdminClient();
-    const { data: dbPrograms } = await supabase
-      .from('programs')
-      .select('slug')
-      .eq('status', 'active');
-    if (dbPrograms) {
-      programSlugs.push(...dbPrograms.map((p: { slug: string }) => p.slug));
-    }
-  } catch {
-    // DB unavailable at build time — static data only
-  }
-
-  // Remove duplicates
-  const uniqueSlugs = [...new Set(programSlugs)];
-
-  return uniqueSlugs.map((slug) => ({ slug }));
-}
 
 // Generate metadata for SEO
 export async function generateMetadata({
