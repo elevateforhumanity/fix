@@ -152,7 +152,7 @@ export async function getPublishedProgramBySlug(slug: string): Promise<ProgramRe
     `)
     .eq('slug', slug)
     .eq('published', true)
-    .maybeSingle();
+    .single();
 
   if (error || !data) {
     throw new Error(`Published program not found for slug: ${slug}`);
