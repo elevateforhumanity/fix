@@ -1,21 +1,25 @@
-// PUBLIC ROUTE: login endpoint — no auth possible
-/**
- * @deprecated No active callers. Canonical endpoint is /api/auth/signin.
- * Kept to avoid 404s from any external integrations — forwards to signin.
- * Do not add new callers.
- */
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { rateLimitNew as rateLimit, getClientIdentifier, RATE_LIMITS } from '@/lib/rateLimit';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
 
-async function _POST(request: Request) {
+export async function POST(request: Request) {
   try {
     const rateLimited = await applyRateLimit(request, 'strict');
     if (rateLimited) return rateLimited;
 
+    // Rate limit: 5 login attempts per minute per IP
+    const identifier = getClientIdentifier(request.headers);
+    const rateLimitResult = rateLimit(identifier, RATE_LIMITS.AUTH);
     
+    if (!rateLimitResult.ok) {
+      return NextResponse.json(
+        { error: 'Too many login attempts. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': '60' } }
+      );
+    }
+
     const { email, password } = await request.json();
 
     if (!email || !password) {
@@ -34,7 +38,7 @@ async function _POST(request: Request) {
 
     if (error) {
       return NextResponse.json(
-        { error: 'Internal server error' },
+        { error: error.message },
         { status: 401 }
       );
     }
@@ -52,14 +56,9 @@ async function _POST(request: Request) {
   }
 }
 
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json(
+export async function GET() {
+  return NextResponse.json(
     { error: 'Method not allowed. Use POST to login.' },
     { status: 405 }
   );
 }
-export const GET = withApiAudit('/api/auth/login', _GET);
-export const POST = withApiAudit('/api/auth/login', _POST);

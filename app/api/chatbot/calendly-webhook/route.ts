@@ -1,18 +1,13 @@
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { resend } from '@/lib/resend';
-import { hydrateProcessEnv } from '@/lib/secrets';
+import { Resend } from 'resend';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { claimWebhookEvent, finalizeWebhookEvent } from '@/lib/webhooks/event-tracker';
-import { withRuntime } from '@/lib/api/withRuntime';
-
-// AUTH: Intentionally public — no authentication required
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 // Initialize Resend only if API key is available (prevents build errors)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Calendly webhook events
 interface CalendlyEvent {
@@ -137,7 +132,7 @@ Ona`;
 
   if (resend) {
     await resend.emails.send({
-      from: 'Ona <info@elevateforhumanity.org>',
+      from: 'Ona <elevate4humanityedu@gmail.com>',
       to: invitee.email,
       subject: 'Scope confirmation call',
       text: emailContent,
@@ -229,7 +224,7 @@ Timestamp: ${new Date().toISOString()}
 
   if (resend) {
     await resend.emails.send({
-      from: 'Elevate Calendly <info@elevateforhumanity.org>',
+      from: 'Elevate Calendly <elevate4humanityedu@gmail.com>',
       to: internalEmail,
       subject: `Scope Call Booked — ${payload.invitee.name}`,
       text: emailContent,
@@ -237,108 +232,50 @@ Timestamp: ${new Date().toISOString()}
   }
 }
 
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-  await hydrateProcessEnv();
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    // Verify Calendly webhook signature (HMAC-SHA256, t=timestamp.v1=sig format)
-    // Set CALENDLY_WEBHOOK_SECRET to the signing key from Calendly Dashboard → Webhooks.
-    // Until configured, requests are accepted but a warning is logged.
-    const sigHeader = request.headers.get('calendly-webhook-signature');
-    const webhookSecret = process.env.CALENDLY_WEBHOOK_SECRET;
-    if (!webhookSecret) {
-      logger.warn('[Calendly Webhook] CALENDLY_WEBHOOK_SECRET not set — skipping signature verification');
-    } else if (!sigHeader) {
-      logger.warn('[Calendly Webhook] Missing signature header — rejecting');
-      return NextResponse.json({ error: 'Missing signature' }, { status: 401 });
-    } else {
-      // Parse "t=<timestamp>,v1=<signature>"
-      const parts = Object.fromEntries(sigHeader.split(',').map(p => p.split('=')));
-      const timestamp = parts['t'];
-      const receivedSig = parts['v1'];
-      if (!timestamp || !receivedSig) {
-        logger.warn('[Calendly Webhook] Malformed signature header');
-        return NextResponse.json({ error: 'Invalid signature format' }, { status: 401 });
-      }
-      // Reject stale webhooks (>5 min)
-      if (Math.abs(Date.now() / 1000 - Number(timestamp)) > 300) {
-        logger.warn('[Calendly Webhook] Stale timestamp rejected');
-        return NextResponse.json({ error: 'Request too old' }, { status: 401 });
-      }
-      const rawBody = await request.text();
-      const { createHmac, timingSafeEqual } = await import('crypto');
-      const expected = createHmac('sha256', webhookSecret)
-        .update(`${timestamp}.${rawBody}`)
-        .digest('hex');
-      if (!timingSafeEqual(Buffer.from(receivedSig, 'hex'), Buffer.from(expected, 'hex'))) {
-        logger.error('[Calendly Webhook] Signature mismatch — rejecting');
-        return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
-      }
-    }
+    // Verify webhook signature (Calendly uses a signing key)
+    const signature = request.headers.get('calendly-webhook-signature');
+    // In production, verify this signature against CALENDLY_WEBHOOK_SECRET
+    
     const event: CalendlyEvent = await request.json();
-
+    
     logger.info('[Calendly Webhook] Received event:', event.event);
-
-    // Use scheduled_event URI as the stable dedup key; fall back to invitee email + type
-    const eventId: string =
-      (event.payload as Record<string, unknown>)['uri'] as string ||
-      `${event.event}:${event.payload.invitee.email}:${event.payload.scheduled_event.start_time}`;
-
-    const { shouldProcess, confident } = await claimWebhookEvent(
-      'calendly',
-      eventId,
-      event.event,
-      {
-        invitee_email: event.payload.invitee.email,
-        event_type_slug: event.payload.event_type.slug,
-        start_time: event.payload.scheduled_event.start_time,
-      },
-    );
-
-    if (!shouldProcess) {
-      return NextResponse.json({ received: true, idempotent: true });
+    
+    if (!process.env.RESEND_API_KEY) {
+      logger.warn('[Calendly Webhook] RESEND_API_KEY not configured');
+      return NextResponse.json({ 
+        success: true, 
+        warning: 'Email not sent - RESEND_API_KEY not configured' 
+      });
     }
-
-    if (!confident) {
-      logger.error('[Calendly Webhook] Cannot verify idempotency — rejecting for retry', { eventId });
-      return NextResponse.json({ error: 'Temporary processing error' }, { status: 503 });
+    
+    switch (event.event) {
+      case 'invitee.created':
+        // New booking created
+        await Promise.all([
+          sendBookingConfirmation(event.payload.invitee),
+          notifyInternal(event.payload),
+          sendReminder(event.payload.invitee, event.payload.scheduled_event.start_time),
+        ]);
+        
+        logger.info('[Calendly Webhook] Booking confirmation sent to:', event.payload.invitee.email);
+        break;
+        
+      case 'invitee.canceled':
+        // Booking canceled - could send cancellation email or update CRM
+        logger.info('[Calendly Webhook] Booking canceled:', event.payload.invitee.email);
+        break;
+        
+      default:
+        logger.info('[Calendly Webhook] Unhandled event type:', event.event);
     }
-
-    try {
-      if (!process.env.SENDGRID_API_KEY) {
-        logger.warn('[Calendly Webhook] SENDGRID_API_KEY not configured');
-        await finalizeWebhookEvent('calendly', eventId, 'skipped', 'SENDGRID_API_KEY not configured');
-        return NextResponse.json({ success: true, warning: 'Email not sent - SENDGRID_API_KEY not configured' });
-      }
-
-      switch (event.event) {
-        case 'invitee.created':
-          await Promise.all([
-            sendBookingConfirmation(event.payload.invitee),
-            notifyInternal(event.payload),
-            sendReminder(event.payload.invitee, event.payload.scheduled_event.start_time),
-          ]);
-          logger.info('[Calendly Webhook] Booking confirmation sent to:', event.payload.invitee.email);
-          break;
-
-        case 'invitee.canceled':
-          logger.info('[Calendly Webhook] Booking canceled:', event.payload.invitee.email);
-          break;
-
-        default:
-          logger.info('[Calendly Webhook] Unhandled event type:', event.event);
-      }
-
-      await finalizeWebhookEvent('calendly', eventId, 'processed');
-      return NextResponse.json({ success: true });
-
-    } catch (error) {
-      await finalizeWebhookEvent('calendly', eventId, 'errored', String(error));
-      throw error;
-    }
-
+    
+    return NextResponse.json({ success: true });
+    
   } catch (error) {
     logger.error('[Calendly Webhook] Error:', error);
     return NextResponse.json(
@@ -349,16 +286,11 @@ async function _POST(request: NextRequest) {
 }
 
 // GET endpoint for webhook verification
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET() {
+  return NextResponse.json({
     status: 'ok',
     endpoint: 'chatbot/calendly-webhook',
     description: 'Handles Calendly booking events for scope confirmation calls',
     events: ['invitee.created', 'invitee.canceled'],
   });
 }
-export const GET = withRuntime(withApiAudit('/api/chatbot/calendly-webhook', _GET, { actor_type: 'webhook', skip_body: true }));
-export const POST = withRuntime(withApiAudit('/api/chatbot/calendly-webhook', _POST, { actor_type: 'webhook', skip_body: true }));

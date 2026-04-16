@@ -8,9 +8,6 @@ import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-
-import { withRuntime } from '@/lib/api/withRuntime';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -42,7 +39,7 @@ When giving career advice:
 
 Keep responses conversational but informative (3-5 sentences).`;
 
-async function _POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const rateLimited = await applyRateLimit(req, 'api');
     if (rateLimited) return rateLimited;
@@ -67,7 +64,7 @@ async function _POST(req: NextRequest) {
           started_at: new Date().toISOString(),
         })
         .select('id')
-        .maybeSingle();
+        .single();
       convId = newConv?.id;
     }
 
@@ -172,15 +169,10 @@ function generateSuggestions(response: string, profile: any): string[] {
   return suggestions.slice(0, 4);
 }
 
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET() {
+  return NextResponse.json({
     name: 'AI Career Counseling API',
     version: '1.0.0',
     description: 'Personalized career guidance powered by AI',
   });
 }
-export const GET = withRuntime(withApiAudit('/api/career-counseling/chat', _GET));
-export const POST = withRuntime(withApiAudit('/api/career-counseling/chat', _POST));

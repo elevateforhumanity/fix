@@ -1,15 +1,12 @@
 
+export const runtime = 'nodejs';
+export const maxDuration = 60;
 
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { searchEntities } from '@/lib/integrations/sam-gov';
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
-
-export const runtime = 'nodejs';
-export const maxDuration = 60;
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +15,7 @@ export const dynamic = 'force-dynamic';
  * Fetches entities from SAM.gov and saves to database
  * Should be called by cron job daily
  */
-async function _POST(request: Request) {
+export async function POST(request: Request) {
   try {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
@@ -82,7 +79,7 @@ async function _POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Internal server error',
+          error: error instanceof Error ? error.message : String(error),
         },
         { status: 500 }
       );
@@ -105,7 +102,7 @@ async function _POST(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        error: 'Internal server error',
+        error: error instanceof Error ? error.message : String(error),
       },
       { status: 500 }
     );
@@ -113,11 +110,6 @@ async function _POST(request: Request) {
 }
 
 // Allow GET for manual trigger (admin only)
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return POST(request);
+export async function GET(request: Request) {
+  return POST(request);
 }
-export const GET = withRuntime(withApiAudit('/api/sam-gov/sync', _GET));
-export const POST = withRuntime(withApiAudit('/api/sam-gov/sync', _POST));

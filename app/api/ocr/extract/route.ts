@@ -1,22 +1,57 @@
-import { logger } from '@/lib/logger';
 /**
  * Universal OCR Extraction API
- * Redirects to Netlify function to keep heavy dependencies out of main handler
+ * 
+ * Used across the entire website for document reading:
+ * - WIOA eligibility verification (pay stubs, ID, proof of residence)
+ * - JRI applications (court documents, ID)
+ * - Program enrollment (transcripts, certificates)
+ * - Financial aid (tax returns, bank statements)
+ * - Workforce board (employment verification)
+ * - Apprenticeship (work logs, certifications)
+ * - Healthcare programs (TB tests, immunization records)
+ * - CDL training (driver's license, medical cards)
+ * - Barber/Cosmetology (state licenses)
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 export const runtime = 'nodejs';
-export const maxDuration = 120;
+export const maxDuration = 120; // OCR can take time
 
-async function _POST(req: NextRequest) {
+// Dynamic import to avoid bundling tesseract.js into the main handler
+async function getOCRFunctions() {
+  const ocr = await import('@/lib/ocr/tesseract-ocr');
+  return {
+    extractTextFromImage: ocr.extractTextFromImage,
+    autoExtract: ocr.autoExtract,
+    extractW2Data: ocr.extractW2Data,
+    extract1099Data: ocr.extract1099Data,
+    extractIDData: ocr.extractIDData,
+  };
+}
+
+// Document types supported
+type DocumentType = 
+  | 'id' 
+  | 'drivers_license'
+  | 'pay_stub' 
+  | 'w2' 
+  | '1099' 
+  | 'tax_return'
+  | 'bank_statement'
+  | 'court_document'
+  | 'transcript'
+  | 'certificate'
+  | 'immunization_record'
+  | 'tb_test'
+  | 'medical_card'
+  | 'work_log'
+  | 'proof_of_residence'
+  | 'auto';
+
+export async function POST(req: NextRequest) {
   try {
-    const rateLimited = await applyRateLimit(req, 'contact');
-    if (rateLimited) return rateLimited;
-
     const supabase = await createClient();
     
     // Check authentication
@@ -27,7 +62,7 @@ async function _POST(req: NextRequest) {
 
     const formData = await req.formData();
     const file = formData.get('file') as File;
-    const documentType = formData.get('documentType') as string || 'auto';
+    const documentType = (formData.get('documentType') as DocumentType) || 'auto';
     const programContext = formData.get('programContext') as string || 'general';
 
     if (!file) {
@@ -35,35 +70,53 @@ async function _POST(req: NextRequest) {
     }
 
     // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'application/pdf'];
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json({ 
-        error: 'Invalid file type. Supported: JPEG, PNG, WebP' 
+        error: 'Invalid file type. Supported: JPEG, PNG, WebP, GIF, PDF' 
       }, { status: 400 });
     }
 
-    // Convert file to base64
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const base64 = buffer.toString('base64');
-    const dataUrl = `data:${file.type};base64,${base64}`;
+    // Convert file to buffer
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-    // Call Netlify function
-    const response = await fetch(`${process.env.URL || ''}/.netlify/functions/ocr-extract`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        image: dataUrl,
-        options: { language: 'eng', preprocess: true },
-      }),
-    });
+    // Get OCR functions (dynamic import)
+    const { extractTextFromImage, autoExtract, extractW2Data, extract1099Data, extractIDData } = await getOCRFunctions();
 
-    if (!response.ok) {
-      const detail = await response.text();
-      logger.error('OCR Netlify function error', { status: response.status, detail });
-      return NextResponse.json({ error: 'OCR extraction failed' }, { status: 500 });
+    let result: any;
+    let rawText = '';
+
+    // Handle based on document type
+    if (file.type === 'application/pdf') {
+      // For PDFs, use pdf-parse
+      const pdfParse = (await import('pdf-parse')).default;
+      const pdfData = await pdfParse(buffer);
+      rawText = pdfData.text;
+      result = { text: rawText, type: 'pdf', pages: pdfData.numpages };
+    } else {
+      // For images, use OCR
+      rawText = await extractTextFromImage(buffer);
+      
+      // Extract structured data based on document type
+      switch (documentType) {
+        case 'w2':
+          result = await extractW2Data(buffer);
+          break;
+        case '1099':
+          result = await extract1099Data(buffer);
+          break;
+        case 'id':
+        case 'drivers_license':
+          result = await extractIDData(buffer);
+          break;
+        case 'auto':
+          result = await autoExtract(buffer);
+          break;
+        default:
+          result = { text: rawText, type: documentType };
+      }
     }
-
-    const result = await response.json();
 
     // Log extraction for audit
     await supabase.from('ocr_extractions').insert({
@@ -74,37 +127,38 @@ async function _POST(req: NextRequest) {
       file_type: file.type,
       success: true,
       extracted_at: new Date().toISOString(),
-    }).catch(() => {});
+    }).catch(() => {}); // Don't fail if logging fails
 
     return NextResponse.json({
       success: true,
       data: result,
-      rawText: result.text?.substring(0, 500),
+      rawText: rawText.substring(0, 500), // First 500 chars for preview
       documentType,
       programContext,
     });
 
   } catch (error) {
-    logger.error('OCR extraction failed:', error);
+    console.error('OCR extraction failed:', error);
     return NextResponse.json({
       success: false,
       error: 'OCR extraction failed',
-      message: 'Internal server error',
+      message: error instanceof Error ? error.message : 'Unknown error',
     }, { status: 500 });
   }
 }
 
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET() {
+  return NextResponse.json({
     name: 'Universal OCR API',
-    version: '2.0.0',
-    description: 'Extract text from documents (powered by Netlify function)',
-    supportedFormats: ['JPEG', 'PNG', 'WebP'],
+    version: '1.0.0',
+    description: 'Extract text and data from documents across all programs',
+    supportedTypes: [
+      'id', 'drivers_license', 'pay_stub', 'w2', '1099', 'tax_return',
+      'bank_statement', 'court_document', 'transcript', 'certificate',
+      'immunization_record', 'tb_test', 'medical_card', 'work_log',
+      'proof_of_residence', 'auto'
+    ],
+    supportedFormats: ['JPEG', 'PNG', 'WebP', 'GIF', 'PDF'],
     usage: 'POST with multipart/form-data: file, documentType, programContext',
   });
 }
-export const GET = withApiAudit('/api/ocr/extract', _GET);
-export const POST = withApiAudit('/api/ocr/extract', _POST);
