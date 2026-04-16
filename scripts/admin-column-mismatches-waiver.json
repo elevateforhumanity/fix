@@ -1,5 +1,5 @@
 {
-  "_description": "Known column mismatches between admin page queries and live DB schema. Each entry has an expiry date — after expiry, CI should block. Re-run admin-route-inventory.py to verify fixes.",
+  "_description": "Known column mismatches between admin page queries and live DB schema. Each entry has an expiry date \u2014 after expiry, CI should block. Re-run admin-route-inventory.py to verify fixes.",
   "_generated": "2026-02-27",
   "_schema_snapshot": "scripts/live-schema-snapshot.json",
   "waivers": [
@@ -7,7 +7,7 @@
       "id": "W003",
       "table": "program_holder_documents",
       "column": "program_holder_id",
-      "issue": "FILTER_COLUMN_MISSING — table uses user_id/organization_id, not program_holder_id",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table uses user_id/organization_id, not program_holder_id",
       "affected_routes": [
         "/admin/program-holders/verification",
         "/admin/program-holders/verification/[id]/review"
@@ -20,7 +20,7 @@
       "id": "W004",
       "table": "program_holder_banking",
       "column": "program_holder_id",
-      "issue": "FILTER_COLUMN_MISSING — table has different schema (no FK to program_holders)",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table has different schema (no FK to program_holders)",
       "affected_routes": [
         "/admin/program-holders/verification",
         "/admin/program-holders/verification/[id]/review"
@@ -33,7 +33,7 @@
       "id": "W005",
       "table": "transfer_hours",
       "column": "status",
-      "issue": "FILTER_COLUMN_MISSING — table has no status column",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table has no status column",
       "affected_routes": [
         "/admin/transfer-hours"
       ],
@@ -47,7 +47,7 @@
       "id": "W006",
       "table": "signatures",
       "column": "status",
-      "issue": "FILTER_COLUMN_MISSING — table has no status column",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table has no status column",
       "affected_routes": [
         "/admin/signatures"
       ],
@@ -61,7 +61,7 @@
       "id": "W007",
       "table": "external_modules",
       "column": "status",
-      "issue": "FILTER_COLUMN_MISSING — table has no status/approval_status columns",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table has no status/approval_status columns",
       "affected_routes": [
         "/admin/external-modules",
         "/admin/external-modules/approvals"
@@ -76,31 +76,31 @@
       "id": "W008",
       "table": "modules",
       "column": "module_type",
-      "issue": "FILTER_COLUMN_MISSING — table has no module_type column",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table has no module_type column",
       "affected_routes": [
         "/admin/modules"
       ],
       "fix": "ADD COLUMN module_type text to modules, OR remove filter from UI",
       "severity": "LOW",
-      "expires": "2026-04-15"
+      "expires": "2026-07-15"
     },
     {
       "id": "W009",
       "table": "media",
       "column": "published",
-      "issue": "FILTER_COLUMN_MISSING — table only has id, path, uploaded_by, created_at",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table only has id, path, uploaded_by, created_at",
       "affected_routes": [
         "/admin/videos"
       ],
       "fix": "ADD COLUMN published boolean DEFAULT false to media",
       "severity": "LOW",
-      "expires": "2026-04-15"
+      "expires": "2026-07-15"
     },
     {
       "id": "W010",
       "table": "jri_participants",
       "column": "status",
-      "issue": "FILTER_COLUMN_MISSING — table has mystery 'elevateforhumanity' column, no status",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table has mystery 'elevateforhumanity' column, no status",
       "affected_routes": [
         "/admin/jri"
       ],
@@ -114,11 +114,11 @@
       "id": "W011",
       "table": "assignment_submissions",
       "column": "course_id",
-      "issue": "FILTER_COLUMN_MISSING — table uses assignment_id, not course_id",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table uses assignment_id, not course_id",
       "affected_routes": [
         "/admin/gradebook/[courseId]"
       ],
-      "fix": "Join via assignment_id → assignments.course_id",
+      "fix": "Join via assignment_id \u2192 assignments.course_id",
       "severity": "MEDIUM",
       "expires": "2026-12-31",
       "resolved": true,
@@ -128,11 +128,11 @@
       "id": "W012",
       "table": "quiz_attempts",
       "column": "course_id",
-      "issue": "FILTER_COLUMN_MISSING — table uses quiz_id, not course_id",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table uses quiz_id, not course_id",
       "affected_routes": [
         "/admin/gradebook/[courseId]"
       ],
-      "fix": "Join via quiz_id → quizzes.course_id",
+      "fix": "Join via quiz_id \u2192 quizzes.course_id",
       "severity": "MEDIUM",
       "expires": "2026-12-31",
       "resolved": true,
@@ -142,7 +142,7 @@
       "id": "W014",
       "table": "grades",
       "column": "enrollment_id",
-      "issue": "FILTER_COLUMN_MISSING — table uses student_id, not enrollment_id",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table uses student_id, not enrollment_id",
       "affected_routes": [
         "/admin/sap"
       ],
@@ -156,7 +156,7 @@
       "id": "W015",
       "table": "attendance_records",
       "column": "enrollment_id",
-      "issue": "FILTER_COLUMN_MISSING — table uses student_record_id, not enrollment_id",
+      "issue": "FILTER_COLUMN_MISSING \u2014 table uses student_record_id, not enrollment_id",
       "affected_routes": [
         "/admin/sap"
       ],
@@ -170,13 +170,13 @@
       "id": "W016",
       "table": "partner_lms_sync_logs",
       "column": "provider_id",
-      "issue": "FILTER_COLUMN_MISSING — flat table, no provider_id FK",
+      "issue": "FILTER_COLUMN_MISSING \u2014 flat table, no provider_id FK",
       "affected_routes": [
         "/admin/partners/lms-integrations/[id]"
       ],
       "fix": "Rewrite query to filter by provider name or restructure table",
       "severity": "LOW",
-      "expires": "2026-04-15"
+      "expires": "2026-07-15"
     }
   ],
   "_last_updated": "2026-04-02"

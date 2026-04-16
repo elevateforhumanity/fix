@@ -52,11 +52,16 @@ export default function PWAManager() {
         // SW registration failed — site still works, just no offline support
       });
 
-    // When SW takes control, reload once to ensure fresh assets
-    let refreshing = false;
+    // When a new SW takes control, reload once to pick up fresh assets.
+    // Guard with sessionStorage so a reload triggered by SW activation
+    // doesn't immediately trigger another reload on the next page load.
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (refreshing) return;
-      refreshing = true;
+      const key = 'elevate-sw-reload';
+      if (sessionStorage.getItem(key)) {
+        sessionStorage.removeItem(key);
+        return;
+      }
+      sessionStorage.setItem(key, '1');
       window.location.reload();
     });
   }, []);

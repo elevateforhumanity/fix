@@ -120,6 +120,7 @@ export default function HeaderMobileMenu({ items }: HeaderMobileMenuProps) {
                           <Link
                             key={subItem.name}
                             href={subItem.href}
+                            prefetch={false}
                             onClick={() => setIsOpen(false)}
                             className={`block hover:text-brand-blue-600 ${
                               subItem.nested
@@ -137,6 +138,7 @@ export default function HeaderMobileMenu({ items }: HeaderMobileMenuProps) {
               ) : item.href ? (
                 <Link
                   href={item.href}
+                  prefetch={false}
                   onClick={() => setIsOpen(false)}
                   className="block py-3 text-slate-900 font-medium hover:text-brand-blue-600"
                 >
@@ -152,6 +154,7 @@ export default function HeaderMobileMenu({ items }: HeaderMobileMenuProps) {
           <div className="mt-6 space-y-3">
             <Link
               href="/start"
+              prefetch={false}
               onClick={() => setIsOpen(false)}
               className="block w-full text-center py-3 bg-brand-red-600 text-white rounded-lg font-semibold"
             >
