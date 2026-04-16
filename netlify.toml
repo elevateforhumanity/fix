@@ -23,7 +23,7 @@
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=3072"
   NETLIFY_USE_PNPM = "true"
-  # Turbopack disabled via --no-turbopack flag in package.json build script
+  # Production build uses webpack (Next.js default)
   # Disable secret scanning - NEXT_PUBLIC_* vars are intentionally public
   SECRETS_SCAN_ENABLED = "false"
   # NHA account — non-secret, safe to store here
