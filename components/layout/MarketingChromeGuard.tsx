@@ -21,7 +21,7 @@ function isAppRoute(pathname: string) {
   );
 }
 
-export function MarketingChromeGuard() {
+export default function MarketingChromeGuard() {
   const pathname = usePathname();
 
   useEffect(() => {

@@ -6,11 +6,13 @@
 //   2. Client: MarketingChromeGuard toggles data-app-route on the root div,
 //              CSS handles hide/show. No conditional rendering, no DOM removal.
 
+import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
 import Header from '@/components/site/Header';
 import ServerFooter from '@/components/site/ServerFooter';
 import ClientWidgets from './ClientWidgets';
-import { MarketingChromeGuard } from './PublicLayoutClient';
+
+const MarketingChromeGuard = dynamic(() => import('./MarketingChromeGuard'), { ssr: false });
 
 const APP_ROUTE_PREFIXES = [
   '/lms',
