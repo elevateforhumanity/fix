@@ -25,13 +25,25 @@ export default function MarketingChromeGuard() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const root = document.querySelector('[data-public-layout-root]');
-    if (!root) return;
+    const app = isAppRoute(pathname);
 
-    if (isAppRoute(pathname)) {
-      root.setAttribute('data-app-route', 'true');
+    // Toggle on <body> — keyed by the inline script in root layout for hard navs,
+    // and by this effect for client-side SPA transitions.
+    if (app) {
+      document.body.setAttribute('data-app-route', 'true');
     } else {
-      root.removeAttribute('data-app-route');
+      document.body.removeAttribute('data-app-route');
+    }
+
+    // Also toggle the legacy data-public-layout-root attribute for any code
+    // that still reads it directly.
+    const root = document.querySelector('[data-public-layout-root]');
+    if (root) {
+      if (app) {
+        root.setAttribute('data-app-route', 'true');
+      } else {
+        root.removeAttribute('data-app-route');
+      }
     }
   }, [pathname]);
 

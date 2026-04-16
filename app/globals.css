@@ -1932,10 +1932,12 @@ header[role="banner"] a.\!text-white {
   padding-top: 70px;
 }
 
-[data-public-layout-root][data-app-route="true"] [data-marketing-chrome] {
+[data-public-layout-root][data-app-route="true"] [data-marketing-chrome],
+body[data-app-route="true"] [data-marketing-chrome] {
   display: none !important;
 }
 
-[data-public-layout-root][data-app-route="true"] [data-marketing-main] {
+[data-public-layout-root][data-app-route="true"] [data-marketing-main],
+body[data-app-route="true"] [data-marketing-main] {
   padding-top: 0 !important;
 }

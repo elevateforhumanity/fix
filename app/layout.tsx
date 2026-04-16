@@ -217,7 +217,12 @@ export default function RootLayout({
           fontSize: '17px',
           backgroundColor: '#ffffff',
         }}
+        suppressHydrationWarning
       >
+        {/* Suppress marketing chrome on app routes before hydration — no flash on hard nav.
+            suppressHydrationWarning is required because this script sets data-app-route on
+            <body> before React hydrates, causing a server/client attribute mismatch. */}
+        <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(){var p=location.pathname;var APP=['/admin','/lms','/learner','/instructor','/employer','/partner','/staff-portal','/mentor','/program-holder'];if(APP.some(function(a){return p===a||p.startsWith(a+'/')})){document.body.setAttribute('data-app-route','true');}})();` }} />
         <SkipToContent />
         <GoogleAnalytics />
         <AdminPWAInit />

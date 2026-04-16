@@ -71,7 +71,7 @@ export default function VerificationReviewForm({
     try {
       const { submitVerificationDecision } = await import('./actions');
       const mappedDecision = decision === 'approve' ? 'approved' : 'rejected';
-      const result = await submitVerificationDecision(holder.id, holder.user_id, mappedDecision, notes);
+      const result = await submitVerificationDecision(holder.id, mappedDecision, notes);
       if (result.error) throw new Error(result.error);
 
       router.push('/admin/program-holders/verification');

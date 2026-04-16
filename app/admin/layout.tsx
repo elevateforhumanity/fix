@@ -143,13 +143,6 @@ export default async function AdminLayout({
 
   const content = (
     <div className="min-h-screen bg-white text-slate-900">
-      {/* Set data-app-route before hydration so MarketingChromeGuard hides
-          the public Header/Footer immediately — no flash on admin routes. */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(function(){var r=document.querySelector('[data-public-layout-root]');if(r)r.setAttribute('data-app-route','true');})();`,
-        }}
-      />
       <AdminNav userName={headerData.userName} notifs={headerData.notifs} />
       <IdleTimeoutGuard />
       <main id="main-content" className="pt-16">
