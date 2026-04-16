@@ -18,7 +18,8 @@
  */
 
 import { NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 const MAX_OCR_PAGES = 8;
@@ -37,6 +38,20 @@ const SUPPORTED_TYPES = [
   'text/x-markdown',
 ];
 const SUPPORTED_EXTENSIONS = ['.pdf', '.docx', '.doc', '.txt', '.md'];
+
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!supabase) return { error: 'Database unavailable', status: 500 };
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db
+    .from('profiles').select('role').eq('id', user.id).single();
+  if (!profile || !['admin', 'super_admin', 'org_admin', 'instructor'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, profile };
+}
 
 function normalizeText(raw: string): string {
   return raw
@@ -98,7 +113,7 @@ async function ocrPdf(buffer: Buffer): Promise<{
     return { text: '', pageCount: 0, pagesOcrd: 0, method: 'ocr_failed' };
   }
 
-  const Tesseract = await import(/* webpackIgnore: true */ 'tesseract.js').catch(() => null);
+  const Tesseract = await import('tesseract.js').catch(() => null);
   if (!Tesseract) {
     return { text: '', pageCount: images.length, pagesOcrd: 0, method: 'ocr_failed' };
   }
@@ -137,8 +152,7 @@ export async function POST(request: Request) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }

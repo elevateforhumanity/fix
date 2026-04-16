@@ -1,8 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 export const runtime = 'nodejs';
@@ -34,7 +34,25 @@ interface WebhookEvent {
   received_at: string;
 }
 
-return { adminDb };
+async function requireAdmin() {
+  const userSupabase = await createClient();
+  const { data: { user } } = await userSupabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 as const };
+
+  const adminDb = await getAdminClient();
+  if (!adminDb) return { error: 'Database unavailable', status: 503 as const };
+
+  const { data: profile } = await adminDb
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 as const };
+  }
+
+  return { adminDb };
 }
 
 export async function GET(request: NextRequest) {
@@ -42,8 +60,7 @@ export async function GET(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+    const auth = await requireAdmin();
     if ('error' in auth) {
       return NextResponse.json({ error: auth.error }, { status: auth.status });
     }

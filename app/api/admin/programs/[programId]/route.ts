@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { ProgramUpdateSchema } from '@/lib/validators/course';
 import { getProgram, updateProgram, deleteProgram } from '@/lib/db/courses';
+import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -9,15 +9,25 @@ import { withApiAudit } from '@/lib/audit/withApiAudit';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-return { user, profile, supabase, db };
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!db) return NextResponse.json({ error: 'Admin client failed to initialize' }, { status: 500 });
+  if (!supabase) return { error: 'Database unavailable', status: 500 };
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, profile, supabase, db };
 }
 
 async function _GET(request: Request, { params }: { params: Promise<{ programId: string }> }) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
   const { programId } = await params;
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   try {
     const data = await getProgram(programId);
@@ -32,8 +42,7 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ programI
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
   const { programId } = await params;
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   try {
     const before = await getProgram(programId);
@@ -49,7 +58,7 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ programI
     const data = await updateProgram(programId, parsed.data);
     await auth.db.from('audit_logs').insert({
       actor_id: auth.id,
-      actor_role: auth.auth.profile?.role,
+      actor_role: auth.profile.role,
       action: 'update',
       resource_type: 'program',
       resource_id: programId,
@@ -66,8 +75,7 @@ async function _DELETE(request: Request, { params }: { params: Promise<{ program
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
   const { programId } = await params;
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   try {
     const before = await getProgram(programId);
@@ -75,7 +83,7 @@ async function _DELETE(request: Request, { params }: { params: Promise<{ program
     const data = await deleteProgram(programId);
     await auth.db.from('audit_logs').insert({
       actor_id: auth.id,
-      actor_role: auth.auth.profile?.role,
+      actor_role: auth.profile.role,
       action: 'delete',
       resource_type: 'program',
       resource_id: programId,

@@ -12,8 +12,6 @@ import { Briefcase, Clock, DollarSign, Award } from 'lucide-react';
 import { HostShopRequirements } from '@/components/compliance/HostShopRequirements';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   title:
     'Apprenticeship Programs | Earn While You Learn | Elevate for Humanity',

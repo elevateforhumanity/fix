@@ -1,6 +1,5 @@
-import { VIDEO_HEROES } from '@/lib/hero-config';
 'use client';
-
+import { VIDEO_HEROES } from '@/lib/hero-config';
 import { useState } from 'react';
 import Image from 'next/image';
 import Logo from '@/components/ui/Logo';

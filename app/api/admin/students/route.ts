@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { sanitizeSearchInput } from '@/lib/utils';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -7,12 +8,24 @@ import { withApiAudit } from '@/lib/audit/withApiAudit';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!supabase) return { error: 'Database unavailable', status: 500 };
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, profile, supabase };
+}
+
 async function _GET(request: Request) {
   
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
-const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   
   try {
@@ -24,7 +37,7 @@ const auth = const auth = await apiRequireAdmin(req);
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = (page - 1) * limit;
 
-    let query = auth.supabase
+    let query = auth.db
       .from('profiles')
       .select(`
         *,
@@ -83,15 +96,14 @@ async function _POST(request: Request) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   
   try {
     const body = await request.json();
     
     // Create profile for new student
-    const { data: student, error } = await auth.supabase
+    const { data: student, error } = await auth.db
       .from('profiles')
       .insert({
         full_name: body.full_name,
@@ -104,16 +116,16 @@ async function _POST(request: Request) {
         zip_code: body.zip_code,
       })
       .select()
-      .maybeSingle();
+      .single();
 
     if (error) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
     // Log audit
-    await auth.supabase.from('audit_logs').insert({
-      actor_id: auth.id,
-      actor_role: auth.auth.profile?.role,
+    await auth.db.from('audit_logs').insert({
+      actor_id: auth.user.id,
+      actor_role: auth.profile.role,
       action: 'create',
       resource_type: 'student',
       resource_id: student.id,

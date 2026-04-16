@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { ingestCourse } from '@/lib/ai/course-ingestion';
 import { saveCourseBlueprint } from '@/lib/db/courses';
 import { isOpenAIConfigured, getOpenAIClient } from '@/lib/openai-client';
-import { withRuntime } from '@/lib/api/withRuntime';
 import {
   SAFE_CHARS, MAX_CHARS,
   summarizeForExtraction,
@@ -17,6 +17,23 @@ import {
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
+
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!supabase) return { error: 'Database unavailable', status: 500 };
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db
+    .from('profiles')
+    .select('role, id')
+    .eq('id', user.id)
+    .single();
+  if (!profile || !['admin', 'super_admin', 'org_admin', 'instructor'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, profile };
+}
 
 /**
  * POST /api/admin/courses/ingest
@@ -33,8 +50,7 @@ async function _POST(request: Request) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }
@@ -214,8 +230,7 @@ async function _POST(request: Request) {
  * Loads the persisted summarized text and runs the final extraction step.
  */
 async function _GET(request: Request) {
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }
@@ -265,5 +280,5 @@ async function _GET(request: Request) {
   }
 }
 
-export const POST = withRuntime(withApiAudit('/api/admin/courses/ingest', _POST));
-export const GET = withRuntime(withApiAudit('/api/admin/courses/ingest', _GET));
+export const POST = withApiAudit('/api/admin/courses/ingest', _POST);
+export const GET = withApiAudit('/api/admin/courses/ingest', _GET);

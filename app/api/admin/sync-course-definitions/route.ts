@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { COURSE_DEFINITIONS } from '@/lib/courses/definitions';
 import { HVAC_QUIZ_MAP, getUniversalExam } from '@/lib/courses/hvac-quizzes';
@@ -17,6 +17,23 @@ const UUID_NAMESPACE = 'a1b2c3d4-e5f6-7890-abcd-200000000001';
 
 function deterministicUUID(key: string): string {
   return uuidv5(key, UUID_NAMESPACE);
+}
+
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!supabase) return { error: 'Database unavailable', status: 500 };
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single();
+  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, supabase, db };
 }
 
 function buildLessonHtml(
@@ -58,8 +75,7 @@ async function _POST(request: NextRequest) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }
@@ -91,7 +107,7 @@ async function _POST(request: NextRequest) {
       const courseId = deterministicUUID(`${course.slug}-course`);
 
       // Upsert course
-      const { error: courseError } = await supabase
+      const { error: courseError } = await db
         .from('training_courses')
         .upsert(
           {
@@ -158,7 +174,7 @@ async function _POST(request: NextRequest) {
       }
 
       // Delete existing lessons for this course, then insert fresh
-      const { error: deleteError } = await supabase
+      const { error: deleteError } = await db
         .from('training_lessons')
         .delete()
         .eq('course_id_uuid', courseId);
@@ -173,7 +189,7 @@ async function _POST(request: NextRequest) {
       let inserted = 0;
       for (let batch = 0; batch < lessonRows.length; batch += 50) {
         const chunk = lessonRows.slice(batch, batch + 50);
-        const { error: insertError } = await supabase
+        const { error: insertError } = await db
           .from('training_lessons')
           .insert(chunk);
 
@@ -198,7 +214,7 @@ async function _POST(request: NextRequest) {
     const totalLessons = results.reduce((sum, r) => sum + r.lessonsUpserted, 0);
     const errors = results.filter((r) => r.error);
 
-    await logAdminAudit({ action: AdminAction.COURSE_DEFINITIONS_SYNCED, actorId: auth.id, entityType: 'course_definitions', entityId: BULK_ENTITY_ID, metadata: { courses_synced: results.length, total_lessons: totalLessons, errors: errors.length }, req: request });
+    await logAdminAudit({ action: AdminAction.COURSE_DEFINITIONS_SYNCED, actorId: auth.user.id, entityType: 'course_definitions', entityId: BULK_ENTITY_ID, metadata: { courses_synced: results.length, total_lessons: totalLessons, errors: errors.length }, req: request });
 
     return NextResponse.json({
       success: errors.length === 0,
@@ -221,8 +237,7 @@ async function _GET(request: NextRequest) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }
