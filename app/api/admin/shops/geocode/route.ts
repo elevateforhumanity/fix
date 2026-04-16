@@ -1,6 +1,5 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
 import { geocodeAddress, buildAddressString, isGeocodingResult } from '@/lib/geo/geocode';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logAdminAudit, AdminAction, BULK_ENTITY_ID } from '@/lib/admin/audit-log';
@@ -13,22 +12,10 @@ async function _POST(req: Request) {
     const rateLimited = await applyRateLimit(req, 'api');
     if (rateLimited) return rateLimited;
 
-    const supabase = await createClient();
+    const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+      }
 
     const { shop_id, retry } = await req.json();
 
@@ -92,7 +79,7 @@ async function _POST(req: Request) {
         })
         .eq('id', shop_id);
 
-      await logAdminAudit({ action: AdminAction.SHOP_GEOCODED, actorId: user.id, entityType: 'shops', entityId: shop_id, metadata: { source: result.source }, req });
+      await logAdminAudit({ action: AdminAction.SHOP_GEOCODED, actorId: auth.id, entityType: 'shops', entityId: shop_id, metadata: { source: result.source }, req });
 
       return NextResponse.json({
         success: true,

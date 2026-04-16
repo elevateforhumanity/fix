@@ -6,7 +6,6 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
@@ -23,20 +22,10 @@ export async function POST(
 
   const { programId } = await params;
 
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return safeError('Unauthorized', 401);
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
 
-  const db = await getAdminClient();
-  const { data: profile } = await db
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-    return safeError('Forbidden', 403);
-  }
+    }
 
   try {
     // ── Client-side validation mirror (fast fail before DB call) ─────────────
@@ -87,7 +76,7 @@ export async function POST(
 
     // Audit
     await db.from('audit_logs').insert({
-      actor_id:      user.id,
+      actor_id:      auth.id,
       actor_role:    profile.role,
       action:        'publish',
       resource_type: 'program',

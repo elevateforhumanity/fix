@@ -1,6 +1,5 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -16,22 +15,10 @@ async function _POST(request: Request) {
     if (rateLimited) return rateLimited;
 
     // Verify admin access
-    const supabase = await createClient();
+    const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+      }
 
     // Trigger Netlify build hook
     const buildHookUrl = process.env.NETLIFY_BUILD_HOOK_URL;

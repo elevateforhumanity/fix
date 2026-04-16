@@ -10,6 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { createClient } from '@/lib/supabase/server';
 import { publishCourse } from '@/lib/lms/course-service';
 import { safeInternalError } from '@/lib/api/safe-error';
@@ -97,7 +98,7 @@ export async function POST(
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', user.id)
+      .eq('id', auth.id)
       .maybeSingle();
 
     if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
@@ -120,11 +121,11 @@ export async function POST(
       );
     }
 
-    const result = await publishCourse(supabase, courseId, user.id, label);
+    const result = await publishCourse(supabase, courseId, auth.id, label);
 
     await logAdminAudit({
       action:     AdminAction.COURSE_PUBLISHED,
-      actorId:    user.id,
+      actorId:    auth.id,
       entityType: 'courses',
       entityId:   courseId,
       metadata:   { label, lesson_count: (result as any)?.lessonCount },

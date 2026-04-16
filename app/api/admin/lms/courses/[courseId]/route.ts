@@ -8,19 +8,12 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { createClient } from '@/lib/supabase/server';
 import { safeInternalError, safeDbError } from '@/lib/api/safe-error';
 export const runtime = 'nodejs';
 
 export const dynamic = 'force-dynamic';
-
-async function requireAdmin(supabase: Awaited<ReturnType<typeof createClient>>) {
-  const { data: { user }, error } = await supabase.auth.getUser();
-  if (error || !user) return { user: null, profile: null };
-  const { data: profile } = await supabase
-    .from('profiles').select('role').eq('id', user.id).maybeSingle();
-  return { user, profile };
-}
 
 export async function PATCH(
   request: NextRequest,
@@ -28,9 +21,10 @@ export async function PATCH(
 ) {
   try {
     const supabase = await createClient();
-    const { user, profile } = await requireAdmin(supabase);
-    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
+    const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
@@ -65,9 +59,10 @@ export async function DELETE(
 ) {
   try {
     const supabase = await createClient();
-    const { user, profile } = await requireAdmin(supabase);
-    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+    const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 

@@ -1,7 +1,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { logger } from '@/lib/logger';
 import { hydrateProcessEnv } from '@/lib/secrets';
 
@@ -19,25 +19,13 @@ export const dynamic = 'force-dynamic';
  */
 export async function POST(req: NextRequest) {
   await hydrateProcessEnv();
-  const supabase = await createClient();
-  const adminDb = await getAdminClient();
 
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+  const adminDb = await getAdminClient();
   if (!adminDb) {
     return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
-  }
-
-  // Auth check — admin/staff only
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
-  const { data: profile } = await adminDb
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
   const body = await req.json();
@@ -152,7 +140,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Email delivery failed' }, { status: 500 });
   }
 
-  logger.info('[Admin] Onboarding link resent', { holderId, authEmail, contactEmail: holder.contact_email, sentBy: user.id });
+  logger.info('[Admin] Onboarding link resent', { holderId, authEmail, contactEmail: holder.contact_email, sentBy: auth.id });
 
   return NextResponse.json({ success: true, email: holder.contact_email });
 }

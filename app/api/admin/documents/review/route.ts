@@ -1,6 +1,6 @@
-import { createClient } from '@/lib/supabase/server';
 
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { sendEmail } from '@/lib/email';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
@@ -29,7 +29,7 @@ async function _POST(request: NextRequest) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', user.id)
+      .eq('id', auth.id)
       .maybeSingle();
 
     if (
@@ -63,7 +63,7 @@ async function _POST(request: NextRequest) {
       filter: { id: documentId },
       audit: {
         action: 'api:post:/api/admin/documents/review',
-        actorId: user.id,
+        actorId: auth.id,
         targetType: 'documents',
         targetId: documentId,
         metadata: { decision: action },
@@ -98,7 +98,7 @@ async function _POST(request: NextRequest) {
 
     await logAdminAudit({
       action: AdminAction.DOCUMENT_REVIEWED,
-      actorId: user.id,
+      actorId: auth.id,
       entityType: 'documents',
       entityId: documentId,
       metadata: { decision: action, file_name: document.file_name, student_user_id: studentUserId },

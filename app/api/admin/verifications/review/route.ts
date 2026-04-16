@@ -1,6 +1,6 @@
-import { createClient } from '@/lib/supabase/server';
 
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { sendEmail } from '@/lib/email';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
@@ -31,7 +31,7 @@ async function _POST(request: NextRequest) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', user.id)
+      .eq('id', auth.id)
       .maybeSingle();
 
     if (
@@ -65,7 +65,7 @@ async function _POST(request: NextRequest) {
       filter: { id: verificationId },
       audit: {
         action: 'api:post:/api/admin/verifications/review',
-        actorId: user.id,
+        actorId: auth.id,
         targetType: 'id_verifications',
         targetId: verificationId,
         metadata: { decision: action },
@@ -97,7 +97,7 @@ async function _POST(request: NextRequest) {
 
     await logAdminAudit({
       action: AdminAction.VERIFICATION_REVIEWED,
-      actorId: user.id,
+      actorId: auth.id,
       entityType: 'id_verifications',
       entityId: verificationId,
       metadata: { decision: action, user_id: verification.user_id },

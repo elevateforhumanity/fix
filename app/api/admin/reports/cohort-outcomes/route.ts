@@ -1,6 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
 export const runtime = 'nodejs';
 
@@ -12,21 +12,12 @@ export const dynamic = 'force-dynamic';
  * Expected hours are DERIVED from cohort metadata, not hard-coded.
  */
 
-async function requireAdmin() {
-  const supabase = await createClient();
-  const db = await getAdminClient();
-  if (!db) return NextResponse.json({ error: 'Admin client failed to initialize' }, { status: 500 });
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'sponsor'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 };
-  }
-  return { user, db };
+return { user, db };
 }
 
 export async function GET(req: NextRequest) {
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const url = new URL(req.url);

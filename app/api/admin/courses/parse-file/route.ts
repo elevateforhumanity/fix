@@ -18,7 +18,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 const MAX_OCR_PAGES = 8;
@@ -37,18 +37,6 @@ const SUPPORTED_TYPES = [
   'text/x-markdown',
 ];
 const SUPPORTED_EXTENSIONS = ['.pdf', '.docx', '.doc', '.txt', '.md'];
-
-async function requireAdmin() {
-  const supabase = await createClient();
-const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await supabase
-    .from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'org_admin', 'instructor'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 };
-  }
-  return { user, profile };
-}
 
 function normalizeText(raw: string): string {
   return raw
@@ -149,7 +137,8 @@ export async function POST(request: Request) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }

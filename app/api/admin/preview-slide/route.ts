@@ -11,7 +11,8 @@ export const maxDuration = 30;
  */
 export async function POST(req: NextRequest) {
   try {
-    await requireAdmin();
+    const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   } catch (e) {
     const msg = e instanceof Error ? e.message : '';
     return NextResponse.json(

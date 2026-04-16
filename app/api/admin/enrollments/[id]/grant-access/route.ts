@@ -8,7 +8,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
@@ -36,7 +36,7 @@ export async function POST(
   const { data: adminProfile } = await db
     .from('profiles')
     .select('role, full_name')
-    .eq('id', user.id)
+    .eq('id', auth.id)
     .maybeSingle();
 
   if (!adminProfile || !['admin', 'super_admin', 'staff'].includes(adminProfile.role)) {
@@ -138,14 +138,14 @@ export async function POST(
 
   logger.info('[grant-access] Access granted', {
     enrollmentId,
-    grantedBy: user.id,
+    grantedBy: auth.id,
     studentEmail,
     programName,
   });
 
   await logAdminAudit({
     action: AdminAction.ENROLLMENT_ACCESS_GRANTED,
-    actorId: user.id,
+    actorId: auth.id,
     entityType: 'program_enrollments',
     entityId: enrollmentId,
     metadata: { program_name: programName, student_email: studentEmail, granted_at: now },

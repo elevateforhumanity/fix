@@ -1,17 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { programs } from '@/app/data/programs';
-import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 async function guardAdmin() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+    }
   return null;
 }
 

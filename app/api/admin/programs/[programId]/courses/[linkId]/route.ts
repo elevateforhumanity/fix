@@ -6,9 +6,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { z } from 'zod';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { getCurrentUser } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
@@ -18,11 +18,7 @@ const PatchSchema = z.object({
   order_index:  z.number().int().min(0).optional(),
 });
 
-async function requireAdmin() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
+= await db.from('profiles').select('role').eq('id', auth.id).maybeSingle();
   if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) return null;
   return user;
 }
@@ -32,7 +28,8 @@ export async function PATCH(
   { params }: { params: Promise<{ programId: string; linkId: string }> }
 ) {
   const { programId, linkId } = await params;
-  const user = await requireAdmin();
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => null);
@@ -61,7 +58,8 @@ export async function DELETE(
   { params }: { params: Promise<{ programId: string; linkId: string }> }
 ) {
   const { programId, linkId } = await params;
-  const user = await requireAdmin();
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();

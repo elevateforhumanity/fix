@@ -8,7 +8,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
@@ -31,7 +31,7 @@ export async function GET(
   const { data: adminProfile } = await db
     .from('profiles')
     .select('role')
-    .eq('id', user.id)
+    .eq('id', auth.id)
     .maybeSingle();
 
   if (!adminProfile || !['admin', 'super_admin', 'staff'].includes(adminProfile.role)) {

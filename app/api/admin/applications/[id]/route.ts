@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { ApplicationUpdateSchema } from '@/lib/validators/course';
 import { getApplication, updateApplication, deleteApplication, createEnrollment } from '@/lib/db/courses';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logger } from '@/lib/logger';
@@ -11,20 +11,7 @@ import { resolveProgramId } from '@/lib/programs/resolve';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-async function requireAdmin() {
-  const supabase = await createClient();
-  if (!supabase) return { error: 'Database unavailable', status: 500 };
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 };
-  // Use admin client for the profile lookup — session-based reads on profiles
-  // can return null when RLS policies restrict the session JWT in Route Handlers.
-  const db = await getAdminClient();
-  if (!db) return { error: 'Database unavailable', status: 500 };
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 };
-  }
-  return { user, profile, supabase };
+return { user, profile, supabase };
 }
 
 // resolveCourseId replaced by canonical resolveProgramId from @/lib/programs/resolve
@@ -64,7 +51,7 @@ async function findOrCreateUser(
 
   if (newUser?.user) {
     await adminClient.from('profiles').upsert({
-      id: newUser.user.id,
+      id: newUser.auth.id,
       email: normalizedEmail,
       first_name: firstName,
       last_name: lastName,
@@ -73,7 +60,7 @@ async function findOrCreateUser(
     }, { onConflict: 'id' });
 
     logger.info('Created new user for approved application', {
-      userId: newUser.user.id,
+      userId: newUser.auth.id,
       email: normalizedEmail,
     });
 
@@ -105,7 +92,7 @@ async function findOrCreateUser(
       // Don't block enrollment — user can use "Forgot password" on login page
     }
 
-    return newUser.user.id;
+    return newUser.auth.id;
   }
 
   if (createError) {
@@ -139,7 +126,8 @@ async function _GET(request: Request, { params }: { params: Promise<{ id: string
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
   const { id } = await params;
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   try {
     const data = await getApplication(id);
@@ -154,7 +142,8 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
   const { id } = await params;
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   try {
     const before = await getApplication(id);
@@ -171,7 +160,7 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
 
     const updateData = { ...parsed.data };
     if (updateData.status === 'approved' || updateData.status === 'rejected') {
-      updateData.reviewer_id = auth.user.id;
+      updateData.reviewer_id = auth.auth.id;
     }
 
     const data = await updateApplication(id, updateData);
@@ -272,8 +261,8 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
 
           // Audit log
           await adminDb.from('audit_logs').insert({
-            actor_id: auth.user.id,
-            actor_role: auth.profile.role,
+            actor_id: auth.auth.id,
+            actor_role: auth.auth.profile?.role,
             action: 'create',
             resource_type: 'enrollment',
             resource_id: enrollmentResult?.id || 'unknown',
@@ -302,8 +291,8 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
 
     const auditDb = await getAdminClient();
     await auditDb.from('audit_logs').insert({
-      actor_id: auth.user.id,
-      actor_role: auth.profile.role,
+      actor_id: auth.auth.id,
+      actor_role: auth.auth.profile?.role,
       action,
       resource_type: 'application',
       resource_id: id,
@@ -328,7 +317,8 @@ async function _DELETE(request: Request, { params }: { params: Promise<{ id: str
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
   const { id } = await params;
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
   try {
     const before = await getApplication(id);
@@ -337,8 +327,8 @@ async function _DELETE(request: Request, { params }: { params: Promise<{ id: str
     const data = await deleteApplication(id);
 
     await auth.supabase.from('audit_logs').insert({
-      actor_id: auth.user.id,
-      actor_role: auth.profile.role,
+      actor_id: auth.auth.id,
+      actor_role: auth.auth.profile?.role,
       action: 'delete',
       resource_type: 'application',
       resource_id: id,

@@ -29,7 +29,7 @@ const { id } = await params;
   const { data: profile } = await supabase
     .from('profiles')
     .select('role')
-    .eq('id', user.id)
+    .eq('id', auth.id)
     .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {

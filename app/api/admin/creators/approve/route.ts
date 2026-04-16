@@ -1,7 +1,6 @@
 // Using Node.js runtime for email compatibility
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
 import { logAuditEvent, AuditActions, getRequestMetadata } from '@/lib/audit';
 import { sendCreatorApprovalEmail } from '@/lib/email/sendgrid';
 import { toErrorMessage } from '@/lib/safe';
@@ -28,7 +27,7 @@ export async function POST(req: Request) {
     const { data: adminProfile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', user.id)
+      .eq('id', auth.id)
       .maybeSingle();
 
     if (!adminProfile || !['admin', 'super_admin'].includes(adminProfile.role)) {
@@ -62,7 +61,7 @@ export async function POST(req: Request) {
 
     // Audit log
     await logAuditEvent({
-      userId: user.id,
+      userId: auth.id,
       action: AuditActions.MARKETPLACE_CREATOR_APPROVED,
       resourceType: 'marketplace_creator',
       resourceId: creatorId,

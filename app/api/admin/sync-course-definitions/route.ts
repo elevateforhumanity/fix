@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { COURSE_DEFINITIONS } from '@/lib/courses/definitions';
 import { HVAC_QUIZ_MAP, getUniversalExam } from '@/lib/courses/hvac-quizzes';
@@ -17,22 +17,6 @@ const UUID_NAMESPACE = 'a1b2c3d4-e5f6-7890-abcd-200000000001';
 
 function deterministicUUID(key: string): string {
   return uuidv5(key, UUID_NAMESPACE);
-}
-
-async function requireAdmin() {
-  const supabase = await createClient();
-const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 };
-  }
-  const db = await getAdminClient();
-  return { user, supabase, db };
 }
 
 function buildLessonHtml(
@@ -74,7 +58,8 @@ async function _POST(request: NextRequest) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }
@@ -236,7 +221,8 @@ async function _GET(request: NextRequest) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }

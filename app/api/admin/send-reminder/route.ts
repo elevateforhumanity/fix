@@ -4,7 +4,6 @@ import { logAdminAudit, AdminAction, BULK_ENTITY_ID } from '@/lib/admin/audit-lo
 
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireApiAuth } from '@/lib/auth';
-import { createClient } from '@/lib/supabase/server';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -55,19 +54,10 @@ async function _POST(req: Request) {
     // Auth guard: require authenticated admin user
     try {
       await requireApiAuth();
-      const supabase = await createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-      }
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .maybeSingle();
-      if (!profile?.role || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-      }
+      const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+        }
     } catch {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -164,7 +154,7 @@ async function _POST(req: Request) {
       status: sent ? 'sent' : 'failed',
     });
 
-    if (sent) await logAdminAudit({ action: AdminAction.REMINDER_SENT, actorId: user.id, entityType: 'sms_reminders', entityId: app.id, metadata: { reminder_type, phone_last4: app.phone?.slice(-4) }, req: request });
+    if (sent) await logAdminAudit({ action: AdminAction.REMINDER_SENT, actorId: auth.id, entityType: 'sms_reminders', entityId: app.id, metadata: { reminder_type, phone_last4: app.phone?.slice(-4) }, req: request });
 
     return NextResponse.json({
       success: sent,

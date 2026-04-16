@@ -1,6 +1,6 @@
 import { logger } from '@/lib/logger';
-import { createClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -37,7 +37,7 @@ const { searchParams } = new URL(request.url);
   const { data: profile } = await supabase
     .from('profiles')
     .select('role')
-    .eq('id', user.id)
+    .eq('id', auth.id)
     .maybeSingle();
 
   if (!profile || !['admin', 'super_admin'].includes(profile.role)) {

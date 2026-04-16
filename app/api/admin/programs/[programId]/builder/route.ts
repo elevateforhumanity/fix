@@ -13,7 +13,6 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
@@ -22,18 +21,10 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 async function authGuard() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 as const };
-  const db = await getAdminClient();
-  const { data: profile } = await db
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 as const };
-  }
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+    }
   return { user, db };
 }
 

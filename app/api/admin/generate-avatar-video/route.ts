@@ -1,6 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { createTalk, pollTalkResult } from '@/lib/d-id/generate-talk';
 import { logger } from '@/lib/logger';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -44,22 +44,10 @@ async function _POST(req: NextRequest) {
   }
 
   try {
-    const supabase = await createClient();
-  
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
 
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+      }
 
     const body = await req.json();
     const { audioUrl, audioUrls } = body;
@@ -99,7 +87,7 @@ async function _POST(req: NextRequest) {
       const result = await pollTalkResult(talk.id, 60, 5000);
 
       await supabase.from('audit_logs').insert({
-        actor_id: user.id,
+        actor_id: auth.id,
         actor_role: profile.role,
         action: 'generate_avatar_video',
         resource_type: 'avatar_video',
@@ -140,7 +128,7 @@ async function _POST(req: NextRequest) {
     }
 
     await supabase.from('audit_logs').insert({
-      actor_id: user.id,
+      actor_id: auth.id,
       actor_role: profile.role,
       action: 'generate_avatar_video_batch',
       resource_type: 'avatar_video',

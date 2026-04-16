@@ -1,4 +1,3 @@
-import { createClient } from '@/lib/supabase/server';
 
 import { NextResponse } from 'next/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -27,7 +26,7 @@ async function _GET(request: Request) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', user.id)
+      .eq('id', auth.id)
       .maybeSingle();
 
     if (!profile || !['admin', 'super_admin'].includes(profile.role)) {

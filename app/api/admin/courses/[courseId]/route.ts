@@ -1,24 +1,13 @@
 import { NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { CourseUpdateSchema } from '@/lib/validators/course';
 import { getCourse, updateCourse, deleteCourse } from '@/lib/db/courses';
-import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-
-async function requireAdmin() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 as const };
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 as const };
-  }
-  return { user, profile };
-}
 
 async function _GET(
   request: Request,
@@ -27,7 +16,8 @@ async function _GET(
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const { courseId } = await params;
@@ -47,7 +37,8 @@ async function _PATCH(
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const { courseId } = await params;
@@ -72,7 +63,8 @@ async function _DELETE(
   const rateLimited = await applyRateLimit(request, 'strict');
   if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
+  const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const { courseId } = await params;

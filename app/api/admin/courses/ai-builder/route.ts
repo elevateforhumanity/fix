@@ -15,8 +15,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { z } from 'zod';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -29,26 +29,7 @@ export const maxDuration = 120; // AI generation can take up to 60s
 
 // ─── Auth guard ────────────────────────────────────────────────────────────────
 
-async function requireAdmin() {
-  const supabase = await createClient();
-  if (!supabase) return { error: 'Database unavailable', status: 503 as const };
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 as const };
-
-  const adminDb = await getAdminClient();
-  if (!adminDb) return { error: 'Database unavailable', status: 503 as const };
-
-  const { data: profile } = await adminDb
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (!profile || !['admin', 'super_admin', 'instructor'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 as const };
-  }
-
-  return { user, adminDb };
+return { user, adminDb };
 }
 
 // ─── Input schema ──────────────────────────────────────────────────────────────
@@ -84,7 +65,8 @@ async function _POST(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    const auth = await requireAdmin();
+    const auth = const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
     if ('error' in auth) {
       return NextResponse.json({ error: auth.error }, { status: auth.status });
     }
@@ -102,7 +84,7 @@ async function _POST(request: NextRequest) {
 
     const opts = parsed.data;
     logger.info('[AI Course Builder] Starting generation', {
-      userId: user.id,
+      userId: auth.id,
       promptLength: opts.prompt.length,
       lessonCount: opts.lessonCount,
     });
@@ -133,7 +115,7 @@ async function _POST(request: NextRequest) {
         duration_hours: draft.duration_hours || null,
         is_published: false,
         is_active: false,
-        created_by: user.id,
+        created_by: auth.id,
         slug: toSlug(draft.title),
         metadata: {
           learning_objectives: draft.learning_objectives,
@@ -238,7 +220,7 @@ async function _POST(request: NextRequest) {
     await adminDb
       .from('ai_course_generation_log')
       .insert({
-        user_id: user.id,
+        user_id: auth.id,
         action: 'course_generated',
         details: {
           course_id: course.id,

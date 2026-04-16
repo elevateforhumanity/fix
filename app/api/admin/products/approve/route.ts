@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
 
 // Using Node.js runtime for email compatibility
-import { createClient } from '@/lib/supabase/server';
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
