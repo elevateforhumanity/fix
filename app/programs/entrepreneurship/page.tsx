@@ -1,13 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ProgramHeroBanner from '@/components/ProgramHeroBanner';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { FundingBadge } from '@/components/programs/FundingBadge';
-import { createBrowserClient } from '@supabase/ssr';
 import {
   Clock, DollarSign, TrendingUp, ArrowRight,
   Award, Calendar, ChevronDown, ChevronUp,
@@ -16,16 +15,6 @@ import {
 } from 'lucide-react';
 
 export default function EntrepreneurshipPage() {
-  const [dbRows, setDbRows] = useState<any[]>([]);
-  useEffect(() => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-    supabase.from('programs').select('*').eq('slug', 'entrepreneurship').limit(1)
-      .then(({ data }) => { if (data) setDbRows(data); });
-  }, []);
-
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const faqs = [
