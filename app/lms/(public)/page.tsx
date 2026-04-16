@@ -31,12 +31,13 @@ export default async function LmsPublicPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (user) redirect('/learner/dashboard');
 
-  // Load programs from DB — active, published, ordered
+  // Load programs from DB — published, active, ordered
   const { getAdminClient } = await import('@/lib/supabase/admin');
   const db = await getAdminClient();
   const { data: dbPrograms } = await db
     .from('programs')
-    .select('id, title, slug, description, excerpt, image_url, duration_weeks, credential, credential_name, is_active, status')
+    .select('id, title, slug, description, excerpt, image_url, estimated_weeks, credential, credential_name, is_active, status, published')
+    .eq('published', true)
     .eq('is_active', true)
     .neq('status', 'archived')
     .order('title')
@@ -45,7 +46,7 @@ export default async function LmsPublicPage() {
   const programs = (dbPrograms ?? []).map((p: any) => ({
     title: p.title,
     desc: p.excerpt || p.description?.slice(0, 120) || '',
-    duration: p.duration_weeks ? `${p.duration_weeks} weeks` : '—',
+    duration: p.estimated_weeks ? `${p.estimated_weeks} weeks` : '—',
     credential: p.credential_name || p.credential || '—',
     image: p.image_url || '/images/pages/hvac-unit.jpg',
     slug: p.slug,
