@@ -34,6 +34,9 @@ const VISUAL_TEMPLATE_PROGRAMS = [
 ];
 
 // Cache program pages for 10 minutes - eliminates 21s+ load times
+// force-dynamic: skip generateStaticParams at build time — too many slugs causes OOM.
+// Pages are rendered on first request and cached at the CDN edge via Cache-Control headers.
+export const dynamic = 'force-dynamic';
 export const revalidate = 600;
 
 type Params = Promise<{ slug: string }>;

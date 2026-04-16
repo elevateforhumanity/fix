@@ -64,12 +64,13 @@ export default async function ForEmployersPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['for-employers'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['for-employers'].videoSrcDesktop}
+        posterImage="/images/pages/for-employers-page-1.jpg"
         voiceoverSrc={heroBanners['for-employers'].voiceoverSrc}
         microLabel={heroBanners['for-employers'].microLabel}
-        headline={heroBanners['for-employers'].belowHeroHeadline}
-        subheadline={heroBanners['for-employers'].belowHeroSubheadline}
-        primaryCta={heroBanners['for-employers'].primaryCta}
+        belowHeroHeadline={heroBanners['for-employers'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['for-employers'].belowHeroSubheadline}
+        ctas={[heroBanners['for-employers'].primaryCta}
         secondaryCta={heroBanners['for-employers'].secondaryCta}
         trustIndicators={heroBanners['for-employers'].trustIndicators}
         transcript={heroBanners['for-employers'].transcript}

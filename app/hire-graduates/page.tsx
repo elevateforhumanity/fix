@@ -30,12 +30,13 @@ export default async function HireGraduatesPage() {
         <Breadcrumbs items={[{ label: "Hire Graduates" }]} />
       </div>
       <HeroVideo
-        videoSrc={heroBanners['hire-graduates'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['hire-graduates'].videoSrcDesktop}
+        posterImage="/images/pages/hire-graduates-page-1.jpg"
         voiceoverSrc={heroBanners['hire-graduates'].voiceoverSrc}
         microLabel={heroBanners['hire-graduates'].microLabel}
-        headline={heroBanners['hire-graduates'].belowHeroHeadline}
-        subheadline={heroBanners['hire-graduates'].belowHeroSubheadline}
-        primaryCta={heroBanners['hire-graduates'].primaryCta}
+        belowHeroHeadline={heroBanners['hire-graduates'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['hire-graduates'].belowHeroSubheadline}
+        ctas={[heroBanners['hire-graduates'].primaryCta}
         secondaryCta={heroBanners['hire-graduates'].secondaryCta}
         trustIndicators={heroBanners['hire-graduates'].trustIndicators}
         transcript={heroBanners['hire-graduates'].transcript}

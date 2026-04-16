@@ -16,12 +16,13 @@ export default function ApprenticeshipSponsorPage() {
   return (
     <div className="min-h-screen bg-white">
       <HeroVideo
-        videoSrc={heroBanners['apprenticeship-sponsor'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['apprenticeship-sponsor'].videoSrcDesktop}
+        posterImage="/images/pages/apprenticeship-sponsor-page-1.jpg"
         voiceoverSrc={heroBanners['apprenticeship-sponsor'].voiceoverSrc}
         microLabel={heroBanners['apprenticeship-sponsor'].microLabel}
-        headline={heroBanners['apprenticeship-sponsor'].belowHeroHeadline}
-        subheadline={heroBanners['apprenticeship-sponsor'].belowHeroSubheadline}
-        primaryCta={heroBanners['apprenticeship-sponsor'].primaryCta}
+        belowHeroHeadline={heroBanners['apprenticeship-sponsor'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['apprenticeship-sponsor'].belowHeroSubheadline}
+        ctas={[heroBanners['apprenticeship-sponsor'].primaryCta}
         secondaryCta={heroBanners['apprenticeship-sponsor'].secondaryCta}
         trustIndicators={heroBanners['apprenticeship-sponsor'].trustIndicators}
         transcript={heroBanners['apprenticeship-sponsor'].transcript}

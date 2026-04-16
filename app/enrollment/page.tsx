@@ -113,12 +113,13 @@ export default async function EnrollmentPage() {
       <Breadcrumbs items={[{ label: 'Enrollment' }]} />
 
       <HeroVideo
-        videoSrc={heroBanners['enrollment'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['enrollment'].videoSrcDesktop}
+        posterImage="/images/pages/enrollment-page-1.jpg"
         voiceoverSrc={heroBanners['enrollment'].voiceoverSrc}
         microLabel={heroBanners['enrollment'].microLabel}
-        headline={heroBanners['enrollment'].belowHeroHeadline}
-        subheadline={heroBanners['enrollment'].belowHeroSubheadline}
-        primaryCta={heroBanners['enrollment'].primaryCta}
+        belowHeroHeadline={heroBanners['enrollment'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['enrollment'].belowHeroSubheadline}
+        ctas={[heroBanners['enrollment'].primaryCta}
         secondaryCta={heroBanners['enrollment'].secondaryCta}
         trustIndicators={heroBanners['enrollment'].trustIndicators}
         transcript={heroBanners['enrollment'].transcript}

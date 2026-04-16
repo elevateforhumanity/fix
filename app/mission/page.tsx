@@ -61,12 +61,13 @@ export default function MissionPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['mission'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['mission'].videoSrcDesktop}
+        posterImage="/images/pages/mission-hero.jpg"
         voiceoverSrc={heroBanners['mission'].voiceoverSrc}
         microLabel={heroBanners['mission'].microLabel}
-        headline={heroBanners['mission'].belowHeroHeadline}
-        subheadline={heroBanners['mission'].belowHeroSubheadline}
-        primaryCta={heroBanners['mission'].primaryCta}
+        belowHeroHeadline={heroBanners['mission'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['mission'].belowHeroSubheadline}
+        ctas={[heroBanners['mission'].primaryCta}
         secondaryCta={heroBanners['mission'].secondaryCta}
         trustIndicators={heroBanners['mission'].trustIndicators}
         transcript={heroBanners['mission'].transcript}

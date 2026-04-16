@@ -228,12 +228,13 @@ export default function PartnersIndexPage() {
 
       {/* Hero */}
       <HeroVideo
-        videoSrc={banner.videoSrcDesktop}
+        videoSrcDesktop={banner.videoSrcDesktop}
+        posterImage="/images/pages/partner-page-1.jpg"
         voiceoverSrc={banner.voiceoverSrc}
         microLabel={banner.microLabel}
-        headline={banner.belowHeroHeadline}
-        subheadline={banner.belowHeroSubheadline}
-        primaryCta={banner.primaryCta}
+        belowHeroHeadline={banner.belowHeroHeadline}
+        belowHeroSubheadline={banner.belowHeroSubheadline}
+        ctas={[banner.primaryCta}
         secondaryCta={banner.secondaryCta}
         trustIndicators={banner.trustIndicators}
         transcript={banner.transcript}

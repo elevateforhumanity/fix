@@ -55,12 +55,13 @@ export default async function ProgramHolderLanding() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['program-holder'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['program-holder'].videoSrcDesktop}
+        posterImage="/images/pages/partner-page-1.jpg"
         voiceoverSrc={heroBanners['program-holder'].voiceoverSrc}
         microLabel={heroBanners['program-holder'].microLabel}
-        headline={heroBanners['program-holder'].belowHeroHeadline}
-        subheadline={heroBanners['program-holder'].belowHeroSubheadline}
-        primaryCta={heroBanners['program-holder'].primaryCta}
+        belowHeroHeadline={heroBanners['program-holder'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['program-holder'].belowHeroSubheadline}
+        ctas={[heroBanners['program-holder'].primaryCta}
         secondaryCta={heroBanners['program-holder'].secondaryCta}
         trustIndicators={heroBanners['program-holder'].trustIndicators}
         transcript={heroBanners['program-holder'].transcript}

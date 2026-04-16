@@ -36,12 +36,13 @@ export default function HowItWorksPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['how-it-works'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['how-it-works'].videoSrcDesktop}
+        posterImage="/images/pages/how-it-works-hero.jpg"
         voiceoverSrc={heroBanners['how-it-works'].voiceoverSrc}
         microLabel={heroBanners['how-it-works'].microLabel}
-        headline={heroBanners['how-it-works'].belowHeroHeadline}
-        subheadline={heroBanners['how-it-works'].belowHeroSubheadline}
-        primaryCta={heroBanners['how-it-works'].primaryCta}
+        belowHeroHeadline={heroBanners['how-it-works'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['how-it-works'].belowHeroSubheadline}
+        ctas={[heroBanners['how-it-works'].primaryCta}
         secondaryCta={heroBanners['how-it-works'].secondaryCta}
         trustIndicators={heroBanners['how-it-works'].trustIndicators}
         transcript={heroBanners['how-it-works'].transcript}

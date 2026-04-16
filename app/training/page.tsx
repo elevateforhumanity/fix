@@ -98,12 +98,13 @@ export default function TrainingPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['training'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['training'].videoSrcDesktop}
+        posterImage="/images/pages/comp-home-hero-programs.jpg"
         voiceoverSrc={heroBanners['training'].voiceoverSrc}
         microLabel={heroBanners['training'].microLabel}
-        headline={heroBanners['training'].belowHeroHeadline}
-        subheadline={heroBanners['training'].belowHeroSubheadline}
-        primaryCta={heroBanners['training'].primaryCta}
+        belowHeroHeadline={heroBanners['training'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['training'].belowHeroSubheadline}
+        ctas={[heroBanners['training'].primaryCta}
         secondaryCta={heroBanners['training'].secondaryCta}
         trustIndicators={heroBanners['training'].trustIndicators}
         transcript={heroBanners['training'].transcript}

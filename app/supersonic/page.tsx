@@ -59,12 +59,13 @@ export default function SupersonicPage() {
         <Breadcrumbs items={[{ label: "Supersonic" }]} />
       </div>
       <HeroVideo
-        videoSrc={heroBanners['supersonic'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['supersonic'].videoSrcDesktop}
+        posterImage="/images/pages/comp-home-hero-programs.jpg"
         voiceoverSrc={heroBanners['supersonic'].voiceoverSrc}
         microLabel={heroBanners['supersonic'].microLabel}
-        headline={heroBanners['supersonic'].belowHeroHeadline}
-        subheadline={heroBanners['supersonic'].belowHeroSubheadline}
-        primaryCta={heroBanners['supersonic'].primaryCta}
+        belowHeroHeadline={heroBanners['supersonic'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['supersonic'].belowHeroSubheadline}
+        ctas={[heroBanners['supersonic'].primaryCta}
         secondaryCta={heroBanners['supersonic'].secondaryCta}
         trustIndicators={heroBanners['supersonic'].trustIndicators}
         transcript={heroBanners['supersonic'].transcript}

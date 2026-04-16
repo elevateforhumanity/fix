@@ -56,12 +56,13 @@ export default function StartPage() {
   return (
     <div className="min-h-screen bg-white">
       <HeroVideo
-        videoSrc={heroBanners['start'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['start'].videoSrcDesktop}
+        posterImage="/images/pages/comp-home-hero-programs.jpg"
         voiceoverSrc={heroBanners['start'].voiceoverSrc}
         microLabel={heroBanners['start'].microLabel}
-        headline={heroBanners['start'].belowHeroHeadline}
-        subheadline={heroBanners['start'].belowHeroSubheadline}
-        primaryCta={heroBanners['start'].primaryCta}
+        belowHeroHeadline={heroBanners['start'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['start'].belowHeroSubheadline}
+        ctas={[heroBanners['start'].primaryCta}
         secondaryCta={heroBanners['start'].secondaryCta}
         trustIndicators={heroBanners['start'].trustIndicators}
         transcript={heroBanners['start'].transcript}

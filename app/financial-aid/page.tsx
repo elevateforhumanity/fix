@@ -71,12 +71,13 @@ export default function FinancialAidPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['financial-aid'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['financial-aid'].videoSrcDesktop}
+        posterImage="/images/pages/financial-aid-page-1.jpg"
         voiceoverSrc={heroBanners['financial-aid'].voiceoverSrc}
         microLabel={heroBanners['financial-aid'].microLabel}
-        headline={heroBanners['financial-aid'].belowHeroHeadline}
-        subheadline={heroBanners['financial-aid'].belowHeroSubheadline}
-        primaryCta={heroBanners['financial-aid'].primaryCta}
+        belowHeroHeadline={heroBanners['financial-aid'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['financial-aid'].belowHeroSubheadline}
+        ctas={[heroBanners['financial-aid'].primaryCta}
         secondaryCta={heroBanners['financial-aid'].secondaryCta}
         trustIndicators={heroBanners['financial-aid'].trustIndicators}
         transcript={heroBanners['financial-aid'].transcript}

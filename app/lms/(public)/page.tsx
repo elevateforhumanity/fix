@@ -70,12 +70,13 @@ export default async function LmsPublicPage() {
 
       {/* HERO */}
       <HeroVideo
-        videoSrc={heroBanners['lms'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['lms'].videoSrcDesktop}
+        posterImage="/images/pages/lms-page-1.jpg"
         voiceoverSrc={heroBanners['lms'].voiceoverSrc}
         microLabel={heroBanners['lms'].microLabel}
-        headline={heroBanners['lms'].belowHeroHeadline}
-        subheadline={heroBanners['lms'].belowHeroSubheadline}
-        primaryCta={heroBanners['lms'].primaryCta}
+        belowHeroHeadline={heroBanners['lms'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['lms'].belowHeroSubheadline}
+        ctas={[heroBanners['lms'].primaryCta}
         secondaryCta={heroBanners['lms'].secondaryCta}
         trustIndicators={heroBanners['lms'].trustIndicators}
         transcript={heroBanners['lms'].transcript}

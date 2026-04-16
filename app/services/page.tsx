@@ -83,12 +83,13 @@ export default function ServicesPage() {
 
       {/* Hero */}
       <HeroVideo
-        videoSrc={heroBanners['services'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['services'].videoSrcDesktop}
+        posterImage="/images/pages/comp-home-hero-programs.jpg"
         voiceoverSrc={heroBanners['services'].voiceoverSrc}
         microLabel={heroBanners['services'].microLabel}
-        headline={heroBanners['services'].belowHeroHeadline}
-        subheadline={heroBanners['services'].belowHeroSubheadline}
-        primaryCta={heroBanners['services'].primaryCta}
+        belowHeroHeadline={heroBanners['services'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['services'].belowHeroSubheadline}
+        ctas={[heroBanners['services'].primaryCta}
         secondaryCta={heroBanners['services'].secondaryCta}
         trustIndicators={heroBanners['services'].trustIndicators}
         transcript={heroBanners['services'].transcript}

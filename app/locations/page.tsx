@@ -68,12 +68,13 @@ export default async function LocationsPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['locations'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['locations'].videoSrcDesktop}
+        posterImage="/images/pages/locations-page-1.jpg"
         voiceoverSrc={heroBanners['locations'].voiceoverSrc}
         microLabel={heroBanners['locations'].microLabel}
-        headline={heroBanners['locations'].belowHeroHeadline}
-        subheadline={heroBanners['locations'].belowHeroSubheadline}
-        primaryCta={heroBanners['locations'].primaryCta}
+        belowHeroHeadline={heroBanners['locations'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['locations'].belowHeroSubheadline}
+        ctas={[heroBanners['locations'].primaryCta}
         secondaryCta={heroBanners['locations'].secondaryCta}
         trustIndicators={heroBanners['locations'].trustIndicators}
         transcript={heroBanners['locations'].transcript}

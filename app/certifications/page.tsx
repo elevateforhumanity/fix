@@ -30,12 +30,13 @@ export default function CertificationsPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['certifications'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['certifications'].videoSrcDesktop}
+        posterImage="/images/pages/certifications-page-1.jpg"
         voiceoverSrc={heroBanners['certifications'].voiceoverSrc}
         microLabel={heroBanners['certifications'].microLabel}
-        headline={heroBanners['certifications'].belowHeroHeadline}
-        subheadline={heroBanners['certifications'].belowHeroSubheadline}
-        primaryCta={heroBanners['certifications'].primaryCta}
+        belowHeroHeadline={heroBanners['certifications'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['certifications'].belowHeroSubheadline}
+        ctas={[heroBanners['certifications'].primaryCta}
         secondaryCta={heroBanners['certifications'].secondaryCta}
         trustIndicators={heroBanners['certifications'].trustIndicators}
         transcript={heroBanners['certifications'].transcript}

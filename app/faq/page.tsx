@@ -73,12 +73,13 @@ export default function FAQPage() {
       </div>
 
       <HeroVideo
-        videoSrc={heroBanners['faq'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['faq'].videoSrcDesktop}
+        posterImage="/images/pages/faq-page-1.jpg"
         voiceoverSrc={heroBanners['faq'].voiceoverSrc}
         microLabel={heroBanners['faq'].microLabel}
-        headline={heroBanners['faq'].belowHeroHeadline}
-        subheadline={heroBanners['faq'].belowHeroSubheadline}
-        primaryCta={heroBanners['faq'].primaryCta}
+        belowHeroHeadline={heroBanners['faq'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['faq'].belowHeroSubheadline}
+        ctas={[heroBanners['faq'].primaryCta}
         secondaryCta={heroBanners['faq'].secondaryCta}
         trustIndicators={heroBanners['faq'].trustIndicators}
         transcript={heroBanners['faq'].transcript}
