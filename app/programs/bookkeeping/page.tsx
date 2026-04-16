@@ -251,12 +251,12 @@ export default function BookkeepingPage() {
               {
                 title: "No Degree Required",
                 description: "Unlike accounting, bookkeeping doesn't require a bachelor's degree or CPA. A QuickBooks certification and practical experience are what employers and clients look for.",
-                image: "/images/heroes-hq/career-services-hero.jpg"
+                image: "/images/pages/career-services-hero.jpg"
               },
               {
                 title: "Clear Career Ladder",
                 description: "Start as a bookkeeper, advance to full-charge bookkeeper, then controller or office manager. Or specialize in payroll, accounts receivable, or industry-specific bookkeeping.",
-                image: "/images/heroes-hq/success-hero.jpg"
+                image: "/images/pages/success-hero.jpg"
               }
             ].map((item, index) => (
               <motion.div

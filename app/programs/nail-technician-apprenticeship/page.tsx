@@ -240,12 +240,12 @@ export default function NailTechnicianApprenticeshipPage() {
               {
                 title: "Repeat Clients",
                 description: "Nail services are recurring — clients return every 2–3 weeks. Build a loyal client base and you have predictable, steady income month after month.",
-                image: "/images/heroes-hq/success-hero.jpg"
+                image: "/images/pages/success-hero.jpg"
               },
               {
                 title: "Earn While You Learn",
                 description: "Unlike traditional beauty school, our apprenticeship model means you earn wages from day one. No sitting in a classroom full-time — you're in a real salon with real clients.",
-                image: "/images/heroes-hq/career-services-hero.jpg"
+                image: "/images/pages/career-services-hero.jpg"
               },
               {
                 title: "Stack with Cosmetology",

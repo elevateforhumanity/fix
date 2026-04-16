@@ -236,12 +236,12 @@ export default function EntrepreneurshipPage() {
               {
                 title: "Build Generational Wealth",
                 description: "A business is an asset you can grow, sell, or pass down. Unlike a paycheck, a business builds equity over time and creates opportunities for your family.",
-                image: "/images/heroes-hq/success-hero.jpg"
+                image: "/images/pages/success-hero.jpg"
               },
               {
                 title: "Solve Real Problems",
                 description: "The best businesses solve problems people are willing to pay for. You'll learn to identify unmet needs in your community and build solutions around them.",
-                image: "/images/heroes-hq/how-it-works-hero.jpg"
+                image: "/images/pages/how-it-works-hero.jpg"
               },
               {
                 title: "Flexible Schedule",
@@ -251,7 +251,7 @@ export default function EntrepreneurshipPage() {
               {
                 title: "Community Impact",
                 description: "Small businesses are the backbone of local economies. When you start a business, you create jobs, serve neighbors, and strengthen your community.",
-                image: "/images/heroes-hq/employer-hero.jpg"
+                image: "/images/pages/employer-hero.jpg"
               },
               {
                 title: "Stack with Other Programs",
@@ -331,7 +331,7 @@ export default function EntrepreneurshipPage() {
               { title: "Registered Business Entity", desc: "LLC or DBA filed with Indiana Secretary of State, EIN obtained, business bank account opened.", image: "/images/pages/office-admin-desk.jpg" },
               { title: "Lender-Ready Business Plan", desc: "Complete business plan with market analysis, financial projections, and operational strategy — ready for SBA lenders.", image: "/images/pages/business-sector.jpg" },
               { title: "Marketing Foundation", desc: "Google Business Profile, social media accounts, brand identity, and a 90-day marketing action plan.", image: "/images/pages/barber-apprentice-learning.jpg" },
-              { title: "Mentor & Network", desc: "Matched with an experienced business mentor for 3 months. Access to alumni network and quarterly meetups.", image: "/images/heroes-hq/career-services-hero.jpg" },
+              { title: "Mentor & Network", desc: "Matched with an experienced business mentor for 3 months. Access to alumni network and quarterly meetups.", image: "/images/pages/career-services-hero.jpg" },
             ].map((item, index) => (
               <motion.div
                 key={index}
