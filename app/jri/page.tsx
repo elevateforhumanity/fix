@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import {
   Users,
   BookOpen,
@@ -130,13 +132,12 @@ export default function JRIPage() {
 
       {/* Hero Section */}
       <HeroVideo
-        videoSrc={heroBanners['jri'].videoSrcDesktop}
+        videoSrcDesktop={heroBanners['jri'].videoSrcDesktop}
         voiceoverSrc={heroBanners['jri'].voiceoverSrc}
         microLabel={heroBanners['jri'].microLabel}
-        headline={heroBanners['jri'].belowHeroHeadline}
-        subheadline={heroBanners['jri'].belowHeroSubheadline}
-        primaryCta={heroBanners['jri'].primaryCta}
-        secondaryCta={heroBanners['jri'].secondaryCta}
+        belowHeroHeadline={heroBanners['jri'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['jri'].belowHeroSubheadline}
+        ctas={[heroBanners['jri'].primaryCta, heroBanners['jri'].secondaryCta].filter(Boolean)}
         trustIndicators={heroBanners['jri'].trustIndicators}
         transcript={heroBanners['jri'].transcript}
       />
