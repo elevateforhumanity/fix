@@ -3,7 +3,7 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import Image from 'next/image';
-import VideoHeroBanner from '@/components/home/VideoHeroBanner';
+import VideoHeroBanner from '@/components/VideoHeroBanner';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,10 +28,7 @@ export default async function BusinessPage() {
     <div className="min-h-screen bg-gray-50">
       <VideoHeroBanner
         videoSrc="/videos/hero-home.mp4"
-        headline="Business & Administration Programs"
-        subheadline="Build Your Business Career - Accounting, Office Skills & Management"
-        primaryCTA={{ text: 'Apply Now', href: '/apply' }}
-        secondaryCTA={{ text: 'View All Programs', href: '/programs' }}
+        posterSrc="/images/pages/business-sector.jpg"
       />
 
       {/* At-a-Glance */}
