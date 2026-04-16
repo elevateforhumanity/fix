@@ -1,7 +1,10 @@
 // Server Component - NO 'use client'
-// Layout for public marketing pages - renders header/footer server-side.
-// Skips marketing chrome for authenticated app routes (/lms, /learner,
-// /admin, /instructor, /employer, /partner, /staff-portal, /mentor).
+// Layout for public marketing pages.
+//
+// Two-layer guard:
+//   1. Server: x-pathname header check — skips chrome on direct load of app routes.
+//   2. Client: MarketingChromeGuard toggles data-app-route on the root div,
+//              CSS handles hide/show. No conditional rendering, no DOM removal.
 
 import { Suspense } from 'react';
 import { headers } from 'next/headers';
@@ -10,7 +13,6 @@ import ServerFooter from '@/components/site/ServerFooter';
 import ClientWidgets from './ClientWidgets';
 import { MarketingChromeGuard } from './PublicLayoutClient';
 
-// Routes that render their own shell — marketing header/footer must not appear.
 const APP_ROUTE_PREFIXES = [
   '/lms',
   '/learner',
@@ -53,27 +55,44 @@ export default async function PublicLayout({ children }: PublicLayoutProps) {
 
   const pathname = extractPathname(raw);
 
+  // Server fast path: app routes render no marketing chrome at all.
   if (isAppRoute(pathname)) {
     return <>{children}</>;
   }
 
+  // Public route: render full chrome. MarketingChromeGuard handles client-side
+  // navigation to app routes by toggling data-app-route on the root div.
+  // CSS (globals.css) hides [data-marketing-chrome] and resets padding when
+  // data-app-route="true" — no DOM removal, no reconciliation errors.
   return (
     <>
-      {/* MarketingChromeGuard hides data-marketing-chrome elements via CSS
-          on client-side navigation to app routes — no DOM removal, no reconciliation errors. */}
-      <MarketingChromeGuard />
-      <div data-marketing-chrome="header">
-        <Header />
+      <div data-public-layout-root>
+        <div data-marketing-chrome>
+          <Header />
+        </div>
+
+        <div data-main-shell>
+          <main
+            id="main-content"
+            className="overflow-x-hidden"
+            data-marketing-main
+            role="main"
+            tabIndex={-1}
+          >
+            {children}
+          </main>
+        </div>
+
+        <div data-marketing-chrome>
+          <ServerFooter />
+        </div>
+
+        <ClientWidgets />
       </div>
+
       <Suspense>
-        <main id="main-content" className="pt-[70px] overflow-x-hidden" role="main" tabIndex={-1}>
-          {children}
-        </main>
+        <MarketingChromeGuard />
       </Suspense>
-      <div data-marketing-chrome="footer">
-        <ServerFooter />
-      </div>
-      <ClientWidgets />
     </>
   );
 }

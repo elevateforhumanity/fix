@@ -1924,8 +1924,18 @@ header[role="banner"] a.\!text-white {
   }
 }
 
-/* Marketing chrome hidden on app routes (admin, lms, learner, etc.)
-   Applied by MarketingChromeGuard via useEffect — CSS-only, no DOM removal. */
-.marketing-chrome-hidden {
+/* Marketing chrome — attribute-based visibility control.
+   MarketingChromeGuard sets data-app-route="true" on the root div when the
+   client navigates to an app route. CSS handles the rest — no DOM removal. */
+
+[data-marketing-main] {
+  padding-top: 70px;
+}
+
+[data-public-layout-root][data-app-route="true"] [data-marketing-chrome] {
   display: none !important;
+}
+
+[data-public-layout-root][data-app-route="true"] [data-marketing-main] {
+  padding-top: 0 !important;
 }
