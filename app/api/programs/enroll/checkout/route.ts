@@ -14,17 +14,19 @@
  * The webhook handler provisions student_enrollments on checkout.session.completed.
  */
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
-import Stripe from 'stripe';
-import { getStripe } from '@/lib/stripe/client';
 import { NextRequest, NextResponse } from 'next/server';
+import Stripe from 'stripe';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
-import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-export const runtime = 'nodejs';
 
-export const dynamic = 'force-dynamic';
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return null;
+  return new Stripe(key, { apiVersion: '2025-10-29.clover' });
+}
 
 type FundingSource = 'self_pay' | 'workone' | 'wioa' | 'grant' | 'employer';
 
@@ -33,11 +35,8 @@ interface CheckoutRequest {
   funding_source?: FundingSource;
 }
 
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const rateLimited = await applyRateLimit(request, 'contact');
-    if (rateLimited) return rateLimited;
-
     const stripe = getStripe();
     if (!stripe) {
       return NextResponse.json(
@@ -78,7 +77,7 @@ async function _POST(request: NextRequest) {
       .from('programs')
       .select('id, title, slug, total_cost, status')
       .eq('id', program_id)
-      .maybeSingle();
+      .single();
 
     if (programError || !program) {
       return NextResponse.json({ error: 'Program not found' }, { status: 404 });
@@ -98,7 +97,7 @@ async function _POST(request: NextRequest) {
       .eq('student_id', user.id)
       .eq('program_id', program_id)
       .in('status', ['active', 'pending'])
-      .maybeSingle();
+      .single();
 
     if (existingEnrollment) {
       return NextResponse.json(
@@ -123,7 +122,7 @@ async function _POST(request: NextRequest) {
       .from('profiles')
       .select('email, full_name')
       .eq('id', user.id)
-      .maybeSingle();
+      .single();
 
     const customerEmail = profile?.email || user.email || '';
 
@@ -185,10 +184,7 @@ async function _POST(request: NextRequest) {
 
     // Only add payment method types for paid checkouts
     if (amountCents > 0) {
-      // Enable BNPL for self-pay enrollments
-      sessionParams.payment_method_types = funding_source === 'self_pay'
-        ? ['card', 'klarna', 'afterpay_clearpay']
-        : ['card'];
+      sessionParams.payment_method_types = ['card'];
     }
 
     const session = await stripe.checkout.sessions.create(sessionParams);
@@ -226,11 +222,8 @@ async function _POST(request: NextRequest) {
 /**
  * GET - Return API documentation
  */
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET() {
+  return NextResponse.json({
     name: 'Program Enrollment Checkout API',
     description: 'Canonical endpoint for all program enrollments',
     method: 'POST',
@@ -247,5 +240,3 @@ return NextResponse.json({
     webhook_provisioning: 'On checkout.session.completed, student_enrollments is created with status=active',
   });
 }
-export const GET = withApiAudit('/api/programs/enroll/checkout', _GET);
-export const POST = withApiAudit('/api/programs/enroll/checkout', _POST);

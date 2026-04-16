@@ -1,16 +1,13 @@
-// PUBLIC ROUTE: chatbot lead capture — public
-// AUTH: Intentionally public — no authentication required
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
-import { resend } from '@/lib/resend';
-import { hydrateProcessEnv } from '@/lib/secrets';
+import { Resend } from 'resend';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 // Initialize Resend only if API key is available (prevents build errors)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Internal notification email address
 const INTERNAL_EMAIL = process.env.LEAD_NOTIFICATION_EMAIL || 'elevate4humanityedu@gmail.com';
@@ -124,9 +121,8 @@ Timestamp: ${new Date().toISOString()}
 `.trim();
 }
 
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-  await hydrateProcessEnv();
     const rateLimited = await applyRateLimit(request, 'strict');
     if (rateLimited) return rateLimited;
 
@@ -150,7 +146,7 @@ async function _POST(request: NextRequest) {
     if (resend) {
       try {
         await resend.emails.send({
-          from: 'Elevate AI Assistant <info@elevateforhumanity.org>',
+          from: 'Elevate AI Assistant <elevate4humanityedu@gmail.com>',
           to: INTERNAL_EMAIL,
           subject: `AI Buyer Summary — ${data.organization || data.name || 'Unknown'}`,
           text: summary,
@@ -184,15 +180,10 @@ async function _POST(request: NextRequest) {
 }
 
 // GET endpoint to check API health
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET() {
+  return NextResponse.json({
     status: 'ok',
     endpoint: 'chatbot/lead',
     description: 'Captures qualified leads from AI chatbot conversations',
   });
 }
-export const GET = withApiAudit('/api/chatbot/lead', _GET);
-export const POST = withApiAudit('/api/chatbot/lead', _POST);

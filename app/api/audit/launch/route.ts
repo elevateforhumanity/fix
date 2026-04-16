@@ -1,13 +1,11 @@
-// PUBLIC ROUTE: public audit launch endpoint
-
-import { NextRequest, NextResponse } from 'next/server';
-import { headers } from 'next/headers';
-import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
+
+import React from 'react';
+import { NextRequest, NextResponse } from 'next/server';
+import { headers } from 'next/headers';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 /**
  * Launch Audit Endpoint
@@ -17,7 +15,7 @@ export const maxDuration = 60;
  * Mode: GET or POST with options
  */
 
-
+const AUDIT_SECRET = process.env.AUDIT_SECRET || 'change-me-in-production';
 
 interface AuditOptions {
   mode: 'quick' | 'full';
@@ -45,18 +43,15 @@ interface Finding {
   };
 }
 
-async function _GET(request: NextRequest) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return handleAudit(request, {
+export async function GET(request: NextRequest) {
+  return handleAudit(request, {
     mode: 'quick',
     maxRoutes: 200,
     sample: 'top',
   });
 }
 
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
@@ -70,21 +65,13 @@ async function _POST(request: NextRequest) {
 }
 
 async function handleAudit(request: NextRequest, options: AuditOptions) {
-  const AUDIT_SECRET = process.env.AUDIT_SECRET;
-
-  if (!AUDIT_SECRET) {
-    return NextResponse.json(
-      { error: 'Audit endpoint disabled' },
-      { status: 503 }
-    );
-  }
-
+  // Auth check
   const headersList = await headers();
   const auditSecret = headersList.get('x-audit-secret');
 
   if (!auditSecret || auditSecret !== AUDIT_SECRET) {
     return NextResponse.json(
-      { error: 'Unauthorized' },
+      { error: 'Unauthorized', message: 'Missing or invalid x-audit-secret header' },
       { status: 401 }
     );
   }
@@ -98,11 +85,11 @@ async function handleAudit(request: NextRequest, options: AuditOptions) {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
       },
     });
-  } catch (error) { 
+  } catch (error) { /* Error handled silently */ 
     return NextResponse.json(
       {
         error: 'Audit failed',
-        message: 'Internal server error',
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );
@@ -180,7 +167,7 @@ async function checkEnvironment() {
 
   const notes: string[] = [];
   if (process.env.STRIPE_SECRET_KEY) notes.push('Stripe configured');
-  if (process.env.SENDGRID_API_KEY) notes.push('SendGrid email configured');
+  if (process.env.RESEND_API_KEY) notes.push('Resend email configured');
   if (process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) notes.push('Google Analytics configured');
   if (process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID) notes.push('Facebook Pixel configured');
 
@@ -304,7 +291,7 @@ async function checkSecurity() {
 
 async function checkFeatures() {
   const hasStripe = !!process.env.STRIPE_SECRET_KEY;
-  const hasEmail = !!process.env.SENDGRID_API_KEY;
+  const hasEmail = !!process.env.RESEND_API_KEY;
   const hasAnalytics = !!process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   return {
@@ -506,5 +493,3 @@ function generateSummary(checks: any, blockers: Finding[], warnings: Finding[]) 
     topRisks,
   };
 }
-export const GET = withRuntime(withApiAudit('/api/audit/launch', _GET));
-export const POST = withRuntime(withApiAudit('/api/audit/launch', _POST));

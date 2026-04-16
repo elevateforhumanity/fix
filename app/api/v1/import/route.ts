@@ -1,4 +1,3 @@
-// PUBLIC ROUTE: v1 import — API-key gated
 import { logger } from '@/lib/logger';
 /**
  * Data Import API for License Holders
@@ -9,9 +8,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { validateApiKey } from '@/lib/licensing';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-
-import { auditMutation } from '@/lib/api/withAudit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
@@ -50,7 +46,7 @@ interface ImportRequest {
   };
 }
 
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
@@ -117,7 +113,7 @@ async function _POST(request: NextRequest) {
   } catch (error) {
     logger.error('Import error:', error);
     return NextResponse.json(
-      { error: 'Import failed', details: 'Internal server error' },
+      { error: 'Import failed', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
@@ -148,7 +144,7 @@ async function importStudents(
         .select('id')
         .eq('email', student.email)
         .eq('tenant_id', tenantId)
-        .maybeSingle();
+        .single();
 
       if (existing && !options?.upsert) {
         results.failed++;
@@ -194,7 +190,7 @@ async function importStudents(
       results.success++;
     } catch (error) {
       results.failed++;
-      results.errors.push(`${student.email}: ${'Internal server error'}`);
+      results.errors.push(`${student.email}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       if (!options?.skip_errors) throw error;
     }
   }
@@ -219,11 +215,11 @@ async function importCourses(
 
       // Check if course exists
       const { data: existing } = await supabase
-        .from('training_courses')
+        .from('courses')
         .select('id')
         .eq('course_code', courseCode)
         .eq('tenant_id', tenantId)
-        .maybeSingle();
+        .single();
 
       if (existing && !options?.upsert) {
         results.failed++;
@@ -243,9 +239,9 @@ async function importCourses(
       };
 
       if (existing) {
-        await supabase.from('training_courses').update(courseData).eq('id', existing.id);
+        await supabase.from('courses').update(courseData).eq('id', existing.id);
       } else {
-        await supabase.from('training_courses').insert({
+        await supabase.from('courses').insert({
           ...courseData,
           id: crypto.randomUUID(),
           created_at: new Date().toISOString(),
@@ -255,7 +251,7 @@ async function importCourses(
       results.success++;
     } catch (error) {
       results.failed++;
-      results.errors.push(`${course.name}: ${'Internal server error'}`);
+      results.errors.push(`${course.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       if (!options?.skip_errors) throw error;
     }
   }
@@ -282,7 +278,7 @@ async function importEnrollments(
         .select('id')
         .eq('email', enrollment.student_email)
         .eq('tenant_id', tenantId)
-        .maybeSingle();
+        .single();
 
       if (!student) {
         results.failed++;
@@ -292,11 +288,11 @@ async function importEnrollments(
 
       // Find course
       const { data: course } = await supabase
-        .from('training_courses')
+        .from('courses')
         .select('id')
         .eq('course_code', enrollment.course_code)
         .eq('tenant_id', tenantId)
-        .maybeSingle();
+        .single();
 
       if (!course) {
         results.failed++;
@@ -306,11 +302,11 @@ async function importEnrollments(
 
       // Check existing enrollment
       const { data: existing } = await supabase
-        .from('program_enrollments')
+        .from('enrollments')
         .select('id')
         .eq('user_id', student.id)
         .eq('course_id', course.id)
-        .maybeSingle();
+        .single();
 
       if (existing && !options?.upsert) {
         results.failed++;
@@ -328,9 +324,9 @@ async function importEnrollments(
       };
 
       if (existing) {
-        await supabase.from('program_enrollments').update(enrollmentData).eq('id', existing.id);
+        await supabase.from('enrollments').update(enrollmentData).eq('id', existing.id);
       } else {
-        await supabase.from('program_enrollments').insert({
+        await supabase.from('enrollments').insert({
           ...enrollmentData,
           id: crypto.randomUUID(),
         });
@@ -339,7 +335,7 @@ async function importEnrollments(
       results.success++;
     } catch (error) {
       results.failed++;
-      results.errors.push(`${enrollment.student_email}: ${'Internal server error'}`);
+      results.errors.push(`${enrollment.student_email}: ${error instanceof Error ? error.message : 'Unknown error'}`);
       if (!options?.skip_errors) throw error;
     }
   }
@@ -355,11 +351,8 @@ function generateTempPassword(): string {
 }
 
 // GET endpoint for import status/documentation
-async function _GET(request: NextRequest) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET(request: NextRequest) {
+  return NextResponse.json({
     name: 'Elevate LMS Import API',
     version: '1.0',
     endpoints: {
@@ -381,7 +374,7 @@ return NextResponse.json({
           students: {
             type: 'students',
             data: [
-              { email: 'john.doe@elevateforhumanity.org', first_name: 'John', last_name: 'Doe', phone: '317-314-3757' },
+              { email: 'john@example.com', first_name: 'John', last_name: 'Doe', phone: '555-1234' },
             ],
           },
           courses: {
@@ -393,7 +386,7 @@ return NextResponse.json({
           enrollments: {
             type: 'enrollments',
             data: [
-              { student_email: 'john.doe@elevateforhumanity.org', course_code: 'CNA101', status: 'active' },
+              { student_email: 'john@example.com', course_code: 'CNA101', status: 'active' },
             ],
           },
         },
@@ -401,5 +394,3 @@ return NextResponse.json({
     },
   });
 }
-export const GET = withApiAudit('/api/v1/import', _GET);
-export const POST = withApiAudit('/api/v1/import', _POST);

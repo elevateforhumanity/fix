@@ -1,18 +1,13 @@
-// PUBLIC ROUTE: public alert scraper for job board data
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const maxDuration = 10;
 
 import { NextRequest, NextResponse } from 'next/server';
 import { parseBody } from '@/lib/api-helpers';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
-
-export const runtime = 'nodejs';
-export const maxDuration = 10;
-
-export const dynamic = 'force-dynamic';
 
 /**
  * Scraper Alert Endpoint
@@ -20,7 +15,7 @@ export const dynamic = 'force-dynamic';
  * Logs to database and sends notifications
  */
 
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
@@ -85,7 +80,7 @@ async function _POST(request: NextRequest) {
     });
 
     return responsePromise;
-  } catch (error) { 
+  } catch (error) { /* Error handled silently */ 
     logger.error('Error processing scraper alert:', error);
     return NextResponse.json(
       { error: 'Failed to process alert' },
@@ -139,8 +134,8 @@ This is an automated alert from Elevate for Humanity Security System.
 
     try {
       await sgMail.send({
-        to: process.env.ALERT_EMAIL || 'elevate4humanityedu@gmail.com',
-        from: 'security@elevateforhumanity.org',
+        to: process.env.ALERT_EMAIL || 'elizabeth@www.elevateforhumanity.org',
+        from: 'security@www.elevateforhumanity.org',
         subject: `🚨 Scraping Attempt: ${data.type}`,
         text: emailContent,
         html: emailContent.replace(/\n/g, '<br>')
@@ -194,7 +189,7 @@ async function sendSlackAlert(data: Record<string, any>) {
         ],
       }),
     });
-  } catch (error) { 
+  } catch (error) { /* Error handled silently */ 
     logger.error('Failed to send Slack alert:', error);
   }
 }
@@ -202,11 +197,8 @@ async function sendSlackAlert(data: Record<string, any>) {
 /**
  * GET endpoint to check alert system status
  */
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET() {
+  return NextResponse.json({
     status: 'active',
     message: 'Scraper detection system is active',
     features: [
@@ -220,5 +212,3 @@ return NextResponse.json({
     ],
   });
 }
-export const GET = withRuntime(withApiAudit('/api/alert-scraper', _GET));
-export const POST = withRuntime(withApiAudit('/api/alert-scraper', _POST));

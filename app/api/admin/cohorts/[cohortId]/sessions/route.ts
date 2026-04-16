@@ -1,18 +1,27 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 export const runtime = 'nodejs';
 
 export const dynamic = 'force-dynamic';
 
-return { user, profile, db };
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!db) throw new Error('Admin client failed to initialize');
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  if (!profile || !['admin', 'super_admin', 'sponsor'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, profile, db };
 }
 
 // GET — list sessions for a cohort
 export async function GET(req: NextRequest, { params }: { params: Promise<{ cohortId: string }> }) {
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const { cohortId } = await params;
@@ -29,8 +38,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ coho
 
 // POST — create a session
 export async function POST(req: NextRequest, { params }: { params: Promise<{ cohortId: string }> }) {
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const { cohortId } = await params;
@@ -52,7 +60,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ coh
       created_by: auth.id,
     })
     .select()
-    .maybeSingle();
+    .single();
 
   if (error) return NextResponse.json({ error: 'Failed to create session' }, { status: 500 });
   return NextResponse.json(data, { status: 201 });

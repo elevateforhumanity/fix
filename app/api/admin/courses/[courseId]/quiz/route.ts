@@ -9,12 +9,27 @@
  */
 
 import { NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { z } from 'zod';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!supabase) return { error: 'Database unavailable', status: 500 };
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db
+    .from('profiles').select('role').eq('id', user.id).single();
+  if (!profile || !['admin', 'super_admin', 'org_admin', 'instructor'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, profile, db };
+}
 
 const QuestionSchema = z.object({
   question_text: z.string().min(1, 'Question text is required'),
@@ -35,15 +50,14 @@ export async function GET(
   { params }: { params: Promise<{ courseId: string }> }
 ) {
   const { courseId } = await params;
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
-  const { data: course, error } = await auth.supabase
+  const { data: course, error } = await auth.db
     .from('courses')
     .select('metadata')
     .eq('id', id)
-    .maybeSingle();
+    .single();
 
   if (error?.code === 'PGRST116') return NextResponse.json({ error: 'Course not found' }, { status: 404 });
   if (error) return NextResponse.json({ error: 'Database error' }, { status: 500 });
@@ -64,8 +78,7 @@ export async function PUT(
   if (rateLimited) return rateLimited;
 
   const { courseId } = await params;
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const body = await request.json().catch(() => null);
@@ -98,11 +111,11 @@ export async function PUT(
   );
 
   // Load existing metadata to merge (preserve non-quiz keys)
-  const { data: existing } = await auth.supabase
+  const { data: existing } = await auth.db
     .from('courses')
     .select('metadata')
     .eq('id', id)
-    .maybeSingle();
+    .single();
 
   const existingMeta = (existing?.metadata || {}) as Record<string, any>;
   const updatedMeta = {
@@ -112,7 +125,7 @@ export async function PUT(
     quiz_questions: parsed.data.quiz_questions,
   };
 
-  const { error: updateError } = await auth.supabase
+  const { error: updateError } = await auth.db
     .from('courses')
     .update({ metadata: updatedMeta, updated_at: new Date().toISOString() })
     .eq('id', id);

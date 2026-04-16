@@ -9,9 +9,6 @@ import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-
-import { withRuntime } from '@/lib/api/withRuntime';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -23,7 +20,7 @@ Key information about Elevate for Humanity:
 - Nonprofit workforce development organization in Indianapolis, Indiana
 - Offers FREE career training through WIOA (Workforce Innovation and Opportunity Act) funding
 - Programs include: Healthcare (CNA, Medical Assistant, Phlebotomy), Skilled Trades (HVAC, Electrical, Welding), Technology (IT Support, Cybersecurity), CDL Training, Barbering
-- Also serves Job Ready Indy participants
+- Also serves JRI (Justice Reinvestment Initiative) participants
 - Phone: 317-314-3757
 - Website sections: /programs, /wioa-eligibility, /apply, /about, /contact
 
@@ -36,7 +33,7 @@ Your role:
 
 Keep responses brief (2-4 sentences) unless more detail is needed.`;
 
-async function _POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const rateLimited = await applyRateLimit(req, 'api');
     if (rateLimited) return rateLimited;
@@ -123,15 +120,10 @@ async function _POST(req: NextRequest) {
   }
 }
 
-async function _GET(request: Request) {
-  
-    const rateLimited = await applyRateLimit(request, 'api');
-    if (rateLimited) return rateLimited;
-return NextResponse.json({
+export async function GET() {
+  return NextResponse.json({
     name: 'AI Assistant Chat API',
     version: '1.0.0',
     description: 'Powers the AIAssistantBubble chat widget',
   });
 }
-export const GET = withRuntime(withApiAudit('/api/ai-assistant/chat', _GET));
-export const POST = withRuntime(withApiAudit('/api/ai-assistant/chat', _POST));
