@@ -208,10 +208,14 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
         }
 
         // Step 3: Create enrollment if we have both
+        // Use admin client throughout — RLS blocks session-based writes on
+        // program_enrollments, enrollments, and applications.
         if (userId && courseId) {
+          const adminDb = await getAdminClient();
+
           // Resolve the actual program_id from programs table
           const programSlug = (before.program_interest || '').toLowerCase().replace(/\s+/g, '-').trim();
-          const { data: programRow } = await auth.supabase
+          const { data: programRow } = await adminDb
             .from('programs')
             .select('id, title')
             .eq('slug', programSlug)
@@ -219,7 +223,7 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
           const programId = programRow?.id || courseId;
 
           // Check for existing course-level enrollment
-          const { data: existingEnrollment } = await auth.supabase
+          const { data: existingEnrollment } = await adminDb
             .from('enrollments')
             .select('id')
             .eq('user_id', userId)
@@ -240,7 +244,7 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
           }
 
           // Upsert program_enrollments — links student to their program
-          await auth.supabase
+          const { error: peErr } = await adminDb
             .from('program_enrollments')
             .upsert({
               user_id: userId,
@@ -253,24 +257,21 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
               enrollment_state: 'active',
               enrollment_confirmed_at: new Date().toISOString(),
               funding_source: 'pending',
+              funding_verified: false,
+              payout_status: 'pending',
+              at_risk: false,
               amount_paid_cents: 0,
-            }, { onConflict: 'user_id,program_id', ignoreDuplicates: false })
-            .then(({ error: peErr }) => {
-              if (peErr) logger.error('[Approve] program_enrollments upsert failed:', peErr.message);
-            });
+            }, { onConflict: 'user_id,program_id', ignoreDuplicates: false });
+          if (peErr) logger.error('[Approve] program_enrollments upsert failed:', peErr.message);
 
-          // Update application with resolved IDs — keep status as 'approved'
-          // (transition to ready_to_enroll → enrolled happens via /api/admin/applications/transition)
-          await auth.supabase
+          // Update application with resolved IDs
+          await adminDb
             .from('applications')
-            .update({
-              program_id: programId,
-              user_id: userId,
-            })
+            .update({ program_id: programId, user_id: userId })
             .eq('id', id);
 
           // Audit log
-          await auth.supabase.from('audit_logs').insert({
+          await adminDb.from('audit_logs').insert({
             actor_id: auth.user.id,
             actor_role: auth.profile.role,
             action: 'create',
@@ -294,12 +295,13 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
       }
     }
 
-    // Audit log for the status change
+    // Audit log for the status change — use admin client (RLS blocks session writes)
     const action = updateData.status === 'approved' ? 'approve' :
                    updateData.status === 'rejected' ? 'reject' :
                    'status_change';
 
-    await auth.supabase.from('audit_logs').insert({
+    const auditDb = await getAdminClient();
+    await auditDb.from('audit_logs').insert({
       actor_id: auth.user.id,
       actor_role: auth.profile.role,
       action,
@@ -315,7 +317,10 @@ async function _PATCH(request: Request, { params }: { params: Promise<{ id: stri
     }, { status: 200 });
   } catch (error: any) {
     logger.error('Application PATCH error', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: error?.message || 'Internal server error' },
+      { status: 500 },
+    );
   }
 }
 

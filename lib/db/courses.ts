@@ -504,7 +504,7 @@ export async function updateApplication(id: string, patch: ApplicationUpdate) {
     .select('*, program:programs(id, title, code)')
     .single();
   if (error?.code === 'PGRST116') return null;
-  if (error) throw new Error('Database operation failed');
+  if (error) throw new Error(`DB update failed: ${error.message} (code: ${error.code})`);
   return data;
 }
 
