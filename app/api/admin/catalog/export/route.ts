@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -9,15 +11,22 @@ async function _GET(request: Request) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+    const supabase = await createClient();
+    const db = await getAdminClient();
 
-      }
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+    if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
     const { searchParams } = new URL(request.url);
     const format = searchParams.get('format') || 'json';
 
-    const { data: programs } = await supabase
+    const { data: programs } = await db
       .from('programs')
       .select('id, title, slug, description, category, status, tuition, duration_weeks, total_hours')
       .eq('status', 'active')

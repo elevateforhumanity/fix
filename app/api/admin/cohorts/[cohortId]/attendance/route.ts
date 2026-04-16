@@ -1,18 +1,27 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
+import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 export const runtime = 'nodejs';
 
 export const dynamic = 'force-dynamic';
 
-return { user, profile, db };
+async function requireAdmin() {
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!db) throw new Error('Admin client failed to initialize');
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized', status: 401 };
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  if (!profile || !['admin', 'super_admin', 'sponsor'].includes(profile.role)) {
+    return { error: 'Forbidden', status: 403 };
+  }
+  return { user, profile, db };
 }
 
 // GET — attendance for a cohort (all sessions)
 export async function GET(req: NextRequest, { params }: { params: Promise<{ cohortId: string }> }) {
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const { cohortId } = await params;
@@ -34,8 +43,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ coho
 
 // POST — log attendance for a session (bulk: array of { user_id, status, minutes_attended })
 export async function POST(req: NextRequest, { params }: { params: Promise<{ cohortId: string }> }) {
-  const auth = const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const auth = await requireAdmin();
   if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
   const body = await req.json();

@@ -1,14 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { programs } from '@/app/data/programs';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 async function guardAdmin() {
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
-
-    }
+  const supabase = await createClient();
+  const db = await getAdminClient();
+  if (!supabase) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).single();
+  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
   return null;
 }
 
@@ -174,7 +180,7 @@ function generateCatalogHtml(programList: typeof programs) {
     
     ${programList.map((program, i) => `
       <div class="program" id="program-${i}">
-        <h2>${program.title || program?.title || program?.name}</h2>
+        <h2>${program.name}</h2>
         
         <div class="program-meta">
           <div class="meta-item">
