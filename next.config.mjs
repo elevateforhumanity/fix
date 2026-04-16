@@ -938,8 +938,6 @@ const nextConfig = {
       // /employer-portal root → canonical employer dashboard
       { source: '/employer-portal',           destination: '/employer/dashboard',  permanent: true },
 
-
-
       // ============================================
       // STUB PAGE REPLACEMENTS — working redirect stubs moved to config
       // ============================================
