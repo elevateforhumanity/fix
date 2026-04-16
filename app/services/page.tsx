@@ -93,7 +93,6 @@ export default function ServicesPage() {
         trustIndicators={heroBanners['services'].trustIndicators}
         transcript={heroBanners['services'].transcript}
       />
-      </section>
 
       {/* Services Grid */}
       <section className="py-16 px-4">

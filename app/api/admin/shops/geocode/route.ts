@@ -1,5 +1,7 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { geocodeAddress, buildAddressString, isGeocodingResult } from '@/lib/geo/geocode';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logAdminAudit, AdminAction, BULK_ENTITY_ID } from '@/lib/admin/audit-log';
@@ -12,10 +14,26 @@ async function _POST(req: Request) {
     const rateLimited = await applyRateLimit(req, 'api');
     if (rateLimited) return rateLimited;
 
-    const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+    const supabase = await createClient();
+  const db = await getAdminClient();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
+    }
 
-      }
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { data: profile } = await db
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
     const { shop_id, retry } = await req.json();
 
@@ -24,11 +42,11 @@ async function _POST(req: Request) {
     }
 
     // Get shop
-    const { data: shop, error: shopError } = await supabase
+    const { data: shop, error: shopError } = await db
       .from('shops')
       .select('id, name, address1, address2, city, state, zip')
       .eq('id', shop_id)
-      .maybeSingle();
+      .single();
 
     if (shopError || !shop) {
       return NextResponse.json({ error: 'Shop not found' }, { status: 404 });
@@ -36,7 +54,7 @@ async function _POST(req: Request) {
 
     // Clear failed status if retrying
     if (retry) {
-      await supabase
+      await db
         .from('shops')
         .update({ geocode_failed_at: null, geocode_error: null })
         .eq('id', shop_id);
@@ -52,7 +70,7 @@ async function _POST(req: Request) {
     });
 
     if (!address || address.length < 5) {
-      await supabase
+      await db
         .from('shops')
         .update({
           geocode_failed_at: new Date().toISOString(),
@@ -67,7 +85,7 @@ async function _POST(req: Request) {
     const result = await geocodeAddress(address);
 
     if (isGeocodingResult(result)) {
-      await supabase
+      await db
         .from('shops')
         .update({
           latitude: result.latitude,
@@ -79,7 +97,7 @@ async function _POST(req: Request) {
         })
         .eq('id', shop_id);
 
-      await logAdminAudit({ action: AdminAction.SHOP_GEOCODED, actorId: auth.id, entityType: 'shops', entityId: shop_id, metadata: { source: result.source }, req });
+      await logAdminAudit({ action: AdminAction.SHOP_GEOCODED, actorId: user.id, entityType: 'shops', entityId: shop_id, metadata: { source: result.source }, req });
 
       return NextResponse.json({
         success: true,
@@ -88,7 +106,7 @@ async function _POST(req: Request) {
         source: result.source,
       });
     } else {
-      await supabase
+      await db
         .from('shops')
         .update({
           geocode_failed_at: new Date().toISOString(),

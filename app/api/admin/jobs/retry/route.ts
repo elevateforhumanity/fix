@@ -8,18 +8,29 @@
 
 
 import { NextRequest, NextResponse } from 'next/server';
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 export const runtime = 'nodejs';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    }
+  // Verify admin role
+  const db = await getAdminClient();
+  const { data: profile } = await db
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!profile || !['admin', 'super_admin'].includes(profile.role ?? '')) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
 
   const body = await req.json().catch(() => ({}));
   const { jobId } = body as { jobId?: string };
@@ -52,6 +63,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 
-  logger.info('Job queued for retry by admin', { jobId, type: job.type, adminId: auth.id });
+  logger.info('Job queued for retry by admin', { jobId, type: job.type, adminId: user.id });
   return NextResponse.json({ ok: true, jobId });
 }
