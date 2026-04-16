@@ -139,17 +139,17 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
 
     db.from('program_enrollments')
       .select('amount_paid_cents')
-      .eq('payment_status', 'paid'),
+      .in('payment_status', ['paid', 'completed', 'setup_fee_paid']),
 
     db.from('program_enrollments')
       .select('amount_paid_cents')
-      .eq('payment_status', 'paid')
+      .in('payment_status', ['paid', 'completed', 'setup_fee_paid'])
       .gte('created_at', thisMonthStart),
 
     // Last month revenue for delta
     db.from('program_enrollments')
       .select('amount_paid_cents')
-      .eq('payment_status', 'paid')
+      .in('payment_status', ['paid', 'completed', 'setup_fee_paid'])
       .gte('created_at', lastMonthStartS)
       .lt('created_at', lastMonthEndS),
 
@@ -395,7 +395,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       deltaLabel: revDelta !== 0
         ? `${revDelta > 0 ? '+' : ''}${revDelta}% vs last month`
         : 'No change vs last month',
-      href: '/admin/enrollments?payment_status=paid',
+      href: '/admin/students?payment_status=paid',
       urgent: false,
       sub: `$${(revenueAllTimeCents / 100).toLocaleString('en-US')} collected all time`,
     },

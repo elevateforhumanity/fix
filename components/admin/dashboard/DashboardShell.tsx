@@ -63,7 +63,7 @@ function KPIGrid({ kpis, counts }: { kpis: KPICard[]; counts: AdminDashboardData
   const cards = [
     { label: "Pending Applications", value: fmt(counts.pendingApplications), icon: FileText, color: "from-amber-500 to-orange-600", href: "/admin/applications", urgent: counts.pendingApplications > 10 },
     { label: "Active Enrollments", value: fmt(counts.activeEnrollments), icon: Users, color: "from-brand-blue-500 to-brand-blue-700", href: "/admin/students" },
-    { label: "Revenue This Month", value: dollars(counts.revenueThisMonthCents), icon: DollarSign, color: "from-emerald-500 to-teal-600", href: "/admin/payments" },
+    { label: "Revenue This Month", value: dollars(counts.revenueThisMonthCents), icon: DollarSign, color: "from-emerald-500 to-teal-600", href: "/admin/students?payment_status=paid" },
     { label: "Certificates Issued", value: fmt(counts.certificatesIssued), icon: Award, color: "from-purple-500 to-violet-600", href: "/admin/certifications" },
     { label: "Pending Docs", value: fmt(counts.pendingDocuments), icon: Clock, color: "from-rose-500 to-brand-red-600", href: "/admin/documents", urgent: counts.pendingDocuments > 0 },
     { label: "Program Holders", value: fmt(counts.pendingProgramHolders), icon: Shield, color: "from-slate-500 to-slate-700", href: "/admin/program-holders" },
