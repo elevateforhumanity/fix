@@ -16,6 +16,11 @@ import { SOCIAL_LINKS } from '@/config/social-links';
 // Col 4: Portals (role-gated — logged-in users only)
 // Col 5: Organization
 // Bottom: Legal
+//
+// Footer links: static config (intentional). Footer changes require a deploy regardless.
+// Keeping links static avoids a DB round-trip on every page load. If CMS-editable
+// footer links are needed, use the navigation_items table (extend schema first —
+// add section, display_order int, is_active bool) and fetch with revalidate=3600.
 
 const footerLinks = {
   // Column 1 — All program areas

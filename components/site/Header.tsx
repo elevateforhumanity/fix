@@ -15,6 +15,12 @@ import HeaderDesktopNav from './HeaderDesktopNav';
 //
 // Anything tied to studying, enrolling, accessing courses, or navigating programs
 // belongs in the LMS navigation (components/lms/LMSNavigation.tsx), not here.
+//
+// Nav source: static config (intentional). The navigation_items DB table exists but
+// has a schema too weak for mega-menu structure (no section, is_header, integer order).
+// Nav changes require a deploy regardless — keeping it static avoids a DB round-trip
+// on every page load with no editorial benefit. If a CMS-editable nav is needed,
+// extend navigation_items with: section, is_header, display_order (int), parent_id.
 export const NAV_ITEMS = [
   {
     name: 'Programs',
