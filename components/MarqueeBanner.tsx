@@ -1,8 +1,6 @@
-'use client';
-
 /**
  * MarqueeBanner — continuously scrolling Elevate brand ticker.
- * Runs indefinitely; does not pause on scroll or hover.
+ * Server component — CSS animation only, no JS required.
  */
 
 const ITEMS = [

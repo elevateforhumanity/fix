@@ -49,7 +49,7 @@ const PROGRAMS = [
   },
 ];
 
-function ProgramCard({ prog }: { prog: typeof PROGRAMS[number] }) {
+function ProgramCard({ prog, priority }: { prog: typeof PROGRAMS[number]; priority?: boolean }) {
   return (
     <Link href={prog.href} className="group relative rounded-2xl overflow-hidden block" style={{ aspectRatio: '9/14' }}>
       <Image
@@ -59,7 +59,8 @@ function ProgramCard({ prog }: { prog: typeof PROGRAMS[number] }) {
         className="object-cover transition-transform duration-500 group-hover:scale-105"
         style={{ objectPosition: prog.objectPosition }}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        priority
+        priority={priority}
+        loading={priority ? undefined : 'lazy'}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent" />
 
@@ -82,8 +83,8 @@ function ProgramCard({ prog }: { prog: typeof PROGRAMS[number] }) {
 export function ProgramVideoCards() {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-      {PROGRAMS.map((prog) => (
-        <ProgramCard key={prog.full} prog={prog} />
+      {PROGRAMS.map((prog, i) => (
+        <ProgramCard key={prog.full} prog={prog} priority={i === 0} />
       ))}
     </div>
   );

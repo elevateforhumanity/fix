@@ -299,7 +299,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
 
   healthcare: {
     pageKey: 'healthcare',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'Healthcare Programs',
     belowHeroHeadline: 'Healthcare training that leads to certification.',
@@ -591,7 +591,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'cna': programBanner('cna', {
     pageKey: 'cna',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cna.mp3',
     microLabel: 'Indiana CNA Certification',
@@ -609,7 +609,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'medical-assistant': programBanner('medical-assistant', {
     pageKey: 'medical-assistant',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/medical-assistant.mp3',
     microLabel: 'NHA CCMA Certification',
@@ -627,7 +627,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'pharmacy-technician': programBanner('pharmacy-technician', {
     pageKey: 'pharmacy-technician',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'PTCB CPhT Prep',
@@ -645,7 +645,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'phlebotomy': programBanner('phlebotomy', {
     pageKey: 'phlebotomy',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'NHA CPT Certification',
@@ -663,7 +663,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'home-health-aide': programBanner('home-health-aide', {
     pageKey: 'home-health-aide',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'Indiana HHA Certification',
@@ -681,7 +681,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'emergency-health-safety': programBanner('emergency-health-safety', {
     pageKey: 'emergency-health-safety',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cpr.mp3',
     microLabel: 'NREMT EMR Certification',
@@ -699,7 +699,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'cpr-first-aid': programBanner('cpr-first-aid', {
     pageKey: 'cpr-first-aid',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cpr.mp3',
     microLabel: 'HSI Certified',
@@ -718,7 +718,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'sanitation-infection-control': programBanner('sanitation-infection-control', {
     pageKey: 'sanitation-infection-control',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'ServSafe + Bloodborne',
