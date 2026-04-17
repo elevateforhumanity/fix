@@ -235,7 +235,7 @@ export default function SNAPETPartnerPage() {
               Complete TPP Questionnaire <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="/fssa-partnership-request"
+              href="/fssa/partnership-request"
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-lg px-10 py-4 rounded-full transition border border-white/30"
             >
               Agency Partnership Request
