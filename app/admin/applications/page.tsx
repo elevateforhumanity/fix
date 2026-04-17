@@ -45,7 +45,12 @@ export default async function ApplicationsPage({
   try { adminDb = await getAdminClient(); } catch {}
   if (!adminDb) return <div className="p-8 text-red-600">Service temporarily unavailable. Please try again.</div>;
 
-  let query = adminDb.from('applications').select('*', { count: 'exact' }).order('created_at', { ascending: false });
+  // Exclude program_holder applications — those are managed under /admin/program-holders
+  let query = adminDb
+    .from('applications')
+    .select('*', { count: 'exact' })
+    .or('type.is.null,type.neq.program_holder')
+    .order('created_at', { ascending: false });
   if (resolvedStatuses.length === 1) query = query.eq('status', resolvedStatuses[0]);
   else if (resolvedStatuses.length > 1) query = query.in('status', resolvedStatuses);
   if (search) query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,full_name.ilike.%${search}%`);
@@ -54,7 +59,10 @@ export default async function ApplicationsPage({
   const { data: applications, count: totalCount, error: applicationsError } = await query;
   if (applicationsError) return <div className="p-8 text-red-600">Failed to load applications. Please refresh.</div>;
 
-  const { data: allApps, error: allAppsError } = await adminDb.from('applications').select('status');
+  const { data: allApps, error: allAppsError } = await adminDb
+    .from('applications')
+    .select('status')
+    .or('type.is.null,type.neq.program_holder');
   if (allAppsError) return <div className="p-8 text-red-600">Failed to load application counts. Please refresh.</div>;
 
   const statusCounts: Record<string, number> = {};

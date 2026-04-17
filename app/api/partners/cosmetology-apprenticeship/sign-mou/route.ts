@@ -53,6 +53,7 @@ async function _POST(req: NextRequest) {
     const { data: mouRecord, error: insertError } = await db
       .from('mou_signatures')
       .insert({
+        partner_type: 'cosmetology',
         signer_name: signer_name.trim(),
         signer_title: signer_title.trim(),
         signature_data,

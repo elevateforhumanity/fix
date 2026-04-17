@@ -19,6 +19,7 @@ export interface ApplicationRow {
   support_notes: string | null;
   status: string;
   source: string | null;
+  type: string | null;
   created_at: string;
   updated_at: string | null;
 }

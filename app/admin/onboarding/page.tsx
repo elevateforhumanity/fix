@@ -5,7 +5,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';
 import {
   Clock, CheckCircle, XCircle, Eye, Users, Building2,
-  AlertTriangle, ArrowRight, RefreshCw, FileSignature, ShieldCheck,
+  AlertTriangle, ArrowRight, RefreshCw, FileSignature, ShieldCheck, ListChecks,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -30,8 +30,24 @@ interface EmployerOnboarding {
   updated_at: string | null;
 }
 
+interface OnboardingProgress {
+  id: string;
+  user_id: string;
+  profile_completed: boolean | null;
+  agreements_completed: boolean | null;
+  handbook_acknowledged: boolean | null;
+  documents_uploaded: boolean | null;
+  status: string | null;
+  completed_at: string | null;
+  created_at: string;
+}
+
 interface MouSignature {
   id: string;
+  partner_type: string | null;
+  organization_name: string | null;
+  contact_name: string | null;
+  contact_email: string | null;
   signer_name: string;
   signer_title: string | null;
   supervisor_name: string | null;
@@ -102,7 +118,7 @@ export default async function AdminOnboardingPage() {
 
   const db = await getAdminClient();
 
-  const [employerRes, providerRes, mouRes, policyRes] = await Promise.all([
+  const [employerRes, providerRes, mouRes, policyRes, progressRes] = await Promise.all([
     db.from('employer_onboarding')
       .select('*')
       .order('created_at', { ascending: false }),
@@ -110,19 +126,25 @@ export default async function AdminOnboardingPage() {
       .select('*, profiles(full_name, email)')
       .order('created_at', { ascending: false }),
     db.from('mou_signatures')
-      .select('id, signer_name, signer_title, supervisor_name, supervisor_license, compensation_model, compensation_rate, mou_version, signed_at, ip_address')
+      .select('id, partner_type, organization_name, contact_name, contact_email, signer_name, signer_title, supervisor_name, supervisor_license, compensation_model, compensation_rate, mou_version, signed_at, ip_address')
       .order('signed_at', { ascending: false })
       .limit(100),
     db.from('partner_policy_acknowledgments')
       .select('id, shop_name, signer_name, policies_acknowledged, acknowledged_at, ip_address')
       .order('acknowledged_at', { ascending: false })
       .limit(100),
+    // Learner onboarding step completion — written by /api/onboarding/complete-step
+    db.from('onboarding_progress')
+      .select('id, user_id, profile_completed, agreements_completed, handbook_acknowledged, documents_uploaded, status, completed_at, created_at')
+      .order('created_at', { ascending: false })
+      .limit(200),
   ]);
 
   const employers: EmployerOnboarding[] = employerRes.data ?? [];
   const providerSteps: ProviderOnboardingStep[] = providerRes.data ?? [];
   const mouSignatures: MouSignature[] = mouRes.data ?? [];
   const policyAcks: PolicyAcknowledgment[] = policyRes.data ?? [];
+  const onboardingProgress: OnboardingProgress[] = progressRes.data ?? [];
 
   // Group provider steps by provider_id
   const providerMap = new Map<string, ProviderOnboardingStep[]>();
@@ -313,7 +335,7 @@ export default async function AdminOnboardingPage() {
             <table className="w-full text-sm">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  {['Signer', 'Title', 'Supervisor', 'License', 'Compensation', 'MOU Version', 'Signed'].map(h => (
+                  {['Partner Type', 'Organization', 'Signer', 'Supervisor', 'Compensation', 'MOU Version', 'Signed'].map(h => (
                     <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">{h}</th>
                   ))}
                 </tr>
@@ -321,11 +343,29 @@ export default async function AdminOnboardingPage() {
               <tbody className="divide-y divide-slate-100">
                 {mouSignatures.map(m => (
                   <tr key={m.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-3 font-medium text-slate-900">{m.signer_name}</td>
-                    <td className="px-4 py-3 text-slate-600">{m.signer_title ?? '—'}</td>
-                    <td className="px-4 py-3 text-slate-600">{m.supervisor_name ?? '—'}</td>
-                    <td className="px-4 py-3 text-slate-600">{m.supervisor_license ?? '—'}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-full ${
+                        m.partner_type === 'barbershop' ? 'bg-amber-100 text-amber-700'
+                        : m.partner_type === 'cosmetology' ? 'bg-pink-100 text-pink-700'
+                        : m.partner_type === 'program_holder' ? 'bg-blue-100 text-blue-700'
+                        : 'bg-slate-100 text-slate-600'
+                      }`}>
+                        {(m.partner_type ?? 'unknown').replace(/_/g, ' ')}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <p className="font-medium text-slate-900">{m.organization_name ?? m.signer_name}</p>
+                      <p className="text-xs text-slate-400">{m.contact_email ?? ''}</p>
+                    </td>
                     <td className="px-4 py-3 text-slate-600">
+                      <p>{m.signer_name}</p>
+                      <p className="text-xs text-slate-400">{m.signer_title ?? ''}</p>
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      <p>{m.supervisor_name ?? '—'}</p>
+                      <p className="text-xs text-slate-400">{m.supervisor_license ?? ''}</p>
+                    </td>
+                    <td className="px-4 py-3 text-slate-600 text-xs">
                       {m.compensation_model ? `${m.compensation_model}${m.compensation_rate ? ` — ${m.compensation_rate}` : ''}` : '—'}
                     </td>
                     <td className="px-4 py-3 text-slate-500 text-xs">{m.mou_version ?? '—'}</td>
@@ -337,6 +377,75 @@ export default async function AdminOnboardingPage() {
               </tbody>
             </table>
           </div>
+        )}
+      </section>
+
+      {/* Learner Onboarding Progress */}
+      <section>
+        <div className="flex items-center gap-2 mb-4">
+          <ListChecks className="w-5 h-5 text-slate-600" />
+          <h2 className="text-lg font-semibold text-slate-900">Learner Onboarding Progress</h2>
+          <span className="ml-auto text-sm text-slate-500">{onboardingProgress.length} records</span>
+        </div>
+        {onboardingProgress.length === 0 ? (
+          <div className="text-center py-10 bg-slate-50 rounded-xl border border-slate-200">
+            <ListChecks className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+            <p className="text-slate-500">No onboarding progress records yet.</p>
+          </div>
+        ) : (
+          <>
+            {/* Summary stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              {[
+                { label: 'Completed', value: onboardingProgress.filter(p => p.status === 'completed').length, color: 'text-green-600' },
+                { label: 'In Progress', value: onboardingProgress.filter(p => p.status === 'in_progress').length, color: 'text-amber-600' },
+                { label: 'Not Started', value: onboardingProgress.filter(p => p.status === 'not_started' || !p.status).length, color: 'text-slate-500' },
+                { label: 'Profile Done', value: onboardingProgress.filter(p => p.profile_completed).length, color: 'text-blue-600' },
+              ].map(s => (
+                <div key={s.label} className="bg-white rounded-xl border shadow-sm p-4">
+                  <p className="text-xs text-slate-500">{s.label}</p>
+                  <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
+                </div>
+              ))}
+            </div>
+            <div className="overflow-x-auto rounded-xl border border-slate-200">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    {['User', 'Profile', 'Agreements', 'Handbook', 'Documents', 'Status', 'Completed'].map(h => (
+                      <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {onboardingProgress.map(p => (
+                    <tr key={p.id} className="hover:bg-slate-50">
+                      <td className="px-4 py-3 font-mono text-xs text-slate-400">{p.user_id?.slice(0, 8)}…</td>
+                      {[p.profile_completed, p.agreements_completed, p.handbook_acknowledged, p.documents_uploaded].map((done, i) => (
+                        <td key={i} className="px-4 py-3">
+                          {done
+                            ? <CheckCircle className="w-4 h-4 text-green-500" />
+                            : <XCircle className="w-4 h-4 text-slate-300" />}
+                        </td>
+                      ))}
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
+                          p.status === 'completed' ? 'bg-green-100 text-green-700'
+                          : p.status === 'in_progress' ? 'bg-amber-100 text-amber-700'
+                          : 'bg-slate-100 text-slate-500'
+                        }`}>
+                          {p.status ?? 'not_started'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-slate-500 text-xs">
+                        {p.completed_at ? new Date(p.completed_at).toLocaleDateString() : '—'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </section>
 

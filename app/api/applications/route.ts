@@ -144,6 +144,7 @@ async function _POST(req: Request) {
         source: body.source || 'website',
         contact_preference: body.preferredContact || 'phone',
         transfer_hours_claimed: transferHoursClaimed,
+        type: 'student',
         // transfer_hours_verified is null until staff reviews documentation
       })
       .select()
