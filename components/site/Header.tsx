@@ -139,6 +139,8 @@ export const NAV_ITEMS = [
     name: 'Sign In',
     href: '/login',
     subItems: [
+      { name: '— My Dashboard —', href: '/my-dashboard', isHeader: true },
+      { name: 'My Dashboard', href: '/my-dashboard' },
       { name: '— Students —', href: '/learner/dashboard', isHeader: true },
       { name: 'Learner Dashboard', href: '/learner/dashboard' },
       { name: 'My Courses (LMS)', href: '/lms/dashboard' },

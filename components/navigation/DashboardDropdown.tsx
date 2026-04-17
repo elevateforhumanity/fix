@@ -48,6 +48,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 const DEFAULT_DASHBOARDS: Dashboard[] = [
+  { id: '0', name: 'My Dashboard', href: '/my-dashboard', icon: 'LayoutDashboard', description: 'Your home — all roles', color: 'text-brand-blue-600', roles: ['user'], order_index: 0 },
   { id: '1', name: 'Admin', href: '/admin/dashboard', icon: 'Shield', description: 'System management', color: 'text-brand-red-600', roles: ['admin', 'super_admin'], order_index: 1 },
   { id: '2', name: 'Student', href: '/lms/dashboard', icon: 'GraduationCap', description: 'Learning portal', color: 'text-brand-blue-600', roles: ['student', 'user'], order_index: 2 },
   { id: '3', name: 'Staff', href: '/staff-portal/dashboard', icon: 'Users', description: 'Support operations', color: 'text-brand-green-600', roles: ['staff', 'admin'], order_index: 3 },
@@ -56,8 +57,7 @@ const DEFAULT_DASHBOARDS: Dashboard[] = [
   { id: '6', name: 'Instructor', href: '/instructor/dashboard', icon: 'BookOpen', description: 'Teaching tools', color: 'text-indigo-600', roles: ['instructor', 'admin'], order_index: 6 },
   { id: '7', name: 'Creator', href: '/creator/dashboard', icon: 'Palette', description: 'Community courses', color: 'text-pink-600', roles: ['creator', 'user'], order_index: 7 },
   { id: '8', name: 'AI Studio', href: '/ai-studio', icon: 'Sparkles', description: 'AI video & media', color: 'text-purple-600', roles: ['user'], order_index: 8 },
-  { id: '9', name: 'Delegate', href: '/delegate/dashboard', icon: 'Shield', description: 'Moderation', color: 'text-yellow-600', roles: ['delegate', 'admin'], order_index: 9 },
-  { id: '10', name: 'Shop', href: '/shop/dashboard', icon: 'ShoppingBag', description: 'Store management', color: 'text-teal-600', roles: ['shop_owner', 'admin'], order_index: 10 },
+  // Delegate and Shop dashboard pages do not exist — removed to prevent 404s
 ];
 
 export function DashboardDropdown({ className }: Props) {
@@ -233,12 +233,12 @@ export function DashboardDropdown({ className }: Props) {
 
             <div className="border-t border-slate-200 p-2 bg-slate-50">
               <Link
-                href="/admin/dashboard"
+                href="/my-dashboard"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-brand-blue-600 hover:bg-white rounded-lg transition"
               >
                 <LayoutDashboard className="w-4 h-4" />
-                View All Dashboards
+                My Dashboard
               </Link>
             </div>
           </div>
