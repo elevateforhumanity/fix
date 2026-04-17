@@ -238,8 +238,8 @@ const heroBanners: Record<string, HeroBannerConfig> = {
 
   about: {
     pageKey: 'about',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/about.mp3',
     microLabel: 'Our Mission',
     belowHeroHeadline: 'Built for workforce outcomes.',
@@ -259,8 +259,8 @@ const heroBanners: Record<string, HeroBannerConfig> = {
 
   platform: {
     pageKey: 'platform',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'Workforce Infrastructure',
     belowHeroHeadline: 'Workforce infrastructure, not just a website.',
@@ -281,8 +281,8 @@ const heroBanners: Record<string, HeroBannerConfig> = {
   'funding-how-it-works': {
     pageKey: 'funding-how-it-works',
     // orientation-full.mp4 used until a dedicated funding hero video is produced
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/apply.mp3',
     microLabel: 'Funded Training',
     belowHeroHeadline: 'How funded training works.',
@@ -303,8 +303,8 @@ const heroBanners: Record<string, HeroBannerConfig> = {
 
   healthcare: {
     pageKey: 'healthcare',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'Healthcare Programs',
     belowHeroHeadline: 'Healthcare training that leads to certification.',
@@ -325,8 +325,8 @@ const heroBanners: Record<string, HeroBannerConfig> = {
 
   store: {
     pageKey: 'store',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/store.mp3',
     microLabel: 'White-Label Platform',
     belowHeroHeadline: 'License the LMS that runs workforce programs end to end.',
@@ -365,8 +365,8 @@ Try the live demo — no signup, no time limit. Every screen is clickable. Searc
 
   programs: {
     pageKey: 'programs',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/programs.mp3',
     microLabel: 'Career Training',
     belowHeroHeadline: 'Start a Career — Not Just a Class',
@@ -409,8 +409,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   learner: {
     pageKey: 'learner',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/learner.mp3',
     microLabel: 'Your Training',
     belowHeroHeadline: 'Your credential is the goal. Everything here moves you toward it.',
@@ -607,8 +607,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'cna': programBanner('cna', {
     pageKey: 'cna',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cna.mp3',
     microLabel: 'Indiana CNA Certification',
@@ -626,8 +626,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'medical-assistant': programBanner('medical-assistant', {
     pageKey: 'medical-assistant',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/medical-assistant.mp3',
     microLabel: 'NHA CCMA Certification',
@@ -645,8 +645,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'pharmacy-technician': programBanner('pharmacy-technician', {
     pageKey: 'pharmacy-technician',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'PTCB CPhT Prep',
@@ -664,8 +664,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'phlebotomy': programBanner('phlebotomy', {
     pageKey: 'phlebotomy',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'NHA CPT Certification',
@@ -683,8 +683,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'home-health-aide': programBanner('home-health-aide', {
     pageKey: 'home-health-aide',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'Indiana HHA Certification',
@@ -702,8 +702,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'emergency-health-safety': programBanner('emergency-health-safety', {
     pageKey: 'emergency-health-safety',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cpr.mp3',
     microLabel: 'NREMT EMR Certification',
@@ -721,8 +721,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'cpr-first-aid': programBanner('cpr-first-aid', {
     pageKey: 'cpr-first-aid',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cpr.mp3',
     microLabel: 'HSI Certified',
@@ -741,8 +741,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'sanitation-infection-control': programBanner('sanitation-infection-control', {
     pageKey: 'sanitation-infection-control',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
     posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'ServSafe + Bloodborne',
@@ -893,8 +893,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'it-help-desk': programBanner('it-help-desk', {
     pageKey: 'it-help-desk',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'CompTIA A+ Prep',
@@ -912,8 +912,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'cybersecurity-analyst': programBanner('cybersecurity-analyst', {
     pageKey: 'cybersecurity-analyst',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'CompTIA Security+ Prep',
@@ -931,8 +931,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'network-administration': programBanner('network-administration', {
     pageKey: 'network-administration',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'CompTIA Network+ Prep',
@@ -950,8 +950,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'network-support-technician': programBanner('network-support-technician', {
     pageKey: 'network-support-technician',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'IT Specialist Networking',
@@ -969,8 +969,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'software-development': programBanner('software-development', {
     pageKey: 'software-development',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'IT Specialist Python',
@@ -988,8 +988,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'web-development': programBanner('web-development', {
     pageKey: 'web-development',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Meta Front-End Cert',
@@ -1007,8 +1007,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'graphic-design': programBanner('graphic-design', {
     pageKey: 'graphic-design',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Adobe Certified Professional',
@@ -1026,8 +1026,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'cad-drafting': programBanner('cad-drafting', {
     pageKey: 'cad-drafting',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Autodesk Certified User',
@@ -1047,8 +1047,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'tax-preparation': programBanner('tax-preparation', {
     pageKey: 'tax-preparation',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/tax-hero.jpg',
     voiceoverSrc: '/audio/heroes/tax.mp3',
     microLabel: 'IRS PTIN + AFSP',
@@ -1066,8 +1066,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'bookkeeping': programBanner('bookkeeping', {
     pageKey: 'bookkeeping',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'QuickBooks Certified User',
@@ -1085,8 +1085,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'office-administration': programBanner('office-administration', {
     pageKey: 'office-administration',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Microsoft Office Specialist',
@@ -1104,8 +1104,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'entrepreneurship': programBanner('entrepreneurship', {
     pageKey: 'entrepreneurship',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Certiport ESB Certification',
@@ -1123,8 +1123,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'business-administration': programBanner('business-administration', {
     pageKey: 'business-administration',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'MOS + Certiport ESB',
@@ -1142,8 +1142,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'project-management': programBanner('project-management', {
     pageKey: 'project-management',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Certiport PM Certification',
@@ -1161,8 +1161,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'finance-bookkeeping-accounting': programBanner('finance-bookkeeping-accounting', {
     pageKey: 'finance-bookkeeping-accounting',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'IRS PTIN + QuickBooks',
@@ -1200,8 +1200,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'technology': {
     pageKey: 'technology',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Technology Programs',
     belowHeroHeadline: 'Technology training with industry certifications.',
@@ -1215,8 +1215,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'business': {
     pageKey: 'business',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Business Programs',
     belowHeroHeadline: 'Business training for professional careers.',
@@ -1230,8 +1230,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   mission: {
     pageKey: 'mission',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/mission.mp3',
     microLabel: 'Our Mission',
     belowHeroHeadline: 'Pathways out of poverty. Into prosperity.',
@@ -1245,8 +1245,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   partners: {
     pageKey: 'partners',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/partners.mp3',
     microLabel: 'Partner With Us',
     belowHeroHeadline: 'Build the workforce your community needs.',
@@ -1260,8 +1260,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   lms: {
     pageKey: 'lms',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/lms.mp3',
     microLabel: 'Student Training Portal',
     belowHeroHeadline: 'Your career training starts here.',
@@ -1275,8 +1275,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   training: {
     pageKey: 'training',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/training.mp3',
     microLabel: 'Training Programs',
     belowHeroHeadline: 'Career training for real jobs.',
@@ -1305,8 +1305,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   supersonic: {
     pageKey: 'supersonic',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/supersonic.mp3',
     microLabel: 'SupersonicFastCash',
     belowHeroHeadline: 'Tax software built for speed.',
@@ -1335,8 +1335,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   enrollment: {
     pageKey: 'enrollment',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/enrollment.mp3',
     microLabel: 'Enrollment',
     belowHeroHeadline: 'Ready to start? Let\'s get you enrolled.',
@@ -1350,8 +1350,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'how-it-works': {
     pageKey: 'how-it-works',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/how-it-works.mp3',
     microLabel: 'How It Works',
     belowHeroHeadline: 'From application to employment in four steps.',
@@ -1366,8 +1366,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   // /employer — employer partnership page (distinct from /for-employers)
   employer: {
     pageKey: 'employer',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'For Employers',
     belowHeroHeadline: 'Hire credentialed graduates. Access tax credits and apprenticeship support.',
@@ -1412,8 +1412,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   // /student-support — student support services page
   'student-support': {
     pageKey: 'student-support',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/programs.mp3',
     microLabel: 'Student Support',
     belowHeroHeadline: 'Support from enrollment through employment.',
@@ -1434,8 +1434,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'hire-graduates': {
     pageKey: 'hire-graduates',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/hire-graduates.mp3',
     microLabel: 'Hire Our Graduates',
     belowHeroHeadline: 'Credential-ready talent. Pre-screened. Job-ready.',
@@ -1449,8 +1449,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'for-employers': {
     pageKey: 'for-employers',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/for-employers.mp3',
     microLabel: 'For Employers',
     belowHeroHeadline: 'Build your workforce pipeline with Elevate.',
@@ -1464,8 +1464,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   faq: {
     pageKey: 'faq',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/faq.mp3',
     microLabel: 'Frequently Asked Questions',
     belowHeroHeadline: 'Questions? We have answers.',
@@ -1479,8 +1479,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'financial-aid': {
     pageKey: 'financial-aid',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/financial-aid.mp3',
     microLabel: 'Financial Aid & Funding',
     belowHeroHeadline: 'Training at no cost for eligible students.',
@@ -1494,8 +1494,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   certifications: {
     pageKey: 'certifications',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/certifications.mp3',
     microLabel: 'Credentials & Certifications',
     belowHeroHeadline: 'Earn credentials employers recognize.',
@@ -1524,8 +1524,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   'program-holder': {
     pageKey: 'program-holder',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/program-holder.mp3',
     microLabel: 'Program Holders',
     belowHeroHeadline: 'Deliver training under the Elevate umbrella.',
@@ -1554,8 +1554,8 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
 
   start: {
     pageKey: 'start',
-    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
-    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/start.mp3',
     microLabel: 'Get Started',
     belowHeroHeadline: 'Your next career starts here.',
