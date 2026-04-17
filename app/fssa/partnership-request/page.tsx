@@ -121,7 +121,7 @@ export default function FSSAPartnershipRequestPage() {
             </div>
             <div className="mt-8 space-x-4">
               <Link
-                href="/snap-et-partner"
+                href="/fssa/snap-et"
                 className="inline-block px-6 py-3 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition"
               >
                 Back to SNAP E&T Info
@@ -350,7 +350,7 @@ export default function FSSAPartnershipRequestPage() {
             {/* Submit Button */}
             <div className="flex items-center justify-between pt-6 border-t">
               <Link
-                href="/snap-et-partner"
+                href="/fssa/snap-et"
                 className="text-black hover:text-black font-semibold"
               >
                 ← Back to SNAP E&T Info

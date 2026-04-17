@@ -102,7 +102,7 @@ const DEFAULT_NAVIGATION: NavCategory[] = [
     order_index: 6,
     items: [
       { id: '29', name: 'Partners', href: '/partners', description: 'Partner with us', order_index: 1 },
-      { id: '30', name: 'SNAP-ET', href: '/snap-et-partner', description: 'SNAP Employment & Training', order_index: 2 },
+      { id: '30', name: 'SNAP E&T', href: '/fssa/snap-et', description: 'SNAP Employment & Training', order_index: 2 },
       { id: '31', name: 'FSSA / IMPACT Program', href: '/fssa/partnership-request', description: 'Family & Social Services', order_index: 3 },
       { id: '32', name: 'WorkOne', href: '/workone-partner-packet', description: 'WorkOne partnership', order_index: 4 },
       { id: '33', name: 'JRI', href: '/jri', description: 'Job Ready Indy', order_index: 5 },
