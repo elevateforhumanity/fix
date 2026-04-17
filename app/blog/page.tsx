@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { getDb } from '@/lib/lms/api';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, User, ArrowRight } from 'lucide-react';
@@ -19,8 +19,7 @@ export const revalidate = 600;
 
 async function getDbPosts(): Promise<BlogPost[]> {
   try {
-    const { getAdminClient } = await import('@/lib/supabase/admin');
-    const supabase = await getAdminClient();
+    const supabase = await getDb();
     const { data } = await supabase
       .from('blog_posts')
       .select('*')

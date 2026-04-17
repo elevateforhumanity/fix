@@ -1,6 +1,4 @@
-import { getAdminClient } from '@/lib/supabase/admin'
-import { notFound } from 'next/navigation'
-import PartnerUploadForm from './PartnerUploadForm'
+export const dynamic = 'force-dynamic';
 
 export default async function PartnerUploadPage({ params }: { params: { token: string } }) {
   const supabase = await getAdminClient()

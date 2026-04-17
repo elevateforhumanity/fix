@@ -14,9 +14,16 @@ import { createClient } from '@/lib/supabase/server';
 import type { Program, CourseProgress } from './types';
 import { logger } from '@/lib/logger';
 
-async function getDb() {
+/**
+ * Returns the best available Supabase client for server-side reads.
+ * Prefers the admin (service-role) client to bypass RLS; falls back to the
+ * anon client when the service role key is absent (build-time prerender,
+ * local dev without secrets). Export so program pages can reuse it.
+ */
+export async function getDb() {
   const admin = await getAdminClient();
   if (admin) return admin;
+  // Service role key absent (build-time prerender, local dev) — use anon client.
   return await createClient();
 }
 

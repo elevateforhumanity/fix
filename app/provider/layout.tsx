@@ -1,7 +1,9 @@
+export const dynamic = 'force-dynamic';
+
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import Link from 'next/link';
 import {
   LayoutDashboard, BookOpen, ShieldCheck, Settings, Users, LogOut,
 } from 'lucide-react';

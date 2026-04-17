@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { getDb } from '@/lib/lms/api';
 
 export default async function ProgramLayout({
   children,
@@ -9,9 +9,7 @@ export default async function ProgramLayout({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const supabase = await getAdminClient();
-
-  if (!supabase) return notFound();
+  const supabase = await getDb();
 
   const { data: program } = await supabase
     .from('programs')

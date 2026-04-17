@@ -5,6 +5,9 @@ import Logo from '@/components/ui/Logo';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { TEAM } from '@/data/team';
+import { createClient } from '@/lib/supabase/server';
+
+export const revalidate = 3600; // re-fetch team from DB hourly
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
 
@@ -22,8 +25,27 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
-  const founder = TEAM[0];
+export default async function AboutPage() {
+  // Fetch team from DB; fall back to static data/team.ts if unavailable
+  let dbTeam: { name: string; title: string; headshot_url: string | null; display_order: number }[] = [];
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from('team_members')
+      .select('name, title, headshot_url, display_order')
+      .eq('is_active', true)
+      .order('display_order');
+    if (data && data.length > 0) dbTeam = data;
+  } catch {
+    // fall through to static fallback
+  }
+
+  // Merge: DB rows take priority; fall back to data/team.ts shape for rendering
+  const teamForDisplay = dbTeam.length > 0
+    ? dbTeam.map((m) => ({ id: m.name, name: m.name, title: m.title, headshotSrc: m.headshot_url ?? undefined }))
+    : TEAM;
+
+  const founder = teamForDisplay[0];
 
   return (
     <div className="min-h-screen bg-white">
@@ -510,7 +532,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {TEAM.filter((member) => member.id !== '1').map((member) => (
+            {teamForDisplay.filter((member) => member.name !== founder.name).map((member) => (
               <Link
                 key={member.id}
                 href={`/about/team#member-${member.id}`}

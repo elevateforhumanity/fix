@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { ArrowRight, Building2, Users, Briefcase, Heart, RefreshCw, GraduationCap } from 'lucide-react';
+import { ArrowRight, Building2, Users, Briefcase, Heart, RefreshCw, GraduationCap, type LucideIcon } from 'lucide-react';
+import { createClient } from '@/lib/supabase/server';
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Become a Partner | Elevate for Humanity',
@@ -10,59 +12,40 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.elevateforhumanity.org/partners/join' },
 };
 
-const PARTNER_TYPES = [
-  {
-    icon: Building2,
-    title: 'Workforce Agency',
-    desc: 'Refer WIOA, Job Ready Indy, or WRG-funded participants to our approved training programs.',
-    href: '/partners/apply',
-    cta: 'Apply as Agency',
-  },
-  {
-    icon: Briefcase,
-    title: 'Employer',
-    desc: 'Hire certified graduates, host apprentices, or post jobs to our placement pipeline.',
-    href: '/partners/apply',
-    cta: 'Apply as Employer',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Training Provider',
-    desc: 'Co-deliver programs, share facilities, or list your programs in our catalog.',
-    href: '/partners/apply',
-    cta: 'Apply as Provider',
-  },
-  {
-    icon: RefreshCw,
-    title: 'Reentry Organization',
-    desc: 'Connect justice-involved individuals to Job Ready Indy-funded training and placement services.',
-    href: '/partners/apply',
-    cta: 'Apply as Reentry Org',
-  },
-  {
-    icon: Users,
-    title: 'Community Organization',
-    desc: 'Refer clients facing employment barriers to our programs and support services.',
-    href: '/partners/apply',
-    cta: 'Apply as Community Org',
-  },
-  {
-    icon: Heart,
-    title: 'Philanthropic Supporter',
-    desc: 'Fund training, supplies, scholarships, or wraparound support services.',
-    href: '/philanthropy',
-    cta: 'Support Our Mission',
-  },
+const ICON_MAP: Record<string, LucideIcon> = {
+  Building2, Briefcase, GraduationCap, RefreshCw, Users, Heart,
+};
+
+const FALLBACK_PARTNER_TYPES = [
+  { key: 'workforce-agency',  icon: 'Building2',    title: 'Workforce Agency',        description: 'Refer WIOA, Job Ready Indy, or WRG-funded participants to our approved training programs.',    apply_href: '/partners/apply' },
+  { key: 'employer',          icon: 'Briefcase',    title: 'Employer',                description: 'Hire certified graduates, host apprentices, or post jobs to our placement pipeline.',            apply_href: '/partners/apply' },
+  { key: 'training-provider', icon: 'GraduationCap',title: 'Training Provider',       description: 'Co-deliver programs, share facilities, or list your programs in our catalog.',                   apply_href: '/partners/apply' },
+  { key: 'reentry-org',       icon: 'RefreshCw',    title: 'Reentry Organization',    description: 'Connect justice-involved individuals to Job Ready Indy-funded training and placement services.', apply_href: '/partners/apply' },
+  { key: 'community-org',     icon: 'Users',        title: 'Community Organization',  description: 'Refer clients facing employment barriers to our programs and support services.',                  apply_href: '/partners/apply' },
+  { key: 'philanthropic',     icon: 'Heart',        title: 'Philanthropic Supporter', description: 'Fund training, supplies, scholarships, or wraparound support services.',                          apply_href: '/philanthropy'   },
 ];
 
 const STEPS = [
   { n: '1', title: 'Submit Application', desc: 'Complete the partner application — takes about 5 minutes.' },
-  { n: '2', title: 'Discovery Call', desc: 'We identify the right partnership model and programs for your organization.' },
-  { n: '3', title: 'Sign Agreement', desc: 'Execute an MOU or partnership agreement.' },
-  { n: '4', title: 'Launch', desc: 'Start referring participants, hiring graduates, or co-delivering programs.' },
+  { n: '2', title: 'Discovery Call',     desc: 'We identify the right partnership model and programs for your organization.' },
+  { n: '3', title: 'Sign Agreement',     desc: 'Execute an MOU or partnership agreement.' },
+  { n: '4', title: 'Launch',             desc: 'Start referring participants, hiring graduates, or co-delivering programs.' },
 ];
 
-export default function JoinPartnerPage() {
+export default async function JoinPartnerPage() {
+  let partnerTypes = FALLBACK_PARTNER_TYPES;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from('partner_types')
+      .select('key, icon, title, description, apply_href, display_order')
+      .eq('is_active', true)
+      .order('display_order');
+    if (data && data.length > 0) partnerTypes = data;
+  } catch {
+    // use fallback
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <div className="relative h-[220px] md:h-[300px] overflow-hidden">
@@ -74,7 +57,6 @@ export default function JoinPartnerPage() {
           className="object-cover"
           priority
         />
-      
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-12">
@@ -98,21 +80,24 @@ export default function JoinPartnerPage() {
         {/* Partnership types */}
         <h2 className="text-2xl font-bold text-slate-900 mb-6">Partnership Types</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
-          {PARTNER_TYPES.map((p) => (
-            <div key={p.title} className="border rounded-xl p-6 flex flex-col">
-              <div className="w-10 h-10 rounded-lg bg-brand-blue-50 flex items-center justify-center mb-4">
-                <p.icon className="w-5 h-5 text-brand-blue-600" />
+          {partnerTypes.map((p) => {
+            const Icon = ICON_MAP[p.icon] ?? Building2;
+            return (
+              <div key={p.key} className="border rounded-xl p-6 flex flex-col">
+                <div className="w-10 h-10 rounded-lg bg-brand-blue-50 flex items-center justify-center mb-4">
+                  <Icon className="w-5 h-5 text-brand-blue-600" />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">{p.title}</h3>
+                <p className="text-black text-sm flex-1">{p.description}</p>
+                <Link
+                  href={p.apply_href}
+                  className="mt-4 inline-flex items-center gap-1 text-brand-blue-600 text-sm font-medium hover:underline"
+                >
+                  Apply <ArrowRight className="w-3 h-3" />
+                </Link>
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">{p.title}</h3>
-              <p className="text-black text-sm flex-1">{p.desc}</p>
-              <Link
-                href={p.href}
-                className="mt-4 inline-flex items-center gap-1 text-brand-blue-600 text-sm font-medium hover:underline"
-              >
-                {p.cta} <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* How it works */}

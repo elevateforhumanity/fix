@@ -27,20 +27,15 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const supabase = await createClient();
-  const db = await getAdminClient();
-
-  if (!supabase) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Service Unavailable</h2>
-          <p className="text-gray-600">Please try again later.</p>
-        </div>
-      </div>
-    );
+  // Admin client preferred for bypassing RLS; falls back to anon during build-time prerender
+  let db = await createClient();
+  try {
+    const admin = await getAdminClient();
+    if (admin) db = admin;
+  } catch {
+    // Service role key unavailable — anon client used instead
   }
-  
+
   // Fetch tax preparation program
   const { data: program } = await db
     .from('programs')

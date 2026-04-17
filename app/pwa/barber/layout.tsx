@@ -1,11 +1,4 @@
-import type { Metadata, Viewport } from 'next';
-import { redirect } from 'next/navigation';
-import { ServiceWorkerRegistration } from '@/components/pwa/ServiceWorkerRegistration';
-import { InstallPrompt } from '@/components/pwa/InstallPrompt';
-import { OfflineIndicator } from '@/components/pwa/OfflineIndicator';
-import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
-import { checkBarberSuspension } from '@/lib/barber/suspension';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Elevate Barber Apprentice',

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { getDb } from '@/lib/lms/api';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -40,7 +40,7 @@ export default async function ForEmployersPage() {
   let programCount: number | null = null;
 
   try {
-    const db = await getAdminClient();
+    const db = await getDb();
     const { count: ec } = await db
       .from('employer_profiles')
       .select('*', { count: 'exact', head: true });

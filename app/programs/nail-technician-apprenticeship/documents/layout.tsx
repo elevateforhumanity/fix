@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { getDb } from '@/lib/lms/api';
 import { redirect } from 'next/navigation';
 
 export default async function DocumentsLayout({
@@ -10,7 +10,7 @@ export default async function DocumentsLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
-  const db = await getAdminClient();
+  const db = await getDb();
   if (!db) throw new Error('Admin client failed to initialize');
 
   if (!supabase) {

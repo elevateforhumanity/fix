@@ -69,22 +69,25 @@ export function createAdminClient(): SupabaseClient<any> {
  * Usage:
  *   const db = await getAdminClient();
  */
-export async function getAdminClient(): Promise<SupabaseClient<any>> {
-  const { hydrateProcessEnv } = await import('@/lib/secrets');
-  await hydrateProcessEnv();
-
-  // After hydration, the key may still be absent (local dev, misconfigured env).
-  // Throw a clean, actionable error rather than letting createAdminClient() throw
-  // the misleading "called before env hydration" guard.
-  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error(
-      'MISSING_ENV: SUPABASE_SERVICE_ROLE_KEY is not set. ' +
-      'Add it to Netlify environment variables or .env.local.'
-    );
+export async function getAdminClient(): Promise<SupabaseClient<any> | null> {
+  try {
+    const { hydrateProcessEnv } = await import('@/lib/secrets');
+    await hydrateProcessEnv();
+  } catch {
+    // Secrets hydration unavailable (build-time prerender, local dev).
   }
 
-  // SAFE: non-request-time context — scripts/ or internal admin.ts, hydration guaranteed by caller
-  return createAdminClient();
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    // Key absent — caller must handle null (fall back to anon client or skip write).
+    return null;
+  }
+
+  try {
+    // SAFE: hydration attempted above; key confirmed present
+    return createAdminClient();
+  } catch {
+    return null;
+  }
 }
 
 /**

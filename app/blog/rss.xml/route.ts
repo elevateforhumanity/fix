@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { getDb } from '@/lib/lms/api';
 
 export const revalidate = 3600;
 
@@ -7,7 +7,7 @@ export async function GET() {
   const baseUrl = 'https://www.elevateforhumanity.org';
   
   try {
-    const supabase = await getAdminClient();
+    const supabase = await getDb();
     const { data: posts } = await supabase
       .from('blog_posts')
       .select('title, slug, excerpt, published_at, category, author_name')

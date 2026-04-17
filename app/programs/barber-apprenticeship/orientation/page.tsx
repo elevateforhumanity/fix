@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { getDb } from '@/lib/lms/api';
 import BarberOrientationClient from './OrientationClient';
 import type { BarberPaymentSummary } from './OrientationClient';
 import { BARBER_PRICING } from '@/lib/programs/pricing';
@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function BarberOrientationPage() {
   const supabase = await createClient();
-  const db = await getAdminClient();
+  const db = await getDb();
 
   const { data: { user } } = await supabase.auth.getUser();
 

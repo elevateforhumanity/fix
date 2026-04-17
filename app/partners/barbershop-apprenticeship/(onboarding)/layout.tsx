@@ -1,6 +1,4 @@
-import { redirect } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
-import { getAdminClient } from '@/lib/supabase/admin';
+export const dynamic = 'force-dynamic';
 
 // All routes under (onboarding) require an authenticated program_holder or partner.
 // Public visitors are redirected to login, then back here after sign-in.

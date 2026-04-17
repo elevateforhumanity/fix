@@ -1,4 +1,4 @@
-import { getAdminClient } from '@/lib/supabase/admin';
+import { getDb } from '@/lib/lms/api';
 
 import { notFound } from 'next/navigation';
 import fs from 'fs';
@@ -72,7 +72,7 @@ export async function generateMetadata({
   // Fallback to DB if no static data
   if (!program) {
     try {
-      const supabase = await getAdminClient();
+      const supabase = await getDb();
       if (supabase) {
         const { data } = await supabase
           .from('programs')
@@ -185,7 +185,7 @@ export default async function ProgramDetailPage({
   // Fetch outcomes/requirements from DB if program has an ID
   if (program?.id) {
     try {
-      const supabase = await getAdminClient();
+      const supabase = await getDb();
       if (supabase) {
         const { data: outcomes } = await supabase
           .from('program_outcomes')

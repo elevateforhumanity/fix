@@ -16,13 +16,13 @@ import {
 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import {
-  getActivePartners,
-  getPartnersByCategory,
-  getCategoriesWithPartners,
   PARTNER_CATEGORIES,
   type PartnerCategory,
   type TrainingPartner,
 } from '@/data/training-partners';
+import { createClient } from '@/lib/supabase/server';
+
+export const revalidate = 3600;
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
 
@@ -76,8 +76,7 @@ function PartnerCard({ partner }: { partner: TrainingPartner }) {
   );
 }
 
-function CategorySection({ category }: { category: PartnerCategory }) {
-  const partners = getPartnersByCategory(category);
+function CategorySection({ category, partners }: { category: PartnerCategory; partners: TrainingPartner[] }) {
   const meta = PARTNER_CATEGORIES[category];
   const Icon = CATEGORY_ICONS[category];
 
@@ -103,9 +102,34 @@ function CategorySection({ category }: { category: PartnerCategory }) {
   );
 }
 
-export default function TrainingSitesPage() {
-  const activePartners = getActivePartners();
-  const categoriesWithPartners = getCategoriesWithPartners();
+export default async function TrainingSitesPage() {
+  // Fetch active partners from DB; fall back to empty (static file has no real partners yet)
+  let activePartners: TrainingPartner[] = [];
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from('training_partners')
+      .select('name, category, training_role, city, state, notes, programs_list')
+      .eq('status', 'active')
+      .order('name');
+    if (data && data.length > 0) {
+      activePartners = data.map((r) => ({
+        name: r.name,
+        category: r.category as PartnerCategory,
+        trainingRole: r.training_role,
+        status: 'active' as const,
+        city: r.city,
+        state: r.state,
+        documentation: [],
+        programs: r.programs_list ?? [],
+        description: r.notes ?? undefined,
+      }));
+    }
+  } catch {
+    // use empty fallback — placeholder UI handles this
+  }
+
+  const categoriesWithPartners = [...new Set(activePartners.map((p) => p.category))];
   const hasPartners = activePartners.length > 0;
 
   return (
@@ -170,7 +194,11 @@ export default function TrainingSitesPage() {
                 capability, and safety standards appropriate to the training program.
               </p>
               {categoriesWithPartners.map((category) => (
-                <CategorySection key={category} category={category} />
+                <CategorySection
+                  key={category}
+                  category={category}
+                  partners={activePartners.filter((p) => p.category === category)}
+                />
               ))}
             </>
           ) : (

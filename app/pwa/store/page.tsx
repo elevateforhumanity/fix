@@ -1,7 +1,4 @@
-import Image from 'next/image';
-import Logo from '@/components/ui/Logo';
-import Link from 'next/link';
-import { getAdminClient } from '@/lib/supabase/admin';
+export const dynamic = 'force-dynamic';
 
 async function getStoreData() {
   const supabase = await getAdminClient();

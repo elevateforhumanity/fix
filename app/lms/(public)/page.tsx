@@ -1,14 +1,4 @@
-import { redirect } from 'next/navigation';
-import { getAdminClient } from '@/lib/supabase/admin';
-import { createClient } from '@/lib/supabase/server';
-import { buildLoginRedirect } from '@/lib/lms/redirect';
-import { StudentToolsStrip } from '@/components/lms/dashboard/StudentToolsStrip';
-import Link from 'next/link';
-import Image from 'next/image';
-import HeroVideo from '@/components/marketing/HeroVideo';
-import heroBanners from '@/content/heroBanners';
-import type { Metadata } from 'next';
-import { Clock, Award, ChevronRight } from 'lucide-react';
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Student Training Portal | Elevate for Humanity',

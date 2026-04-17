@@ -26,15 +26,17 @@ export default async function Testimonials() {
     if (supabase) {
       const { data } = await supabase
         .from('testimonials')
-        .select('name, role, company, content, rating, is_featured')
-        .order('rating', { ascending: false })
+        .select('name, title, quote, rating')
+        .eq('show_on_home', true)
+        .eq('is_active', true)
+        .order('display_order')
         .limit(3);
-      
+
       if (data && data.length > 0) {
         testimonials = data.map(t => ({
-          content: t.content,
+          content: t.quote,
           name: t.name,
-          role: t.role || t.company || 'Graduate',
+          role: t.title || 'Graduate',
         }));
       }
     }
