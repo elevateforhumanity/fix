@@ -29,6 +29,14 @@ import { useEffect, useRef, useState } from 'react';
 
 type Props = {
   src: string;
+  /**
+   * Mobile-optimised video source (viewports ≤ 767px).
+   * Rendered as a `<source media="(max-width: 767px)">` element so the browser
+   * picks the correct file before any bytes are fetched — unlike a JS-based
+   * post-mount switch which always starts the desktop fetch first.
+   * When omitted, the desktop `src` is used on all viewports.
+   */
+  srcMobile?: string;
   /** Optional poster — shown while video loads and as reduced-motion fallback */
   poster?: string;
   className?: string;
@@ -53,7 +61,7 @@ type Props = {
   preloadFull?: boolean;
 };
 
-export default function CanonicalVideo({ src, poster, className, threshold = 0.1, playThrough = true, autoPlayOnMount = false, preloadFull = false }: Props) {
+export default function CanonicalVideo({ src, srcMobile, poster, className, threshold = 0.1, playThrough = true, autoPlayOnMount = false, preloadFull = false }: Props) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const [failed, setFailed] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -174,9 +182,15 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           onError={() => setFailed(true)}
           style={{ zIndex: 10 }}
         >
-          {/* #t=0.001 forces mobile browsers to decode and display the first frame
-              immediately, so onCanPlay fires as soon as the video is ready to play
-              rather than waiting for a full metadata + seek cycle. */}
+          {/* Mobile source first — browser picks the first matching <source>.
+              Using media queries here (not JS) means the correct file is chosen
+              before any bytes are fetched, unlike a post-mount JS src swap which
+              always starts the desktop download first.
+              #t=0.001 forces mobile browsers to decode the first frame immediately
+              so onCanPlay fires without waiting for a full metadata + seek cycle. */}
+          {srcMobile && (
+            <source src={`${srcMobile}#t=0.001`} type="video/mp4" media="(max-width: 767px)" />
+          )}
           <source src={`${src}#t=0.001`} type="video/mp4" />
         </video>
       </>
@@ -195,6 +209,9 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
       onEnded={() => setEnded(true)}
       onError={() => setFailed(true)}
     >
+      {srcMobile && (
+        <source src={`${srcMobile}#t=0.001`} type="video/mp4" media="(max-width: 767px)" />
+      )}
       <source src={src} type="video/mp4" />
     </video>
   );

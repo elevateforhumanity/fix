@@ -82,16 +82,9 @@ export default function HeroVideo({
   const [muted, setMuted] = useState(true);
   const transcriptId = useId();
 
-  // Track whether we're mounted on the client (avoids SSR/client hydration mismatch)
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-
-  // Always use desktop src on server. Switch to mobile src after mount if viewport is narrow.
-  // This prevents the SSR/client src mismatch hydration error.
-  const videoSrc =
-    mounted && videoSrcMobile && window.innerWidth < 768
-      ? videoSrcMobile
-      : videoSrcDesktop;
+  // videoSrcMobile is passed to CanonicalVideo as srcMobile, which renders it
+  // as <source media="(max-width: 767px)"> — the browser picks the right file
+  // before any bytes are fetched. No JS-based post-mount switching needed.
 
   // Start voiceover on first user interaction (browser autoplay policy)
   useEffect(() => {
@@ -138,7 +131,8 @@ export default function HeroVideo({
             preloadFull buffers the video immediately so the first frame
             appears without waiting for the IntersectionObserver tick. */}
         <CanonicalVideo
-          src={videoSrc}
+          src={videoSrcDesktop}
+          srcMobile={videoSrcMobile}
           poster={posterImage}
           className="absolute inset-0 w-full h-full object-cover object-center"
           autoPlayOnMount
