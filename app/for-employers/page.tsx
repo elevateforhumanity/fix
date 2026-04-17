@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static';
 
 import { Metadata } from 'next';
 import { getAdminClient } from '@/lib/supabase/admin';
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 600;
+export const revalidate = 3600;
 
 export default async function ForEmployersPage() {
   let employerCount: number | null = null;
