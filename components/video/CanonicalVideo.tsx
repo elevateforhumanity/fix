@@ -143,7 +143,9 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   // the image renders at its intrinsic size before CSS object-fit applies.
   // Both elements share the same className (absolute inset-0 in hero usage)
   // so they stack correctly inside the relative parent container.
-  if (poster) {
+  // Hero videos (preloadFull=true) skip the poster — video is already buffered
+  // so the poster would only flash briefly before the video plays.
+  if (poster && !preloadFull) {
     return (
       <>
         {/* Poster — z-0, always visible until video plays.
@@ -183,19 +185,20 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
     );
   }
 
-  // No poster — single video element, hide it after playback ends
+  // No poster (hero path) — fade in from transparent once first frame is ready
   return (
     <video
       ref={ref}
-      className={`${className} transition-opacity duration-700 ${ended ? 'opacity-0' : ''}`}
+      className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
       muted
       playsInline
       preload={preloadFull ? 'auto' : 'metadata'}
       aria-hidden="true"
+      onCanPlay={() => setPlaying(true)}
       onEnded={() => setEnded(true)}
       onError={() => setFailed(true)}
     >
-      <source src={src} type="video/mp4" />
+      <source src={`${src}#t=0.001`} type="video/mp4" />
     </video>
   );
 }
