@@ -82,7 +82,9 @@
       ],
       "fix": "ADD COLUMN module_type text to modules, OR remove filter from UI",
       "severity": "LOW",
-      "expires": "2026-07-15"
+      "expires": "2026-07-15",
+      "resolved": true,
+      "resolved_by": "migration 20260417000001_modules_module_type.sql"
     },
     {
       "id": "W009",
@@ -94,7 +96,9 @@
       ],
       "fix": "ADD COLUMN published boolean DEFAULT false to media",
       "severity": "LOW",
-      "expires": "2026-07-15"
+      "expires": "2026-07-15",
+      "resolved": true,
+      "resolved_by": "migration 20260417000002_media_published.sql"
     },
     {
       "id": "W010",
@@ -176,8 +180,10 @@
       ],
       "fix": "Rewrite query to filter by provider name or restructure table",
       "severity": "LOW",
-      "expires": "2026-07-15"
+      "expires": "2026-07-15",
+      "resolved": true,
+      "resolved_by": "migration 20260417000003_partner_lms_sync_logs_provider_id.sql"
     }
   ],
-  "_last_updated": "2026-04-02"
+  "_last_updated": "2026-04-17"
 }
