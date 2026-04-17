@@ -1,98 +1,92 @@
+export const dynamic = 'force-dynamic';
+
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
-import Image from 'next/image';
-
-export const dynamic = 'force-dynamic';
+import { User } from 'lucide-react';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-  alternates: {
-    canonical: 'https://www.elevateforhumanity.org/admin/learner',
-  },
-  title: 'Learner Management | Elevate For Humanity',
-  description:
-    'Manage individual learner profiles, progress tracking, and performance analytics.',
+  title: 'Learner Management | Elevate Admin',
 };
 
 export default async function LearnerPage() {
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
+  const supabase = getAdminClient();
 
-
+  const { data: learners } = await supabase
+    .from('profiles')
+    .select('id, full_name, email, role, created_at')
+    .eq('role', 'student')
+    .order('created_at', { ascending: false })
+    .limit(100);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Learners' }]} />
 
-      {/* Hero Image */}
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Learner" }]} />
-        </div>
-      {/* Hero Section */}
-      <section className="relative h-48 md:h-64 overflow-hidden">
-        <Image
-          src="/images/pages/admin-learner-detail.jpg"
-          alt="Learner Management"
-          fill
-          className="object-cover"
-          quality={100}
-          priority
-          sizes="100vw"
-        />
-
-      </section>
-
-      {/* Content Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
-              <h2 className="text-2xl font-bold mb-4">
-                Individual Learner View
-              </h2>
-              <p className="text-black mb-6">
-                Select a specific learner ID to view detailed information
-              </p>
-              <Link
-                href="/admin/students"
-                className="inline-block bg-brand-blue-600 hover:bg-brand-blue-700 text-white px-6 py-3 rounded-lg font-medium"
-              >
-                Browse All Learners
-              </Link>
-            </div>
+        <div className="flex items-center justify-between mt-4 mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Learner Management</h1>
+            <p className="text-gray-500 mt-1">{learners?.length ?? 0} learners</p>
           </div>
+          <Link
+            href="/admin/students"
+            className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-brand-blue-700"
+          >
+            Full Student View
+          </Link>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-brand-blue-700">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Learner Management
-                        </h2>
-            <p className="text-base md:text-lg text-brand-blue-100 mb-8">
-              View student profiles, progress, and enrollment history.
-                        </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/admin/students"
-                className="bg-white text-brand-blue-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 text-lg"
-              >
-                View Students
-              </Link>
-              <Link
-                href="/admin/reports"
-                className="bg-brand-blue-800 text-white px-8 py-4 rounded-lg font-semibold hover:bg-brand-blue-600 border-2 border-white text-lg"
-              >
-                View Reports
-              </Link>
-            </div>
-          </div>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th className="text-left px-6 py-3 font-medium text-gray-600">Learner</th>
+                <th className="text-left px-6 py-3 font-medium text-gray-600">Email</th>
+                <th className="text-left px-6 py-3 font-medium text-gray-600">Joined</th>
+                <th className="px-6 py-3" />
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {(learners ?? []).map((l) => (
+                <tr key={l.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-brand-blue-100 flex items-center justify-center text-brand-blue-600">
+                        <User className="w-4 h-4" />
+                      </div>
+                      <span className="font-medium text-gray-900">{l.full_name ?? '—'}</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-600">{l.email ?? '—'}</td>
+                  <td className="px-6 py-4 text-gray-500">
+                    {l.created_at ? new Date(l.created_at).toLocaleDateString() : '—'}
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <Link
+                      href={`/admin/learner/${l.id}`}
+                      className="text-brand-blue-600 hover:text-brand-blue-800 font-medium"
+                    >
+                      View →
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+              {(!learners || learners.length === 0) && (
+                <tr>
+                  <td colSpan={4} className="px-6 py-12 text-center text-gray-400">
+                    No learners found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
