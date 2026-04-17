@@ -20,7 +20,7 @@ export const VIDEO_HEROES = {
   // Program Categories
   barber: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
   barberApprenticeship: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
-  healthcare: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-hero.mp4',
+  healthcare: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/healthcare-cna.mp4',
   skilledTrades: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
   technology: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
   
