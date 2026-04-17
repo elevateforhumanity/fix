@@ -235,10 +235,7 @@ export async function POST(request: NextRequest) {
     logger.error('OCR extraction failed', error instanceof Error ? error : new Error(String(error)));
 
     return NextResponse.json(
-      {
-        error: 'OCR extraction failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'OCR extraction failed' },
       { status: 500 }
     );
   }

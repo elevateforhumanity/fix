@@ -1,3 +1,6 @@
+export const dynamic = 'force-static'
+export const revalidate = 3600
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckCircle, XCircle, AlertCircle, FileText, Phone, Mail, ArrowRight, ShieldCheck, ClipboardList } from 'lucide-react';

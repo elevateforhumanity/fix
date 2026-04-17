@@ -1,3 +1,6 @@
+export const dynamic = 'force-static'
+export const revalidate = 3600
+
 import { Metadata } from 'next';
 import { createPublicClient } from '@/lib/supabase/public';
 import Link from 'next/link';

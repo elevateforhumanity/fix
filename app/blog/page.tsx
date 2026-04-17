@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { Metadata } from 'next';
 import { getAdminClient } from '@/lib/supabase/admin';
 import Image from 'next/image';
