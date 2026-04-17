@@ -22,7 +22,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { z } from 'zod';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { getCurrentUser } from '@/lib/auth';
+import { apiRequireAdmin } from '@/lib/admin/guards';
+import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
 import { runAlignmentAudit } from '@/lib/services/credential-alignment-audit';
@@ -505,24 +506,17 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
-const PUBLISH_ALLOWED_ROLES = new Set(['admin', 'super_admin', 'staff']);
-
 async function _POST(req: NextRequest) {
   const rateLimited = await applyRateLimit(req, 'strict');
   if (rateLimited) return rateLimited;
 
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+  // callerRole is used downstream for publish-status resolution
+  const callerRole = auth.user.role ?? null;
+
   try {
-    const user = await getCurrentUser();
-    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
-    // Role check: only admin, super_admin, and staff may write to course tables.
-    // Any authenticated user reaching this endpoint without a trusted role is
-    // rejected before any DB access occurs.
-    const callerRole = user.profile?.role ?? null;
-    if (!callerRole || !PUBLISH_ALLOWED_ROLES.has(callerRole)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
     const body = await req.json();
     const db = await getAdminClient();
 
@@ -531,11 +525,11 @@ async function _POST(req: NextRequest) {
       const parsed = PublishDraftSchema.safeParse(body.draft);
       if (!parsed.success) {
         const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
-        return NextResponse.json({ error: `Invalid draft: ${issues}` }, { status: 422 });
+        return safeError(`Invalid draft: ${issues}`, 422);
       }
-      const result = await publishCompiledDraft(parsed.data, user.id, callerRole, db);
+      const result = await publishCompiledDraft(parsed.data, auth.user.id, callerRole, db);
       const finalStatus = resolvePublishStatus(parsed.data.auto_publish, callerRole);
-      logger.info('AI course published (v2)', { userId: user.id, status: finalStatus, ...result });
+      logger.info('AI course published (v2)', { userId: auth.user.id, status: finalStatus, ...result });
       return NextResponse.json({ ok: true, status: finalStatus, ...result });
     }
 
@@ -544,14 +538,14 @@ async function _POST(req: NextRequest) {
       : { course: GeneratedCourse; program_id?: string; is_published?: boolean } = body;
 
     if (!course?.title || !course.modules?.length) {
-      return NextResponse.json({ error: 'Invalid course data' }, { status: 400 });
+      return safeError('Invalid course data', 400);
     }
 
     // Coverage gate for legacy path
     if (program_id) {
       const coverageError = await checkCoverageGate(program_id, is_published);
       if (coverageError) {
-        return NextResponse.json({ error: coverageError }, { status: 422 });
+        return safeError(coverageError, 422);
       }
     }
 
@@ -585,19 +579,19 @@ async function _POST(req: NextRequest) {
         is_active:      is_published && TRUSTED_PUBLISH_ROLES.has(callerRole ?? ''),
         status:         resolvePublishStatus(is_published, callerRole),
         passing_score:  course.passing_score ?? 70,
-        created_by:     user.id,
+        created_by:     auth.user.id,
         metadata: {
           subtitle:     course.subtitle,
           audience:     course.audience,
           generated:    true,
           generated_at: new Date().toISOString(),
-          generated_by: user.id,
+          generated_by: auth.user.id,
         },
       })
       .select('id, slug')
       .maybeSingle();
 
-    if (courseErr || !courseRow) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (courseErr || !courseRow) return safeInternalError(courseErr ?? new Error('No row returned'), 'Failed to create course');
     const courseId = courseRow.id;
 
     // ── 2. Lesson records ───────────────────────────────────────────────────
@@ -623,7 +617,7 @@ async function _POST(req: NextRequest) {
     );
 
     const { error: lessonsErr } = await db.from('training_lessons').insert(lessonRows);
-    if (lessonsErr) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (lessonsErr) return safeInternalError(lessonsErr, 'Failed to insert lessons');
 
     // ── 2b. course_modules + course_lessons — canonical LMS delivery tables ──
     // lms_lessons view reads course_lessons. Write here so learners see content.
@@ -716,14 +710,14 @@ async function _POST(req: NextRequest) {
 
     const finalStatus = resolvePublishStatus(is_published, callerRole);
     logger.info('Course published from generator', {
-      userId: user.id, courseId, slug: courseRow.slug, status: finalStatus,
+      userId: auth.user.id, courseId, slug: courseRow.slug, status: finalStatus,
       title: course.title, lessons: lessonRows.length, programId: program_id,
     });
 
     return NextResponse.json({ ok: true, courseId, slug: courseRow.slug, lessonCount: lessonRows.length, status: finalStatus });
   } catch (err: any) {
     logger.error('Course publish error:', err);
-    return NextResponse.json({ ok: false, error: 'Publish failed' }, { status: 500 });
+    return safeInternalError(err, 'Publish failed');
   }
 }
 
