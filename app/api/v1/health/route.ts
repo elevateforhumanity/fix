@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Public API health check
 import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';

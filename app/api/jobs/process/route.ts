@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Cron/internal route — gated by JOB_PROCESSOR_TOKEN
 import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
@@ -68,7 +69,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('/api/jobs/process crashed', error);
     return NextResponse.json(
-      { ok: false, message: error instanceof Error ? error.message : 'Unknown error' },
+      { ok: false, message: 'Job processor failed' },
       { status: 500 }
     );
   }

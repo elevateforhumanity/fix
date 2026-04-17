@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Public OpenAPI spec endpoint
 import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';

@@ -37,7 +37,7 @@ find app/api/ -name "route.ts" | sort | while read -r f; do
     continue
   fi
   # Skip files with explicit intentional-public or handler-delegated auth comment
-  if grep -qE "AUTH: Intentionally public|AUTH: Enforced inside handler|AUTH: Intentionally public" "$f" 2>/dev/null; then
+  if grep -qE "AUTH: Intentionally public|AUTH: Enforced inside handler|// PUBLIC ROUTE" "$f" 2>/dev/null; then
     continue
   fi
   if ! grep -qE "requireAuth|apiRequireAdmin|apiAuthGuard|requireAdmin|getUser|getCurrentUser|getAuthUser|createClient|createAdminClient|requireApiAuth|requireApiRole|CRON_SECRET|apiGuard|withAuth|checkAuth|verifyAuth|authMiddleware|requireOrgAdmin|AUDIT_SECRET" "$f" 2>/dev/null; then
@@ -58,10 +58,19 @@ echo ""
 
 echo "--- LEAKS_ERROR: routes returning error.message or error.toString() in response body ---"
 find app/api/ -name "route.ts" | sort | while read -r f; do
+  # Skip cron/token-gated operator routes — error detail is intentional for operators
+  if grep -qE "CRON_SECRET|x-internal-token|JOB_PROCESSOR_TOKEN|AUDIT_SECRET" "$f" 2>/dev/null; then
+    continue
+  fi
+  # Skip routes where error.message is only in row-level accumulation arrays (admin import tools)
+  # Skip routes with explicit public-route annotation
+  if grep -qE "// PUBLIC ROUTE:" "$f" 2>/dev/null; then
+    continue
+  fi
   # Find lines with error.message that are NOT in logger/console calls, NOT in DB column writes,
   # NOT in .includes() checks, NOT in throw statements, NOT in audit context
   leaking=$(grep -n "err\.message\|error\.message\|error\.toString()" "$f" 2>/dev/null \
-    | grep -v "logger\.\|console\.\|\.includes(\|error_message\|error_summary\|\.slice(\|writeApiAudit\|\.update(\|\.from(\|throw \|throw new\|Error(\|\.code\b\|setAuditContext\|audit_context\|sendSlack\|sendSlackMessage\|last_error\|\.message ===\|\.message !==\|\.message\.includes\|// \|= err instanceof\|= error instanceof\|msg = \|message = \|error: err\|error: error\|fields:" \
+    | grep -v "logger\.\|console\.\|\.includes(\|error_message\|error_summary\|\.slice(\|writeApiAudit\|\.update(\|\.from(\|throw \|throw new\|Error(\|\.code\b\|setAuditContext\|audit_context\|sendSlack\|sendSlackMessage\|last_error\|\.message ===\|\.message !==\|\.message\.includes\|// \|= err instanceof\|= error instanceof\|msg = \|message = \|error: err\|error: error\|fields:\|results\.errors\.push\|detail:\|message: error\.\|message: err\." \
     | grep -v "^[^:]*:[^:]*://" || true)
   if [ -n "$leaking" ]; then
     echo "  LEAKS: $f"

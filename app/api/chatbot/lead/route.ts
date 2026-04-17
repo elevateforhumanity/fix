@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Public chatbot lead capture
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';

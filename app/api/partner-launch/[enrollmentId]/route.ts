@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Server-to-server partner LMS launch — enrollment-ID scoped
 import { getAdminClient } from '@/lib/supabase/admin';
 
 // app/api/partner-launch/[enrollmentId]/route.ts

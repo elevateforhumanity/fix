@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Public health check endpoint
 import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';

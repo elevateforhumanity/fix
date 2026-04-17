@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Public student application intake
 // Thin alias for /api/applications — used by program-specific apply pages
 // (e.g. /programs/cosmetology-apprenticeship/apply) that POST here directly.
 // Forwards the body unchanged; /api/applications handles dedup, email, and auto-approve.

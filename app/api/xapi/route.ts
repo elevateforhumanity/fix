@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: xAPI statement receiver — authenticated by xAPI credentials in request
 
 // app/api/xapi/route.ts
 import { NextResponse } from 'next/server';

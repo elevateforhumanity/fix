@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Cron route — gated by x-internal-token header
 // CRON ROUTE: internal-token gated — called by billing cron, not user-facing
 import { getAdminClient } from '@/lib/supabase/admin';
 

@@ -4,6 +4,7 @@ import { createServerSupabaseClient } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { apiAuthGuard } from '@/lib/admin/guards';
 
 import { auditMutation } from '@/lib/api/withAudit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -14,17 +15,14 @@ export const dynamic = 'force-dynamic';
 
 async function _POST(request: NextRequest) {
   try {
+    const auth = await apiAuthGuard(request);
+    if (auth.error) return auth.error;
+
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
     const supabase = await createServerSupabaseClient();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const session = { user: auth.user };
 
     const formData = await request.json();
 
