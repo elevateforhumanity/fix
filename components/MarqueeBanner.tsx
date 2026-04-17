@@ -24,6 +24,10 @@ export default function MarqueeBanner() {
     <div
       className="bg-slate-900 border-y border-slate-800 py-3.5 overflow-hidden select-none"
       aria-hidden="true"
+      // Browser extensions (ad blockers, Grammarly, etc.) inject <style> tags
+      // into the DOM before React hydrates, causing a server/client mismatch.
+      // suppressHydrationWarning tells React to skip the diff for this subtree.
+      suppressHydrationWarning
     >
       <div
         className="flex whitespace-nowrap"

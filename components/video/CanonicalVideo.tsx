@@ -72,13 +72,15 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   }, []);
 
   // Immediate autoplay for above-the-fold hero videos.
-  // Fires on mount so the video starts as soon as the component renders,
-  // without waiting for the IntersectionObserver tick.
+  // Fires on mount and whenever src changes (e.g. desktop→mobile swap after hydration).
   // Only one play path runs — autoPlayOnMount OR observer, never both.
   useEffect(() => {
     if (!autoPlayOnMount || reducedMotion || failed) return;
     const video = ref.current;
     if (!video) return;
+    // Reset playing/ended state when src changes so the fade-in triggers again
+    setPlaying(false);
+    setEnded(false);
     // Wait for enough data before calling play() to avoid AbortError races
     if (video.readyState >= 2) {
       video.play().catch(() => {});
@@ -87,7 +89,8 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
       video.addEventListener('canplay', onReady, { once: true });
       return () => video.removeEventListener('canplay', onReady);
     }
-  }, [autoPlayOnMount, reducedMotion, failed]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoPlayOnMount, reducedMotion, failed, src]);
 
   // Visibility-gated playback — starts when video enters view.
   // If playThrough=true (default for hero videos), keeps playing after scrolling away.
@@ -159,9 +162,11 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
         />
         {/* Video — z-10, fades in once onPlaying fires (first real frame on screen).
             Fades back out when ended — poster takes over for the rest of the session.
-            No poster attr — handled by <img> above to guarantee object-cover. */}
+            src set directly on <video> (not only via <source>) so canplay fires
+            reliably on Safari/iOS and Firefox without waiting for a child parse. */}
         <video
           ref={ref}
+          src={src}
           className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
           muted
           playsInline
@@ -171,9 +176,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           onEnded={() => setEnded(true)}
           onError={() => setFailed(true)}
           style={{ zIndex: 10 }}
-        >
-          <source src={src} type="video/mp4" />
-        </video>
+        />
       </>
     );
   }
@@ -182,6 +185,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   return (
     <video
       ref={ref}
+      src={src}
       className={`${className} transition-opacity duration-700 ${ended ? 'opacity-0' : ''}`}
       muted
       playsInline
@@ -189,8 +193,6 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
       aria-hidden="true"
       onEnded={() => setEnded(true)}
       onError={() => setFailed(true)}
-    >
-      <source src={src} type="video/mp4" />
-    </video>
+    />
   );
 }
