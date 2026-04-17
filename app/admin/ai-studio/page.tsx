@@ -1,8 +1,7 @@
 import AdminClientPage from '@/components/admin/AdminClientPage';
 import AIStudioClient from './AIStudioClient';
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export default function Page() {
   return (
