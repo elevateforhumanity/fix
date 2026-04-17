@@ -9,7 +9,7 @@ export function BottomNav() {
 
   const navItems = [
     { icon: Home, label: 'Home', href: '/dashboard' },
-    { icon: BookOpen, label: 'Courses', href: '/lms/courses' },
+    { icon: BookOpen, label: 'Programs', href: '/lms/programs' },
     { icon: Users, label: 'Groups', href: '/study-groups' },
     { icon: Award, label: 'Awards', href: '/achievements' },
     { icon: User, label: 'Profile', href: '/profile' },

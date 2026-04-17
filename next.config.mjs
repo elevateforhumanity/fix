@@ -860,6 +860,9 @@ const nextConfig = {
       // with /lms/(app)/dashboard (same resolved path). Redirect lives here instead.
       { source: '/lms/dashboard', destination: '/learner/dashboard', permanent: false },
       { source: '/lms/my-courses', destination: '/lms/courses', permanent: true },
+      // Public catalog canonical URL is /lms/programs.
+      // /lms/program (singular) is a common typo — redirect to plural.
+      { source: '/lms/program', destination: '/lms/programs', permanent: true },
       
       // Student portal redirects
       { source: '/student-portal/dashboard', destination: '/student-portal', permanent: true },
