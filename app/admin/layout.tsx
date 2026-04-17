@@ -11,6 +11,8 @@ import { reconcileTrialOnboarding } from '@/lib/trial/reconcile-onboarding';
 import AdminNav from '@/components/admin/AdminNav';
 import { DemoTourProvider } from '@/components/demo/DemoTourProvider';
 import { IdleTimeoutGuard } from '@/components/auth/IdleTimeoutGuard';
+import PWAManager from '@/app/components/PWAManager';
+import { UpdatePrompt } from '@/components/pwa/UpdatePrompt';
 
 
 export const dynamic = 'force-dynamic';
@@ -143,6 +145,8 @@ export default async function AdminLayout({
 
   const content = (
     <div className="min-h-screen bg-white text-slate-900">
+      <PWAManager />
+      <UpdatePrompt />
       <AdminNav userName={headerData.userName} notifs={headerData.notifs} />
       <IdleTimeoutGuard />
       <main id="main-content" className="pt-16">
