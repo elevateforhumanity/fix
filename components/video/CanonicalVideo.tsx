@@ -63,7 +63,8 @@ type Props = {
 
 export default function CanonicalVideo({ src, srcMobile, poster, className, threshold = 0.1, playThrough = true, autoPlayOnMount = false, preloadFull = false }: Props) {
   const ref = useRef<HTMLVideoElement | null>(null);
-  const [failed, setFailed] = useState(false);
+  const [failed,  setFailed]  = useState(false);
+  const [loaded,  setLoaded]  = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   // True once the video has its first frame ready — drives the poster → video cross-fade.
   // We use onCanPlay (not onPlaying) so the poster fades out as soon as the first
@@ -86,6 +87,11 @@ export default function CanonicalVideo({ src, srcMobile, poster, className, thre
   // without waiting for the IntersectionObserver tick.
   // Only one play path runs — autoPlayOnMount OR observer, never both.
   useEffect(() => {
+    // Mark as loaded so <source> elements are injected into the DOM.
+    // This prevents the browser from starting any video download during
+    // HTML parsing — the src is only set after the component mounts.
+    setLoaded(true);
+
     if (!autoPlayOnMount || reducedMotion || failed) return;
     const video = ref.current;
     if (!video) return;
@@ -176,23 +182,20 @@ export default function CanonicalVideo({ src, srcMobile, poster, className, thre
           muted
           playsInline
           loop
-          preload={preloadFull ? 'auto' : 'metadata'}
+          preload="none"
           aria-hidden="true"
           onCanPlay={() => setPlaying(true)}
           onEnded={() => setEnded(true)}
           onError={() => setFailed(true)}
           style={{ zIndex: 10 }}
         >
-          {/* Mobile source first — browser picks the first matching <source>.
-              Using media queries here (not JS) means the correct file is chosen
-              before any bytes are fetched, unlike a post-mount JS src swap which
-              always starts the desktop download first.
-              #t=0.001 forces mobile browsers to decode the first frame immediately
-              so onCanPlay fires without waiting for a full metadata + seek cycle. */}
-          {srcMobile && (
-            <source src={`${srcMobile}#t=0.001`} type="video/mp4" media="(max-width: 767px)" />
+          {/* Sources injected after mount only — prevents browser from
+              downloading video during HTML parsing (kills memory on pages
+              with multiple hero videos). */}
+          {loaded && srcMobile && (
+            <source src={srcMobile} type="video/mp4" media="(max-width: 767px)" />
           )}
-          <source src={`${src}#t=0.001`} type="video/mp4" />
+          {loaded && <source src={src} type="video/mp4" />}
         </video>
       </>
     );
