@@ -284,9 +284,10 @@ export default function HostShopsPage() {
                 </div>
                 <Award className="w-6 h-6 text-brand-green-600 flex-shrink-0" />
               </div>
-              <p className="text-sm text-slate-600">56 W Main St</p>
+              <p className="text-sm text-slate-600">56 W. Main St.</p>
               <p className="text-sm text-slate-600">New Palestine, IN 46163</p>
-              <a href="tel:4637106199" className="text-sm text-brand-blue-600 font-semibold mt-2 block hover:underline">+1 (463) 710-6199</a>
+              <a href="tel:3172945165" className="text-sm text-brand-blue-600 font-semibold mt-2 block hover:underline">(317) 294-5165</a>
+              <a href="mailto:akriech85@gmail.com" className="text-sm text-slate-500 hover:text-slate-700 mt-1 block">akriech85@gmail.com</a>
               <a
                 href="https://maps.google.com/?q=56+W+Main+St,+New+Palestine,+IN+46163"
                 target="_blank"
