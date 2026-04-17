@@ -98,7 +98,7 @@ export default function TestingPage() {
 
           <div className="space-y-10">
             {ACTIVE_PROVIDERS.map((provider) => (
-              <div key={provider.key} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div key={provider.key} id={provider.key} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
                 <div className="grid lg:grid-cols-3">
                   <div className="relative h-64 sm:h-80 lg:h-full min-h-[280px] overflow-hidden">
                     <Image
