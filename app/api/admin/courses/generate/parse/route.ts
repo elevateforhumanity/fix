@@ -11,11 +11,10 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentUser } from '@/lib/auth';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { apiRequireAdmin } from '@/lib/admin/guards';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { logger } from '@/lib/logger';
-
-const ADMIN_ROLES = new Set(['admin', 'super_admin', 'staff']);
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -34,15 +33,14 @@ async function extractDocx(buffer: Buffer): Promise<string> {
 }
 
 export async function POST(req: NextRequest) {
-  try {
-    const user = await getCurrentUser();
-    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  // File parse is CPU-intensive — strict tier (3 req / 5 min per admin)
+  const rateLimited = await applyRateLimit(req, 'strict');
+  if (rateLimited) return rateLimited;
 
-    const db = await getAdminClient();
-    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-    if (!profile || !ADMIN_ROLES.has(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
+  try {
 
     const contentType = req.headers.get('content-type') ?? '';
 
@@ -67,21 +65,15 @@ export async function POST(req: NextRequest) {
           raw_text = await extractDocx(buffer);
           input_type = 'docx';
         } else {
-          return NextResponse.json(
-            { error: 'Unsupported file type. Upload a PDF or DOCX.' },
-            { status: 400 }
-          );
+          return safeError('Unsupported file type. Upload a PDF or DOCX.', 400);
         }
 
         if (!raw_text) {
-          return NextResponse.json(
-            { error: 'Could not extract text from file. Try pasting the content instead.' },
-            { status: 422 }
-          );
+          return safeError('Could not extract text from file. Try pasting the content instead.', 422);
         }
 
         logger.info('File parsed for course generation', {
-          userId: user.id, input_type, chars: raw_text.length,
+          userId: auth.user.id, input_type, chars: raw_text.length,
         });
         return NextResponse.json({ raw_text, input_type });
       }
@@ -94,7 +86,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ raw_text: prompt.trim(), input_type: 'prompt' });
       }
 
-      return NextResponse.json({ error: 'No input provided' }, { status: 400 });
+      return safeError('No input provided', 400);
     }
 
     // ── JSON path (text/prompt) ─────────────────────────────────────────────
@@ -108,9 +100,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ raw_text: prompt.trim(), input_type: 'prompt' });
     }
 
-    return NextResponse.json({ error: 'No input provided' }, { status: 400 });
+    return safeError('No input provided', 400);
   } catch (err: any) {
     logger.error('Parse error:', err);
-    return NextResponse.json({ error: 'Parse failed' }, { status: 500 });
+    return safeInternalError(err, 'Parse failed');
   }
 }

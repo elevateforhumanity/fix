@@ -2,11 +2,11 @@
 // Accepts { userId, role } — delegates to the same logic as /api/admin/users/role
 // but keyed on userId instead of email for direct table-row operations.
 // Requires admin or super_admin.
-import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 export const runtime = 'nodejs';
@@ -21,36 +21,20 @@ async function _POST(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'strict');
     if (rateLimited) return rateLimited;
 
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
-    const { data: actor } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (!actor || !['admin', 'super_admin'].includes(actor.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const auth = await apiRequireAdmin(request);
+    if (auth.error) return auth.error;
+    const { user, profile: actor } = auth;
 
     const { userId, role } = await request.json();
-
-    if (!userId || !role) {
-      return NextResponse.json({ error: 'userId and role are required' }, { status: 400 });
-    }
+    if (!userId || !role) return safeError('userId and role are required', 400);
 
     if (!VALID_ROLES.includes(role)) {
-      return NextResponse.json(
-        { error: `Invalid role. Must be one of: ${VALID_ROLES.join(', ')}` },
-        { status: 400 }
-      );
+      return safeError(`Invalid role. Must be one of: ${VALID_ROLES.join(', ')}`, 400);
     }
 
     // Only super_admin can promote to admin/super_admin
-    if (['admin', 'super_admin'].includes(role) && actor.role !== 'super_admin') {
-      return NextResponse.json({ error: 'Only super_admin can grant admin roles' }, { status: 403 });
+    if (['admin', 'super_admin'].includes(role) && actor?.role !== 'super_admin') {
+      return safeError('Only super_admin can grant admin roles', 403);
     }
 
     const db = await getAdminClient();
@@ -59,15 +43,11 @@ async function _POST(request: NextRequest) {
       .update({ role, updated_at: new Date().toISOString() })
       .eq('id', userId);
 
-    if (error) {
-      logger.error('update-role error:', error);
-      return NextResponse.json({ error: 'Failed to update role' }, { status: 500 });
-    }
+    if (error) return safeInternalError(error, 'Failed to update role');
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    logger.error('update-role handler error:', err);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return safeInternalError(err as Error, 'update-role error');
   }
 }
 
