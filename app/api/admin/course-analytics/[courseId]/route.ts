@@ -34,7 +34,7 @@ async function _GET(
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', auth.id)
+      .eq('id', user.id)
       .maybeSingle();
 
     if (

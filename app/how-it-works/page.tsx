@@ -39,8 +39,8 @@ export default function HowItWorksPage() {
       </div>
 
       <HeroVideo
-        videoSrcDesktop={heroBanners['how-it-works'].videoSrcDesktop}
         posterImage="/images/pages/how-it-works-hero.jpg"
+        videoSrcDesktop={heroBanners['how-it-works'].videoSrcDesktop}
         voiceoverSrc={heroBanners['how-it-works'].voiceoverSrc}
         microLabel={heroBanners['how-it-works'].microLabel}
         belowHeroHeadline={heroBanners['how-it-works'].belowHeroHeadline}

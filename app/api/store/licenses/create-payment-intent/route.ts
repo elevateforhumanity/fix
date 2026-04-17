@@ -27,7 +27,7 @@ async function _POST(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'contact');
     if (rateLimited) return rateLimited;
 
-    const auth = await apiAuthGuard();
+    const auth = await apiAuthGuard(request);
 
     const body = await parseBody<z.infer<typeof licensePaymentSchema>>(request);
     const parsed = licensePaymentSchema.safeParse(body);

@@ -339,9 +339,9 @@ export async function fetchBestSceneVideo(
       : 0;
 
     if (storedId && opts.usedVideoIds?.has(storedId)) {
-      console.log(`  📹 ${sceneId}: cache hit but clip already used — fetching fresh`);
+      console.info(`  📹 ${sceneId}: cache hit but clip already used — fetching fresh`);
     } else {
-      console.log(`  📹 ${sceneId}: cache hit [${intentTag}]`);
+      console.info(`  📹 ${sceneId}: cache hit [${intentTag}]`);
       if (storedId) opts.usedVideoIds?.add(storedId);
       return {
         sceneId, source: 'pexels', videoPath: cachePath,
@@ -370,7 +370,7 @@ export async function fetchBestSceneVideo(
   const file = pickBestFile(video.video_files);
   if (!file) throw new Error(`No suitable video file for Pexels video ${video.id}`);
 
-  console.log(
+  console.info(
     `  📹 ${sceneId}: Pexels ${video.id} [${intentTag}] (${file.width}x${file.height}, ${video.duration}s) — "${usedQuery}"`,
   );
 

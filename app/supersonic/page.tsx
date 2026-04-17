@@ -60,7 +60,6 @@ export default function SupersonicPage() {
       </div>
       <HeroVideo
         videoSrcDesktop={heroBanners['supersonic'].videoSrcDesktop}
-        posterImage="/images/pages/comp-home-hero-programs.jpg"
         voiceoverSrc={heroBanners['supersonic'].voiceoverSrc}
         microLabel={heroBanners['supersonic'].microLabel}
         belowHeroHeadline={heroBanners['supersonic'].belowHeroHeadline}

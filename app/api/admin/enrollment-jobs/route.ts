@@ -33,7 +33,7 @@ const supabase = await createClient();
   const { data: profile } = await supabase
     .from('profiles')
     .select('role')
-    .eq('id', auth.id)
+    .eq('id', user.id)
     .maybeSingle();
 
   if (!profile || !['admin', 'staff'].includes(profile.role)) {
@@ -87,7 +87,7 @@ async function _POST(req: Request) {
   const { data: profile } = await supabase
     .from('profiles')
     .select('role')
-    .eq('id', auth.id)
+    .eq('id', user.id)
     .maybeSingle();
 
   if (!profile || !['admin', 'staff'].includes(profile.role)) {
@@ -114,7 +114,7 @@ async function _POST(req: Request) {
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 
-    await logAdminAudit({ action: AdminAction.ENROLLMENT_JOB_UPDATED, actorId: auth.id, entityType: 'enrollment_jobs', entityId: job_id, metadata: { retry: true }, req });
+    await logAdminAudit({ action: AdminAction.ENROLLMENT_JOB_UPDATED, actorId: user.id, entityType: 'enrollment_jobs', entityId: job_id, metadata: { retry: true }, req });
 
     return NextResponse.json({ success: true, message: 'Job reset for retry' });
   }

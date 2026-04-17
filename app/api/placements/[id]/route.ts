@@ -16,7 +16,7 @@ export async function GET(
   const rateLimited = await applyRateLimit(req, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiAuthGuard();
+  const auth = await apiAuthGuard(req);
 
   const { id } = await params;
   const db = await getAdminClient();
@@ -45,7 +45,7 @@ export async function PATCH(
   const rateLimited = await applyRateLimit(req, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiAuthGuard();
+  const auth = await apiAuthGuard(req);
 
   const { id } = await params;
   const body = await req.json().catch(() => null);

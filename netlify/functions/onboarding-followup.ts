@@ -17,7 +17,7 @@ export default async () => {
   });
 
   const data = await resp.json();
-  console.log('[Onboarding Follow-up]', JSON.stringify(data));
+  console.info('[Onboarding Follow-up]', JSON.stringify(data));
 
   return new Response(JSON.stringify(data), { status: resp.status });
 };

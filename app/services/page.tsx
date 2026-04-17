@@ -86,8 +86,8 @@ export default function ServicesPage() {
 
       {/* Hero */}
       <HeroVideo
-        videoSrcDesktop={heroBanners['services'].videoSrcDesktop}
         posterImage="/images/pages/comp-home-hero-programs.jpg"
+        videoSrcDesktop={heroBanners['services'].videoSrcDesktop}
         voiceoverSrc={heroBanners['services'].voiceoverSrc}
         microLabel={heroBanners['services'].microLabel}
         belowHeroHeadline={heroBanners['services'].belowHeroHeadline}

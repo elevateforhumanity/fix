@@ -52,7 +52,6 @@ export default function AgenciesPage() {
 
       <HeroVideo
         videoSrcDesktop={VIDEO_HEROES.homepage}
-        posterImage="/images/pages/agencies-page-1.jpg"
         microLabel="For Workforce Agencies"
         analyticsName="agencies"
       >

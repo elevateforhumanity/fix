@@ -19,7 +19,7 @@ export async function GET(
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiAuthGuard();
+  const auth = await apiAuthGuard(request);
   const { user } = auth;
 
   const { stubId } = await params;

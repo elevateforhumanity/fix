@@ -62,7 +62,7 @@ export const VIDEO_REGISTRY: Record<string, VideoRecord> = {
     id: 'cna-hero',
     title: 'CNA Training Program - Certified Nursing Assistant',
     description: 'Free CNA training in Indianapolis. State-approved program, 6-8 weeks, job placement assistance.',
-    video_url: '/videos/cna-hero.mp4',
+    video_url: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
     thumbnail_url: '/images/pages/comp-pathway-healthcare.jpg',
     duration: 'PT45S',
     upload_date: '2025-01-01',

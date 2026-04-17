@@ -31,7 +31,7 @@ export async function GET(
   const { data: adminProfile } = await db
     .from('profiles')
     .select('role')
-    .eq('id', auth.id)
+    .eq('id', user.id)
     .maybeSingle();
 
   if (!adminProfile || !['admin', 'super_admin', 'staff'].includes(adminProfile.role)) {

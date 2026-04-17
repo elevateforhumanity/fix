@@ -10,7 +10,9 @@ import dynamic from 'next/dynamic';
 import FileTree from '@/components/dev-studio/FileTree';
 import PreviewPanel from '@/components/dev-studio/PreviewPanel';
 import XTerminal, { type XTerminalHandle } from '@/components/dev-studio/XTerminal';
+import DevContainerPanel from '@/components/dev-studio/DevContainerPanel';
 import {
+  Box,
   GitBranch,
   Play,
   Rocket,
@@ -51,6 +53,7 @@ export default function DevStudioPage() {
   // UI state
   const [loading, setLoading] = useState(false);
   const [showCourseFilesOnly, setShowCourseFilesOnly] = useState(false);
+  const [activePanel, setActivePanel] = useState<'editor' | 'devcontainer'>('editor');
 
   // Command terminal
   const terminalRef = useRef<XTerminalHandle>(null);
@@ -133,7 +136,7 @@ export default function DevStudioPage() {
       url.searchParams.set('repo', selectedRepo);
       url.searchParams.set('ref', branch);
 
-      const res = await fetch(url);
+      const res = await fetch(url, { headers: { 'x-gh-token': token } });
       const data = await res.json();
 
       if (res.ok) {
@@ -168,7 +171,7 @@ export default function DevStudioPage() {
       url.searchParams.set('path', path);
       url.searchParams.set('ref', branch);
 
-      const res = await fetch(url);
+      const res = await fetch(url, { headers: { 'x-gh-token': token } });
       const data = await res.json();
 
       if (res.ok) {
@@ -217,15 +220,11 @@ export default function DevStudioPage() {
       if (res.ok) {
         setFileSha(data.content.sha);
         setHasChanges(false);
-        addTerminalOutput(
-          `✓ Saved ${selectedFile}`
-        );
+        addTerminalOutput(`✓ Saved ${selectedFile}`);
         addTerminalOutput(`   Commit: ${data.commit.substring(0, 7)}`);
       } else {
-        const error = await res.json();
-        addTerminalOutput(
-          `✗ Failed to save`
-        );
+        // data is already parsed above — do not call res.json() again (body already consumed)
+        addTerminalOutput(`✗ Failed to save: ${data?.error ?? 'unknown error'}`);
       }
     } catch (error) { /* Error handled silently */ 
       addTerminalOutput(
@@ -344,7 +343,7 @@ export default function DevStudioPage() {
                 ))}
               </select>
 
-              <div className="flex items-center gap-1 text-sm text-black">
+              <div className="flex items-center gap-1 text-sm text-slate-200">
                 <GitBranch className="w-4 h-4" />
                 <span>{branch}</span>
               </div>
@@ -385,81 +384,124 @@ export default function DevStudioPage() {
             Save
           </button>
 
-          <button className="flex items-center gap-2 px-4 py-2 bg-brand-blue-600 hover:bg-brand-blue-700 rounded" aria-label="Action button">
+          <button
+            onClick={executeCommand}
+            disabled={!command.trim() || executing}
+            className={`flex items-center gap-2 px-4 py-2 rounded ${
+              command.trim() && !executing
+                ? 'bg-brand-blue-600 hover:bg-brand-blue-700'
+                : 'bg-gray-600 cursor-not-allowed'
+            }`}
+            aria-label="Run command"
+          >
             <Play className="w-4 h-4" />
             Run
           </button>
         </div>
       </div>
 
+      {/* Panel tab switcher */}
+      <div className="flex border-b border-slate-700 bg-slate-800 flex-shrink-0">
+        <button
+          onClick={() => setActivePanel('editor')}
+          className={`flex items-center gap-2 px-4 py-2 text-sm transition-colors ${
+            activePanel === 'editor'
+              ? 'border-b-2 border-blue-400 text-blue-400'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <Rocket className="w-3.5 h-3.5" />
+          Code Editor
+        </button>
+        <button
+          onClick={() => setActivePanel('devcontainer')}
+          className={`flex items-center gap-2 px-4 py-2 text-sm transition-colors ${
+            activePanel === 'devcontainer'
+              ? 'border-b-2 border-blue-400 text-blue-400'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <Box className="w-3.5 h-3.5" />
+          Dev Container
+        </button>
+      </div>
+
       {/* Main Layout */}
       <div className="flex-1 flex overflow-hidden">
-        {/* File Tree */}
-        <div className="w-64 border-r border-slate-700">
-          <FileTree
-            files={files}
-            onFileSelect={openFile}
-            selectedFile={selectedFile}
-            filterCourses={showCourseFilesOnly}
-          />
-        </div>
-
-        {/* Editor + Terminal */}
-        <div className="flex-1 flex flex-col">
-          {/* Editor */}
-          <div className="flex-1">
-            {selectedFile ? (
-              <CodeEditor
-                value={fileContent}
-                onChange={handleCodeChange}
-                filePath={selectedFile}
+        {activePanel === 'devcontainer' ? (
+          <div className="flex-1 overflow-hidden">
+            <DevContainerPanel />
+          </div>
+        ) : (
+          <>
+            {/* File Tree */}
+            <div className="w-64 border-r border-slate-700">
+              <FileTree
+                files={files}
+                onFileSelect={openFile}
+                selectedFile={selectedFile}
+                filterCourses={showCourseFilesOnly}
               />
-            ) : (
-              <div className="flex items-center justify-center h-full bg-slate-900 text-slate-400">
-                <div className="text-center">
-                  <p className="text-lg mb-2">No file selected</p>
-                  <p className="text-sm">
-                    Select a file from the tree to start editing
-                  </p>
+            </div>
+
+            {/* Editor + Terminal */}
+            <div className="flex-1 flex flex-col">
+              {/* Editor */}
+              <div className="flex-1">
+                {selectedFile ? (
+                  <CodeEditor
+                    value={fileContent}
+                    onChange={handleCodeChange}
+                    filePath={selectedFile}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full bg-slate-900 text-slate-400">
+                    <div className="text-center">
+                      <p className="text-lg mb-2">No file selected</p>
+                      <p className="text-sm">
+                        Select a file from the tree to start editing
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Command terminal */}
+              <div className="h-64 border-t border-slate-700 flex flex-col">
+                <div className="flex-1 min-h-0">
+                  <XTerminal ref={terminalRef} />
+                </div>
+                {/* Command input */}
+                <div className="flex items-center gap-2 px-3 py-2 bg-[#161b22] border-t border-[#30363d]">
+                  <span className="text-[#3fb950] font-mono text-sm flex-shrink-0">$</span>
+                  <input
+                    type="text"
+                    value={command}
+                    onChange={e => setCommand(e.target.value)}
+                    onKeyDown={handleCommandKey}
+                    placeholder="Tell me what to do — &quot;generate a CNA course&quot;, &quot;show today's applications&quot;, &quot;run enrollment report&quot;"
+                    disabled={executing}
+                    className="flex-1 bg-transparent text-[#c9d1d9] font-mono text-sm outline-none placeholder:text-[#6e7681] disabled:opacity-50"
+                  />
+                  <button
+                    onClick={executeCommand}
+                    disabled={!command.trim() || executing}
+                    className="flex-shrink-0 p-1.5 bg-[#238636] hover:bg-[#2ea043] text-white rounded disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  >
+                    {executing
+                      ? <span className="w-4 h-4 block border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      : <Send className="w-4 h-4" />}
+                  </button>
                 </div>
               </div>
-            )}
-          </div>
-
-          {/* Command terminal */}
-          <div className="h-64 border-t border-slate-700 flex flex-col">
-            <div className="flex-1 min-h-0">
-              <XTerminal ref={terminalRef} />
             </div>
-            {/* Command input */}
-            <div className="flex items-center gap-2 px-3 py-2 bg-[#161b22] border-t border-[#30363d]">
-              <span className="text-[#3fb950] font-mono text-sm flex-shrink-0">$</span>
-              <input
-                type="text"
-                value={command}
-                onChange={e => setCommand(e.target.value)}
-                onKeyDown={handleCommandKey}
-                placeholder="Tell me what to do — &quot;generate a CNA course&quot;, &quot;show today's applications&quot;, &quot;run enrollment report&quot;"
-                disabled={executing}
-                className="flex-1 bg-transparent text-[#c9d1d9] font-mono text-sm outline-none placeholder:text-[#6e7681] disabled:opacity-50"
-              />
-              <button
-                onClick={executeCommand}
-                disabled={!command.trim() || executing}
-                className="flex-shrink-0 p-1.5 bg-[#238636] hover:bg-[#2ea043] text-white rounded disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              >
-                {executing
-                  ? <span className="w-4 h-4 block border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  : <Send className="w-4 h-4" />}
-              </button>
-            </div>
-          </div>
-        </div>
 
-        {/* Preview Panel */}
-        <div className="w-96 border-l border-slate-700">
-          <PreviewPanel url={process.env.NEXT_PUBLIC_SITE_URL || ''} filePath={selectedFile} />
-        </div>
+            {/* Preview Panel */}
+            <div className="w-96 border-l border-slate-700">
+              <PreviewPanel filePath={selectedFile} />
+            </div>
+          </>
+        )}
       </div>
 
       {/* CTA Section */}

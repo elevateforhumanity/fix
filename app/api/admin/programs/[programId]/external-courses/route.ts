@@ -8,7 +8,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { getCurrentUser } from '@/lib/auth';
+import { apiRequireAdmin } from '@/lib/admin/guards';
+import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
@@ -30,22 +31,13 @@ const ExternalCourseSchema = z.object({
   competency_area:          z.string().optional().nullable(),
 });
 
-async function requireAdmin() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) return null;
-  return user;
-}
-
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ programId: string }> }
 ) {
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   const { programId } = await params;
-  const user = await requireAdmin();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();
   const { data, error } = await db
@@ -57,7 +49,7 @@ export async function GET(
 
   if (error) {
     logger.error('GET external courses error', error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return safeInternalError(error, 'Failed to fetch external courses');
   }
   return NextResponse.json({ items: data ?? [] });
 }
@@ -66,17 +58,17 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ programId: string }> }
 ) {
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   const { programId } = await params;
-  const user = await requireAdmin();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => null);
-  if (!body) return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  if (!body) return safeError('Invalid JSON', 400);
 
   const parsed = ExternalCourseSchema.safeParse(body);
   if (!parsed.success) {
     const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
-    return NextResponse.json({ error: issues }, { status: 422 });
+    return safeError(issues, 422);
   }
 
   const db = await getAdminClient();
@@ -108,15 +100,15 @@ export async function POST(
 
   const { data, error } = await db
     .from('program_external_courses')
-    .insert({ ...parsed.data, program_id: programId, created_by: user.id })
+    .insert({ ...parsed.data, program_id: programId, created_by: auth.user.id })
     .select()
     .single();
 
   if (error) {
     logger.error('POST external course error', error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return safeInternalError(error, 'Failed to create external course');
   }
 
-  logger.info('External course created', { programId, title: parsed.data.title, userId: user.id });
+  logger.info('External course created', { programId, title: parsed.data.title, userId: auth.user.id });
   return NextResponse.json({ item: data }, { status: 201 });
 }

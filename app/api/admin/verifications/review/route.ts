@@ -31,7 +31,7 @@ async function _POST(request: NextRequest) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', auth.id)
+      .eq('id', user.id)
       .maybeSingle();
 
     if (
@@ -65,7 +65,7 @@ async function _POST(request: NextRequest) {
       filter: { id: verificationId },
       audit: {
         action: 'api:post:/api/admin/verifications/review',
-        actorId: auth.id,
+        actorId: user.id,
         targetType: 'id_verifications',
         targetId: verificationId,
         metadata: { decision: action },
@@ -97,7 +97,7 @@ async function _POST(request: NextRequest) {
 
     await logAdminAudit({
       action: AdminAction.VERIFICATION_REVIEWED,
-      actorId: auth.id,
+      actorId: user.id,
       entityType: 'id_verifications',
       entityId: verificationId,
       metadata: { decision: action, user_id: verification.user_id },

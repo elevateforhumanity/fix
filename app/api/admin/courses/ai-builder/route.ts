@@ -277,8 +277,7 @@ async function _POST(request: NextRequest) {
 
   } catch (error) {
     logger.error('[AI Course Builder] Unhandled error', error);
-    const message = error instanceof Error ? error.message : 'Generation failed';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: 'Generation failed' }, { status: 500 });
   }
 }
 

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -23,6 +23,17 @@ function LoginForm() {
   // Support both 'next' and 'redirect' params for backward compatibility
   const rawNext = searchParams.get('next') || searchParams.get('redirect') || '';
   const next = validateRedirect(rawNext, '');
+  const reason = searchParams.get('reason');
+
+  // The middleware cannot write session cookies, so it cannot call signOut().
+  // When it detects an idle timeout it redirects here with ?reason=idle.
+  // We complete the signOut client-side where the cookie write actually works.
+  useEffect(() => {
+    if (reason === 'idle') {
+      const supabase = createClient();
+      supabase.auth.signOut().catch(() => {});
+    }
+  }, [reason]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +45,7 @@ function LoginForm() {
       
       const { data, error }: any = await supabase.auth.signInWithPassword({
         email: email.trim(),
-        password: password.trim(),
+        password, // never trim passwords — leading/trailing spaces are valid
       });
 
       if (error) throw error;
@@ -111,6 +122,12 @@ function LoginForm() {
               Sign in to manage your training, certifications, and career progress.
             </p>
 
+            {reason === 'idle' && !error && (
+              <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-sm" role="alert">
+                Your session expired due to inactivity. Please sign in again.
+              </div>
+            )}
+
             {error && (
               <div className="mb-6 p-4 bg-brand-red-50 border border-brand-red-200 rounded-lg text-brand-red-800 text-sm" role="alert">
                 {error}
@@ -154,11 +171,7 @@ function LoginForm() {
                 />
               </div>
 
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center">
-                  <input type="checkbox" className="mr-2" />
-                  <span className="text-black">Remember me</span>
-                </label>
+              <div className="flex items-center justify-end text-sm">
                 <Link
                   href="/reset-password"
                   className="text-brand-blue-600 hover:text-brand-blue-700"
@@ -220,13 +233,17 @@ function LoginForm() {
 
           <div className="mt-6 text-center text-sm text-black">
             <p>
-              Need help? Call{' '}
+              Need help?{' '}
               <a
-                href="/support"
+                href="tel:+13173143757"
                 className="text-brand-blue-600 font-semibold"
               >
-                support center
+                (317) 314-3757
               </a>
+              {' '}or{' '}
+              <Link href="/support" className="text-brand-blue-600 font-semibold">
+                support center
+              </Link>
             </p>
           </div>
         </div>

@@ -57,9 +57,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   const ref = useRef<HTMLVideoElement | null>(null);
   const [failed, setFailed] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  // True once the video has its first frame ready — drives the poster → video cross-fade.
-  // We use onCanPlay (not onPlaying) so the poster fades out as soon as the first
-  // frame is decoded, eliminating the visible poster flash before playback begins.
+  // True once the video is actually playing — drives the poster → video cross-fade
   const [playing, setPlaying] = useState(false);
   // True once the video has played through once — fades poster back in, stays there
   const [ended, setEnded] = useState(false);
@@ -174,7 +172,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           playsInline
           preload={preloadFull ? 'auto' : 'metadata'}
           aria-hidden="true"
-          onCanPlay={() => setPlaying(true)}
+          onPlaying={() => setPlaying(true)}
           onEnded={() => setEnded(true)}
           onError={() => setFailed(true)}
           style={{ zIndex: 10 }}

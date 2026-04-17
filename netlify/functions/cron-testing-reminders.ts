@@ -32,7 +32,7 @@ export default async function handler() {
       return;
     }
 
-    console.log('Testing reminders cron complete', body);
+    console.info('Testing reminders cron complete', body);
   } catch (err) {
     console.error('Testing reminders cron error', err);
   }

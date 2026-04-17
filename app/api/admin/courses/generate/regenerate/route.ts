@@ -6,34 +6,32 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getCurrentUser } from '@/lib/auth';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { apiRequireAdmin } from '@/lib/admin/guards';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { logger } from '@/lib/logger';
 import OpenAI from 'openai';
 import type { GeneratedLesson } from '../route';
 
 import { hydrateProcessEnv } from '@/lib/secrets';
 
-const ADMIN_ROLES = new Set(['admin', 'super_admin', 'staff']);
-
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
+  // AI regeneration is expensive — strict tier (3 req / 5 min per admin)
+  const rateLimited = await applyRateLimit(req, 'strict');
+  if (rateLimited) return rateLimited;
+
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
+
   await hydrateProcessEnv();
   try {
-    const user = await getCurrentUser();
-    if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
-    const db = await getAdminClient();
-    const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-    if (!profile || !ADMIN_ROLES.has(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
 
     if (!process.env.OPENAI_API_KEY) {
-      return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 503 });
+      return safeError('OPENAI_API_KEY not configured', 503);
     }
 
     const body = await req.json();
@@ -71,15 +69,15 @@ Minimum 2 quiz questions. Real instructional content only.`;
     });
 
     const raw = completion.choices[0]?.message?.content;
-    if (!raw) return NextResponse.json({ error: 'Empty response' }, { status: 500 });
+    if (!raw) return safeError('Empty response from OpenAI', 500);
 
     const lesson: GeneratedLesson = JSON.parse(raw);
     lesson.lesson_number = lesson_number; // enforce original number
 
-    logger.info('Lesson regenerated', { userId: user.id, lesson_number, course_title });
+    logger.info('Lesson regenerated', { userId: auth.user.id, lesson_number, course_title });
     return NextResponse.json({ lesson });
   } catch (err: any) {
     logger.error('Regenerate error:', err);
-    return NextResponse.json({ error: 'Regenerate failed' }, { status: 500 });
+    return safeInternalError(err as Error, 'Regenerate failed');
   }
 }

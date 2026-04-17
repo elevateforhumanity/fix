@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RefreshCw, ExternalLink, Monitor, Smartphone, Tablet } from 'lucide-react';
 
 interface PreviewPanelProps {
@@ -12,8 +12,16 @@ interface PreviewPanelProps {
 
 type DeviceType = 'desktop' | 'tablet' | 'mobile';
 
-export default function PreviewPanel({ url = 'http://localhost:3000', filePath }: PreviewPanelProps) {
-  const [previewUrl, setPreviewUrl] = useState(url);
+export default function PreviewPanel({ url, filePath }: PreviewPanelProps) {
+  // Initialise to null so the iframe is not rendered until we have a real URL.
+  // This prevents the blank flash caused by rendering src="" on first paint.
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  // Resolve the URL after mount (window.location is not available during SSR).
+  // Re-run whenever the `url` prop changes so the iframe tracks the parent.
+  useEffect(() => {
+    setPreviewUrl(url || window.location.origin);
+  }, [url]);
   const [device, setDevice] = useState<DeviceType>('desktop');
   const [key, setKey] = useState(0);
 
@@ -22,7 +30,7 @@ export default function PreviewPanel({ url = 'http://localhost:3000', filePath }
   };
 
   const openInNewTab = () => {
-    window.open(previewUrl, '_blank');
+    if (previewUrl) window.open(previewUrl, '_blank');
   };
 
   const deviceSizes = {
@@ -93,13 +101,20 @@ export default function PreviewPanel({ url = 'http://localhost:3000', filePath }
       {/* Preview Content */}
       <div className="flex-1 overflow-auto bg-gray-100 p-4">
         <div className={`${deviceSizes[device]} h-full bg-white shadow-lg`}>
-          <iframe
-            key={key}
-            src={previewUrl}
-            className="w-full h-full border-0"
-            title="Preview"
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
-          />
+          {previewUrl ? (
+            <iframe
+              key={key}
+              src={previewUrl}
+              className="w-full h-full border-0"
+              title="Preview"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+              <RefreshCw className="w-4 h-4 animate-spin mr-2" />
+              Loading preview…
+            </div>
+          )}
         </div>
       </div>
     </div>

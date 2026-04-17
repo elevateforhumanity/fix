@@ -11,7 +11,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { apiRequireAdmin } from '@/lib/admin/guards';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/server'; // still needed for runHealthCheck + publishCourse
 import { publishCourse } from '@/lib/lms/course-service';
 import { safeInternalError } from '@/lib/api/safe-error';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
@@ -88,23 +88,11 @@ export async function POST(
   { params }: { params: Promise<{ courseId: string }> },
 ) {
   try {
+    const auth = await apiRequireAdmin(request);
+    if (auth.error) return auth.error;
+    const { user } = auth;
+
     const supabase = await createClient();
-
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', auth.id)
-      .maybeSingle();
-
-    if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
     const { courseId } = await params;
     const body = await request.json().catch(() => ({}));
     const label: string | undefined = body.label;
@@ -121,11 +109,11 @@ export async function POST(
       );
     }
 
-    const result = await publishCourse(supabase, courseId, auth.id, label);
+    const result = await publishCourse(supabase, courseId, user.id, label);
 
     await logAdminAudit({
       action:     AdminAction.COURSE_PUBLISHED,
-      actorId:    auth.id,
+      actorId:    user.id,
       entityType: 'courses',
       entityId:   courseId,
       metadata:   { label, lesson_count: (result as any)?.lessonCount },

@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { ArrowRight, Phone, MessageSquare, Calendar } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
 
@@ -60,11 +61,11 @@ export default function StudentSupportPage() {
 
       {/* Video Hero */}
       <HeroVideo
-        videoSrcDesktop="/videos/student-portal-hero.mp4"
         posterImage="/images/pages/student-support-hero.jpg"
-        voiceoverSrc="/audio/heroes/programs.mp3"
-        microLabel="Student Support"
-        analyticsName="student-support"
+        videoSrcDesktop={heroBanners['student-support'].videoSrcDesktop}
+        voiceoverSrc={heroBanners['student-support'].voiceoverSrc}
+        microLabel={heroBanners['student-support'].microLabel}
+        analyticsName={heroBanners['student-support'].analyticsName}
       >
         <p className="text-brand-red-600 font-bold text-xs uppercase tracking-widest mb-3">Elevate for Humanity</p>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-4">

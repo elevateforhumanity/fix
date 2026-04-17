@@ -99,7 +99,6 @@ export default function TrainingPage() {
 
       <HeroVideo
         videoSrcDesktop={heroBanners['training'].videoSrcDesktop}
-        posterImage="/images/pages/comp-home-hero-programs.jpg"
         voiceoverSrc={heroBanners['training'].voiceoverSrc}
         microLabel={heroBanners['training'].microLabel}
         belowHeroHeadline={heroBanners['training'].belowHeroHeadline}

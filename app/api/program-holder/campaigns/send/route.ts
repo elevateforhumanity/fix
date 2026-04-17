@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   const rateLimited = await applyRateLimit(request, 'contact');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiAuthGuard();
+  const auth = await apiAuthGuard(request);
   const { user } = auth;
 
   const db = await getAdminClient();

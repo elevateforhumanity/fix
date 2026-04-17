@@ -93,7 +93,6 @@ export default function FinancePathwayPage() {
         return (
           <HeroVideo
             videoSrcDesktop={b.videoSrcDesktop}
-            posterImage={b.posterImage}
             voiceoverSrc={b.voiceoverSrc}
             microLabel={b.microLabel}
             analyticsName={b.analyticsName}

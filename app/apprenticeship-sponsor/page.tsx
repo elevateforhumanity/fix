@@ -19,8 +19,8 @@ export default function ApprenticeshipSponsorPage() {
   return (
     <div className="min-h-screen bg-white">
       <HeroVideo
-        videoSrcDesktop={heroBanners['apprenticeship-sponsor'].videoSrcDesktop}
         posterImage="/images/pages/apprenticeship-sponsor-page-1.jpg"
+        videoSrcDesktop={heroBanners['apprenticeship-sponsor'].videoSrcDesktop}
         voiceoverSrc={heroBanners['apprenticeship-sponsor'].voiceoverSrc}
         microLabel={heroBanners['apprenticeship-sponsor'].microLabel}
         belowHeroHeadline={heroBanners['apprenticeship-sponsor'].belowHeroHeadline}

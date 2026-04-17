@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static';
 
 import { Metadata } from 'next';
 import { getDb } from '@/lib/lms/api';
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 600;
+export const revalidate = 3600;
 
 export default async function ForEmployersPage() {
   let employerCount: number | null = null;
@@ -66,8 +66,8 @@ export default async function ForEmployersPage() {
       </div>
 
       <HeroVideo
-        videoSrcDesktop={heroBanners['for-employers'].videoSrcDesktop}
         posterImage="/images/pages/for-employers-page-1.jpg"
+        videoSrcDesktop={heroBanners['for-employers'].videoSrcDesktop}
         voiceoverSrc={heroBanners['for-employers'].voiceoverSrc}
         microLabel={heroBanners['for-employers'].microLabel}
         belowHeroHeadline={heroBanners['for-employers'].belowHeroHeadline}

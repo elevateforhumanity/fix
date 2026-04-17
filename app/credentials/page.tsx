@@ -1,11 +1,10 @@
-import { VIDEO_HEROES } from '@/lib/hero-config';
-
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Award, FileCheck, Briefcase, ChevronRight, BadgeCheck, DollarSign, MapPin } from 'lucide-react';
 import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 
 export const revalidate = 3600;
@@ -59,19 +58,17 @@ export default function CredentialsPage() {
 
       {/* Hero */}
       <HeroVideo
-        videoSrcDesktop={VIDEO_HEROES.skilledTrades}
         posterImage="/images/pages/credentials-page-1.jpg"
-        microLabel="System of Record"
-        analyticsName="credentials"
-      >
-        <p className="text-brand-red-600 font-bold text-xs uppercase tracking-widest mb-3">Compliance Infrastructure</p>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-4">
-          Credentials &amp; Compliance
-        </h1>
-        <p className="text-black text-lg leading-relaxed max-w-2xl">
-          Every credential and affiliation is active, verifiable, and operationally integrated — not decorative. Four compliance tiers, three credential layers.
-        </p>
-      </HeroVideo>
+        videoSrcDesktop={heroBanners.credentials.videoSrcDesktop}
+        voiceoverSrc={heroBanners.credentials.voiceoverSrc}
+        microLabel={heroBanners.credentials.microLabel}
+        belowHeroHeadline={heroBanners.credentials.belowHeroHeadline}
+        belowHeroSubheadline={heroBanners.credentials.belowHeroSubheadline}
+        ctas={[heroBanners.credentials.primaryCta, heroBanners.credentials.secondaryCta].filter(Boolean)}
+        trustIndicators={heroBanners.credentials.trustIndicators}
+        transcript={heroBanners.credentials.transcript}
+        analyticsName={heroBanners.credentials.analyticsName}
+      />
 
       {/* Compliance tier stack */}
       <section className="bg-slate-900 py-14 px-6">

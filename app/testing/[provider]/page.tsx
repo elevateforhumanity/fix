@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { CheckCircle, Clock, MapPin, Monitor, DollarSign, ExternalLink, CalendarDays, Briefcase } from 'lucide-react';
+import { CERT_PROVIDERS, type ExamDefinition } from '@/lib/testing/proctoring-capabilities';
 
 // Pre-render all known providers at build time.
 // Unknown slugs return 404 — no SSR fallback.

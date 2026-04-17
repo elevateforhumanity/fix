@@ -9,27 +9,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { getCurrentUser } from '@/lib/auth';
+import { apiRequireAdmin } from '@/lib/admin/guards';
+import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
 
-async function requireAdmin() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) return null;
-  return user;
-}
-
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ programId: string; itemId: string }> }
 ) {
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   const { programId, itemId } = await params;
-  const user = await requireAdmin();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const db = await getAdminClient();
   const { data, error } = await db
@@ -43,7 +35,7 @@ export async function GET(
     .eq('program_id', programId)
     .order('completed_at', { ascending: false });
 
-  if (error) return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  if (error) return safeInternalError(error, 'Failed to fetch completions');
   return NextResponse.json({ completions: data ?? [] });
 }
 
@@ -57,16 +49,16 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ programId: string; itemId: string }> }
 ) {
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   const { programId, itemId } = await params;
-  const user = await requireAdmin();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => null);
-  if (!body) return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  if (!body) return safeError('Invalid JSON', 400);
 
   const parsed = MarkCompleteSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Invalid request body' }, { status: 422 });
+    return safeError('Invalid request body', 422);
   }
 
   const db = await getAdminClient();
@@ -77,7 +69,7 @@ export async function POST(
         external_course_id: itemId,
         program_id:         programId,
         user_id:            parsed.data.user_id,
-        marked_by:          user.id,
+        marked_by:          auth.user.id,
         notes:              parsed.data.notes || null,
         proof_url:          parsed.data.proof_url || null,
         completed_at:       new Date().toISOString(),
@@ -89,10 +81,10 @@ export async function POST(
 
   if (error) {
     logger.error('Mark external complete error', error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return safeInternalError(error, 'Failed to mark completion');
   }
 
-  logger.info('External training marked complete', { itemId, userId: parsed.data.user_id, adminId: user.id });
+  logger.info('External training marked complete', { itemId, userId: parsed.data.user_id, adminId: auth.user.id });
   return NextResponse.json({ completion: data }, { status: 201 });
 }
 
@@ -100,13 +92,13 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ programId: string; itemId: string }> }
 ) {
+  const auth = await apiRequireAdmin(req);
+  if (auth.error) return auth.error;
   const { itemId } = await params;
-  const user = await requireAdmin();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
   const userId = searchParams.get('user_id');
-  if (!userId) return NextResponse.json({ error: 'user_id required' }, { status: 400 });
+  if (!userId) return safeError('user_id required', 400);
 
   const db = await getAdminClient();
   const { error } = await db
@@ -115,6 +107,6 @@ export async function DELETE(
     .eq('external_course_id', itemId)
     .eq('user_id', userId);
 
-  if (error) return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  if (error) return safeInternalError(error, 'Failed to remove completion');
   return NextResponse.json({ ok: true });
 }

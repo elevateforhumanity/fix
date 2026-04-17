@@ -11,8 +11,7 @@ const CONNECTS_DOMAIN = 'elevateconnects.org';
 // LMS subdomain — learn.elevateforhumanity.org → /lms
 const LEARN_SUBDOMAIN = 'learn.elevateforhumanity.org';
 
-// LMS domain (legacy alias — now uses EDUCATION_DOMAIN)
-const LMS_DOMAIN = 'elevateforhumanityeducation.com';
+
 
 // Supersonic Fast Cash domain - routes to /supersonic-fast-cash paths
 const SUPERSONIC_DOMAIN = 'supersonicfastermoney.com';
@@ -60,6 +59,10 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
   '/program-holder/onboarding': ['program_holder', 'admin', 'super_admin'],
   '/program-holder/verification': ['program_holder', 'admin', 'super_admin'],
   '/staff-portal/': ['staff', 'admin', 'super_admin', 'advisor'],
+  '/mentor/dashboard': ['mentor', 'admin', 'super_admin'],
+  '/mentor/sessions': ['mentor', 'admin', 'super_admin'],
+  '/mentor/mentees': ['mentor', 'admin', 'super_admin'],
+  '/mentor/settings': ['mentor', 'admin', 'super_admin'],
   '/instructor/dashboard': ['instructor', 'admin', 'super_admin'],
   '/instructor/courses': ['instructor', 'admin', 'super_admin'],
   '/instructor/students': ['instructor', 'admin', 'super_admin'],
@@ -74,7 +77,8 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
 // Dashboard landing pages that are PUBLIC (for marketing/preview)
 const PUBLIC_DASHBOARD_LANDINGS = [
   // '/admin' intentionally removed — protected by namespace gate
-  '/staff-portal', 
+  '/staff-portal',
+  '/mentor',
   '/instructor',
   '/program-holder',
   '/workforce-board',
@@ -84,9 +88,7 @@ const PUBLIC_DASHBOARD_LANDINGS = [
   '/partner-portal',
 ];
 
-// ADMIN_ONLY_ROUTES previously listed /admin/* paths — now dead code.
-// All /admin/* protection is handled by the namespace gate in the proxy function.
-const ADMIN_ONLY_ROUTES: string[] = [];
+
 
 // Internal paths that should not be indexed by search engines
 const NOINDEX_PREFIXES = [
@@ -200,6 +202,8 @@ export async function proxy(request: NextRequest) {
       process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org',
       'https://elevateforhumanity.org',
       'https://www.elevateforhumanity.org',
+      // Allow local dev requests (Postman, dev proxy, etc.)
+      ...(process.env.NODE_ENV === 'development' ? ['http://localhost:3000'] : []),
     ];
 
     if (request.method === 'OPTIONS') {
@@ -575,7 +579,11 @@ export async function proxy(request: NextRequest) {
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
-    return nextWithPathname();
+    // Supabase not configured — fail closed: redirect to login rather than
+    // allowing unauthenticated access to protected routes
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('redirect', pathname);
+    return NextResponse.redirect(loginUrl, { status: 307 });
   }
 
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
@@ -624,8 +632,12 @@ export async function proxy(request: NextRequest) {
   if (lastActivity) {
     const lastActivityTime = parseInt(lastActivity, 10);
     if (!isNaN(lastActivityTime) && (now - lastActivityTime) > IDLE_TIMEOUT_MS) {
-      // Session expired due to inactivity — sign out and redirect
-      await supabase.auth.signOut();
+      // Session expired due to inactivity — redirect to login with reason=idle.
+      // Do NOT call supabase.auth.signOut() here: middleware cannot write the
+      // Set-Cookie header that clears the Supabase session token, so the call
+      // is a no-op and the session cookie remains valid. The login page detects
+      // ?reason=idle and calls supabase.auth.signOut() client-side where the
+      // cookie write actually takes effect.
       const idleUrl = new URL('/login', request.url);
       idleUrl.searchParams.set('reason', 'idle');
       const idleResponse = NextResponse.redirect(idleUrl, { status: 307 });
@@ -643,31 +655,8 @@ export async function proxy(request: NextRequest) {
     maxAge: IDLE_TIMEOUT_MS / 1000,
   });
 
-  // Check if route is admin-only
-  const isAdminOnlyRoute = ADMIN_ONLY_ROUTES.some((route) =>
-    pathname.startsWith(route)
-  );
-
-  if (isAdminOnlyRoute) {
-    // Super admins (platform owner) have full access
-    if (SUPER_ADMIN_EMAILS.includes(user.email || '')) {
-      return response;
-    }
-
-    // Full admin roles only — staff is not a full admin role.
-    if (cachedProfile?.role === 'admin' || cachedProfile?.role === 'super_admin' || cachedProfile?.role === 'org_admin') {
-      if (cachedProfile.tenant_id) {
-        response.headers.set('x-tenant-id', cachedProfile.tenant_id);
-      }
-      return response;
-    }
-
-    // No access
-    return NextResponse.redirect(new URL('/unauthorized', request.url), { status: 307 });
-  }
-
   // Check role for protected routes
-  if (protectedRoute && !isAdminOnlyRoute) {
+  if (protectedRoute) {
     const allowedRoles = PROTECTED_ROUTES[protectedRoute];
     if (!cachedProfile || !allowedRoles.includes(cachedProfile.role)) {
       return NextResponse.redirect(new URL('/unauthorized', request.url), { status: 307 });
@@ -702,7 +691,8 @@ export async function proxy(request: NextRequest) {
   }
 
   // ============================================
-  // ENROLLMENT STATE CHECK
+  // ENROLLMENT + PARTNER CHECKS (parallel)
+  // Both queries run simultaneously — no sequential waterfall.
   // ============================================
   const requiresEnrollment = ENROLLMENT_REQUIRED_ROUTES.some((route) =>
     pathname.startsWith(route)
@@ -710,62 +700,50 @@ export async function proxy(request: NextRequest) {
   const isEnrollmentFlowRoute = ENROLLMENT_FLOW_ROUTES.some((route) =>
     pathname.startsWith(route)
   );
-
-  if (requiresEnrollment && !isEnrollmentFlowRoute) {
-    // Check enrollment state
-    const { data: enrollment } = await supabase
-      .from('program_enrollments')
-      .select('enrollment_state')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    if (enrollment) {
-      const state = enrollment.enrollment_state;
-      
-      // Only allow access if enrollment is active or documents_complete
-      if (state !== 'active' && state !== 'documents_complete') {
-        // Redirect to appropriate enrollment step
-        let redirectPath = '/enrollment/confirmed';
-        
-        if (state === 'confirmed') {
-          redirectPath = '/enrollment/orientation';
-        } else if (state === 'orientation_complete') {
-          redirectPath = '/enrollment/documents';
-        }
-        
-        return NextResponse.redirect(new URL(redirectPath, request.url), { status: 307 });
-      }
-    }
-  }
-
-  // ============================================
-  // PARTNER STATUS CHECK
-  // ============================================
-  // Partners must have active status to access main partner routes
   const isPartnerRoute = PARTNER_ROUTES.some((route) => pathname.startsWith(route));
   const isPartnerOnboardingRoute = PARTNER_ONBOARDING_ROUTES.some((route) => pathname.startsWith(route));
 
-  if (isPartnerRoute || isPartnerOnboardingRoute) {
-    const { data: partnerApp } = await supabase
-      .from('partner_applications')
-      .select('status')
-      .eq('user_id', user.id)
-      .single();
+  const needsEnrollment = requiresEnrollment && !isEnrollmentFlowRoute;
+  const needsPartner = isPartnerRoute || isPartnerOnboardingRoute;
 
+  const [enrollmentResult, partnerResult] = await Promise.all([
+    needsEnrollment
+      ? supabase
+          .from('program_enrollments')
+          .select('enrollment_state')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    needsPartner
+      ? supabase
+          .from('partner_applications')
+          .select('status')
+          .eq('user_id', user.id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+  ]);
+
+  if (needsEnrollment && enrollmentResult.data) {
+    const state = enrollmentResult.data.enrollment_state;
+    if (state !== 'active' && state !== 'documents_complete') {
+      let redirectPath = '/enrollment/confirmed';
+      if (state === 'confirmed') redirectPath = '/enrollment/orientation';
+      else if (state === 'orientation_complete') redirectPath = '/enrollment/documents';
+      return NextResponse.redirect(new URL(redirectPath, request.url), { status: 307 });
+    }
+  }
+
+  if (needsPartner) {
+    const partnerApp = partnerResult.data;
     if (!partnerApp) {
-      // No partner application - redirect to apply
       return NextResponse.redirect(new URL('/partner/apply', request.url), { status: 307 });
     }
-
-    // For main partner routes, require active status
     if (isPartnerRoute && partnerApp.status !== 'active') {
-      // Partner not yet active - redirect to document upload page
       if (partnerApp.status === 'pending_documents' || partnerApp.status === 'documents_submitted') {
         return NextResponse.redirect(new URL('/partner/documents', request.url), { status: 307 });
       }
-      // Rejected or other status
       return NextResponse.redirect(new URL('/partner/onboarding', request.url), { status: 307 });
     }
 

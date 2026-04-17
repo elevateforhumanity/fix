@@ -217,6 +217,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
   home: {
     pageKey: 'home',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/home.mp3',
     microLabel: 'Indianapolis, Indiana',
     belowHeroHeadline: 'Workforce training for real jobs.',
@@ -238,6 +239,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
   about: {
     pageKey: 'about',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/about.mp3',
     microLabel: 'Our Mission',
     belowHeroHeadline: 'Built for workforce outcomes.',
@@ -258,6 +260,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
   platform: {
     pageKey: 'platform',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'Workforce Infrastructure',
     belowHeroHeadline: 'Workforce infrastructure, not just a website.',
@@ -279,6 +282,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     pageKey: 'funding-how-it-works',
     // orientation-full.mp4 used until a dedicated funding hero video is produced
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/apply.mp3',
     microLabel: 'Funded Training',
     belowHeroHeadline: 'How funded training works.',
@@ -361,6 +365,7 @@ Try the live demo — no signup, no time limit. Every screen is clickable. Searc
   programs: {
     pageKey: 'programs',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/programs.mp3',
     microLabel: 'Career Training',
     belowHeroHeadline: 'Start a Career — Not Just a Class',
@@ -404,6 +409,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   learner: {
     pageKey: 'learner',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/learner.mp3',
     microLabel: 'Your Training',
     belowHeroHeadline: 'Your credential is the goal. Everything here moves you toward it.',
@@ -425,6 +431,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'skilled-trades': {
     pageKey: 'skilled-trades',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
     microLabel: 'Skilled Trades',
     belowHeroHeadline: 'Skilled trades training for high-demand work.',
@@ -447,6 +454,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'hvac-technician': programBanner('hvac-technician', {
     pageKey: 'hvac-technician',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/skilled-trades-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
     microLabel: 'EPA 608 Universal',
@@ -465,6 +473,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'cdl-training': programBanner('cdl-training', {
     pageKey: 'cdl-training',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/cdl-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cdl.mp3',
     microLabel: 'CDL Class A',
@@ -483,6 +492,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'electrical': programBanner('electrical', {
     pageKey: 'electrical',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/electrical-hero.jpg',
     voiceoverSrc: '/audio/heroes/electrical.mp3',
     microLabel: 'NCCER Core Curriculum',
@@ -501,6 +511,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'welding': programBanner('welding', {
     pageKey: 'welding',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/skilled-trades-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/welding.mp3',
     microLabel: 'AWS D1.1 Certification',
@@ -519,6 +530,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'plumbing': programBanner('plumbing', {
     pageKey: 'plumbing',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/skilled-trades-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
     microLabel: 'NCCER Core Curriculum',
@@ -537,6 +549,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'diesel-mechanic': programBanner('diesel-mechanic', {
     pageKey: 'diesel-mechanic',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/skilled-trades-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
     microLabel: 'ASE Exam Prep',
@@ -555,6 +568,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'construction-trades-certification': programBanner('construction-trades-certification', {
     pageKey: 'construction-trades-certification',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/skilled-trades-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
     microLabel: 'OSHA 30 + Forklift',
@@ -573,6 +587,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'forklift': programBanner('forklift', {
     pageKey: 'forklift',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     posterImage: '/hero-images/skilled-trades-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
     microLabel: 'OSHA Forklift Cert',
@@ -738,6 +753,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'barber-apprenticeship': programBanner('barber-apprenticeship', {
     pageKey: 'barber-apprenticeship',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
     posterImage: '/hero-images/barber-hero.jpg',
     voiceoverSrc: '/audio/heroes/barber.mp3',
     microLabel: 'DOL Registered Apprenticeship',
@@ -756,6 +772,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'cosmetology-apprenticeship': programBanner('cosmetology-apprenticeship', {
     pageKey: 'cosmetology-apprenticeship',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
     posterImage: '/hero-images/barber-beauty-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cosmetology.mp3',
     microLabel: 'DOL Registered Apprenticeship',
@@ -774,6 +791,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'nail-technician-apprenticeship': programBanner('nail-technician-apprenticeship', {
     pageKey: 'nail-technician-apprenticeship',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
     posterImage: '/hero-images/barber-beauty-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/nail-tech.mp3',
     microLabel: 'DOL Registered Apprenticeship',
@@ -792,6 +810,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'culinary-apprenticeship': programBanner('culinary-apprenticeship', {
     pageKey: 'culinary-apprenticeship',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
     posterImage: '/hero-images/barber-beauty-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/barber.mp3',
     microLabel: 'DOL Registered Apprenticeship',
@@ -810,6 +829,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'esthetician': programBanner('esthetician', {
     pageKey: 'esthetician',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
     posterImage: '/hero-images/barber-beauty-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cosmetology.mp3',
     microLabel: 'Esthetician Certificate',
@@ -828,6 +848,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'beauty-career-educator': programBanner('beauty-career-educator', {
     pageKey: 'beauty-career-educator',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
     posterImage: '/hero-images/barber-beauty-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/cosmetology.mp3',
     microLabel: 'Certiport ESB',
@@ -846,6 +867,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'apprenticeships': {
     pageKey: 'apprenticeships',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
     posterImage: '/hero-images/apprenticeships-hero.jpg',
     voiceoverSrc: '/audio/heroes/barber.mp3',
     microLabel: 'Earn While You Learn',
@@ -863,6 +885,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'it-help-desk': programBanner('it-help-desk', {
     pageKey: 'it-help-desk',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'CompTIA A+ Prep',
@@ -881,6 +904,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'cybersecurity-analyst': programBanner('cybersecurity-analyst', {
     pageKey: 'cybersecurity-analyst',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'CompTIA Security+ Prep',
@@ -899,6 +923,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'network-administration': programBanner('network-administration', {
     pageKey: 'network-administration',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'CompTIA Network+ Prep',
@@ -917,6 +942,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'network-support-technician': programBanner('network-support-technician', {
     pageKey: 'network-support-technician',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'IT Specialist Networking',
@@ -935,6 +961,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'software-development': programBanner('software-development', {
     pageKey: 'software-development',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'IT Specialist Python',
@@ -953,6 +980,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'web-development': programBanner('web-development', {
     pageKey: 'web-development',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Meta Front-End Cert',
@@ -971,6 +999,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'graphic-design': programBanner('graphic-design', {
     pageKey: 'graphic-design',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Adobe Certified Professional',
@@ -989,6 +1018,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'cad-drafting': programBanner('cad-drafting', {
     pageKey: 'cad-drafting',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/technology-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Autodesk Certified User',
@@ -1009,6 +1039,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'tax-preparation': programBanner('tax-preparation', {
     pageKey: 'tax-preparation',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/tax-hero.jpg',
     voiceoverSrc: '/audio/heroes/tax.mp3',
     microLabel: 'IRS PTIN + AFSP',
@@ -1027,6 +1058,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'bookkeeping': programBanner('bookkeeping', {
     pageKey: 'bookkeeping',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'QuickBooks Certified User',
@@ -1045,6 +1077,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'office-administration': programBanner('office-administration', {
     pageKey: 'office-administration',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Microsoft Office Specialist',
@@ -1063,6 +1096,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'entrepreneurship': programBanner('entrepreneurship', {
     pageKey: 'entrepreneurship',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Certiport ESB Certification',
@@ -1081,6 +1115,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'business-administration': programBanner('business-administration', {
     pageKey: 'business-administration',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'MOS + Certiport ESB',
@@ -1099,6 +1134,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'project-management': programBanner('project-management', {
     pageKey: 'project-management',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Certiport PM Certification',
@@ -1117,6 +1153,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'finance-bookkeeping-accounting': programBanner('finance-bookkeeping-accounting', {
     pageKey: 'finance-bookkeeping-accounting',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     posterImage: '/hero-images/business-hero.jpg',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'IRS PTIN + QuickBooks',
@@ -1137,6 +1174,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'peer-recovery-specialist': programBanner('peer-recovery-specialist', {
     pageKey: 'peer-recovery-specialist',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     voiceoverSrc: '/audio/heroes/peer-recovery.mp3',
     microLabel: 'Indiana CPRS Credential',
     credentialLabel: 'Indiana CPRS',
@@ -1154,6 +1192,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'technology': {
     pageKey: 'technology',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Technology Programs',
     belowHeroHeadline: 'Technology training with industry certifications.',
@@ -1168,6 +1207,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'business': {
     pageKey: 'business',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Business Programs',
     belowHeroHeadline: 'Business training for professional careers.',
@@ -1182,6 +1222,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   mission: {
     pageKey: 'mission',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/mission.mp3',
     microLabel: 'Our Mission',
     belowHeroHeadline: 'Pathways out of poverty. Into prosperity.',
@@ -1196,6 +1237,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   partners: {
     pageKey: 'partners',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/partners.mp3',
     microLabel: 'Partner With Us',
     belowHeroHeadline: 'Build the workforce your community needs.',
@@ -1210,6 +1252,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   lms: {
     pageKey: 'lms',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/lms.mp3',
     microLabel: 'Student Training Portal',
     belowHeroHeadline: 'Your career training starts here.',
@@ -1224,6 +1267,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   training: {
     pageKey: 'training',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/training.mp3',
     microLabel: 'Training Programs',
     belowHeroHeadline: 'Career training for real jobs.',
@@ -1238,6 +1282,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   jri: {
     pageKey: 'jri',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     voiceoverSrc: '/audio/heroes/jri.mp3',
     microLabel: 'Justice-Involved Reentry',
     belowHeroHeadline: 'A second chance backed by real training.',
@@ -1252,6 +1297,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   supersonic: {
     pageKey: 'supersonic',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/supersonic.mp3',
     microLabel: 'SupersonicFastCash',
     belowHeroHeadline: 'Tax software built for speed.',
@@ -1266,6 +1312,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   services: {
     pageKey: 'services',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'Our Services',
     belowHeroHeadline: 'Training, credentials, and support — end to end.',
@@ -1280,6 +1327,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   enrollment: {
     pageKey: 'enrollment',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/enrollment.mp3',
     microLabel: 'Enrollment',
     belowHeroHeadline: 'Ready to start? Let\'s get you enrolled.',
@@ -1294,6 +1342,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'how-it-works': {
     pageKey: 'how-it-works',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/how-it-works.mp3',
     microLabel: 'How It Works',
     belowHeroHeadline: 'From application to employment in four steps.',
@@ -1305,9 +1354,79 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     analyticsName: 'how-it-works',
   },
 
+  // /employer — employer partnership page (distinct from /for-employers)
+  employer: {
+    pageKey: 'employer',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    voiceoverSrc: '/audio/heroes/career-services.mp3',
+    microLabel: 'For Employers',
+    belowHeroHeadline: 'Hire credentialed graduates. Access tax credits and apprenticeship support.',
+    belowHeroSubheadline:
+      'Elevate graduates arrive trained, tested, and credentialed. Access WOTC tax credits, OJT wage reimbursement, and DOL Registered Apprenticeship sponsorship.',
+    primaryCta: { label: 'Partner With Us', href: '/testing/book?type=group-testing' },
+    secondaryCta: { label: 'Browse Candidates', href: '/employer/candidates', variant: 'secondary' },
+    trustIndicators: [
+      'WOTC tax credits up to $9,600',
+      'OJT wage reimbursement',
+      'DOL Registered Apprenticeship Sponsor',
+      'No placement fees',
+    ],
+    transcript:
+      'Elevate graduates are credential-ready and pre-screened. Access WOTC tax credits, OJT wage reimbursement, and Registered Apprenticeship sponsorship — all through one partner.',
+    analyticsName: 'employer',
+  },
+
+  // /credentials — compliance and credential infrastructure page
+  credentials: {
+    pageKey: 'credentials',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    voiceoverSrc: '/audio/heroes/career-services.mp3',
+    microLabel: 'Compliance Infrastructure',
+    belowHeroHeadline: 'Credentials and compliance — active, verifiable, and integrated.',
+    belowHeroSubheadline:
+      'DOL Registered Apprenticeship Sponsor. Indiana ETPL Certified. WIOA compliant. Every credential is operationally integrated, not decorative.',
+    primaryCta: { label: 'View Programs', href: '/programs' },
+    secondaryCta: { label: 'Verify a Credential', href: '/verify-credentials', variant: 'secondary' },
+    trustIndicators: [
+      'DOL Registered Apprenticeship Sponsor',
+      'Indiana ETPL Certified',
+      'WIOA Title I Compliant',
+      'Certiport Authorized Testing Center',
+    ],
+    transcript:
+      'Every Elevate credential is active, verifiable, and operationally integrated. DOL Registered Apprenticeship Sponsor, Indiana ETPL Certified, and WIOA compliant — four compliance tiers, three credential layers.',
+    analyticsName: 'credentials',
+  },
+
+  // /student-support — student support services page
+  'student-support': {
+    pageKey: 'student-support',
+    videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    voiceoverSrc: '/audio/heroes/programs.mp3',
+    microLabel: 'Student Support',
+    belowHeroHeadline: 'Support from enrollment through employment.',
+    belowHeroSubheadline:
+      'Academic help, financial aid, career services, and counseling — everything you need to succeed.',
+    primaryCta: { label: 'Apply Now', href: '/start' },
+    secondaryCta: { label: 'Schedule Advising', href: '/student-support/schedule', variant: 'secondary' },
+    trustIndicators: [
+      'Academic tutoring included',
+      'Career placement assistance',
+      'Financial aid navigation',
+      'Counseling services',
+    ],
+    transcript:
+      'Elevate provides academic support, financial aid navigation, career placement, and counseling services — all included for enrolled students at no additional cost.',
+    analyticsName: 'student-support',
+  },
+
   'hire-graduates': {
     pageKey: 'hire-graduates',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/hire-graduates.mp3',
     microLabel: 'Hire Our Graduates',
     belowHeroHeadline: 'Credential-ready talent. Pre-screened. Job-ready.',
@@ -1322,6 +1441,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'for-employers': {
     pageKey: 'for-employers',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/for-employers.mp3',
     microLabel: 'For Employers',
     belowHeroHeadline: 'Build your workforce pipeline with Elevate.',
@@ -1336,6 +1456,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   faq: {
     pageKey: 'faq',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/faq.mp3',
     microLabel: 'Frequently Asked Questions',
     belowHeroHeadline: 'Questions? We have answers.',
@@ -1350,6 +1471,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'financial-aid': {
     pageKey: 'financial-aid',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/financial-aid.mp3',
     microLabel: 'Financial Aid & Funding',
     belowHeroHeadline: 'Training at no cost for eligible students.',
@@ -1364,6 +1486,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   certifications: {
     pageKey: 'certifications',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/certifications.mp3',
     microLabel: 'Credentials & Certifications',
     belowHeroHeadline: 'Earn credentials employers recognize.',
@@ -1378,6 +1501,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'apprenticeship-sponsor': {
     pageKey: 'apprenticeship-sponsor',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     voiceoverSrc: '/audio/heroes/apprenticeship-sponsor.mp3',
     microLabel: 'DOL Apprenticeship Sponsor',
     belowHeroHeadline: 'Registered Apprenticeship — the earn-while-you-learn path.',
@@ -1392,6 +1516,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'program-holder': {
     pageKey: 'program-holder',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/program-holder.mp3',
     microLabel: 'Program Holders',
     belowHeroHeadline: 'Deliver training under the Elevate umbrella.',
@@ -1406,6 +1531,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   locations: {
     pageKey: 'locations',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     voiceoverSrc: '/audio/heroes/locations.mp3',
     microLabel: 'Training Locations',
     belowHeroHeadline: 'Training in Indianapolis and beyond.',
@@ -1420,6 +1546,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   start: {
     pageKey: 'start',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/start.mp3',
     microLabel: 'Get Started',
     belowHeroHeadline: 'Your next career starts here.',

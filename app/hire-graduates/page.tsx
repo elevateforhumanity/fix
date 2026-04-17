@@ -1,4 +1,5 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -32,8 +33,8 @@ export default async function HireGraduatesPage() {
         <Breadcrumbs items={[{ label: "Hire Graduates" }]} />
       </div>
       <HeroVideo
-        videoSrcDesktop={heroBanners['hire-graduates'].videoSrcDesktop}
         posterImage="/images/pages/hire-graduates-page-1.jpg"
+        videoSrcDesktop={heroBanners['hire-graduates'].videoSrcDesktop}
         voiceoverSrc={heroBanners['hire-graduates'].voiceoverSrc}
         microLabel={heroBanners['hire-graduates'].microLabel}
         belowHeroHeadline={heroBanners['hire-graduates'].belowHeroHeadline}

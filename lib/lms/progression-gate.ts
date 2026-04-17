@@ -95,7 +95,7 @@ async function evalCompletePreviousModule(
   // Find the module this lesson belongs to, then find the previous module
   const { data: lesson, error: lessonErr } = await db
     .from('course_lessons')
-    .select('course_module_id, order_index, course_id')
+    .select('module_id, order_index, course_id')
     .eq('id', lessonId)
     .maybeSingle();
 
@@ -107,7 +107,7 @@ async function evalCompletePreviousModule(
   const { data: currentMod, error: modErr } = await db
     .from('course_modules')
     .select('order_index, course_id')
-    .eq('id', lesson.course_module_id)
+    .eq('id', lesson.module_id)
     .maybeSingle();
 
   if (modErr || !currentMod) {
@@ -136,7 +136,7 @@ async function evalCompletePreviousModule(
   const { data: prevLessons, error: prevLessonsErr } = await db
     .from('course_lessons')
     .select('id, is_required')
-    .eq('course_module_id', prevMod.id)
+    .eq('module_id', prevMod.id)
     .eq('is_required', true);
 
   if (prevLessonsErr) {

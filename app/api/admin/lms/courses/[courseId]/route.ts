@@ -20,13 +20,10 @@ export async function PATCH(
   { params }: { params: Promise<{ courseId: string }> },
 ) {
   try {
-    const supabase = await createClient();
-    const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+    const auth = await apiRequireAdmin(request);
+    if (auth.error) return auth.error;
 
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const supabase = await createClient();
 
     const { courseId } = await params;
     const body = await request.json();
@@ -54,17 +51,14 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ courseId: string }> },
 ) {
   try {
-    const supabase = await createClient();
-    const auth = await apiRequireAdmin(req);
-  if (auth.error) return auth.error;
+    const auth = await apiRequireAdmin(request);
+    if (auth.error) return auth.error;
 
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-    }
+    const supabase = await createClient();
 
     const { courseId } = await params;
 

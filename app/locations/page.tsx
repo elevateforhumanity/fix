@@ -1,4 +1,5 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
@@ -70,8 +71,8 @@ export default async function LocationsPage() {
       </div>
 
       <HeroVideo
-        videoSrcDesktop={heroBanners['locations'].videoSrcDesktop}
         posterImage="/images/pages/locations-page-1.jpg"
+        videoSrcDesktop={heroBanners['locations'].videoSrcDesktop}
         voiceoverSrc={heroBanners['locations'].voiceoverSrc}
         microLabel={heroBanners['locations'].microLabel}
         belowHeroHeadline={heroBanners['locations'].belowHeroHeadline}

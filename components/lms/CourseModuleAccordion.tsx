@@ -135,8 +135,10 @@ function ModuleRow({
         <div className="border-t border-slate-100">
           {module.lessons.map((lesson, idx) => {
             const isCompleted = progressMap[lesson.id]?.completed;
-            const prevLesson = module.lessons[idx - 1];
-            const prevDone = idx === 0 || progressMap[prevLesson?.id]?.completed;
+            // Only look up the previous lesson when idx > 0 — when idx === 0
+            // there is no previous lesson in this module so prevDone is true.
+            const prevLesson = idx > 0 ? module.lessons[idx - 1] : undefined;
+            const prevDone = idx === 0 || !!progressMap[prevLesson?.id]?.completed;
             const isLocked = isPendingApproval || (!isEnrolled && idx > 0) || (isEnrolled && !isCompleted && !prevDone);
             const isCheckpoint = lesson.step_type === 'checkpoint' || lesson.content_type === 'quiz';
             const activities: Activity[] = lesson.activities?.length
@@ -238,14 +240,31 @@ function LessonRow({
       {/* Activity menu — NHA style */}
       {expanded && (
         <div className="bg-slate-50 border-t border-slate-100 px-5 py-3 space-y-1">
-          {activities.map((activity) => {
+          {activities.map((activity, actIdx) => {
             const Icon = ACTIVITY_ICON[activity.type] ?? Play;
             const color = ACTIVITY_COLOR[activity.type] ?? 'text-slate-500';
-            const isGated = activity.type === 'checkpoint' && !isCompleted;
+            // Gate the checkpoint activity on prior required activities being
+            // done — NOT on isCompleted. Gating on isCompleted is circular:
+            // the lesson can't be completed without passing the checkpoint, but
+            // the checkpoint is locked until the lesson is complete.
+            // Prior required activities = all activities with order < this one
+            // that are marked required.
+            const priorRequiredDone = activities
+              .filter(a => a.required && a.order < activity.order)
+              .every(a => {
+                // Video and reading completion is not tracked in progressMap —
+                // treat them as done once the lesson is unlocked (isEnrolled).
+                // Only checkpoint completion is tracked explicitly.
+                if (a.type === 'checkpoint') return !!isCompleted;
+                return isEnrolled;
+              });
+            const isGated = activity.type === 'checkpoint' && !priorRequiredDone;
 
             return (
               <Link
-                key={activity.type}
+                // Use order+type as key — type alone is not unique if a lesson
+                // has two activities of the same type (e.g. two reading entries)
+                key={`${actIdx}-${activity.type}`}
                 href={`/lms/courses/${courseId}/lessons/${lesson.id}?activity=${activity.type}`}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition group/act ${
                   isGated
@@ -287,6 +306,9 @@ export function CourseModuleAccordion({
   progressMap,
   isEnrolled,
   isPendingApproval,
+  phaseLabel,
+  phaseName,
+  phaseStatus,
 }: Props) {
   // Open the first incomplete module by default
   const firstIncompleteIdx = modules.findIndex(mod =>

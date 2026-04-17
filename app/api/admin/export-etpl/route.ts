@@ -36,7 +36,7 @@ async function _GET(req: Request) {
     const { data: profile } = await adminClient
       .from('profiles')
       .select('role')
-      .eq('id', auth.id)
+      .eq('id', user.id)
       .maybeSingle();
 
     if (

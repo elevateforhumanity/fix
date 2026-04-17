@@ -312,17 +312,24 @@ async function _POST(req: NextRequest) {
 }
 
 // ── HELPER: Verify all quiz-type lessons have a passing attempt ────────
+//
+// Inline course quizzes (quiz_questions JSONB on course_lessons) are NOT
+// tracked in quiz_attempts — that table is for the separate quiz-builder
+// system (quizzes table, different UUIDs). Inline quiz completion is tracked
+// via checkpoint_scores (checkpoint/exam lesson types) and lesson_progress
+// (quiz lesson type, where the client enforces the pass threshold before
+// calling the complete endpoint).
 async function verifyQuizzesPassed(
   db: any,
   userId: string,
   courseId: string
 ): Promise<{ allPassed: boolean; failedQuizzes: string[]; scores: Record<string, number> }> {
-  // Get all quiz-type lessons for this course
+  // Get all quiz-type lessons for this course (quiz, checkpoint, exam)
   const { data: quizLessons } = await db
     .from('course_lessons')
-    .select('id, title')
+    .select('id, title, lesson_type, passing_score')
     .eq('course_id', courseId)
-    .eq('lesson_type', 'quiz');
+    .in('lesson_type', ['quiz', 'checkpoint', 'exam']);
 
   if (!quizLessons || quizLessons.length === 0) {
     return { allPassed: true, failedQuizzes: [], scores: {} };
@@ -331,22 +338,64 @@ async function verifyQuizzesPassed(
   const failedQuizzes: string[] = [];
   const scores: Record<string, number> = {};
 
-  for (const quiz of quizLessons) {
-    // Check for a passing attempt (score >= 70)
-    const { data: bestAttempt } = await db
-      .from('quiz_attempts')
-      .select('score, passed')
-      .eq('user_id', userId)
-      .eq('quiz_id', quiz.id)
-      .eq('passed', true)
-      .order('score', { ascending: false })
-      .limit(1)
-      .maybeSingle();
+  // Fetch all checkpoint_scores for this user+course in one query
+  const { data: checkpointRows } = await db
+    .from('checkpoint_scores')
+    .select('lesson_id, score, passed')
+    .eq('user_id', userId)
+    .eq('course_id', courseId)
+    .eq('passed', true)
+    .order('score', { ascending: false });
 
-    if (bestAttempt) {
-      scores[quiz.title] = Number(bestAttempt.score);
+  // Build a map: lesson_id → best passing score
+  const checkpointPassMap = new Map<string, number>();
+  for (const row of checkpointRows ?? []) {
+    const existing = checkpointPassMap.get(row.lesson_id);
+    if (existing === undefined || row.score > existing) {
+      checkpointPassMap.set(row.lesson_id, row.score);
+    }
+  }
+
+  // Fetch completed lesson_progress rows for quiz-type lessons (quiz lesson
+  // type — pass is enforced client-side before the complete endpoint is called)
+  const quizTypeIds = quizLessons
+    .filter((l: any) => l.lesson_type === 'quiz')
+    .map((l: any) => l.id);
+
+  const completedQuizIds = new Set<string>();
+  if (quizTypeIds.length > 0) {
+    const { data: progressRows } = await db
+      .from('lesson_progress')
+      .select('lesson_id')
+      .eq('user_id', userId)
+      .eq('course_id', courseId)
+      .eq('completed', true)
+      .in('lesson_id', quizTypeIds);
+
+    for (const row of progressRows ?? []) {
+      completedQuizIds.add(row.lesson_id);
+    }
+  }
+
+  for (const quiz of quizLessons) {
+    if (quiz.lesson_type === 'quiz') {
+      // quiz lesson type: pass is enforced by the complete endpoint (client
+      // must pass before calling it), so lesson_progress.completed = true
+      // is sufficient evidence of a passing attempt.
+      if (completedQuizIds.has(quiz.id)) {
+        // No score stored for plain quiz lessons — record 100 as a sentinel
+        scores[quiz.title] = 100;
+      } else {
+        failedQuizzes.push(quiz.title);
+      }
     } else {
-      failedQuizzes.push(quiz.title);
+      // checkpoint / exam: score is stored in checkpoint_scores
+      const passingScore = checkpointPassMap.get(quiz.id);
+      if (passingScore !== undefined) {
+        scores[quiz.title] = passingScore;
+      } else {
+        failedQuizzes.push(quiz.title);
+      }
     }
   }
 

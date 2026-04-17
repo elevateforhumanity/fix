@@ -74,8 +74,8 @@ export default function FinancialAidPage() {
       </div>
 
       <HeroVideo
-        videoSrcDesktop={heroBanners['financial-aid'].videoSrcDesktop}
         posterImage="/images/pages/financial-aid-page-1.jpg"
+        videoSrcDesktop={heroBanners['financial-aid'].videoSrcDesktop}
         voiceoverSrc={heroBanners['financial-aid'].voiceoverSrc}
         microLabel={heroBanners['financial-aid'].microLabel}
         belowHeroHeadline={heroBanners['financial-aid'].belowHeroHeadline}

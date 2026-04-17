@@ -386,7 +386,7 @@ async function main() {
   if (cmd === 'init-schema') {
     const outPath = args[0] ?? 'tools/wioa/schemas/eta9170_starter.json';
     writeStarterSchema9170(outPath);
-    console.log(`Wrote starter schema → ${outPath}`);
+    console.info(`Wrote starter schema → ${outPath}`);
     return;
   }
 
@@ -417,10 +417,10 @@ async function main() {
     // Real adapter — queries Supabase via RPC
     const { createSupabaseAdapter } = await import('./supabase_adapter');
     adapter = createSupabaseAdapter();
-    console.log('Using LIVE Supabase adapter');
+    console.info('Using LIVE Supabase adapter');
   } else {
     // Test adapter with sample data
-    console.log('Using TEST adapter (dummy data). Pass --live for real data.');
+    console.info('Using TEST adapter (dummy data). Pass --live for real data.');
     adapter = {
       async fetchParticipantsForQuarter() {
         return [
@@ -458,7 +458,7 @@ async function main() {
     maxErrors: 5000,
   });
 
-  console.log(JSON.stringify(res, null, 2));
+  console.info(JSON.stringify(res, null, 2));
 }
 
 // ESM-compatible entry point

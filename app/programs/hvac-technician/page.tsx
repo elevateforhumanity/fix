@@ -82,7 +82,6 @@ export default async function HVACTechnicianPage() {
       <main className="min-h-screen bg-white text-slate-900">
         <HeroVideo
           videoSrcDesktop={banner.videoSrcDesktop}
-          posterImage={banner.posterImage}
         voiceoverSrc={banner.voiceoverSrc}
           microLabel={banner.microLabel}
           analyticsName={banner.analyticsName}
@@ -208,7 +207,6 @@ export default async function HVACTechnicianPage() {
       {/* ── Hero video ───────────────────────────────────────────────────── */}
       <HeroVideo
         videoSrcDesktop={banner.videoSrcDesktop}
-        posterImage={banner.posterImage}
         voiceoverSrc={banner.voiceoverSrc}
 
         microLabel={banner.microLabel}

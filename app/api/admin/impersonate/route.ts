@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   const rateLimited = await applyRateLimit(req, 'strict');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiAuthGuard();
+  const auth = await apiAuthGuard(req);
 
   // Require admin or super_admin
   if (!auth.role || !['admin', 'super_admin'].includes(auth.role)) {
@@ -114,7 +114,7 @@ export async function DELETE(req: NextRequest) {
   const ipBlocked = checkAdminIP(req);
   if (ipBlocked) return ipBlocked;
 
-  const auth = await apiAuthGuard();
+  const auth = await apiAuthGuard(req);
 
   if (!auth.role || !['admin', 'super_admin'].includes(auth.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });

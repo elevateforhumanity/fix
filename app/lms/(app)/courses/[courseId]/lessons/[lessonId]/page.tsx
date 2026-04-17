@@ -435,7 +435,16 @@ export default function LessonPage() {
     fetchLessonData();
   }, [lessonId, fetchLessonData]);
 
-  const markComplete = async (forceComplete?: boolean) => {
+  const currentIndex = lessons.findIndex((l) => l.id === lessonId);
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < lessons.length - 1;
+
+  // useCallback so the function identity is stable across renders and inline
+  // JSX handlers (e.g. QuizPlayer.onComplete) always call the latest version.
+  // Without this, closures over `hasNext`/`currentIndex`/`lessons` go stale
+  // between the checkpoint fetch and the markComplete call, causing auto-advance
+  // to navigate to the wrong lesson or silently no-op.
+  const markComplete = useCallback(async (forceComplete?: boolean) => {
     // forceComplete=true means "always mark complete" (called from activity handlers).
     // Without it, the button toggles — allowing un-complete from the manual button only.
     const newStatus = forceComplete ? true : !isCompleted;
@@ -517,11 +526,8 @@ export default function LessonPage() {
     } catch (error) {
       setIsCompleted(!newStatus);
     }
-  };
-
-  const currentIndex = lessons.findIndex((l) => l.id === lessonId);
-  const hasPrevious = currentIndex > 0;
-  const hasNext = currentIndex < lessons.length - 1;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCompleted, lessonId, courseId, hasNext, currentIndex, lessons]);
 
   const goToPrevious = () => {
     if (hasPrevious) {
@@ -1073,6 +1079,9 @@ export default function LessonPage() {
 
                 // For checkpoint and exam steps, record the score via the engine API.
                 // This is what the module gate reads — must be written before markComplete.
+                // Await the fetch so the checkpoint_scores INSERT commits before the
+                // lesson-complete endpoint calls enforceCheckpointGate; without await
+                // the gate fires before the row exists and returns CHECKPOINT_NOT_PASSED.
                 if (lesson.step_type === 'checkpoint' || lesson.step_type === 'exam') {
                   try {
                     await fetch(`/api/lessons/${lessonId}/checkpoint`, {
@@ -1082,7 +1091,6 @@ export default function LessonPage() {
                         courseId,
                         moduleOrder: lesson.module_order ?? 0,
                         score,
-                        passingScore,
                         answers: answers ?? {},
                       }),
                     });
@@ -1097,8 +1105,11 @@ export default function LessonPage() {
                   }
                 }
 
+                // Await markComplete so it runs after the checkpoint INSERT above
+                // has fully committed. Without await, the lesson-complete API call
+                // races the checkpoint write and the server gate fires prematurely.
                 if (passed) {
-                  markComplete();
+                  await markComplete();
                 }
               }}
               passingScore={lesson.passing_score || 70}
@@ -1487,8 +1498,40 @@ export default function LessonPage() {
                           title={lesson.title}
                           passingScore={lesson.passing_score || 70}
                           isCheckpoint={lesson.step_type === 'checkpoint'}
-                          onComplete={(score) => {
-                            if (score >= (lesson.passing_score || 70) && !isCompleted) markComplete();
+                          onComplete={async (score, answers) => {
+                            const passingScore = lesson.passing_score || 70;
+                            const passed = score >= passingScore;
+
+                            // Record the checkpoint score before marking the lesson
+                            // complete. The module gate and certificate eligibility
+                            // check both read checkpoint_scores — without this write
+                            // the next module stays locked and the certificate is
+                            // never issued, regardless of the learner's score.
+                            if (lesson.step_type === 'checkpoint' || lesson.step_type === 'exam') {
+                              try {
+                                await fetch(`/api/lessons/${lessonId}/checkpoint`, {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({
+                                    courseId,
+                                    moduleOrder: lesson.module_order ?? 0,
+                                    score,
+                                    passingScore,
+                                    answers: answers ?? {},
+                                  }),
+                                });
+
+                                if (passed) {
+                                  setPassedCheckpointIds(prev => new Set<string>([...Array.from(prev), lessonId]));
+                                  setCheckpointBlocked(false);
+                                }
+                              } catch (e) {
+                                console.error('[lesson] activity-tab checkpoint record failed:', e);
+                                // Non-fatal — fail open so the lesson still renders
+                              }
+                            }
+
+                            if (passed && !isCompleted) markComplete();
                           }}
                         />
                       ) : (

@@ -115,7 +115,6 @@ export default function EducationLandingPage() {
       <section className="pt-16">
         <HeroVideo
           videoSrcDesktop={VIDEO_HEROES.lmsCourses}
-          posterImage="/images/pages/higher-ed-hero.jpg"
           voiceoverSrc="/audio/heroes/programs.mp3"
           microLabel="Career Training"
           analyticsName="education"
