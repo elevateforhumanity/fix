@@ -1,6 +1,7 @@
 # Environment variables
 .env
 .env.*
+.env_local_*.txt
 !.env.example
 
 # Video generation cache and temp render dirs
