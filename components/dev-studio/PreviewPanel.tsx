@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RefreshCw, ExternalLink, Monitor, Smartphone, Tablet } from 'lucide-react';
 
 interface PreviewPanelProps {
@@ -12,8 +12,15 @@ interface PreviewPanelProps {
 
 type DeviceType = 'desktop' | 'tablet' | 'mobile';
 
-export default function PreviewPanel({ url = 'http://localhost:3000', filePath }: PreviewPanelProps) {
-  const [previewUrl, setPreviewUrl] = useState(url);
+export default function PreviewPanel({ url, filePath }: PreviewPanelProps) {
+  // Default to the current origin — works on localhost, cloud, and production
+  // without any environment-specific configuration.
+  const [previewUrl, setPreviewUrl] = useState(url || '');
+
+  // Set origin after mount (window is not available during SSR)
+  useEffect(() => {
+    if (!previewUrl) setPreviewUrl(url || window.location.origin);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const [device, setDevice] = useState<DeviceType>('desktop');
   const [key, setKey] = useState(0);
 

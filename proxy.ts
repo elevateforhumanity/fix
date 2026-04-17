@@ -60,6 +60,10 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
   '/program-holder/onboarding': ['program_holder', 'admin', 'super_admin'],
   '/program-holder/verification': ['program_holder', 'admin', 'super_admin'],
   '/staff-portal/': ['staff', 'admin', 'super_admin', 'advisor'],
+  '/mentor/dashboard': ['mentor', 'admin', 'super_admin'],
+  '/mentor/sessions': ['mentor', 'admin', 'super_admin'],
+  '/mentor/mentees': ['mentor', 'admin', 'super_admin'],
+  '/mentor/settings': ['mentor', 'admin', 'super_admin'],
   '/instructor/dashboard': ['instructor', 'admin', 'super_admin'],
   '/instructor/courses': ['instructor', 'admin', 'super_admin'],
   '/instructor/students': ['instructor', 'admin', 'super_admin'],
@@ -74,7 +78,8 @@ const PROTECTED_ROUTES: Record<string, string[]> = {
 // Dashboard landing pages that are PUBLIC (for marketing/preview)
 const PUBLIC_DASHBOARD_LANDINGS = [
   // '/admin' intentionally removed — protected by namespace gate
-  '/staff-portal', 
+  '/staff-portal',
+  '/mentor',
   '/instructor',
   '/program-holder',
   '/workforce-board',

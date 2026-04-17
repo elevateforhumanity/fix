@@ -55,6 +55,11 @@ async function _POST(req: Request) {
       .insert({
         user_id: user.id,
         document_type: 'rights',
+        full_name: fullName,
+        title,
+        acknowledged_at: new Date().toISOString(),
+        ip_address: (req as any).headers?.get?.('x-forwarded-for') || 'unknown',
+        user_agent: (req as any).headers?.get?.('user-agent') || 'unknown',
       })
       .select()
       .single();

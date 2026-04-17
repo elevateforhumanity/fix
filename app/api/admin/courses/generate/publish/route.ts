@@ -202,38 +202,45 @@ async function checkCoverageGate(
 
 // ── Pre-publish validators ────────────────────────────────────────────────────
 
-function ensureUniqueLessonTitles(draft: PublishDraft): void {
+// Each validator returns a descriptive error string on failure, or null when valid.
+// The caller in publishCompiledDraft checks the return value and throws so the
+// error propagates back to _POST as a 422 response.
+
+function ensureUniqueLessonTitles(draft: PublishDraft): string | null {
   const seen = new Set<string>();
   for (const mod of draft.modules) {
     for (const lesson of mod.lessons) {
       const key = lesson.lesson_title.trim().toLowerCase();
-      if (seen.has(key)) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+      if (seen.has(key)) return `Duplicate lesson title: "${lesson.lesson_title}"`;
       seen.add(key);
     }
   }
+  return null;
 }
 
-function validateQuizAnswers(draft: PublishDraft): void {
+function validateQuizAnswers(draft: PublishDraft): string | null {
   for (const mod of draft.modules) {
     for (const lesson of mod.lessons) {
       for (const q of lesson.knowledge_check) {
         if (!q.options.includes(q.correct_answer)) {
-          return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+          return `Quiz answer "${q.correct_answer}" not found in options for question: "${q.question}"`;
         }
       }
     }
   }
+  return null;
 }
 
-function validateDurations(draft: PublishDraft): void {
+function validateDurations(draft: PublishDraft): string | null {
   for (const mod of draft.modules) {
     for (const lesson of mod.lessons) {
       if (lesson.estimated_minutes < 3)
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+        return `Lesson "${lesson.lesson_title}" has estimated_minutes < 3`;
       if (lesson.narration_script.trim().length < 400)
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+        return `Lesson "${lesson.lesson_title}" narration_script is too short (< 400 chars)`;
     }
   }
+  return null;
 }
 
 // ── Compiled draft content renderer ──────────────────────────────────────────
@@ -300,15 +307,19 @@ async function publishCompiledDraft(
   callerRole: string | null | undefined,
   db: SupabaseClient
 ): Promise<{ courseId: string; slug: string; lessonCount: number }> {
-  ensureUniqueLessonTitles(draft);
-  validateQuizAnswers(draft);
-  validateDurations(draft);
+  // Run pre-publish validators. Each returns null on success or an error string.
+  // Throw so the error propagates to _POST which returns a 422 to the caller.
+  const validationError =
+    ensureUniqueLessonTitles(draft) ??
+    validateQuizAnswers(draft) ??
+    validateDurations(draft);
+  if (validationError) throw new Error(validationError);
 
   // Coverage gate: block live publication if credential alignment is incomplete.
   // Drafts (auto_publish: false) are always allowed through.
   if (draft.program_id) {
     const coverageError = await checkCoverageGate(draft.program_id, draft.auto_publish);
-    if (coverageError) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (coverageError) throw new Error(coverageError);
   }
 
   const slugBase = draft.course_name
@@ -493,15 +504,23 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
+const PUBLISH_ALLOWED_ROLES = new Set(['admin', 'super_admin', 'staff']);
+
 async function _POST(req: NextRequest) {
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
+    // Role check: only admin, super_admin, and staff may write to course tables.
+    // Any authenticated user reaching this endpoint without a trusted role is
+    // rejected before any DB access occurs.
+    const callerRole = user.profile?.role ?? null;
+    if (!callerRole || !PUBLISH_ALLOWED_ROLES.has(callerRole)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const body = await req.json();
     const db = await getAdminClient();
-
-    const callerRole = user.profile?.role ?? null;
 
     // ── v2 compiled draft path ──────────────────────────────────────────────
     if (body.draft) {

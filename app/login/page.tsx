@@ -1,7 +1,7 @@
 'use client';
 
 // Static shell — no server data needed. Served from CDN, no cold start.
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 import React from 'react';
 

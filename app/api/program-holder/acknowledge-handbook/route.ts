@@ -50,12 +50,17 @@ async function _POST(req: Request) {
     // Profile already fetched above — reuse it
     const profile = callerProfile;
 
-    // Insert acknowledgement — only live schema columns
+    // Insert acknowledgement with all available columns
     const { data, error }: any = await supabase
       .from('program_holder_acknowledgements')
       .insert({
         user_id: user.id,
         document_type: 'handbook',
+        full_name: fullName,
+        title,
+        acknowledged_at: new Date().toISOString(),
+        ip_address: (req as any).headers?.get?.('x-forwarded-for') || 'unknown',
+        user_agent: (req as any).headers?.get?.('user-agent') || 'unknown',
       })
       .select()
       .single();

@@ -38,16 +38,19 @@ async function _POST(request: NextRequest) {
       return NextResponse.json({ error: 'MOU already signed' }, { status: 409 });
     }
 
-    // Store signature — use live schema columns only
+    // Store signature — link to user and program_holder record
     const { data: signature, error: sigError } = await supabase
       .from('mou_signatures')
       .insert({
+        user_id: user.id,
+        program_holder_id: holderRow?.id ?? null,
         partner_type: 'program_holder',
         signer_name: signerName,
         signer_title: signerTitle,
         signature_data: signatureDataUrl,
         signed_at: new Date().toISOString(),
         agreed_at: new Date().toISOString(),
+        agreed: true,
         ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown',
         user_agent: request.headers.get('user-agent') || 'unknown',
         mou_version: '2025-01',

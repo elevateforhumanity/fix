@@ -1,16 +1,5 @@
-import { resend } from '@/lib/resend';
+import { sendEmail } from '@/lib/email/sendgrid';
 import { logger } from '@/lib/logger';
-
-function getResendClient() {
-  const apiKey = process.env.SENDGRID_API_KEY;
-  if (!apiKey) {
-    logger.warn(
-      'SENDGRID_API_KEY not configured - email notifications will be skipped'
-    );
-    return null;
-  }
-  return new Resend(apiKey);
-}
 
 interface MOUSignedNotificationData {
   programHolderName: string;
@@ -20,138 +9,53 @@ interface MOUSignedNotificationData {
   signedAt: string;
 }
 
-/**
- * Send email notification to program holder confirming MOU signature
- */
-export async function sendMOUSignedConfirmation(
-  data: MOUSignedNotificationData
-) {
-  const resend = getResendClient();
-  if (!resend) {
-    return false;
-  }
-
+export async function sendMOUSignedConfirmation(data: MOUSignedNotificationData): Promise<boolean> {
   try {
-    const { error } = await resend.emails.send({
-      from: 'Elevate for Humanity <noreply@elevateforhumanity.org>',
+    await sendEmail({
       to: data.contactEmail,
-      subject: 'MOU Signed Successfully - Elevate for Humanity',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #2563eb;">MOU Signed Successfully</h2>
-
-          <p>Dear ${data.signerName},</p>
-
-          <p>Thank you for signing the Memorandum of Understanding (MOU) with Elevate for Humanity.</p>
-
-          <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0;">Signature Details</h3>
-            <p><strong>Program Holder:</strong> ${data.programHolderName}</p>
-            <p><strong>Signed by:</strong> ${data.signerName}</p>
-            <p><strong>Title:</strong> ${data.signerTitle}</p>
-            <p><strong>Date:</strong> ${new Date(
-              data.signedAt
-            ).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}</p>
-          </div>
-
-          <p>You can download a copy of your signed MOU from your program holder portal at any time.</p>
-
-          <h3>Next Steps</h3>
-          <ul>
-            <li>You can now begin enrolling participants in training programs</li>
-            <li>Access your program holder dashboard to manage cases and track progress</li>
-            <li>Review the revenue share model and payment schedule in your MOU</li>
-          </ul>
-
-          <p>If you have any questions, please contact our team.</p>
-
-          <p>Best regards,<br>
-          <strong>Elevate for Humanity Team</strong></p>
+      subject: 'MOU Signed Successfully — Elevate for Humanity',
+      html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+        <h2 style="color:#2563eb">MOU Signed Successfully</h2>
+        <p>Dear ${data.signerName},</p>
+        <p>Thank you for signing the Memorandum of Understanding (MOU) with Elevate for Humanity.</p>
+        <div style="background:#f3f4f6;padding:20px;border-radius:8px;margin:20px 0">
+          <p><strong>Program Holder:</strong> ${data.programHolderName}</p>
+          <p><strong>Signed by:</strong> ${data.signerName}, ${data.signerTitle}</p>
+          <p><strong>Date:</strong> ${new Date(data.signedAt).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</p>
         </div>
-      `,
+        <p>Questions? <a href="mailto:info@elevateforhumanity.org">info@elevateforhumanity.org</a></p>
+        <p>Best regards,<br><strong>Elevate for Humanity</strong></p>
+      </div>`,
     });
-
-    if (error) {
-      logger.error('Error sending MOU confirmation email', error as Error, {
-        to: data.contactEmail,
-        programHolder: data.programHolderName
-      });
-      return false;
-    }
-
     return true;
-  } catch (error) { /* Error handled silently */ 
-    logger.error('Error sending MOU confirmation email', error as Error, {
-      to: data.contactEmail
-    });
+  } catch (error) {
+    logger.error('MOU confirmation email failed', error as Error, { to: data.contactEmail });
     return false;
   }
 }
 
-/**
- * Send email notification to admin team when MOU is signed
- */
-export async function sendMOUSignedAdminNotification(
-  data: MOUSignedNotificationData
-) {
-  const resend = getResendClient();
-  if (!resend) {
-    return false;
-  }
-
+export async function sendMOUSignedAdminNotification(data: MOUSignedNotificationData): Promise<boolean> {
   try {
-    const { error } = await resend.emails.send({
-      from: 'Elevate for Humanity <noreply@elevateforhumanity.org>',
-      to: 'admin@www.elevateforhumanity.org', // Update with actual admin email
+    await sendEmail({
+      to: process.env.MOU_ARCHIVE_EMAIL || 'agreements@elevateforhumanity.org',
       subject: `MOU Signed: ${data.programHolderName}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #2563eb;">New MOU Signed</h2>
-
-          <p>A program holder has signed their MOU.</p>
-
-          <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0;">Signature Details</h3>
-            <p><strong>Program Holder:</strong> ${data.programHolderName}</p>
-            <p><strong>Signed by:</strong> ${data.signerName}</p>
-            <p><strong>Title:</strong> ${data.signerTitle}</p>
-            <p><strong>Contact Email:</strong> ${data.contactEmail}</p>
-            <p><strong>Date:</strong> ${new Date(
-              data.signedAt
-            ).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}</p>
-          </div>
-
-          <p>The signed MOU is available in the admin portal.</p>
-
-          <p><a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/program-holders"
-             style="background-color: #ea580c; color: white; padding: 12px 24px;
-                    text-decoration: none; border-radius: 6px; display: inline-block;">
-            View Program Holders
-          </a></p>
+      html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
+        <h2 style="color:#2563eb">New MOU Signed</h2>
+        <div style="background:#f3f4f6;padding:20px;border-radius:8px;margin:20px 0">
+          <p><strong>Program Holder:</strong> ${data.programHolderName}</p>
+          <p><strong>Signed by:</strong> ${data.signerName}, ${data.signerTitle}</p>
+          <p><strong>Contact:</strong> ${data.contactEmail}</p>
+          <p><strong>Date:</strong> ${new Date(data.signedAt).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</p>
         </div>
-      `,
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin/program-holders"
+           style="background:#1d4ed8;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;display:inline-block">
+          View Program Holders
+        </a>
+      </div>`,
     });
-
-    if (error) {
-      logger.error('Error sending admin notification email', error as Error, {
-        programHolder: data.programHolderName
-      });
-      return false;
-    }
-
     return true;
-  } catch (error) { /* Error handled silently */ 
-    logger.error('Error sending admin notification email', error as Error, {
-      programHolder: data.programHolderName
-    });
+  } catch (error) {
+    logger.error('MOU admin notification failed', error as Error, { programHolder: data.programHolderName });
     return false;
   }
 }

@@ -287,6 +287,9 @@ export function CourseModuleAccordion({
   progressMap,
   isEnrolled,
   isPendingApproval,
+  phaseLabel,
+  phaseName,
+  phaseStatus,
 }: Props) {
   // Open the first incomplete module by default
   const firstIncompleteIdx = modules.findIndex(mod =>
