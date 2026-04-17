@@ -181,20 +181,24 @@ export default function CanonicalVideo({ src, srcMobile, poster, className, thre
           className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
           muted
           playsInline
-          preload="none"
+          preload={autoPlayOnMount ? 'auto' : 'none'}
           aria-hidden="true"
           onCanPlay={() => setPlaying(true)}
           onEnded={() => setEnded(true)}
           onError={() => setFailed(true)}
           style={{ zIndex: 10 }}
         >
-          {/* Sources injected after mount only — prevents browser from
-              downloading video during HTML parsing (kills memory on pages
-              with multiple hero videos). */}
-          {loaded && srcMobile && (
-            <source src={srcMobile} type="video/mp4" media="(max-width: 767px)" />
+          {autoPlayOnMount ? (
+            <>
+              {srcMobile && <source src={srcMobile} type="video/mp4" media="(max-width: 767px)" />}
+              <source src={src} type="video/mp4" />
+            </>
+          ) : (
+            <>
+              {loaded && srcMobile && <source src={srcMobile} type="video/mp4" media="(max-width: 767px)" />}
+              {loaded && <source src={src} type="video/mp4" />}
+            </>
           )}
-          {loaded && <source src={src} type="video/mp4" />}
         </video>
       </>
     );

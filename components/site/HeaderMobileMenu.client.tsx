@@ -43,24 +43,6 @@ export default function HeaderMobileMenu({ items }: HeaderMobileMenuProps) {
     }
   }, [isOpen]);
 
-  // Load user profile from DB when menu opens
-  useEffect(() => {
-    async function loadProfile() {
-      if (!isOpen) return;
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data } = await supabase
-          .from('profiles')
-          .select('full_name, avatar_url, role')
-          .eq('id', user.id)
-          .single();
-        if (data) setUserProfile(data);
-      }
-    }
-    loadProfile();
-  }, [isOpen]);
-
   return (
     <>
       {/* Mobile Menu Button — hidden on desktop (lg+), visible on mobile and tablet */}
