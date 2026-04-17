@@ -30,7 +30,8 @@ export interface HeroVideoProps {
   videoSrcDesktop: string;
   /** Mobile video source — falls back to desktop if omitted */
   videoSrcMobile?: string;
-
+  /** Poster image shown while video loads — optional */
+  posterImage?: string;
   /** Voiceover audio track — starts on first user interaction */
   voiceoverSrc?: string;
   /** 2–4 word micro-label rendered in bottom-left corner of video */
@@ -62,6 +63,7 @@ export interface HeroVideoProps {
 export default function HeroVideo({
   videoSrcDesktop,
   videoSrcMobile,
+  posterImage,
   voiceoverSrc,
   microLabel,
   showBrandBug = false,
@@ -80,9 +82,16 @@ export default function HeroVideo({
   const [muted, setMuted] = useState(true);
   const transcriptId = useId();
 
-  // videoSrcMobile is passed to CanonicalVideo as srcMobile, which renders it
-  // as <source media="(max-width: 767px)"> — the browser picks the right file
-  // before any bytes are fetched. No JS-based post-mount switching needed.
+  // Track whether we're mounted on the client (avoids SSR/client hydration mismatch)
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  // Always use desktop src on server. Switch to mobile src after mount if viewport is narrow.
+  // This prevents the SSR/client src mismatch hydration error.
+  const videoSrc =
+    mounted && videoSrcMobile && window.innerWidth < 768
+      ? videoSrcMobile
+      : videoSrcDesktop;
 
   // Start voiceover on first user interaction (browser autoplay policy)
   useEffect(() => {
@@ -119,19 +128,18 @@ export default function HeroVideo({
   return (
     <div ref={wrapperRef} className={`w-full ${className}`}>
       {/* ── VIDEO FRAME ── */}
-      {/* Height: 40vw clamped between 260px and 480px — consistent across all pages */}
+      {/* Height: 56vw clamped between 400px and 780px */}
       <section
         className="relative w-full overflow-hidden"
-        style={{ height: 'clamp(260px, 40vw, 480px)' }}
+        style={{ height: 'clamp(400px, 56vw, 780px)' }}
         aria-label={analyticsName ? `${analyticsName} hero video` : 'Hero video'}
       >
         {/* autoPlayOnMount + preloadFull — hero is always above the fold.
             preloadFull buffers the video immediately so the first frame
             appears without waiting for the IntersectionObserver tick. */}
         <CanonicalVideo
-          src={videoSrcDesktop}
-          srcMobile={videoSrcMobile}
-
+          src={videoSrc}
+          poster={posterImage}
           className="absolute inset-0 w-full h-full object-cover object-center"
           autoPlayOnMount
           preloadFull
@@ -224,8 +232,8 @@ export default function HeroVideo({
                 {trustIndicators && trustIndicators.length > 0 && (
                   <ul className="flex flex-wrap gap-x-6 gap-y-1.5 mt-2">
                     {trustIndicators.map((item) => (
-                      <li key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-blue-400 flex-shrink-0" />
+                      <li key={item} className="flex items-center gap-1.5 text-white text-sm">
+                        <span className="w-1 h-1 rounded-full bg-brand-red-400 flex-shrink-0" />
                         {item}
                       </li>
                     ))}
@@ -246,7 +254,7 @@ export default function HeroVideo({
               onClick={() => setTranscriptOpen((o) => !o)}
               aria-expanded={transcriptOpen}
               aria-controls={transcriptId}
-              className="flex items-center gap-2 text-slate-400 text-xs font-semibold hover:text-slate-700 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-blue-500 rounded"
+              className="flex items-center gap-2 text-white text-xs font-semibold hover:text-slate-700 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-red-500 rounded"
             >
               <span>{transcriptOpen ? '▲' : '▼'}</span>
               Video transcript
