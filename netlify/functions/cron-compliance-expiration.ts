@@ -21,7 +21,7 @@ export default async function handler() {
     return { statusCode: res.status };
   }
 
-  console.log('[cron-compliance-expiration] done', body);
+  console.info('[cron-compliance-expiration] done', body);
   return { statusCode: 200 };
 }
 

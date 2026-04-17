@@ -30,7 +30,7 @@ export default async function handler(req: Request, context: Context) {
     });
 
     const result = await response.json();
-    console.log('[audit-export-cron] Result:', JSON.stringify(result));
+    console.info('[audit-export-cron] Result:', JSON.stringify(result));
 
     return new Response(JSON.stringify(result), {
       status: response.status,

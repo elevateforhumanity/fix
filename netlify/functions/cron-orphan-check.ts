@@ -42,7 +42,7 @@ export default async function handler() {
     return { statusCode: res.status };
   }
 
-  console.log('[cron-orphan-check] all pre-auth tables clean', body);
+  console.info('[cron-orphan-check] all pre-auth tables clean', body);
   return { statusCode: 200 };
 }
 

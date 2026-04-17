@@ -21,7 +21,7 @@ export default async function handler() {
     return { statusCode: res.status };
   }
 
-  console.log('[cron-onboarding-reminder] done', body);
+  console.info('[cron-onboarding-reminder] done', body);
   return { statusCode: 200 };
 }
 

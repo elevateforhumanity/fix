@@ -35,12 +35,12 @@ export async function renderLessonVideo(
     const scenes = [...draft.scenes].sort((a, b) => a.order - b.order);
 
     // 1. Generate all scene audio (parallel would be faster but TTS rate limits)
-    console.log(`\n🎙  Generating audio for ${scenes.length} scenes...`);
+    console.info(`\n🎙  Generating audio for ${scenes.length} scenes...`);
     const audioAssets = await generateAllSceneAudio(scenes, draft.voice, tempDir);
     const audioMap = new Map(audioAssets.map(a => [a.sceneId, a]));
 
     // 2. Fetch background videos — sequential to enforce no-repeat rule
-    console.log(`\n📹  Fetching scene videos...`);
+    console.info(`\n📹  Fetching scene videos...`);
     const usedVideoIds = new Set<number>();
     const videoAssets = [];
     for (const scene of scenes) {
@@ -88,17 +88,17 @@ export async function renderLessonVideo(
     });
 
     // 4. Render each scene
-    console.log(`\n🎬  Rendering ${resolvedScenes.length} scenes...`);
+    console.info(`\n🎬  Rendering ${resolvedScenes.length} scenes...`);
     const scenePaths: string[] = [];
     for (const scene of resolvedScenes) {
-      console.log(`  ▶ ${scene.id} (${scene.timing.durationSeconds.toFixed(1)}s) — "${scene.caption}"`);
+      console.info(`  ▶ ${scene.id} (${scene.timing.durationSeconds.toFixed(1)}s) — "${scene.caption}"`);
       const scenePath = await renderSceneVideo(scene, tempDir, { width: targetWidth, height: targetHeight });
       scene.outputPath = scenePath;
       scenePaths.push(scenePath);
     }
 
     // 5. Concatenate
-    console.log(`\n🔗  Concatenating scenes → ${path.basename(outputPath)}`);
+    console.info(`\n🔗  Concatenating scenes → ${path.basename(outputPath)}`);
     await concatSceneVideos(scenePaths, outputPath, tempDir);
 
     const plan: FinalLessonRenderPlan = {
@@ -120,7 +120,7 @@ export async function renderLessonVideo(
     if (process.env.KEEP_RENDER_DIR !== '1') {
       await fs.rm(tempDir, { recursive: true, force: true });
     } else {
-      console.log(`\n📁  Render dir kept: ${tempDir}`);
+      console.info(`\n📁  Render dir kept: ${tempDir}`);
     }
   }
 }

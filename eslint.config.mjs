@@ -45,6 +45,10 @@ export default tseslint.config(
       'react-refresh/only-export-components': 'off',
       'no-undef': 'off',
       'no-case-declarations': 'off',
+      // Enforce structured logging via lib/logger.ts — console.log is banned in
+      // application code. console.warn and console.error are allowed as fallbacks
+      // in edge cases where the logger itself cannot be imported (e.g. config files).
+      'no-console': ['error', { allow: ['warn', 'error', 'debug', 'info'] }],
       // All other react-hooks v7 rules off — new rules with pre-existing violations
       'react-hooks/set-state-in-effect': 'off',
       'react-hooks/immutability': 'off',
@@ -78,10 +82,9 @@ export default tseslint.config(
       'scripts/**',
       'public/**/*.js',
       'lib/autopilot/*.js',
-      'server/video-*.ts',
-      'server/download-*.ts',
-      'server/generate-*.ts',
-      'server/test-*.ts',
+      'server/**',
+      'netlify/functions/**',
+      'tools/**',
       'eslint-rules/**',
       'legal/**',
       'tests/**',
