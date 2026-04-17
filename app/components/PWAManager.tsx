@@ -2,9 +2,8 @@
 
 import { useEffect } from 'react';
 
-// Bump this string on every deploy to force SW update on all clients.
-// Format: YYYY-MM-DD-vN
-const DEPLOY_VERSION = '2026-04-16-v8';
+// Injected at build time — unique per deploy, no manual bumping needed.
+const DEPLOY_VERSION = process.env.NEXT_PUBLIC_BUILD_ID ?? 'dev';
 
 export default function PWAManager() {
   useEffect(() => {
@@ -17,8 +16,7 @@ export default function PWAManager() {
     // activated yet (e.g. first visit after a hard refresh).
     const lastDeploy = localStorage.getItem('elevate-deploy-version');
     if (lastDeploy !== DEPLOY_VERSION) {
-      // Clear ALL caches on deploy — the new SW will repopulate with v8 keys.
-      // Do not filter by version string; that pattern silently keeps stale caches.
+      // New deploy — wipe ALL caches so users get fresh assets immediately.
       if ('caches' in window) {
         caches.keys()
           .then(keys => Promise.all(keys.map(k => caches.delete(k))))
@@ -50,11 +48,16 @@ export default function PWAManager() {
         // SW registration failed — site still works, just no offline support
       });
 
-    // When SW takes control, reload once to ensure fresh assets
-    let refreshing = false;
+    // When a new SW takes control, reload once to pick up fresh assets.
+    // Guard with sessionStorage so a reload triggered by SW activation
+    // doesn't immediately trigger another reload on the next page load.
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (refreshing) return;
-      refreshing = true;
+      const key = 'elevate-sw-reload';
+      if (sessionStorage.getItem(key)) {
+        sessionStorage.removeItem(key);
+        return;
+      }
+      sessionStorage.setItem(key, '1');
       window.location.reload();
     });
   }, []);

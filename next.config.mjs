@@ -13,6 +13,7 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_URL: 'https://cuxzzpsyufcewtmicszk.supabase.co',
     NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN1eHp6cHN5dWZjZXd0bWljc3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNjEwNDcsImV4cCI6MjA3MzczNzA0N30.DyFtzoKha_tuhKiSIPoQlKonIpaoSYrlhzntCUvLUnA',
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org',
+    NEXT_PUBLIC_BUILD_ID: `build-${Date.now()}`,
   },
   // Server external packages - exclude heavy dependencies from the server bundle
   // These are loaded at runtime instead of being bundled, reducing Lambda size
@@ -118,7 +119,8 @@ const nextConfig = {
   // Image optimization settings
   images: {
     unoptimized: false,
-    formats: ['image/avif', 'image/webp'],
+    // avif encoding is CPU-intensive and causes 504s on large images — webp only
+    formats: ['image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     qualities: [85],
@@ -246,10 +248,7 @@ const nextConfig = {
     // OOMs during type-check on 4,450+ files in CI — keep enabled until project is split or memory increased
     ignoreBuildErrors: true,
   },
-  eslint: {
-    // ESLint runs separately in CI (legacy-lint job). Skipping during build saves ~500MB peak memory.
-    ignoreDuringBuilds: true,
-  },
+
   // Removed staticPageGenerationTimeout - use route segment config instead
   // See: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
   outputFileTracingExcludes: {
@@ -521,7 +520,7 @@ const nextConfig = {
       { source: '/admin/analytics/:path*', destination: '/admin/reports', permanent: false },
       { source: '/admin/reporting', destination: '/admin/reports', permanent: false },
       { source: '/admin/courses/builder', destination: '/admin/course-builder', permanent: false },
-      { source: '/admin/courses/create', destination: '/admin/courses/create', permanent: false },
+
 
       // ============================================
       // DELETED PAGE REDIRECTS
@@ -766,7 +765,7 @@ const nextConfig = {
       // Duplicate route consolidation
       { source: '/mission', destination: '/about/mission', permanent: true },
       { source: '/microclasses', destination: '/micro-classes', permanent: true },
-      { source: '/fundingimpact', destination: '/impact', permanent: true },
+      { source: '/fundingimpact', destination: '/about', permanent: true },
       { source: '/getstarted', destination: '/apply/student', permanent: true },
       { source: '/connect', destination: '/contact', permanent: true },
       { source: '/call-now', destination: '/contact', permanent: true },
@@ -783,7 +782,7 @@ const nextConfig = {
       // Deleted public routes — redirect to nearest relevant page
       { source: '/creator/analytics', destination: '/admin', permanent: true },
       { source: '/franchise/office/:path*', destination: '/admin', permanent: true },
-      { source: '/leaderboard', destination: '/lms/dashboard', permanent: true },
+      { source: '/leaderboard', destination: '/learner/dashboard', permanent: true },
       // duplicate removed — canonical entry at line 464 sends to /staff-portal/dashboard
       { source: '/app-hub', destination: '/apps', permanent: true },
       { source: '/card', destination: '/', permanent: true },
@@ -938,8 +937,6 @@ const nextConfig = {
 
       // /employer-portal root → canonical employer dashboard
       { source: '/employer-portal',           destination: '/employer/dashboard',  permanent: true },
-
-
 
       // ============================================
       // STUB PAGE REPLACEMENTS — working redirect stubs moved to config

@@ -603,6 +603,14 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl, { status: 307 });
   }
 
+  // Fetch profile ONCE and reuse throughout — avoids 3 separate DB round-trips
+  // per request which was causing 2-3s latency on every protected route.
+  const { data: cachedProfile } = await supabase
+    .from('profiles')
+    .select('role, tenant_id, onboarding_completed')
+    .eq('id', user.id)
+    .maybeSingle();
+
   // ============================================
   // SERVER-SIDE IDLE TIMEOUT (NIST 800-63B)
   // Signs out users after 30 minutes of inactivity.
@@ -646,17 +654,10 @@ export async function proxy(request: NextRequest) {
       return response;
     }
 
-    // For license holders - check if they are admin of their own tenant
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role, tenant_id')
-      .eq('id', user.id)
-      .single();
-
     // Full admin roles only — staff is not a full admin role.
-    if (profile?.role === 'admin' || profile?.role === 'super_admin' || profile?.role === 'org_admin') {
-      if (profile.tenant_id) {
-        response.headers.set('x-tenant-id', profile.tenant_id);
+    if (cachedProfile?.role === 'admin' || cachedProfile?.role === 'super_admin' || cachedProfile?.role === 'org_admin') {
+      if (cachedProfile.tenant_id) {
+        response.headers.set('x-tenant-id', cachedProfile.tenant_id);
       }
       return response;
     }
@@ -668,13 +669,7 @@ export async function proxy(request: NextRequest) {
   // Check role for protected routes
   if (protectedRoute && !isAdminOnlyRoute) {
     const allowedRoles = PROTECTED_ROUTES[protectedRoute];
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
-    if (!profile || !allowedRoles.includes(profile.role)) {
+    if (!cachedProfile || !allowedRoles.includes(cachedProfile.role)) {
       return NextResponse.redirect(new URL('/unauthorized', request.url), { status: 307 });
     }
   }
@@ -695,21 +690,13 @@ export async function proxy(request: NextRequest) {
       return response;
     }
 
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('onboarding_completed, role')
-      .eq('id', user.id)
-      .single();
-
     // Admins and super_admins bypass onboarding
-    if (profile?.role === 'admin' || profile?.role === 'super_admin') {
+    if (cachedProfile?.role === 'admin' || cachedProfile?.role === 'super_admin') {
       return response;
     }
 
     // Primary gate: profiles.onboarding_completed is readable by the user (no RLS block).
-    // user_onboarding_status has RLS that blocks user reads — do not query it from the
-    // middleware session client. profiles.onboarding_completed is the canonical flag.
-    if (!profile?.onboarding_completed) {
+    if (!cachedProfile?.onboarding_completed) {
       return NextResponse.redirect(new URL('/onboarding/legal', request.url), { status: 307 });
     }
   }

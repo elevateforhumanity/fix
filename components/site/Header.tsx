@@ -180,6 +180,7 @@ export default function Header() {
         <div className="hidden lg:flex items-center gap-3">
           <Link
             href="/start"
+            prefetch={false}
             className="bg-brand-red-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-brand-red-700 transition-colors"
           >
             Check Eligibility

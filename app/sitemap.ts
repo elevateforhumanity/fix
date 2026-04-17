@@ -2,6 +2,11 @@ import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
 
+// Cache sitemap for 24 hours — the filesystem scan is expensive (1,486 pages)
+// and crawlers hit /sitemap.xml repeatedly. Without this, every hit does a full
+// recursive fs.readdirSync walk which causes the 10s response times.
+export const revalidate = 86400;
+
 const ELEVATE_URL = 'https://www.elevateforhumanity.org';
 
 // Routes that should NOT be in sitemap (auth-gated, private, or separate-domain routes)

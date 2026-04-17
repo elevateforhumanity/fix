@@ -29,6 +29,7 @@ export default function HeaderDesktopNav({ items }: HeaderDesktopNavProps) {
             item.href ? (
               <Link
                 href={item.href}
+                prefetch={false}
                 className="text-slate-700 hover:text-brand-blue-600 font-medium text-sm transition-colors py-2"
                 aria-haspopup="true"
               >
@@ -46,6 +47,7 @@ export default function HeaderDesktopNav({ items }: HeaderDesktopNavProps) {
           ) : item.href ? (
             <Link
               href={item.href}
+              prefetch={false}
               className="text-slate-700 hover:text-brand-blue-600 font-medium text-sm transition-colors py-2"
             >
               {item.name}
