@@ -224,7 +224,6 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
       {activeEnrollments.length === 0 && (
         <HeroVideo
           videoSrcDesktop={heroBanners.learner.videoSrcDesktop}
-          posterImage="/images/pages/learner-page-1.jpg"
           voiceoverSrc={heroBanners.learner.voiceoverSrc}
           microLabel={heroBanners.learner.microLabel}
           belowHeroHeadline={heroBanners.learner.belowHeroHeadline}

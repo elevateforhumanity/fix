@@ -114,7 +114,6 @@ export default async function EnrollmentPage() {
 
       <HeroVideo
         videoSrcDesktop={heroBanners['enrollment'].videoSrcDesktop}
-        posterImage="/images/pages/enrollment-page-1.jpg"
         voiceoverSrc={heroBanners['enrollment'].voiceoverSrc}
         microLabel={heroBanners['enrollment'].microLabel}
         belowHeroHeadline={heroBanners['enrollment'].belowHeroHeadline}

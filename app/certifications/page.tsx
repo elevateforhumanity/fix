@@ -34,7 +34,6 @@ export default function CertificationsPage() {
 
       <HeroVideo
         videoSrcDesktop={heroBanners['certifications'].videoSrcDesktop}
-        posterImage="/images/pages/certifications-page-1.jpg"
         voiceoverSrc={heroBanners['certifications'].voiceoverSrc}
         microLabel={heroBanners['certifications'].microLabel}
         belowHeroHeadline={heroBanners['certifications'].belowHeroHeadline}

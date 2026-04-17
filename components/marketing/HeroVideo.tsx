@@ -30,8 +30,7 @@ export interface HeroVideoProps {
   videoSrcDesktop: string;
   /** Mobile video source — falls back to desktop if omitted */
   videoSrcMobile?: string;
-  /** Poster image shown while video loads — optional */
-  posterImage?: string;
+
   /** Voiceover audio track — starts on first user interaction */
   voiceoverSrc?: string;
   /** 2–4 word micro-label rendered in bottom-left corner of video */
@@ -63,7 +62,6 @@ export interface HeroVideoProps {
 export default function HeroVideo({
   videoSrcDesktop,
   videoSrcMobile,
-  posterImage,
   voiceoverSrc,
   microLabel,
   showBrandBug = false,
@@ -133,7 +131,7 @@ export default function HeroVideo({
         <CanonicalVideo
           src={videoSrcDesktop}
           srcMobile={videoSrcMobile}
-          poster={posterImage}
+
           className="absolute inset-0 w-full h-full object-cover object-center"
           autoPlayOnMount
           preloadFull

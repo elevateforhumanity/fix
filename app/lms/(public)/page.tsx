@@ -74,7 +74,6 @@ export default async function LmsPublicPage() {
       {/* HERO */}
       <HeroVideo
         videoSrcDesktop={heroBanners['lms'].videoSrcDesktop}
-        posterImage="/images/pages/lms-page-1.jpg"
         voiceoverSrc={heroBanners['lms'].voiceoverSrc}
         microLabel={heroBanners['lms'].microLabel}
         belowHeroHeadline={heroBanners['lms'].belowHeroHeadline}

@@ -45,7 +45,6 @@ export default function EmployerPage() {
 
       <HeroVideo
         videoSrcDesktop={heroBanners.employer.videoSrcDesktop}
-        posterImage="/images/pages/employer-hero.jpg"
         voiceoverSrc={heroBanners.employer.voiceoverSrc}
         microLabel={heroBanners.employer.microLabel}
         belowHeroHeadline={heroBanners.employer.belowHeroHeadline}

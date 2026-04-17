@@ -60,7 +60,6 @@ export default function StartPage() {
     <div className="min-h-screen bg-white">
       <HeroVideo
         videoSrcDesktop={heroBanners['start'].videoSrcDesktop}
-        posterImage="/images/pages/comp-home-hero-programs.jpg"
         voiceoverSrc={heroBanners['start'].voiceoverSrc}
         microLabel={heroBanners['start'].microLabel}
         belowHeroHeadline={heroBanners['start'].belowHeroHeadline}

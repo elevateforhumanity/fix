@@ -33,7 +33,6 @@ export default async function HireGraduatesPage() {
       </div>
       <HeroVideo
         videoSrcDesktop={heroBanners['hire-graduates'].videoSrcDesktop}
-        posterImage="/images/pages/hire-graduates-page-1.jpg"
         voiceoverSrc={heroBanners['hire-graduates'].voiceoverSrc}
         microLabel={heroBanners['hire-graduates'].microLabel}
         belowHeroHeadline={heroBanners['hire-graduates'].belowHeroHeadline}

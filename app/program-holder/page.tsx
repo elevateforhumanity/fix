@@ -56,7 +56,6 @@ export default async function ProgramHolderLanding() {
 
       <HeroVideo
         videoSrcDesktop={heroBanners['program-holder'].videoSrcDesktop}
-        posterImage="/images/pages/partner-page-1.jpg"
         voiceoverSrc={heroBanners['program-holder'].voiceoverSrc}
         microLabel={heroBanners['program-holder'].microLabel}
         belowHeroHeadline={heroBanners['program-holder'].belowHeroHeadline}
