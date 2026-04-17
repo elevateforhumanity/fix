@@ -18,6 +18,15 @@ import { NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 
 /**
+ * Return a standard 200 success response.
+ * Use this instead of NextResponse.json({ ... }) directly so all success
+ * responses have a consistent shape.
+ */
+export function safeOk(data: Record<string, unknown> = {}): NextResponse {
+  return NextResponse.json({ ok: true, ...data });
+}
+
+/**
  * Return a safe error response with a caller-controlled message.
  * Use for expected errors (not found, validation, auth).
  */
