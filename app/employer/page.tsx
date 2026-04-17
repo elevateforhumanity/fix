@@ -1,10 +1,9 @@
-import { VIDEO_HEROES } from '@/lib/hero-config';
-
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronRight, Phone } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
@@ -45,34 +44,17 @@ export default function EmployerPage() {
     <div className="min-h-screen bg-white">
 
       <HeroVideo
-        videoSrcDesktop={VIDEO_HEROES.homepage}
+        videoSrcDesktop={heroBanners.employer.videoSrcDesktop}
         posterImage="/images/pages/employer-hero.jpg"
-        voiceoverSrc="/audio/heroes/career-services.mp3"
-        microLabel="For Employers"
-        analyticsName="employer"
+        voiceoverSrc={heroBanners.employer.voiceoverSrc}
+        microLabel={heroBanners.employer.microLabel}
+        belowHeroHeadline={heroBanners.employer.belowHeroHeadline}
+        belowHeroSubheadline={heroBanners.employer.belowHeroSubheadline}
+        ctas={[heroBanners.employer.primaryCta, heroBanners.employer.secondaryCta].filter(Boolean)}
+        trustIndicators={heroBanners.employer.trustIndicators}
+        transcript={heroBanners.employer.transcript}
+        analyticsName={heroBanners.employer.analyticsName}
       />
-
-      {/* Header */}
-      <div className="bg-white border-b border-slate-100 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <p className="text-brand-red-600 text-xs font-bold uppercase tracking-widest mb-2">For Employers</p>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-3">Hire Credentialed Graduates</h1>
-          <p className="text-slate-500 text-base sm:text-lg max-w-2xl leading-relaxed mb-6">
-            Elevate graduates arrive trained, tested, and credentialed. Access WOTC tax credits, OJT wage reimbursement, and Registered Apprenticeship sponsorship — all through one partner.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/testing/book?type=group-testing" className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold px-6 py-3 rounded-lg transition-colors">
-              Partner With Us <ChevronRight className="w-4 h-4" />
-            </Link>
-            <Link href="/employer/candidates" className="inline-flex items-center gap-2 border border-slate-200 hover:border-slate-300 text-slate-700 font-semibold px-5 py-3 rounded-lg transition-colors text-sm">
-              Browse Candidates
-            </Link>
-            <a href="tel:+13173143757" className="inline-flex items-center gap-2 text-slate-400 hover:text-slate-600 text-sm font-medium">
-              <Phone className="w-4 h-4" /> (317) 314-3757
-            </a>
-          </div>
-        </div>
-      </div>
 
       {/* Incentives grid */}
       <section className="py-14 border-b border-slate-100">
