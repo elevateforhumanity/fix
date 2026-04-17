@@ -1941,3 +1941,8 @@ body[data-app-route="true"] [data-marketing-chrome] {
 body[data-app-route="true"] [data-marketing-main] {
   padding-top: 0 !important;
 }
+
+@keyframes elevate-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

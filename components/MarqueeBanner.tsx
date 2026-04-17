@@ -1,6 +1,8 @@
+'use client';
+
 /**
  * MarqueeBanner — continuously scrolling Elevate brand ticker.
- * Server component — CSS animation only, no JS required.
+ * Kept as client component so the inline <style> keyframe injects reliably.
  */
 
 const ITEMS = [
@@ -32,12 +34,7 @@ export default function MarqueeBanner() {
         ))}
       </div>
 
-      <style>{`
-        @keyframes elevate-marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
+
     </div>
   );
 }
