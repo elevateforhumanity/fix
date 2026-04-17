@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import PageAvatar from '@/components/PageAvatar';
@@ -28,12 +28,6 @@ const programImages: Record<string, string> = {
 
 export default function SkilledTradesPageClient({ programs }: { programs: Program[] }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [showContent, setShowContent] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowContent(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -61,7 +55,7 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
         </video>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-700 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">Skilled Trades Programs</h1>
             <p className="text-xl text-white/90 max-w-2xl mb-8">Build your future with free, WIOA-funded skilled trades training</p>
             <div className="flex flex-wrap gap-4">

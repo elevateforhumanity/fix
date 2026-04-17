@@ -10,57 +10,44 @@ interface Enrollment {
   courses?: { title: string; slug: string };
 }
 
+// Check for Supabase session cookie without a network request.
+// Supabase sets sb-<project>-auth-token; if absent the user is definitely logged out.
+function hasSessionCookie(): boolean {
+  if (typeof document === 'undefined') return false;
+  return document.cookie.includes('sb-') && document.cookie.includes('-auth-token');
+}
+
 export default function UserProgressBar() {
-  const [user, setUser] = useState<{ id?: string } | null>(null);
   const [activeEnrollment, setActiveEnrollment] = useState<Enrollment | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Skip all network requests if no session cookie — user is logged out
+    if (!hasSessionCookie()) return;
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3000);
 
-    const checkAuth = async () => {
-      try {
-        const authRes = await fetch('/api/auth/me', {
-          credentials: 'include',
-          signal: controller.signal,
-        });
-        
-        if (authRes.ok) {
-          const data = await authRes.json();
-          if (data?.user) {
-            setUser(data.user);
-            
-            try {
-              const enrollRes = await fetch('/api/student/enrollments', {
-                credentials: 'include',
-              });
-              if (enrollRes.ok) {
-                const enrollData = await enrollRes.json();
-                const active = enrollData?.enrollments?.find((e: Enrollment) => e.status === 'active');
-                setActiveEnrollment(active || null);
-              }
-            } catch {
-              // Enrollment fetch failed
-            }
-          }
-        }
-      } catch {
-        // Auth check failed
-      } finally {
-        clearTimeout(timeoutId);
-        setIsLoading(false);
-      }
-    };
+    // Fire both requests in parallel instead of sequentially
+    Promise.all([
+      fetch('/api/auth/me',             { credentials: 'include', signal: controller.signal }),
+      fetch('/api/student/enrollments', { credentials: 'include', signal: controller.signal }),
+    ])
+      .then(async ([authRes, enrollRes]) => {
+        if (!authRes.ok) return; // not logged in — render nothing
+        const enrollData = enrollRes.ok ? await enrollRes.json() : null;
+        const active = enrollData?.enrollments?.find((e: Enrollment) => e.status === 'active');
+        if (active) setActiveEnrollment(active);
+      })
+      .catch(() => { /* network error or abort — render nothing */ })
+      .finally(() => clearTimeout(timeoutId));
 
-    checkAuth();
     return () => {
       clearTimeout(timeoutId);
       controller.abort();
     };
   }, []);
 
-  if (isLoading || !user || !activeEnrollment) return null;
+  if (!activeEnrollment) return null;
 
   return (
     <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-brand-green-50 to-brand-blue-50 border-b border-brand-green-100">
@@ -76,8 +63,8 @@ export default function UserProgressBar() {
           </div>
           <div className="flex items-center gap-4">
             <div className="w-48 h-3 bg-slate-200 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-white rounded-full transition-all duration-500"
+              <div
+                className="h-full bg-brand-green-500 rounded-full transition-all duration-500"
                 style={{ width: `${activeEnrollment.progress || 0}%` }}
               />
             </div>
