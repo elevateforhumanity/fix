@@ -1,5 +1,5 @@
 // Force static generation for performance
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 import { Metadata } from 'next';
@@ -54,7 +54,7 @@ export default async function Page() {
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">
           <Image
-            src="/images/business/program-tax-preparation.jpg"
+            src="/images/pages/subpage-tax-hero.jpg"
             alt="VITA Tax Preparation Training"
             fill
             className="object-cover"

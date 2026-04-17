@@ -1,4 +1,4 @@
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 import Image from "next/image";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: 'DOL Registered Culinary Apprenticeship for aspiring production cooks. 2000-hour program with paid OJT.',
     url: `${SITE_URL}/programs/culinary-apprenticeship`,
     siteName: 'Elevate for Humanity',
-    images: [{ url: `${SITE_URL}/images/culinary/hero-program-culinary.jpg`, width: 1200, height: 630, alt: 'Culinary Apprenticeship' }],
+    images: [{ url: `${SITE_URL}/images/pages/culinary.jpg`, width: 1200, height: 630, alt: 'Culinary Apprenticeship' }],
     type: 'website',
   },
 };
@@ -28,7 +28,7 @@ export default function CulinaryApprenticeshipPage() {
       {/* HERO */}
       <section className="relative h-[60vh] min-h-[400px] max-h-[500px]">
         <Image
-          src="/images/culinary/hero-program-culinary.jpg"
+          src="/images/pages/culinary.jpg"
           alt="Culinary Apprenticeship"
           fill
           className="object-cover"
@@ -134,13 +134,13 @@ export default function CulinaryApprenticeshipPage() {
       <section className="max-w-5xl mx-auto px-6 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-            <Image src="/images/culinary/program-culinary-arts-training.jpg" alt="Culinary Training" fill className="object-cover" />
+            <Image src="/images/pages/culinary.jpg" alt="Culinary Training" fill className="object-cover" />
           </div>
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-            <Image src="/images/culinary/program-culinary-overview.jpg" alt="Kitchen Operations" fill className="object-cover" />
+            <Image src="/images/pages/culinary.jpg" alt="Kitchen Operations" fill className="object-cover" />
           </div>
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-            <Image src="/images/culinary/hero-program-hospitality.jpg" alt="Food Service" fill className="object-cover" />
+            <Image src="/images/pages/culinary.jpg" alt="Food Service" fill className="object-cover" />
           </div>
         </div>
       </section>
@@ -162,7 +162,7 @@ export default function CulinaryApprenticeshipPage() {
             </p>
           </div>
           <div className="relative h-96 rounded-2xl overflow-hidden">
-            <Image src="/images/culinary/program-culinary-arts-training.jpg" alt="Culinary Training" fill className="object-cover" />
+            <Image src="/images/pages/culinary.jpg" alt="Culinary Training" fill className="object-cover" />
           </div>
         </div>
       </section>

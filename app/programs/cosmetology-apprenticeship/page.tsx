@@ -1,5 +1,5 @@
 // Force static generation for performance
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
@@ -115,7 +115,7 @@ export default async function CosmetologyApprenticeshipPage() {
             </div>
             <div className="relative h-[350px] rounded-2xl overflow-hidden">
               <Image
-                src="/images/pathways/beauty-hero.jpg"
+                src="/images/pages/cosmetology-hero.jpg"
                 alt="Cosmetology training"
                 fill
                 className="object-cover"

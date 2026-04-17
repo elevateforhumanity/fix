@@ -4,7 +4,7 @@ import ProgramDetailPage from '@/components/programs/ProgramDetailPage';
 import { HOME_HEALTH_AIDE } from '@/data/programs/home-health-aide';
 import { validateProgram } from '@/lib/programs/program-schema';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 const p = HOME_HEALTH_AIDE;

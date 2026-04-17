@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Clock, DollarSign, ArrowRight, CreditCard } from 'lucide-react';
 import { BNPL_PROVIDER_SUMMARY } from '@/lib/bnpl-config';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 export const metadata: Metadata = {

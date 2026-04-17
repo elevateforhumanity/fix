@@ -1,10 +1,5 @@
 'use client';
 
-/**
- * MarqueeBanner — continuously scrolling Elevate brand ticker.
- * Kept as client component so the inline <style> keyframe injects reliably.
- */
-
 const ITEMS = [
   'ELEVATE FOR HUMANITY',
   'WIOA FUNDED TRAINING',
@@ -20,21 +15,27 @@ const ITEMS = [
   'INDIANAPOLIS, INDIANA',
 ];
 
-export default function MarqueeBanner() {
-  const row = [...ITEMS, ...ITEMS];
+// Stable doubled array — defined outside component so it never changes between
+// server and client renders, eliminating the hydration key mismatch.
+const ROW = ITEMS.concat(ITEMS);
 
+export default function MarqueeBanner() {
   return (
-    <div className="bg-slate-900 border-y border-slate-800 py-3.5 overflow-hidden select-none" aria-hidden="true">
-      <div className="flex whitespace-nowrap" style={{ animation: 'elevate-marquee 40s linear infinite' }}>
-        {row.map((item, i) => (
-          <span key={i} className="inline-flex items-center">
+    <div
+      className="bg-slate-900 border-y border-slate-800 py-3.5 overflow-hidden select-none"
+      aria-hidden="true"
+    >
+      <div
+        className="flex whitespace-nowrap"
+        style={{ animation: 'elevate-marquee 40s linear infinite' }}
+      >
+        {ROW.map((item, i) => (
+          <span key={`${item}-${i}`} className="inline-flex items-center">
             <span className="text-sm font-black tracking-widest text-white uppercase">{item}</span>
             <span className="mx-5 text-brand-red-500 font-black">✦</span>
           </span>
         ))}
       </div>
-
-
     </div>
   );
 }

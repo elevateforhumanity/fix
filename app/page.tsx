@@ -6,7 +6,7 @@ import { ProgramVideoCards } from '@/components/marketing/ProgramVideoCards';
 import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 60;
 
 export const metadata: Metadata = {

@@ -4,7 +4,7 @@ import ProgramDetailPage from '@/components/programs/ProgramDetailPage';
 import { BUSINESS_ADMIN } from '@/data/programs/business-administration';
 import { validateProgram } from '@/lib/programs/program-schema';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 const p = BUSINESS_ADMIN;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 const SITE_URL = 'https://www.elevateforhumanity.org';

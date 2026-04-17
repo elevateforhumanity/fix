@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { InView } from '@/components/ui/InView';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 const SITE_URL = 'https://www.elevateforhumanity.org';

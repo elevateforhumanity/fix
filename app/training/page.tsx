@@ -6,7 +6,7 @@ import Image from 'next/image';
 import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 export const metadata: Metadata = {

@@ -4,7 +4,7 @@ import ProgramDetailPage from '@/components/programs/ProgramDetailPage';
 import { EMERGENCY_HEALTH_SAFETY } from '@/data/programs/emergency-health-safety';
 import { validateProgram } from '@/lib/programs/program-schema';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400;
 
 const p = EMERGENCY_HEALTH_SAFETY;
