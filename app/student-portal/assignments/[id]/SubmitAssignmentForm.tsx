@@ -7,7 +7,7 @@ import { Upload, Send, Loader2, CheckCircle, AlertCircle, X, FileText } from 'lu
 
 type Props = {
   assignmentId: string;
-  lessonId: string;
+  lessonId: string | null;   // null when assignment has no linked curriculum lesson
   courseId: string;
   stepType?: string;
   allowedFileTypes?: string[] | null;
@@ -77,13 +77,13 @@ export default function SubmitAssignmentForm({
         setUploading(false);
       }
 
-      // Insert step_submission
+      // Insert step_submission — use lesson_id when available, assignment_id otherwise
       const { error: insertError } = await supabase
         .from('step_submissions')
         .insert({
           user_id: user.id,
-          lesson_id: lessonId,
-          course_id: courseId,
+          ...(lessonId ? { lesson_id: lessonId } : { assignment_id: assignmentId }),
+          course_id: courseId || null,
           step_type: stepType,
           submission_text: text.trim() || null,
           file_urls: fileUrls,

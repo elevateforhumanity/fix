@@ -1,5 +1,4 @@
 import { notFound, redirect } from 'next/navigation';
-import Link from 'next/link';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -29,15 +28,21 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
 
   if (!assignment) notFound();
 
-  const lookupId = assignment.lesson_id ?? id;
-  const { data: submission } = await supabase
+  // Look up existing submission — by lesson_id if linked, otherwise by assignment_id
+  let submissionQuery = supabase
     .from('step_submissions')
     .select('id, submission_text, file_urls, status, instructor_note, reviewed_at, created_at')
-    .eq('lesson_id', lookupId)
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .limit(1);
+
+  if (assignment.lesson_id) {
+    submissionQuery = submissionQuery.eq('lesson_id', assignment.lesson_id);
+  } else {
+    submissionQuery = submissionQuery.eq('assignment_id', id);
+  }
+
+  const { data: submission } = await submissionQuery.maybeSingle();
 
   let courseName: string | null = null;
   if (assignment.course_id) {
@@ -189,7 +194,7 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
                 <p className="text-sm font-semibold text-red-700 mb-3">Revision required — please resubmit below.</p>
                 <SubmitAssignmentForm
                   assignmentId={assignment.id}
-                  lessonId={assignment.lesson_id ?? assignment.id}
+                  lessonId={assignment.lesson_id ?? null}
                   courseId={assignment.course_id ?? ''}
                   stepType="assignment"
                   allowedFileTypes={assignment.allowed_file_types}
@@ -210,25 +215,14 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
                 : 'Write a response and/or attach files.'}
             </p>
 
-            {assignment.lesson_id ? (
-              <SubmitAssignmentForm
-                assignmentId={assignment.id}
-                lessonId={assignment.lesson_id}
-                courseId={assignment.course_id ?? ''}
-                stepType="assignment"
-                allowedFileTypes={assignment.allowed_file_types}
-                maxFileSizeMb={assignment.max_file_size_mb ?? 10}
-              />
-            ) : (
-              <div className="text-center py-6 text-sm text-gray-500">
-                <p>This assignment must be submitted through your course lesson page.</p>
-                {assignment.course_id && (
-                  <Link href={`/lms/courses/${assignment.course_id}`} className="inline-block mt-3 text-brand-blue-600 hover:underline font-medium">
-                    Go to Course →
-                  </Link>
-                )}
-              </div>
-            )}
+            <SubmitAssignmentForm
+              assignmentId={assignment.id}
+              lessonId={assignment.lesson_id ?? null}
+              courseId={assignment.course_id ?? ''}
+              stepType="assignment"
+              allowedFileTypes={assignment.allowed_file_types}
+              maxFileSizeMb={assignment.max_file_size_mb ?? 10}
+            />
           </div>
         )}
 
