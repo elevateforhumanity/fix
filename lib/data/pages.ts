@@ -27,7 +27,7 @@ export async function getPage(slug: string): Promise<Page | null> {
 
   const { data: page } = await supabase
     .from('pages')
-    .select('id, slug, path, title, description, section, status, meta_title, meta_desc, is_published, requires_auth, roles_allowed, created_at, updated_at')
+    .select('id, slug, title, status, meta_title, meta_desc')
     .eq('slug', slug)
     .eq('status', 'published')
     .maybeSingle();
