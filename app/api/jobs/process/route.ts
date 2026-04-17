@@ -1,5 +1,6 @@
 // PUBLIC ROUTE: Cron/internal route — gated by JOB_PROCESSOR_TOKEN
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
       } catch {}
 
       if (!res.ok) {
-        console.error('job-processor failed', parsed);
+        logger.error('job-processor failed', parsed);
         return NextResponse.json(
           { ok: false, message: 'Job processor failed', details: parsed },
           { status: 502 }
@@ -67,7 +68,7 @@ export async function POST(req: NextRequest) {
       clearTimeout(timeout);
     }
   } catch (error) {
-    console.error('/api/jobs/process crashed', error);
+    logger.error('/api/jobs/process crashed', error);
     return NextResponse.json(
       { ok: false, message: 'Job processor failed' },
       { status: 500 }

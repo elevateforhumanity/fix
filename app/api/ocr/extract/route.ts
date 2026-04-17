@@ -13,6 +13,7 @@
  * - Barber/Cosmetology (state licenses)
  */
 
+import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
@@ -138,7 +139,7 @@ export async function POST(req: NextRequest) {
     });
 
   } catch (error) {
-    console.error('OCR extraction failed:', error);
+    logger.error('OCR extraction failed:', error);
     return NextResponse.json({
       success: false,
       error: 'OCR extraction failed',
