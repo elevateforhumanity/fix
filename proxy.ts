@@ -691,7 +691,8 @@ export async function proxy(request: NextRequest) {
   }
 
   // ============================================
-  // ENROLLMENT STATE CHECK
+  // ENROLLMENT + PARTNER CHECKS (parallel)
+  // Both queries run simultaneously — no sequential waterfall.
   // ============================================
   const requiresEnrollment = ENROLLMENT_REQUIRED_ROUTES.some((route) =>
     pathname.startsWith(route)
@@ -699,62 +700,50 @@ export async function proxy(request: NextRequest) {
   const isEnrollmentFlowRoute = ENROLLMENT_FLOW_ROUTES.some((route) =>
     pathname.startsWith(route)
   );
-
-  if (requiresEnrollment && !isEnrollmentFlowRoute) {
-    // Check enrollment state
-    const { data: enrollment } = await supabase
-      .from('program_enrollments')
-      .select('enrollment_state')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    if (enrollment) {
-      const state = enrollment.enrollment_state;
-      
-      // Only allow access if enrollment is active or documents_complete
-      if (state !== 'active' && state !== 'documents_complete') {
-        // Redirect to appropriate enrollment step
-        let redirectPath = '/enrollment/confirmed';
-        
-        if (state === 'confirmed') {
-          redirectPath = '/enrollment/orientation';
-        } else if (state === 'orientation_complete') {
-          redirectPath = '/enrollment/documents';
-        }
-        
-        return NextResponse.redirect(new URL(redirectPath, request.url), { status: 307 });
-      }
-    }
-  }
-
-  // ============================================
-  // PARTNER STATUS CHECK
-  // ============================================
-  // Partners must have active status to access main partner routes
   const isPartnerRoute = PARTNER_ROUTES.some((route) => pathname.startsWith(route));
   const isPartnerOnboardingRoute = PARTNER_ONBOARDING_ROUTES.some((route) => pathname.startsWith(route));
 
-  if (isPartnerRoute || isPartnerOnboardingRoute) {
-    const { data: partnerApp } = await supabase
-      .from('partner_applications')
-      .select('status')
-      .eq('user_id', user.id)
-      .single();
+  const needsEnrollment = requiresEnrollment && !isEnrollmentFlowRoute;
+  const needsPartner = isPartnerRoute || isPartnerOnboardingRoute;
 
+  const [enrollmentResult, partnerResult] = await Promise.all([
+    needsEnrollment
+      ? supabase
+          .from('program_enrollments')
+          .select('enrollment_state')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    needsPartner
+      ? supabase
+          .from('partner_applications')
+          .select('status')
+          .eq('user_id', user.id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+  ]);
+
+  if (needsEnrollment && enrollmentResult.data) {
+    const state = enrollmentResult.data.enrollment_state;
+    if (state !== 'active' && state !== 'documents_complete') {
+      let redirectPath = '/enrollment/confirmed';
+      if (state === 'confirmed') redirectPath = '/enrollment/orientation';
+      else if (state === 'orientation_complete') redirectPath = '/enrollment/documents';
+      return NextResponse.redirect(new URL(redirectPath, request.url), { status: 307 });
+    }
+  }
+
+  if (needsPartner) {
+    const partnerApp = partnerResult.data;
     if (!partnerApp) {
-      // No partner application - redirect to apply
       return NextResponse.redirect(new URL('/partner/apply', request.url), { status: 307 });
     }
-
-    // For main partner routes, require active status
     if (isPartnerRoute && partnerApp.status !== 'active') {
-      // Partner not yet active - redirect to document upload page
       if (partnerApp.status === 'pending_documents' || partnerApp.status === 'documents_submitted') {
         return NextResponse.redirect(new URL('/partner/documents', request.url), { status: 307 });
       }
-      // Rejected or other status
       return NextResponse.redirect(new URL('/partner/onboarding', request.url), { status: 307 });
     }
 
