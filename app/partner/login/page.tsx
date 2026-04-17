@@ -67,7 +67,7 @@ function PartnerLoginPageInner() {
 
         if (profile?.role === 'partner' || profile?.role === 'partner_admin') {
           // They have partner role but no partner_users entry - allow access
-          router.push('/partner-portal');
+          router.push('/partner/attendance');
           return;
         }
 
@@ -87,7 +87,7 @@ function PartnerLoginPageInner() {
       }
 
       // Success - redirect to partner dashboard
-      router.push('/partner-portal');
+      router.push('/partner/attendance');
 
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : (err as any)?.message;

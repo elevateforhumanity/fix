@@ -42,88 +42,70 @@ export default async function PartnerReportsPage() {
 
   // Stats scoped to this partner org
   const now = new Date();
-  const thisQuarterStart = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
+  const year = now.getFullYear();
+  const currentQuarter = Math.floor(now.getMonth() / 3); // 0-indexed
+
+  // Quarter date boundaries for current year
+  const quarterBounds = [
+    { label: 'Q1', start: new Date(year, 0, 1),  end: new Date(year, 3, 1) },
+    { label: 'Q2', start: new Date(year, 3, 1),  end: new Date(year, 6, 1) },
+    { label: 'Q3', start: new Date(year, 6, 1),  end: new Date(year, 9, 1) },
+    { label: 'Q4', start: new Date(year, 9, 1),  end: new Date(year + 1, 0, 1) },
+  ];
 
   let totalEnrollments = 0;
   let thisQuarterEnrollments = 0;
   let completedEnrollments = 0;
   let recentCompletions: any[] = [];
+  let quarterCounts: number[] = [0, 0, 0, 0];
 
   if (orgId) {
-    const [total, quarter, completed, recent] = await Promise.all([
+    const [total, completed, recent, ...quarterResults] = await Promise.all([
       supabase.from('partner_enrollments')
         .select('*', { count: 'exact', head: true })
         .eq('partner_id', orgId),
       supabase.from('partner_enrollments')
         .select('*', { count: 'exact', head: true })
         .eq('partner_id', orgId)
-        .gte('created_at', thisQuarterStart.toISOString()),
-      supabase.from('partner_enrollments')
-        .select('*', { count: 'exact', head: true })
-        .eq('partner_id', orgId)
         .eq('status', 'completed'),
       supabase.from('partner_enrollments')
-        .select('id, completed_at, student_id, program_slug')
+        .select('id, completed_at, student_id, program_slug, profiles(full_name)')
         .eq('partner_id', orgId)
         .eq('status', 'completed')
         .order('completed_at', { ascending: false })
         .limit(5),
+      // Per-quarter counts
+      ...quarterBounds.map(q =>
+        supabase.from('partner_enrollments')
+          .select('*', { count: 'exact', head: true })
+          .eq('partner_id', orgId)
+          .gte('created_at', q.start.toISOString())
+          .lt('created_at', q.end.toISOString())
+      ),
     ]);
 
     totalEnrollments = total.count || 0;
-    thisQuarterEnrollments = quarter.count || 0;
     completedEnrollments = completed.count || 0;
-    recentCompletions = recent.data || [];
+    quarterCounts = quarterResults.map((r: any) => r.count || 0);
+    thisQuarterEnrollments = quarterCounts[currentQuarter];
 
-    // Enrich with student names
-    if (recentCompletions.length > 0) {
-      const studentIds = recentCompletions.map((r: any) => r.student_id).filter(Boolean);
-      if (studentIds.length > 0) {
-        const { data: profiles } = await supabase
-          .from('profiles')
-          .select('id, full_name')
-          .in('id', studentIds);
-        const profileMap = Object.fromEntries((profiles || []).map((p: any) => [p.id, p.full_name]));
-        recentCompletions = recentCompletions.map((r: any) => ({
-          ...r,
-          student_name: profileMap[r.student_id] || 'Unknown',
-        }));
-      }
-    }
+    recentCompletions = (recent.data || []).map((r: any) => ({
+      ...r,
+      student_name: r.profiles?.full_name || 'Unknown',
+    }));
   }
 
-  const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-  const currentQuarter = Math.floor(now.getMonth() / 3);
-
-  // Fetch real enrollment counts for each quarter of the current year
-  const quarterCounts = await Promise.all(
-    quarters.map(async (_, idx) => {
-      if (!orgId) return 0;
-      const qStart = new Date(now.getFullYear(), idx * 3, 1).toISOString();
-      const qEnd = new Date(now.getFullYear(), idx * 3 + 3, 1).toISOString();
-      const { count } = await supabase
-        .from('partner_enrollments')
-        .select('*', { count: 'exact', head: true })
-        .eq('partner_id', orgId)
-        .gte('created_at', qStart)
-        .lt('created_at', qEnd);
-      return count || 0;
-    })
-  );
-  const quarterMax = Math.max(...quarterCounts, 1);
 
   return (
-    <div className="min-h-screen bg-white">
-      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden">
+    <div>
+      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden rounded-xl mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
         <Image src="/images/pages/partner-page-12.jpg" alt="Partner reports" fill sizes="100vw" className="object-cover" priority />
       </section>
-      <div className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[{ label: 'Partner', href: '/partner-portal' }, { label: 'Reports' }]} />
-        </div>
+      <div className="mb-6">
+        <Breadcrumbs items={[{ label: 'Partner', href: '/partner/attendance' }, { label: 'Reports' }]} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div>
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Partnership Reports</h1>
@@ -160,15 +142,21 @@ export default async function PartnerReportsPage() {
               <BarChart3 className="w-5 h-5 text-brand-blue-600" /> Quarterly Performance
             </h2>
             <div className="space-y-4">
-              {quarters.map((q, idx) => {
+              {quarterBounds.map((q, idx) => {
                 const value = quarterCounts[idx];
-                const pct = Math.round((value / quarterMax) * 100);
-                const isCurrentQ = idx === currentQuarter;
+                const maxQ = Math.max(...quarterCounts, 1);
+                const pct = Math.round((value / maxQ) * 100);
+                const isCurrent = idx === currentQuarter;
                 return (
-                  <div key={q} className="flex items-center gap-4">
-                    <span className={`w-8 text-sm font-medium ${isCurrentQ ? 'text-brand-blue-600' : 'text-gray-500'}`}>{q}</span>
+                  <div key={q.label} className="flex items-center gap-4">
+                    <span className={`w-8 text-sm font-medium ${isCurrent ? 'text-brand-blue-600' : 'text-gray-500'}`}>
+                      {q.label}
+                    </span>
                     <div className="flex-1 bg-slate-100 rounded-full h-3 overflow-hidden">
-                      <div className={`${isCurrentQ ? 'bg-brand-blue-500' : 'bg-brand-blue-300'} h-full rounded-full transition-all`} style={{ width: `${pct}%` }} />
+                      <div
+                        className={`h-full rounded-full transition-all ${isCurrent ? 'bg-brand-blue-500' : 'bg-brand-blue-300'}`}
+                        style={{ width: `${pct}%` }}
+                      />
                     </div>
                     <span className="text-sm text-gray-600 w-8 text-right">{value}</span>
                   </div>

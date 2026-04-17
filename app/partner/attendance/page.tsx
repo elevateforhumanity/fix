@@ -86,11 +86,11 @@ export default async function PartnerAttendancePage() {
     <div>
 
       {/* Hero Image */}
-      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden">
+      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden rounded-xl mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
         <Image src="/images/pages/partner-page-2.jpg" alt="Partner attendance" fill sizes="100vw" className="object-cover" priority />
       </section>
-      <div className="bg-white border-b -mx-4 -mt-6 px-4 py-3 mb-6">
-        <Breadcrumbs items={[{ label: 'Partner', href: '/partner-portal' }, { label: 'Attendance' }]} />
+      <div className="mb-6">
+        <Breadcrumbs items={[{ label: 'Partner', href: '/partner/attendance' }, { label: 'Attendance' }]} />
       </div>
 
       <div className="flex items-center justify-between mb-8">

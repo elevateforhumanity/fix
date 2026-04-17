@@ -142,7 +142,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
       <div className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[
-            { label: 'Partner', href: '/partner-portal' },
+            { label: 'Partner', href: '/partner/attendance' },
             { label: 'Programs', href: '/partner/programs' },
             { label: programName },
           ]} />
