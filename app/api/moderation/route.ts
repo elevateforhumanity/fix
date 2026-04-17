@@ -25,7 +25,7 @@ async function _GET(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    const authResult = await apiRequireAdmin();
+    const authResult = await apiRequireAdmin(request);
 
     if (authResult instanceof NextResponse) {
       return authResult;
@@ -97,7 +97,7 @@ async function _POST(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    const authResult = await apiRequireAdmin();
+    const authResult = await apiRequireAdmin(request);
 
     if (authResult instanceof NextResponse) {
       return authResult;

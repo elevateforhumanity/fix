@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   const rateLimited = await applyRateLimit(req, 'payment');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiAuthGuard();
+  const auth = await apiAuthGuard(req);
   const { user } = auth;
 
   const body = await req.json();

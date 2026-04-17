@@ -24,7 +24,7 @@ async function _POST(request: NextRequest) {
   const { data: profile } = await supabase
     .from('profiles')
     .select('role')
-    .eq('id', auth.id)
+    .eq('id', user.id)
     .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
@@ -49,14 +49,14 @@ async function _POST(request: NextRequest) {
     operation: 'update',
     rowData: {
       status: newStatus,
-      reviewed_by: auth.id,
+      reviewed_by: user.id,
       reviewed_at: new Date().toISOString(),
       reviewer_notes: notes || null,
     },
     filter: { id: submissionId },
     audit: {
       action: 'api:post:/api/admin/certifications/review',
-      actorId: auth.id,
+      actorId: user.id,
       targetType: 'certification_submissions',
       targetId: submissionId,
       metadata: { decision: action, notes: notes || null },
@@ -71,7 +71,7 @@ async function _POST(request: NextRequest) {
   // Secondary audit via admin audit log (non-transactional, supplementary)
   await logAdminAudit({
     action: AdminAction.CERTIFICATION_REVIEWED,
-    actorId: auth.id,
+    actorId: user.id,
     entityType: 'certification_submissions',
     entityId: submissionId,
     metadata: { decision: action, notes: notes || null },
@@ -113,7 +113,7 @@ const supabase = await createClient();
   const { data: profile } = await supabase
     .from('profiles')
     .select('role')
-    .eq('id', auth.id)
+    .eq('id', user.id)
     .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {

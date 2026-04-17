@@ -27,7 +27,7 @@ async function _POST(req: NextRequest) {
     const rateLimited = await applyRateLimit(req, 'api');
     if (rateLimited) return rateLimited;
 
-    const auth = await apiRequireAdmin();
+    const auth = await apiRequireAdmin(req);
     if (auth instanceof NextResponse) return auth;
 
     // STEP 5B: Require active license for paid features

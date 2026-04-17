@@ -23,7 +23,7 @@ async function _POST(req: Request) {
     const rateLimited = await applyRateLimit(req, 'contact');
     if (rateLimited) return rateLimited;
 
-    const auth = await apiRequireAdmin();
+    const auth = await apiRequireAdmin(req);
     if (auth instanceof NextResponse) return auth;
 
     const body = await req.json();

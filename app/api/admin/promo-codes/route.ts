@@ -13,7 +13,7 @@ async function _GET(request: Request) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiRequireAdmin();
+  const auth = await apiRequireAdmin(request);
   if (auth instanceof NextResponse) return auth;
 
   try {
@@ -42,7 +42,7 @@ async function _POST(req: Request) {
   const rateLimited = await applyRateLimit(req, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiRequireAdmin();
+  const auth = await apiRequireAdmin(req);
   if (auth instanceof NextResponse) return auth;
 
   try {
@@ -88,7 +88,7 @@ async function _PUT(req: Request) {
   const rateLimited = await applyRateLimit(req, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiRequireAdmin();
+  const auth = await apiRequireAdmin(req);
   if (auth instanceof NextResponse) return auth;
 
   try {
@@ -134,7 +134,7 @@ async function _DELETE(req: Request) {
   const rateLimited = await applyRateLimit(req, 'api');
   if (rateLimited) return rateLimited;
 
-  const auth = await apiRequireAdmin();
+  const auth = await apiRequireAdmin(req);
   if (auth instanceof NextResponse) return auth;
 
   try {

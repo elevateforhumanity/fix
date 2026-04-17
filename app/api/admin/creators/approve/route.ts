@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     const { data: adminProfile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', auth.id)
+      .eq('id', user.id)
       .maybeSingle();
 
     if (!adminProfile || !['admin', 'super_admin'].includes(adminProfile.role)) {
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
 
     // Audit log
     await logAuditEvent({
-      userId: auth.id,
+      userId: user.id,
       action: AuditActions.MARKETPLACE_CREATOR_APPROVED,
       resourceType: 'marketplace_creator',
       resourceId: creatorId,

@@ -16,7 +16,7 @@ import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { logger } from '@/lib/logger';
 
 export async function POST(req: Request) {
-  const authResult = await apiRequireAdmin();
+  const authResult = await apiRequireAdmin(req);
   if (authResult instanceof NextResponse) return authResult;
 
   let body: { apprenticeId?: string; userId?: string };

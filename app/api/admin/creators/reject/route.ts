@@ -39,11 +39,11 @@ async function _POST(req: Request) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', auth.id)
+      .eq('id', user.id)
       .maybeSingle();
 
     if (!profile || (profile.role !== 'admin' && profile.role !== 'super_admin')) {
-      logger.warn('[Creator Rejection] Unauthorized attempt', { userId: auth.id, role: profile?.role });
+      logger.warn('[Creator Rejection] Unauthorized attempt', { userId: user.id, role: profile?.role });
       return NextResponse.json({ error: 'Forbidden', code: 'INSUFFICIENT_PERMISSIONS' }, { status: 403 });
     }
 
@@ -104,7 +104,7 @@ async function _POST(req: Request) {
         status: 'rejected',
         rejection_reason: reason,
         rejected_at: new Date().toISOString(),
-        rejected_by: auth.id,
+        rejected_by: user.id,
         updated_at: new Date().toISOString(),
       })
       .eq('id', creatorId);
@@ -147,7 +147,7 @@ async function _POST(req: Request) {
     try {
       await adminSupabase.from('audit_logs').insert({
         action: 'creator_rejected',
-        actor_id: auth.id,
+        actor_id: user.id,
         target_id: creatorId,
         metadata: {
           reason,

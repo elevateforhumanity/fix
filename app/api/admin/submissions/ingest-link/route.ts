@@ -117,7 +117,7 @@ export async function POST(req: Request) {
   const rateLimited = await applyRateLimit(req, 'api');
   if (rateLimited) return rateLimited;
 
-  const authResult = await apiRequireAdmin();
+  const authResult = await apiRequireAdmin(req);
   // apiRequireAdmin returns a NextResponse on failure, or the auth object on success
   if (authResult instanceof NextResponse) return authResult;
   const auth = authResult;

@@ -36,7 +36,7 @@ async function _GET(request: NextRequest) {
     const { data: profile } = await db
       .from('profiles')
       .select('role')
-      .eq('id', auth.id)
+      .eq('id', user.id)
       .maybeSingle();
 
     const allowedRoles = ['admin', 'super_admin', 'org_admin'];
@@ -50,7 +50,7 @@ async function _GET(request: NextRequest) {
     // Preferred path: delegate to centralized document access
     if (documentId) {
       const url = await getAdminDocumentUrl({
-        adminId: auth.id,
+        adminId: user.id,
         documentId,
         context: 'api_endpoint',
       });
@@ -108,7 +108,7 @@ async function _GET(request: NextRequest) {
 
     // Audit the legacy path access
     await db.from('admin_audit_events').insert({
-      actor_user_id: auth.id,
+      actor_user_id: user.id,
       action: 'DOCUMENT_URL_ISSUED',
       target_type: 'document',
       target_id: matchingDoc.id,

@@ -45,7 +45,7 @@ async function _PATCH(
   const { data: profile } = await userClient
     .from('profiles')
     .select('role')
-    .eq('id', auth.id)
+    .eq('id', user.id)
     .maybeSingle();
 
   if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {

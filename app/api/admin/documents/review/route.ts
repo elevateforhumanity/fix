@@ -29,7 +29,7 @@ async function _POST(request: NextRequest) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
-      .eq('id', auth.id)
+      .eq('id', user.id)
       .maybeSingle();
 
     if (
@@ -63,7 +63,7 @@ async function _POST(request: NextRequest) {
       filter: { id: documentId },
       audit: {
         action: 'api:post:/api/admin/documents/review',
-        actorId: auth.id,
+        actorId: user.id,
         targetType: 'documents',
         targetId: documentId,
         metadata: { decision: action },
@@ -98,7 +98,7 @@ async function _POST(request: NextRequest) {
 
     await logAdminAudit({
       action: AdminAction.DOCUMENT_REVIEWED,
-      actorId: auth.id,
+      actorId: user.id,
       entityType: 'documents',
       entityId: documentId,
       metadata: { decision: action, file_name: document.file_name, student_user_id: studentUserId },

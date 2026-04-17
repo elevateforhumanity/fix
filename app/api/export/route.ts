@@ -45,9 +45,9 @@ export async function GET(request: NextRequest) {
     // Check authorization based on export type
     let authResult;
     if (type === 'students' || type === 'analytics') {
-      authResult = await apiRequireAdmin();
+      authResult = await apiRequireAdmin(request);
     } else {
-      authResult = await apiRequireInstructor();
+      authResult = await apiRequireInstructor(request);
     }
 
     if (authResult instanceof NextResponse) {
@@ -185,7 +185,7 @@ export async function POST(request: NextRequest) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-    const authResult = await apiRequireAdmin();
+    const authResult = await apiRequireAdmin(request);
 
     if (authResult instanceof NextResponse) {
       return authResult;
