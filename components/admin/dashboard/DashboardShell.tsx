@@ -7,7 +7,7 @@ import {
   CheckCircle, Clock, ArrowRight, Activity, BookOpen,
   DollarSign, Shield, Bell, ChevronRight, Zap,
 } from "lucide-react";
-import type { AdminDashboardData, KPICard, RecentApplication, RecentStudent, InactiveLearner, PendingSubmission } from "./types";
+import type { AdminDashboardData, KPICard, RecentApplication, RecentStudent, InactiveLearner, PendingSubmission, TopProgramPoint, ActivityItem, BlockedProgram, EnrollmentTrendPoint, StatusPoint } from "./types";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -280,6 +280,145 @@ function SystemHealthPanel({ health }: { health: AdminDashboardData["systemHealt
 
 // ─── Main Shell ──────────────────────────────────────────────────────────────
 
+// ─── Enrollment Trend ────────────────────────────────────────────────────────
+function EnrollmentTrendPanel({ trend }: { trend: EnrollmentTrendPoint[] }) {
+  if (!trend.length) return null;
+  const max = Math.max(...trend.map(t => t.enrollments), 1);
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-base font-semibold text-slate-900">Enrollment Trend</h2>
+        <span className="text-xs text-slate-400">Last 12 months</span>
+      </div>
+      <div className="flex items-end gap-1.5 h-28">
+        {trend.map((t) => {
+          const pct = Math.round((t.enrollments / max) * 100);
+          return (
+            <div key={t.month} className="flex-1 flex flex-col items-center gap-1">
+              <span className="text-[10px] text-slate-400 tabular-nums">{t.enrollments || ''}</span>
+              <div className="w-full rounded-t bg-brand-blue-500" style={{ height: `${Math.max(pct, 2)}%` }} />
+              <span className="text-[10px] text-slate-400">{t.month}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─── Top Programs ─────────────────────────────────────────────────────────────
+function TopProgramsPanel({ programs }: { programs: TopProgramPoint[] }) {
+  if (!programs.length) return null;
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-base font-semibold text-slate-900">Top Programs</h2>
+        <Link href="/admin/programs" className="text-xs text-blue-600 hover:underline flex items-center gap-1">
+          All <ChevronRight className="w-3 h-3" />
+        </Link>
+      </div>
+      <div className="space-y-3">
+        {programs.map((p) => (
+          <div key={p.id}>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-sm font-medium text-slate-800 truncate max-w-[60%]">{p.title}</span>
+              <span className="text-xs text-slate-500 tabular-nums">{p.learners} learners · {p.completionRate}%</span>
+            </div>
+            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${p.completionRate}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Student Status Breakdown ─────────────────────────────────────────────────
+function StudentStatusPanel({ statuses }: { statuses: StatusPoint[] }) {
+  if (!statuses.length) return null;
+  const total = statuses.reduce((s, p) => s + p.value, 0) || 1;
+  const colors: Record<string, string> = {
+    active: 'bg-emerald-500', enrolled: 'bg-blue-500',
+    pending: 'bg-amber-500', inactive: 'bg-slate-300',
+    graduated: 'bg-purple-500', withdrawn: 'bg-red-400',
+  };
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <h2 className="text-base font-semibold text-slate-900 mb-5">Student Statuses</h2>
+      <div className="flex h-3 rounded-full overflow-hidden mb-4 gap-0.5">
+        {statuses.map((s) => (
+          <div
+            key={s.name}
+            className={`${colors[s.name] ?? 'bg-slate-200'} rounded-full`}
+            style={{ width: `${Math.round((s.value / total) * 100)}%` }}
+            title={`${s.name}: ${s.value}`}
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        {statuses.map((s) => (
+          <div key={s.name} className="flex items-center gap-2">
+            <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${colors[s.name] ?? 'bg-slate-200'}`} />
+            <span className="text-xs text-slate-600 capitalize">{s.name}</span>
+            <span className="text-xs font-semibold text-slate-900 ml-auto tabular-nums">{s.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Recent Activity Feed ─────────────────────────────────────────────────────
+function ActivityFeedPanel({ items }: { items: ActivityItem[] }) {
+  if (!items.length) return null;
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-base font-semibold text-slate-900">Recent Activity</h2>
+        <Activity className="w-4 h-4 text-slate-400" />
+      </div>
+      <div className="space-y-3">
+        {items.slice(0, 10).map((item) => (
+          <div key={item.id} className="flex items-start gap-3">
+            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-slate-700 leading-snug">{item.title}</p>
+              <p className="text-xs text-slate-400 mt-0.5">{item.timestamp}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Blocked / Unpublished Programs ──────────────────────────────────────────
+function BlockedProgramsPanel({ programs }: { programs: BlockedProgram[] }) {
+  if (!programs.length) return null;
+  return (
+    <div className="bg-white rounded-2xl border border-amber-200 p-6">
+      <div className="flex items-center gap-2 mb-5">
+        <AlertTriangle className="w-4 h-4 text-amber-500" />
+        <h2 className="text-base font-semibold text-slate-900">Unpublished Programs</h2>
+        <span className="ml-auto text-xs font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">{programs.length}</span>
+      </div>
+      <div className="space-y-2">
+        {programs.map((p) => (
+          <Link key={p.id} href={p.href}
+            className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group">
+            <div>
+              <p className="text-sm font-medium text-slate-800 group-hover:text-blue-600">{p.title}</p>
+              <p className="text-xs text-slate-400 capitalize">{p.status} · updated {p.updatedAt}</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500" />
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function DashboardShell({ data }: { data: AdminDashboardData }) {
   return (
     <div className="min-h-screen bg-slate-50">
@@ -293,14 +432,38 @@ export function DashboardShell({ data }: { data: AdminDashboardData }) {
         )}
         <KPIGrid kpis={data.kpis} counts={data.counts} />
         <QuickActions />
+
+        {/* Trend + Status row */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <EnrollmentTrendPanel trend={data.enrollmentTrend} />
+          </div>
+          <StudentStatusPanel statuses={data.studentStatuses} />
+        </div>
+
+        {/* Applications + Students */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <ApplicationsPanel apps={data.recentApplications} />
           <StudentsPanel students={data.recentStudents} />
         </div>
+
+        {/* Top Programs + Activity Feed */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TopProgramsPanel programs={data.topPrograms} />
+          <ActivityFeedPanel items={data.recentActivity} />
+        </div>
+
+        {/* Submissions + Inactive Learners */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <SubmissionsPanel submissions={data.pendingSubmissions} />
           <InactivePanel learners={data.inactiveLearners} />
         </div>
+
+        {/* Blocked Programs */}
+        {data.blockedPrograms.length > 0 && (
+          <BlockedProgramsPanel programs={data.blockedPrograms} />
+        )}
+
         <SystemHealthPanel health={data.systemHealth} />
       </div>
     </div>

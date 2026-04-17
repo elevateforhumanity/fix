@@ -153,13 +153,17 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       .gte('created_at', lastMonthStartS)
       .lt('created_at', lastMonthEndS),
 
-    db.from('certificates')
-      .select('id', { count: 'exact', head: true }),
+    // Count from both tables — certificates (legacy) and program_completion_certificates (LMS engine)
+    Promise.all([
+      db.from('certificates').select('id', { count: 'exact', head: true }),
+      db.from('program_completion_certificates').select('id', { count: 'exact', head: true }),
+    ]).then(([a, b]) => ({ count: (a.count ?? 0) + (b.count ?? 0), error: a.error ?? b.error })),
 
-    // Certs issued this month
-    db.from('certificates')
-      .select('id', { count: 'exact', head: true })
-      .gte('created_at', thisMonthStart),
+    // Certs issued this month — both tables
+    Promise.all([
+      db.from('certificates').select('id', { count: 'exact', head: true }).gte('issued_at', thisMonthStart),
+      db.from('program_completion_certificates').select('id', { count: 'exact', head: true }).gte('issued_at', thisMonthStart),
+    ]).then(([a, b]) => ({ count: (a.count ?? 0) + (b.count ?? 0), error: a.error ?? b.error })),
 
     // Enrollment trend — last 12 months from program_enrollments
     db.from('program_enrollments')
@@ -217,7 +221,8 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   const activeEnrollCount    = requireCount(activeEnrollmentsRes,    'active enrollments');
   const lastMonthEnrollCount = lastMonthEnrollmentsRes.error ? 0 : (lastMonthEnrollmentsRes.count ?? 0);
   const lastMonthAppsCount   = lastMonthAppsRes.error ? 0 : (lastMonthAppsRes.count ?? 0);
-  const certsCount           = requireCount(certsRes,                'certificates');
+  // certsRes is a combined count from certificates + program_completion_certificates
+  const certsCount           = certsRes.error ? 0 : (certsRes.count ?? 0);
   const certsThisMonth       = certsThisMonthRes.error ? 0 : (certsThisMonthRes.count ?? 0);
   const pendingHoldersCount  = pendingHoldersRes.error ? 0 : (pendingHoldersRes.count ?? 0);
   const pendingHolderDocsCount = pendingHolderDocsRes.error ? 0 : (pendingHolderDocsRes.count ?? 0);
