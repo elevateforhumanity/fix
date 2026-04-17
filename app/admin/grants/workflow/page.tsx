@@ -38,8 +38,7 @@ async function getWorkflowData() {
 export default async function GrantWorkflowPage() {
   const supabase = await createClient();
 
-  const {
-    data: { user },
+  const { data: { user } } = await supabase.auth.getUser();
 
   const { data: profile } = await supabase
     .from('profiles')

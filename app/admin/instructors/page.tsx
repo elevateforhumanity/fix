@@ -12,6 +12,9 @@ import Image from 'next/image';
 import { Users, Award, BookOpen, Star } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function InstructorsPage() {
   const router = useRouter();
   const supabase = createClient();

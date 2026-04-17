@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { CreditCard, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import { Metadata } from 'next';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Payments & Billing | Elevate for Humanity',
   robots: { index: false, follow: false },

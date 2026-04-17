@@ -16,6 +16,9 @@ CheckCircle, } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface PaymentMethod {
   id: string;
   type: 'card' | 'bank';

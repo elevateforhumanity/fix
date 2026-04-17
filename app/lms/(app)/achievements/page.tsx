@@ -6,6 +6,10 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { AchievementsBadges } from '@/components/AchievementsBadges';
 import MicroCredentialsBadges from '@/components/MicroCredentialsBadges';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import {
 
   Trophy,

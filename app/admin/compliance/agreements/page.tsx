@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import {
+
   FileText,
   Users,
   Check,
@@ -13,6 +14,10 @@ import {
   RefreshCw,
   ChevronRight,
 } from 'lucide-react';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 
 interface AgreementStats {
   agreement_type: string;

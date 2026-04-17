@@ -3,6 +3,10 @@ import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import {
 
   TrendingUp,
@@ -24,7 +28,6 @@ export const metadata: Metadata = {
 export default async function SAPMonitoringPage() {
   await requireRole(['admin', 'super_admin']);
   const supabase = await createClient();
-
 
   // Check admin role
 

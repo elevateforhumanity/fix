@@ -3,7 +3,8 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Heart, Users, MessageSquare, BookOpen } from 'lucide-react';
+import { Heart, BookOpen } from 'lucide-react';
+import GroupDiscussions from '@/components/lms/GroupDiscussions';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 export default async function GroupPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login?redirect=/lms/social/groups');
+  if (!user) redirect('/login?redirect=/lms/social/groups/healthcare');
 
   return (
     <div className="min-h-screen bg-white">
@@ -48,30 +49,34 @@ export default async function GroupPage() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center">
-              <MessageSquare className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <h2 className="text-lg font-semibold text-slate-700 mb-2">Discussions</h2>
-              <p className="text-slate-500 text-sm">
-                Group discussions are not yet available. Check back soon.
-              </p>
-            </div>
+            <h2 className="text-lg font-semibold text-slate-800 mb-4">Discussions</h2>
+            <GroupDiscussions groupSlug="healthcare" accentClass="bg-brand-red-600 hover:bg-brand-red-700" />
           </div>
 
           <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-sm border p-6">
               <h3 className="font-semibold text-gray-900 mb-4">Group Resources</h3>
               <div className="space-y-3">
-                <div key="Certification Guides" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50"><BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" /><div><div className="font-medium text-gray-900 text-sm">Certification Guides</div><div className="text-xs text-gray-500">CNA, MA, Phlebotomy prep</div></div></div>
-                <div key="Clinical Tips" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50"><BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" /><div><div className="font-medium text-gray-900 text-sm">Clinical Tips</div><div className="text-xs text-gray-500">Best practices from the field</div></div></div>
-                <div key="Job Placement" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50"><BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" /><div><div className="font-medium text-gray-900 text-sm">Job Placement</div><div className="text-xs text-gray-500">Healthcare employer connections</div></div></div>
+                <Link href="/programs/cna" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
+                  <div><div className="font-medium text-gray-900 text-sm">Certification Guides</div><div className="text-xs text-gray-500">CNA, MA, Phlebotomy prep</div></div>
+                </Link>
+                <Link href="/career-services" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
+                  <div><div className="font-medium text-gray-900 text-sm">Clinical Tips</div><div className="text-xs text-gray-500">Best practices from the field</div></div>
+                </Link>
+                <Link href="/employer" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
+                  <div><div className="font-medium text-gray-900 text-sm">Job Placement</div><div className="text-xs text-gray-500">Healthcare employer connections</div></div>
+                </Link>
               </div>
             </div>
 
             <div className="bg-slate-50 rounded-xl p-6">
               <h3 className="font-semibold text-gray-900 mb-3">Related Groups</h3>
               <div className="space-y-3">
-                <Link href="/lms/social/groups/career" className="block p-3 bg-white rounded-lg hover:shadow-sm"><div className="font-medium text-gray-900 text-sm">Career Changers</div></Link>
-                <Link href="/lms/social/groups/trades" className="block p-3 bg-white rounded-lg hover:shadow-sm"><div className="font-medium text-gray-900 text-sm">Skilled Trades Network</div></Link>
+                <Link href="/lms/social/groups/career" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-gray-900 text-sm">Career Changers</div></Link>
+                <Link href="/lms/social/groups/trades" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-gray-900 text-sm">Skilled Trades Network</div></Link>
               </div>
             </div>
           </div>

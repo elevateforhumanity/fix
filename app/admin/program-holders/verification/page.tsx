@@ -3,6 +3,10 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { requireRole } from '@/lib/auth/require-role';
 import Link from 'next/link';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import {
 
   XCircle,
@@ -20,7 +24,6 @@ export const metadata: Metadata = {
 export default async function ProgramHolderVerificationPage() {
   const { user, profile } = await requireRole(['admin', 'super_admin']);
   const supabase = await getAdminClient();
-
 
   // Get pending verifications
   const { data: rawPendingHolders } = await supabase

@@ -3,6 +3,10 @@ import { requireRole } from '@/lib/auth/require-role';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import {
 
   AlertTriangle,
@@ -26,8 +30,6 @@ export const metadata: Metadata = {
 export default async function AccreditationPage() {
   await requireRole(['admin', 'super_admin']);
   const supabase = await createClient();
-
-
 
   const { data: programs } = await supabase
     .from('programs')

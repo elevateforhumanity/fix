@@ -9,6 +9,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function CourseLeaderboardPage() {
   const params = useParams();
   const courseId = params.courseId as string;

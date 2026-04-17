@@ -9,6 +9,10 @@ export const metadata: Metadata = {
 
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import {
 
   Building2,
@@ -21,7 +25,6 @@ CheckCircle, } from 'lucide-react';
 export default async function AdminShopsPage() {
   await requireRole(['admin', 'super_admin']);
   const supabase = await createClient();
-
 
   // Check if user is admin
 

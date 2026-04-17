@@ -11,6 +11,9 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function AdminPayroll() {
   const router = useRouter();
 

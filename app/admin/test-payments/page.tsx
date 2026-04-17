@@ -9,6 +9,9 @@ import Link from 'next/link';
 import { CreditCard, XCircle, DollarSign } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function TestPaymentsPage() {
   const router = useRouter();
   const [stripeConfigured, setStripeConfigured] = useState(false);

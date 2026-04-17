@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Settings, User, Mail, Phone, Bell } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { updateInstructorProfile } from './actions';
 
 export const metadata: Metadata = {
   title: 'Settings | Instructor Portal',
@@ -66,11 +67,12 @@ export default async function InstructorSettingsPage() {
             <h2 className="text-lg font-semibold">Profile Information</h2>
           </div>
           
-          <form className="space-y-4">
+          <form action={updateInstructorProfile} className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <input
+                  name="full_name"
                   type="text"
                   defaultValue={profile.full_name || ''}
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500"
@@ -79,7 +81,9 @@ export default async function InstructorSettingsPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
                 <input
+                  name="title"
                   type="text"
+                  defaultValue={profile.title || ''}
                   placeholder="e.g., Senior Instructor"
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500"
                 />
@@ -92,6 +96,7 @@ export default async function InstructorSettingsPage() {
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
+                    name="email"
                     type="email"
                     defaultValue={profile.email || user.email || ''}
                     className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500"
@@ -103,6 +108,7 @@ export default async function InstructorSettingsPage() {
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
+                    name="phone"
                     type="tel"
                     defaultValue={profile.phone || ''}
                     className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500"
@@ -114,13 +120,15 @@ export default async function InstructorSettingsPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
               <textarea
+                name="bio"
                 rows={3}
+                defaultValue={profile.bio || ''}
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500"
                 placeholder="Brief bio for your instructor profile..."
               />
             </div>
 
-            <button type="submit" className="px-6 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
+            <button type="submit" className="px-6 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 font-medium transition-colors">
               Save Profile
             </button>
           </form>

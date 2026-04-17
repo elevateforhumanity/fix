@@ -10,6 +10,9 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type Opportunity = {
   id: string;
   title: string;

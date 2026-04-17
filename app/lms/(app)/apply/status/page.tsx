@@ -9,6 +9,9 @@ import { Clock, XCircle, FileText, ArrowRight } from 'lucide-react';
 import { EnrollmentStatusTracker } from '@/components/enrollment/EnrollmentStatusTracker';
 import { FundingPathwayBadge } from '@/components/enrollment/FundingPathwayBadge';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface Application {
   id: string;
   status: string;

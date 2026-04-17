@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { createProgramCourseAction } from './actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,16 +26,33 @@ export default async function CreateCoursePage() {
           <p className="text-gray-600 mt-2">Add a course to your program offerings</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <form className="space-y-6">
-            <div><label className="block text-sm font-medium text-gray-700 mb-2">Course Title *</label><input type="text" className="w-full border rounded-lg px-3 py-2" placeholder="Enter course title" required /></div>
-            <div><label className="block text-sm font-medium text-gray-700 mb-2">Description</label><textarea className="w-full border rounded-lg px-3 py-2" rows={4} placeholder="Course description" /></div>
+          <form action={createProgramCourseAction} className="space-y-6">
+            <div><label className="block text-sm font-medium text-gray-700 mb-2">Course Title *</label><input name="course_name" type="text" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" placeholder="Enter course title" required /></div>
+            <div><label className="block text-sm font-medium text-gray-700 mb-2">Description</label><textarea name="description" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" rows={4} placeholder="Course description" /></div>
             <div className="grid grid-cols-2 gap-4">
-              <div><label className="block text-sm font-medium text-gray-700 mb-2">Duration</label><input type="text" className="w-full border rounded-lg px-3 py-2" placeholder="e.g., 8 weeks" /></div>
-              <div><label className="block text-sm font-medium text-gray-700 mb-2">Format</label><select className="w-full border rounded-lg px-3 py-2"><option>Online</option><option>In-Person</option><option>Hybrid</option></select></div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Duration (hours)</label>
+                <input name="duration_hours" type="number" min="1" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" placeholder="e.g. 40" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                <select name="category" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500">
+                  <option value="">Select category</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Skilled Trades">Skilled Trades</option>
+                  <option value="Business">Business</option>
+                  <option value="Cosmetology">Cosmetology</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Price ($)</label>
+              <input name="price" type="number" min="0" step="0.01" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" placeholder="0.00" defaultValue="0" />
             </div>
             <div className="flex gap-4 pt-4 border-t">
-              <button type="submit" className="flex-1 bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">Create Course</button>
-              <Link href="/program-holder/courses/create" className="px-4 py-2 border rounded-lg hover:bg-white">Cancel</Link>
+              <button type="submit" className="flex-1 bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700 font-medium transition-colors">Create Course</button>
+              <Link href="/program-holder/courses" className="px-4 py-2 border rounded-lg hover:bg-slate-50 transition-colors">Cancel</Link>
             </div>
           </form>
         </div>

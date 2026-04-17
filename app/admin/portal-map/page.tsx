@@ -7,8 +7,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 
-import {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
+
+import {
 
   LayoutDashboard,
   Users,
@@ -653,8 +656,6 @@ const adminRoutes: AdminRoute[] = [
     ],
   },
 ];
-
-
 
 export default function AdminPortalMapPage() {
   const supabase = createClient();

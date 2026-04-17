@@ -9,6 +9,9 @@ import Link from 'next/link';
 import { Mail, Send, AlertCircle } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function TestEmailsPage() {
   const router = useRouter();
 

@@ -6,6 +6,10 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import LearningAnalyticsDashboard from '@/components/LearningAnalyticsDashboard';
 import StudentEngagementAnalytics from '@/components/StudentEngagementAnalytics';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import {
 
   BarChart3,

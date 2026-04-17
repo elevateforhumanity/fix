@@ -9,6 +9,9 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function AdminApprenticeships() {
   const supabase = createClient();
   const router = useRouter();

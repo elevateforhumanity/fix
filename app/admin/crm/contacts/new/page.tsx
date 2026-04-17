@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { ArrowLeft, User, Mail, Phone, Building, MapPin } from 'lucide-react';
+import { createContactAction } from './actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,7 +34,7 @@ export default async function NewContactPage() {
         </div>
 
         {/* Form */}
-        <form className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <form action={createContactAction} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           {/* Personal Information */}
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -47,7 +48,7 @@ export default async function NewContactPage() {
                 </label>
                 <input
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
                   placeholder="John"
@@ -59,7 +60,7 @@ export default async function NewContactPage() {
                 </label>
                 <input
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
                   placeholder="Doe"
@@ -125,7 +126,7 @@ export default async function NewContactPage() {
                 </label>
                 <input
                   type="text"
-                  name="jobTitle"
+                  name="job_title"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
                   placeholder="HR Manager"
                 />
@@ -146,7 +147,7 @@ export default async function NewContactPage() {
                 </label>
                 <input
                   type="text"
-                  name="street"
+                  name="street_address"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
                   placeholder="123 Main St"
                 />

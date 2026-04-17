@@ -95,6 +95,7 @@ import { getActivitiesForLesson, getDefaultActivity } from '@/lib/lms/activity-m
 import type { ActivityId } from '@/lib/lms/activity-map';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
 
+
 const LessonVideoWithSimulation = dynamic(
   () => import('@/components/lms/LessonVideoWithSimulation'),
   { ssr: false }

@@ -3,7 +3,8 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Briefcase, Users, MessageSquare, BookOpen } from 'lucide-react';
+import { Briefcase, BookOpen } from 'lucide-react';
+import GroupDiscussions from '@/components/lms/GroupDiscussions';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 export default async function GroupPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login?redirect=/lms/social/groups');
+  if (!user) redirect('/login?redirect=/lms/social/groups/career');
 
   return (
     <div className="min-h-screen bg-white">
@@ -48,30 +49,34 @@ export default async function GroupPage() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center">
-              <MessageSquare className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <h2 className="text-lg font-semibold text-slate-700 mb-2">Discussions</h2>
-              <p className="text-slate-500 text-sm">
-                Group discussions are not yet available. Check back soon.
-              </p>
-            </div>
+            <h2 className="text-lg font-semibold text-slate-800 mb-4">Discussions</h2>
+            <GroupDiscussions groupSlug="career" accentClass="bg-brand-blue-600 hover:bg-brand-blue-700" />
           </div>
 
           <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-sm border p-6">
               <h3 className="font-semibold text-gray-900 mb-4">Group Resources</h3>
               <div className="space-y-3">
-                <div key="Resume Templates" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50"><BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" /><div><div className="font-medium text-gray-900 text-sm">Resume Templates</div><div className="text-xs text-gray-500">Career change resume examples</div></div></div>
-                <div key="Interview Prep" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50"><BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" /><div><div className="font-medium text-gray-900 text-sm">Interview Prep</div><div className="text-xs text-gray-500">Common questions and tips</div></div></div>
-                <div key="Networking Events" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50"><BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" /><div><div className="font-medium text-gray-900 text-sm">Networking Events</div><div className="text-xs text-gray-500">Upcoming virtual meetups</div></div></div>
+                <Link href="/career-services/resume-building" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
+                  <div><div className="font-medium text-gray-900 text-sm">Resume Templates</div><div className="text-xs text-gray-500">Career change resume examples</div></div>
+                </Link>
+                <Link href="/career-services/interview-prep" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
+                  <div><div className="font-medium text-gray-900 text-sm">Interview Prep</div><div className="text-xs text-gray-500">Common questions and tips</div></div>
+                </Link>
+                <Link href="/events" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
+                  <div><div className="font-medium text-gray-900 text-sm">Networking Events</div><div className="text-xs text-gray-500">Upcoming virtual meetups</div></div>
+                </Link>
               </div>
             </div>
 
             <div className="bg-slate-50 rounded-xl p-6">
               <h3 className="font-semibold text-gray-900 mb-3">Related Groups</h3>
               <div className="space-y-3">
-                <Link href="/lms/social/groups/healthcare" className="block p-3 bg-white rounded-lg hover:shadow-sm"><div className="font-medium text-gray-900 text-sm">Healthcare Professionals</div></Link>
-                <Link href="/lms/social/groups/trades" className="block p-3 bg-white rounded-lg hover:shadow-sm"><div className="font-medium text-gray-900 text-sm">Skilled Trades Network</div></Link>
+                <Link href="/lms/social/groups/healthcare" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-gray-900 text-sm">Healthcare Professionals</div></Link>
+                <Link href="/lms/social/groups/trades" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-gray-900 text-sm">Skilled Trades Network</div></Link>
               </div>
             </div>
           </div>

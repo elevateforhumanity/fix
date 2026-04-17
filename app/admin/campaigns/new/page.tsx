@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { ArrowLeft, Mail, MessageSquare, Users, Calendar } from 'lucide-react';
+import { createCampaignAction } from './actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,7 +32,7 @@ export default async function NewCampaignPage() {
           <p className="text-gray-600 mt-1">Set up a new marketing campaign</p>
         </div>
 
-        <form className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <form action={createCampaignAction} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Campaign Name *

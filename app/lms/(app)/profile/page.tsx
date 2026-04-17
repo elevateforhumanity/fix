@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { updateProfile } from './actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,10 +41,30 @@ export default async function ProfilePage() {
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6">
           <h2 className="text-lg font-semibold mb-4">Edit Profile</h2>
-          <form className="space-y-4">
-            <div><label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label><input type="text" className="w-full border rounded-lg px-3 py-2" defaultValue={profile?.full_name || ''} /></div>
-            <div><label className="block text-sm font-medium text-gray-700 mb-2">Bio</label><textarea className="w-full border rounded-lg px-3 py-2" rows={3} defaultValue={profile?.bio || ''} placeholder="Tell us about yourself" /></div>
-            <button type="submit" className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">Save Changes</button>
+          <form action={updateProfile} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+              <input name="full_name" type="text" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" defaultValue={profile?.full_name || ''} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+              <input name="phone" type="tel" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" defaultValue={profile?.phone || ''} />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+                <input name="city" type="text" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" defaultValue={profile?.city || ''} />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                <input name="state" type="text" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" defaultValue={profile?.state || ''} />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+              <textarea name="bio" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" rows={3} defaultValue={profile?.bio || ''} placeholder="Tell us about yourself" />
+            </div>
+            <button type="submit" className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700 font-medium transition-colors">Save Changes</button>
           </form>
         </div>
       </div>

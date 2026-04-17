@@ -6,6 +6,9 @@ import { useState, useEffect, useMemo } from "react";
 import { Search, Star, X } from "lucide-react";
 
 import { createBrowserClient } from '@supabase/ssr';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 type ToolLink = {
   title: string;
   href: string;

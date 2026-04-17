@@ -8,6 +8,9 @@ import { Circle, XCircle, Copy, Shield, FileText, Users, Download, ExternalLink 
 import Link from 'next/link';
 
 import { createBrowserClient } from '@supabase/ssr';
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 export default function RapidsAdminPage() {
   const router = useRouter();
   const [dbRows, setDbRows] = useState<any[]>([]);

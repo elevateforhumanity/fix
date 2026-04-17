@@ -10,6 +10,9 @@ import SessionRow from './SessionRow';
 import type { ExamSession, ExamProvider, ExamResult } from './types';
 import { PROVIDER_LABELS, RESULT_LABELS } from './types';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function ProctorPortalPage() {
   const router = useRouter();
   const supabase = createClient();
