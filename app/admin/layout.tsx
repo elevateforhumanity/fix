@@ -8,6 +8,7 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { AdminLicenseWrapper } from '@/components/licensing/AdminLicenseWrapper';
 import { getLicenseAccessMode } from '@/lib/licensing/billing-authority';
 import { reconcileTrialOnboarding } from '@/lib/trial/reconcile-onboarding';
+import { withTimeout } from '@/lib/utils/withTimeout';
 import AdminNav from '@/components/admin/AdminNav';
 import { DemoTourProvider } from '@/components/demo/DemoTourProvider';
 import { IdleTimeoutGuard } from '@/components/auth/IdleTimeoutGuard';
@@ -81,13 +82,14 @@ export default async function AdminLayout({
   // Auth check — one call, result reused below
   await requireAdmin();
 
-  // Fetch user + notifications + license context in parallel — single round-trip
+  // Fetch user + notifications + license context in parallel — single round-trip.
+  // Both are bounded by a timeout so a slow DB query cannot block every admin page.
   const supabase = await createClient();
   const db = await getAdminClient();
 
   const [context, headerData] = await Promise.all([
-    getLicenseContext(),
-    (async () => {
+    withTimeout(getLicenseContext(), 3000, 'getLicenseContext').catch(() => null),
+    withTimeout((async () => {
       try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return { userName: 'Admin', notifs: [] };
@@ -120,7 +122,7 @@ export default async function AdminLayout({
       } catch {
         return { userName: 'Admin', notifs: [] };
       }
-    })(),
+    })(), 3000, 'adminHeaderData').catch(() => ({ userName: 'Admin', notifs: [] as import('@/components/admin/AdminNav').AdminNavNotif[] })),
   ]);
 
   // Reconcile trial onboarding — fire and forget
