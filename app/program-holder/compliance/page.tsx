@@ -88,8 +88,9 @@ export default async function CompliancePage() {
       ? Math.min((recentReports.length / 4) * 100, 100)
       : 100;
 
-  const activeStudents = students?.filter((s) => s.status === 'active') || [];
-  const studentScore = activeStudents.length > 0 ? 100 : 80;
+  const activeStudents = students?.filter((s: any) => s.status === 'active') || [];
+  // Score 100 if any active students, 0 if none — no artificial floor
+  const studentScore = activeStudents.length > 0 ? 100 : 0;
 
   const overallScore = Math.round(
     (documentScore + reportingScore + studentScore) / 3

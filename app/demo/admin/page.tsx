@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import { Metadata } from 'next';
 import { DemoPageShell } from '@/components/demo/DemoPageShell';
 import InteractiveDemoPlayer from '@/components/demo/InteractiveDemoPlayer';

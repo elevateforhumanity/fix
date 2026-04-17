@@ -29,12 +29,24 @@ export default async function InstructorProgramsPage() {
     redirect('/');
   }
 
-  // Get programs
-  const { data: programs } = await supabase
+  // Get programs assigned to this instructor (or all active if admin)
+  const { data: rawPrograms } = await supabase
     .from('programs')
     .select('*')
     .eq('is_active', true)
     .order('name');
+
+  // Attach real enrollment counts from program_enrollments
+  const programs = await Promise.all(
+    (rawPrograms || []).map(async (p: any) => {
+      const { count } = await supabase
+        .from('program_enrollments')
+        .select('*', { count: 'exact', head: true })
+        .eq('program_id', p.id)
+        .in('status', ['active', 'enrolled', 'completed']);
+      return { ...p, enrollmentCount: count || 0 };
+    })
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -84,7 +96,7 @@ export default async function InstructorProgramsPage() {
                     </span>
                     <span className="flex items-center gap-1">
                       <Users className="w-4 h-4" />
-                      0 enrolled
+                      {program.enrollmentCount} enrolled
                     </span>
                   </div>
 

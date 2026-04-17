@@ -21,6 +21,8 @@ import {
   Award,
 CheckCircle, } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
   title: 'Accreditation Readiness | Admin',

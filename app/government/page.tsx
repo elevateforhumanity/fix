@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { VIDEO_HEROES } from '@/lib/hero-config';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';

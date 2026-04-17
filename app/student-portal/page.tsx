@@ -166,8 +166,8 @@ export default async function StudentPortalPage() {
     {
       icon: Mail,
       title: 'Email Support',
-      description: 'our contact form',
-      href: 'mailto:our contact form',
+      description: 'info@elevateforhumanity.org',
+      href: 'mailto:info@elevateforhumanity.org',
     },
     {
       icon: MessageSquare,
@@ -186,38 +186,25 @@ export default async function StudentPortalPage() {
   // Announcements fetched from database via AnnouncementsFeed component
   // No hardcoded/fake announcements - strict rendering rule
 
-  const faqs = [
-    {
-      question: 'How do I access my courses?',
-      answer:
-        'Click "My Courses" from the dashboard. All enrolled courses will appear with direct links to course materials, lectures, and assignments.',
-    },
-    {
-      question: 'Where can I view my grades?',
-      answer:
-        'Navigate to "Grades & Progress" to see current grades, assignment scores, and overall completion percentage for each course.',
-    },
-    {
-      question: 'How do I contact my instructor?',
-      answer:
-        'Go to "Instructors" to see contact information, office hours, and messaging options for all your instructors.',
-    },
-    {
-      question: 'Can I download my transcripts?',
-      answer:
-        'Yes! Visit "Documents" to request official transcripts, download unofficial transcripts, and access certificates.',
-    },
-    {
-      question: 'What career services are available?',
-      answer:
-        'All students have free access to resume building, interview prep, job placement assistance, and networking events. Click "Career Services" to learn more.',
-    },
-    {
-      question: 'How do I get technical support?',
-      answer:
-        'Contact student services via phone, email, or live chat. Technical support is available Monday-Friday 9AM-6PM EST.',
-    },
+  // FAQs — load from DB, filtered to student-portal category first, then general fallback
+  const { data: faqsFromDb } = await supabase
+    .from('faqs')
+    .select('id, question, answer, category')
+    .eq('is_active', true)
+    .in('category', ['student-portal', 'general', 'enrollment', 'programs'])
+    .order('display_order', { ascending: true })
+    .limit(8);
+
+  const FALLBACK_FAQS = [
+    { id: '1', question: 'How do I access my courses?', answer: 'Click "My Courses" from the dashboard. All enrolled courses will appear with direct links to course materials, lectures, and assignments.' },
+    { id: '2', question: 'Where can I view my grades?', answer: 'Navigate to "Grades & Progress" to see current grades, assignment scores, and overall completion percentage for each course.' },
+    { id: '3', question: 'How do I contact my instructor?', answer: 'Go to "Instructors" to see contact information, office hours, and messaging options for all your instructors.' },
+    { id: '4', question: 'Can I download my transcripts?', answer: 'Yes! Visit "Documents" to request official transcripts, download unofficial transcripts, and access certificates.' },
+    { id: '5', question: 'What career services are available?', answer: 'All students have free access to resume building, interview prep, job placement assistance, and networking events. Click "Career Services" to learn more.' },
+    { id: '6', question: 'How do I get technical support?', answer: 'Contact student services via phone, email, or live chat. Technical support is available Monday–Friday 9AM–6PM EST.' },
   ];
+
+  const faqs = (faqsFromDb && faqsFromDb.length > 0) ? faqsFromDb : FALLBACK_FAQS;
 
   return (
     <div className="min-h-screen bg-white">
@@ -393,9 +380,9 @@ export default async function StudentPortalPage() {
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {faqs.map((faq, index) => (
+            {faqs.map((faq: any) => (
               <div
-                key={index}
+                key={faq.id}
                 className="bg-white border-2 border-gray-200 rounded-xl p-6"
               >
                 <h3 className="text-xl font-bold text-black mb-3">

@@ -1,12 +1,7 @@
-'use client';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
-/**
- * /admin/submissions/opportunities
- *
- * Opportunity pipeline for the External Submissions OS.
- * Lists all sos_opportunities rows, allows adding new ones via URL ingestion,
- * and links to per-opportunity profiling.
- */
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';

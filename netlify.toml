@@ -5,7 +5,7 @@
 [build]
   # libxml2-utils provides xmllint, required for IRS MeF XSD validation.
   # Without it, schema-validator.ts returns XMLLINT_NOT_AVAILABLE and blocks all submissions.
-  command = "corepack enable && pnpm install --no-frozen-lockfile && pnpm run build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
+  command = "corepack enable && pnpm install --no-frozen-lockfile && pnpm run build && node scripts/prune-node-modules.mjs"
   # publish is intentionally omitted — @netlify/plugin-nextjs manages the output directory.
   # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
   functions = "netlify/functions"
@@ -31,16 +31,15 @@
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   NEXT_DISABLE_MANAGED_TURBOPACK = "1"
   NETLIFY_USE_PNPM = "true"
-  # Production build uses webpack (Next.js default)
-  # Disable secret scanning - NEXT_PUBLIC_* vars are intentionally public
+  # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public
   SECRETS_SCAN_ENABLED = "false"
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXTAUTH_URL"
   # NHA account — non-secret, safe to store here
   NHA_ACCOUNT_NUMBER = "412957"
   NHA_PORTAL_URL = "https://www.nhanow.com/"
-  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXTAUTH_URL"
   # Admin dev tools - enabled for all builds, production guards handle access
   ENABLE_ADMIN_DEVTOOLS = "true"
-  # Skip browser binary downloads - reduces bundle size significantly
+  # Skip browser binary downloads — reduces install time significantly
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
   PUPPETEER_SKIP_DOWNLOAD = "1"
 
@@ -634,5 +633,28 @@
   for = "/onboarding/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+# ============================================
+# BOT / SCANNER TRAP — die at the edge, never reach SSR
+# ============================================
+[[redirects]]
+  from = "/panel/*"
+  to = "/404"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/media-manager/*"
+  to = "/404"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/.env"
+  to = "/404"
+  status = 410
+  force = true
+
+
 
 

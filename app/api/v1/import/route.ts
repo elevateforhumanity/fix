@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     logger.error('Import error:', error);
     return NextResponse.json(
-      { error: 'Import failed', details: error instanceof Error ? error.message : 'Unknown error' },
+      { error: 'Import failed' },
       { status: 500 }
     );
   }

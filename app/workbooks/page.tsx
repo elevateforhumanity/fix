@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { BookOpen, Download, FileText, GraduationCap } from 'lucide-react';
@@ -66,7 +69,7 @@ const workbooks = [
         pages: 100,
       },
       { title: 'Software Guide', file: 'tax-software-guide.pdf', pages: 60 },
-      { title: 'Ethics & Regulations', file: 'tax-ethics.pdf', pages: 50 },
+      // tax-ethics.pdf removed — file not yet available
     ],
   },
   {

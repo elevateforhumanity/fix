@@ -85,12 +85,9 @@ async function handleAudit(request: NextRequest, options: AuditOptions) {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
       },
     });
-  } catch (error) { /* Error handled silently */ 
+  } catch (error) {
     return NextResponse.json(
-      {
-        error: 'Audit failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Audit failed' },
       { status: 500 }
     );
   }

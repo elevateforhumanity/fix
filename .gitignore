@@ -238,3 +238,4 @@ public/videos/barber-lessons/*.srt
 public/videos/barber-clipper-options/
 public/videos/barber-infection-clips/
 public/videos/barber-orientation-clips/
+.env_local_*.txt

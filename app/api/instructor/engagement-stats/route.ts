@@ -41,8 +41,8 @@ async function _GET(request: Request) {
     
     const result = days.slice(1).concat(days[0]).map(day => ({
       day,
-      views: engagement[day].views || Math.floor(Math.random() * 30) + 20,
-      completions: engagement[day].completions || Math.floor(Math.random() * 15) + 5,
+      views: engagement[day].views,
+      completions: engagement[day].completions,
     }));
     
     return NextResponse.json({ engagement: result });

@@ -35,7 +35,7 @@ export default function PartnerOnboardingSuccessPage() {
       {/* Breadcrumbs */}
       <div className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[{ label: 'Partner', href: '/partner' }, { label: 'Onboarding', href: '/partner/onboarding' }, { label: 'Success' }]} />
+          <Breadcrumbs items={[{ label: 'Partner', href: '/partner/attendance' }, { label: 'Onboarding', href: '/partner/onboarding' }, { label: 'Success' }]} />
         </div>
       </div>
 
@@ -105,7 +105,7 @@ export default function PartnerOnboardingSuccessPage() {
 
           <div className="space-y-3">
             <Link
-              href="/partner/dashboard"
+              href="/partner/attendance"
               className="block w-full py-3 px-6 bg-brand-blue-600 text-white rounded-lg font-medium hover:bg-brand-blue-700 transition-colors"
             >
               Go to Partner Dashboard

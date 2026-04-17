@@ -22,6 +22,22 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing step' }, { status: 400 });
     }
 
+    // Guard: program holders and employers have separate onboarding flows.
+    // They must not write to the learner onboarding_progress table.
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    const blockedRoles = ['program_holder', 'employer', 'partner', 'admin', 'super_admin', 'staff'];
+    if (profile?.role && blockedRoles.includes(profile.role)) {
+      return NextResponse.json(
+        { error: 'This onboarding flow is for learners only.' },
+        { status: 403 }
+      );
+    }
+
     const now = new Date().toISOString();
 
     // Upsert into onboarding_progress

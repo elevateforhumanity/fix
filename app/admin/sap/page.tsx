@@ -19,6 +19,8 @@ import {
   Search,
 CheckCircle, } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
   title: 'SAP Monitoring | Admin Dashboard',

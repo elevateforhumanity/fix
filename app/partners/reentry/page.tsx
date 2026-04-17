@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import PublicLandingPage from '@/components/marketing/PublicLandingPage';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Reentry Workforce Partnership | Elevate for Humanity',
   description: 'Partner with Elevate for Humanity on reentry workforce programs. Job Ready Indy-funded career training for justice-involved individuals — trades, CDL, healthcare, and barbering.',

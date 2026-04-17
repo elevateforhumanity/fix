@@ -191,9 +191,20 @@ export default async function LearnerOnboardingPage({
   const application = applicationResult.data;
   const docCount = docCountResult.count || 0;
 
+  // Barber students who paid: if they have an active program_enrollment, send them
+  // directly to barber orientation — skip the generic onboarding checklist entirely.
+  if (enrollment?.program_slug === 'barber-apprenticeship' && enrollment?.status !== 'pending') {
+    if (!profile?.orientation_completed) {
+      redirect('/programs/barber-apprenticeship/orientation');
+    } else {
+      redirect('/apprentice');
+    }
+  }
+
   // Gate: onboarding is only available after the application is approved.
   // Statuses that mean "not yet approved":
   const PENDING_STATUSES = new Set(['submitted', 'in_review', 'under_review', 'pending_workone', 'waitlisted', 'funding_review']);
+  // paid/ready_to_enroll/approved all mean payment received — do not block
   const applicationPending = application && PENDING_STATUSES.has(application.status);
   // No application on record at all — user navigated here directly without applying
   const noApplication = !application && profile?.enrollment_status !== 'active';

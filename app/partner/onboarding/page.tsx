@@ -190,7 +190,7 @@ export default function PartnerOnboardingPage() {
       {/* Breadcrumbs */}
       <div className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[{ label: 'Partner', href: '/partner' }, { label: 'Onboarding' }]} />
+          <Breadcrumbs items={[{ label: 'Partner', href: '/partner/attendance' }, { label: 'Onboarding' }]} />
         </div>
       </div>
 

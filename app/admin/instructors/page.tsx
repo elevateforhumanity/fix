@@ -1,5 +1,7 @@
-'use client';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
+export const dynamic = 'force-dynamic';
 
 
 import React from 'react';

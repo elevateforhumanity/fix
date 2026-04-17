@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import { requireAdmin } from '@/lib/auth';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ShoppingBag, Users, DollarSign } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -33,7 +33,6 @@ const sections = [
 ];
 
 export default async function AdminMarketplacePage() {
-  await requireAdmin();
 
   return (
     <div className="min-h-screen bg-white">

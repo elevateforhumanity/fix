@@ -1,4 +1,5 @@
-'use client';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';

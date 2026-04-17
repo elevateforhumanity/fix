@@ -10,6 +10,9 @@ import {
   ArrowRight, Phone, ChevronRight, Zap,
 } from 'lucide-react';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Partners | Elevate for Humanity',
   description: 'Partner with Elevate for Humanity — barbershops, salons, workforce agencies, employers, training providers, reentry organizations, and technology partners.',

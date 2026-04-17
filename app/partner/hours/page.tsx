@@ -69,10 +69,13 @@ export default async function PartnerHoursPage() {
   try {
     const { data: placements } = await supabase
       .from('ojt_placements')
-      .select('id, student_id, employer_name, position_title, status, total_hours_required, total_hours_completed')
+      .select('id, student_id, employer_name, position_title, status, total_hours_required, total_hours_completed, profiles(full_name)')
       .eq('status', 'active')
       .limit(10);
-    ojtPlacements = placements || [];
+    ojtPlacements = (placements || []).map((p: any) => ({
+      ...p,
+      student_name: p.profiles?.full_name || null,
+    }));
 
     unverifiedOJT = await getUnverifiedHours(user.email || '');
   } catch {
@@ -80,22 +83,20 @@ export default async function PartnerHoursPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div>
 
       {/* Hero Image */}
-      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden">
+      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden rounded-xl mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
         <Image src="/images/pages/partner-page-6.jpg" alt="Training hours" fill sizes="100vw" className="object-cover" priority />
       </section>
-      <div className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[
-            { label: 'Partner', href: '/partner' },
-            { label: 'Hours' }
-          ]} />
-        </div>
+      <div className="mb-6">
+        <Breadcrumbs items={[
+          { label: 'Partner', href: '/partner/attendance' },
+          { label: 'Hours' }
+        ]} />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div>
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Hours Management</h1>
@@ -223,13 +224,13 @@ export default async function PartnerHoursPage() {
                       : 0;
                     return (
                       <tr key={p.id} className="hover:bg-white">
-                        <td className="px-6 py-4 text-sm font-medium">{p.student_id?.slice(0, 8)}...</td>
+                        <td className="px-6 py-4 text-sm font-medium">{p.student_name || p.student_id?.slice(0, 8) || '—'}</td>
                         <td className="px-6 py-4 text-sm text-gray-700">{p.employer_name}</td>
                         <td className="px-6 py-4 text-sm text-gray-700">{p.position_title}</td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2">
-                            <div className="flex-1 h-2 bg-white rounded-full overflow-hidden">
-                              <div className="h-full bg-white rounded-full" style={{ width: `${pct}%` }} />
+                            <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div className="h-full bg-brand-blue-500 rounded-full" style={{ width: `${pct}%` }} />
                             </div>
                             <span className="text-xs text-gray-500 w-10 text-right">{pct}%</span>
                           </div>

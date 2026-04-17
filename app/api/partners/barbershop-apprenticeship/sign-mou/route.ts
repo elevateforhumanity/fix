@@ -91,6 +91,7 @@ async function _POST(req: NextRequest) {
     const { data: mouRecord, error: insertError } = await supabase
       .from('mou_signatures')
       .insert({
+        partner_type: 'barbershop',
         signer_name: signer_name.trim(),
         signer_title: signer_title.trim(),
         signature_data,

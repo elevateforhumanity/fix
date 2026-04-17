@@ -1,11 +1,7 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
-import { RAPIDS_CONFIG } from '@/lib/compliance/rapids-config';
-import { Circle, XCircle, Copy, Shield, FileText, Users, Download, ExternalLink } from 'lucide-react';
-import Link from 'next/link';
+export const dynamic = 'force-dynamic';
 
 import { createBrowserClient } from '@supabase/ssr';
 

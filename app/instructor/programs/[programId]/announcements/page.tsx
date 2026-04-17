@@ -40,7 +40,7 @@ export default function InstructorProgramAnnouncementsPage() {
     // Check auth
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
-      router.push('/login');
+      router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
       return;
     }
 
@@ -92,7 +92,7 @@ export default function InstructorProgramAnnouncementsPage() {
     
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
-      router.push('/login');
+      router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
       return;
     }
 

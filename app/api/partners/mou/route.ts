@@ -49,6 +49,7 @@ async function _POST(req: Request) {
 
     // Insert into mou_signatures table
     const { error } = await supabase.from('mou_signatures').insert({
+      partner_type: 'partner',
       organization_name: orgName,
       contact_name: contactName,
       contact_title: title,

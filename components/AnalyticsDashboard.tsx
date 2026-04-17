@@ -87,21 +87,10 @@ export function AnalyticsDashboard({ data, timeframe = 'month' }: AnalyticsDashb
     },
   ];
 
-  const topCourses = [
-    { name: 'CNA Certification', students: 342, completion: 92 },
-    { name: 'HVAC Technician', students: 256, completion: 88 },
-    { name: 'Barber Apprenticeship', students: 189, completion: 95 },
-    { name: 'Web Development', students: 167, completion: 85 },
-    { name: 'Truck Driving', students: 145, completion: 90 },
-  ];
-
-  const recentActivity = [
-    { user: 'Sarah Johnson', action: 'Completed CNA Module 5', time: '2 minutes ago' },
-    { user: 'Michael Chen', action: 'Earned "Quiz Master" badge', time: '15 minutes ago' },
-    { user: 'Emily Rodriguez', action: 'Started HVAC Course', time: '1 hour ago' },
-    { user: 'David Kim', action: 'Submitted Assignment 3', time: '2 hours ago' },
-    { user: 'Lisa Williams', action: 'Achieved 7-day streak', time: '3 hours ago' },
-  ];
+  // topCourses and recentActivity must be passed as props or fetched by the parent.
+  // Hardcoded placeholder data has been removed — render empty state when not provided.
+  const topCourses: { name: string; students: number; completion: number }[] = [];
+  const recentActivity: { user: string; action: string; time: string }[] = [];
 
   return (
     <div className="space-y-6">

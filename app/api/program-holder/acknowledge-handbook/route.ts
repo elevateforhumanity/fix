@@ -23,6 +23,20 @@ async function _POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Guard: only program holders may acknowledge the program holder handbook.
+    const { data: callerProfile } = await supabase
+      .from('profiles')
+      .select('role, email, full_name')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    if (!callerProfile || !['program_holder', 'admin', 'super_admin'].includes(callerProfile.role ?? '')) {
+      return NextResponse.json(
+        { error: 'This endpoint is for program holders only.' },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const { fullName, title } = body;
 
@@ -33,12 +47,8 @@ async function _POST(req: Request) {
       );
     }
 
-    // Get user profile
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('email, full_name')
-      .eq('id', user.id)
-      .maybeSingle();
+    // Profile already fetched above — reuse it
+    const profile = callerProfile;
 
     // Insert acknowledgement — only live schema columns
     const { data, error }: any = await supabase

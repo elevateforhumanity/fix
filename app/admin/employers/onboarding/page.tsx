@@ -16,12 +16,22 @@ export default async function EmployerOnboardingReview() {
   const supabase = await getAdminClient();
   
   let onboardings: any[] = [];
+  let orientationProgress: any[] = [];
   if (supabase) {
-    const { data } = await supabase
-      .from('employer_onboarding')
-      .select('*')
-      .order('created_at', { ascending: false });
-    onboardings = data || [];
+    const [onboardingRes, orientationRes] = await Promise.all([
+      supabase
+        .from('employer_onboarding')
+        .select('*')
+        .order('created_at', { ascending: false }),
+      // employer_onboarding_progress — written by /onboarding/employer/orientation
+      supabase
+        .from('employer_onboarding_progress')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(100),
+    ]);
+    onboardings = onboardingRes.data || [];
+    orientationProgress = orientationRes.data || [];
   }
 
   const statusColors: Record<string, string> = {
@@ -131,12 +141,48 @@ export default async function EmployerOnboardingReview() {
 
           {!onboardings || onboardings.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-black">
-                No employer onboarding submissions yet
-              </p>
+              <p className="text-black">No employer onboarding submissions yet</p>
             </div>
           ) : null}
         </div>
+
+        {/* Employer Orientation Progress */}
+        {orientationProgress.length > 0 && (
+          <div className="bg-white rounded-xl shadow-md border border-slate-200 p-6 mt-8">
+            <h2 className="text-xl font-bold text-black mb-4">Employer Orientation Progress</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 border-b">
+                  <tr>
+                    {['Employer ID', 'Step', 'Status', 'Completed At'].map(h => (
+                      <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {orientationProgress.map((row: any) => (
+                    <tr key={row.id ?? row.employer_id} className="hover:bg-slate-50">
+                      <td className="px-4 py-3 font-mono text-xs text-slate-400">{(row.employer_id ?? row.user_id ?? '—').slice(0, 8)}…</td>
+                      <td className="px-4 py-3 text-slate-700 capitalize">{(row.step ?? row.current_step ?? '—').replace(/_/g, ' ')}</td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
+                          row.status === 'completed' ? 'bg-green-100 text-green-700'
+                          : row.status === 'in_progress' ? 'bg-amber-100 text-amber-700'
+                          : 'bg-slate-100 text-slate-500'
+                        }`}>
+                          {row.status ?? 'pending'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-slate-500 text-xs">
+                        {row.completed_at ? new Date(row.completed_at).toLocaleDateString() : '—'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Shield, CheckCircle, Building2, Users, TrendingUp, Mail } from 'lucide-react';

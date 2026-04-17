@@ -4,35 +4,30 @@ import { createServerSupabaseClient } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-
-import { auditMutation } from '@/lib/api/withAudit';
+import { apiAuthGuard } from '@/lib/admin/guards';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
+
 export const runtime = 'nodejs';
 export const maxDuration = 60;
-
 export const dynamic = 'force-dynamic';
 
 async function _POST(request: NextRequest) {
   try {
+    const auth = await apiAuthGuard(request);
+    if (auth.error) return auth.error;
+
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
+    const userId = auth.user.id;
     const supabase = await createServerSupabaseClient();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const formData = await request.json();
 
     // Save learner onboarding data to database
     const { error: insertError } = await supabase
       .from('learner_onboarding')
       .insert({
-        user_id: session.user.id,
+        user_id: userId,
         full_name: formData.full_name,
         phone: formData.phone,
         email: formData.email,
@@ -53,20 +48,20 @@ async function _POST(request: NextRequest) {
 
     if (insertError) throw insertError;
 
-    // Update profile to mark onboarding as started
+    // Mark onboarding as started on the user's profile
     await supabase
       .from('profiles')
       .update({
         onboarding_started: true,
         onboarding_started_at: new Date().toISOString(),
       })
-      .eq('id', session.user.id);
+      .eq('id', userId);
 
     return NextResponse.json({
       success: true,
       message: 'Learner onboarding submitted successfully',
     });
-  } catch (error) { 
+  } catch (error) {
     logger.error(
       'Learner onboarding error:',
       error instanceof Error ? error : new Error(String(error))
@@ -77,4 +72,5 @@ async function _POST(request: NextRequest) {
     );
   }
 }
+
 export const POST = withApiAudit('/api/onboarding/learner', _POST);

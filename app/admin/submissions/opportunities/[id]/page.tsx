@@ -1,14 +1,7 @@
-'use client';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import {
-  ArrowLeft, ExternalLink, Calendar, Building2, Hash,
-  DollarSign, Save, Loader2, AlertTriangle, CheckCircle2,
-  Plus, Trash2, ChevronDown, ChevronUp,
-} from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
+export const dynamic = 'force-dynamic';
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;

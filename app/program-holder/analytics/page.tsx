@@ -119,46 +119,75 @@ export default async function ProgramHolderAnalyticsPage() {
     })
   );
 
+  // Completion rate — current vs previous period
+  const { count: currentCompleted } = await db
+    .from('program_enrollments')
+    .select('*', { count: 'exact', head: true })
+    .eq('program_holder_id', programHolder.id)
+    .eq('status', 'completed')
+    .gte('updated_at', thirtyDaysAgo.toISOString());
+
+  const { count: previousCompleted } = await db
+    .from('program_enrollments')
+    .select('*', { count: 'exact', head: true })
+    .eq('program_holder_id', programHolder.id)
+    .eq('status', 'completed')
+    .gte('updated_at', sixtyDaysAgo.toISOString())
+    .lt('updated_at', thirtyDaysAgo.toISOString());
+
   // Calculate changes
-  const enrollmentChange = previousEnrollments 
+  const enrollmentChange = previousEnrollments
     ? Math.round(((currentEnrollments || 0) - previousEnrollments) / previousEnrollments * 100)
     : 0;
 
-  const completionRate = totalEnrollments 
+  const completionRate = totalEnrollments
     ? Math.round((completedEnrollments || 0) / totalEnrollments * 100)
     : 0;
 
-  // Estimated revenue (simplified calculation)
-  const estimatedRevenue = (completedEnrollments || 0) * 500 * (programHolder.payout_share / 100);
+  const prevCompletionRate = (previousEnrollments || 0) > 0
+    ? Math.round((previousCompleted || 0) / previousEnrollments * 100)
+    : 0;
+  const currentCompletionRate = (currentEnrollments || 0) > 0
+    ? Math.round((currentCompleted || 0) / (currentEnrollments || 1) * 100)
+    : 0;
+  const completionRateChange = currentCompletionRate - prevCompletionRate;
+
+  // Estimated revenue — current vs previous period
+  const payoutShare = (programHolder.payout_share ?? 50) / 100;
+  const estimatedRevenue = (completedEnrollments || 0) * 500 * payoutShare;
+  const prevRevenue = (previousCompleted || 0) * 500 * payoutShare;
+  const revenueChange = prevRevenue > 0
+    ? Math.round(((estimatedRevenue - prevRevenue) / prevRevenue) * 100)
+    : 0;
 
   const metrics = [
-    { 
-      label: 'Total Enrollments', 
-      value: totalEnrollments || 0, 
-      change: `${enrollmentChange >= 0 ? '+' : ''}${enrollmentChange}%`, 
-      up: enrollmentChange >= 0, 
-      icon: Users 
+    {
+      label: 'Total Enrollments',
+      value: totalEnrollments || 0,
+      change: `${enrollmentChange >= 0 ? '+' : ''}${enrollmentChange}%`,
+      up: enrollmentChange >= 0,
+      icon: Users,
     },
-    { 
-      label: 'Completion Rate', 
-      value: `${completionRate}%`, 
-      change: '+5%', 
-      up: true, 
-      icon: GraduationCap 
+    {
+      label: 'Completion Rate',
+      value: `${completionRate}%`,
+      change: `${completionRateChange >= 0 ? '+' : ''}${completionRateChange}%`,
+      up: completionRateChange >= 0,
+      icon: GraduationCap,
     },
-    { 
-      label: 'Est. Revenue', 
-      value: `$${estimatedRevenue.toLocaleString()}`, 
-      change: '+18%', 
-      up: true, 
-      icon: DollarSign 
+    {
+      label: 'Est. Revenue',
+      value: `$${estimatedRevenue.toLocaleString()}`,
+      change: `${revenueChange >= 0 ? '+' : ''}${revenueChange}%`,
+      up: revenueChange >= 0,
+      icon: DollarSign,
     },
-    { 
-      label: 'Active Students', 
-      value: activeEnrollments || 0, 
-      change: currentEnrollments ? `+${currentEnrollments}` : '0', 
-      up: true, 
-      icon: TrendingUp 
+    {
+      label: 'Active Students',
+      value: activeEnrollments || 0,
+      change: currentEnrollments ? `+${currentEnrollments}` : '0',
+      up: true,
+      icon: TrendingUp,
     },
   ];
 

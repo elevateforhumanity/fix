@@ -74,6 +74,7 @@ async function _POST(request: NextRequest) {
 
     // 2. Store MOU signature record
     await db.from('mou_signatures').insert({
+      partner_type: 'barbershop',
       organization_name: shop_name,
       contact_name: owner_name,
       contact_title: 'Owner',

@@ -57,7 +57,7 @@ export default function TransitionButtons({
         body: JSON.stringify({
           application_type: applicationType,
           application_id: applicationId,
-          new_state: newState,
+          next_status: newState,
           reason: `Admin changed state to ${newState}`,
         }),
       });

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { Metadata } from 'next';
 import { getDb } from '@/lib/lms/api';
 import Link from 'next/link';

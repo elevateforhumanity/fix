@@ -1,6 +1,8 @@
 // Service Worker for Elevate for Humanity PWA
-// CACHE_VERSION is replaced at build time by scripts/stamp-sw.mjs
-const CACHE_VERSION = '__CACHE_VERSION__';
+// CACHE_VERSION is replaced at build time by scripts/stamp-sw.mjs.
+// If the token was never replaced (broken build / local dev), fall back to a
+// timestamp so old caches are always evicted and users never see a blank screen.
+const CACHE_VERSION = '__CACHE_VERSION__'.startsWith('__') ? `fallback-${Date.now()}` : '__CACHE_VERSION__';
 const STATIC_CACHE = `elevate-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `elevate-dynamic-${CACHE_VERSION}`;
 const COURSE_CACHE = `elevate-courses-${CACHE_VERSION}`;
@@ -367,4 +369,4 @@ self.addEventListener('message', (event) => {
   }
 });
 
-console.log('[SW] Service Worker v7 loaded');
+console.log(`[SW] Service Worker loaded — cache: ${CACHE_VERSION}`);

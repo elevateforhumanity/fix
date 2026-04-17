@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -53,47 +52,41 @@ export default async function ApplicationDetailPage({
 }) {
   await requireRole(['admin', 'super_admin']);
   const { type, id } = await params;
-  const supabase = await createClient();
 
+  const db = await getAdminClient();
 
-
-
-  // Query from the unified view
-  const { data: application, error } = await supabase
-    .from('admin_applications_queue')
-    .select('*')
-    .eq('application_type', type)
-    .eq('application_id', id)
+  // Query directly from applications table — admin_applications_queue is a stub
+  const { data: application, error } = await db
+    .from('applications')
+    .select('id, status, user_id, program_slug, program_interest, email, first_name, last_name, full_name, phone, created_at, updated_at, funding_verified, payment_received_at, eligibility_status, has_workone_approval, notes, address, city, state, zip, dob, ssn_last4, employment_status, education_level, referred_by')
+    .eq('id', id)
     .maybeSingle();
 
   if (error || !application) {
     notFound();
   }
 
-  const intake = application.intake || {};
-  const firstName = intake.first_name || '';
-  const lastName = intake.last_name || '';
-  const email = intake.email || '';
-  const phone = intake.phone || '';
+  const firstName = application.first_name || application.full_name?.split(' ')[0] || '';
+  const lastName = application.last_name || application.full_name?.split(' ').slice(1).join(' ') || '';
+  const email = application.email || '';
+  const phone = application.phone || '';
   const displayName = firstName || lastName ? `${firstName} ${lastName}`.trim() : 'Unknown Applicant';
 
-  // Fetch state events if available
-  const { data: stateEvents } = await supabase
-    .from('application_state_events')
-    .select('id, from_state, to_state, actor_id, actor_role, reason, created_at')
-    .eq('application_id', id)
+  // Fetch state history from audit_logs
+  const { data: stateEvents } = await db
+    .from('audit_logs')
+    .select('id, metadata, actor_id, actor_role, created_at')
+    .eq('entity_type', 'application')
+    .eq('entity_id', id)
+    .eq('action', 'status_transition')
     .order('created_at', { ascending: true });
 
   // Fetch eligibility review if exists
-  let adminDb: Awaited<ReturnType<typeof getAdminClient>> | null = null;
-  try { adminDb = await getAdminClient(); } catch {}
-  const { data: eligibilityReview } = adminDb
-    ? await adminDb
-        .from('application_eligibility_reviews')
-        .select('*')
-        .eq('application_id', id)
-        .maybeSingle()
-    : { data: null };
+  const { data: eligibilityReview } = await db
+    .from('application_eligibility_reviews')
+    .select('*')
+    .eq('application_id', id)
+    .maybeSingle();
 
   return (
     <div className="min-h-screen bg-white">
@@ -122,9 +115,9 @@ export default async function ApplicationDetailPage({
           </div>
           <div className="flex gap-3">
             <span
-              className={`inline-flex px-3 py-1 text-sm font-medium rounded-full border ${stateColors[application.state] || 'bg-gray-100 text-gray-800 border-gray-300'}`}
+              className={`inline-flex px-3 py-1 text-sm font-medium rounded-full border ${stateColors[application.status] || 'bg-gray-100 text-gray-800 border-gray-300'}`}
             >
-              {stateLabels[application.state] || application.state}
+              {stateLabels[application.status] || application.status}
             </span>
             <Link
               href="/admin/applications"
@@ -167,25 +160,31 @@ export default async function ApplicationDetailPage({
               </dl>
             </div>
 
-            {/* All Intake Data */}
+            {/* Application Data */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Application Data</h2>
               <dl className="grid grid-cols-2 gap-4">
-                {Object.entries(intake).map(([key, value]) => {
-                  if (key === 'first_name' || key === 'last_name' || key === 'email' || key === 'phone') {
-                    return null; // Already shown above
-                  }
-                  return (
-                    <div key={key}>
-                      <dt className="text-sm font-medium text-gray-500 capitalize">
-                        {key.replace(/_/g, ' ')}
-                      </dt>
-                      <dd className="text-sm text-gray-900">
-                        {typeof value === 'object' ? JSON.stringify(value) : String(value || 'Not provided')}
-                      </dd>
-                    </div>
-                  );
-                })}
+                {[
+                  ['Program', application.program_slug || application.program_interest || 'Not provided'],
+                  ['Address', application.address || 'Not provided'],
+                  ['City', application.city || 'Not provided'],
+                  ['State', application.state || 'Not provided'],
+                  ['ZIP', application.zip || 'Not provided'],
+                  ['Date of Birth', application.dob || 'Not provided'],
+                  ['SSN Last 4', application.ssn_last4 || 'Not provided'],
+                  ['Employment Status', application.employment_status || 'Not provided'],
+                  ['Education Level', application.education_level || 'Not provided'],
+                  ['Referred By', application.referred_by || 'Not provided'],
+                  ['Funding Verified', application.funding_verified ? 'Yes' : 'No'],
+                  ['Eligibility Status', application.eligibility_status || 'Not provided'],
+                  ['WorkOne Approval', application.has_workone_approval ? 'Yes' : 'No'],
+                  ['Notes', application.notes || '—'],
+                ].map(([label, value]) => (
+                  <div key={label as string}>
+                    <dt className="text-sm font-medium text-gray-500">{label}</dt>
+                    <dd className="text-sm text-gray-900">{value}</dd>
+                  </div>
+                ))}
               </dl>
             </div>
           </div>
@@ -198,7 +197,7 @@ export default async function ApplicationDetailPage({
               <TransitionButtons
                 applicationType={type}
                 applicationId={id}
-                currentState={application.state}
+                currentState={application.status}
               />
             </div>
 
@@ -214,9 +213,9 @@ export default async function ApplicationDetailPage({
                   <dt className="text-sm font-medium text-gray-500">Current State</dt>
                   <dd className="mt-1">
                     <span
-                      className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${stateColors[application.state] || 'bg-gray-100 text-gray-800'}`}
+                      className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${stateColors[application.status] || 'bg-gray-100 text-gray-800'}`}
                     >
-                      {stateLabels[application.state] || application.state}
+                      {stateLabels[application.status] || application.status}
                     </span>
                   </dd>
                 </div>
@@ -229,7 +228,7 @@ export default async function ApplicationDetailPage({
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Last Updated</dt>
                   <dd className="text-sm text-gray-900">
-                    {application.state_updated_at ? new Date(application.state_updated_at).toLocaleString() : '-'}
+                    {application.updated_at ? new Date(application.updated_at).toLocaleString() : '-'}
                   </dd>
                 </div>
               </dl>
@@ -240,33 +239,38 @@ export default async function ApplicationDetailPage({
               <h2 className="text-lg font-semibold text-gray-900 mb-4">State History</h2>
               {stateEvents && stateEvents.length > 0 ? (
                 <div className="space-y-4">
-                  {stateEvents.map((event, index) => (
-                    <div
-                      key={event.id}
-                      className="relative pl-4 border-l-2 border-gray-200 pb-4 last:pb-0"
-                    >
+                  {stateEvents.map((event, index) => {
+                    const meta = (event.metadata as any) || {};
+                    return (
                       <div
-                        className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${
-                          index === stateEvents.length - 1
-                            ? 'bg-brand-blue-600'
-                            : 'bg-gray-300'
-                        }`}
-                      />
-                      <div className="text-sm">
-                        <span
-                          className={`inline-flex px-2 py-0.5 text-xs font-medium rounded ${stateColors[event.to_state] || 'bg-gray-100 text-gray-800'}`}
-                        >
-                          {stateLabels[event.to_state] || event.to_state}
-                        </span>
-                        <p className="text-gray-500 mt-1 text-xs">
-                          {event.reason || 'State changed'} - {new Date(event.created_at).toLocaleString()}
-                        </p>
-                        {event.actor_role && (
-                          <p className="text-gray-400 text-xs">by {event.actor_role}</p>
-                        )}
+                        key={event.id}
+                        className="relative pl-4 border-l-2 border-gray-200 pb-4 last:pb-0"
+                      >
+                        <div
+                          className={`absolute -left-1.5 top-0 w-3 h-3 rounded-full ${
+                            index === stateEvents.length - 1
+                              ? 'bg-brand-blue-600'
+                              : 'bg-gray-300'
+                          }`}
+                        />
+                        <div className="text-sm">
+                          <span className="text-xs text-gray-400">{meta.from || '—'}</span>
+                          <span className="mx-1 text-gray-300">→</span>
+                          <span
+                            className={`inline-flex px-2 py-0.5 text-xs font-medium rounded ${stateColors[meta.to] || 'bg-gray-100 text-gray-800'}`}
+                          >
+                            {stateLabels[meta.to] || meta.to}
+                          </span>
+                          <p className="text-gray-500 mt-1 text-xs">
+                            {meta.reason || 'State changed'} — {new Date(event.created_at).toLocaleString()}
+                          </p>
+                          {event.actor_role && (
+                            <p className="text-gray-400 text-xs">by {event.actor_role}</p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               ) : (
                 <p className="text-sm text-gray-500">No state history available.</p>

@@ -127,21 +127,17 @@ export default function PartnerDocumentsPage() {
   const progress = requiredDocs.length > 0 ? Math.round((completedDocs.length / requiredDocs.length) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div>
 
       {/* Hero Image */}
-      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden">
+      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden rounded-xl mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
         <Image src="/images/pages/partner-page-5.jpg" alt="Partner documents" fill sizes="100vw" className="object-cover" priority />
       </section>
-      {/* Breadcrumbs */}
-      <div className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[{ label: 'Partner', href: '/partner' }, { label: 'Documents' }]} />
-        </div>
+      <div className="mb-6">
+        <Breadcrumbs items={[{ label: 'Partner', href: '/partner/attendance' }, { label: 'Documents' }]} />
       </div>
-      
-      <div className="py-8 px-4">
-      <div className="max-w-3xl mx-auto">
+
+      <div className="max-w-3xl">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-brand-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -269,7 +265,7 @@ export default function PartnerDocumentsPage() {
         <div className="mt-8 flex justify-center gap-4">
           {allComplete ? (
             <Link
-              href="/partner/dashboard"
+              href="/partner/attendance"
               className="flex items-center gap-2 px-8 py-3 bg-brand-green-600 text-white rounded-lg font-medium hover:bg-brand-green-700 transition-colors"
             >
               Go to Dashboard
@@ -281,7 +277,6 @@ export default function PartnerDocumentsPage() {
             </p>
           )}
         </div>
-      </div>
       </div>
     </div>
   );

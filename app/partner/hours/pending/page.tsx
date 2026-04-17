@@ -174,7 +174,7 @@ export default function PartnerHoursPendingPage() {
       <div className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[
-            { label: 'Partner', href: '/partner' },
+            { label: 'Partner', href: '/partner/attendance' },
             { label: 'Hours', href: '/partner/hours' },
             { label: 'Pending Review' }
           ]} />

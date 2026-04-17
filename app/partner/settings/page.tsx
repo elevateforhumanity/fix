@@ -59,24 +59,19 @@ export default async function PartnerSettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden">
+    <div>
+      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden rounded-xl mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
         <Image src="/images/pages/partner-page-13.jpg" alt="Partner settings" fill sizes="100vw" className="object-cover" priority />
       </section>
-      <div className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[{ label: 'Partner', href: '/partner-portal' }, { label: 'Settings' }]} />
-        </div>
+      <div className="mb-6">
+        <Breadcrumbs items={[{ label: 'Partner', href: '/partner/attendance' }, { label: 'Settings' }]} />
       </div>
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="max-w-3xl">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Partner Settings</h1>
             <p className="text-gray-600">Manage your organization profile and preferences</p>
           </div>
-          <Link href="/partner/dashboard" className="text-brand-blue-600 hover:text-brand-blue-700">
-            ← Back to Portal
-          </Link>
         </div>
         <PartnerSettingsForm initialData={initialData} />
       </div>

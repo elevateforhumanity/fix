@@ -136,6 +136,22 @@ export const PROGRAM_BLUEPRINT: CredentialBlueprint = {
   // ── Video format — locked ─────────────────────────────────────────────────
   videoConfig: PROGRAM_VIDEO_CONFIG,
 
+  // ── Certification pathway ─────────────────────────────────────────────────
+  // Required for exam authorization to auto-fire when a learner completes all
+  // checkpoints. Without this, the trigger silently skips authorization.
+  // certificationBodyId: UUID from certification_bodies table.
+  // Omit entirely for non-credentialed / internal programs.
+  //
+  // certificationPathway: {
+  //   certificationBodyId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  //   credentialName:      'Full Credential Name',
+  //   credentialAbbrev:    'ABBREV',
+  //   examFeeCents:        0,        // 0 = covered by program tuition
+  //   feePayer:            'student', // 'student' | 'elevate' | 'grant'
+  //   eligibilityReview:   false,
+  //   isPrimary:           true,
+  // },
+
   // ── Assessment rules ──────────────────────────────────────────────────────
   assessmentRules: [
     {

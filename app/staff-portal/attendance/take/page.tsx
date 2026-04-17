@@ -39,7 +39,7 @@ export default function TakeAttendancePage() {
     async function load() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { router.push('/login'); return; }
+      if (!user) { router.push('/login?redirect=' + encodeURIComponent(window.location.pathname)); return; }
 
       const { data: cohortData } = await supabase
         .from('cohorts')

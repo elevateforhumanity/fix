@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Studio WebSocket info — no sensitive data returned
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 

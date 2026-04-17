@@ -12,6 +12,8 @@ import { withTimeout } from '@/lib/utils/withTimeout';
 import AdminNav from '@/components/admin/AdminNav';
 import { DemoTourProvider } from '@/components/demo/DemoTourProvider';
 import { IdleTimeoutGuard } from '@/components/auth/IdleTimeoutGuard';
+import PWAManager from '@/app/components/PWAManager';
+import { UpdatePrompt } from '@/components/pwa/UpdatePrompt';
 
 
 export const dynamic = 'force-dynamic';

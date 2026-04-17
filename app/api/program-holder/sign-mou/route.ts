@@ -42,9 +42,10 @@ async function _POST(request: NextRequest) {
     const { data: signature, error: sigError } = await supabase
       .from('mou_signatures')
       .insert({
+        partner_type: 'program_holder',
         signer_name: signerName,
         signer_title: signerTitle,
-        signature_data: signatureDataUrl,   // live column name
+        signature_data: signatureDataUrl,
         signed_at: new Date().toISOString(),
         agreed_at: new Date().toISOString(),
         ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown',

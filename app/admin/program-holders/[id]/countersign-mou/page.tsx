@@ -1,148 +1,217 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
-import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';
-import Image from 'next/image';
+import { notFound, redirect } from 'next/navigation';
+import { FileSignature, CheckCircle, XCircle, ArrowLeft, ExternalLink } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  alternates: {
-    canonical:
-      'https://www.elevateforhumanity.org/admin/program-holders/[id]/countersign-mou',
-  },
-  title: 'Countersign Mou | Elevate For Humanity',
-  description:
-    'Countersign program holder MOUs.',
+  title: 'Countersign MOU | Admin | Elevate For Humanity',
+  robots: { index: false, follow: false },
 };
 
-export default async function CountersignMouPage() {
+interface Props {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string; success?: string }>;
+}
+
+export default async function CountersignMouPage({ params, searchParams }: Props) {
+  const { id } = await params;
+  const { error: pageError, success: pageSuccess } = await searchParams;
+
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
+  const db = await getAdminClient();
 
+  // Fetch the program holder
+  const { data: holder } = await db
+    .from('program_holders')
+    .select('id, organization_name, contact_name, contact_email, mou_signed, mou_signed_at, mou_final_pdf_url, mou_status, status, user_id')
+    .eq('id', id)
+    .maybeSingle();
 
+  if (!holder) notFound();
 
-  // Fetch relevant data
-  const { data: items, count } = await supabase
-    .from('programs')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .limit(20);
+  // Fetch MOU signature record scoped to this holder's user_id
+  const { data: mouSig } = await db
+    .from('mou_signatures')
+    .select('id, signer_name, signer_title, supervisor_name, supervisor_license, compensation_model, compensation_rate, mou_version, signed_at, ip_address')
+    .eq('user_id', holder.user_id)
+    .order('signed_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
-  const { count: activeItems } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active');
+  // Server action: mark MOU as countersigned
+  async function countersignMou() {
+    'use server';
+    const db2 = await getAdminClient();
+    const { error } = await db2
+      .from('program_holders')
+      .update({
+        mou_signed: true,
+        mou_signed_at: new Date().toISOString(),
+        mou_status: 'countersigned',
+      })
+      .eq('id', id);
+
+    if (error) {
+      redirect(`/admin/program-holders/${id}/countersign-mou?error=${encodeURIComponent(error.message)}`);
+    }
+    redirect(`/admin/program-holders/${id}?success=${encodeURIComponent('MOU countersigned successfully')}`);
+  }
 
   return (
     <div className="min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <Breadcrumbs items={[
+          { label: 'Admin', href: '/admin' },
+          { label: 'Program Holders', href: '/admin/program-holders' },
+          { label: holder.organization_name ?? 'Holder', href: `/admin/program-holders/${id}` },
+          { label: 'Countersign MOU' },
+        ]} />
+      </div>
 
-      {/* Hero Image */}
-      {/* Hero Section */}
-      <section className="relative h-48 md:h-64 overflow-hidden">
-        <Image
-          src="/images/pages/admin-ph-countersign-detail.jpg"
-          alt="Countersign Mou"
-          fill
-          className="object-cover"
-          quality={100}
-          priority
-          sizes="100vw"
-        />
-
-      </section>
-
-      {/* Content Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Total Items
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {count || 0}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Active
-                </h3>
-                <p className="text-3xl font-bold text-brand-green-600">
-                  {activeItems || 0}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Recent
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {items?.filter((i) => {
-                    const created = new Date(i.created_at);
-                    const weekAgo = new Date();
-                    weekAgo.setDate(weekAgo.getDate() - 7);
-                    return created > weekAgo;
-                  }).length || 0}
-                </p>
-              </div>
-            </div>
-
-            {/* Data Display */}
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-2xl font-bold mb-4">Items</h2>
-              {items && items.length > 0 ? (
-                <div className="space-y-4">
-                  {items.map((item: any) => (
-                    <div
-                      key={item.id}
-                      className="p-4 border rounded-lg hover:bg-gray-50"
-                    >
-                      <p className="font-semibold">
-                        {item.title || item.name || item.id}
-                      </p>
-                      <p className="text-sm text-black">
-                        {new Date(item.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-black text-center py-8">No items found</p>
-              )}
-            </div>
+      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+        <div className="flex items-center gap-3">
+          <Link href={`/admin/program-holders/${id}`} className="text-slate-500 hover:text-slate-700">
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">Countersign MOU</h1>
+            <p className="text-sm text-slate-500">{holder.organization_name}</p>
           </div>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-brand-blue-700">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Countersign MOU
-                        </h2>
-            <p className="text-base md:text-lg text-brand-blue-100 mb-8">
-              Review and countersign memoranda of understanding with program holders.
-                        </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/admin/program-holders"
-                className="bg-white text-brand-blue-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 text-lg"
-              >
-                View Holders
-              </Link>
-              <Link
-                href="/admin/partners"
-                className="bg-brand-blue-800 text-white px-8 py-4 rounded-lg font-semibold hover:bg-brand-blue-600 border-2 border-white text-lg"
-              >
-                View Partners
-              </Link>
-            </div>
+        {pageError && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-sm text-red-800">
+            <strong>Error:</strong> {pageError}
           </div>
+        )}
+        {pageSuccess && (
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-green-800">
+            {pageSuccess}
+          </div>
+        )}
+
+        {/* MOU Status */}
+        <div className="bg-white rounded-xl border shadow-sm p-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+            <FileSignature className="w-5 h-5 text-slate-600" />
+            MOU Status
+          </h2>
+          <dl className="grid sm:grid-cols-2 gap-4 text-sm">
+            <div>
+              <dt className="text-slate-500">Organization</dt>
+              <dd className="font-medium text-slate-900">{holder.organization_name ?? '—'}</dd>
+            </div>
+            <div>
+              <dt className="text-slate-500">Contact</dt>
+              <dd className="font-medium text-slate-900">{holder.contact_name ?? '—'}</dd>
+            </div>
+            <div>
+              <dt className="text-slate-500">MOU Signed by Holder</dt>
+              <dd className="flex items-center gap-1 font-medium">
+                {holder.mou_signed
+                  ? <><CheckCircle className="w-4 h-4 text-green-600" /><span className="text-green-700">Yes — {holder.mou_signed_at ? new Date(holder.mou_signed_at).toLocaleDateString() : ''}</span></>
+                  : <><XCircle className="w-4 h-4 text-slate-400" /><span className="text-slate-500">Not yet signed</span></>}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-slate-500">MOU Status</dt>
+              <dd className="font-medium text-slate-900 capitalize">{holder.mou_status ?? 'pending'}</dd>
+            </div>
+            {holder.mou_final_pdf_url && (
+              <div className="sm:col-span-2">
+                <dt className="text-slate-500 mb-1">Signed PDF</dt>
+                <dd>
+                  <a
+                    href={holder.mou_final_pdf_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-brand-blue-600 hover:underline text-sm font-medium"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    View Signed MOU PDF
+                  </a>
+                </dd>
+              </div>
+            )}
+          </dl>
         </div>
-      </section>
+
+        {/* Signature Details */}
+        {mouSig && (
+          <div className="bg-white rounded-xl border shadow-sm p-6">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Holder Signature Details</h2>
+            <dl className="grid sm:grid-cols-2 gap-4 text-sm">
+              <div>
+                <dt className="text-slate-500">Signer Name</dt>
+                <dd className="font-medium text-slate-900">{mouSig.signer_name}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">Title</dt>
+                <dd className="font-medium text-slate-900">{mouSig.signer_title ?? '—'}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">Supervisor</dt>
+                <dd className="font-medium text-slate-900">{mouSig.supervisor_name ?? '—'}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">Supervisor License</dt>
+                <dd className="font-medium text-slate-900">{mouSig.supervisor_license ?? '—'}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">Compensation Model</dt>
+                <dd className="font-medium text-slate-900">{mouSig.compensation_model ?? '—'}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">Compensation Rate</dt>
+                <dd className="font-medium text-slate-900">{mouSig.compensation_rate ?? '—'}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">MOU Version</dt>
+                <dd className="font-medium text-slate-900">{mouSig.mou_version ?? '—'}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-500">Signed At</dt>
+                <dd className="font-medium text-slate-900">{new Date(mouSig.signed_at).toLocaleDateString()}</dd>
+              </div>
+            </dl>
+          </div>
+        )}
+
+        {/* Countersign Action */}
+        <div className="bg-white rounded-xl border-2 border-amber-300 shadow-sm p-6">
+          <h2 className="text-lg font-semibold text-slate-900 mb-2">Admin Countersignature</h2>
+          {holder.mou_status === 'countersigned' ? (
+            <div className="flex items-center gap-2 text-green-700 bg-green-50 rounded-lg p-4">
+              <CheckCircle className="w-5 h-5 flex-shrink-0" />
+              <p className="text-sm font-medium">MOU has already been countersigned by Elevate for Humanity.</p>
+            </div>
+          ) : !holder.mou_signed ? (
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-800">
+              The program holder has not yet signed the MOU. Countersignature is only available after the holder signs.
+            </div>
+          ) : (
+            <>
+              <p className="text-sm text-slate-600 mb-4">
+                By clicking below, you confirm that Elevate for Humanity countersigns this MOU on behalf of the organization. This action is recorded and cannot be undone.
+              </p>
+              <form action={countersignMou}>
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 bg-green-600 text-white text-sm font-semibold rounded-lg hover:bg-green-700 transition flex items-center gap-2"
+                >
+                  <FileSignature className="w-4 h-4" />
+                  Countersign MOU
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-'use client';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
-import React from 'react';
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect, useCallback } from 'react';
 import {

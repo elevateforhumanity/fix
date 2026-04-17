@@ -185,6 +185,35 @@ export async function POST(req: NextRequest) {
         });
         await sendEmail({ to: application.email, subject: tpl.subject, html: tpl.html });
         await db.from('applications').update({ onboarding_sent_at: new Date().toISOString() }).eq('id', application_id);
+      } else if (next_status === 'rejected') {
+        // Rejection email — all program types
+        const programName = application.program_slug || application.program_interest || 'the program';
+        await sendEmail({
+          to: [application.email],
+          from: 'Elevate for Humanity <info@elevateforhumanity.org>',
+          subject: 'Update on Your Application — Elevate for Humanity',
+          html: `<p>Hi ${firstName},</p>
+<p>Thank you for your interest in <strong>${programName}</strong> at Elevate for Humanity.</p>
+<p>After careful review, we are unable to move forward with your application at this time${reason ? ': ' + reason : '.'}</p>
+<p>We encourage you to reapply in the future or explore other programs we offer at <a href="https://www.elevateforhumanity.org/programs">elevateforhumanity.org/programs</a>.</p>
+<p>If you have questions, please contact us at <a href="mailto:info@elevateforhumanity.org">info@elevateforhumanity.org</a>.</p>
+<br/><p>Warm regards,<br/>Elevate for Humanity Team</p>`,
+        });
+      } else if (next_status === 'approved') {
+        // Generic approval email for non-barber programs
+        if (!isBarber) {
+          await sendEmail({
+            to: [application.email],
+            from: 'Elevate for Humanity <info@elevateforhumanity.org>',
+            subject: 'Your Application Has Been Approved — Elevate for Humanity',
+            html: `<p>Hi ${firstName},</p>
+<p>Congratulations! Your application for <strong>${application.program_slug || application.program_interest || 'the program'}</strong> has been <strong>approved</strong>.</p>
+<p>Please log in to your portal to complete enrollment:</p>
+<p><a href="https://www.elevateforhumanity.org/learner/dashboard">Access Your Portal →</a></p>
+<p>Questions? Contact us at <a href="mailto:info@elevateforhumanity.org">info@elevateforhumanity.org</a>.</p>
+<br/><p>Warm regards,<br/>Elevate for Humanity Team</p>`,
+          });
+        }
       }
     } catch (emailErr) {
       // Email failure must not roll back the status change

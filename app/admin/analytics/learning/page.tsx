@@ -37,11 +37,22 @@ export default async function LearningAnalyticsPage() {
     .from('certificates')
     .select('*', { count: 'exact', head: true });
 
-  const { data: topCourses } = await supabase
+  const { data: rawCourses } = await supabase
     .from('courses')
-    .select('id, title, enrollment_count')
-    .order('enrollment_count', { ascending: false })
+    .select('id, title')
     .limit(10);
+
+  // Fetch real enrollment counts per course from program_enrollments
+  const topCourses = await Promise.all(
+    (rawCourses || []).map(async (course: any) => {
+      const { count } = await supabase
+        .from('program_enrollments')
+        .select('*', { count: 'exact', head: true })
+        .eq('course_id', course.id);
+      return { ...course, enrollment_count: count || 0 };
+    })
+  );
+  topCourses.sort((a, b) => b.enrollment_count - a.enrollment_count);
 
   const completionRate = totalEnrollments 
     ? Math.round(((completedEnrollments || 0) / totalEnrollments) * 100) 

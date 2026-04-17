@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import PartnerPageClient from './PartnerPageClient';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Barbershop Partner Program | Indiana Barber Apprenticeship | Elevate for Humanity',
   description:

@@ -1,10 +1,9 @@
 "use client";
 
-import React from 'react';
-
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { createClient } from '@/lib/supabase/client';
 
 interface Candidate {
   id: string;
@@ -18,41 +17,42 @@ interface Candidate {
 
 export function EmployerTalentPipeline() {
   const [selectedStage, setSelectedStage] = useState<string>('all');
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const candidates: Candidate[] = [
-    {
-      id: '1',
-      name: 'Jordan Martinez',
-      program: 'Full-Stack Web Development',
-      skills: ['React', 'Node.js', 'TypeScript', 'PostgreSQL'],
-      stage: 'interview',
-      matchScore: 95,
-      graduationDate: '2024-03',
-    },
-    {
-      id: '2',
-      name: 'Taylor Anderson',
-      program: 'Certified Nursing Assistant',
-      skills: ['Patient Care', 'Vital Signs', 'Medical Records'],
-      stage: 'screening',
-      matchScore: 88,
-      graduationDate: '2024-02',
-    },
-    {
-      id: '3',
-      name: 'Alex Kim',
-      program: 'HVAC Technician',
-      skills: ['HVAC Systems', 'Troubleshooting', 'EPA Certified'],
-      stage: 'offer',
-      matchScore: 92,
-      graduationDate: '2024-01',
-    },
-  ];
+  useEffect(() => {
+    async function load() {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from('job_placements')
+        .select('id, status, match_score, start_date, profiles!job_placements_student_id_fkey(full_name), programs!job_placements_program_id_fkey(title)')
+        .in('status', ['sourced', 'screening', 'interview', 'offer', 'hired', 'placed'])
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      setCandidates(
+        (data || []).map((r: any) => ({
+          id: r.id,
+          name: r.profiles?.full_name || 'Unknown',
+          program: r.programs?.title || 'Unknown Program',
+          skills: [],
+          stage: r.status === 'placed' ? 'hired' : r.status,
+          matchScore: r.match_score ?? 0,
+          graduationDate: r.start_date ? new Date(r.start_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '—',
+        }))
+      );
+      setLoading(false);
+    }
+    load();
+  }, []);
 
   const stages = ['all', 'sourced', 'screening', 'interview', 'offer', 'hired'];
   const filteredCandidates = selectedStage === 'all'
     ? candidates
     : candidates.filter(c => c.stage === selectedStage);
+
+  if (loading) return <div className="p-8 text-center text-gray-500">Loading pipeline…</div>;
+  if (candidates.length === 0) return <div className="p-8 text-center text-gray-500">No candidates in pipeline yet.</div>;
 
   const stageColors: Record<string, string> = {
     sourced: 'bg-gray-100 text-black',

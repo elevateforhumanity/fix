@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 // app/pay/page.tsx
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import type { Metadata } from 'next';

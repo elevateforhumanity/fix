@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import { redirect } from 'next/navigation';
 
 // Full job posting form lives at employer-portal/jobs/new

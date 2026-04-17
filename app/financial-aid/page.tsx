@@ -8,6 +8,9 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Financial Aid & Funding | Elevate For Humanity',
   description: 'Learn about funded training through WIOA, state grants, and other workforce funding options. Training may be fully funded for eligible participants.',

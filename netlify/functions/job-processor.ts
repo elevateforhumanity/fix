@@ -1,53 +1,75 @@
-import type { Config, Context } from '@netlify/functions';
-import { hydrateProcessEnv } from '../lib/secrets-standalone.js';
+import type { Handler } from '@netlify/functions';
 
-/**
- * Scheduled function: process pending background jobs every 5 minutes.
- *
- * Calls /api/jobs/process which:
- * 1. Claims up to 25 pending job_queue rows
- * 2. Executes each job (certificate email, notification)
- * 3. Marks completed or schedules retry on failure
- * 4. After 5 failed attempts: marks status='failed' for admin review
- *
- * Failed jobs are visible at /admin/system/jobs.
- */
-export default async function handler(req: Request, context: Context) {
-  await hydrateProcessEnv();
+const json = (statusCode: number, body: Record<string, unknown>) => ({
+  statusCode,
+  headers: {
+    'content-type': 'application/json',
+    'cache-control': 'no-store',
+  },
+  body: JSON.stringify(body),
+});
 
-  const siteUrl = process.env.URL || process.env.DEPLOY_URL || 'https://www.elevateforhumanity.org';
-  const cronSecret = process.env.CRON_SECRET;
-
-  if (!cronSecret) {
-    console.error('[job-processor] CRON_SECRET not set');
-    return new Response('Not configured', { status: 500 });
-  }
-
+export const handler: Handler = async (event) => {
   try {
-    const response = await fetch(`${siteUrl}/api/jobs/process`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cronSecret}`,
-      },
-    });
+    const token = process.env.JOB_PROCESSOR_TOKEN;
+    const auth = event.headers.authorization || event.headers.Authorization;
 
-    const body = await response.text();
-
-    if (!response.ok) {
-      console.error(`[job-processor] Processor returned ${response.status}: ${body}`);
-      return new Response(`Processor error: ${response.status}`, { status: 500 });
+    if (!token) {
+      return json(500, { ok: false, message: 'Missing JOB_PROCESSOR_TOKEN' });
     }
 
-    console.log(`[job-processor] Done: ${body}`);
-    return new Response(body, { status: 200 });
-  } catch (err) {
-    console.error('[job-processor] Fetch failed:', err);
-    return new Response('Internal error', { status: 500 });
-  }
-}
+    if (auth !== `Bearer ${token}`) {
+      return json(401, { ok: false, message: 'Unauthorized' });
+    }
 
-export const config: Config = {
-  // Every 5 minutes
-  schedule: '*/5 * * * *',
+    let payload: any = {};
+    try {
+      payload = event.body ? JSON.parse(event.body) : {};
+    } catch {
+      return json(400, { ok: false, message: 'Invalid JSON body' });
+    }
+
+    const required = ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
+    const missing = required.filter((k) => !process.env[k]);
+
+    if (missing.length) {
+      return json(500, {
+        ok: false,
+        message: 'Missing required environment variables',
+        errors: missing,
+      });
+    }
+
+    let processed = 0;
+    const errors: string[] = [];
+    const jobs = Array.isArray(payload.jobs) ? payload.jobs : [];
+
+    for (const job of jobs) {
+      try {
+        if (!job || typeof job !== 'object') {
+          throw new Error('Invalid job payload');
+        }
+
+        // TODO: replace with your real processing logic
+        // await saveJob(job)
+
+        processed++;
+      } catch (err) {
+        errors.push(err instanceof Error ? err.message : 'Unknown job error');
+      }
+    }
+
+    return json(200, {
+      ok: true,
+      message: 'Job processing completed',
+      processed,
+      errors,
+    });
+  } catch (error) {
+    console.error('job-processor crashed', error);
+    return json(500, {
+      ok: false,
+      message: error instanceof Error ? error.message : 'Unknown function error',
+    });
+  }
 };

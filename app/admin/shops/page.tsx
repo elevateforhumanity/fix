@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Admin Shops | Elevate For Humanity',
   description: 'Elevate For Humanity - Career training and workforce development',

@@ -1,3 +1,4 @@
+// PUBLIC ROUTE: Public Certiport certification info endpoint
 import { NextResponse } from 'next/server';
 
 export const runtime = 'edge';

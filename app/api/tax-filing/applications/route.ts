@@ -1,9 +1,9 @@
-// PUBLIC ROUTE: tax filing application form
 import { getAdminClient } from '@/lib/supabase/admin';
 
 // app/api/tax-filing/applications/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { parseBody } from '@/lib/api-helpers';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -17,6 +17,9 @@ export const dynamic = 'force-dynamic';
 
 async function _GET(request: NextRequest) {
   try {
+    const auth = await apiRequireAdmin(request);
+    if (auth.error) return auth.error;
+
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 

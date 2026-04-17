@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';

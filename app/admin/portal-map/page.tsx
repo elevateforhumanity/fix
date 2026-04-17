@@ -1,11 +1,7 @@
-"use client";
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import React from 'react';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { createClient } from '@/lib/supabase/client';
+export const dynamic = 'force-dynamic';
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;

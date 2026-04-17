@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import { redirect } from 'next/navigation';
 
 // Redirect to the main schedule page — no standalone schedule UI exists per-learner.

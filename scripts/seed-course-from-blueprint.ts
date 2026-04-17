@@ -27,9 +27,16 @@ import path from 'path';
 // Load .env.local
 config({ path: path.resolve(process.cwd(), '.env.local') });
 
+import { createClient } from '@supabase/supabase-js';
 import { getBlueprintById, getBlueprintByProgramSlug, getAllBlueprints } from '../lib/curriculum/blueprints/index';
 import { buildCanonicalCourseFromBlueprint } from '../lib/curriculum/builders/buildCanonicalCourseFromBlueprint';
 import { validateBlueprintLessons } from '../lib/curriculum/lqs-validator';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  { auth: { persistSession: false } }
+);
 
 // ── Parse args ────────────────────────────────────────────────────────
 
@@ -163,6 +170,41 @@ async function main() {
   }
 
   console.log('✅ All lessons inserted with production content.\n');
+
+  // ── Certification pathway ─────────────────────────────────────────────
+  // Write program_certification_pathways row so auto_create_exam_authorization
+  // trigger can fire when a learner completes all checkpoints.
+  if (blueprint!.certificationPathway) {
+    const cp = blueprint!.certificationPathway;
+    const { error: pathwayError } = await supabase
+      .from('program_certification_pathways')
+      .upsert(
+        {
+          program_id:                  programId,
+          certification_body_id:       cp.certificationBodyId,
+          credential_name:             cp.credentialName,
+          credential_abbreviation:     cp.credentialAbbrev,
+          exam_fee_cents:              cp.examFeeCents ?? 0,
+          fee_payer:                   cp.feePayer ?? 'student',
+          eligibility_review_required: cp.eligibilityReview ?? false,
+          is_primary:                  cp.isPrimary ?? true,
+          is_active:                   true,
+          sort_order:                  1,
+        },
+        { onConflict: 'program_id,certification_body_id', ignoreDuplicates: false }
+      );
+
+    if (pathwayError) {
+      console.warn(`⚠️  Certification pathway upsert failed: ${pathwayError.message}`);
+      console.warn('   The course was seeded successfully but exam authorization will not auto-fire.');
+      console.warn('   Insert a row into program_certification_pathways manually to fix.\n');
+    } else {
+      console.log(`✅ Certification pathway seeded: ${cp.credentialName} (${cp.credentialAbbrev})\n`);
+    }
+  } else {
+    console.log('ℹ️  No certificationPathway defined in blueprint — skipping pathway seed.');
+    console.log('   Add certificationPathway to the blueprint if exam authorization is needed.\n');
+  }
 }
 
 main().catch(err => {

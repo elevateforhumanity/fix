@@ -339,6 +339,35 @@ export type CredentialBlueprint = {
   videoConfig?: BlueprintVideoConfig;
 
   /**
+   * Certification pathway written to program_certification_pathways by the seeder.
+   *
+   * Required for the auto_create_exam_authorization trigger to fire when a learner
+   * completes all checkpoints. Without a pathway row, the trigger silently skips
+   * authorization creation.
+   *
+   * certificationBodyId — certification_bodies.id (UUID). Use an existing row or
+   *   insert a new one in a migration first.
+   * credentialName      — human-readable name, e.g. 'EPA 608 Universal Certification'
+   * credentialAbbrev    — short code, e.g. 'EPA 608'
+   * examFeeCents        — fee in cents charged to student (0 = covered by program)
+   * feePayer            — 'student' | 'elevate' | 'grant'
+   * eligibilityReview   — true if staff must manually approve before exam scheduling
+   * isPrimary           — true for the main credential (only one per program)
+   *
+   * Omit this field only for internal/non-credentialed programs where no exam
+   * authorization is needed.
+   */
+  certificationPathway?: {
+    certificationBodyId: string;
+    credentialName: string;
+    credentialAbbrev: string;
+    examFeeCents?: number;
+    feePayer?: 'student' | 'elevate' | 'grant';
+    eligibilityReview?: boolean;
+    isPrimary?: boolean;
+  };
+
+  /**
    * Where the seeder reads lesson content (script_text), quiz_questions,
    * passing_score, and step_type from.
    *

@@ -1,14 +1,7 @@
-'use client';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
-import { useRouter } from 'next/navigation';
-import { useState, useEffect, useCallback } from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { Shield, Plus, Search, Filter, Download, FileText, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react';
-import NewSessionForm from './NewSessionForm';
-import SessionRow from './SessionRow';
-import type { ExamSession, ExamProvider, ExamResult } from './types';
-import { PROVIDER_LABELS, RESULT_LABELS } from './types';
+export const dynamic = 'force-dynamic';
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;

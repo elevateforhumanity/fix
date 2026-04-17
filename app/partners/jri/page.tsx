@@ -13,6 +13,9 @@ import {
   Mail,
 CheckCircle, } from 'lucide-react';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Job Ready Indy | Funding Eligible Program | Elevate For Humanity',
   description: 'Employability Skills and Workforce Readiness Training',

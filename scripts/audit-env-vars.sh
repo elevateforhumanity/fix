@@ -13,7 +13,7 @@ grep -rh "process\.env\." app/ lib/ --include="*.ts" --include="*.tsx" 2>/dev/nu
   | grep -v "^\s*//" \
   | grep -oP "process\.env\.[A-Z][A-Z0-9_]+" \
   | sed 's/process\.env\.//' \
-  | grep -vE "^NODE_ENV$|^NEXT_PUBLIC_" \
+  | grep -vE "^NODE_ENV$|^NEXT_PUBLIC_|^NEXT_PHASE$|^NEXT_RUNTIME$" \
   | sort -u > /tmp/_code_env.txt
 
 # Extract keys from .env.example

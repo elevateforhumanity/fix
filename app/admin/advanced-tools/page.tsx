@@ -1,9 +1,7 @@
-'use client';
+import { requireAdmin } from '@/lib/auth';
+import PageClient from './PageClient';
 
-import Link from "next/link";
-import { useRouter } from 'next/navigation';
-import { useState, useEffect, useMemo } from "react";
-import { Search, Star, X } from "lucide-react";
+export const dynamic = 'force-dynamic';
 
 import { createBrowserClient } from '@supabase/ssr';
 

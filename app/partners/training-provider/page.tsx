@@ -5,6 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   alternates: { canonical: 'https://www.elevateforhumanity.org/partners/training-provider' },
   title: 'Training Provider Partnership | Elevate For Humanity',
