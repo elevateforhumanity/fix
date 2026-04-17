@@ -171,7 +171,7 @@ async function persistCourse(
 
       const { error: lessonErr } = await db.from('course_lessons').upsert({
         course_id:           courseId,
-        course_module_id:    moduleRow.id,
+        module_id:           moduleRow.id,
         slug:                lesson.slug,
         title:               lesson.title,
         lesson_type:         lesson.type,

@@ -38,7 +38,12 @@ export async function getLearnerProgress(
       .select('lesson_id, score, passed, passing_score, attempt_number, created_at')
       .eq('user_id', userId)
       .eq('course_id', courseId)
-      .order('attempt_number', { ascending: false }),
+      // Order by passed DESC so any passing attempt sorts before failing ones,
+      // then score DESC as a tiebreaker. This ensures the first row per lesson_id
+      // is the best attempt — not the most recent — so a learner who passes then
+      // retakes and fails is not incorrectly shown as blocked in the UI.
+      .order('passed', { ascending: false })
+      .order('score', { ascending: false }),
 
     db
       .from('step_submissions')
@@ -67,7 +72,7 @@ export async function getLearnerProgress(
       .map((r: any) => r.lesson_id)
   );
 
-  // Best checkpoint score per lesson (first row = highest attempt_number due to desc order)
+  // Best checkpoint score per lesson (first row = best attempt: passed first, then highest score)
   const checkpointScores = new Map<string, CheckpointScore>();
   for (const row of checkpointRows ?? []) {
     if (!checkpointScores.has(row.lesson_id)) {
