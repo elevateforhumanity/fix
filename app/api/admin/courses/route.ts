@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server';
-
-export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
-export const maxDuration = 60;
+import { getAdminClient } from '@/lib/supabase/admin';
 import { parseBody, getErrorMessage } from '@/lib/api-helpers';
-import { supabaseServer } from '@/lib/supabase-server';
 import { withAuth } from '@/lib/with-auth';
 import { logger } from '@/lib/logger';
 import { toError, toErrorMessage } from '@/lib/safe';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 export const POST = withAuth(
   async (request: Request, user) => {
 
   try {
     const course = await request.json();
-    const supabase = supabaseServer();
+    const supabase = await getAdminClient();
 
     // Insert course
     const { data: courseData, error: courseError } = await supabase
@@ -89,7 +89,7 @@ export const GET = withAuth(
   async (request: Request, user) => {
 
   try {
-    const supabase = supabaseServer();
+    const supabase = await getAdminClient();
 
     const { data: courses, error } = await supabase
       .from('courses')
