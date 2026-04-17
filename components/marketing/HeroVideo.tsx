@@ -130,13 +130,21 @@ export default function HeroVideo({
       {/* ── VIDEO FRAME ── */}
       {/* Height: 56vw clamped between 400px and 780px */}
       <section
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden bg-slate-900"
         style={{ height: 'clamp(400px, 56vw, 780px)' }}
         aria-label={analyticsName ? `${analyticsName} hero video` : 'Hero video'}
       >
-        {/* autoPlayOnMount + preloadFull — hero is always above the fold.
-            preloadFull buffers the video immediately so the first frame
-            appears without waiting for the IntersectionObserver tick. */}
+        {/* Static fallback for crawlers (Googlebot does not run JS).
+            Uses posterImage if provided, otherwise falls back to og-image.jpg.
+            Ensures the hero section is never a ghost box in Google's index. */}
+        <noscript>
+          <img
+            src={posterImage ?? '/images/og-image.jpg'}
+            alt={analyticsName ?? 'Elevate for Humanity'}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        </noscript>
+
         <CanonicalVideo
           src={videoSrc}
           poster={posterImage}
