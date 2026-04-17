@@ -41,7 +41,7 @@ export default function BarberApplySuccessPage() {
               Use the same email address you used at checkout. Your enrollment will be linked automatically.
             </p>
             <Link
-              href="/signup?role=apprentice&redirect=/programs/barber-apprenticeship/enrollment-success"
+              href="/signup?role=student&redirect=/programs/barber-apprenticeship/enrollment-success"
               className="block w-full text-center py-3 bg-brand-blue-600 text-white font-bold rounded-lg hover:bg-brand-blue-700 transition"
             >
               Create Account &amp; Continue
