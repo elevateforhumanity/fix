@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import CanonicalVideo from '@/components/video/CanonicalVideo';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import PageAvatar from '@/components/PageAvatar';
@@ -27,32 +27,18 @@ const programImages: Record<string, string> = {
 };
 
 export default function SkilledTradesPageClient({ programs }: { programs: Program[] }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.play().catch(() => {});
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
 
       {/* Hero */}
       <section className="relative w-full h-[50vh] sm:h-[60vh] flex items-center overflow-hidden bg-slate-900">
-        <video
-          ref={videoRef}
+        <CanonicalVideo
+          src="https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4"
           className="absolute inset-0 w-full h-full object-cover brightness-110"
-          loop
-          muted
-          playsInline
-          autoPlay
-          preload="metadata"
-          poster="/images/pages/programs-hvac-hero.jpg"
-        >
-          <source src="https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4" type="video/mp4" />
-        </video>
+          autoPlayOnMount
+          preloadFull
+          playThrough={false}
+        />
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="animate-fade-in-up">

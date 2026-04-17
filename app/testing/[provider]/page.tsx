@@ -4,6 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircle, Clock, MapPin, Monitor, DollarSign, ExternalLink, CalendarDays, Briefcase } from 'lucide-react';
 import { CERT_PROVIDERS, type ExamDefinition } from '@/lib/testing/proctoring-capabilities';
+import { getAdminClient } from '@/lib/supabase/admin';
+
+export const dynamic = 'force-dynamic';
 
 const LEVEL_COLORS: Record<string, string> = {
   amber:  'bg-amber-50 border-amber-200 text-amber-900',
@@ -58,8 +61,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProviderPage({ params }: Props) {
   const { provider: key } = await params;
+
+  // Try DB first — fall back to static file if table is empty or row missing
+  let dbOverride: { description?: string; status?: string; fees?: any; verify_url?: string } | null = null;
+  try {
+    const db = await getAdminClient();
+    if (db) {
+      const { data } = await db
+        .from('testing_providers')
+        .select('description,status,fees,verify_url')
+        .eq('slug', key)
+        .maybeSingle();
+      if (data) dbOverride = data;
+    }
+  } catch { /* fall through to static */ }
+
   const provider = CERT_PROVIDERS[key];
   if (!provider) notFound();
+
+  // Merge DB overrides on top of static data
+  if (dbOverride) {
+    if (dbOverride.description) (provider as any).description = dbOverride.description;
+    if (dbOverride.status) (provider as any).status = dbOverride.status;
+    if (dbOverride.fees) (provider as any).fees = dbOverride.fees;
+    if (dbOverride.verify_url) (provider as any).verifyUrl = dbOverride.verify_url;
+  }
 
   const heroImg   = PROVIDER_HERO[key]   ?? '/images/pages/career-services-hero.jpg';
   const accent    = PROVIDER_ACCENT[key] ?? 'from-slate-900';
