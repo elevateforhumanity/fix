@@ -9,13 +9,7 @@ import { CERT_PROVIDERS, type ExamDefinition } from '@/lib/testing/proctoring-ca
 // Unknown slugs return 404 — no SSR fallback.
 export const dynamic = 'force-static';
 export const dynamicParams = false;
-import Image from 'next/image';
-import Link from 'next/link';
-import { CheckCircle, Clock, MapPin, Monitor, DollarSign, ExternalLink, CalendarDays, Briefcase } from 'lucide-react';
-import { CERT_PROVIDERS, type ExamDefinition } from '@/lib/testing/proctoring-capabilities';
 import { getAdminClient } from '@/lib/supabase/admin';
-
-export const dynamic = 'force-dynamic';
 
 const LEVEL_COLORS: Record<string, string> = {
   amber:  'bg-amber-50 border-amber-200 text-amber-900',

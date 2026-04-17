@@ -4,6 +4,7 @@ export const revalidate = 86400;
 
 import { Metadata } from 'next';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';

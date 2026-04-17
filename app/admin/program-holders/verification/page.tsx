@@ -16,8 +16,6 @@ import {
   Eye,
 CheckCircle, } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   title: 'Program Holder Verification | Admin',
   description: 'Review and verify program holder documents',

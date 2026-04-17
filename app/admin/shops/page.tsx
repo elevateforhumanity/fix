@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 
-export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 import {
