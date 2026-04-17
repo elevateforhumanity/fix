@@ -12,8 +12,7 @@ export const metadata: Metadata = {
   description: 'Resources and tools for instructors and educators.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function TeachersPage() {
   const supabase = await createClient();
 

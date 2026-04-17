@@ -7,7 +7,7 @@ import { Building2, MapPin, Globe, ArrowRight } from 'lucide-react';
 
 import { createClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Partner Directory | Elevate for Humanity',
   description: 'Workforce development partners, employer partners, and community resources in Indianapolis. WorkOne, Indiana DWD, EmployIndy, and more.',

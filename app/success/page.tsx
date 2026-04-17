@@ -5,8 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Success Stories | Elevate for Humanity',
   description:

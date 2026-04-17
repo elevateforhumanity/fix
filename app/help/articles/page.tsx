@@ -8,8 +8,7 @@ import { logger } from '@/lib/logger';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Help Center | Elevate for Humanity',
   description: 'Find answers to your questions about enrollment, courses, funding, certifications, and more. Browse our help articles or contact support.',

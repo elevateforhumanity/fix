@@ -1,5 +1,4 @@
 export const dynamic = 'force-dynamic';
-
 async function getEnrollmentData() {
   const supabase = await getAdminClient();
 

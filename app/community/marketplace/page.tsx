@@ -30,8 +30,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 const MARKETPLACE_CATEGORIES = [
   { id: 'courses', name: 'Training Courses', icon: BookOpen, count: 0 },
   { id: 'tools', name: 'Professional Tools', icon: Wrench, count: 0 },

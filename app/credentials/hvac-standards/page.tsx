@@ -3,7 +3,6 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import HVACStandardsContent from './HVACStandardsContent';
 
 export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   title: 'HVAC Competency Standards | Elevate Training',
   description: 'HVAC EPA 608 competency framework — domain codes, theory hours, OJT hours, and lesson mappings.',

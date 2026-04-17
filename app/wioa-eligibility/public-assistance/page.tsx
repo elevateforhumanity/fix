@@ -9,8 +9,7 @@ export const metadata: Metadata = {
   description: 'SNAP, TANF, and SSI recipients automatically qualify for WIOA-funded career training.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function PublicAssistancePage() {
   const supabase = await createClient();
 

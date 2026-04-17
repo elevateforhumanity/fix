@@ -6,8 +6,7 @@ import Image from "next/image";
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { PATHWAYS } from "@/lib/pathways/data";
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 const SLUG_IMAGES: Record<string, string> = {
   'cna':                   '/images/pages/cna-nursing.jpg',
   'cdl':                   '/images/pages/cdl-training.jpg',

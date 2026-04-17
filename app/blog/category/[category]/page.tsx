@@ -5,8 +5,7 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export async function generateMetadata({
   params,
 }: {

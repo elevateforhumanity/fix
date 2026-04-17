@@ -5,8 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { Shield, Circle, FileText, Lock, Download, ExternalLink } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Compliance Documentation | Elevate for Humanity Store',
   description: 'Complete compliance documentation for WIOA, FERPA, WCAG, and grant reporting. Enterprise-grade workforce training platform.',

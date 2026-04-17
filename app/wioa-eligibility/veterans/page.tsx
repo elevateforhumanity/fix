@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   description: 'Priority WIOA funding for military veterans. Free career training with expedited services.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function VeteransPage() {
   const supabase = await createClient();
 

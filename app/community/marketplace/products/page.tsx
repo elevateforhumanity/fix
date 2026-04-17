@@ -8,8 +8,7 @@ import {
 
   FileText, Download, Star, Tag, Search, Package,
 } from 'lucide-react';
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Digital Products & Resources | Elevate for Humanity',
   description:

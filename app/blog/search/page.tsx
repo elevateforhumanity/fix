@@ -5,8 +5,7 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { Search } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Search Blog | Elevate For Humanity',
   description:

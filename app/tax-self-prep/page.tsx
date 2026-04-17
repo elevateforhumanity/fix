@@ -9,8 +9,7 @@ import { BarChart, Lock, Smartphone, Zap,
 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.elevateforhumanity.org/tax-self-prep',

@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   description: 'Connect with fellow community members, mentors, and industry professionals.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function MembersPage() {
   const supabase = await createClient();
   

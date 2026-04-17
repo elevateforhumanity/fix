@@ -121,9 +121,10 @@ const nextConfig = {
     unoptimized: false,
     // avif encoding is CPU-intensive and causes 504s on large images — webp only
     formats: ['image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    qualities: [85],
+    // Reduced set — fewer variants = less Lambda resize work = fewer 504s on Netlify
+    deviceSizes: [640, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 64, 128, 256],
+    qualities: [80],
     minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: false,
     contentDispositionType: 'inline',

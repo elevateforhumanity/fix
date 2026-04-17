@@ -1,5 +1,4 @@
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 // Force static generation for performance
 
 import Link from 'next/link';

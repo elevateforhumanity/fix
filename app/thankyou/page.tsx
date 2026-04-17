@@ -12,8 +12,7 @@ export const metadata: Metadata = {
   description: 'Thank you for your submission. We will be in touch soon.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function ThankyouPage() {
   const supabase = await createClient();
 

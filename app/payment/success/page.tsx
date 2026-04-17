@@ -2,8 +2,7 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Payment Successful | Elevate for Humanity',
   description: 'Your payment was successful. Welcome to Elevate for Humanity!',

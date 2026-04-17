@@ -108,8 +108,7 @@ npm install @elevate/sdk
 # Initialize the client
 import { ElevateClient } from '@elevate/sdk';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 const client = new ElevateClient({
   apiKey: process.env.ELEVATE_API_KEY
 });`}

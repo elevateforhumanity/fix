@@ -11,8 +11,7 @@ export const metadata: Metadata = {
   description: 'Browse digital products, courses, and resources from creators.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function MarketplaceBrowsePage() {
   const supabase = await createClient();
 

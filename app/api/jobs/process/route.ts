@@ -18,9 +18,10 @@ export async function POST(req: NextRequest) {
     const auth = req.headers.get('authorization');
 
     if (!token) {
+      // Token not configured — return 503 (not 500) so monitoring doesn't alert as crash
       return NextResponse.json(
-        { ok: false, message: 'Missing JOB_PROCESSOR_TOKEN' },
-        { status: 500 }
+        { ok: false, message: 'Job processor not configured' },
+        { status: 503 }
       );
     }
 

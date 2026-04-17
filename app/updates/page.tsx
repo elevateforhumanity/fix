@@ -4,8 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { Calendar, ArrowRight, Bell, Megaphone, GraduationCap, Building2, Users } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Updates & Announcements | Elevate For Humanity',
   description: 'Latest news, program updates, and announcements from Elevate for Humanity',

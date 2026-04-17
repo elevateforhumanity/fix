@@ -7,7 +7,7 @@ import { Award, DollarSign, Users, Clock, ArrowRight } from 'lucide-react';
 
 import { createClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Employer Programs | Employer Portal',
   description: 'Explore tax credit programs, apprenticeships, and workforce development opportunities.',

@@ -6,8 +6,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import AICareerCounseling from '@/components/AICareerCounseling';
 import { ArrowRight, Clock, DollarSign, Award, Phone } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Free Career Counseling | Elevate for Humanity',
   description: 'Get free personalized career guidance. Explore career paths, identify skill gaps, and find the right training program. AI-powered counseling available 24/7.',

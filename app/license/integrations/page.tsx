@@ -5,8 +5,7 @@ import { Zap, Database, Mail, Award, Calendar, ArrowRight, AlertCircle, ArrowRig
 import { INTEGRATIONS, DISCLAIMERS, ROUTES } from '@/lib/pricing';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Integrations | Elevate LMS Licensing',
   description: 'Salesforce CRM integration, Supabase authentication, email providers, and credentialing partners. Connect the Elevate LMS with your systems.',

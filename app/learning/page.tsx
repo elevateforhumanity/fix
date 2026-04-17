@@ -5,8 +5,7 @@ import { BookOpen, FileText, NotebookPen, Compass, BookMarked, GraduationCap, Ar
 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata = {
   title: 'Learning Hub - Resources & Tools | Elevate Hub',
   description: 'Access lessons, syllabi, workbooks, orientation, and student resources',

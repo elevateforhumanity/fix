@@ -11,8 +11,7 @@ export const metadata: Metadata = {
   description: 'Access exclusive courses, tutorials, and learning resources in our community classroom.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function ClassroomPage() {
   const supabase = await createClient();
 

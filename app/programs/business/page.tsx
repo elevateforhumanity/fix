@@ -3,10 +3,9 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import Image from 'next/image';
-import VideoHeroBanner from '@/components/VideoHeroBanner';
+import { VideoHeroBanner } from '@/components/VideoHeroBanner';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Business & Administration Programs | Free QuickBooks, Office Training',
   description:

@@ -17,8 +17,7 @@ export const metadata: Metadata = {
   description: 'Browse professional tools, supplies, and learning materials.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 interface Product {
   id: string;
   name: string;

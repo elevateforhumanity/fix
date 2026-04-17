@@ -6,8 +6,7 @@ import { Users, MessageSquare, BookOpen, Award, ArrowRight, Star } from 'lucide-
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Join Our Community | Elevate for Humanity',
   description: 'Become part of the Elevate community. Connect with fellow learners, access exclusive resources, and accelerate your career growth.',

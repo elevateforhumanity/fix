@@ -8,8 +8,7 @@ import { OfferingBadge } from '@/components/ui/OfferingBadge';
 import { SERVSAFE_BY_KEY } from '@/lib/testing/servsafe-programs';
 import { getRetailPrice } from '@/lib/testing/servsafe-pricing';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.elevateforhumanity.org/courses/nrf',

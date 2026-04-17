@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   description: 'Browse sellers and creators on the marketplace.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function MarketplaceSellersPage() {
   const supabase = await createClient();
 

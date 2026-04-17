@@ -3,8 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import SignupForm from './SignupForm';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.elevateforhumanity.org/signup',

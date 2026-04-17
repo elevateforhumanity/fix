@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   description: 'Complete guide for apprentices including policies, procedures, and resources.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function ApprenticeHandbookPage() {
   const supabase = await createClient();
 

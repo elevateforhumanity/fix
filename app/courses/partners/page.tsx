@@ -6,8 +6,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { OfferingBadge } from '@/components/ui/OfferingBadge';
 import { getOfferingKind, offeringCTA, offeringSubLabel } from '@/lib/offering-labels';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   alternates: { canonical: 'https://www.elevateforhumanity.org/courses/partners' },
   title: 'Short-Term Courses | Elevate For Humanity',

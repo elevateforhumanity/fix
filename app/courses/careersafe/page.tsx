@@ -6,8 +6,7 @@ import { ExternalLink, Clock, Award, ShoppingBag } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { OfferingBadge } from '@/components/ui/OfferingBadge';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.elevateforhumanity.org/courses/careersafe',

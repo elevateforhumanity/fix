@@ -13,8 +13,7 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import ProductCheckoutButton from './ProductCheckoutButton';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function ProductPage({
   params,
 }: {

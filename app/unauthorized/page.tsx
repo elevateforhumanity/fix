@@ -3,8 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { ShieldAlert, Home } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Unauthorized Access | Elevate for Humanity',
   alternates: {

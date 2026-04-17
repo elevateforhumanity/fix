@@ -11,9 +11,7 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
-
-
+export const revalidate = 3600;
 export default async function CreatorProductsPage() {
   const { creator } = await requireCreator();
   const supabase = await createClient();

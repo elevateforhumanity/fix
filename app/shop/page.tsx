@@ -12,8 +12,7 @@ import { logger } from '@/lib/logger';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Shop | Elevate for Humanity',
   description: 'Shop professional tools, equipment, apparel, and study materials for your career training programs. Quality gear at student-friendly prices.',

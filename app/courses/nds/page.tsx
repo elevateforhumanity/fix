@@ -5,8 +5,7 @@ import Image from 'next/image';
 import { ExternalLink, Clock, Award, Truck } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.elevateforhumanity.org/courses/nds',

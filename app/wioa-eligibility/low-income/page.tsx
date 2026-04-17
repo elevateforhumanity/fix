@@ -9,8 +9,7 @@ export const metadata: Metadata = {
   description: 'Check if your household income qualifies you for free WIOA-funded career training.',
 };
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function LowIncomePage() {
   const supabase = await createClient();
 

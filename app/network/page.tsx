@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -7,13 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Building2, MapPin, BookOpen, CheckCircle } from 'lucide-react';
 
+export const revalidate = 300; // 5-minute ISR
+
 export const metadata: Metadata = {
   title: 'Provider Network | Elevate for Humanity',
   description: 'Vetted training organizations, workforce agencies, and employers operating on the Elevate workforce hub.',
   alternates: { canonical: 'https://www.elevateforhumanity.org/network' },
 };
-
-export const revalidate = 300; // 5-minute ISR
 
 export default async function NetworkPage() {
   const supabase = await createClient();

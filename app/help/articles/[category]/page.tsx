@@ -6,7 +6,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import { createClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 export const metadata: Metadata = { title: 'Help Articles | Elevate LMS' };
 
 interface Props {

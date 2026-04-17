@@ -13,8 +13,7 @@ import Link from 'next/link';
 import { PartyPopper } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 3600;
 export default async function ApplicationSuccessPage() {
   const supabase = await createClient();
 
