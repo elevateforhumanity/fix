@@ -231,6 +231,7 @@ export default function PartnersIndexPage() {
 
       {/* Hero */}
       <HeroVideo
+        posterImage="/images/pages/partner-page-1.jpg"
         videoSrcDesktop={banner.videoSrcDesktop}
         voiceoverSrc={banner.voiceoverSrc}
         microLabel={banner.microLabel}

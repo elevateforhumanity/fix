@@ -61,6 +61,7 @@ export default function StudentSupportPage() {
 
       {/* Video Hero */}
       <HeroVideo
+        posterImage="/images/pages/student-support-hero.jpg"
         videoSrcDesktop={heroBanners['student-support'].videoSrcDesktop}
         voiceoverSrc={heroBanners['student-support'].voiceoverSrc}
         microLabel={heroBanners['student-support'].microLabel}

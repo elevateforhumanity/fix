@@ -44,6 +44,7 @@ export default function EmployerPage() {
     <div className="min-h-screen bg-white">
 
       <HeroVideo
+        posterImage="/images/pages/employer-hero.jpg"
         videoSrcDesktop={heroBanners.employer.videoSrcDesktop}
         voiceoverSrc={heroBanners.employer.voiceoverSrc}
         microLabel={heroBanners.employer.microLabel}

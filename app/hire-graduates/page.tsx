@@ -33,6 +33,7 @@ export default async function HireGraduatesPage() {
         <Breadcrumbs items={[{ label: "Hire Graduates" }]} />
       </div>
       <HeroVideo
+        posterImage="/images/pages/hire-graduates-page-1.jpg"
         videoSrcDesktop={heroBanners['hire-graduates'].videoSrcDesktop}
         voiceoverSrc={heroBanners['hire-graduates'].voiceoverSrc}
         microLabel={heroBanners['hire-graduates'].microLabel}

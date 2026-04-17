@@ -58,6 +58,7 @@ export default function CredentialsPage() {
 
       {/* Hero */}
       <HeroVideo
+        posterImage="/images/pages/credentials-page-1.jpg"
         videoSrcDesktop={heroBanners.credentials.videoSrcDesktop}
         voiceoverSrc={heroBanners.credentials.voiceoverSrc}
         microLabel={heroBanners.credentials.microLabel}

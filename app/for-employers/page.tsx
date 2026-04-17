@@ -66,6 +66,7 @@ export default async function ForEmployersPage() {
       </div>
 
       <HeroVideo
+        posterImage="/images/pages/for-employers-page-1.jpg"
         videoSrcDesktop={heroBanners['for-employers'].videoSrcDesktop}
         voiceoverSrc={heroBanners['for-employers'].voiceoverSrc}
         microLabel={heroBanners['for-employers'].microLabel}

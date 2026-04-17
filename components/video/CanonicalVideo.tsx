@@ -57,9 +57,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   const ref = useRef<HTMLVideoElement | null>(null);
   const [failed, setFailed] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  // True once the video has its first frame ready — drives the poster → video cross-fade.
-  // We use onCanPlay (not onPlaying) so the poster fades out as soon as the first
-  // frame is decoded, eliminating the visible poster flash before playback begins.
+  // True once the video is actually playing — drives the poster → video cross-fade
   const [playing, setPlaying] = useState(false);
   // True once the video has played through once — fades poster back in, stays there
   const [ended, setEnded] = useState(false);
@@ -143,9 +141,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   // the image renders at its intrinsic size before CSS object-fit applies.
   // Both elements share the same className (absolute inset-0 in hero usage)
   // so they stack correctly inside the relative parent container.
-  // Hero videos (preloadFull=true) skip the poster — video is already buffered
-  // so the poster would only flash briefly before the video plays.
-  if (poster && !preloadFull) {
+  if (poster) {
     return (
       <>
         {/* Poster — z-0, always visible until video plays.
@@ -171,34 +167,30 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           playsInline
           preload={preloadFull ? 'auto' : 'metadata'}
           aria-hidden="true"
-          onCanPlay={() => setPlaying(true)}
+          onPlaying={() => setPlaying(true)}
           onEnded={() => setEnded(true)}
           onError={() => setFailed(true)}
           style={{ zIndex: 10 }}
         >
-          {/* #t=0.001 forces mobile browsers to decode and display the first frame
-              immediately, so onCanPlay fires as soon as the video is ready to play
-              rather than waiting for a full metadata + seek cycle. */}
-          <source src={`${src}#t=0.001`} type="video/mp4" />
+          <source src={src} type="video/mp4" />
         </video>
       </>
     );
   }
 
-  // No poster (hero path) — fade in from transparent once first frame is ready
+  // No poster — single video element, hide it after playback ends
   return (
     <video
       ref={ref}
-      className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
+      className={`${className} transition-opacity duration-700 ${ended ? 'opacity-0' : ''}`}
       muted
       playsInline
       preload={preloadFull ? 'auto' : 'metadata'}
       aria-hidden="true"
-      onCanPlay={() => setPlaying(true)}
       onEnded={() => setEnded(true)}
       onError={() => setFailed(true)}
     >
-      <source src={`${src}#t=0.001`} type="video/mp4" />
+      <source src={src} type="video/mp4" />
     </video>
   );
 }

@@ -135,6 +135,7 @@ export default function JRIPage() {
 
       {/* Hero Section */}
       <HeroVideo
+        posterImage="/images/pages/jri-hero.jpg"
         videoSrcDesktop={heroBanners['jri'].videoSrcDesktop}
         voiceoverSrc={heroBanners['jri'].voiceoverSrc}
         microLabel={heroBanners['jri'].microLabel}

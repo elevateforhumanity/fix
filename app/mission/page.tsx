@@ -64,6 +64,7 @@ export default function MissionPage() {
       </div>
 
       <HeroVideo
+        posterImage="/images/pages/mission-hero.jpg"
         videoSrcDesktop={heroBanners['mission'].videoSrcDesktop}
         voiceoverSrc={heroBanners['mission'].voiceoverSrc}
         microLabel={heroBanners['mission'].microLabel}

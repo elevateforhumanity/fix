@@ -76,6 +76,7 @@ export default function FAQPage() {
       </div>
 
       <HeroVideo
+        posterImage="/images/pages/faq-page-1.jpg"
         videoSrcDesktop={heroBanners['faq'].videoSrcDesktop}
         voiceoverSrc={heroBanners['faq'].voiceoverSrc}
         microLabel={heroBanners['faq'].microLabel}
