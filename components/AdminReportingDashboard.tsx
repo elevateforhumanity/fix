@@ -71,6 +71,11 @@ export function AdminReportingDashboard() {
         case 'year': startDate.setFullYear(now.getFullYear() - 1); break;
       }
 
+      // Previous period start for change calculation
+      const prevStart = new Date(startDate);
+      const periodMs = now.getTime() - startDate.getTime();
+      prevStart.setTime(prevStart.getTime() - periodMs);
+
       // Fetch metrics
       const [
         { count: totalStudents },
@@ -79,6 +84,7 @@ export function AdminReportingDashboard() {
         { data: payments },
         { data: programs },
         { data: activities },
+        { count: previousStudents },
       ] = await Promise.all([
         supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'student'),
         supabase.from('program_enrollments').select('*', { count: 'exact', head: true }).in('status', ['active', 'pending']),
@@ -90,6 +96,7 @@ export function AdminReportingDashboard() {
           certificates(count)
         `).eq('is_active', true).limit(10),
         supabase.from('user_activity').select('*').order('created_at', { ascending: false }).limit(10),
+        supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'student').lt('created_at', startDate.toISOString()),
       ]);
 
       // Calculate metrics
@@ -104,7 +111,9 @@ export function AdminReportingDashboard() {
         activeEnrollments: activeEnrollments || 0,
         completionRate,
         revenue: totalRevenue,
-        studentChange: 12.5, // Would calculate from historical data
+        studentChange: previousStudents > 0
+          ? Math.round(((data.totalStudents - previousStudents) / previousStudents) * 100 * 10) / 10
+          : 0,
         enrollmentChange: 0,
         completionChange: 0,
         revenueChange: 0,

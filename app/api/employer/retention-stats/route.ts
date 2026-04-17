@@ -41,7 +41,7 @@ async function _GET(request: Request) {
       .slice(0, 4)
       .map(([role, data]) => ({
         role: role.length > 20 ? role.substring(0, 17) + '...' : role,
-        retention: data.total > 0 ? Math.round((data.retained / data.total) * 100) : 80 + Math.floor(Math.random() * 15),
+        retention: data.total > 0 ? Math.round((data.retained / data.total) * 100) : 0,
         count: data.total,
       }));
     

@@ -67,6 +67,7 @@ export default async function PayoutQueuePage({
       id, program_slug, student_start_date,
       voucher_issued_date, voucher_paid_date,
       payout_due_date, payout_status, payout_paid_date, payout_notes,
+      payout_amount,
       user_id,
       program_holders:partner_id ( name, contact_name, contact_email )
     `)
@@ -99,12 +100,21 @@ export default async function PayoutQueuePage({
       : null,
   }));
 
+  const sumAmount = (rows: any[]) => rows.reduce((s, r) => s + (r.payout_amount || 0), 0);
+
   const counts = {
     all:     queue.length,
     pending: queue.filter(r => r.payout_status === 'pending').length,
     due:     queue.filter(r => r.payout_status === 'due').length,
     overdue: queue.filter(r => r.payout_status === 'overdue').length,
     paid:    queue.filter(r => r.payout_status === 'paid').length,
+  };
+
+  const amounts = {
+    overdue: sumAmount(queue.filter(r => r.payout_status === 'overdue')),
+    pending: sumAmount(queue.filter(r => r.payout_status === 'pending')),
+    paid:    sumAmount(queue.filter(r => r.payout_status === 'paid')),
+    all:     sumAmount(queue),
   };
 
   const FILTERS = [
@@ -138,7 +148,7 @@ export default async function PayoutQueuePage({
                 <span className="text-xs font-medium text-red-700">Overdue</span>
               </div>
               <p className="text-2xl font-bold text-red-800">{counts.overdue}</p>
-              <p className="text-xs text-red-600">{fmtUsd(counts.overdue * 2500)} owed</p>
+              <p className="text-xs text-red-600">{fmtUsd(amounts.overdue)} owed</p>
             </div>
           )}
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
@@ -147,7 +157,7 @@ export default async function PayoutQueuePage({
               <span className="text-xs font-medium text-amber-700">Pending</span>
             </div>
             <p className="text-2xl font-bold text-amber-800">{counts.pending}</p>
-            <p className="text-xs text-amber-600">{fmtUsd(counts.pending * 2500)} queued</p>
+            <p className="text-xs text-amber-600">{fmtUsd(amounts.pending)} queued</p>
           </div>
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-1">
@@ -155,7 +165,7 @@ export default async function PayoutQueuePage({
               <span className="text-xs font-medium text-emerald-700">Paid</span>
             </div>
             <p className="text-2xl font-bold text-emerald-800">{counts.paid}</p>
-            <p className="text-xs text-emerald-600">{fmtUsd(counts.paid * 2500)} disbursed</p>
+            <p className="text-xs text-emerald-600">{fmtUsd(amounts.paid)} disbursed</p>
           </div>
           <div className="bg-white border border-slate-200 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-1">

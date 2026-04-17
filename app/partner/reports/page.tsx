@@ -95,6 +95,23 @@ export default async function PartnerReportsPage() {
   const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
   const currentQuarter = Math.floor(now.getMonth() / 3);
 
+  // Fetch real enrollment counts for each quarter of the current year
+  const quarterCounts = await Promise.all(
+    quarters.map(async (_, idx) => {
+      if (!orgId) return 0;
+      const qStart = new Date(now.getFullYear(), idx * 3, 1).toISOString();
+      const qEnd = new Date(now.getFullYear(), idx * 3 + 3, 1).toISOString();
+      const { count } = await supabase
+        .from('partner_enrollments')
+        .select('*', { count: 'exact', head: true })
+        .eq('partner_id', orgId)
+        .gte('created_at', qStart)
+        .lt('created_at', qEnd);
+      return count || 0;
+    })
+  );
+  const quarterMax = Math.max(...quarterCounts, 1);
+
   return (
     <div className="min-h-screen bg-white">
       <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden">
@@ -144,14 +161,14 @@ export default async function PartnerReportsPage() {
             </h2>
             <div className="space-y-4">
               {quarters.map((q, idx) => {
+                const value = quarterCounts[idx];
+                const pct = Math.round((value / quarterMax) * 100);
                 const isCurrentQ = idx === currentQuarter;
-                const value = isCurrentQ ? thisQuarterEnrollments : 0;
-                const pct = totalEnrollments > 0 ? Math.round((value / totalEnrollments) * 100) : 0;
                 return (
                   <div key={q} className="flex items-center gap-4">
-                    <span className="w-8 text-sm font-medium text-gray-500">{q}</span>
+                    <span className={`w-8 text-sm font-medium ${isCurrentQ ? 'text-brand-blue-600' : 'text-gray-500'}`}>{q}</span>
                     <div className="flex-1 bg-slate-100 rounded-full h-3 overflow-hidden">
-                      <div className="bg-brand-blue-500 h-full rounded-full transition-all" style={{ width: `${pct}%` }} />
+                      <div className={`${isCurrentQ ? 'bg-brand-blue-500' : 'bg-brand-blue-300'} h-full rounded-full transition-all`} style={{ width: `${pct}%` }} />
                     </div>
                     <span className="text-sm text-gray-600 w-8 text-right">{value}</span>
                   </div>

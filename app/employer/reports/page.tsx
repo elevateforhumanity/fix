@@ -1,10 +1,11 @@
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
+import { redirect } from 'next/navigation';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
-
 
 export const metadata: Metadata = {
   title: 'Reports | Elevate for Humanity',
@@ -12,137 +13,144 @@ export const metadata: Metadata = {
 };
 
 export default async function EmployerReportsPage() {
-  let user = null;
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login?redirect=/employer/reports');
 
-  try {
-    const supabase = await createClient();
+  const db = await getAdminClient();
+  const { data: profile } = await db.from('profiles').select('role, employer_id').eq('id', user.id).maybeSingle();
+  if (!profile || !['employer', 'admin', 'super_admin', 'staff'].includes(profile.role)) redirect('/login');
 
-    const { data: authData } = await supabase.auth.getUser();
-    user = authData.user;
-  } catch (error) { /* Error handled silently */ }
+  const employerId = profile.employer_id;
+
+  // Active job postings
+  const { count: activePostings } = await db
+    .from('jobs')
+    .select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id)
+    .eq('status', 'active');
+
+  // Applications scoped to this employer's jobs
+  const { count: totalApplications } = await db
+    .from('applications')
+    .select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id);
+
+  // Pipeline breakdown
+  const { count: newApps } = await db.from('applications').select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id).eq('status', 'submitted');
+  const { count: underReview } = await db.from('applications').select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id).in('status', ['in_review', 'under_review']);
+  const { count: approved } = await db.from('applications').select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id).eq('status', 'approved');
+
+  // Hires = enrolled applications
+  const { count: hires } = await db.from('applications').select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id).eq('status', 'enrolled');
+
+  // Job placements
+  const { data: placements } = await db
+    .from('job_placements')
+    .select('start_date, created_at')
+    .eq('employer_id', employerId ?? user.id)
+    .eq('status', 'placed')
+    .order('start_date', { ascending: false })
+    .limit(100);
+
+  // Avg days to hire
+  let avgDaysToHire: number | null = null;
+  if (placements && placements.length > 0) {
+    const diffs = placements
+      .filter((p: any) => p.start_date && p.created_at)
+      .map((p: any) => Math.round((new Date(p.start_date).getTime() - new Date(p.created_at).getTime()) / (1000 * 60 * 60 * 24)));
+    if (diffs.length > 0) avgDaysToHire = Math.round(diffs.reduce((a, b) => a + b, 0) / diffs.length);
+  }
+
+  // Candidate sources
+  const { count: directApps } = await db.from('applications').select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id).is('referred_by', null);
+  const { count: referrals } = await db.from('applications').select('*', { count: 'exact', head: true })
+    .eq('employer_id', employerId ?? user.id).not('referred_by', 'is', null);
 
   return (
     <div className="container mx-auto px-4 py-8">
-            <div className="max-w-7xl mx-auto px-4 py-4">
-        <Breadcrumbs items={[{ label: "Employer", href: "/employer" }, { label: "Reports" }]} />
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <Breadcrumbs items={[{ label: 'Employer', href: '/employer' }, { label: 'Reports' }]} />
       </div>
-<h1 className="text-3xl font-bold mb-6">Reports & Analytics</h1>
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <p className="text-black mb-6">
-          View hiring metrics and workforce analytics.
-        </p>
+      <h1 className="text-3xl font-bold mb-6">Reports & Analytics</h1>
+
+      <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+        <p className="text-gray-600 mb-6">Hiring metrics and workforce analytics.</p>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="border rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-brand-blue-600 mb-2">0</div>
-            <div className="text-sm text-black">Active Postings</div>
+            <div className="text-3xl font-bold text-brand-blue-600 mb-2">{activePostings ?? 0}</div>
+            <div className="text-sm text-gray-600">Active Postings</div>
           </div>
           <div className="border rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-brand-green-600 mb-2">0</div>
-            <div className="text-sm text-black">Applications</div>
+            <div className="text-3xl font-bold text-brand-green-600 mb-2">{totalApplications ?? 0}</div>
+            <div className="text-sm text-gray-600">Applications</div>
           </div>
           <div className="border rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-brand-blue-600 mb-2">0</div>
-            <div className="text-sm text-black">Hires</div>
+            <div className="text-3xl font-bold text-brand-blue-600 mb-2">{hires ?? 0}</div>
+            <div className="text-sm text-gray-600">Hires</div>
           </div>
         </div>
-        
-        <div className="mt-8 grid md:grid-cols-2 gap-6">
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">Hiring Pipeline</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-black">New Applications</span>
-                <span className="font-semibold">0</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Under Review</span>
-                <span className="font-semibold">0</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Interviews Scheduled</span>
-                <span className="font-semibold">0</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Offers Extended</span>
-                <span className="font-semibold">0</span>
-              </div>
-            </div>
-          </div>
+      </div>
 
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">Time to Hire</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-black">Average Days</span>
-                <span className="font-semibold">-</span>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="border rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4">Hiring Pipeline</h3>
+          <div className="space-y-3">
+            {[
+              ['New Applications', newApps ?? 0],
+              ['Under Review', underReview ?? 0],
+              ['Approved', approved ?? 0],
+              ['Hired', hires ?? 0],
+            ].map(([label, val]) => (
+              <div key={label as string} className="flex justify-between items-center">
+                <span className="text-gray-600">{label}</span>
+                <span className="font-semibold">{val}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Fastest Hire</span>
-                <span className="font-semibold">-</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Application Response Rate</span>
-                <span className="font-semibold">-</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Interview Show Rate</span>
-                <span className="font-semibold">-</span>
-              </div>
-            </div>
+            ))}
           </div>
+        </div>
 
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">Candidate Sources</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-black">Direct Applications</span>
-                <span className="font-semibold">0</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Referrals</span>
-                <span className="font-semibold">0</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Training Programs</span>
-                <span className="font-semibold">0</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Job Boards</span>
-                <span className="font-semibold">0</span>
-              </div>
+        <div className="border rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4">Time to Hire</h3>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Average Days</span>
+              <span className="font-semibold">{avgDaysToHire != null ? `${avgDaysToHire}d` : '—'}</span>
             </div>
-          </div>
-
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-4">Retention Metrics</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-black">30-Day Retention</span>
-                <span className="font-semibold">-</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">90-Day Retention</span>
-                <span className="font-semibold">-</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">1-Year Retention</span>
-                <span className="font-semibold">-</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-black">Avg. Tenure</span>
-                <span className="font-semibold">-</span>
-              </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">Total Placements</span>
+              <span className="font-semibold">{placements?.length ?? 0}</span>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 flex gap-4">
-          <button className="bg-brand-blue-600 text-white px-6 py-2 rounded-lg hover:bg-brand-blue-700" aria-label="Action button">
-            Export Report
-          </button>
-          <button className="border border-slate-300 px-6 py-2 rounded-lg hover:bg-white" aria-label="Action button">
-            Schedule Report
-          </button>
+        <div className="border rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4">Candidate Sources</h3>
+          <div className="space-y-3">
+            {[
+              ['Direct Applications', directApps ?? 0],
+              ['Referrals', referrals ?? 0],
+            ].map(([label, val]) => (
+              <div key={label as string} className="flex justify-between items-center">
+                <span className="text-gray-600">{label}</span>
+                <span className="font-semibold">{val}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="border rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+          <div className="space-y-2">
+            <Link href="/employer/applications" className="block text-brand-blue-600 hover:underline text-sm">View All Applications →</Link>
+            <Link href="/employer/jobs" className="block text-brand-blue-600 hover:underline text-sm">Manage Job Postings →</Link>
+            <Link href="/employer/compliance" className="block text-brand-blue-600 hover:underline text-sm">Compliance & WIOA →</Link>
+          </div>
         </div>
       </div>
     </div>

@@ -93,48 +93,32 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
         return;
       }
 
-      if (placementData && placementData.length > 0) {
-        const formattedPlacements: Placement[] = placementData.map(p => ({
-          id: p.id,
-          student_id: p.student_id,
-          student_name: (p.profiles as any)?.full_name || 'Student',
-          program_id: p.program_id,
-          program_name: (p.training_programs as any)?.name || 'Program',
-          employer_id: p.employer_id,
-          employer_name: (p.employer_profiles as any)?.company_name || 'Employer',
-          position: p.position,
-          salary: p.salary || 0,
-          start_date: p.start_date,
-          status: p.status,
-          match_score: p.match_score,
-          created_at: p.created_at,
-        }));
+      const formattedPlacements: Placement[] = (placementData || []).map((p: any) => ({
+        id: p.id,
+        student_id: p.student_id,
+        student_name: p.profiles?.full_name || 'Student',
+        program_id: p.program_id,
+        program_name: p.training_programs?.name || p.programs?.title || 'Program',
+        employer_id: p.employer_id,
+        employer_name: p.employer_profiles?.company_name || p.employers?.business_name || 'Employer',
+        position: p.position,
+        salary: p.salary || 0,
+        start_date: p.start_date,
+        status: p.status,
+        match_score: p.match_score,
+        created_at: p.created_at,
+      }));
 
-        setPlacements(formattedPlacements);
-        calculateMetrics(formattedPlacements);
-        calculatePipeline(formattedPlacements);
-      } else {
-        setFallbackData();
-      }
+      setPlacements(formattedPlacements);
+      calculateMetrics(formattedPlacements);
+      calculatePipeline(formattedPlacements);
     } catch (err) {
       console.error('Error:', err);
-      setFallbackData();
+      setPlacements([]);
     } finally {
       setLoading(false);
     }
   }, [programId]);
-
-  const setFallbackData = () => {
-    const fallbackPlacements: Placement[] = [
-      { id: '1', student_id: '1', student_name: 'Jordan Martinez', program_name: 'Full-Stack Web Development', employer_name: 'Tech Solutions Inc', position: 'Junior Developer', salary: 75000, start_date: '2024-02-01', status: 'placed', match_score: 95, created_at: new Date().toISOString() },
-      { id: '2', student_id: '2', student_name: 'Taylor Anderson', program_name: 'Certified Nursing Assistant', employer_name: 'Healthcare Plus', position: 'CNA', salary: 42000, start_date: '2024-02-15', status: 'placed', match_score: 92, created_at: new Date().toISOString() },
-      { id: '3', student_id: '3', student_name: 'Alex Kim', program_name: 'HVAC Technician', employer_name: 'Climate Control Systems', position: 'HVAC Technician', salary: 55000, start_date: '2024-03-01', status: 'offer_pending', match_score: 88, created_at: new Date().toISOString() },
-      { id: '4', student_id: '4', student_name: 'Sam Rivera', program_name: 'Full-Stack Web Development', employer_name: 'Digital Innovations', position: 'Frontend Developer', salary: 70000, start_date: '2024-02-20', status: 'interviewing', match_score: 90, created_at: new Date().toISOString() },
-    ];
-    setPlacements(fallbackPlacements);
-    calculateMetrics(fallbackPlacements);
-    calculatePipeline(fallbackPlacements);
-  };
 
   const calculateMetrics = (data: Placement[]) => {
     const placed = data.filter(p => p.status === 'placed');
@@ -170,7 +154,12 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
       avgSalary: totalWithSalary.length > 0 
         ? Math.round(totalWithSalary.reduce((sum, p) => sum + p.salary, 0) / totalWithSalary.length)
         : 0,
-      avgTimeToPlacement: 45, // Would calculate from actual dates
+      avgTimeToPlacement: (() => {
+        const diffs = placed
+          .filter(p => p.start_date && p.created_at)
+          .map(p => Math.round((new Date(p.start_date).getTime() - new Date(p.created_at).getTime()) / (1000 * 60 * 60 * 24)));
+        return diffs.length > 0 ? Math.round(diffs.reduce((a, b) => a + b, 0) / diffs.length) : 0;
+      })(),
       placementsByProgram,
       topEmployers,
     });

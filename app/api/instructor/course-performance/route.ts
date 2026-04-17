@@ -18,15 +18,11 @@ async function _GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     
-    // Get courses and enrollment counts
+    // Get courses and enrollment counts from canonical table
     const { data: enrollments } = await supabase
-      .from('student_enrollments')
-      .select(`
-        program_id,
-        status,
-        programs (title)
-      `)
-      .limit(100);
+      .from('program_enrollments')
+      .select('program_id, status, programs!program_enrollments_program_id_fkey(title)')
+      .limit(200);
     
     // Aggregate by program
     const programStats: Record<string, { name: string; students: number; completed: number }> = {};
@@ -47,7 +43,7 @@ async function _GET(request: Request) {
       .map(p => ({
         name: p.name.length > 30 ? p.name.substring(0, 27) + '...' : p.name,
         students: p.students,
-        completion: p.students > 0 ? Math.round((p.completed / p.students) * 100) : 75 + Math.floor(Math.random() * 20),
+        completion: p.students > 0 ? Math.round((p.completed / p.students) * 100) : 0,
       }));
     
     // If no data, return placeholder
