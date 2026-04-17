@@ -475,6 +475,16 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
               )}
             </div>
 
+            {/* Student Portal link */}
+            <div className="mb-4">
+              <Link
+                href="/student-portal"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue-600 hover:text-brand-blue-700 border border-brand-blue-200 rounded-lg px-4 py-2 hover:bg-brand-blue-50 transition-colors"
+              >
+                Student Portal — Assignments, Grades, Schedule, Handbook →
+              </Link>
+            </div>
+
             {/* Quick Actions */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>

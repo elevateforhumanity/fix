@@ -12,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 const navItems = [
-  { href: '/student-portal', label: 'Dashboard' },
+  { href: '/learner/dashboard', label: '← My Dashboard' },
+  { href: '/student-portal', label: 'Portal Home' },
   { href: '/lms/courses', label: 'Courses' },
   { href: '/student-portal/assignments', label: 'Assignments' },
   { href: '/student-portal/grades', label: 'Grades' },
