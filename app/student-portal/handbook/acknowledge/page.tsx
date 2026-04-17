@@ -25,8 +25,18 @@ interface PolicySection {
   icon: React.ElementType;
   description: string;
   keyPoints: string[];
-  acknowledgmentField: keyof typeof defaultAcknowledgments;
+  acknowledgmentField: string;
 }
+
+// Icon map — DB stores icon name as string, we resolve to component here
+const ICON_MAP: Record<string, React.ElementType> = {
+  Clock,
+  Users,
+  Shield,
+  Scale,
+  MessageSquare,
+  BookOpen,
+};
 
 const defaultAcknowledgments = {
   attendancePolicy: false,
@@ -36,7 +46,16 @@ const defaultAcknowledgments = {
   grievancePolicy: false,
 };
 
-const POLICY_SECTIONS: PolicySection[] = [
+// Slug → acknowledgmentField mapping (kept for backward compat with existing DB records)
+const SLUG_TO_FIELD: Record<string, string> = {
+  attendance: 'attendancePolicy',
+  'academic-integrity': 'dressCode',   // reuses dressCode slot
+  conduct: 'conductPolicy',
+  safety: 'safetyPolicy',
+  grievance: 'grievancePolicy',
+};
+
+const FALLBACK_POLICY_SECTIONS: PolicySection[] = [
   {
     id: 'attendance',
     title: 'Attendance Policy',
@@ -114,6 +133,11 @@ const POLICY_SECTIONS: PolicySection[] = [
 
 const HANDBOOK_VERSION = '1.0';
 
+// Build dynamic acknowledgments object from policy sections
+function buildAcknowledgments(sections: PolicySection[]) {
+  return Object.fromEntries(sections.map(s => [s.acknowledgmentField, false]));
+}
+
 export default function HandbookAcknowledgePage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
@@ -123,7 +147,8 @@ export default function HandbookAcknowledgePage() {
   const [success, setSuccess] = useState(false);
   const [alreadyAcknowledged, setAlreadyAcknowledged] = useState(false);
 
-  const [acknowledgments, setAcknowledgments] = useState(defaultAcknowledgments);
+  const [policySections, setPolicySections] = useState<PolicySection[]>(FALLBACK_POLICY_SECTIONS);
+  const [acknowledgments, setAcknowledgments] = useState<Record<string, boolean>>(defaultAcknowledgments);
   const [expandedSection, setExpandedSection] = useState<string | null>('attendance');
 
   useEffect(() => {
@@ -136,6 +161,26 @@ export default function HandbookAcknowledgePage() {
       }
 
       setUser(data.user);
+
+      // Load policies from DB
+      const { data: dbPolicies } = await supabase
+        .from('handbook_policies')
+        .select('id, slug, title, description, icon, key_points, display_order')
+        .eq('active', true)
+        .order('display_order', { ascending: true });
+
+      if (dbPolicies && dbPolicies.length > 0) {
+        const sections: PolicySection[] = dbPolicies.map((p: any) => ({
+          id: p.slug,
+          title: p.title,
+          icon: ICON_MAP[p.icon] ?? BookOpen,
+          description: p.description ?? '',
+          keyPoints: p.key_points ?? [],
+          acknowledgmentField: SLUG_TO_FIELD[p.slug] ?? p.slug,
+        }));
+        setPolicySections(sections);
+        setAcknowledgments(buildAcknowledgments(sections));
+      }
 
       // Check if already acknowledged
       const { data: existing } = await supabase
@@ -154,7 +199,7 @@ export default function HandbookAcknowledgePage() {
 
   const allAcknowledged = Object.values(acknowledgments).every(Boolean);
 
-  const handleAcknowledge = (field: keyof typeof acknowledgments) => {
+  const handleAcknowledge = (field: string) => {
     setAcknowledgments((prev) => ({
       ...prev,
       [field]: !prev[field],
@@ -309,11 +354,11 @@ export default function HandbookAcknowledgePage() {
             </span>
             <span className="text-sm text-slate-500">
               {Object.values(acknowledgments).filter(Boolean).length} of{' '}
-              {POLICY_SECTIONS.length} sections
+              {policySections.length} sections
             </span>
           </div>
           <div className="flex gap-2">
-            {POLICY_SECTIONS.map((section) => (
+            {policySections.map((section) => (
               <div
                 key={section.id}
                 className={`flex-1 h-2 rounded-full ${
@@ -339,7 +384,7 @@ export default function HandbookAcknowledgePage() {
 
         {/* Policy Sections */}
         <div className="space-y-4 mb-8">
-          {POLICY_SECTIONS.map((section) => {
+          {policySections.map((section) => {
             const Icon = section.icon;
             const isExpanded = expandedSection === section.id;
             const isAcknowledged = acknowledgments[section.acknowledgmentField];
@@ -461,7 +506,7 @@ export default function HandbookAcknowledgePage() {
           ) : allAcknowledged ? (
             'Submit Handbook Acknowledgment'
           ) : (
-            `Acknowledge All ${POLICY_SECTIONS.length} Sections to Continue`
+            `Acknowledge All ${policySections.length} Sections to Continue`
           )}
         </button>
       </div>

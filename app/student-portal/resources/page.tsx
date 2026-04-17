@@ -1,123 +1,158 @@
-export const dynamic = 'force-static';
-export const revalidate = 3600;
-
-
 import Image from 'next/image';
+import Link from 'next/link';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import {
+  BookOpen, Users, FileText, Briefcase, Monitor, Download,
+  DollarSign, MessageCircle, ExternalLink, ChevronRight,
+} from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Resources | Student Portal',
-  description: 'Access academic resources, library, and study materials.',
+  description: 'Academic, career, and support resources for Elevate for Humanity students.',
   robots: { index: false, follow: false },
 };
 
-export default function StudentPortalResourcesPage() {
+// Icon map — DB stores icon name as string
+const ICON_MAP: Record<string, React.ElementType> = {
+  BookOpen, Users, FileText, Briefcase, Monitor, Download,
+  DollarSign, MessageCircle,
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  academic:  'Academic Support',
+  career:    'Career Services',
+  financial: 'Financial Resources',
+  technical: 'Technical Support',
+  general:   'General Resources',
+};
+
+const CATEGORY_ORDER = ['academic', 'career', 'financial', 'technical', 'general'];
+
+// Fallback if table not yet populated
+const FALLBACK_RESOURCES = [
+  { id: '1', title: 'Digital Library',   description: 'Access thousands of textbooks, journals, and study materials', category: 'academic',  icon: 'BookOpen',      href: '/lms/library',    external: false, badge: null },
+  { id: '2', title: 'Tutoring Center',   description: 'One-on-one and group tutoring with certified tutors',          category: 'academic',  icon: 'Users',         href: '/tutoring',       external: false, badge: 'Free' },
+  { id: '3', title: 'Writing Center',    description: 'Feedback on essays, reports, and professional documents',      category: 'academic',  icon: 'FileText',      href: '/writing-center', external: false, badge: 'Free' },
+  { id: '4', title: 'Career Services',   description: 'Resume help, interview prep, and job placement assistance',    category: 'career',    icon: 'Briefcase',     href: '/career-services',external: false, badge: null },
+  { id: '5', title: 'IT Help Desk',      description: 'Technical support for LMS access, software, and devices',     category: 'technical', icon: 'Monitor',       href: '/lms/help',       external: false, badge: null },
+  { id: '6', title: 'Study Materials',   description: 'Download practice tests, flashcards, and study guides',       category: 'academic',  icon: 'Download',      href: '/lms/files',      external: false, badge: null },
+  { id: '7', title: 'Financial Aid',     description: 'Scholarships, grants, and payment plan information',           category: 'financial', icon: 'DollarSign',    href: '/financial-aid',  external: false, badge: null },
+  { id: '8', title: 'Student Community', description: 'Connect with classmates and join study groups',               category: 'general',   icon: 'MessageCircle', href: '/lms/community',  external: false, badge: null },
+];
+
+export default async function StudentPortalResourcesPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login?redirect=/student-portal/resources');
+
+  const { data: dbResources } = await supabase
+    .from('student_resources')
+    .select('id, title, description, category, icon, href, external, badge, display_order')
+    .eq('active', true)
+    .order('display_order', { ascending: true });
+
+  const resources = (dbResources && dbResources.length > 0) ? dbResources : FALLBACK_RESOURCES;
+
+  // Group by category
+  const grouped = CATEGORY_ORDER.reduce<Record<string, typeof resources>>((acc, cat) => {
+    const items = resources.filter((r: any) => r.category === cat);
+    if (items.length > 0) acc[cat] = items;
+    return acc;
+  }, {});
+
+  // Any categories not in CATEGORY_ORDER
+  resources.forEach((r: any) => {
+    if (!CATEGORY_ORDER.includes(r.category) && !grouped[r.category]) {
+      grouped[r.category] = resources.filter((x: any) => x.category === r.category);
+    }
+  });
 
   return (
-    <div className="container mx-auto px-4 py-8">
-
-      {/* Hero Image */}
+    <div className="min-h-screen bg-white">
       <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden">
-        <Image src="/images/pages/student-portal-page-9.jpg" alt="Student portal" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/student-portal-page-6.jpg" alt="Student resources" fill sizes="100vw" className="object-cover" priority />
+        <div className="absolute inset-0 bg-slate-900/40" />
+        <div className="absolute inset-0 flex items-end">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-6 w-full">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white">Student Resources</h1>
+            <p className="text-white/80 text-sm mt-1">Everything you need to succeed in your program</p>
+          </div>
+        </div>
       </section>
-            <div className="max-w-7xl mx-auto px-4 py-4">
-        <Breadcrumbs items={[{ label: "Student Portal", href: "/student-portal" }, { label: "Resources" }]} />
-      </div>
-<h1 className="text-3xl font-bold mb-6">Student Resources</h1>
-      
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Library */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center mb-4">
-            <svg className="w-6 h-6 text-brand-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">Digital Library</h2>
-          <p className="text-gray-600 mb-4">Access e-books, journals, and research databases.</p>
-          <a href="/lms/library" className="text-brand-blue-600 hover:underline">Browse Library →</a>
-        </div>
 
-        {/* Tutoring */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="w-12 h-12 bg-brand-green-100 rounded-lg flex items-center justify-center mb-4">
-            <svg className="w-6 h-6 text-brand-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">Tutoring Center</h2>
-          <p className="text-gray-600 mb-4">Schedule one-on-one tutoring sessions.</p>
-          <a href="/tutoring" className="text-brand-blue-600 hover:underline">Book Session →</a>
-        </div>
-
-        {/* Writing Center */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center mb-4">
-            <svg className="w-6 h-6 text-brand-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">Writing Center</h2>
-          <p className="text-gray-600 mb-4">Get help with essays, papers, and citations.</p>
-          <a href="/writing-center" className="text-brand-blue-600 hover:underline">Get Help →</a>
-        </div>
-
-        {/* Career Services */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="w-12 h-12 bg-brand-orange-100 rounded-lg flex items-center justify-center mb-4">
-            <svg className="w-6 h-6 text-brand-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">Career Services</h2>
-          <p className="text-gray-600 mb-4">Resume help, job search, and career counseling.</p>
-          <a href="/career-services" className="text-brand-blue-600 hover:underline">Explore Careers →</a>
-        </div>
-
-        {/* IT Help Desk */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="w-12 h-12 bg-brand-red-100 rounded-lg flex items-center justify-center mb-4">
-            <svg className="w-6 h-6 text-brand-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">IT Help Desk</h2>
-          <p className="text-gray-600 mb-4">Technical support for software and accounts.</p>
-          <a href="/support" className="text-brand-blue-600 hover:underline">Get Support →</a>
-        </div>
-
-        {/* Study Materials */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-            <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">Study Materials</h2>
-          <p className="text-gray-600 mb-4">Course materials, past exams, and study guides.</p>
-          <a href="/lms/resources" className="text-brand-blue-600 hover:underline">View Materials →</a>
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          <Breadcrumbs items={[{ label: 'Student Portal', href: '/student-portal' }, { label: 'Resources' }]} />
         </div>
       </div>
 
-      {/* Quick Links */}
-      <section className="mt-8 rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
-        <div className="grid md:grid-cols-4 gap-4">
-          <a href="/lms/calendar" className="p-3 border rounded-lg hover:bg-white text-center">
-            Academic Calendar
-          </a>
-          <a href="/student-handbook" className="p-3 border rounded-lg hover:bg-white text-center">
-            Student Handbook
-          </a>
-          <a href="/financial-aid" className="p-3 border rounded-lg hover:bg-white text-center">
-            Financial Aid
-          </a>
-          <a href="/support" className="p-3 border rounded-lg hover:bg-white text-center">
-            Health Services
-          </a>
-        </div>
-      </section>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+        {Object.entries(grouped).map(([category, items]) => (
+          <section key={category}>
+            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <span className="w-1 h-5 bg-brand-blue-500 rounded-full inline-block" />
+              {CATEGORY_LABELS[category] ?? category}
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {items.map((resource: any) => {
+                const Icon = ICON_MAP[resource.icon] ?? BookOpen;
+                return (
+                  <Link
+                    key={resource.id}
+                    href={resource.href}
+                    target={resource.external ? '_blank' : undefined}
+                    rel={resource.external ? 'noopener noreferrer' : undefined}
+                    className="group bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-md hover:border-brand-blue-200 transition-all flex flex-col"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="w-10 h-10 bg-brand-blue-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-blue-100 transition-colors">
+                        <Icon className="w-5 h-5 text-brand-blue-600" />
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        {resource.badge && (
+                          <span className="px-2 py-0.5 bg-brand-green-100 text-brand-green-700 text-xs font-semibold rounded-full">
+                            {resource.badge}
+                          </span>
+                        )}
+                        {resource.external
+                          ? <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
+                          : <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-brand-blue-500 transition-colors" />}
+                      </div>
+                    </div>
+                    <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-brand-blue-700 transition-colors">
+                      {resource.title}
+                    </h3>
+                    {resource.description && (
+                      <p className="text-xs text-gray-500 leading-relaxed flex-1">{resource.description}</p>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+
+        {/* Quick contact strip */}
+        <section className="bg-brand-blue-50 rounded-2xl border border-brand-blue-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="font-bold text-brand-blue-900">Can&apos;t find what you need?</h3>
+            <p className="text-sm text-brand-blue-700 mt-0.5">Student services is here to help.</p>
+          </div>
+          <div className="flex gap-3 flex-shrink-0">
+            <a href="tel:+13173143757" className="inline-flex items-center gap-2 bg-white border border-brand-blue-200 text-brand-blue-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-brand-blue-100 transition-colors">
+              (317) 314-3757
+            </a>
+            <Link href="/contact" className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-brand-blue-700 transition-colors">
+              Contact Us <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
