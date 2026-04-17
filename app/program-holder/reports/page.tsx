@@ -5,11 +5,8 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-
   FileText,
   AlertCircle,
-  Phone,
-  Mail,
   Plus,
   Download,
   Calendar,
@@ -52,29 +49,46 @@ export default async function ReportsPage() {
     redirect('/program-holder/onboarding');
   }
 
-  // Fetch compliance reports (using apprentice_weekly_reports as template)
-  const { data: reports, count: totalReports } = await supabase
-    .from('apprentice_weekly_reports')
+  // Fetch reports from program_holder_reports (generic) with fallback to apprentice_weekly_reports
+  const { data: phReports, count: phCount } = await supabase
+    .from('program_holder_reports')
     .select('*', { count: 'exact' })
     .eq('program_holder_id', programHolder.id)
-    .order('week_ending', { ascending: false })
+    .order('created_at', { ascending: false })
     .limit(50);
+
+  // Fallback: if no generic reports exist, pull from apprentice_weekly_reports
+  let reports = phReports;
+  let totalReports = phCount;
+  if (!reports || reports.length === 0) {
+    const { data: weeklyReports, count: weeklyCount } = await supabase
+      .from('apprentice_weekly_reports')
+      .select('id, week_ending, hours_worked, status, submitted_at, created_at', { count: 'exact' })
+      .eq('program_holder_id', programHolder.id)
+      .order('week_ending', { ascending: false })
+      .limit(50);
+    reports = (weeklyReports ?? []).map((r: any) => ({
+      id: r.id,
+      title: `Week ending ${new Date(r.week_ending).toLocaleDateString()}`,
+      status: r.status,
+      created_at: r.submitted_at || r.created_at,
+      hours_worked: r.hours_worked,
+      report_type: 'weekly',
+    }));
+    totalReports = weeklyCount;
+  }
 
   // Calculate stats
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
 
-  const monthlyReports =
-    reports?.filter((r) => {
-      const reportDate = new Date(r.week_ending);
-      return (
-        reportDate.getMonth() === currentMonth &&
-        reportDate.getFullYear() === currentYear
-      );
-    }) || [];
+  const monthlyReports = (reports ?? []).filter((r: any) => {
+    const d = new Date(r.created_at);
+    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+  });
 
-  const pendingReports = reports?.filter((r) => r.status === 'pending') || [];
-  const approvedReports = reports?.filter((r) => r.status === 'approved') || [];
+  const pendingReports = (reports ?? []).filter((r: any) => r.status === 'pending');
+  const approvedReports = (reports ?? []).filter((r: any) => r.status === 'approved');
 
   return (
     <div className="min-h-screen bg-white">
@@ -183,37 +197,40 @@ export default async function ReportsPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {reports.map((report) => (
+                      {(reports ?? []).map((report: any) => (
                         <tr
                           key={report.id}
-                          className="border-b hover:bg-white transition-colors"
+                          className="border-b hover:bg-gray-50 transition-colors"
                         >
                           <td className="py-3 px-4 font-medium text-black">
-                            {new Date(report.week_ending).toLocaleDateString()}
+                            {report.title || new Date(report.created_at).toLocaleDateString()}
                           </td>
                           <td className="py-3 px-4 text-black">
-                            {report.hours_worked || 0} hrs
+                            {report.hours_worked != null ? `${report.hours_worked} hrs` : '—'}
                           </td>
                           <td className="py-3 px-4">
                             <span
-                              className={`px-2 py-2 text-xs rounded ${
+                              className={`px-2 py-1 text-xs rounded ${
                                 report.status === 'approved'
                                   ? 'bg-brand-green-100 text-brand-green-800'
                                   : report.status === 'pending'
                                     ? 'bg-yellow-100 text-yellow-800'
-                                    : 'bg-white text-black'
+                                    : 'bg-gray-100 text-gray-700'
                               }`}
                             >
-                              {report.status}
+                              {report.status || 'submitted'}
                             </span>
                           </td>
                           <td className="py-3 px-4 text-black">
-                            {new Date(report.created_at).toLocaleDateString()}
+                            {report.created_at ? new Date(report.created_at).toLocaleDateString() : '—'}
                           </td>
                           <td className="py-3 px-4">
-                            <button className="text-brand-blue-600 hover:text-brand-blue-700 font-medium text-sm" aria-label="Action button">
+                            <Link
+                              href={`/program-holder/reports/${report.id}`}
+                              className="text-brand-blue-600 hover:text-brand-blue-700 font-medium text-sm"
+                            >
                               View
-                            </button>
+                            </Link>
                           </td>
                         </tr>
                       ))}

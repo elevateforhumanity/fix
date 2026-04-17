@@ -6,6 +6,7 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logger } from '@/lib/logger';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
+import { sendEmail } from '@/lib/email/sendgrid';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -70,6 +71,23 @@ async function _PATCH(request: NextRequest, { params }: { params: Promise<{ id: 
       before_state: before,
       after_state: data,
     }).catch(() => {});
+
+    // Send rejection email — non-blocking
+    if (updateData.status === 'rejected' && (before as any)?.email) {
+      const app = before as any;
+      const firstName = app.first_name || app.full_name?.split(' ')[0] || 'Applicant';
+      const programName = app.program_slug || app.program_interest || 'the program';
+      sendEmail({
+        to: [app.email],
+        from: 'Elevate for Humanity <info@elevateforhumanity.org>',
+        subject: 'Update on Your Application — Elevate for Humanity',
+        html: `<p>Hi ${firstName},</p>
+<p>Thank you for your interest in <strong>${programName}</strong> at Elevate for Humanity.</p>
+<p>After careful review, we are unable to move forward with your application at this time.</p>
+<p>We encourage you to explore other programs at <a href="https://www.elevateforhumanity.org/programs">elevateforhumanity.org/programs</a> or contact us at <a href="mailto:info@elevateforhumanity.org">info@elevateforhumanity.org</a> with any questions.</p>
+<br/><p>Warm regards,<br/>Elevate for Humanity Team</p>`,
+      }).catch((err: Error) => logger.error('[PATCH /applications/:id] rejection email failed', err));
+    }
 
     return NextResponse.json({ data });
   } catch (err) {

@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { writeAdminAuditEvent, AuditActions } from '@/lib/audit';
+import { sendEmail } from '@/lib/email/sendgrid';
 
 const ADMIN_ROLES = ['admin', 'super_admin'];
 
@@ -36,7 +37,7 @@ export async function submitVerificationDecision(
   // ── 3. LOAD HOLDER — source of truth, not client input ────────────
   const { data: holder, error: holderError } = await db
     .from('program_holders')
-    .select('id, user_id, status, primary_program_id')
+    .select('id, user_id, status, primary_program_id, contact_email, organization_name, contact_name')
     .eq('id', holderId)
     .maybeSingle();
 
@@ -48,11 +49,12 @@ export async function submitVerificationDecision(
     return { error: `Cannot transition from status "${currentStatus}"` };
   }
 
-  // ── 5. WRITE HOLDER STATUS — use columns that actually exist ───────
+  // ── 5. WRITE HOLDER STATUS — update both status and verification_status ──
   const { error: updateError } = await db
     .from('program_holders')
     .update({
       status: decision,
+      verification_status: decision,
       approved_by: decision === 'approved' ? user.id : null,
       approved_at: decision === 'approved' ? new Date().toISOString() : null,
     })
@@ -81,7 +83,52 @@ export async function submitVerificationDecision(
     }
   }
 
-  // ── 8. AUDIT ───────────────────────────────────────────────────────
+  // ── 8. EMAIL NOTIFICATION ──────────────────────────────────────────
+  // Resolve recipient email: prefer contact_email on program_holders, fall back to profiles
+  let recipientEmail = holder.contact_email ?? null;
+  if (!recipientEmail && holder.user_id) {
+    const { data: phProfile } = await db
+      .from('profiles')
+      .select('email')
+      .eq('id', holder.user_id)
+      .maybeSingle();
+    recipientEmail = phProfile?.email ?? null;
+  }
+
+  if (recipientEmail) {
+    const firstName = holder.contact_name?.split(' ')[0] || 'Program Holder';
+    const orgName = holder.organization_name || 'your organization';
+
+    const subject = decision === 'approved'
+      ? 'Your Program Holder Application Has Been Approved — Elevate for Humanity'
+      : 'Update on Your Program Holder Application — Elevate for Humanity';
+
+    const html = decision === 'approved'
+      ? `<p>Hi ${firstName},</p>
+         <p>Congratulations! Your program holder application for <strong>${orgName}</strong> has been <strong>approved</strong> by Elevate for Humanity.</p>
+         <p>You can now log in to your Program Holder Portal to get started:</p>
+         <p><a href="https://www.elevateforhumanity.org/program-holder/dashboard">Access Your Portal →</a></p>
+         <p>If you have any questions, reply to this email or contact us at <a href="mailto:info@elevateforhumanity.org">info@elevateforhumanity.org</a>.</p>
+         <br/><p>Warm regards,<br/>Elevate for Humanity Team</p>`
+      : `<p>Hi ${firstName},</p>
+         <p>Thank you for applying to become a Program Holder with Elevate for Humanity.</p>
+         <p>After reviewing your application for <strong>${orgName}</strong>, we are unable to approve it at this time${notes ? ': ' + notes : '.'}</p>
+         <p>If you believe this decision was made in error or would like to discuss next steps, please contact us at <a href="mailto:info@elevateforhumanity.org">info@elevateforhumanity.org</a>.</p>
+         <br/><p>Warm regards,<br/>Elevate for Humanity Team</p>`;
+
+    try {
+      await sendEmail({
+        to: [recipientEmail],
+        from: 'Elevate for Humanity <info@elevateforhumanity.org>',
+        subject,
+        html,
+      });
+    } catch {
+      // Email failure must not roll back the decision
+    }
+  }
+
+  // ── 9. AUDIT ───────────────────────────────────────────────────────
   await writeAdminAuditEvent(supabase, {
     action: AuditActions.PROGRAM_HOLDER_VERIFIED,
     target_type: 'program_holder',

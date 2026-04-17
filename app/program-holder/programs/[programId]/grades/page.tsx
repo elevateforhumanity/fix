@@ -13,7 +13,7 @@ export default async function ProgramGradesPage({
   const { programId } = await params;
   const { db } = await requireProgramAccess(programId);
 
-  const { data: program } = await supabase
+  const { data: program } = await db
     .from('programs')
     .select('id, name, title')
     .eq('id', programId)
@@ -21,15 +21,16 @@ export default async function ProgramGradesPage({
 
   if (!program) return <div className="p-8 text-center text-gray-500">Program not found.</div>;
 
-  const { data: enrollments } = await supabase
-    .from('student_enrollments')
-    .select('id, student_id, progress, status, grade, created_at, profiles!student_enrollments_student_id_fkey(full_name, email)')
+  const { data: enrollments } = await db
+    .from('program_enrollments')
+    .select('id, user_id, progress, status, grade, enrolled_at, profiles!program_enrollments_user_id_fkey(full_name, email)')
     .eq('program_id', programId)
-    .order('created_at', { ascending: false })
+    .order('enrolled_at', { ascending: false })
     .limit(100);
 
   const items = enrollments || [];
   const completed = items.filter((i: any) => i.status === 'completed').length;
+  // Alias enrolled_at → created_at for display consistency
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">

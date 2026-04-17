@@ -34,10 +34,11 @@ export default async function CountersignMouPage({ params, searchParams }: Props
 
   if (!holder) notFound();
 
-  // Fetch MOU signature record (from program holder's sign-mou flow)
+  // Fetch MOU signature record scoped to this holder's user_id
   const { data: mouSig } = await db
     .from('mou_signatures')
     .select('id, signer_name, signer_title, supervisor_name, supervisor_license, compensation_model, compensation_rate, mou_version, signed_at, ip_address')
+    .eq('user_id', holder.user_id)
     .order('signed_at', { ascending: false })
     .limit(1)
     .maybeSingle();
