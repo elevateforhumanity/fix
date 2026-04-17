@@ -50,11 +50,64 @@ async function _GET(req: Request) {
 
     if (error) throw error;
 
+    // ── Auto-post new blog posts ──────────────────────────────────────────
+    const { data: unpublishedBlogPosts } = await supabase
+      .from('blog_posts')
+      .select('id, title, slug, excerpt, social_post_caption')
+      .eq('share_to_social', true)
+      .is('social_posted_at', null)
+      .not('published_at', 'is', null)
+      .order('published_at', { ascending: false })
+      .limit(1); // one blog post per slot max
+
+    for (const post of unpublishedBlogPosts ?? []) {
+      const caption = post.social_post_caption ||
+        `📚 ${post.title}\n\n${post.excerpt ?? ''}\n\nRead more: ${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`;
+      for (const platform of ['facebook', 'linkedin']) {
+        try {
+          await postToSocialMedia(platform, caption, {});
+          results.push({ type: 'blog', id: post.id, platform, success: true });
+        } catch (err) {
+          results.push({ type: 'blog', id: post.id, platform, success: false, error: toErrorMessage(err) });
+        }
+      }
+      await supabase.from('blog_posts')
+        .update({ social_posted_at: now.toISOString() })
+        .eq('id', post.id);
+    }
+
+    // ── Auto-post new reels ───────────────────────────────────────────────
+    const { data: unpublishedReels } = await supabase
+      .from('reels')
+      .select('id, title, description, video_url, thumbnail_url, social_post_caption')
+      .eq('share_to_social', true)
+      .eq('published', true)
+      .is('social_posted_at', null)
+      .order('created_at', { ascending: false })
+      .limit(1); // one reel per slot max
+
+    for (const reel of unpublishedReels ?? []) {
+      const caption = reel.social_post_caption ||
+        `🎬 ${reel.title}\n\n${reel.description ?? ''}\n\n${process.env.NEXT_PUBLIC_SITE_URL}/blog/reels`;
+      for (const platform of ['facebook', 'linkedin', 'instagram']) {
+        try {
+          await postToSocialMedia(platform, caption, { video_url: reel.video_url, thumbnail_url: reel.thumbnail_url });
+          results.push({ type: 'reel', id: reel.id, platform, success: true });
+        } catch (err) {
+          results.push({ type: 'reel', id: reel.id, platform, success: false, error: toErrorMessage(err) });
+        }
+      }
+      await supabase.from('reels')
+        .update({ social_posted_at: now.toISOString() })
+        .eq('id', reel.id);
+    }
+
     if (!campaigns || campaigns.length === 0) {
       return NextResponse.json({
         success: true,
         message: 'No active campaigns',
-        posted: 0,
+        posted: results.filter(r => r.success).length,
+        results,
       });
     }
 

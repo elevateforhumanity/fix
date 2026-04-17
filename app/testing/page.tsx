@@ -173,6 +173,14 @@ export default function TestingPage() {
                           Book a Seat
                         </Link>
                       )}
+                      {provider.key === 'certiport' && provider.status === 'active' && (
+                        <Link
+                          href="/certiport-exam"
+                          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors"
+                        >
+                          Request Exam Voucher →
+                        </Link>
+                      )}
                       <Link
                         href={`/testing/${provider.key}`}
                         className="inline-flex items-center gap-2 border border-slate-300 text-slate-700 hover:border-slate-400 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"

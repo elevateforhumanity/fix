@@ -208,6 +208,12 @@ export default function StoreLicensesPage() {
             Most organizations start with Managed Platform. If you have a dedicated engineering team and need internal deployment, Enterprise Source-Use may be right.
           </p>
           <Link
+            href="/store/licensing/partnerships"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+          >
+            Looking for a training or employer partnership? →
+          </Link>
+          <Link
             href="/store/licensing/managed"
             className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-brand-red-600 text-slate-900 font-bold rounded-lg hover:bg-brand-red-700 transition-colors"
           >

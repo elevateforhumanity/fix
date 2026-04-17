@@ -41,32 +41,50 @@ export type UserRole =
 /**
  * Maps every role to its canonical post-auth landing page.
  * Roles not listed here fall through to the student default.
+ *
+ * Each role lands directly on their operational portal so the first
+ * screen they see is immediately relevant to their job.
+ * /my-dashboard remains the hub they can always navigate back to.
  */
 export const ROLE_DESTINATIONS: Record<string, string> = {
-  // All roles land on the consolidated My Dashboard
-  // which shows industry tabs based on role.
-  super_admin:      '/my-dashboard',
-  admin:            '/my-dashboard',
-  org_admin:        '/my-dashboard',
-  staff:            '/my-dashboard',
-  instructor:       '/my-dashboard',
-  mentor:           '/my-dashboard',
-  case_manager:     '/my-dashboard',
-  program_holder:   '/my-dashboard',
-  delegate:         '/my-dashboard',
-  provider_admin:   '/my-dashboard',
-  partner:          '/my-dashboard',
-  sponsor:          '/my-dashboard',
-  employer:         '/my-dashboard',
-  workforce_board:  '/my-dashboard',
-  creator:          '/my-dashboard',
-  student:          '/my-dashboard',
+  // ── Platform admins ───────────────────────────────────────────────
+  super_admin:      '/my-dashboard',        // needs full hub — all tabs
+  admin:            '/my-dashboard',        // needs full hub — all tabs
+  org_admin:        '/my-dashboard',        // org-level admin — full hub
 
-  // Tax / supersonic staff go directly to their tools
+  // ── Internal Elevate staff ────────────────────────────────────────
+  staff:            '/staff-portal/dashboard',
+
+  // ── Education staff ───────────────────────────────────────────────
+  instructor:       '/instructor/dashboard',
+  mentor:           '/mentor/dashboard',
+  creator:          '/creator/dashboard',
+
+  // ── Workforce / case management ───────────────────────────────────
+  case_manager:     '/case-manager/dashboard',
+  workforce_board:  '/workforce-board/dashboard',
+
+  // ── Program administration ────────────────────────────────────────
+  program_holder:   '/program-holder/dashboard',
+  provider_admin:   '/provider/dashboard',
+  sponsor:          '/program-holder/dashboard', // sponsors manage programs
+
+  // ── Employer & industry partners ─────────────────────────────────
+  employer:         '/employer/dashboard',
+  partner:          '/partner/dashboard',   // smart-routes to /partner/attendance
+
+  // ── Learners ──────────────────────────────────────────────────────
+  student:          '/learner/dashboard',
+
+  // ── Family ────────────────────────────────────────────────────────
+  // parent role handled via /parent-portal — no requireRole yet, falls through
+  delegate:         '/my-dashboard',        // delegate portal not yet built
+
+  // ── Tax / supersonic — separate business lines ────────────────────
   vita_staff:       '/tax',
   supersonic_staff: '/supersonic-fast-cash',
 
-  // Grant clients
+  // ── Grant clients ─────────────────────────────────────────────────
   grant_client:     '/grants',
 };
 

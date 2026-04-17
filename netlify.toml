@@ -358,8 +358,12 @@
 
 # Social Media Scheduler - can be re-enabled now that env vars are in
 # Supabase app_secrets (no longer hits Lambda 4KB limit).
-# [functions."social-media-scheduler"]
-#   schedule = "0 14,18,22 * * *"
+# Social media auto-posting — 9 AM, 1 PM, 5 PM ET
+# Posts active campaigns + blog posts + reels to Facebook, LinkedIn, Instagram
+# Requires: CRON_SECRET, FACEBOOK_PAGE_ID, FACEBOOK_ACCESS_TOKEN,
+#           LINKEDIN_ACCESS_TOKEN, LINKEDIN_ORGANIZATION_ID
+[functions."cron-social-media"]
+  schedule = "0 14,18,22 * * *"
 
 # Compliance expiration — weekly, Monday 3 AM ET
 # Finds provider_compliance_artifacts expiring within 30 days and queues notifications.

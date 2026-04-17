@@ -9,26 +9,60 @@ import Copyright from '@/components/ui/Copyright';
 import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import { SOCIAL_LINKS } from '@/config/social-links';
 
-// GOVERNMENT-GRADE FOOTER STRUCTURE
-// 4 columns: About, Programs, Compliance & Trust, Access
-// Bottom bar: Legal links only
-// Principle: If a first-time visitor or government reviewer wouldn't expect to see it, remove it
+// FOOTER STRUCTURE — 5 columns
+// Col 1: Programs (healthcare, trades, tech, beauty, business)
+// Col 2: Get Started (student path: apply → fund → enroll → portal)
+// Col 3: Employers & Partners
+// Col 4: Portals (role-gated — logged-in users only)
+// Col 5: Organization
+// Bottom: Legal
 
 const footerLinks = {
-  // Column 1 — Training areas + credentials + testing
+  // Column 1 — All program areas
   programs: [
     { name: 'All Programs', href: '/programs' },
+    // Healthcare
     { name: 'Healthcare', href: '/programs/healthcare' },
+    { name: 'CNA Training', href: '/programs/cna' },
+    { name: 'Medical Assistant', href: '/programs/medical-assistant' },
+    { name: 'Phlebotomy', href: '/programs/phlebotomy' },
+    { name: 'Home Health Aide', href: '/programs/home-health-aide' },
+    { name: 'Pharmacy Technician', href: '/programs/pharmacy-technician' },
+    // Skilled Trades
     { name: 'Skilled Trades', href: '/programs/skilled-trades' },
     { name: 'HVAC Technician', href: '/programs/hvac-technician' },
-    { name: 'Technology', href: '/programs/it-help-desk' },
+    { name: 'CDL Training', href: '/programs/cdl-training' },
+    { name: 'Welding', href: '/programs/welding' },
+    { name: 'Electrical', href: '/programs/electrical' },
+    { name: 'Plumbing', href: '/programs/plumbing' },
+    { name: 'Construction Trades', href: '/programs/construction-trades-certification' },
+    { name: 'Forklift Operator', href: '/programs/forklift' },
+    // Technology
+    { name: 'Technology', href: '/programs/technology' },
+    { name: 'IT Help Desk', href: '/programs/it-help-desk' },
+    { name: 'Cybersecurity Analyst', href: '/programs/cybersecurity-analyst' },
+    { name: 'Network Administration', href: '/programs/network-administration' },
+    { name: 'Software Development', href: '/programs/software-development' },
+    { name: 'Web Development', href: '/programs/web-development' },
+    // Beauty & Apprenticeships
     { name: 'Barber Apprenticeship', href: '/programs/barber-apprenticeship' },
+    { name: 'Cosmetology Apprenticeship', href: '/programs/cosmetology-apprenticeship' },
+    { name: 'Esthetician', href: '/programs/esthetician' },
+    { name: 'Nail Technician', href: '/programs/nail-technician-apprenticeship' },
+    // Business & Finance
     { name: 'Business & Finance', href: '/programs/finance-bookkeeping-accounting' },
-    { name: 'Peer Recovery', href: '/programs/peer-recovery-specialist' },
+    { name: 'Bookkeeping', href: '/programs/bookkeeping' },
+    { name: 'Entrepreneurship', href: '/programs/entrepreneurship' },
+    { name: 'Tax Preparation', href: '/programs/tax-preparation' },
+    { name: 'Project Management', href: '/programs/project-management' },
+    // Other
+    { name: 'Peer Recovery Specialist', href: '/programs/peer-recovery-specialist' },
+    { name: 'CPR & First Aid', href: '/programs/cpr-first-aid' },
     { name: 'Certifications', href: '/training/certifications' },
     { name: 'Testing & Exams', href: '/testing' },
     { name: 'Credential Verification', href: '/verify-credentials' },
   ],
+
   // Column 2 — Student path: apply → fund → enroll → portal
   getStarted: [
     { name: 'Check My Eligibility', href: '/start' },
@@ -39,16 +73,16 @@ const footerLinks = {
     { name: 'JRI / Job Ready Indy', href: '/funding/jri' },
     { name: 'DOL Apprenticeship', href: '/funding/dol' },
     { name: 'Tuition & Fees', href: '/tuition' },
-    { name: 'Student Portal', href: '/learner' },
     { name: 'Schedule Orientation', href: '/orientation' },
     { name: 'Consumer Education', href: '/consumer-education' },
+    { name: 'Student Portal', href: '/learner' },
   ],
+
   // Column 3 — Employers and all partner types
   partners: [
     { name: 'Hire Our Graduates', href: '/for-employers' },
     { name: 'OJT Partnerships', href: '/partnerships' },
     { name: 'Post a Job', href: '/employer/post-job' },
-    { name: 'Employer Portal', href: '/employer/dashboard' },
     { name: 'Workforce Agencies', href: '/partners/workforce' },
     { name: 'Barbershop Partners', href: '/partners/barbershop-apprenticeship' },
     { name: 'Training Providers', href: '/partners/training-provider' },
@@ -56,7 +90,30 @@ const footerLinks = {
     { name: 'Program Holders', href: '/program-holder' },
     { name: 'Become a Partner', href: '/partners/join' },
   ],
-  // Column 4 — Organization, platform, compliance, contact
+
+  // Column 4 — Role portals (authenticated users)
+  portals: [
+    // Learners
+    { name: 'My Dashboard', href: '/my-dashboard', category: 'Learners' },
+    { name: 'My Learning', href: '/learner/dashboard', category: 'Learners' },
+    { name: 'My Courses', href: '/lms/dashboard', category: 'Learners' },
+    // Education staff
+    { name: 'Instructor Portal', href: '/instructor/dashboard', category: 'Education Staff' },
+    { name: 'Mentor Portal', href: '/mentor/dashboard', category: 'Education Staff' },
+    { name: 'Creator Studio', href: '/creator/dashboard', category: 'Education Staff' },
+    // Employers & partners
+    { name: 'Employer Portal', href: '/employer/dashboard', category: 'Employers & Partners' },
+    { name: 'Partner Portal', href: '/partner/dashboard', category: 'Employers & Partners' },
+    // Program administration
+    { name: 'Program Holder Portal', href: '/program-holder/dashboard', category: 'Program Administration' },
+    { name: 'Training Provider Portal', href: '/provider/dashboard', category: 'Program Administration' },
+    { name: 'Case Manager Portal', href: '/case-manager/dashboard', category: 'Program Administration' },
+    // Internal
+    { name: 'Staff Portal', href: '/staff-portal/dashboard', category: 'Internal' },
+    { name: 'Admin Dashboard', href: '/admin/dashboard', category: 'Internal' },
+  ],
+
+  // Column 5 — Organization
   organization: [
     { name: 'About Elevate', href: '/about' },
     { name: 'Our Team', href: '/about/team' },
@@ -70,6 +127,7 @@ const footerLinks = {
     { name: 'Contact Us', href: '/contact' },
     { name: 'Site Map', href: '/site-map' },
   ],
+
   legal: [
     { name: 'Terms of Service', href: '/terms-of-service' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
