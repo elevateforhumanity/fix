@@ -154,27 +154,28 @@ export default function CanonicalVideo({ src, srcMobile, poster, className, thre
   if (poster) {
     return (
       <>
-        {/* Poster — z-0, always visible until video plays.
-            Explicit z-index prevents the video element (even at opacity-0)
-            from blocking the poster on Safari/iOS where stacking context
-            behaves differently from Chrome. */}
+        {/* Poster — z-0, hidden behind the video frame.
+            Only visible when video fails or prefers-reduced-motion is set.
+            We do NOT show the poster as a pre-load state — the video frame
+            starts transparent so the poster never flashes before playback. */}
         <img
           src={poster}
           alt=""
           aria-hidden="true"
-          fetchPriority={autoPlayOnMount ? 'high' : 'auto'}
+          fetchPriority="low"
           decoding="async"
-          className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          className={`${className} transition-opacity duration-700 opacity-0 pointer-events-none`}
           style={{ objectFit: 'cover', zIndex: 0 }}
         />
-        {/* Video — z-10, fades in once onPlaying fires (first real frame on screen).
-            Fades back out when ended — poster takes over for the rest of the session.
-            No poster attr — handled by <img> above to guarantee object-cover. */}
+        {/* Video — z-10, fades in once first frame is ready.
+            Stays visible after ending — loops or holds last frame.
+            No poster attr — handled by <img> above for error/reduced-motion only. */}
         <video
           ref={ref}
-          className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
+          className={`${className} transition-opacity duration-700 ${playing ? 'opacity-100' : 'opacity-0'}`}
           muted
           playsInline
+          loop
           preload={preloadFull ? 'auto' : 'metadata'}
           aria-hidden="true"
           onCanPlay={() => setPlaying(true)}
