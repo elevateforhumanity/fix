@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, ChevronDown, Bell, LogOut, Search } from "lucide-react";
+import { Menu, X, ChevronDown, Bell, LogOut, Search, Settings } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import LogoImage from "@/components/site/LogoImage";
 
 export interface AdminNavNotif {
   id: string;
@@ -416,14 +417,12 @@ export default function AdminNav({ userName = "Admin", notifs = [] }: AdminNavPr
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b border-slate-200">
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-slate-900 border-b border-slate-800">
         <div className="h-full flex items-center gap-2 px-4 sm:px-6">
 
-          <Link href="/admin/dashboard" className="flex items-center gap-2 flex-shrink-0 mr-4">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-black text-sm">E</span>
-            </div>
-            <span className="font-bold text-slate-900 text-sm hidden sm:block">
+          <Link href="/admin/dashboard" className="flex items-center gap-2.5 flex-shrink-0 mr-4">
+            <LogoImage alt="Elevate" width={28} height={42} className="w-auto h-8" />
+            <span className="font-bold text-white text-sm hidden sm:block">
               Elevate <span className="text-slate-400 font-normal">Admin</span>
             </span>
           </Link>
@@ -436,16 +435,16 @@ export default function AdminNav({ userName = "Admin", notifs = [] }: AdminNavPr
                 <div key={section.label} className="relative flex-shrink-0">
                   <button
                     onClick={() => setOpenDropdown(open ? null : section.label)}
-                    className={`flex items-center gap-0.5 px-2 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${active ? "text-blue-600 bg-blue-50" : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"}`}
+                    className={`flex items-center gap-0.5 px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${active ? "text-white bg-slate-700" : "text-slate-300 hover:text-white hover:bg-slate-800"}`}
                   >
                     {section.label}
                     <ChevronDown className={`w-2.5 h-2.5 transition-transform ${open ? "rotate-180" : ""}`} />
                   </button>
                   {open && (
-                    <div className="absolute top-full left-0 mt-1 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 max-h-[70vh] overflow-y-auto">
+                    <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-2xl border border-slate-200 py-1.5 z-50 max-h-[75vh] overflow-y-auto">
                       {section.items.map(item => (
                         <Link key={item.href} href={item.href}
-                          className={`block px-4 py-2 text-sm transition-colors ${isActive(pathname, item.href) ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"}`}>
+                          className={`block px-4 py-2 text-sm transition-colors ${isActive(pathname, item.href) ? "bg-brand-red-50 text-brand-red-700 font-semibold" : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"}`}>
                           {item.label}
                         </Link>
                       ))}
@@ -457,17 +456,17 @@ export default function AdminNav({ userName = "Admin", notifs = [] }: AdminNavPr
           </nav>
 
           <div className="flex items-center gap-2 ml-auto flex-shrink-0">
-            <form onSubmit={handleSearch} className="hidden md:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+            <form onSubmit={handleSearch} className="hidden md:flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 focus-within:border-slate-500 transition-all">
               <Search className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
               <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search students…"
-                className="w-28 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" />
+                className="w-28 bg-transparent text-sm text-slate-200 outline-none placeholder:text-slate-500" />
             </form>
 
             <div className="relative" ref={notifRef}>
               <button onClick={() => setNotifOpen(v => !v)} aria-label="Notifications"
-                className="relative w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 transition-colors">
+                className="relative w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
                 <Bell className="w-4 h-4" />
-                {unread > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white" />}
+                {unread > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-red-500 ring-2 ring-slate-900" />}
               </button>
               {notifOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 overflow-hidden">
@@ -493,50 +492,55 @@ export default function AdminNav({ userName = "Admin", notifs = [] }: AdminNavPr
               )}
             </div>
 
-            <div className="hidden lg:flex items-center gap-2 pl-2 border-l border-slate-200">
-              <Link href="/admin/settings" className="text-sm font-semibold text-slate-700 hover:text-slate-900 px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors">{userName}</Link>
+            <div className="hidden lg:flex items-center gap-1 pl-3 border-l border-slate-700">
+              <Link href="/admin/settings"
+                className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                aria-label="Settings">
+                <Settings className="w-4 h-4" />
+              </Link>
+              <span className="text-sm text-slate-300 px-1 hidden xl:block">{userName}</span>
               <button onClick={signOut} aria-label="Sign out"
-                className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+                className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors">
                 <LogOut className="w-4 h-4" />
               </button>
             </div>
 
             <button onClick={() => setMobileOpen(v => !v)} aria-label="Toggle menu"
-              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100 transition-colors">
+              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg text-slate-300 hover:bg-slate-800 transition-colors">
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </header>
 
-      {mobileOpen && <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={() => setMobileOpen(false)} />}
+      {mobileOpen && <div className="fixed inset-0 bg-black/60 z-40 lg:hidden" onClick={() => setMobileOpen(false)} />}
 
       <div
-        className="fixed top-16 right-0 bottom-0 w-[85vw] max-w-sm bg-white z-50 lg:hidden transform transition-transform duration-300 overflow-y-auto shadow-2xl"
+        className="fixed top-16 right-0 bottom-0 w-[85vw] max-w-sm bg-slate-900 border-l border-slate-800 z-50 lg:hidden transform transition-transform duration-300 overflow-y-auto shadow-2xl"
         style={{ transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)' }}
       >
         <div className="p-4 space-y-1">
-          <form onSubmit={handleSearch} className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 mb-4">
+          <form onSubmit={handleSearch} className="flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 mb-4">
             <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
             <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search students…"
-              className="flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" />
+              className="flex-1 bg-transparent text-sm text-slate-200 outline-none placeholder:text-slate-500" />
           </form>
 
           {NAV.map(section => {
             const active = isSectionActive(pathname, section);
             const expanded = mobileExpanded === section.label;
             return (
-              <div key={section.label} className="border-b border-slate-100 pb-1 mb-1 last:border-0">
+              <div key={section.label} className="border-b border-slate-800 pb-1 mb-1 last:border-0">
                 <button onClick={() => setMobileExpanded(expanded ? null : section.label)}
-                  className={`w-full flex items-center justify-between px-3 py-3 rounded-xl text-sm font-bold transition-colors ${active ? "text-blue-600 bg-blue-50" : "text-slate-900 hover:bg-slate-50"}`}>
+                  className={`w-full flex items-center justify-between px-3 py-3 rounded-xl text-sm font-bold transition-colors ${active ? "text-white bg-slate-700" : "text-slate-300 hover:bg-slate-800 hover:text-white"}`}>
                   {section.label}
-                  <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${expanded ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${expanded ? "rotate-180" : ""}`} />
                 </button>
                 {expanded && (
                   <div className="ml-3 mt-1 mb-2 space-y-0.5">
                     {section.items.map(item => (
                       <Link key={item.href} href={item.href}
-                        className={`block px-3 py-2 rounded-xl text-sm transition-colors ${isActive(pathname, item.href) ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
+                        className={`block px-3 py-2 rounded-xl text-sm transition-colors ${isActive(pathname, item.href) ? "bg-slate-700 text-white font-semibold" : "text-slate-400 hover:bg-slate-800 hover:text-white"}`}>
                         {item.label}
                       </Link>
                     ))}
@@ -546,9 +550,9 @@ export default function AdminNav({ userName = "Admin", notifs = [] }: AdminNavPr
             );
           })}
 
-          <div className="pt-4 space-y-2 border-t border-slate-100">
-            <Link href="/admin/settings" className="block px-3 py-2.5 rounded-xl text-sm text-slate-700 hover:bg-slate-50 transition-colors">Settings</Link>
-            <button onClick={signOut} className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-rose-600 hover:bg-rose-50 transition-colors">
+          <div className="pt-4 space-y-2 border-t border-slate-800">
+            <Link href="/admin/settings" className="block px-3 py-2.5 rounded-xl text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">Settings</Link>
+            <button onClick={signOut} className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-rose-400 hover:bg-slate-800 transition-colors">
               <LogOut className="w-4 h-4" /> Sign out
             </button>
           </div>
