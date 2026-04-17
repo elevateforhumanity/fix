@@ -136,7 +136,7 @@ export default function DevStudioPage() {
       url.searchParams.set('repo', selectedRepo);
       url.searchParams.set('ref', branch);
 
-      const res = await fetch(url);
+      const res = await fetch(url, { headers: { 'x-gh-token': token } });
       const data = await res.json();
 
       if (res.ok) {
@@ -171,7 +171,7 @@ export default function DevStudioPage() {
       url.searchParams.set('path', path);
       url.searchParams.set('ref', branch);
 
-      const res = await fetch(url);
+      const res = await fetch(url, { headers: { 'x-gh-token': token } });
       const data = await res.json();
 
       if (res.ok) {
@@ -220,15 +220,11 @@ export default function DevStudioPage() {
       if (res.ok) {
         setFileSha(data.content.sha);
         setHasChanges(false);
-        addTerminalOutput(
-          `✓ Saved ${selectedFile}`
-        );
+        addTerminalOutput(`✓ Saved ${selectedFile}`);
         addTerminalOutput(`   Commit: ${data.commit.substring(0, 7)}`);
       } else {
-        const error = await res.json();
-        addTerminalOutput(
-          `✗ Failed to save`
-        );
+        // data is already parsed above — do not call res.json() again (body already consumed)
+        addTerminalOutput(`✗ Failed to save: ${data?.error ?? 'unknown error'}`);
       }
     } catch (error) { /* Error handled silently */ 
       addTerminalOutput(
@@ -347,7 +343,7 @@ export default function DevStudioPage() {
                 ))}
               </select>
 
-              <div className="flex items-center gap-1 text-sm text-black">
+              <div className="flex items-center gap-1 text-sm text-slate-200">
                 <GitBranch className="w-4 h-4" />
                 <span>{branch}</span>
               </div>
@@ -388,7 +384,16 @@ export default function DevStudioPage() {
             Save
           </button>
 
-          <button className="flex items-center gap-2 px-4 py-2 bg-brand-blue-600 hover:bg-brand-blue-700 rounded" aria-label="Action button">
+          <button
+            onClick={executeCommand}
+            disabled={!command.trim() || executing}
+            className={`flex items-center gap-2 px-4 py-2 rounded ${
+              command.trim() && !executing
+                ? 'bg-brand-blue-600 hover:bg-brand-blue-700'
+                : 'bg-gray-600 cursor-not-allowed'
+            }`}
+            aria-label="Run command"
+          >
             <Play className="w-4 h-4" />
             Run
           </button>

@@ -57,6 +57,10 @@ export default function DevContainerPanel() {
       setParseError(null);
     } catch (e) {
       setParseError((e as SyntaxError).message);
+      // Switch to raw tab so the user can see and fix the error — staying on
+      // Visual with parsed=null would silently fall through to the raw editor
+      // with no indication of what happened.
+      setActiveTab('raw');
     }
   };
 
@@ -159,7 +163,14 @@ export default function DevContainerPanel() {
 
       {/* Content */}
       <div className="flex-1 overflow-auto">
-        {activeTab === 'visual' && parsed ? (
+        {activeTab === 'visual' && parsed === null ? (
+          // parsed is null only when JSON is invalid — handleRawChange switches
+          // to raw tab in that case, so this branch is a safety fallback only
+          <div className="flex items-center justify-center h-full text-slate-500 text-sm">
+            <AlertCircle className="w-4 h-4 mr-2 text-red-400" />
+            Invalid JSON — switch to Raw JSON tab to fix the error.
+          </div>
+        ) : activeTab === 'visual' ? (
           <div className="p-4 space-y-6">
             {/* Name & Image */}
             <Section title="Container">
@@ -225,6 +236,7 @@ export default function DevContainerPanel() {
             )}
           </div>
         ) : (
+          // Raw JSON tab
           <div className="h-full flex flex-col">
             {parseError && (
               <div className="flex items-center gap-2 px-4 py-2 bg-red-900/40 text-red-300 text-xs flex-shrink-0">

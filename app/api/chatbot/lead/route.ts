@@ -3,6 +3,7 @@ import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/email/sendgrid';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { safeError, safeInternalError } from '@/lib/api/safe-error';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -130,10 +131,7 @@ export async function POST(request: NextRequest) {
     
     // Validate required fields
     if (!data.organization && !data.name && !data.email) {
-      return NextResponse.json(
-        { error: 'At least one contact field is required' },
-        { status: 400 }
-      );
+      return safeError('At least one contact field is required', 400);
     }
     
     // Calculate buyer score
@@ -168,19 +166,6 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error) {
-    logger.error('[Chatbot Lead] Error:', error);
-    return NextResponse.json(
-      { error: 'Failed to process lead' },
-      { status: 500 }
-    );
+    return safeInternalError(error as Error, 'Failed to process lead');
   }
-}
-
-// GET endpoint to check API health
-export async function GET() {
-  return NextResponse.json({
-    status: 'ok',
-    endpoint: 'chatbot/lead',
-    description: 'Captures qualified leads from AI chatbot conversations',
-  });
 }

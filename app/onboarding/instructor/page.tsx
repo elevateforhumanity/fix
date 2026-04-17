@@ -19,26 +19,35 @@ export default async function InstructorOnboardingPage() {
 
   if (!user) redirect('/login?redirect=/onboarding/instructor');
 
+  // Fetch profile first — role check must happen before any other DB queries
+  // so non-instructors are redirected without triggering unnecessary reads.
+  // Use admin client only for the profile lookup (profiles table has RLS that
+  // blocks users from reading their own role column in some policies).
   const db = await getAdminClient();
+  const { data: profile } = await db
+    .from('profiles')
+    .select('full_name, email, role, avatar_url')
+    .eq('id', user.id)
+    .maybeSingle();
 
+  // Redirect non-instructors before running any further queries
+  if (profile && !['instructor', 'admin', 'super_admin', 'staff'].includes(profile.role ?? '')) {
+    redirect('/onboarding/learner');
+  }
+
+  // Remaining queries use the user's own session client (respects RLS)
   const [
-    { data: profile },
     { data: agreements },
     { data: docs },
     { data: orientations },
     { data: programInstructors },
   ] = await Promise.all([
-    db.from('profiles').select('full_name, email, role, avatar_url').eq('id', user.id).maybeSingle(),
-    db.from('license_agreement_acceptances').select('id, accepted_at').eq('user_id', user.id).limit(1),
-    db.from('documents').select('id, document_type').eq('user_id', user.id).limit(20),
-    db.from('orientation_completions').select('id, completed_at').eq('user_id', user.id).limit(1),
-    db.from('program_instructors').select('id, program_id, programs(title)').eq('instructor_id', user.id).limit(10),
+    supabase.from('license_agreement_acceptances').select('id, accepted_at').eq('user_id', user.id).limit(1),
+    supabase.from('documents').select('id, document_type').eq('user_id', user.id).limit(20),
+    supabase.from('orientation_completions').select('id, completed_at').eq('user_id', user.id).limit(1),
+    // program_instructors uses user_id (not instructor_id) as the FK column
+    supabase.from('program_instructors').select('id, program_id, programs(title)').eq('user_id', user.id).limit(10),
   ]);
-
-  // Redirect non-instructors
-  if (profile && !['instructor', 'admin', 'super_admin', 'staff'].includes(profile.role ?? '')) {
-    redirect('/onboarding/learner');
-  }
 
   const agreementDone = (agreements?.length ?? 0) > 0;
   const idUploaded = docs?.some(d => d.document_type === 'id' || d.document_type === 'government_id') ?? false;

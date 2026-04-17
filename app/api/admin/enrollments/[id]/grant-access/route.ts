@@ -9,7 +9,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { apiRequireAdmin } from '@/lib/admin/guards';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
@@ -28,21 +27,12 @@ export async function POST(
   const rateLimited = await applyRateLimit(request, 'strict');
   if (rateLimited) return rateLimited;
 
-  // Auth — admin/super_admin/staff only
-  const supabase = await createClient();
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
-  if (authError || !user) return safeError('Unauthorized', 401);
+  // Auth — admin/super_admin/staff only (canonical guard)
+  const auth = await apiRequireAdmin(request);
+  if (auth.error) return auth.error;
+  const { user } = auth;
 
   const db = await getAdminClient();
-  const { data: adminProfile } = await db
-    .from('profiles')
-    .select('role, full_name')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (!adminProfile || !['admin', 'super_admin', 'staff'].includes(adminProfile.role)) {
-    return safeError('Forbidden', 403);
-  }
 
   const { id: enrollmentId } = await params;
   const now = new Date().toISOString();
@@ -134,7 +124,7 @@ export async function POST(
             </p>
           </div>
         </div>`,
-    }).catch(e => logger.warn('[grant-access] Email failed', e));
+    }).catch(e => logger.error('[grant-access] Email failed — student not notified', e as Error, { studentEmail }));
   }
 
   logger.info('[grant-access] Access granted', {

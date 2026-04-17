@@ -19,6 +19,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { z } from 'zod';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { getCurrentUser } from '@/lib/auth';
@@ -365,7 +366,7 @@ async function publishCompiledDraft(
     .maybeSingle();
 
   if (courseErr || !courseRow)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    throw new Error(`training_courses insert failed: ${courseErr?.message ?? 'no row returned'}`);
 
   const courseId = courseRow.id;
 
@@ -507,6 +508,9 @@ export const maxDuration = 120;
 const PUBLISH_ALLOWED_ROLES = new Set(['admin', 'super_admin', 'staff']);
 
 async function _POST(req: NextRequest) {
+  const rateLimited = await applyRateLimit(req, 'strict');
+  if (rateLimited) return rateLimited;
+
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -593,7 +597,7 @@ async function _POST(req: NextRequest) {
       .select('id, slug')
       .maybeSingle();
 
-    if (courseErr) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (courseErr || !courseRow) return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     const courseId = courseRow.id;
 
     // ── 2. Lesson records ───────────────────────────────────────────────────

@@ -306,13 +306,20 @@ export default function EnvManagerClient() {
 
   useEffect(() => { load(); }, [load]);
 
+  // Track which keys the user has explicitly touched so that intentional
+  // empty-string edits (clearing a value) are not silently dropped on save.
+  const [touched, setTouched] = useState<Set<string>>(new Set());
+
   const handleChange = (key: string, value: string) => {
     setEdits(prev => ({ ...prev, [key]: value }));
+    setTouched(prev => new Set(prev).add(key));
   };
 
   const handleSave = async () => {
+    // Include all touched keys — even empty strings (intentional clears).
+    // Previously filtered out v === '', which made it impossible to delete a value.
     const entries = Object.entries(edits)
-      .filter(([, v]) => v !== '')
+      .filter(([key]) => touched.has(key))
       .map(([key, value]) => ({ key, value }));
     if (!entries.length) return;
     setSaving(true);
@@ -326,6 +333,7 @@ export default function EnvManagerClient() {
       const data = await res.json();
       if (!res.ok) { setError(data.error ?? 'Save failed'); return; }
       setEdits({});
+      setTouched(new Set());
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
       await load();
@@ -464,7 +472,13 @@ export default function EnvManagerClient() {
                                 type={isSecret && !show ? 'password' : 'text'}
                                 value={editVal || (show ? displayVal : '')}
                                 onChange={e => handleChange(key, e.target.value)}
-                                placeholder={displayVal || `Enter ${key}`}
+                                // Never put the actual secret value in placeholder — placeholder
+                                // text is rendered in plain text regardless of input type="password"
+                                placeholder={
+                                  isSecret && displayVal && !show
+                                    ? '(value set — click reveal to view)'
+                                    : displayVal || `Enter ${key}`
+                                }
                                 className="flex-1 text-sm font-mono border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-blue-500 bg-white"
                               />
                               {isSecret && (
