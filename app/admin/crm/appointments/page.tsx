@@ -1,136 +1,139 @@
-'use client';
-import { useState, useEffect } from 'react';
+import type { Metadata } from 'next';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { Calendar, Plus, Clock, User, Search, RefreshCw } from 'lucide-react';
+import { Calendar, Plus, Clock, User, CheckCircle, XCircle } from 'lucide-react';
 
-interface Appointment {
-  id: string;
-  title: string;
-  contact_name: string;
-  scheduled_at: string;
-  status: string;
-  notes: string;
-}
+export const dynamic = 'force-dynamic';
+export const metadata: Metadata = {
+  title: 'Appointments | CRM | Admin | Elevate For Humanity',
+  robots: { index: false, follow: false },
+};
 
-export default function AppointmentsPage() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
+const STATUS_STYLES: Record<string, string> = {
+  scheduled: 'bg-blue-100 text-blue-700',
+  completed: 'bg-green-100 text-green-700',
+  cancelled:  'bg-red-100 text-red-700',
+  no_show:    'bg-yellow-100 text-yellow-700',
+};
 
-  useEffect(() => {
-    fetchAppointments();
-  }, []);
+export default async function AppointmentsPage() {
+  const db = await getAdminClient();
 
-  async function fetchAppointments() {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/crm/appointments');
-      if (res.ok) {
-        const data = await res.json();
-        setAppointments(data.appointments ?? data ?? []);
-      }
-    } catch (err) {
-      console.error('Failed to fetch appointments:', err);
-    } finally {
-      setLoading(false);
-    }
+  const [upcomingRes, pastRes, countRes] = await Promise.all([
+    db.from('appointments')
+      .select('id,title,contact_name,scheduled_at,status,notes')
+      .gte('scheduled_at', new Date().toISOString())
+      .order('scheduled_at', { ascending: true })
+      .limit(25),
+    db.from('appointments')
+      .select('id,title,contact_name,scheduled_at,status,notes')
+      .lt('scheduled_at', new Date().toISOString())
+      .order('scheduled_at', { ascending: false })
+      .limit(25),
+    db.from('appointments').select('*', { count: 'exact', head: true }),
+  ]);
+
+  const upcoming = upcomingRes.data ?? [];
+  const past = pastRes.data ?? [];
+  const total = countRes.count ?? 0;
+  const completed = past.filter(a => a.status === 'completed').length;
+  const cancelled = [...upcoming, ...past].filter(a => a.status === 'cancelled').length;
+
+  function fmt(iso: string) {
+    return new Date(iso).toLocaleString('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric',
+      hour: 'numeric', minute: '2-digit',
+    });
   }
 
-  const filtered = appointments.filter((a) =>
-    (a.title || '').toLowerCase().includes(search.toLowerCase()) ||
-    (a.contact_name || '').toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
-    <div className="min-h-screen bg-white p-6">
-
-      {/* Hero Image */}
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-4">
-          <Breadcrumbs items={[
-            { label: 'Admin', href: '/admin/dashboard' },
-            { label: 'CRM', href: '/admin/crm' },
-            { label: 'Appointments' },
-          ]} />
-        </div>
-
-        <div className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-slate-50">
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Appointments</h1>
-            <p className="text-sm text-gray-500 mt-1">{appointments.length} scheduled appointments</p>
+            <h1 className="text-2xl font-bold text-slate-900">Appointments</h1>
+            <p className="text-slate-500 text-sm mt-1">Schedule and manage CRM appointments</p>
           </div>
-          <div className="flex items-center gap-3">
-            <button onClick={fetchAppointments} className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-            </button>
-            <Link href="/admin/crm/appointments/new" className="flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700">
-              <Plus className="w-4 h-4" /> New Appointment
-            </Link>
-          </div>
+          <Link href="/admin/crm/appointments/new"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors">
+            <Plus className="w-4 h-4" /> New Appointment
+          </Link>
         </div>
+      </div>
 
-        <div className="mb-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search appointments..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent"
-            />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          {loading ? (
-            <div className="px-6 py-12 text-center">
-              <RefreshCw className="w-6 h-6 text-gray-300 mx-auto mb-2 animate-spin" />
-              <p className="text-sm text-gray-500">Loading appointments...</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { label: 'Total', value: total, icon: Calendar },
+            { label: 'Upcoming', value: upcoming.length, icon: Clock },
+            { label: 'Completed', value: completed, icon: CheckCircle },
+            { label: 'Cancelled', value: cancelled, icon: XCircle },
+          ].map(({ label, value, icon: Icon }) => (
+            <div key={label} className="bg-white rounded-xl border p-4">
+              <Icon className="w-5 h-5 text-slate-400 mb-2" />
+              <p className="text-2xl font-bold text-slate-900">{value}</p>
+              <p className="text-sm text-slate-500">{label}</p>
             </div>
-          ) : filtered.length === 0 ? (
-            <div className="px-6 py-12 text-center">
-              <Calendar className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-              <p className="text-sm text-gray-500">{search ? 'No matching appointments.' : 'No appointments scheduled.'}</p>
-              <Link href="/admin/crm/appointments/new" className="inline-block mt-4 text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium">
-                Schedule an appointment
-              </Link>
+          ))}
+        </div>
+
+        <section>
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Upcoming</h2>
+          {upcoming.length === 0 ? (
+            <div className="bg-white rounded-xl border p-8 text-center text-slate-500">
+              No upcoming appointments.{' '}
+              <Link href="/admin/crm/appointments/new" className="underline">Schedule one</Link>
             </div>
           ) : (
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contact</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Scheduled</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {filtered.map((a) => (
-                  <tr key={a.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-3 text-sm font-medium text-gray-900">{a.title || 'Untitled'}</td>
-                    <td className="px-6 py-3 text-sm text-gray-600 flex items-center gap-2">
-                      <User className="w-3.5 h-3.5 text-gray-400" /> {a.contact_name || '—'}
-                    </td>
-                    <td className="px-6 py-3 text-sm text-gray-500 flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-gray-400" />
-                      {a.scheduled_at ? new Date(a.scheduled_at).toLocaleString('en-US', { timeZone: 'UTC' }) : '—'}
-                    </td>
-                    <td className="px-6 py-3">
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                        a.status === 'completed' ? 'bg-brand-green-100 text-brand-green-700' :
-                        a.status === 'cancelled' ? 'bg-brand-red-100 text-brand-red-700' :
-                        'bg-brand-blue-100 text-brand-blue-700'
-                      }`}>{a.status || 'scheduled'}</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="bg-white rounded-xl border divide-y">
+              {upcoming.map((a) => (
+                <div key={a.id} className="flex items-start gap-4 px-6 py-4">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                    <User className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-slate-900">{a.title || 'Appointment'}</p>
+                    <p className="text-sm text-slate-500">{a.contact_name}</p>
+                    {a.notes && <p className="text-sm text-slate-400 mt-1 truncate">{a.notes}</p>}
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-sm font-medium text-slate-700">{fmt(a.scheduled_at)}</p>
+                    <span className={`inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_STYLES[a.status] ?? 'bg-slate-100 text-slate-600'}`}>
+                      {a.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
-        </div>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Past Appointments</h2>
+          {past.length === 0 ? (
+            <div className="bg-white rounded-xl border p-6 text-center text-slate-400 text-sm">No past appointments.</div>
+          ) : (
+            <div className="bg-white rounded-xl border divide-y">
+              {past.map((a) => (
+                <div key={a.id} className="flex items-start gap-4 px-6 py-4 opacity-75">
+                  <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+                    <User className="w-5 h-5 text-slate-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-slate-700">{a.title || 'Appointment'}</p>
+                    <p className="text-sm text-slate-400">{a.contact_name}</p>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-sm text-slate-500">{fmt(a.scheduled_at)}</p>
+                    <span className={`inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_STYLES[a.status] ?? 'bg-slate-100 text-slate-600'}`}>
+                      {a.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
       </div>
     </div>
   );

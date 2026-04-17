@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Users, DollarSign, TrendingUp, UserPlus, Search, Filter, MoreVertical } from 'lucide-react';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { redirect } from 'next/navigation';
 import { requireRole } from '@/lib/auth/require-role';
 import Link from 'next/link';
 import { Inbox, Clock, CheckCircle, XCircle, Eye, Users } from 'lucide-react';

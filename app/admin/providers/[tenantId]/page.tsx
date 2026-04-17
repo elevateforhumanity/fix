@@ -26,8 +26,6 @@ export default async function ProviderDetailPage({
   const { tenantId } = await params;
 
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
 
   const db = await getAdminClient();
   if (!db) return <div className="p-8 text-red-600">Database unavailable</div>;

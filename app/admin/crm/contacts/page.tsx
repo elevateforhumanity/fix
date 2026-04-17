@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
-import Image from 'next/image';
 import { 
-  Users, Search, Filter, Plus, Mail, Phone, MapPin,
-  MoreVertical, Star, Tag, Building2
+  Users, Search, Filter, Plus, Mail, Phone,
+  MoreVertical, Building2
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -22,10 +21,10 @@ export default async function ContactsPage() {
 
   // Fetch real contacts from CRM
   const { data: contactData } = await supabase
-    .from('crm_contacts')
-    .select('*')
+    .from('marketing_contacts')
+    .select('id,name,email,phone,company,contact_type,status,updated_at')
     .order('updated_at', { ascending: false })
-    .limit(20);
+    .limit(50);
 
   const contacts = (contactData || []).map((c: any) => {
     const updatedAt = new Date(c.updated_at);
@@ -132,13 +131,10 @@ export default async function ContactsPage() {
               <div key={contact.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                      <Image
-                        src={contact.image}
-                        alt={contact.name}
-                        fill
-                        className="object-cover"
-                       sizes="100vw" />
+                    <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
+                      <span className="text-slate-600 font-semibold text-sm">
+                        {contact.name.charAt(0).toUpperCase()}
+                      </span>
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">{contact.name}</h3>

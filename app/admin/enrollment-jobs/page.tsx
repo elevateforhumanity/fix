@@ -13,9 +13,6 @@ export const metadata: Metadata = {
 
 export default async function EnrollmentJobsPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
-
 
   const { data: profile } = await supabase
     .from('profiles')

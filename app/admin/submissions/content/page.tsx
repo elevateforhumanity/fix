@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, Plus, AlertTriangle, CheckCircle2, Clock } from 'lucide-react';
 
@@ -17,11 +16,7 @@ const STATUS_CLS: Record<string, string> = {
 
 export default async function ContentLibraryPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
   const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin','super_admin','staff'].includes(profile.role)) redirect('/admin');
 
   const { data: org } = await db.from('sos_organizations').select('id')
     .order('created_at', { ascending: true }).limit(1).maybeSingle();

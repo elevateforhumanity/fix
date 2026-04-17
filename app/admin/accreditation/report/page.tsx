@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Download, Calendar, AlertTriangle, Clock, ArrowLeft, CheckCircle2, Shield, FileText } from 'lucide-react';
@@ -42,12 +41,6 @@ async function getAccreditationData(supabase: any) {
 
 export default async function AccreditationReportPage() {
   const supabase = await createClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login?redirect=/admin/accreditation/report');
-
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) redirect('/unauthorized');
 
   const data = await getAccreditationData(supabase);
   const now = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });

@@ -46,16 +46,9 @@ export default async function PayoutQueuePage({
 }) {
   // Auth guard
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login?redirect=/admin/payout-queue');
 
   const db = await getAdminClient();
   if (!db) redirect('/admin/dashboard');
-
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) {
-    redirect('/admin/dashboard');
-  }
 
   const params = await searchParams;
   const filterStatus = params.status ?? 'all';

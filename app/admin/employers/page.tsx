@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Building2, CheckCircle, Briefcase, Plus, ChevronRight, ArrowRight, MapPin, Mail } from 'lucide-react';
 
@@ -16,11 +15,7 @@ const STATUS_STYLES: Record<string, string> = {
 
 export default async function EmployersPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
   const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!['admin', 'super_admin', 'staff'].includes(profile?.role ?? '')) redirect('/unauthorized');
 
   const [
     { data: employers, count: total },

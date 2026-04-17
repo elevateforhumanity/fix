@@ -1932,9 +1932,17 @@ header[role="banner"] a.\!text-white {
   padding-top: 70px;
 }
 
+/* Hide all marketing chrome (header + footer) on app routes */
 [data-public-layout-root][data-app-route="true"] [data-marketing-chrome],
 body[data-app-route="true"] [data-marketing-chrome] {
   display: none !important;
+}
+
+/* Re-show the footer on admin routes — admin portal has its own header
+   but shares the public footer */
+[data-public-layout-root][data-admin-route="true"] [data-marketing-footer],
+body[data-admin-route="true"] [data-marketing-footer] {
+  display: block !important;
 }
 
 [data-public-layout-root][data-app-route="true"] [data-marketing-main],

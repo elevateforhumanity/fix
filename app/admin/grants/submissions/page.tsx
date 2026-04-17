@@ -8,7 +8,6 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { requireAdmin } from '@/lib/auth';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { BarChart, Globe, Mail } from 'lucide-react';
 
@@ -88,9 +87,6 @@ export default async function GrantSubmissionsPage() {
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) redirect('/login');
 
   const { data: profile } = await supabase
     .from('profiles')

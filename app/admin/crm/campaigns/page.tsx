@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Plus, TrendingUp, Users, Eye } from 'lucide-react';
 
@@ -12,25 +11,13 @@ export const metadata = {
 
 export default async function CampaignsPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
-
-
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .maybeSingle();
-
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-    redirect('/dashboard');
-  }
 
   // Get all campaigns
   const { data: campaigns } = await supabase
-    .from('campaigns')
-    .select('*')
-    .order('created_at', { ascending: false });
+    .from('marketing_campaigns')
+    .select('id,name,subject,status,sent_count,opened_count,clicked_count,created_at')
+    .order('created_at', { ascending: false })
+    .limit(50);
 
   // Calculate totals
   const totalSent =

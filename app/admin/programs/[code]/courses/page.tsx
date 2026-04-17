@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { requireAdmin } from '@/lib/auth';
 import { Plus, BookOpen, ChevronRight } from 'lucide-react';

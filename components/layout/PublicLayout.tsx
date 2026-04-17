@@ -36,7 +36,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
           </main>
         </div>
 
-        <div data-marketing-chrome>
+        <div data-marketing-chrome data-marketing-footer>
           <ServerFooter />
         </div>
 

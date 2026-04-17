@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Briefcase, Building2, MapPin, Clock, Plus, Search, Eye, Edit, Trash2 } from 'lucide-react';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';

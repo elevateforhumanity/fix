@@ -17,10 +17,6 @@ export default function TestEmailsPage() {
     const supabase = createClient();
     supabase.auth.getUser().then(async ({ data: { user } }) => {
       if (!user) { router.replace('/login?redirect=/admin/test-emails'); return; }
-      const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
-      if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
-        router.replace('/unauthorized');
-      }
     });
   }, [router]);
   const [loading, setLoading] = useState(false);

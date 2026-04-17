@@ -10,7 +10,6 @@ import { getLicenseAccessMode } from '@/lib/licensing/billing-authority';
 import { reconcileTrialOnboarding } from '@/lib/trial/reconcile-onboarding';
 import { withTimeout } from '@/lib/utils/withTimeout';
 import AdminNav from '@/components/admin/AdminNav';
-import AdminPortalFooter from '@/components/admin/shell/AdminPortalFooter';
 import { DemoTourProvider } from '@/components/demo/DemoTourProvider';
 import { IdleTimeoutGuard } from '@/components/auth/IdleTimeoutGuard';
 
@@ -145,13 +144,12 @@ export default async function AdminLayout({
   }
 
   const content = (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-slate-50 text-slate-900">
       <AdminNav userName={headerData.userName} notifs={headerData.notifs} />
       <IdleTimeoutGuard />
-      <main id="main-content" className="flex-1 pt-16">
+      <main id="main-content" className="pt-16">
         {children}
       </main>
-      <AdminPortalFooter />
     </div>
   );
 

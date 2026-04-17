@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Database, CheckCircle2, Clock, XCircle, AlertTriangle, Plus } from 'lucide-react';
 
@@ -18,12 +17,7 @@ const STATUS_STYLES: Record<string, string> = {
 
 export default async function FactsVaultPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
   const db = await getAdminClient();
-
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'staff'].includes(profile.role)) redirect('/admin');
 
   const { data: org } = await db
     .from('sos_organizations').select('id, legal_name')
