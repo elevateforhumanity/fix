@@ -144,6 +144,52 @@ export async function POST(
           supervisorEmail: application.contact_email,
         });
       }
+
+      // Provision partner_users row so the supervisor can log hours immediately
+      // after claiming their account. Matched by email — user_id backfilled on
+      // first login via the onboarding link.
+      try {
+        // Look up auth user by email (may not exist yet if account not claimed)
+        const { data: authList } = await supabase.auth.admin.listUsers();
+        const authUser = authList?.users?.find(
+          (u: { email?: string }) => u.email?.toLowerCase() === application.contact_email?.toLowerCase()
+        );
+
+        if (authUser) {
+          await supabase.from('partner_users').upsert(
+            {
+              user_id:    authUser.id,
+              partner_id: provisionedShopId,
+              role:       'supervisor',
+              is_active:  true,
+            },
+            { onConflict: 'user_id,partner_id' }
+          );
+
+          // Ensure profile role is at least 'partner' so onboarding layout lets them in
+          await supabase.from('profiles').update({ role: 'partner' })
+            .eq('id', authUser.id)
+            .in('role', ['learner', 'student', null]);
+
+          logger.info('[barber-approve] partner_users row provisioned', {
+            userId: authUser.id,
+            shopId: provisionedShopId,
+          });
+        } else {
+          // Account not claimed yet — store pending assignment on the application
+          // so it can be backfilled when the user signs up via the onboarding link.
+          await supabase.from('barbershop_partner_applications')
+            .update({ pending_shop_id: provisionedShopId })
+            .eq('id', id)
+            .catch(() => {}); // column may not exist — non-fatal
+          logger.info('[barber-approve] No auth user yet — partner_users will be provisioned on first login', {
+            email: application.contact_email,
+            shopId: provisionedShopId,
+          });
+        }
+      } catch (puErr) {
+        logger.warn('[barber-approve] partner_users provisioning failed (non-fatal)', { id, error: String(puErr) });
+      }
     }
   } catch (provisionErr) {
     // Non-fatal — approval is recorded. Admin can manually provision if needed.
