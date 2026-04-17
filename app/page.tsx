@@ -7,7 +7,7 @@ import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 
 export const dynamic = 'force-static';
-export const revalidate = 60;
+export const revalidate = 3600; // 1 hour — homepage content is stable
 
 export const metadata: Metadata = {
   title: 'Elevate for Humanity | Workforce Training — Indianapolis, Indiana',
