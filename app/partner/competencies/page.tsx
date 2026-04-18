@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { AlertCircle, BadgeCheck, Clock, RefreshCcw, Scissors, User } from 'lucide-react';
@@ -77,9 +76,6 @@ export default function PartnerCompetenciesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden rounded-xl mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
-        <Image src="/images/pages/partner-page-8.jpg" alt="Barber instructor reviewing apprentice skill practice" fill sizes="100vw" className="object-cover" priority />
-      </section>
       <div className="mb-6">
         <Breadcrumbs items={[
           { label: 'Partner', href: '/partner/attendance' },
