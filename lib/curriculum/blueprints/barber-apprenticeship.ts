@@ -2490,6 +2490,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li><strong>Shaving cream</strong> — creates a protective lather</li>
 <li><strong>Shaving soap</strong> — traditional, requires a brush to lather</li>
 </ul>`,
+          quizQuestions: [
+            {
+              id: 'l29-q1',
+              question: 'How long should a hot towel be applied to the face before shaving?',
+              options: ['30 seconds', '2–3 minutes', '10 minutes', '15 minutes'],
+              correctAnswer: 1,
+              explanation: '2–3 minutes softens the beard and opens the pores without overheating the skin.',
+            },
+            {
+              id: 'l29-q2',
+              question: 'Why should you test the hot towel temperature on your wrist before applying it to a client?',
+              options: ['To check if it is dry enough', 'To prevent burning the client', 'To measure softening time', 'To confirm it is disinfected'],
+              correctAnswer: 1,
+              explanation: 'Testing on your own wrist prevents accidental burns — the client\'s facial skin is sensitive.',
+            },
+            {
+              id: 'l29-q3',
+              question: 'What is the primary purpose of pre-shave oil?',
+              options: ['Removes beard hair', 'Lubricates and protects the skin', 'Disinfects the face', 'Thickens the lather'],
+              correctAnswer: 1,
+              explanation: 'Pre-shave oil creates a protective layer between the razor and skin, reducing drag and irritation.',
+            },
+            {
+              id: 'l29-q4',
+              question: 'Which pre-shave product requires a brush to build lather?',
+              options: ['Shaving cream', 'Pre-shave oil', 'Shaving soap', 'Aftershave balm'],
+              correctAnswer: 2,
+              explanation: 'Traditional shaving soap must be worked with a brush — it does not lather from direct hand application.',
+            },
+            {
+              id: 'l29-q5',
+              question: 'Proper shave preparation primarily reduces which of the following?',
+              options: ['Product cost', 'Razor drag and ingrown hairs', 'Draping time', 'Chemical exposure'],
+              correctAnswer: 1,
+              explanation: 'Softening the beard and opening the pores reduces razor drag and the risk of ingrown hairs.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-30',
@@ -2512,6 +2549,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <p>Use your free hand to keep the skin taut at all times. Loose skin causes nicks and uneven shaving.</p>
 <h3>Stroke Technique</h3>
 <p>Use short, controlled strokes. Rinse the blade after every 2–3 strokes. Never drag the razor.</p>`,
+          quizQuestions: [
+            {
+              id: 'l30-q1',
+              question: 'At what angle should a straight razor be held during shaving?',
+              options: ['15 degrees', '30 degrees', '45 degrees', '60 degrees'],
+              correctAnswer: 1,
+              explanation: '30 degrees provides optimal closeness without increasing the risk of cuts.',
+            },
+            {
+              id: 'l30-q2',
+              question: 'What is the direction of the FIRST pass in a three-pass shave?',
+              options: ['Against the grain', 'Across the grain', 'With the grain', 'In circular motions'],
+              correctAnswer: 2,
+              explanation: 'The first pass always goes with the grain (WTG) to remove bulk safely before closer passes.',
+            },
+            {
+              id: 'l30-q3',
+              question: 'Why must skin be kept taut during straight razor shaving?',
+              options: ['It speeds up the service', 'Loose skin causes nicks and uneven shaving', 'It removes more hair', 'It reduces product use'],
+              correctAnswer: 1,
+              explanation: 'A taut surface allows the razor to glide smoothly and safely without catching loose skin.',
+            },
+            {
+              id: 'l30-q4',
+              question: 'How often should the razor be rinsed during a shave?',
+              options: ['Every stroke', 'Every 2–3 strokes', 'Every 10 strokes', 'At the end of each pass only'],
+              correctAnswer: 1,
+              explanation: 'Rinsing every 2–3 strokes removes cut hair and lather so the blade stays effective.',
+            },
+            {
+              id: 'l30-q5',
+              question: 'The against-the-grain (ATG) third pass is appropriate only for:',
+              options: ['All clients', 'Clients with thick beards only', 'Clients with no skin sensitivity', 'Clients who request it regardless of skin condition'],
+              correctAnswer: 2,
+              explanation: 'The ATG pass delivers the closest shave but can irritate sensitive skin — only use when no sensitivity is present.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-31',
@@ -2542,6 +2616,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Define lines with trimmer and razor</li>
 <li>Apply beard oil to finish</li>
 </ol>`,
+          quizQuestions: [
+            {
+              id: 'l31-q1',
+              question: 'For a client with a round face, where should beard length be added?',
+              options: ['The sides', 'The chin', 'The cheeks', 'All around evenly'],
+              correctAnswer: 1,
+              explanation: 'Adding length at the chin elongates a round face and creates better proportion.',
+            },
+            {
+              id: 'l31-q2',
+              question: 'Where is the standard neckline set when shaping a beard?',
+              options: ['At the jawline', 'At the Adam\'s apple', 'Two finger-widths above the Adam\'s apple', 'Below the chin'],
+              correctAnswer: 2,
+              explanation: 'Two finger-widths above the Adam\'s apple is the industry standard neckline position.',
+            },
+            {
+              id: 'l31-q3',
+              question: 'The most common mistake when setting a beard neckline is:',
+              options: ['Setting it too low', 'Setting it too high', 'Not using a razor', 'Skipping beard oil'],
+              correctAnswer: 1,
+              explanation: 'Setting the neckline too high shortens the neck visually and looks unnatural.',
+            },
+            {
+              id: 'l31-q4',
+              question: 'What is the first step in the beard trimming technique?',
+              options: ['Define the neckline', 'Apply beard oil', 'Comb beard downward to its natural fall', 'Trim with scissors'],
+              correctAnswer: 2,
+              explanation: 'Combing the beard down first reveals its natural fall and helps ensure an even trim.',
+            },
+            {
+              id: 'l31-q5',
+              question: 'An oblong face shape benefits from a beard style that:',
+              options: ['Adds chin length and keeps sides tight', 'Keeps sides full and minimizes chin length', 'Rounds all corners', 'Uses the highest neckline'],
+              correctAnswer: 1,
+              explanation: 'An oblong face is already long — full sides add width while a shorter chin avoids elongating further.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-32',
@@ -2565,6 +2676,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <p>Apply an alum block or styptic pencil directly to the nick. Hold for 10–15 seconds. Never use a tissue — it leaves fibers in the wound.</p>
 <h3>Razor Bumps (Pseudofolliculitis Barbae)</h3>
 <p>Common in clients with curly hair. Caused by ingrown hairs. Recommend shaving with the grain only and using a single-blade razor.</p>`,
+          quizQuestions: [
+            {
+              id: 'l32-q1',
+              question: 'What product stops minor bleeding from razor nicks?',
+              options: ['Aftershave balm', 'Witch hazel', 'Alum block', 'Pre-shave oil'],
+              correctAnswer: 2,
+              explanation: 'An alum block is an antiseptic astringent that constricts blood vessels to stop minor bleeding.',
+            },
+            {
+              id: 'l32-q2',
+              question: 'How long should an alum block be held on a nick?',
+              options: ['2–3 seconds', '10–15 seconds', '1 minute', '5 minutes'],
+              correctAnswer: 1,
+              explanation: '10–15 seconds of pressure is sufficient for the alum block to constrict the blood vessel.',
+            },
+            {
+              id: 'l32-q3',
+              question: 'Why should a tissue never be used directly on a razor nick?',
+              options: ['It is too expensive', 'It leaves fibers in the wound', 'It causes infection', 'It removes too much blood'],
+              correctAnswer: 1,
+              explanation: 'Tissue fibers can stick to the wound, causing irritation and potential infection.',
+            },
+            {
+              id: 'l32-q4',
+              question: 'A cold towel is applied after shaving to:',
+              options: ['Lubricate the skin', 'Apply cologne', 'Close the pores and soothe the skin', 'Prepare for another pass'],
+              correctAnswer: 2,
+              explanation: 'Cold temperature causes vasoconstriction, closing the pores and calming any post-shave irritation.',
+            },
+            {
+              id: 'l32-q5',
+              question: 'Razor bumps (pseudofolliculitis barbae) are most common in clients with:',
+              options: ['Straight hair', 'Fine hair', 'Curly hair', 'Thinning hair'],
+              correctAnswer: 2,
+              explanation: 'Curly hair tends to curl back into the skin after shaving, causing ingrown hairs and razor bumps.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-33',
@@ -2590,6 +2738,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Clean up the philtrum (area between nose and lip)</li>
 <li>Apply mustache wax if styling</li>
 </ol>`,
+          quizQuestions: [
+            {
+              id: 'l33-q1',
+              question: 'Which mustache style features long ends that are styled upward?',
+              options: ['Chevron', 'Natural', 'Handlebar', 'Pencil'],
+              correctAnswer: 2,
+              explanation: 'The handlebar mustache has long ends that are styled upward and outward, often with wax.',
+            },
+            {
+              id: 'l33-q2',
+              question: 'The philtrum is the area:',
+              options: ['Below the lower lip', 'Between the nose and upper lip', 'Along the cheek line', 'At the chin'],
+              correctAnswer: 1,
+              explanation: 'The philtrum is the vertical groove between the nose and the upper lip — it is cleaned up after trimming.',
+            },
+            {
+              id: 'l33-q3',
+              question: 'What is the first step in trimming a mustache?',
+              options: ['Define the lip line with a trimmer', 'Apply wax', 'Comb the mustache downward', 'Clean the philtrum'],
+              correctAnswer: 2,
+              explanation: 'Combing the mustache down reveals its natural fall and ensures an even trim of the bulk.',
+            },
+            {
+              id: 'l33-q4',
+              question: 'Which mustache style is a thin line just above the upper lip?',
+              options: ['Handlebar', 'Chevron', 'Natural', 'Pencil'],
+              correctAnswer: 3,
+              explanation: 'The pencil mustache is a very thin, precise line directly above the lip.',
+            },
+            {
+              id: 'l33-q5',
+              question: 'What product is applied when finishing a handlebar mustache?',
+              options: ['Beard oil', 'Pomade', 'Mustache wax', 'Aftershave balm'],
+              correctAnswer: 2,
+              explanation: 'Mustache wax provides hold and allows shaping of the handlebar\'s upward curled ends.',
+            },
+          ],
         },
         {
           slug: 'barber-module-5-checkpoint',
@@ -2694,6 +2879,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li><strong>Demi-permanent</strong> — low-volume developer; lasts 6-8 weeks</li>
 <li><strong>Permanent</strong> — opens cuticle with developer; permanent change</li>
 </ul>`,
+          quizQuestions: [
+            {
+              id: 'l35-q1',
+              question: 'What are the three primary colors?',
+              options: ['Red, green, blue', 'Red, yellow, blue', 'Orange, purple, green', 'Black, white, gray'],
+              correctAnswer: 1,
+              explanation: 'Red, yellow, and blue are the three primary colors. All other colors are made by mixing them.',
+            },
+            {
+              id: 'l35-q2',
+              question: 'On the hair color level scale, level 1 represents:',
+              options: ['Lightest blonde', 'Medium brown', 'Dark brown', 'Black'],
+              correctAnswer: 3,
+              explanation: 'Level 1 is the darkest (black). Level 10 is the lightest blonde.',
+            },
+            {
+              id: 'l35-q3',
+              question: 'Which type of hair color deposits tone WITHOUT lifting the natural color?',
+              options: ['Permanent', 'Semi-permanent', 'Bleach', 'High-lift tint'],
+              correctAnswer: 1,
+              explanation: 'Semi-permanent color deposits tone without using developer, so it cannot lift the natural color.',
+            },
+            {
+              id: 'l35-q4',
+              question: 'Complementary colors are used in hair color to:',
+              options: ['Brighten the color', 'Neutralize and cancel out unwanted tones', 'Increase lift', 'Create highlights'],
+              correctAnswer: 1,
+              explanation: 'Complementary colors sit opposite each other on the color wheel and cancel each other — e.g., violet neutralizes yellow.',
+            },
+            {
+              id: 'l35-q5',
+              question: 'Permanent hair color requires a developer because it needs to:',
+              options: ['Seal the cuticle', 'Open the cuticle to deposit color', 'Remove melanin only', 'Neutralize the scalp'],
+              correctAnswer: 1,
+              explanation: 'Developer (hydrogen peroxide) swells and opens the cuticle so permanent color can enter the cortex.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-36',
@@ -2715,6 +2937,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 </ul>
 <h3>Contraindications</h3>
 <p>Do not perform chemical services on clients with: scalp abrasions, recent chemical services, known allergies to ingredients, or compromised scalp health.</p>`,
+          quizQuestions: [
+            {
+              id: 'l36-q1',
+              question: 'When must a patch test be performed before a chemical service?',
+              options: ['1 hour before', '6 hours before', '24–48 hours before', '1 week before'],
+              correctAnswer: 2,
+              explanation: 'A patch test needs 24–48 hours to reveal any allergic reaction before the full service.',
+            },
+            {
+              id: 'l36-q2',
+              question: 'What PPE is ALWAYS required when performing chemical services?',
+              options: ['Safety glasses only', 'Nitrile gloves', 'Latex gloves and face shield', 'Steel-toed boots'],
+              correctAnswer: 1,
+              explanation: 'Nitrile gloves are always required to protect the barber from chemical burns and allergic reactions.',
+            },
+            {
+              id: 'l36-q3',
+              question: 'A client with scalp abrasions should:',
+              options: ['Receive the service with gloves', 'Receive a patch test first', 'Not receive chemical services', 'Have the abrasion treated and return'],
+              correctAnswer: 2,
+              explanation: 'Scalp abrasions are a contraindication — chemicals applied to broken skin can cause severe burns.',
+            },
+            {
+              id: 'l36-q4',
+              question: 'Where is a patch test typically applied?',
+              options: ['On the scalp', 'Behind the ear or inside the elbow', 'On the forearm only', 'On the neck'],
+              correctAnswer: 1,
+              explanation: 'Behind the ear or inside the elbow are standard patch test locations — sensitive but discreet.',
+            },
+            {
+              id: 'l36-q5',
+              question: 'Signs of a positive (adverse) reaction to a patch test include:',
+              options: ['No change', 'Slight dryness', 'Redness, swelling, or itching', 'Increased moisture'],
+              correctAnswer: 2,
+              explanation: 'Redness, swelling, or itching at the patch test site indicate an allergic reaction — do not proceed.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-37',
@@ -2740,6 +2999,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Process only to the manufacturer's recommended time</li>
 <li>Neutralize thoroughly — stops the chemical process</li>
 </ul>`,
+          quizQuestions: [
+            {
+              id: 'l37-q1',
+              question: 'What do relaxers break in the hair to achieve straightening?',
+              options: ['Hydrogen bonds', 'Disulfide bonds in the cortex', 'Melanin granules', 'The cuticle layer'],
+              correctAnswer: 1,
+              explanation: 'Relaxers break the disulfide bonds in the cortex — the bonds that give hair its curl pattern.',
+            },
+            {
+              id: 'l37-q2',
+              question: 'Lye relaxers contain which active ingredient?',
+              options: ['Guanidine', 'Ammonium thioglycolate', 'Sodium hydroxide', 'Hydrogen peroxide'],
+              correctAnswer: 2,
+              explanation: 'Lye relaxers use sodium hydroxide (NaOH) as the active straightening agent.',
+            },
+            {
+              id: 'l37-q3',
+              question: 'Before applying a relaxer, the scalp should be protected with:',
+              options: ['Witch hazel', 'Petroleum jelly', 'Conditioner', 'Alum block'],
+              correctAnswer: 1,
+              explanation: 'Petroleum jelly (base) protects the scalp from chemical burns during relaxer application.',
+            },
+            {
+              id: 'l37-q4',
+              question: 'How does a texturizer differ from a full relaxer?',
+              options: ['It uses a different active chemical', 'It has a shorter processing time and only loosens the curl', 'It is applied with a brush only', 'It requires no neutralizer'],
+              correctAnswer: 1,
+              explanation: 'A texturizer uses the same chemistry but is processed for a shorter time, loosening the curl pattern without fully straightening.',
+            },
+            {
+              id: 'l37-q5',
+              question: 'What stops the relaxer chemical process?',
+              options: ['Shampoo', 'Conditioner', 'Neutralizer', 'Water rinse alone'],
+              correctAnswer: 2,
+              explanation: 'The neutralizer restores the hair\'s pH and stops the relaxer from processing further.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-38',
@@ -2765,6 +3061,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Process per manufacturer instructions</li>
 <li>Rinse thoroughly</li>
 </ol>`,
+          quizQuestions: [
+            {
+              id: 'l38-q1',
+              question: 'Which scalp treatment is used to remove product buildup?',
+              options: ['Moisturizing treatment', 'Clarifying treatment', 'Anti-dandruff treatment', 'Stimulating treatment'],
+              correctAnswer: 1,
+              explanation: 'A clarifying treatment uses chelating agents to remove mineral and product buildup from the scalp and hair.',
+            },
+            {
+              id: 'l38-q2',
+              question: 'Anti-dandruff shampoos and treatments contain which active ingredient?',
+              options: ['Menthol', 'Petroleum jelly', 'Zinc pyrithione or selenium sulfide', 'Sodium hydroxide'],
+              correctAnswer: 2,
+              explanation: 'Zinc pyrithione and selenium sulfide are antifungal agents that control the Malassezia yeast causing dandruff.',
+            },
+            {
+              id: 'l38-q3',
+              question: 'What is the FIRST step before applying a scalp treatment?',
+              options: ['Apply the treatment directly', 'Shampoo the hair first', 'Apply a hot towel', 'Perform a patch test'],
+              correctAnswer: 1,
+              explanation: 'Shampooing first removes oils and buildup so the treatment can penetrate the scalp effectively.',
+            },
+            {
+              id: 'l38-q4',
+              question: 'The tingling sensation in stimulating scalp treatments comes from:',
+              options: ['Zinc pyrithione', 'Petroleum jelly', 'Menthol or peppermint', 'Selenium sulfide'],
+              correctAnswer: 2,
+              explanation: 'Menthol and peppermint oil create a cooling/tingling sensation that also promotes circulation.',
+            },
+            {
+              id: 'l38-q5',
+              question: 'Where should a scalp treatment be applied?',
+              options: ['Only to the ends', 'In sections, directly to the scalp', 'Mixed with shampoo and applied all over', 'Only to the hairline'],
+              correctAnswer: 1,
+              explanation: 'Section-by-section application to the scalp ensures even coverage and direct contact with the target area.',
+            },
+          ],
         },
         {
           slug: 'barber-module-6-checkpoint',
@@ -2862,6 +3195,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 </ul>
 <h3>Social Media</h3>
 <p>Post your work consistently. Before-and-after photos with client permission are the most effective content. Use local hashtags and tag your shop location.</p>`,
+          quizQuestions: [
+            {
+              id: 'l40-q1',
+              question: 'Within how many seconds do clients typically decide whether they will return?',
+              options: ['10 seconds', '30 seconds', '2 minutes', '5 minutes'],
+              correctAnswer: 1,
+              explanation: 'Clients form a first impression within the first 30 seconds — punctuality, cleanliness, and professionalism matter immediately.',
+            },
+            {
+              id: 'l40-q2',
+              question: 'What is a client card used for?',
+              options: ['Recording payment history only', 'Storing notes on style, products used, and last visit', 'Tracking appointment scheduling only', 'Filing tax records'],
+              correctAnswer: 1,
+              explanation: 'A client card holds notes on the client\'s style preferences, products used, and past visits — essential for building rapport.',
+            },
+            {
+              id: 'l40-q3',
+              question: 'When is the best time to recommend rebooking to a client?',
+              options: ['Via text the next day', 'Before they leave the chair', 'After they pay', 'One week later'],
+              correctAnswer: 1,
+              explanation: 'Recommending the next appointment before the client leaves is the most effective retention strategy.',
+            },
+            {
+              id: 'l40-q4',
+              question: 'The most effective social media content for barbers is:',
+              options: ['Motivational quotes', 'Before-and-after photos of client work', 'Product advertisements', 'Shop interior photos'],
+              correctAnswer: 1,
+              explanation: 'Before-and-after photos directly showcase your skill and are the most compelling content for attracting new clients.',
+            },
+            {
+              id: 'l40-q5',
+              question: 'How should a new client be followed up with after their first visit?',
+              options: ['No follow-up is necessary', 'A simple text or call goes a long way', 'Send a formal letter', 'Wait for them to book again on their own'],
+              correctAnswer: 1,
+              explanation: 'A brief follow-up after the first visit shows care and significantly increases the chance of return.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-41',
@@ -2880,6 +3250,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <p>You own the business. Maximum income potential but maximum responsibility. Requires business license, shop license, and significant startup capital.</p>
 <h3>Which is Right for You?</h3>
 <p>Most barbers start on commission, move to booth rental as they build clientele, and consider ownership after 5+ years of experience.</p>`,
+          quizQuestions: [
+            {
+              id: 'l41-q1',
+              question: 'In a commission arrangement, the barber typically receives what percentage of service revenue?',
+              options: ['10–20%', '40–60%', '80–90%', '100%'],
+              correctAnswer: 1,
+              explanation: 'Commission barbers typically receive 40–60% of service revenue; the shop provides clients, supplies, and equipment.',
+            },
+            {
+              id: 'l41-q2',
+              question: 'In a booth rental arrangement, who is responsible for paying their own taxes?',
+              options: ['The shop owner', 'The barber (self-employed)', 'The state board', 'A shared accountant'],
+              correctAnswer: 1,
+              explanation: 'Booth renters are independent contractors — they are self-employed and responsible for all their own taxes.',
+            },
+            {
+              id: 'l41-q3',
+              question: 'Which business model offers the maximum income potential?',
+              options: ['Commission', 'Booth rental', 'Shop ownership', 'Franchise employment'],
+              correctAnswer: 2,
+              explanation: 'Shop ownership has the highest income ceiling but also carries the most financial risk and responsibility.',
+            },
+            {
+              id: 'l41-q4',
+              question: 'Which model is most recommended for a new barber just starting out?',
+              options: ['Booth rental', 'Commission', 'Shop ownership', 'Independent contractor with no shop'],
+              correctAnswer: 1,
+              explanation: 'Commission is best for beginners — the shop provides clients and support while the barber builds skills and clientele.',
+            },
+            {
+              id: 'l41-q5',
+              question: 'A booth renter pays the shop owner:',
+              options: ['A percentage of their earnings', 'A fixed weekly or monthly booth fee', 'Nothing — they are fully independent', 'A commission on each service'],
+              correctAnswer: 1,
+              explanation: 'Booth renters pay a fixed fee (weekly or monthly) for the use of their chair — not a percentage of earnings.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-42',
@@ -2906,6 +3313,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Keep receipts for all business expenses (supplies, tools, education)</li>
 <li>Pay quarterly estimated taxes to avoid penalties</li>
 </ul>`,
+          quizQuestions: [
+            {
+              id: 'l42-q1',
+              question: 'What percentage of income should a self-employed barber set aside for taxes?',
+              options: ['5–10%', '10–15%', '25–30%', '50%'],
+              correctAnswer: 2,
+              explanation: 'Self-employed barbers pay both income tax and self-employment tax (Social Security + Medicare), totaling 25–30%.',
+            },
+            {
+              id: 'l42-q2',
+              question: 'The standard tip for barbering services is:',
+              options: ['5–10%', '15–20%', '25–30%', 'Tips are not standard for barbers'],
+              correctAnswer: 1,
+              explanation: '15–20% is the industry standard tip for personal service professionals including barbers.',
+            },
+            {
+              id: 'l42-q3',
+              question: 'Why should a barber pay quarterly estimated taxes?',
+              options: ['It reduces the total tax owed', 'It is required by Indiana state law', 'To avoid IRS underpayment penalties', 'To qualify for business deductions'],
+              correctAnswer: 2,
+              explanation: 'Self-employed individuals must pay estimated taxes quarterly or face underpayment penalties at tax filing time.',
+            },
+            {
+              id: 'l42-q4',
+              question: 'Which of the following is a deductible business expense for a barber?',
+              options: ['Personal groceries', 'Professional tools and supplies', 'Personal clothing', 'Home entertainment'],
+              correctAnswer: 1,
+              explanation: 'Professional tools, supplies, education, and booth rental fees are all legitimate deductible business expenses.',
+            },
+            {
+              id: 'l42-q5',
+              question: 'How should prices be set as a new barber?',
+              options: ['As high as possible immediately', 'Based on local market rates and experience level', 'Always lower than every competitor', 'Set once and never change'],
+              correctAnswer: 1,
+              explanation: 'Research local market rates and factor in your experience level — raise prices as your clientele and skills grow.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-43',
@@ -2927,6 +3371,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <p>Stay calm. Listen. Offer to fix the issue at no charge if it is your error. If a client is abusive, you have the right to refuse service.</p>
 <h3>Continuing Education</h3>
 <p>The barbering industry evolves constantly. Attend trade shows, watch tutorials, and practice new techniques. Indiana requires continuing education for license renewal.</p>`,
+          quizQuestions: [
+            {
+              id: 'l43-q1',
+              question: 'The barber\'s code says you should never:',
+              options: ['Raise your prices', 'Speak negatively about other barbers or shops', 'Rebook clients', 'Use social media'],
+              correctAnswer: 1,
+              explanation: 'Speaking negatively about competitors is unprofessional, harms the industry\'s reputation, and reflects poorly on you.',
+            },
+            {
+              id: 'l43-q2',
+              question: 'If a client complains that their haircut is wrong, you should:',
+              options: ['Argue that the cut is correct', 'Offer to fix it at no charge if it is your error', 'Charge double for the correction', 'Ask them to return another day'],
+              correctAnswer: 1,
+              explanation: 'Taking ownership of mistakes and offering a free correction maintains client trust and professionalism.',
+            },
+            {
+              id: 'l43-q3',
+              question: 'Client information shared during a service should be:',
+              options: ['Posted on social media', 'Kept strictly confidential', 'Shared with other barbers at the shop', 'Recorded in a public log'],
+              correctAnswer: 1,
+              explanation: 'Client confidentiality is a professional obligation — what is shared in the chair stays in the chair.',
+            },
+            {
+              id: 'l43-q4',
+              question: 'Indiana requires what for barber license renewal?',
+              options: ['A new written exam', 'Continuing education hours', 'A new practical exam', 'Re-registration of your apprenticeship'],
+              correctAnswer: 1,
+              explanation: 'Indiana mandates continuing education as a condition of renewing a barber license every two years.',
+            },
+            {
+              id: 'l43-q5',
+              question: 'If a client becomes verbally abusive, a barber:',
+              options: ['Must continue the service regardless', 'Has the right to refuse service', 'Should call the state board immediately', 'Must refund all previous charges'],
+              correctAnswer: 1,
+              explanation: 'Barbers have the right to refuse service to abusive or disruptive clients to maintain a safe workplace.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-44',
@@ -2952,6 +3433,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Work through hair evenly</li>
 <li>Style with comb or fingers</li>
 </ol>`,
+          quizQuestions: [
+            {
+              id: 'l44-q1',
+              question: 'Which styling product provides high hold with a MATTE finish?',
+              options: ['Pomade', 'Gel', 'Clay', 'Cream'],
+              correctAnswer: 2,
+              explanation: 'Clay provides medium-to-high hold with a natural matte finish — popular for modern textured styles.',
+            },
+            {
+              id: 'l44-q2',
+              question: 'Pomade is best described as providing:',
+              options: ['Light hold with a matte finish', 'Medium-to-high hold with high shine', 'Flexible hold for mustaches', 'Light hold with a natural finish'],
+              correctAnswer: 1,
+              explanation: 'Pomade provides medium-to-high hold with a glossy, high-shine finish — classic for barbershop styles.',
+            },
+            {
+              id: 'l44-q3',
+              question: 'Gel is the best choice for:',
+              options: ['Textured crops', 'Waves and slick styles', 'Handlebar mustaches', 'Natural soft styles'],
+              correctAnswer: 1,
+              explanation: 'Gel provides strong hold and high shine, making it ideal for 360 waves and slick-back styles.',
+            },
+            {
+              id: 'l44-q4',
+              question: 'How much product should you start with when styling?',
+              options: ['A large amount for maximum hold', 'A small amount — you can always add more', 'Enough to coat all the hair at once', 'The same amount for every client regardless of hair type'],
+              correctAnswer: 1,
+              explanation: 'Always start small — over-application is difficult to correct and can make hair look greasy.',
+            },
+            {
+              id: 'l44-q5',
+              question: 'Wax is most appropriate for styling:',
+              options: ['Fades and skin cuts', 'Mustaches and detailed styling', 'Wet-look slick backs', 'Textured afros'],
+              correctAnswer: 1,
+              explanation: 'Wax provides flexible hold ideal for mustache styling, spit curls, and other detail work.',
+            },
+          ],
         },
         {
           slug: 'barber-module-7-checkpoint',
@@ -3058,6 +3576,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Sanitation procedures</li>
 <li>Client draping and preparation</li>
 </ul>`,
+          quizQuestions: [
+            {
+              id: 'l46-q1',
+              question: 'How many questions are on the Indiana barber written exam?',
+              options: ['50', '75', '100', '150'],
+              correctAnswer: 2,
+              explanation: 'The Indiana barber written exam consists of 100 multiple-choice questions.',
+            },
+            {
+              id: 'l46-q2',
+              question: 'What passing score is required on the Indiana barber written exam?',
+              options: ['60%', '70%', '75%', '80%'],
+              correctAnswer: 2,
+              explanation: 'Indiana requires a 75% passing score on the written state board examination.',
+            },
+            {
+              id: 'l46-q3',
+              question: 'The Indiana barber practical exam is performed on:',
+              options: ['A computer simulation', 'A mannequin or live model', 'The state board examiner', 'A classmate only'],
+              correctAnswer: 1,
+              explanation: 'The practical exam is evaluated by state board examiners on either a mannequin or live model.',
+            },
+            {
+              id: 'l46-q4',
+              question: 'What percentage of the Indiana written exam covers infection control and sanitation?',
+              options: ['10%', '15%', '20%', '25%'],
+              correctAnswer: 3,
+              explanation: 'Infection control and sanitation is the largest single category, making up 25% of the written exam.',
+            },
+            {
+              id: 'l46-q5',
+              question: 'Indiana laws and regulations account for what percentage of the written exam?',
+              options: ['5%', '10%', '15%', '25%'],
+              correctAnswer: 2,
+              explanation: 'Indiana laws and regulations comprise 15% of the written exam — the same as chemical services.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-47',
@@ -3084,6 +3639,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>High porosity = damaged cuticle</li>
 <li>Patch test = 24-48 hours before chemical services</li>
 </ul>`,
+          quizQuestions: [
+            {
+              id: 'l47-q1',
+              question: 'When is disinfection required in an Indiana barbershop?',
+              options: ['Once a day', 'Once per week', 'Between every client', 'Only when visibly soiled'],
+              correctAnswer: 2,
+              explanation: 'EPA-registered disinfection of all tools is required between every client under Indiana state board rules.',
+            },
+            {
+              id: 'l47-q2',
+              question: 'Which layer of the hair shaft contains melanin?',
+              options: ['Cuticle', 'Cortex', 'Medulla', 'Follicle'],
+              correctAnswer: 1,
+              explanation: 'The cortex is the middle layer of the hair shaft and contains melanin granules that determine hair color.',
+            },
+            {
+              id: 'l47-q3',
+              question: 'What is the normal range of daily hair loss for a healthy adult?',
+              options: ['10–25 hairs', '50–100 hairs', '150–200 hairs', '300+ hairs'],
+              correctAnswer: 1,
+              explanation: 'Losing 50–100 hairs per day is considered within the normal range for healthy hair cycling.',
+            },
+            {
+              id: 'l47-q4',
+              question: 'High hair porosity indicates:',
+              options: ['Healthy, undamaged cuticle', 'A damaged or raised cuticle', 'Low moisture content only', 'Excessive melanin'],
+              correctAnswer: 1,
+              explanation: 'High porosity results from a damaged or raised cuticle that absorbs moisture quickly but cannot retain it.',
+            },
+            {
+              id: 'l47-q5',
+              question: 'The anagen phase of the hair growth cycle lasts approximately:',
+              options: ['A few weeks', '3–6 months', '2–7 years', '10+ years'],
+              correctAnswer: 2,
+              explanation: 'Anagen is the active growth phase, lasting 2–7 years — its length determines maximum hair length.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-48',
@@ -3112,6 +3704,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>License must be displayed at workstation</li>
 <li>Governed by Indiana Code Title 25, Article 8</li>
 </ul>`,
+          quizQuestions: [
+            {
+              id: 'l48-q1',
+              question: 'How many hours does the Indiana barber school path require?',
+              options: ['1,000 hours', '1,500 hours', '2,000 hours', '2,500 hours'],
+              correctAnswer: 1,
+              explanation: 'The cosmetology/barber school path requires 1,500 hours in Indiana.',
+            },
+            {
+              id: 'l48-q2',
+              question: 'How many OJT hours does the Indiana apprenticeship path require?',
+              options: ['1,000 hours', '1,500 hours', '2,000 hours', '2,500 hours'],
+              correctAnswer: 2,
+              explanation: 'The DOL-registered apprenticeship path requires 2,000 on-the-job training hours.',
+            },
+            {
+              id: 'l48-q3',
+              question: 'The Indiana Barber Act is governed by which section of state law?',
+              options: ['Indiana Code Title 16, Article 4', 'Indiana Code Title 25, Article 8', 'Indiana Code Title 22, Article 5', 'Indiana Code Title 12, Article 7'],
+              correctAnswer: 1,
+              explanation: 'Indiana Code Title 25, Article 8 governs the licensing and practice of barbering in Indiana.',
+            },
+            {
+              id: 'l48-q4',
+              question: 'Indiana barber licenses must be renewed every:',
+              options: ['1 year', '2 years', '3 years', '5 years'],
+              correctAnswer: 1,
+              explanation: 'Indiana requires barber license renewal every two years.',
+            },
+            {
+              id: 'l48-q5',
+              question: 'The parietal ridge is the reference point for which type of fade?',
+              options: ['Low fade', 'Mid fade', 'High fade', 'Skin fade only'],
+              correctAnswer: 2,
+              explanation: 'The parietal ridge — the widest part of the head — is the reference point for starting a high fade.',
+            },
+          ],
         },
         {
           slug: 'barber-lesson-49',
@@ -3142,6 +3771,43 @@ Indiana State Board inspectors check disinfection logs — remind students to do
 <li>Apply post-shave care</li>
 <li>Clean and disinfect station after service</li>
 </ol>`,
+          quizQuestions: [
+            {
+              id: 'l49-q1',
+              question: 'What is placed around the client\'s neck BEFORE the cutting cape?',
+              options: ['A towel', 'A neck strip', 'A paper collar', 'Nothing — the cape goes directly on skin'],
+              correctAnswer: 1,
+              explanation: 'A neck strip (or paper neck strip) prevents the cape from directly touching and irritating the client\'s skin.',
+            },
+            {
+              id: 'l49-q2',
+              question: 'During the practical exam, examiners look for which of the following FIRST?',
+              options: ['Speed of the haircut', 'Proper draping and sanitation procedures', 'Styling product application', 'Client consultation only'],
+              correctAnswer: 1,
+              explanation: 'State board examiners evaluate proper draping and sanitation procedures as the first and foundational element of the practical exam.',
+            },
+            {
+              id: 'l49-q3',
+              question: 'What must be done immediately after finishing a service during the practical exam?',
+              options: ['Leave tools for the next candidate', 'Clean and disinfect tools and workstation', 'Style the client\'s hair with product', 'Remove the cape and dismiss the client'],
+              correctAnswer: 1,
+              explanation: 'Post-service cleanup and disinfection of tools and workstation is a scored element of the practical exam.',
+            },
+            {
+              id: 'l49-q4',
+              question: 'The razor angle for the shave portion of the practical exam is:',
+              options: ['15 degrees', '30 degrees', '45 degrees', '60 degrees'],
+              correctAnswer: 1,
+              explanation: 'A 30-degree razor angle is the standard taught and evaluated on the Indiana state board practical exam.',
+            },
+            {
+              id: 'l49-q5',
+              question: 'During the practical exam, which fade is most commonly tested?',
+              options: ['Skin fade only', 'Haircut with fade — any type executed cleanly', 'High fade specifically', 'No fade — scissors only'],
+              correctAnswer: 1,
+              explanation: 'The practical exam typically requires a haircut with a fade, and examiners evaluate the quality and blending regardless of fade type.',
+            },
+          ],
         },
         {
           slug: 'barber-indiana-state-board-exam',
@@ -3151,73 +3817,368 @@ Indiana State Board inspectors check disinfection logs — remind students to do
           objective: 'Demonstrate comprehensive mastery of the barber apprenticeship curriculum.',
           durationMinutes: 30,
           passingScore: 70,
-          content: `<h2>Program Final Exam</h2><p>This exam covers all eight modules of the Barber Apprenticeship program. Topics include infection control, hair science, tools and equipment, haircutting techniques, shaving and beard services, chemical services, professional skills, and Indiana state board exam preparation. You must score 70% or higher to complete the program.</p>`,
+          content: `<h2>Program Final Exam</h2><p>This comprehensive final exam covers all modules of the Indiana Barber Apprenticeship program. Topics include infection control and sanitation, hair science, tools and equipment, haircutting techniques, shaving and beard services, chemical services, professional skills, anatomy and physiology, skin science, shampooing and conditioning, thermal styling, advanced color, Indiana laws, and career development. Score 70% or higher to complete the program and be eligible for the Indiana state board exams.</p>`,
           quizQuestions: [
+            // ── INFECTION CONTROL & SANITATION ───────────────────────────────
             {
               id: 'ep-q1',
-              question: 'What is the passing score for the Indiana barber written exam?',
-              options: ['60%', '70%', '75%', '80%'],
-              correctAnswer: 2,
-              explanation: 'Indiana requires a 75% passing score on the written state board exam.',
+              question: 'What type of disinfectant is required in Indiana barbershops?',
+              options: ['Any hospital-grade cleaner', 'EPA-registered disinfectant', 'Bleach and water only', 'Isopropyl alcohol only'],
+              correctAnswer: 1,
+              explanation: 'Indiana requires EPA-registered disinfectants — these meet federal efficacy standards for killing pathogens on tools.',
             },
             {
               id: 'ep-q2',
-              question: 'How many OJT hours are required for the apprenticeship path in Indiana?',
-              options: ['1,000', '1,500', '2,000', '2,500'],
-              correctAnswer: 2,
-              explanation: 'The DOL-registered apprenticeship path requires 2,000 on-the-job training hours.',
+              question: 'Disinfectant solution in a wet sanitizer should be changed:',
+              options: ['Once a week', 'Daily or when contaminated/visibly soiled', 'Once a month', 'Only when it smells bad'],
+              correctAnswer: 1,
+              explanation: 'Disinfectant solution must be changed daily or whenever it becomes contaminated or visibly soiled.',
             },
             {
               id: 'ep-q3',
-              question: 'Which layer of the hair contains melanin?',
-              options: ['Cuticle', 'Cortex', 'Medulla', 'Follicle'],
-              correctAnswer: 1,
-              explanation: 'The cortex contains melanin granules that determine hair color.',
+              question: 'A client has tinea capitis. You should:',
+              options: ['Proceed with gloves', 'Perform a dry cut only', 'Decline service and refer to a physician', 'Use medicated shampoo first'],
+              correctAnswer: 2,
+              explanation: 'Tinea capitis (ringworm of the scalp) is a contagious fungal infection — no services may be performed.',
             },
             {
               id: 'ep-q4',
-              question: 'What is required between every client in Indiana?',
-              options: ['Sterilization', 'Sanitation', 'Disinfection', 'Rinsing'],
+              question: 'Shavette blades must be disposed of in:',
+              options: ['The regular trash', 'A sealed plastic bag', 'A sharps (puncture-resistant) container', 'The recycling bin'],
               correctAnswer: 2,
-              explanation: 'EPA-registered disinfection of all tools is required between every client.',
+              explanation: 'Single-use sharps are biohazardous and must always go into a puncture-resistant sharps container.',
             },
             {
               id: 'ep-q5',
-              question: 'The neckline should be set:',
-              options: [
-                'At the jawline',
-                'At the Adam\'s apple',
-                'Two finger-widths above the Adam\'s apple',
-                'At the occipital bone',
-              ],
-              correctAnswer: 2,
-              explanation: 'Two finger-widths above the Adam\'s apple is the standard neckline position.',
+              question: 'When blood exposure occurs during a service, what is the FIRST action?',
+              options: ['Continue the service with gloves', 'Stop the service immediately', 'Apply antiseptic to the barber\'s hands', 'Change tools and continue'],
+              correctAnswer: 1,
+              explanation: 'Stopping the service immediately is the first step in the blood exposure protocol — client safety comes first.',
             },
+            // ── HAIR SCIENCE ─────────────────────────────────────────────────
             {
               id: 'ep-q6',
-              question: 'A client has tinea capitis. You should:',
-              options: [
-                'Proceed with gloves',
-                'Perform a dry cut only',
-                'Decline service and refer to a physician',
-                'Use medicated shampoo first',
-              ],
-              correctAnswer: 2,
-              explanation: 'Tinea capitis is contagious — no services should be performed.',
+              question: 'Which layer of the hair shaft contains melanin?',
+              options: ['Cuticle', 'Cortex', 'Medulla', 'Follicle sheath'],
+              correctAnswer: 1,
+              explanation: 'The cortex is the middle layer of the hair shaft and contains the melanin granules that determine hair color.',
             },
             {
               id: 'ep-q7',
-              question: 'The first pass in a straight razor shave goes:',
-              options: ['Against the grain', 'Across the grain', 'With the grain', 'In circles'],
+              question: 'The active hair growth phase is called:',
+              options: ['Telogen', 'Catagen', 'Anagen', 'Kenogen'],
               correctAnswer: 2,
-              explanation: 'Always start with the grain to safely remove bulk before closer passes.',
+              explanation: 'Anagen is the active growth phase, lasting 2–7 years and determining the potential length of the hair.',
             },
             {
               id: 'ep-q8',
+              question: 'Normal daily hair loss for a healthy adult is approximately:',
+              options: ['10–25 hairs', '50–100 hairs', '150–200 hairs', '300+ hairs'],
+              correctAnswer: 1,
+              explanation: 'Losing 50–100 hairs per day is within the normal range for the hair growth cycle.',
+            },
+            {
+              id: 'ep-q9',
+              question: 'High porosity hair indicates:',
+              options: ['A healthy, compact cuticle', 'A damaged or raised cuticle', 'Excess melanin', 'Underactive sebaceous glands'],
+              correctAnswer: 1,
+              explanation: 'High porosity results from a damaged or raised cuticle that absorbs moisture quickly but cannot retain it.',
+            },
+            {
+              id: 'ep-q10',
+              question: 'The healthy pH range for hair and scalp is:',
+              options: ['1.0–2.0', '4.5–5.5', '7.0–8.0', '9.0–10.0'],
+              correctAnswer: 1,
+              explanation: 'Hair and scalp are slightly acidic at pH 4.5–5.5. Products outside this range can disrupt the moisture balance.',
+            },
+            // ── TOOLS & EQUIPMENT ────────────────────────────────────────────
+            {
+              id: 'ep-q11',
+              question: 'What is placed around the client\'s neck before the cutting cape?',
+              options: ['A towel', 'A neck strip', 'A paper collar', 'Nothing is required'],
+              correctAnswer: 1,
+              explanation: 'A neck strip (paper neck strip) prevents the cape from directly touching and irritating the client\'s skin.',
+            },
+            {
+              id: 'ep-q12',
+              question: 'How many drops of oil should be applied to clipper blades during maintenance?',
+              options: ['10–15 drops', '5–8 drops', '2–3 drops', 'Soak the blades'],
+              correctAnswer: 2,
+              explanation: '2–3 drops while the clipper is running is sufficient — excess oil attracts hair debris.',
+            },
+            {
+              id: 'ep-q13',
+              question: 'The #0 clipper guard (no guard attached) produces:',
+              options: ['1/8 inch', '1/4 inch', 'Skin-level (closest to skin)', '3/8 inch'],
+              correctAnswer: 2,
+              explanation: 'Removing the guard entirely (or using #0) produces the closest possible clipper cut — used for skin fades.',
+            },
+            {
+              id: 'ep-q14',
+              question: 'Thinning shears are used to:',
+              options: ['Create blunt lines', 'Remove bulk without changing overall length', 'Create a skin fade', 'Texturize and point-cut simultaneously'],
+              correctAnswer: 1,
+              explanation: 'Thinning shears have one serrated blade and are designed to remove bulk while maintaining length.',
+            },
+            {
+              id: 'ep-q15',
+              question: 'The correct chair height for ergonomic barbering positions the barber to work at:',
+              options: ['Eye level with the client', 'Elbow level', 'Shoulder level', 'Waist level'],
+              correctAnswer: 1,
+              explanation: 'Working at elbow level keeps the back straight, prevents hunching, and reduces repetitive strain.',
+            },
+            // ── HAIRCUTTING TECHNIQUES ────────────────────────────────────────
+            {
+              id: 'ep-q16',
+              question: 'The neckline is set at:',
+              options: ['The jawline', 'The Adam\'s apple', 'Two finger-widths above the Adam\'s apple', 'The occipital bone'],
+              correctAnswer: 2,
+              explanation: 'Two finger-widths above the Adam\'s apple is the standard neckline position taught in state board preparation.',
+            },
+            {
+              id: 'ep-q17',
+              question: 'A mid fade starts at which reference point?',
+              options: ['The nape', 'The occipital bone', 'The temple', 'The parietal ridge'],
+              correctAnswer: 2,
+              explanation: 'A mid fade begins at the temple area — between the low fade (near occipital) and high fade (parietal ridge).',
+            },
+            {
+              id: 'ep-q18',
+              question: 'The parietal ridge is the reference point for:',
+              options: ['Low fade', 'Mid fade', 'High fade', 'Neckline placement'],
+              correctAnswer: 2,
+              explanation: 'The parietal ridge — the widest part of the head — is the starting point for a high fade.',
+            },
+            {
+              id: 'ep-q19',
+              question: 'Point cutting is used to:',
+              options: ['Create a blunt, heavy line', 'Remove weight and add texture', 'Execute a skin fade', 'Establish the guide line'],
+              correctAnswer: 1,
+              explanation: 'Point cutting removes weight from the ends and adds texture and movement to the hair.',
+            },
+            {
+              id: 'ep-q20',
+              question: 'Scissor over comb produces a result that is:',
+              options: ['Identical to clipper over comb', 'Softer and more natural than clipper over comb', 'Always shorter than clipper over comb', 'Used only for fades'],
+              correctAnswer: 1,
+              explanation: 'Scissor over comb produces a softer, more natural finish, often preferred for textured or ethnic hair.',
+            },
+            // ── SHAVING & BEARD ───────────────────────────────────────────────
+            {
+              id: 'ep-q21',
+              question: 'The first pass in a three-pass straight razor shave goes:',
+              options: ['Against the grain', 'Across the grain', 'With the grain', 'In circular motions'],
+              correctAnswer: 2,
+              explanation: 'The first pass (WTG — with the grain) safely removes the bulk of the beard before closer passes.',
+            },
+            {
+              id: 'ep-q22',
+              question: 'The straight razor should be held at what angle to the skin?',
+              options: ['15 degrees', '30 degrees', '45 degrees', '60 degrees'],
+              correctAnswer: 1,
+              explanation: 'A 30-degree angle provides optimal closeness while minimizing the risk of cuts.',
+            },
+            {
+              id: 'ep-q23',
+              question: 'Razor bumps (pseudofolliculitis barbae) are most common in clients with:',
+              options: ['Straight hair', 'Fine hair', 'Curly hair', 'Thick hair'],
+              correctAnswer: 2,
+              explanation: 'Curly hair tends to re-enter the skin after shaving, causing ingrown hairs and razor bumps.',
+            },
+            {
+              id: 'ep-q24',
+              question: 'Which product is applied to a razor nick to stop minor bleeding?',
+              options: ['Pre-shave oil', 'Aftershave balm', 'Alum block', 'Witch hazel'],
+              correctAnswer: 2,
+              explanation: 'An alum block is an antiseptic astringent that constricts blood vessels to stop minor bleeding from nicks.',
+            },
+            {
+              id: 'ep-q25',
+              question: 'The standard neckline position for beard design is:',
+              options: ['At the jawline', 'At the Adam\'s apple', 'Two finger-widths above the Adam\'s apple', 'Below the chin'],
+              correctAnswer: 2,
+              explanation: 'Two finger-widths above the Adam\'s apple is the industry standard for beard necklines.',
+            },
+            // ── CHEMICAL SERVICES ─────────────────────────────────────────────
+            {
+              id: 'ep-q26',
+              question: 'A patch test must be performed how long before a chemical service?',
+              options: ['1 hour', '6 hours', '24–48 hours', '1 week'],
+              correctAnswer: 2,
+              explanation: 'A 24–48 hour window is required to detect any allergic reaction before performing the service.',
+            },
+            {
+              id: 'ep-q27',
+              question: 'Relaxers break which bonds in the hair to straighten it?',
+              options: ['Hydrogen bonds', 'Disulfide bonds in the cortex', 'Melanin bonds', 'Cuticle bonds'],
+              correctAnswer: 1,
+              explanation: 'Chemical relaxers break the disulfide bonds in the hair cortex — the bonds that create the curl pattern.',
+            },
+            {
+              id: 'ep-q28',
+              question: 'What stops the relaxer chemical process?',
+              options: ['Shampoo', 'Water rinse', 'Neutralizer', 'Conditioner'],
+              correctAnswer: 2,
+              explanation: 'The neutralizer restores the hair\'s pH and halts the relaxer from processing further.',
+            },
+            {
+              id: 'ep-q29',
+              question: 'Hair color level 1 represents:',
+              options: ['Lightest blonde', 'Medium brown', 'Dark brown', 'Black'],
+              correctAnswer: 3,
+              explanation: 'Level 1 is the darkest (black). Level 10 is the lightest (pale blonde). The scale goes darkest to lightest.',
+            },
+            {
+              id: 'ep-q30',
+              question: 'Before applying a relaxer, the scalp should be protected with:',
+              options: ['Pre-shave oil', 'Petroleum jelly (base)', 'Aloe vera gel', 'Conditioner'],
+              correctAnswer: 1,
+              explanation: 'Petroleum jelly (base) is applied to the scalp to protect it from chemical burns during relaxer application.',
+            },
+            // ── PROFESSIONAL SKILLS ───────────────────────────────────────────
+            {
+              id: 'ep-q31',
               question: 'Indiana barber licenses must be renewed every:',
               options: ['1 year', '2 years', '3 years', '5 years'],
               correctAnswer: 1,
               explanation: 'Indiana requires barber license renewal every two years.',
+            },
+            {
+              id: 'ep-q32',
+              question: 'In a booth rental arrangement, the barber keeps what percentage of service revenue?',
+              options: ['40–60%', '70–80%', '90–95%', '100%'],
+              correctAnswer: 3,
+              explanation: 'Booth renters are self-employed — they keep 100% of service revenue after paying their fixed booth fee.',
+            },
+            {
+              id: 'ep-q33',
+              question: 'What is the standard tip for barbering services?',
+              options: ['5–10%', '15–20%', '25–30%', 'Tips are not standard'],
+              correctAnswer: 1,
+              explanation: '15–20% is the industry standard tip for personal service professionals including barbers.',
+            },
+            {
+              id: 'ep-q34',
+              question: 'Self-employed barbers should set aside what percentage of income for taxes?',
+              options: ['5–10%', '15–20%', '25–30%', '40–50%'],
+              correctAnswer: 2,
+              explanation: 'Self-employed individuals pay income tax plus self-employment tax (Social Security + Medicare), totaling 25–30%.',
+            },
+            {
+              id: 'ep-q35',
+              question: 'Which styling product provides medium-to-high hold with a MATTE finish?',
+              options: ['Pomade', 'Gel', 'Clay', 'Cream'],
+              correctAnswer: 2,
+              explanation: 'Clay provides medium-to-high hold with a natural matte finish — popular for modern textured styles.',
+            },
+            // ── INDIANA LAWS & REGULATIONS ────────────────────────────────────
+            {
+              id: 'ep-q36',
+              question: 'The Indiana Barber Act is located in:',
+              options: ['Indiana Code Title 16, Article 4', 'Indiana Code Title 25, Article 8', 'Indiana Code Title 22, Article 3', 'Indiana Code Title 12, Article 7'],
+              correctAnswer: 1,
+              explanation: 'Indiana Code Title 25, Article 8 governs all licensed barbers and barbershops in Indiana.',
+            },
+            {
+              id: 'ep-q37',
+              question: 'Barbershop licenses in Indiana are issued by:',
+              options: ['The Indiana Department of Health', 'The Indiana Professional Licensing Agency (IPLA)', 'The Indiana State Board of Education', 'The U.S. Department of Labor'],
+              correctAnswer: 1,
+              explanation: 'The Indiana Professional Licensing Agency (IPLA) administers all barber and barbershop licenses in the state.',
+            },
+            {
+              id: 'ep-q38',
+              question: 'Indiana barber licenses must be displayed:',
+              options: ['At the shop entrance', 'At each barber\'s individual workstation', 'In the shop owner\'s office only', 'Online only'],
+              correctAnswer: 1,
+              explanation: 'Each licensed barber\'s license must be displayed at their workstation — this is an inspectable requirement.',
+            },
+            {
+              id: 'ep-q39',
+              question: 'The passing score for the Indiana barber written state board exam is:',
+              options: ['60%', '70%', '75%', '80%'],
+              correctAnswer: 2,
+              explanation: 'Indiana requires a 75% passing score on the written portion of the state board examination.',
+            },
+            {
+              id: 'ep-q40',
+              question: 'The DOL-registered apprenticeship path to a barber license in Indiana requires:',
+              options: ['1,000 OJT hours', '1,500 OJT hours', '2,000 OJT hours', '2,500 OJT hours'],
+              correctAnswer: 2,
+              explanation: 'The Department of Labor registered apprenticeship path requires 2,000 on-the-job training hours.',
+            },
+            // ── ANATOMY & PHYSIOLOGY ──────────────────────────────────────────
+            {
+              id: 'ep-q41',
+              question: 'The human skull has how many cranial bones?',
+              options: ['6', '7', '8', '10'],
+              correctAnswer: 2,
+              explanation: 'There are 8 cranial bones: frontal, 2 parietal, 2 temporal, occipital, ethmoid, and sphenoid.',
+            },
+            {
+              id: 'ep-q42',
+              question: 'The largest movable bone in the face is the:',
+              options: ['Frontal bone', 'Zygomatic bone', 'Maxilla', 'Mandible'],
+              correctAnswer: 3,
+              explanation: 'The mandible (lower jaw) is the only movable bone of the face — it hinges at the temporomandibular joint.',
+            },
+            {
+              id: 'ep-q43',
+              question: 'The muscle primarily responsible for chewing is the:',
+              options: ['Frontalis', 'Masseter', 'Trapezius', 'Orbicularis oris'],
+              correctAnswer: 1,
+              explanation: 'The masseter muscle closes the jaw and is the primary muscle of mastication (chewing).',
+            },
+            {
+              id: 'ep-q44',
+              question: 'The trigeminal nerve is cranial nerve number:',
+              options: ['III', 'IV', 'V', 'VII'],
+              correctAnswer: 2,
+              explanation: 'Cranial nerve V (the trigeminal) provides sensation to the face and scalp and is key to facial massage knowledge.',
+            },
+            {
+              id: 'ep-q45',
+              question: 'Sebum is produced by:',
+              options: ['Sweat glands', 'Sebaceous glands', 'The dermis layer', 'The hair medulla'],
+              correctAnswer: 1,
+              explanation: 'Sebaceous (oil) glands produce sebum, which lubricates the hair and skin and is part of the acid mantle.',
+            },
+            // ── SKIN SCIENCE & FACIALS ────────────────────────────────────────
+            {
+              id: 'ep-q46',
+              question: 'Hair follicles and sebaceous glands are located in the:',
+              options: ['Epidermis', 'Dermis', 'Subcutaneous layer', 'Stratum corneum'],
+              correctAnswer: 1,
+              explanation: 'The dermis (middle layer of the skin) contains hair follicles, sebaceous glands, sweat glands, and blood vessels.',
+            },
+            {
+              id: 'ep-q47',
+              question: 'Oily skin is characterized by:',
+              options: ['Small tight pores and a matte finish', 'Enlarged pores and a shiny appearance', 'Flaking and tightness', 'Redness and easy irritation'],
+              correctAnswer: 1,
+              explanation: 'Oily skin results from overactive sebaceous glands — enlarged pores and shininess are the telltale signs.',
+            },
+            {
+              id: 'ep-q48',
+              question: 'The opening and closing stroke used in facial massage is called:',
+              options: ['Petrissage', 'Tapotement', 'Effleurage', 'Friction'],
+              correctAnswer: 2,
+              explanation: 'Effleurage is the light, stroking movement used to open and close a facial massage — it relaxes and prepares the skin.',
+            },
+            // ── ADVANCED COLOR ────────────────────────────────────────────────
+            {
+              id: 'ep-q49',
+              question: '20-volume developer lifts hair approximately:',
+              options: ['0–1 level', '1–2 levels', '3–4 levels', '5+ levels'],
+              correctAnswer: 1,
+              explanation: '20-volume developer provides 1–2 levels of lift — the most common developer for permanent color services.',
+            },
+            {
+              id: 'ep-q50',
+              question: 'Purple toner is used to neutralize which unwanted hair tone?',
+              options: ['Orange', 'Red', 'Yellow/brassy', 'Green'],
+              correctAnswer: 2,
+              explanation: 'Purple and yellow are complementary colors — purple toner cancels out yellow/brassy tones in lightened hair.',
             },
           ],
         },
