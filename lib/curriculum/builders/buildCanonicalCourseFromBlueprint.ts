@@ -19,6 +19,7 @@
 import { createAdminClient, getAdminClient } from '@/lib/supabase/admin';
 import type { CredentialBlueprint, BlueprintModule, BlueprintLessonRef, BlueprintVideoConfig } from '../blueprints/types';
 import { logger } from '@/lib/logger';
+import { defaultActivities } from '../activities';
 
 // ─── curriculum_lessons row shape (fields we read) ───────────────────────────
 
@@ -96,52 +97,6 @@ export function validateProductionContent(
   }
 
   return violations;
-}
-
-// ─── Default activity menu per step type ─────────────────────────────────────
-// Each lesson gets a default activity set based on its step_type.
-// The lesson page renders these as the NHA-style activity menu.
-// Instructors can override per-lesson via the admin curriculum builder.
-
-type ActivityDescriptor = {
-  type: 'video' | 'reading' | 'flashcards' | 'lab' | 'practice' | 'checkpoint';
-  label: string;
-  order: number;
-  required: boolean;
-};
-
-function defaultActivities(stepType: string): ActivityDescriptor[] {
-  switch (stepType) {
-    case 'checkpoint':
-      return [
-        { type: 'video',      label: 'Watch Lesson Video',    order: 1, required: true  },
-        { type: 'reading',    label: 'Reading',               order: 2, required: true  },
-        { type: 'flashcards', label: 'Flashcards',            order: 3, required: false },
-        { type: 'practice',   label: 'Practice Questions',    order: 4, required: true  },
-        { type: 'checkpoint', label: 'Checkpoint Quiz',       order: 5, required: true  },
-      ];
-    case 'lab':
-      return [
-        { type: 'video',      label: 'Watch Lesson Video',    order: 1, required: true  },
-        { type: 'reading',    label: 'Reading',               order: 2, required: true  },
-        { type: 'lab',        label: 'Hands-On Lab',          order: 3, required: true  },
-      ];
-    case 'quiz':
-    case 'exam':
-      return [
-        { type: 'video',      label: 'Watch Lesson Video',    order: 1, required: false },
-        { type: 'flashcards', label: 'Flashcards',            order: 2, required: false },
-        { type: 'practice',   label: 'Practice Questions',    order: 3, required: false },
-        { type: 'checkpoint', label: 'Quiz',                  order: 4, required: true  },
-      ];
-    default: // 'lesson'
-      return [
-        { type: 'video',      label: 'Watch Lesson Video',    order: 1, required: true  },
-        { type: 'reading',    label: 'Reading',               order: 2, required: true  },
-        { type: 'flashcards', label: 'Flashcards',            order: 3, required: false },
-        { type: 'practice',   label: 'Practice Questions',    order: 4, required: false },
-      ];
-  }
 }
 
 // ─── Types ────────────────────────────────────────────────────────────────────

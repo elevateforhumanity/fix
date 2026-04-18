@@ -28,6 +28,7 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { generateCourseOutlineFn } from '@/lib/ai/generate-course-outline-fn';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
 import { transformLessonContent } from '@/lib/lms/transformLessonContent';
+import { defaultActivities } from '@/lib/curriculum/activities';
 
 export const maxDuration = 300;
 
@@ -142,11 +143,7 @@ export async function POST(request: NextRequest) {
   // Insert lessons (actual columns: course_id, module_id, title, slug, lesson_type,
   //                                 order_index, passing_score, activities, content, status)
   const lessonRows = outline.lessons.map(l => {
-    const activities: Record<string, boolean> = {
-      video: true, reading: true, flashcards: true, practice: true,
-    };
-    if (l.step_type === 'checkpoint') activities.checkpoint = true;
-    if (l.step_type === 'exam')       activities.exam = true;
+    const activities = defaultActivities(l.step_type);
 
     return {
       course_id:    courseId,
