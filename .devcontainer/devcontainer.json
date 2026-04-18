@@ -13,7 +13,7 @@
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/dhoeric/features/supabase-cli:1": {}
   },
-  "postCreateCommand": "corepack enable && corepack prepare pnpm@10.28.2 --activate",
+  "postCreateCommand": "sudo corepack enable && corepack prepare pnpm@10.28.2 --activate && pnpm install && ([ -f .env.local ] || cp .env.example .env.local)",
   "customizations": {
     "vscode": {
       "extensions": [
