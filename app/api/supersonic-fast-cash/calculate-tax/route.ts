@@ -1,120 +1,94 @@
+// PUBLIC ROUTE: public-facing refund calculator — no auth required
 import { NextRequest, NextResponse } from 'next/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { requireAuth } from '@/lib/api/requireAuth';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
+import { calculateForm1040 } from '@/lib/tax-software/forms/form-1040';
+import type { TaxReturn } from '@/lib/tax-software/types';
 
+export const runtime = 'nodejs';
 
-export const maxDuration = 60;
-
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const rateLimited = await applyRateLimit(request, 'contact');
+    const rateLimited = await applyRateLimit(request, 'public');
     if (rateLimited) return rateLimited;
 
-    const auth = await requireAuth(request);
-    if (auth.error) return auth.error;
+    const body = await request.json();
 
-    const taxReturn = await request.json();
+    // Normalise filing status — the calculator sends short aliases like
+    // "married_joint"; the engine expects the full canonical key.
+    const STATUS_MAP: Record<string, TaxReturn['filingStatus']> = {
+      single: 'single',
+      married_joint: 'married_filing_jointly',
+      married_filing_jointly: 'married_filing_jointly',
+      married_separate: 'married_filing_separately',
+      married_filing_separately: 'married_filing_separately',
+      head_of_household: 'head_of_household',
+      head: 'head_of_household',
+      qualifying_widow: 'qualifying_surviving_spouse',
+      qualifying_surviving_spouse: 'qualifying_surviving_spouse',
+    };
 
-    // Calculate total income
-    const w2Wages = taxReturn.w2Income?.reduce((sum: number, w2: any) => sum + (w2.wages || 0), 0) || 0;
-    const totalIncome = w2Wages;
+    const filingStatus: TaxReturn['filingStatus'] =
+      STATUS_MAP[body.filingStatus] ?? 'single';
 
-    // Calculate deductions
-    let deduction = 0;
-    if (taxReturn.deductionType === 'standard') {
-      // Standard deduction amounts for 2024
-      if (taxReturn.filingStatus === 'single') deduction = 14600;
-      else if (taxReturn.filingStatus === 'married_joint') deduction = 29200;
-      else if (taxReturn.filingStatus === 'married_separate') deduction = 14600;
-      else if (taxReturn.filingStatus === 'head_of_household') deduction = 21900;
-      else if (taxReturn.filingStatus === 'qualifying_widow') deduction = 29200;
-    } else if (taxReturn.deductionType === 'itemized') {
-      const itemized = taxReturn.itemizedDeductions || {};
-      deduction = (
-        (itemized.mortgageInterest || 0) +
-        (itemized.propertyTax || 0) +
-        (itemized.charitableContributions || 0) +
-        (itemized.medicalExpenses || 0) +
-        Math.min((itemized.stateLocalTaxes || 0), 10000)
-      );
-    }
+    const taxReturn: TaxReturn = {
+      taxYear: body.taxYear || 2024,
+      efin: process.env.IRS_EFIN || '000000',
+      returnId: `CALC${Date.now()}`,
+      filingStatus,
+      taxpayer: body.taxpayer || {
+        firstName: '',
+        lastName: '',
+        ssn: '',
+        dateOfBirth: '',
+      },
+      address: body.address || { street: '', city: '', state: '', zip: '' },
+      dependents: body.dependents || [],
+      w2Income: (body.w2Income || []).map((w2: any) => ({
+        employerEIN: w2.employerEIN || '',
+        employerName: w2.employerName || w2.employer || '',
+        employerAddress: w2.employerAddress || { street: '', city: '', state: '', zip: '' },
+        wages: Number(w2.wages) || 0,
+        federalWithholding: Number(w2.federalWithholding) || 0,
+        stateWithholding: Number(w2.stateWithholding) || 0,
+        socialSecurityWages: Number(w2.wages) || 0,
+        socialSecurityWithholding: 0,
+        medicareWages: Number(w2.wages) || 0,
+        medicareWithholding: 0,
+      })),
+      deductionType: body.deductionType || 'standard',
+      itemizedDeductions: body.itemizedDeductions,
+      totalIncome: 0,
+      adjustedGrossIncome: 0,
+      taxableIncome: 0,
+      taxBeforeCredits: 0,
+      credits: {
+        childTaxCredit: 0,
+        creditForOtherDependents: 0,
+        earnedIncomeCredit: 0,
+        additionalChildTaxCredit: 0,
+      },
+      totalCredits: 0,
+      federalWithholding: 0,
+      totalTax: 0,
+      totalPayments: 0,
+    };
 
-    // Calculate taxable income
-    const taxableIncome = Math.max(0, totalIncome - deduction);
-
-    // Calculate federal tax using 2024 tax brackets
-    let federalTax = 0;
-    if (taxReturn.filingStatus === 'single') {
-      if (taxableIncome <= 11600) {
-        federalTax = taxableIncome * 0.10;
-      } else if (taxableIncome <= 47150) {
-        federalTax = 1160 + (taxableIncome - 11600) * 0.12;
-      } else if (taxableIncome <= 100525) {
-        federalTax = 5426 + (taxableIncome - 47150) * 0.22;
-      } else if (taxableIncome <= 191950) {
-        federalTax = 17168.50 + (taxableIncome - 100525) * 0.24;
-      } else if (taxableIncome <= 243725) {
-        federalTax = 39110.50 + (taxableIncome - 191950) * 0.32;
-      } else if (taxableIncome <= 609350) {
-        federalTax = 55678.50 + (taxableIncome - 243725) * 0.35;
-      } else {
-        federalTax = 183647.25 + (taxableIncome - 609350) * 0.37;
-      }
-    } else if (taxReturn.filingStatus === 'married_joint') {
-      if (taxableIncome <= 23200) {
-        federalTax = taxableIncome * 0.10;
-      } else if (taxableIncome <= 94300) {
-        federalTax = 2320 + (taxableIncome - 23200) * 0.12;
-      } else if (taxableIncome <= 201050) {
-        federalTax = 10852 + (taxableIncome - 94300) * 0.22;
-      } else if (taxableIncome <= 383900) {
-        federalTax = 34337 + (taxableIncome - 201050) * 0.24;
-      } else if (taxableIncome <= 487450) {
-        federalTax = 78221 + (taxableIncome - 383900) * 0.32;
-      } else if (taxableIncome <= 731200) {
-        federalTax = 111357 + (taxableIncome - 487450) * 0.35;
-      } else {
-        federalTax = 196669.50 + (taxableIncome - 731200) * 0.37;
-      }
-    }
-
-    // Calculate credits
-    let totalCredits = 0;
-    if (taxReturn.hasChildTaxCredit) {
-      totalCredits += (taxReturn.dependents?.length || 0) * 2000;
-    }
-    if (taxReturn.hasEITC) {
-      // Simplified EITC calculation
-      const numChildren = taxReturn.dependents?.length || 0;
-      if (numChildren === 0 && totalIncome < 17640) totalCredits += 600;
-      else if (numChildren === 1 && totalIncome < 46560) totalCredits += 3995;
-      else if (numChildren === 2 && totalIncome < 52918) totalCredits += 6604;
-      else if (numChildren >= 3 && totalIncome < 56838) totalCredits += 7430;
-    }
-    if (taxReturn.hasEducationCredits) {
-      totalCredits += 2500; // American Opportunity Credit
-    }
-
-    // Calculate withholding
-    const federalWithholding = taxReturn.w2Income?.reduce((sum: number, w2: any) => sum + (w2.federalWithholding || 0), 0) || 0;
-
-    // Calculate refund or owed
-    const taxAfterCredits = Math.max(0, federalTax - totalCredits);
-    const estimatedRefund = federalWithholding - taxAfterCredits;
+    const result = calculateForm1040(taxReturn);
 
     return NextResponse.json({
       success: true,
-      totalIncome,
-      deduction,
-      taxableIncome,
-      federalTax,
-      totalCredits,
-      taxAfterCredits,
-      federalWithholding,
-      estimatedRefund: Math.round(estimatedRefund),
+      estimatedRefund: result.line35,
+      refundAmount: result.line35 > 0 ? result.line35 : -result.line37,
+      totalIncome: result.line9,
+      adjustedGrossIncome: result.line11,
+      taxableIncome: result.line15,
+      federalTax: result.line16,
+      totalCredits: result.line22,
+      totalTax: result.line25,
+      federalWithholding: result.line26,
+      eitc: result.line28,
+      childTaxCredit: result.line19,
     });
-
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to calculate tax' },
@@ -122,4 +96,3 @@ async function _POST(request: NextRequest) {
     );
   }
 }
-export const POST = withApiAudit('/api/supersonic-fast-cash/calculate-tax', _POST);
