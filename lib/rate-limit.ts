@@ -24,9 +24,10 @@ const RATE_LIMITS = {
   auth: { requests: 5, window: '1 m' }, // 5 requests per minute
   payment: { requests: 10, window: '1 m' }, // 10 requests per minute
   contact: { requests: 3, window: '1 m' }, // 3 requests per minute
-  api: { requests: 100, window: '1 m' }, // 100 requests per minute
+  api: { requests: 60, window: '1 m' }, // 60 requests per minute (tightened from 100)
   strict: { requests: 3, window: '5 m' }, // 3 requests per 5 minutes
-  public: { requests: 10, window: '1 m' }, // 10 requests per minute (public AI tutor)
+  public: { requests: 5, window: '1 m' }, // 5 requests per minute (tightened from 10)
+  pageLoad: { requests: 30, window: '1 m' }, // 30 requests per minute for public content
   license: { requests: 5, window: '5 m' }, // 5 license operations per 5 minutes
   licenseValidate: { requests: 20, window: '1 m' }, // 20 validations per minute
 } as const;
@@ -50,6 +51,7 @@ let _contactRateLimit: Ratelimit | null | undefined;
 let _apiRateLimit: Ratelimit | null | undefined;
 let _strictRateLimit: Ratelimit | null | undefined;
 let _publicRateLimit: Ratelimit | null | undefined;
+let _pageLoadRateLimit: Ratelimit | null | undefined;
 let _licenseRateLimit: Ratelimit | null | undefined;
 let _licenseValidateRateLimit: Ratelimit | null | undefined;
 
@@ -59,6 +61,7 @@ export const contactRateLimit = { get: () => _contactRateLimit ?? (_contactRateL
 export const apiRateLimit = { get: () => _apiRateLimit ?? (_apiRateLimit = createRateLimiter(RATE_LIMITS.api, 'ratelimit:api')) };
 export const strictRateLimit = { get: () => _strictRateLimit ?? (_strictRateLimit = createRateLimiter(RATE_LIMITS.strict, 'ratelimit:strict')) };
 export const publicRateLimit = { get: () => _publicRateLimit ?? (_publicRateLimit = createRateLimiter(RATE_LIMITS.public, 'ratelimit:public')) };
+export const pageLoadRateLimit = { get: () => _pageLoadRateLimit ?? (_pageLoadRateLimit = createRateLimiter(RATE_LIMITS.pageLoad, 'ratelimit:pageload')) };
 export const licenseRateLimit = { get: () => _licenseRateLimit ?? (_licenseRateLimit = createRateLimiter(RATE_LIMITS.license, 'ratelimit:license')) };
 export const licenseValidateRateLimit = { get: () => _licenseValidateRateLimit ?? (_licenseValidateRateLimit = createRateLimiter(RATE_LIMITS.licenseValidate, 'ratelimit:license-validate')) };
 

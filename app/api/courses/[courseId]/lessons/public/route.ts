@@ -5,6 +5,7 @@ import { COURSE_DEFINITIONS } from '@/lib/courses/definitions';
 import { HVAC_LESSON_UUID, HVAC_MODULE_UUID } from '@/lib/courses/hvac-uuids';
 import { HVAC_QUIZ_MAP } from '@/lib/courses/hvac-quiz-map';
 import { buildLessonContent, isPlaceholderContent } from '@/lib/courses/hvac-content-builder';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -114,6 +115,9 @@ async function _GET(
   _request: NextRequest,
   { params }: { params: Promise<{ courseId: string }> },
 ) {
+  const limited = await applyRateLimit(_request, 'pageLoad');
+  if (limited) return limited;
+
   const { courseId } = await params;
 
   // Use the server client (respects RLS) — never the admin client for public routes.

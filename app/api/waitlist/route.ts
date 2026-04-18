@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { logger } from '@/lib/logger';
-
+import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withRuntime } from '@/lib/api/withRuntime';
 
 // Programs that have a waitlist — all others are rejected
@@ -17,6 +17,9 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 async function _POST(request: NextRequest) {
+  const limited = await applyRateLimit(request, 'contact');
+  if (limited) return limited;
+
   try {
     const body = await request.json();
     const { firstName, lastName, email, phone, programSlug, cohortId, fundingInterest, notes } = body;
@@ -131,6 +134,9 @@ async function _POST(request: NextRequest) {
 }
 
 async function _GET(request: NextRequest) {
+  const limited = await applyRateLimit(request, 'pageLoad');
+  if (limited) return limited;
+
   const { searchParams } = new URL(request.url);
   const programSlug = searchParams.get('program');
 

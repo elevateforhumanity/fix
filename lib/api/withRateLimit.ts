@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { contactRateLimit, strictRateLimit, apiRateLimit, authRateLimit, paymentRateLimit, publicRateLimit, createRateLimitHeaders } from '@/lib/rate-limit';
+import { contactRateLimit, strictRateLimit, apiRateLimit, authRateLimit, paymentRateLimit, publicRateLimit, pageLoadRateLimit, createRateLimitHeaders } from '@/lib/rate-limit';
 
-type Tier = 'strict' | 'contact' | 'api' | 'auth' | 'payment' | 'public';
+type Tier = 'strict' | 'contact' | 'api' | 'auth' | 'payment' | 'public' | 'pageLoad';
 
 // Tiers that must fail closed (return 503) when Redis is unavailable
 const FAIL_CLOSED_TIERS: Set<Tier> = new Set(['auth', 'payment', 'strict']);
@@ -9,10 +9,11 @@ const FAIL_CLOSED_TIERS: Set<Tier> = new Set(['auth', 'payment', 'strict']);
 const limiters: Record<Tier, { get: () => any }> = {
   strict: strictRateLimit,     // 3 req / 5 min
   contact: contactRateLimit,   // 3 req / 1 min
-  api: apiRateLimit,           // 100 req / 1 min
+  api: apiRateLimit,           // 60 req / 1 min
   auth: authRateLimit,         // 5 req / 1 min
   payment: paymentRateLimit,   // 10 req / 1 min
-  public: publicRateLimit,     // 10 req / 1 min (public AI tutor)
+  public: publicRateLimit,     // 5 req / 1 min (public AI tutor)
+  pageLoad: pageLoadRateLimit, // 30 req / 1 min (public content endpoints)
 };
 
 function getIP(request: Request): string {

@@ -2,7 +2,7 @@
 // CACHE_VERSION is replaced at build time by scripts/stamp-sw.mjs.
 // If the token was never replaced (broken build / local dev), fall back to a
 // timestamp so old caches are always evicted and users never see a blank screen.
-const CACHE_VERSION = '__CACHE_VERSION__'.startsWith('__') ? `fallback-${Date.now()}` : '__CACHE_VERSION__';
+const CACHE_VERSION = 'v1776518314916'.startsWith('__') ? `fallback-${Date.now()}` : 'v1776518314916';
 const STATIC_CACHE = `elevate-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `elevate-dynamic-${CACHE_VERSION}`;
 const COURSE_CACHE = `elevate-courses-${CACHE_VERSION}`;
