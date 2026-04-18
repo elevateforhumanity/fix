@@ -151,7 +151,7 @@ export default function PolicyAcknowledgmentPage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-xl shadow-sm border p-8 text-center">
           <CheckCircle2 className="w-16 h-16 text-brand-green-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Policies Acknowledged</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Policies Acknowledged</h1>
           <p className="text-black mb-6">
             All {POLICIES.length} policy acknowledgments have been recorded. A confirmation
             will be sent to your email.
@@ -197,7 +197,7 @@ export default function PolicyAcknowledgmentPage() {
       <form onSubmit={handleSubmit} className="max-w-4xl mx-auto px-4 py-8">
         {/* Progress */}
         <div className="bg-white rounded-xl shadow-sm border p-4 mb-8 flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-700">
+          <span className="text-sm font-medium text-slate-900">
             {acknowledged.size} of {POLICIES.length} policies acknowledged
           </span>
           <div className="w-48 bg-gray-200 rounded-full h-2">
@@ -244,11 +244,11 @@ export default function PolicyAcknowledgmentPage() {
                     {isAcked ? (
                       <CheckCircle2 className="w-6 h-6 text-brand-green-500" />
                     ) : (
-                      <Shield className="w-6 h-6 text-gray-300" />
+                      <Shield className="w-6 h-6 text-slate-700" />
                     )}
                   </button>
                   <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 mb-1">{policy.title}</h3>
+                    <h3 className="font-bold text-slate-900 mb-1">{policy.title}</h3>
                     <p className="text-sm text-black mb-3">{policy.summary}</p>
                     <ul className="space-y-1.5">
                       {policy.details.map((detail, i) => (
@@ -274,10 +274,10 @@ export default function PolicyAcknowledgmentPage() {
 
         {/* Signer Info */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-8">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Your Information</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Your Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Shop Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Shop Name *</label>
               <input
                 type="text"
                 required
@@ -288,7 +288,7 @@ export default function PolicyAcknowledgmentPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Your Full Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Your Full Name *</label>
               <input
                 type="text"
                 required
@@ -323,13 +323,13 @@ export default function PolicyAcknowledgmentPage() {
         {/* Next Steps */}
         <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-xl p-6 mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="font-bold text-gray-900">Next: Submit Your Application</h3>
+            <h3 className="font-bold text-slate-900">Next: Submit Your Application</h3>
             <p className="text-sm text-black">After acknowledging policies, complete the partner application.</p>
           </div>
           <div className="flex gap-3">
             <Link
               href="/partners/barbershop-apprenticeship/sign-mou"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 border border-gray-300 rounded-lg font-semibold hover:bg-white text-sm whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 border border-gray-300 rounded-lg font-semibold hover:bg-white text-sm whitespace-nowrap"
             >
               Sign MOU
             </Link>

@@ -25,7 +25,7 @@ export function Button({
     'inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all';
   const variants = {
     primary: 'bg-brand-orange-600 text-white hover:bg-brand-orange-700 shadow-sm',
-    secondary: 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50',
+    secondary: 'bg-white text-slate-900 border border-gray-300 hover:bg-gray-50',
   };
 
   const classes = `${base} ${variants[variant]} ${className}`;

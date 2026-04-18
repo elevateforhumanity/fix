@@ -103,9 +103,9 @@ export default async function ShopReportsPage() {
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <FileText className="w-8 h-8 text-brand-blue-600" />
-                  <h1 className="text-3xl font-bold text-gray-900">Reports</h1>
+                  <h1 className="text-3xl font-bold text-slate-900">Reports</h1>
                 </div>
-                <p className="text-gray-600">View and download student progress reports</p>
+                <p className="text-slate-700">View and download student progress reports</p>
               </div>
               <Link href="/shop/reports/new" className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700 font-medium">
                 + New Report
@@ -118,14 +118,14 @@ export default async function ShopReportsPage() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center gap-3 mb-2">
                 <FileText className="w-6 h-6 text-brand-blue-600" />
-                <h3 className="text-sm font-medium text-gray-700">Total Reports</h3>
+                <h3 className="text-sm font-medium text-slate-900">Total Reports</h3>
               </div>
               <p className="text-3xl font-bold text-brand-blue-600">{reports.length}</p>
             </div>
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center gap-3 mb-2">
                 <Users className="w-6 h-6 text-brand-green-600" />
-                <h3 className="text-sm font-medium text-gray-700">Placements</h3>
+                <h3 className="text-sm font-medium text-slate-900">Placements</h3>
               </div>
               <p className="text-3xl font-bold text-brand-green-600">
                 {new Set(reports.map(r => r.student_name)).size}
@@ -134,14 +134,14 @@ export default async function ShopReportsPage() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center gap-3 mb-2">
                 <Clock className="w-6 h-6 text-brand-blue-600" />
-                <h3 className="text-sm font-medium text-gray-700">Total Hours</h3>
+                <h3 className="text-sm font-medium text-slate-900">Total Hours</h3>
               </div>
               <p className="text-3xl font-bold text-brand-blue-600">{totalHours}</p>
             </div>
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center gap-3 mb-2">
                 <Calendar className="w-6 h-6 text-brand-orange-600" />
-                <h3 className="text-sm font-medium text-gray-700">This Month</h3>
+                <h3 className="text-sm font-medium text-slate-900">This Month</h3>
               </div>
               <p className="text-3xl font-bold text-brand-orange-600">{thisMonth}</p>
             </div>
@@ -151,45 +151,45 @@ export default async function ShopReportsPage() {
           <div className="bg-white rounded-lg shadow overflow-hidden">
             {reports.length === 0 ? (
               <div className="text-center py-12">
-                <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-900 text-lg">No reports found</p>
-                <p className="text-gray-600 text-sm mt-2">Create your first report to get started</p>
+                <FileText className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                <p className="text-slate-900 text-lg">No reports found</p>
+                <p className="text-slate-700 text-sm mt-2">Create your first report to get started</p>
               </div>
             ) : (
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-white">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Placement</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Period</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Hours</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Placement</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Type</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Period</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Hours</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Date</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {reports.map((report) => (
                     <tr key={report.id} className="hover:bg-white">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">{report.student_name}</div>
+                        <div className="text-sm font-medium text-slate-900">{report.student_name}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="px-2 py-1 text-xs rounded bg-brand-blue-100 text-brand-blue-800">
                           {report.report_type}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{report.period}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{report.hours} hrs</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{report.period}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{report.hours} hrs</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`px-2 py-1 text-xs rounded ${
                           report.status === 'approved' ? 'bg-brand-green-100 text-brand-green-800' :
                           report.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-white text-gray-800'
+                          'bg-white text-slate-900'
                         }`}>
                           {report.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
                         {new Date(report.created_at).toLocaleDateString()}
                       </td>
                     </tr>

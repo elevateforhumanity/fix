@@ -58,13 +58,13 @@ export default async function NotificationSettingsPage() {
         <div className="mb-8">
           <Link 
             href="/account/settings"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Settings
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Notification Settings</h1>
-          <p className="text-gray-600 mt-1">Choose how you want to be notified</p>
+          <h1 className="text-3xl font-bold text-slate-900">Notification Settings</h1>
+          <p className="text-slate-700 mt-1">Choose how you want to be notified</p>
         </div>
 
         {/* Notification Preferences */}
@@ -76,8 +76,8 @@ export default async function NotificationSettingsPage() {
                 <Mail className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">Email Notifications</h2>
-                <p className="text-sm text-gray-500">Notifications sent to {user.email}</p>
+                <h2 className="text-lg font-semibold text-slate-900">Email Notifications</h2>
+                <p className="text-sm text-slate-700">Notifications sent to {user.email}</p>
               </div>
             </div>
             <div className="space-y-4">
@@ -90,8 +90,8 @@ export default async function NotificationSettingsPage() {
               ].map((item) => (
                 <div key={item.id} className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0">
                   <div>
-                    <p className="font-medium text-gray-900">{item.label}</p>
-                    <p className="text-sm text-gray-500">{item.description}</p>
+                    <p className="font-medium text-slate-900">{item.label}</p>
+                    <p className="text-sm text-slate-700">{item.description}</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" name={item.id} defaultChecked={item.defaultChecked} className="sr-only peer" />
@@ -109,8 +109,8 @@ export default async function NotificationSettingsPage() {
                 <Bell className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">Push Notifications</h2>
-                <p className="text-sm text-gray-500">Browser and desktop notifications</p>
+                <h2 className="text-lg font-semibold text-slate-900">Push Notifications</h2>
+                <p className="text-sm text-slate-700">Browser and desktop notifications</p>
               </div>
             </div>
             <div className="space-y-4">
@@ -121,8 +121,8 @@ export default async function NotificationSettingsPage() {
               ].map((item) => (
                 <div key={item.id} className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0">
                   <div>
-                    <p className="font-medium text-gray-900">{item.label}</p>
-                    <p className="text-sm text-gray-500">{item.description}</p>
+                    <p className="font-medium text-slate-900">{item.label}</p>
+                    <p className="text-sm text-slate-700">{item.description}</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" name={item.id} defaultChecked={item.defaultChecked} className="sr-only peer" />
@@ -140,13 +140,13 @@ export default async function NotificationSettingsPage() {
                 <Smartphone className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">SMS Notifications</h2>
-                <p className="text-sm text-gray-500">Text message alerts (standard rates may apply)</p>
+                <h2 className="text-lg font-semibold text-slate-900">SMS Notifications</h2>
+                <p className="text-sm text-slate-700">Text message alerts (standard rates may apply)</p>
               </div>
             </div>
             <div className="space-y-4">
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Phone Number
                 </label>
                 <input
@@ -163,8 +163,8 @@ export default async function NotificationSettingsPage() {
               ].map((item) => (
                 <div key={item.id} className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0">
                   <div>
-                    <p className="font-medium text-gray-900">{item.label}</p>
-                    <p className="text-sm text-gray-500">{item.description}</p>
+                    <p className="font-medium text-slate-900">{item.label}</p>
+                    <p className="text-sm text-slate-700">{item.description}</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" name={item.id} defaultChecked={item.defaultChecked} className="sr-only peer" />
@@ -182,8 +182,8 @@ export default async function NotificationSettingsPage() {
                 <MessageSquare className="w-5 h-5 text-brand-orange-600" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">In-App Notifications</h2>
-                <p className="text-sm text-gray-500">Notifications within the platform</p>
+                <h2 className="text-lg font-semibold text-slate-900">In-App Notifications</h2>
+                <p className="text-sm text-slate-700">Notifications within the platform</p>
               </div>
             </div>
             <div className="space-y-4">
@@ -193,8 +193,8 @@ export default async function NotificationSettingsPage() {
               ].map((item) => (
                 <div key={item.id} className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0">
                   <div>
-                    <p className="font-medium text-gray-900">{item.label}</p>
-                    <p className="text-sm text-gray-500">{item.description}</p>
+                    <p className="font-medium text-slate-900">{item.label}</p>
+                    <p className="text-sm text-slate-700">{item.description}</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" name={item.id} defaultChecked={item.defaultChecked} className="sr-only peer" />
@@ -209,7 +209,7 @@ export default async function NotificationSettingsPage() {
           <div className="flex justify-end gap-4">
             <Link
               href="/account/settings"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-slate-900 hover:text-slate-900"
             >
               Cancel
             </Link>

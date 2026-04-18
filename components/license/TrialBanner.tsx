@@ -185,14 +185,14 @@ export function TrialExpiredModal({ onClose }: { onClose: () => void }) {
           <div className="w-16 h-16 bg-brand-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <AlertTriangle className="w-8 h-8 text-brand-red-600" />
           </div>
-          <h2 className="text-2xl font-black text-gray-900 mb-4">
+          <h2 className="text-2xl font-black text-slate-900 mb-4">
             Trial Period Ended
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             Your evaluation period has ended. To continue using the Elevate Workforce Platform, 
             your subscription will now begin.
           </p>
-          <p className="text-sm text-gray-500 mb-8">
+          <p className="text-sm text-slate-700 mb-8">
             Your data has been preserved. No information has been deleted.
           </p>
           <div className="space-y-3">
@@ -204,7 +204,7 @@ export function TrialExpiredModal({ onClose }: { onClose: () => void }) {
             </Link>
             <button
               onClick={onClose}
-              className="block w-full text-gray-600 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+              className="block w-full text-slate-700 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
             >
               Continue to Dashboard
             </button>

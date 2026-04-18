@@ -38,15 +38,15 @@ export default function CartItems({ items }: CartItemProps) {
           <div key={item.cart_item_id} className="p-6">
             <div className="flex gap-4">
               <div className="w-20 h-20 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
-                <ShoppingCart className="w-8 h-8 text-gray-400" />
+                <ShoppingCart className="w-8 h-8 text-slate-700" />
               </div>
               <div className="flex-1">
                 <div className="flex justify-between">
                   <div>
-                    <h3 className="font-semibold text-gray-900">{item.name}</h3>
-                    <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
+                    <h3 className="font-semibold text-slate-900">{item.name}</h3>
+                    <p className="text-sm text-slate-700 line-clamp-1">{item.description}</p>
                   </div>
-                  <button onClick={() => removeItem(item.cart_item_id)} aria-label="Remove item" className="text-gray-400 hover:text-brand-red-600">
+                  <button onClick={() => removeItem(item.cart_item_id)} aria-label="Remove item" className="text-slate-700 hover:text-brand-red-600">
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>
@@ -62,7 +62,7 @@ export default function CartItems({ items }: CartItemProps) {
                       <Plus className="w-4 h-4" />
                     </button>
                   </div>
-                  <p className="font-semibold text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="font-semibold text-slate-900">${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             </div>

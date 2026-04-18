@@ -104,7 +104,7 @@ export function AutoFlowCharts() {
               </div>
             </div>
             {index < data.length - 1 && (
-              <div className="ml-4 text-gray-400">
+              <div className="ml-4 text-slate-700">
                 <svg
                   className="w-6 h-6"
                   fill="currentColor"

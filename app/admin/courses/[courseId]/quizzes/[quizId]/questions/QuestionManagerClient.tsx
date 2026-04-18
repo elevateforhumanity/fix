@@ -171,8 +171,8 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">{quiz?.title || 'Quiz Questions'}</h1>
-          <p className="text-gray-600 mt-2">Manage questions and answers for this quiz</p>
+          <h1 className="text-3xl font-bold text-slate-900">{quiz?.title || 'Quiz Questions'}</h1>
+          <p className="text-slate-700 mt-2">Manage questions and answers for this quiz</p>
         </div>
         <div className="flex gap-3">
           <Link href={`/admin/courses/${courseId}/quizzes`} className="px-4 py-2 border rounded-lg hover:bg-gray-50">Back to Quizzes</Link>
@@ -195,15 +195,15 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-white rounded-lg shadow-sm border p-4 text-center">
           <p className="text-2xl font-bold text-brand-blue-600">{questions.length}</p>
-          <p className="text-sm text-gray-500">Questions</p>
+          <p className="text-sm text-slate-700">Questions</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4 text-center">
           <p className="text-2xl font-bold text-brand-green-600">{quiz?.passing_score || 70}%</p>
-          <p className="text-sm text-gray-500">Passing Score</p>
+          <p className="text-sm text-slate-700">Passing Score</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4 text-center">
           <p className="text-2xl font-bold text-brand-blue-600">{quiz?.time_limit_minutes || 'No'}</p>
-          <p className="text-sm text-gray-500">Time Limit (min)</p>
+          <p className="text-sm text-slate-700">Time Limit (min)</p>
         </div>
       </div>
 
@@ -218,8 +218,8 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
                     {index + 1}
                   </span>
                   <div>
-                    <p className="font-medium text-gray-900">{question.question_text}</p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="font-medium text-slate-900">{question.question_text}</p>
+                    <p className="text-sm text-slate-700 mt-1">
                       {question.question_type === 'multiple_choice' ? 'Multiple Choice' : 
                        question.question_type === 'true_false' ? 'True/False' : 'Short Answer'}
                       {question.points && ` • ${question.points} point${question.points > 1 ? 's' : ''}`}
@@ -262,11 +262,11 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
         ) : (
           <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <p className="text-gray-500 mb-4">No questions added yet</p>
+            <p className="text-slate-700 mb-4">No questions added yet</p>
             <button onClick={openCreateModal} className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">
               Add First Question
             </button>
@@ -280,13 +280,13 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="px-6 py-4 border-b flex items-center justify-between">
               <h2 className="text-xl font-semibold">{editingQuestion ? 'Edit Question' : 'Add New Question'}</h2>
-              <button onClick={() => { setShowModal(false); resetForm(); }} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => { setShowModal(false); resetForm(); }} className="text-slate-700 hover:text-slate-700">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Question Type</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Question Type</label>
                 <select
                   value={formData.question_type}
                   onChange={(e) => {
@@ -306,7 +306,7 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Question *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Question *</label>
                 <textarea
                   required
                   rows={3}
@@ -319,7 +319,7 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
 
               {formData.question_type === 'multiple_choice' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Answer Options</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Answer Options</label>
                   <div className="space-y-2">
                     {formData.options.map((option, index) => (
                       <div key={index} className="flex items-center gap-2">
@@ -340,13 +340,13 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">Select the radio button next to the correct answer</p>
+                  <p className="text-xs text-slate-700 mt-2">Select the radio button next to the correct answer</p>
                 </div>
               )}
 
               {formData.question_type === 'true_false' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Correct Answer</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Correct Answer</label>
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2">
                       <input
@@ -374,7 +374,7 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
 
               {formData.question_type === 'short_answer' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Correct Answer *</label>
                   <input
                     type="text"
                     required
@@ -387,7 +387,7 @@ export default function QuestionManagerClient({ quiz, initialQuestions, quizId, 
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Points</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Points</label>
                 <input
                   type="number"
                   min="1"

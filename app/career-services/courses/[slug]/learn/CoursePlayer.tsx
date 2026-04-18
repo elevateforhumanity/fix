@@ -148,7 +148,7 @@ export function CoursePlayer({ course, modules }: CoursePlayerProps) {
                 className={`w-full text-left p-3 rounded-lg transition flex items-start gap-3 ${
                   currentModuleIndex === index
                     ? 'bg-brand-blue-600 text-white'
-                    : 'hover:bg-gray-700 text-gray-300'
+                    : 'hover:bg-gray-700 text-slate-700'
                 }`}
               >
                 <div className="flex-shrink-0 mt-0.5">
@@ -177,11 +177,11 @@ export function CoursePlayer({ course, modules }: CoursePlayerProps) {
         <div className="p-4 border-t border-gray-700">
           <h3 className="text-sm font-semibold text-black mb-3">Resources</h3>
           <div className="space-y-2">
-            <button className="w-full flex items-center gap-2 text-sm text-gray-300 hover:text-white p-2 rounded hover:bg-gray-700">
+            <button className="w-full flex items-center gap-2 text-sm text-slate-700 hover:text-white p-2 rounded hover:bg-gray-700">
               <Download className="w-4 h-4" />
               Download Worksheets
             </button>
-            <button className="w-full flex items-center gap-2 text-sm text-gray-300 hover:text-white p-2 rounded hover:bg-gray-700">
+            <button className="w-full flex items-center gap-2 text-sm text-slate-700 hover:text-white p-2 rounded hover:bg-gray-700">
               <MessageSquare className="w-4 h-4" />
               Ask a Question
             </button>

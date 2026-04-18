@@ -99,8 +99,8 @@ export default async function PartnerHoursPage() {
       <div>
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Hours Management</h1>
-            <p className="text-gray-600 mt-1">Review and approve apprentice training hours</p>
+            <h1 className="text-3xl font-bold text-slate-900">Hours Management</h1>
+            <p className="text-slate-700 mt-1">Review and approve apprentice training hours</p>
           </div>
           <Link
             href="/partner/hours/pending"
@@ -119,8 +119,8 @@ export default async function PartnerHoursPage() {
                 <Clock className="w-5 h-5 text-yellow-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{pendingCount || 0}</p>
-                <p className="text-sm text-gray-500">Pending Review</p>
+                <p className="text-2xl font-bold text-slate-900">{pendingCount || 0}</p>
+                <p className="text-sm text-slate-700">Pending Review</p>
               </div>
             </div>
           </div>
@@ -131,8 +131,8 @@ export default async function PartnerHoursPage() {
                 <span className="text-slate-400 flex-shrink-0">•</span>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{approvedCount || 0}</p>
-                <p className="text-sm text-gray-500">Approved</p>
+                <p className="text-2xl font-bold text-slate-900">{approvedCount || 0}</p>
+                <p className="text-sm text-slate-700">Approved</p>
               </div>
             </div>
           </div>
@@ -143,8 +143,8 @@ export default async function PartnerHoursPage() {
                 <XCircle className="w-5 h-5 text-brand-red-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{rejectedCount || 0}</p>
-                <p className="text-sm text-gray-500">Rejected</p>
+                <p className="text-2xl font-bold text-slate-900">{rejectedCount || 0}</p>
+                <p className="text-sm text-slate-700">Rejected</p>
               </div>
             </div>
           </div>
@@ -155,8 +155,8 @@ export default async function PartnerHoursPage() {
                 <TrendingUp className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{totalMonthlyHours.toFixed(1)}</p>
-                <p className="text-sm text-gray-500">Hours This Month</p>
+                <p className="text-2xl font-bold text-slate-900">{totalMonthlyHours.toFixed(1)}</p>
+                <p className="text-sm text-slate-700">Hours This Month</p>
               </div>
             </div>
           </div>
@@ -171,8 +171,8 @@ export default async function PartnerHoursPage() {
                   <AlertCircle className="w-6 h-6 text-brand-orange-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Review Pending Hours</h3>
-                  <p className="text-sm text-gray-600">Approve or reject submitted hours</p>
+                  <h3 className="font-semibold text-slate-900">Review Pending Hours</h3>
+                  <p className="text-sm text-slate-700">Approve or reject submitted hours</p>
                 </div>
               </div>
               {(pendingCount || 0) > 0 && (
@@ -192,8 +192,8 @@ export default async function PartnerHoursPage() {
                   <Clock className="w-6 h-6 text-brand-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Record Attendance</h3>
-                  <p className="text-sm text-gray-600">Log attendance for training sessions</p>
+                  <h3 className="font-semibold text-slate-900">Record Attendance</h3>
+                  <p className="text-sm text-slate-700">Log attendance for training sessions</p>
                 </div>
               </div>
             </div>
@@ -203,18 +203,18 @@ export default async function PartnerHoursPage() {
         {/* OJT Placements */}
         {ojtPlacements.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
               <Briefcase className="w-5 h-5" /> On-the-Job Training Placements
             </h2>
             <div className="bg-white rounded-xl border overflow-hidden">
               <table className="w-full">
                 <thead className="bg-white">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Student</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Employer</th>
-                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Position</th>
-                    <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900">Progress</th>
-                    <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900">Status</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Student</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Employer</th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Position</th>
+                    <th className="px-6 py-3 text-center text-sm font-semibold text-slate-900">Progress</th>
+                    <th className="px-6 py-3 text-center text-sm font-semibold text-slate-900">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -225,22 +225,22 @@ export default async function PartnerHoursPage() {
                     return (
                       <tr key={p.id} className="hover:bg-white">
                         <td className="px-6 py-4 text-sm font-medium">{p.student_name || p.student_id?.slice(0, 8) || '—'}</td>
-                        <td className="px-6 py-4 text-sm text-gray-700">{p.employer_name}</td>
-                        <td className="px-6 py-4 text-sm text-gray-700">{p.position_title}</td>
+                        <td className="px-6 py-4 text-sm text-slate-900">{p.employer_name}</td>
+                        <td className="px-6 py-4 text-sm text-slate-900">{p.position_title}</td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-2">
                             <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                               <div className="h-full bg-brand-blue-500 rounded-full" style={{ width: `${pct}%` }} />
                             </div>
-                            <span className="text-xs text-gray-500 w-10 text-right">{pct}%</span>
+                            <span className="text-xs text-slate-700 w-10 text-right">{pct}%</span>
                           </div>
-                          <p className="text-xs text-gray-400 mt-1">{p.total_hours_completed}/{p.total_hours_required}h</p>
+                          <p className="text-xs text-slate-700 mt-1">{p.total_hours_completed}/{p.total_hours_required}h</p>
                         </td>
                         <td className="px-6 py-4 text-center">
                           <span className={`px-2 py-1 rounded text-xs font-medium ${
                             p.status === 'active' ? 'bg-brand-green-100 text-brand-green-700' :
                             p.status === 'completed' ? 'bg-brand-blue-100 text-brand-blue-700' :
-                            'bg-white text-gray-700'
+                            'bg-white text-slate-900'
                           }`}>{p.status}</span>
                         </td>
                       </tr>

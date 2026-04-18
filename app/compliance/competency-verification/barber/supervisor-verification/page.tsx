@@ -31,8 +31,8 @@ export default function SupervisorVerificationPage() {
       {/* Screen header */}
       <div className="print:hidden py-8 bg-white">
         <div className="max-w-3xl mx-auto px-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Supervisor Verification Form</h1>
-          <p className="text-gray-600 mb-4">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Supervisor Verification Form</h1>
+          <p className="text-slate-700 mb-4">
             Required for each barbershop training site. Verifies licensed supervisor authority before apprentice placement.
           </p>
           <PrintButton />
@@ -41,9 +41,9 @@ export default function SupervisorVerificationPage() {
 
       {/* Print header */}
       <div className="hidden print:block px-8 pt-8 pb-4 border-b-2 border-gray-900">
-        <p className="text-[9px] uppercase tracking-widest text-gray-500 mb-1">Elevate for Humanity Career & Technical Institute</p>
+        <p className="text-[9px] uppercase tracking-widest text-slate-700 mb-1">Elevate for Humanity Career & Technical Institute</p>
         <h1 className="text-lg font-bold">LICENSED BARBER SUPERVISOR VERIFICATION FORM</h1>
-        <p className="text-[10px] text-gray-600">Barbering Apprenticeship Program | RAPIDS ID: 2025-IN-132301</p>
+        <p className="text-[10px] text-slate-700">Barbering Apprenticeship Program | RAPIDS ID: 2025-IN-132301</p>
       </div>
 
       <div className="max-w-3xl mx-auto px-4 py-8 print:px-8 print:py-6 print:max-w-none">
@@ -103,7 +103,7 @@ export default function SupervisorVerificationPage() {
         {/* Shop Compliance Checklist */}
         <div className="border-2 rounded-lg p-5 mb-6 print:p-4 print:mb-5 print:border-gray-400">
           <h2 className="font-bold text-base mb-4 print:text-[12px] print:mb-3">Training Site Compliance Checklist</h2>
-          <p className="text-sm text-gray-600 mb-3 print:text-[10px] print:mb-2">
+          <p className="text-sm text-slate-700 mb-3 print:text-[10px] print:mb-2">
             The following must be verified before apprentice placement at this training site:
           </p>
           <div className="space-y-2 text-sm print:text-[10px]">
@@ -130,12 +130,12 @@ export default function SupervisorVerificationPage() {
         {/* Confirmation Statement */}
         <div className="border-2 border-gray-900 rounded-lg p-5 mb-6 print:p-4 print:mb-5">
           <h2 className="font-bold text-base mb-3 print:text-[12px] print:mb-2">Supervisor Confirmation</h2>
-          <p className="text-sm text-gray-700 leading-relaxed print:text-[10px]">
+          <p className="text-sm text-slate-900 leading-relaxed print:text-[10px]">
             I confirm that I am a licensed barber in the State of Indiana and will directly supervise
             the above-named apprentice&apos;s on-the-job training at the above-named licensed barbershop.
             I agree to:
           </p>
-          <ul className="list-disc pl-6 text-sm text-gray-700 mt-2 space-y-1 print:text-[10px]">
+          <ul className="list-disc pl-6 text-sm text-slate-900 mt-2 space-y-1 print:text-[10px]">
             <li>Provide structured hands-on training aligned with the apprenticeship competency rubric</li>
             <li>Complete monthly OJT evaluation forms using standardized assessment criteria</li>
             <li>Verify and sign OJT hours logs accurately</li>
@@ -184,7 +184,7 @@ export default function SupervisorVerificationPage() {
         </div>
 
         {/* Footer */}
-        <div className="border-t pt-4 mt-8 text-center text-xs text-gray-500 print:text-[9px] print:pt-3 print:mt-4">
+        <div className="border-t pt-4 mt-8 text-center text-xs text-slate-700 print:text-[9px] print:pt-3 print:mt-4">
           <p>This form must be completed before apprentice placement and maintained in the compliance file.</p>
           <p>Elevate for Humanity | RAPIDS ID: 2025-IN-132301 | Indianapolis, Indiana</p>
         </div>
@@ -196,10 +196,10 @@ export default function SupervisorVerificationPage() {
           <Link href="/compliance/competency-verification/barber" className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700 transition">
             Barber Rubric Overview
           </Link>
-          <Link href="/compliance/competency-verification/barber/apprenticeship-agreement" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/apprenticeship-agreement" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Apprenticeship Agreement
           </Link>
-          <Link href="/compliance/competency-verification/barber/ojt-hours-log" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/ojt-hours-log" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             OJT Hours Log
           </Link>
         </div>

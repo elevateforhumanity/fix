@@ -87,8 +87,8 @@ export default async function UpdatesPage() {
               <Megaphone className="w-6 h-6 text-brand-orange-600" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Updates & Announcements</h1>
-              <p className="text-gray-600">
+              <h1 className="text-3xl font-bold text-slate-900">Updates & Announcements</h1>
+              <p className="text-slate-700">
                 Stay informed about programs, funding, and workforce development news
               </p>
             </div>
@@ -130,17 +130,17 @@ export default async function UpdatesPage() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-sm text-gray-500">{update.date}</span>
-                    <span className="px-2 py-0.5 bg-white text-gray-600 rounded text-xs font-medium">
+                    <span className="text-sm text-slate-700">{update.date}</span>
+                    <span className="px-2 py-0.5 bg-white text-slate-700 rounded text-xs font-medium">
                       {update.category}
                     </span>
                   </div>
-                  <h2 className="text-xl font-semibold text-gray-900 group-hover:text-brand-orange-600 transition-colors">
+                  <h2 className="text-xl font-semibold text-slate-900 group-hover:text-brand-orange-600 transition-colors">
                     {update.title}
                   </h2>
-                  <p className="text-gray-600 mt-2">{update.description}</p>
+                  <p className="text-slate-700 mt-2">{update.description}</p>
                 </div>
-                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-brand-orange-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                <ArrowRight className="w-5 h-5 text-slate-700 group-hover:text-brand-orange-600 group-hover:translate-x-1 transition-all flex-shrink-0" />
               </div>
             </Link>
           ))}
@@ -148,7 +148,7 @@ export default async function UpdatesPage() {
 
         {/* Archive Link */}
         <div className="mt-12 text-center">
-          <p className="text-gray-500 mb-4">Looking for older announcements?</p>
+          <p className="text-slate-700 mb-4">Looking for older announcements?</p>
           <Link
             href="/news"
             className="inline-flex items-center gap-2 text-brand-orange-600 font-semibold hover:text-brand-orange-700"

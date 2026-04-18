@@ -147,8 +147,8 @@ export default function InstructorProgramAnnouncementsPage() {
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Program Announcements</h1>
-              <p className="text-gray-600 mt-1">{program?.title || program?.name}</p>
+              <h1 className="text-3xl font-bold text-slate-900">Program Announcements</h1>
+              <p className="text-slate-700 mt-1">{program?.title || program?.name}</p>
             </div>
             <button
               onClick={() => setShowForm(true)}
@@ -168,8 +168,8 @@ export default function InstructorProgramAnnouncementsPage() {
                 <Bell className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{announcements.length}</p>
-                <p className="text-sm text-gray-500">Announcements</p>
+                <p className="text-2xl font-bold text-slate-900">{announcements.length}</p>
+                <p className="text-sm text-slate-700">Announcements</p>
               </div>
             </div>
           </div>
@@ -179,8 +179,8 @@ export default function InstructorProgramAnnouncementsPage() {
                 <Users className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{enrolledCount}</p>
-                <p className="text-sm text-gray-500">Students in Program</p>
+                <p className="text-2xl font-bold text-slate-900">{enrolledCount}</p>
+                <p className="text-sm text-slate-700">Students in Program</p>
               </div>
             </div>
           </div>
@@ -189,10 +189,10 @@ export default function InstructorProgramAnnouncementsPage() {
         {/* New Announcement Form */}
         {showForm && (
           <div className="bg-white rounded-xl border p-6 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Post Program Announcement</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Post Program Announcement</h2>
             <form onSubmit={postAnnouncement} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Title
                 </label>
                 <input
@@ -205,7 +205,7 @@ export default function InstructorProgramAnnouncementsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Content
                 </label>
                 <textarea
@@ -229,7 +229,7 @@ export default function InstructorProgramAnnouncementsPage() {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+                  className="px-6 py-2 bg-gray-200 text-slate-900 rounded-lg hover:bg-gray-300 transition"
                 >
                   Cancel
                 </button>
@@ -243,9 +243,9 @@ export default function InstructorProgramAnnouncementsPage() {
           {announcements.length > 0 ? (
             announcements.map((announcement) => (
               <div key={announcement.id} className="bg-white rounded-xl border p-6">
-                <h3 className="text-lg font-semibold text-gray-900">{announcement.title}</h3>
-                <p className="text-gray-600 mt-2 whitespace-pre-wrap">{announcement.content}</p>
-                <div className="flex items-center gap-2 mt-4 text-sm text-gray-500">
+                <h3 className="text-lg font-semibold text-slate-900">{announcement.title}</h3>
+                <p className="text-slate-700 mt-2 whitespace-pre-wrap">{announcement.content}</p>
+                <div className="flex items-center gap-2 mt-4 text-sm text-slate-700">
                   <span>Posted by {announcement.author?.full_name || 'Instructor'}</span>
                   <span>•</span>
                   <span>
@@ -260,9 +260,9 @@ export default function InstructorProgramAnnouncementsPage() {
             ))
           ) : (
             <div className="bg-white rounded-xl border p-12 text-center">
-              <Megaphone className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No announcements yet</h3>
-              <p className="text-gray-500 mb-6">
+              <Megaphone className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No announcements yet</h3>
+              <p className="text-slate-700 mb-6">
                 Keep all students in this program informed with announcements.
               </p>
               <button

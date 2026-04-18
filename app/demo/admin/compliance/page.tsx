@@ -32,7 +32,7 @@ export default function DemoCompliancePage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-gray-500 border-b bg-gray-50">
+            <tr className="text-left text-xs text-slate-700 border-b bg-gray-50">
               <th className="px-5 py-3 font-medium">Compliance Area</th>
               <th className="px-5 py-3 font-medium">Status</th>
               <th className="px-5 py-3 font-medium">Detail</th>
@@ -41,13 +41,13 @@ export default function DemoCompliancePage() {
           <tbody>
             {DEMO_CHECKS.map((c, i) => (
               <tr key={i} className="border-b last:border-0 hover:bg-gray-50">
-                <td className="px-5 py-3 font-medium text-gray-900">{c.area}</td>
+                <td className="px-5 py-3 font-medium text-slate-900">{c.area}</td>
                 <td className="px-5 py-3">
                   {c.status === 'pass' && <span className="flex items-center gap-1.5 text-green-600 text-xs font-semibold"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" /> Pass</span>}
                   {c.status === 'warning' && <span className="flex items-center gap-1.5 text-amber-600 text-xs font-semibold"><AlertTriangle className="w-3.5 h-3.5" /> Attention</span>}
                   {c.status === 'fail' && <span className="flex items-center gap-1.5 text-red-600 text-xs font-semibold"><XCircle className="w-3.5 h-3.5" /> Action Required</span>}
                 </td>
-                <td className="px-5 py-3 text-gray-600 text-xs">{c.detail}</td>
+                <td className="px-5 py-3 text-slate-700 text-xs">{c.detail}</td>
               </tr>
             ))}
           </tbody>

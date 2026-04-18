@@ -122,9 +122,9 @@ Include Assignments: ${formData.includeAssignments}
             <div className="p-2 bg-brand-blue-100 rounded-lg">
               <Sparkles className="w-6 h-6 text-brand-blue-600" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">AI Course Generator</h1>
+            <h1 className="text-3xl font-bold text-slate-900">AI Course Generator</h1>
           </div>
-          <p className="text-gray-600">Generate complete courses with modules, lessons, and quizzes using AI</p>
+          <p className="text-slate-700">Generate complete courses with modules, lessons, and quizzes using AI</p>
         </div>
 
         {success && (
@@ -151,7 +151,7 @@ Include Assignments: ${formData.includeAssignments}
                 <div className="flex gap-3">
                   <button onClick={() => router.push(`/admin/courses/${success.courseId}`)} className="px-4 py-2 bg-brand-green-600 text-white rounded-lg hover:bg-brand-green-700">View Course</button>
                   <button onClick={() => router.push(`/admin/courses/${success.courseId}/edit`)} className="px-4 py-2 bg-white border border-brand-green-300 text-brand-green-700 rounded-lg hover:bg-brand-green-50">Edit Course</button>
-                  <button onClick={() => setSuccess(null)} className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Generate Another</button>
+                  <button onClick={() => setSuccess(null)} className="px-4 py-2 bg-white border border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50">Generate Another</button>
                 </div>
               </div>
             </div>
@@ -169,23 +169,23 @@ Include Assignments: ${formData.includeAssignments}
           <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Course Topic *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Course Topic *</label>
                 <input type="text" required value={formData.topic} onChange={(e) => setFormData({ ...formData, topic: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" placeholder="e.g., HVAC Fundamentals, Medical Billing Basics, CDL Test Preparation" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Course Description</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Course Description</label>
                 <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} rows={3} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" placeholder="Describe what students will learn and achieve..." />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">Target Audience</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Target Audience</label>
                 <input type="text" value={formData.targetAudience} onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" placeholder="e.g., Career changers, Entry-level workers, Experienced professionals" />
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-2"><Target className="w-4 h-4 inline mr-1" />Difficulty Level</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2"><Target className="w-4 h-4 inline mr-1" />Difficulty Level</label>
                   <select value={formData.difficulty} onChange={(e) => setFormData({ ...formData, difficulty: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent">
                     <option value="beginner">Beginner</option>
                     <option value="intermediate">Intermediate</option>
@@ -194,12 +194,12 @@ Include Assignments: ${formData.includeAssignments}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-2"><Clock className="w-4 h-4 inline mr-1" />Duration (hours)</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2"><Clock className="w-4 h-4 inline mr-1" />Duration (hours)</label>
                   <input type="number" min={1} max={100} value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) || 10 })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-2"><BookOpen className="w-4 h-4 inline mr-1" />Number of Modules</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2"><BookOpen className="w-4 h-4 inline mr-1" />Number of Modules</label>
                   <input type="number" min={1} max={20} value={formData.moduleCount} onChange={(e) => setFormData({ ...formData, moduleCount: parseInt(e.target.value) || 5 })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
                 </div>
               </div>
@@ -207,14 +207,14 @@ Include Assignments: ${formData.includeAssignments}
               <div className="flex flex-wrap gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={formData.includeQuizzes} onChange={(e) => setFormData({ ...formData, includeQuizzes: e.target.checked })} className="w-5 h-5 rounded border-gray-300 text-brand-blue-600 focus:ring-brand-blue-500" />
-                  <HelpCircle className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-700">Include Quizzes</span>
+                  <HelpCircle className="w-4 h-4 text-slate-700" />
+                  <span className="text-slate-900">Include Quizzes</span>
                 </label>
 
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={formData.includeAssignments} onChange={(e) => setFormData({ ...formData, includeAssignments: e.target.checked })} className="w-5 h-5 rounded border-gray-300 text-brand-blue-600 focus:ring-brand-blue-500" />
-                  <FileText className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-700">Include Assignments</span>
+                  <FileText className="w-4 h-4 text-slate-700" />
+                  <span className="text-slate-900">Include Assignments</span>
                 </label>
               </div>
 

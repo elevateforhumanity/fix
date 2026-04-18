@@ -63,8 +63,8 @@ const heightClasses: Record<HeroHeight, string> = {
 };
 
 const panelColors: Record<string, { bg: string; text: string; muted: string }> = {
-  white: { bg: 'bg-white', text: 'text-gray-900', muted: 'text-gray-600' },
-  slate: { bg: 'bg-slate-50', text: 'text-gray-900', muted: 'text-gray-600' },
+  white: { bg: 'bg-white', text: 'text-slate-900', muted: 'text-slate-700' },
+  slate: { bg: 'bg-slate-50', text: 'text-slate-900', muted: 'text-slate-700' },
   dark: { bg: 'bg-slate-900', text: 'text-white', muted: 'text-slate-300' },
 };
 
@@ -286,8 +286,8 @@ export function HeroSection({
               <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-slate-50 rounded-lg">
                 {metadata.map((item, idx) => (
                   <div key={idx}>
-                    <p className="text-sm text-gray-500">{item.label}</p>
-                    <p className="font-semibold text-gray-900">{item.value}</p>
+                    <p className="text-sm text-slate-700">{item.label}</p>
+                    <p className="font-semibold text-slate-900">{item.value}</p>
                   </div>
                 ))}
               </div>

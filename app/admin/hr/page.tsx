@@ -44,7 +44,7 @@ export default async function HRPage() {
 
   const statusBadge: Record<string, string> = {
     active: 'bg-green-100 text-green-700',
-    inactive: 'bg-gray-100 text-gray-600',
+    inactive: 'bg-gray-100 text-slate-700',
     on_leave: 'bg-yellow-100 text-yellow-700',
     terminated: 'bg-red-100 text-red-700',
   };
@@ -70,8 +70,8 @@ export default async function HRPage() {
           <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'HR' }]} />
           <div className="flex justify-between items-center mt-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">HR Dashboard</h1>
-              <p className="text-gray-600 mt-1">Human resources management</p>
+              <h1 className="text-3xl font-bold text-slate-900">HR Dashboard</h1>
+              <p className="text-slate-700 mt-1">Human resources management</p>
             </div>
             <Link href="/admin/hr/employees/new" className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700 text-sm font-medium">
               Add Employee
@@ -86,9 +86,9 @@ export default async function HRPage() {
               <div className={`w-10 h-10 ${m.bg} rounded-lg flex items-center justify-center mb-3`}>
                 <m.icon className={`w-5 h-5 ${m.color}`} />
               </div>
-              <p className="text-2xl font-bold text-gray-900">{m.value}</p>
-              <p className="text-sm font-medium text-gray-700 mt-1">{m.name}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{m.sub}</p>
+              <p className="text-2xl font-bold text-slate-900">{m.value}</p>
+              <p className="text-sm font-medium text-slate-900 mt-1">{m.name}</p>
+              <p className="text-xs text-slate-700 mt-0.5">{m.sub}</p>
             </Link>
           ))}
         </div>
@@ -109,7 +109,7 @@ export default async function HRPage() {
           {/* Employee List */}
           <div className="bg-white rounded-xl shadow-sm border">
             <div className="p-5 border-b flex justify-between items-center">
-              <h2 className="text-base font-semibold text-gray-900">Recent Employees</h2>
+              <h2 className="text-base font-semibold text-slate-900">Recent Employees</h2>
               <Link href="/admin/hr/employees" className="text-sm text-brand-blue-600 hover:text-brand-blue-800 flex items-center gap-1">
                 View all <ArrowRight size={14} />
               </Link>
@@ -122,16 +122,16 @@ export default async function HRPage() {
                       <span className="text-brand-blue-600 font-medium text-sm">{(emp.first_name || 'E')[0]}</span>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{emp.first_name} {emp.last_name}</p>
-                      <p className="text-xs text-gray-500">{emp.department || 'Unassigned'} · {emp.role || '—'}</p>
+                      <p className="text-sm font-medium text-slate-900">{emp.first_name} {emp.last_name}</p>
+                      <p className="text-xs text-slate-700">{emp.department || 'Unassigned'} · {emp.role || '—'}</p>
                     </div>
                   </div>
-                  <span className={`text-xs px-2 py-1 rounded-full capitalize ${statusBadge[emp.status] || 'bg-gray-100 text-gray-600'}`}>
+                  <span className={`text-xs px-2 py-1 rounded-full capitalize ${statusBadge[emp.status] || 'bg-gray-100 text-slate-700'}`}>
                     {emp.status || 'active'}
                   </span>
                 </div>
               )) : (
-                <div className="p-8 text-center text-gray-500 text-sm">No employees yet — <Link href="/admin/hr/employees/new" className="text-brand-blue-600 hover:underline">add one</Link></div>
+                <div className="p-8 text-center text-slate-700 text-sm">No employees yet — <Link href="/admin/hr/employees/new" className="text-brand-blue-600 hover:underline">add one</Link></div>
               )}
             </div>
           </div>
@@ -139,7 +139,7 @@ export default async function HRPage() {
           {/* Payroll Runs */}
           <div className="bg-white rounded-xl shadow-sm border">
             <div className="p-5 border-b flex justify-between items-center">
-              <h2 className="text-base font-semibold text-gray-900">Recent Payroll Runs</h2>
+              <h2 className="text-base font-semibold text-slate-900">Recent Payroll Runs</h2>
               <Link href="/admin/hr/payroll" className="text-sm text-brand-blue-600 hover:text-brand-blue-800 flex items-center gap-1">
                 View all <ArrowRight size={14} />
               </Link>
@@ -148,17 +148,17 @@ export default async function HRPage() {
               {recentPayroll && recentPayroll.length > 0 ? recentPayroll.map((run: any) => (
                 <div key={run.id} className="px-5 py-3 flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-slate-900">
                       {run.period_start ? new Date(run.period_start).toLocaleDateString() : '—'} – {run.period_end ? new Date(run.period_end).toLocaleDateString() : '—'}
                     </p>
-                    <p className="text-xs text-gray-500 mt-0.5">${Number(run.total_amount || 0).toLocaleString()} total</p>
+                    <p className="text-xs text-slate-700 mt-0.5">${Number(run.total_amount || 0).toLocaleString()} total</p>
                   </div>
-                  <span className={`text-xs px-2 py-1 rounded-full capitalize ${payrollStatusBadge[run.status] || 'bg-gray-100 text-gray-600'}`}>
+                  <span className={`text-xs px-2 py-1 rounded-full capitalize ${payrollStatusBadge[run.status] || 'bg-gray-100 text-slate-700'}`}>
                     {run.status || 'pending'}
                   </span>
                 </div>
               )) : (
-                <div className="p-8 text-center text-gray-500 text-sm">No payroll runs yet</div>
+                <div className="p-8 text-center text-slate-700 text-sm">No payroll runs yet</div>
               )}
             </div>
           </div>
@@ -167,12 +167,12 @@ export default async function HRPage() {
         {/* Department Breakdown */}
         {Object.keys(deptCounts).length > 0 && (
           <div className="bg-white rounded-xl shadow-sm border p-5">
-            <h2 className="text-base font-semibold text-gray-900 mb-4">Headcount by Department</h2>
+            <h2 className="text-base font-semibold text-slate-900 mb-4">Headcount by Department</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Object.entries(deptCounts).map(([dept, count]) => (
                 <div key={dept} className="bg-gray-50 rounded-lg p-4 text-center">
-                  <p className="text-2xl font-bold text-gray-900">{count}</p>
-                  <p className="text-sm text-gray-600 mt-1">{dept}</p>
+                  <p className="text-2xl font-bold text-slate-900">{count}</p>
+                  <p className="text-sm text-slate-700 mt-1">{dept}</p>
                 </div>
               ))}
             </div>

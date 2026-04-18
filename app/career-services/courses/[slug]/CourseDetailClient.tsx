@@ -103,7 +103,7 @@ export function CourseDetailClient({ course }: { course: Course }) {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
               <Tag className="w-6 h-6 text-brand-blue-600" />
-              <span className="font-medium text-gray-900">Have a promo code?</span>
+              <span className="font-medium text-slate-900">Have a promo code?</span>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -179,7 +179,7 @@ export function CourseDetailClient({ course }: { course: Course }) {
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-50 py-4">
           <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
             <div>
-              <h3 className="font-bold text-gray-900">{course.title}</h3>
+              <h3 className="font-bold text-slate-900">{course.title}</h3>
               <div className="flex items-center gap-2">
                 {promoApplied ? (
                   <>

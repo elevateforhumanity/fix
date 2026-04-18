@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const STATUS_STYLES: Record<string, string> = {
   enabled: 'bg-green-100 text-green-800',
   beta:    'bg-yellow-100 text-yellow-800',
-  disabled:'bg-gray-100 text-gray-600',
+  disabled:'bg-gray-100 text-slate-700',
 };
 
 const SURFACE_LABELS: Record<string, string> = {

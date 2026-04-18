@@ -67,7 +67,7 @@ export default async function MembersPage() {
             {Object.entries(categoryMap).slice(0, 4).map(([role, roleCount]) => (
               <button
                 key={role}
-                className="px-6 py-2 rounded-full font-medium bg-white text-gray-700 hover:bg-gray-200 transition-colors"
+                className="px-6 py-2 rounded-full font-medium bg-white text-slate-900 hover:bg-gray-200 transition-colors"
               >
                 {formatRole(role)} ({roleCount})
               </button>
@@ -81,7 +81,7 @@ export default async function MembersPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Community Members</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-2">Community Members</h2>
               <p className="text-black">Ranked by activity and contributions</p>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default async function MembersPage() {
                       {getInitial(member.full_name)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-gray-900 truncate">{member.full_name || 'Member'}</h3>
+                      <h3 className="font-bold text-slate-900 truncate">{member.full_name || 'Member'}</h3>
                       <p className="text-black text-sm">{formatRole(member.role)}</p>
                       {member.bio && (
                         <p className="text-black text-sm mt-1 line-clamp-2">{member.bio}</p>
@@ -116,8 +116,8 @@ export default async function MembersPage() {
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
-              <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">No members yet</h3>
+              <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-slate-900 mb-2">No members yet</h3>
               <p className="text-black mb-6">Be the first to join the community!</p>
               <Link 
                 href="/start" 

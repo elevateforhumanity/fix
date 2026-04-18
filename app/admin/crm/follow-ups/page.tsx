@@ -55,7 +55,7 @@ export default async function CRMFollowUpsPage() {
       case 'call': return <Phone className="w-5 h-5 text-brand-blue-600" />;
       case 'email': return <Mail className="w-5 h-5 text-brand-green-600" />;
       case 'meeting': return <Calendar className="w-5 h-5 text-purple-600" />;
-      default: return <Clock className="w-5 h-5 text-gray-500" />;
+      default: return <Clock className="w-5 h-5 text-slate-700" />;
     }
   };
 
@@ -93,8 +93,8 @@ export default async function CRMFollowUpsPage() {
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Follow-ups</h1>
-            <p className="text-gray-600">Manage your follow-up tasks and reminders</p>
+            <h1 className="text-2xl font-bold text-slate-900">Follow-ups</h1>
+            <p className="text-slate-700">Manage your follow-up tasks and reminders</p>
           </div>
           <Link
             href="/admin/crm/follow-ups"
@@ -112,16 +112,16 @@ export default async function CRMFollowUpsPage() {
                 stat.color === 'red' ? 'bg-brand-red-500' :
                 stat.color === 'yellow' ? 'bg-yellow-500' : 'bg-brand-green-500'
               }`} />
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-sm text-gray-600">{stat.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-sm text-slate-700">{stat.label}</p>
             </div>
           ))}
         </div>
 
         <div className="bg-white rounded-xl shadow-sm">
           {items.length === 0 ? (
-            <div className="p-12 text-center text-gray-500">
-              <CheckCircle className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+            <div className="p-12 text-center text-slate-700">
+              <CheckCircle className="w-12 h-12 mx-auto mb-3 text-slate-700" />
               <p className="font-medium">No follow-ups yet</p>
               <p className="text-sm mt-1">Create your first follow-up to start tracking tasks.</p>
             </div>
@@ -136,18 +136,18 @@ export default async function CRMFollowUpsPage() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <p className="font-medium text-gray-900">{contactName(item)}</p>
+                        <p className="font-medium text-slate-900">{contactName(item)}</p>
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                           item.priority === 'high' ? 'bg-brand-red-100 text-brand-red-700' :
                           item.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-gray-100 text-gray-700'
+                          'bg-gray-100 text-slate-900'
                         }`}>
                           {item.priority}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-500">{item.description || item.title}</p>
+                      <p className="text-sm text-slate-700">{item.description || item.title}</p>
                     </div>
-                    <div className={`flex items-center gap-2 text-sm ${isOverdue ? 'text-brand-red-600 font-medium' : 'text-gray-500'}`}>
+                    <div className={`flex items-center gap-2 text-sm ${isOverdue ? 'text-brand-red-600 font-medium' : 'text-slate-700'}`}>
                       <Clock className="w-4 h-4" />
                       {formatDate(item.due_date)}
                       {isOverdue && <span className="text-xs">(overdue)</span>}

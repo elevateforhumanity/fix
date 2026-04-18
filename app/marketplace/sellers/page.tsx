@@ -43,8 +43,8 @@ export default async function MarketplaceSellersPage() {
       </div>
 <div className="max-w-6xl mx-auto px-4">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Marketplace Sellers</h1>
-          <p className="text-gray-600 mt-1">Discover creators and their products</p>
+          <h1 className="text-3xl font-bold text-slate-900">Marketplace Sellers</h1>
+          <p className="text-slate-700 mt-1">Discover creators and their products</p>
         </div>
 
         {sellerList.length > 0 ? (
@@ -57,7 +57,7 @@ export default async function MarketplaceSellersPage() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-gray-900">{seller.store_name || seller.profile?.full_name || 'Seller'}</h3>
+                      <h3 className="font-semibold text-slate-900">{seller.store_name || seller.profile?.full_name || 'Seller'}</h3>
                       {seller.is_verified && (
                         <span className="px-2 py-0.5 bg-brand-blue-100 text-brand-blue-700 text-xs rounded-full">Verified</span>
                       )}
@@ -70,8 +70,8 @@ export default async function MarketplaceSellersPage() {
                     )}
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{seller.description || 'Creator on the marketplace'}</p>
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                <p className="text-slate-700 text-sm mb-4 line-clamp-2">{seller.description || 'Creator on the marketplace'}</p>
+                <div className="flex items-center gap-4 text-sm text-slate-700 mb-4">
                   <span className="flex items-center gap-1">
                     <Package className="w-4 h-4" />
                     {seller.products_count || 0} products
@@ -92,9 +92,9 @@ export default async function MarketplaceSellersPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl border p-12 text-center">
-            <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">No sellers yet</h2>
-            <p className="text-gray-600 mb-6">Be the first to sell on our marketplace.</p>
+            <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">No sellers yet</h2>
+            <p className="text-slate-700 mb-6">Be the first to sell on our marketplace.</p>
             <Link 
               href="/marketplace/sell"
               className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"

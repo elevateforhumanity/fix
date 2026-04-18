@@ -91,7 +91,7 @@ export default async function TrendingPage() {
               {trendingPosts.length > 0 && (
                 <div className="bg-white rounded-xl shadow-sm border">
                   <div className="p-6 border-b">
-                    <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+                    <h2 className="font-semibold text-slate-900 flex items-center gap-2">
                       <Award className="w-5 h-5 text-amber-500" />
                       Top Posts
                     </h2>
@@ -99,25 +99,25 @@ export default async function TrendingPage() {
                   <div className="divide-y">
                     {trendingPosts.map((post: any) => (
                       <div key={post.id} className="p-6 hover:bg-white">
-                        <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                        <div className="flex items-center gap-2 text-sm text-slate-700 mb-2">
                           <span>{post.profiles?.full_name || 'Anonymous'}</span>
                           <span>•</span>
                           <span>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                         </div>
-                        <h3 className="font-semibold text-gray-900 text-lg">{post.title || 'Untitled Post'}</h3>
+                        <h3 className="font-semibold text-slate-900 text-lg">{post.title || 'Untitled Post'}</h3>
                         {post.content && (
-                          <p className="text-gray-600 mt-2 line-clamp-2">{post.content}</p>
+                          <p className="text-slate-700 mt-2 line-clamp-2">{post.content}</p>
                         )}
                         <div className="flex items-center gap-6 mt-4">
-                          <span className="flex items-center gap-2 text-gray-500">
+                          <span className="flex items-center gap-2 text-slate-700">
                             <ThumbsUp className="w-5 h-5" />
                             <span className="font-medium">{post.like_count || 0}</span>
                           </span>
-                          <span className="flex items-center gap-2 text-gray-500">
+                          <span className="flex items-center gap-2 text-slate-700">
                             <MessageCircle className="w-5 h-5" />
                             <span>{post.comment_count || 0}</span>
                           </span>
-                          <span className="flex items-center gap-2 text-gray-500">
+                          <span className="flex items-center gap-2 text-slate-700">
                             <Share2 className="w-5 h-5" />
                             <span>{post.share_count || 0}</span>
                           </span>
@@ -132,7 +132,7 @@ export default async function TrendingPage() {
               {trendingThreads.length > 0 && (
                 <div className="bg-white rounded-xl shadow-sm border">
                   <div className="p-6 border-b">
-                    <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+                    <h2 className="font-semibold text-slate-900 flex items-center gap-2">
                       <Flame className="w-5 h-5 text-brand-orange-500" />
                       Popular Discussions
                     </h2>
@@ -141,8 +141,8 @@ export default async function TrendingPage() {
                     {trendingThreads.map((thread: any) => (
                       <Link key={thread.id} href={`/lms/forums/${thread.forum_id}/threads/${thread.id}`}
                         className="block p-4 hover:bg-white">
-                        <h4 className="font-medium text-gray-900">{thread.title}</h4>
-                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                        <h4 className="font-medium text-slate-900">{thread.title}</h4>
+                        <div className="flex items-center gap-4 mt-2 text-sm text-slate-700">
                           <span>by {thread.profiles?.full_name || 'Anonymous'}</span>
                           <span>{thread.reply_count || 0} replies</span>
                           <span>{thread.view_count || 0} views</span>
@@ -157,7 +157,7 @@ export default async function TrendingPage() {
             {/* Sidebar */}
             <div className="space-y-6">
               <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
                   <Users className="w-5 h-5 text-brand-blue-500" />
                   Active Groups
                 </h3>
@@ -167,7 +167,7 @@ export default async function TrendingPage() {
                       <Heart className="w-5 h-5 text-brand-red-600" />
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900 text-sm">Healthcare Professionals</div>
+                      <div className="font-medium text-slate-900 text-sm">Healthcare Professionals</div>
                     </div>
                   </Link>
                   <Link href="/lms/social/groups/trades" className="flex items-center gap-3 p-3 rounded-lg hover:bg-white">
@@ -175,7 +175,7 @@ export default async function TrendingPage() {
                       <TrendingUp className="w-5 h-5 text-brand-orange-600" />
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900 text-sm">Skilled Trades Network</div>
+                      <div className="font-medium text-slate-900 text-sm">Skilled Trades Network</div>
                     </div>
                   </Link>
                   <Link href="/lms/social/groups/career" className="flex items-center gap-3 p-3 rounded-lg hover:bg-white">
@@ -183,7 +183,7 @@ export default async function TrendingPage() {
                       <TrendingUp className="w-5 h-5 text-brand-blue-600" />
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900 text-sm">Career Changers</div>
+                      <div className="font-medium text-slate-900 text-sm">Career Changers</div>
                     </div>
                   </Link>
                 </div>
@@ -194,11 +194,11 @@ export default async function TrendingPage() {
               </div>
 
               <div className="bg-amber-50 rounded-xl p-6">
-                <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-amber-600" />
                   Explore Courses
                 </h3>
-                <p className="text-sm text-gray-600 mb-4">Browse our training programs and start your career journey.</p>
+                <p className="text-sm text-slate-700 mb-4">Browse our training programs and start your career journey.</p>
                 <Link href="/lms/courses" className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm font-medium">
                   View Courses
                 </Link>
@@ -207,9 +207,9 @@ export default async function TrendingPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm border p-12 text-center">
-            <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-gray-900 mb-2">No trending content yet</h3>
-            <p className="text-gray-600 mb-6">Be the first to start a discussion in the community!</p>
+            <MessageSquare className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-slate-900 mb-2">No trending content yet</h3>
+            <p className="text-slate-700 mb-6">Be the first to start a discussion in the community!</p>
             <Link href="/lms/social" className="inline-flex items-center gap-2 px-6 py-3 bg-brand-orange-600 text-white rounded-lg hover:bg-brand-orange-700 font-medium">
               Go to Social Feed
             </Link>

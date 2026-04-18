@@ -22,9 +22,9 @@ export default async function StudentsPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/staff-portal" className="hover:text-primary">Staff Portal</Link></li><li>/</li><li className="text-gray-900 font-medium">Students</li></ol></nav>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/staff-portal" className="hover:text-primary">Staff Portal</Link></li><li>/</li><li className="text-slate-900 font-medium">Students</li></ol></nav>
           <div className="flex justify-between items-center">
-            <div><h1 className="text-3xl font-bold text-gray-900">Student Management</h1><p className="text-gray-600 mt-2">{count || 0} students enrolled</p></div>
+            <div><h1 className="text-3xl font-bold text-slate-900">Student Management</h1><p className="text-slate-700 mt-2">{count || 0} students enrolled</p></div>
             <button className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">Add Student</button>
           </div>
         </div>
@@ -35,11 +35,11 @@ export default async function StudentsPage() {
               <div key={student.id} className="p-4 flex items-center justify-between hover:bg-white">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-brand-blue-100 rounded-full flex items-center justify-center"><span className="text-brand-blue-600 font-medium">{(student.full_name || 'S')[0]}</span></div>
-                  <div><p className="font-medium">{student.full_name || 'Student'}</p><p className="text-sm text-gray-500">{student.email}</p></div>
+                  <div><p className="font-medium">{student.full_name || 'Student'}</p><p className="text-sm text-slate-700">{student.email}</p></div>
                 </div>
                 <Link href={`/staff-portal/students/${student.id}`} className="text-brand-blue-600 hover:text-brand-blue-800 text-sm">View Profile</Link>
               </div>
-            )) : <div className="p-8 text-center text-gray-500">No students found</div>}
+            )) : <div className="p-8 text-center text-slate-700">No students found</div>}
           </div>
         </div>
       </div>

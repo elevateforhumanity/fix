@@ -65,8 +65,8 @@ export default function TestingPage() {
             <span className="text-slate-300">→</span>
             <Link href="/employers" className="hover:text-brand-red-600 transition-colors">Get Hired</Link>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-2">Testing &amp; Credential Exams</h1>
-          <p className="text-gray-600 text-lg mb-1">Authorized testing center for workforce certifications</p>
+          <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2">Testing &amp; Credential Exams</h1>
+          <p className="text-slate-700 text-lg mb-1">Authorized testing center for workforce certifications</p>
           <p className="text-slate-500 text-sm max-w-2xl">
             Elevate provides training and proctored testing access. Certifications are issued by official credentialing bodies — NHA, ACT, Certiport, ESCO, and NRF — upon passing their exam.
           </p>

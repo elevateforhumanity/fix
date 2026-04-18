@@ -94,7 +94,7 @@ function CheckoutForm({ courseId, courseName, price, userId, onSuccess }: Checko
       {/* Progress Steps */}
       <div className="mb-8">
         <div className="flex items-center justify-between">
-          <div className={`flex items-center ${step >= 1 ? 'text-brand-blue-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center ${step >= 1 ? 'text-brand-blue-600' : 'text-slate-700'}`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-brand-blue-600 text-white' : 'bg-gray-300'}`}>
               1
             </div>
@@ -103,7 +103,7 @@ function CheckoutForm({ courseId, courseName, price, userId, onSuccess }: Checko
           <div className="flex-1 h-1 mx-4 bg-gray-300">
             <div className={`h-full ${step >= 2 ? 'bg-brand-blue-600' : 'bg-gray-300'}`} style={{ width: step >= 2 ? '100%' : '0%' }} />
           </div>
-          <div className={`flex items-center ${step >= 2 ? 'text-brand-blue-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center ${step >= 2 ? 'text-brand-blue-600' : 'text-slate-700'}`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-brand-blue-600 text-white' : 'bg-gray-300'}`}>
               2
             </div>
@@ -112,7 +112,7 @@ function CheckoutForm({ courseId, courseName, price, userId, onSuccess }: Checko
           <div className="flex-1 h-1 mx-4 bg-gray-300">
             <div className={`h-full ${step >= 3 ? 'bg-brand-blue-600' : 'bg-gray-300'}`} style={{ width: step >= 3 ? '100%' : '0%' }} />
           </div>
-          <div className={`flex items-center ${step >= 3 ? 'text-brand-blue-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center ${step >= 3 ? 'text-brand-blue-600' : 'text-slate-700'}`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-brand-blue-600 text-white' : 'bg-gray-300'}`}>
               3
             </div>
@@ -212,7 +212,7 @@ function CheckoutForm({ courseId, courseName, price, userId, onSuccess }: Checko
 
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
               <div className="flex items-center text-sm text-black">
-                <svg className="w-5 h-5 text-gray-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 text-slate-700 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                 </svg>
                 <span>Your payment information is secure and encrypted</span>
@@ -238,7 +238,7 @@ function CheckoutForm({ courseId, courseName, price, userId, onSuccess }: Checko
             </div>
           </form>
 
-          <div className="mt-6 flex items-center justify-center space-x-4 text-gray-400">
+          <div className="mt-6 flex items-center justify-center space-x-4 text-slate-700">
             <svg className="w-10 h-6" viewBox="0 0 38 24" fill="none">
               <rect width="38" height="24" rx="3"
 fill="#1434CB"/>

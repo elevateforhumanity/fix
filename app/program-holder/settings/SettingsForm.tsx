@@ -50,14 +50,14 @@ export default function ProgramHolderSettingsForm({ organization, email, notifyE
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/program-holder" className="hover:text-primary">Program Holder</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Settings</li>
+              <li className="text-slate-900 font-medium">Settings</li>
             </ol>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">Program Settings</h1>
-          <p className="text-gray-600 mt-2">Manage your account and program preferences</p>
+          <h1 className="text-3xl font-bold text-slate-900">Program Settings</h1>
+          <p className="text-slate-700 mt-2">Manage your account and program preferences</p>
         </div>
 
         <div className="space-y-6">
@@ -65,7 +65,7 @@ export default function ProgramHolderSettingsForm({ organization, email, notifyE
             <h2 className="text-lg font-semibold mb-4">Organization Information</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Organization Name</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Organization Name</label>
                 <input
                   type="text"
                   className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
@@ -74,7 +74,7 @@ export default function ProgramHolderSettingsForm({ organization, email, notifyE
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Contact Email</label>
                 <input
                   type="email"
                   className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
@@ -89,7 +89,7 @@ export default function ProgramHolderSettingsForm({ organization, email, notifyE
             <h2 className="text-lg font-semibold mb-4">Notifications</h2>
             <div className="space-y-3">
               <label className="flex items-center justify-between cursor-pointer">
-                <span className="text-sm text-gray-700">Email notifications for new enrollments</span>
+                <span className="text-sm text-slate-900">Email notifications for new enrollments</span>
                 <input
                   type="checkbox"
                   className="w-4 h-4 rounded"
@@ -98,7 +98,7 @@ export default function ProgramHolderSettingsForm({ organization, email, notifyE
                 />
               </label>
               <label className="flex items-center justify-between cursor-pointer">
-                <span className="text-sm text-gray-700">Weekly progress reports</span>
+                <span className="text-sm text-slate-900">Weekly progress reports</span>
                 <input
                   type="checkbox"
                   className="w-4 h-4 rounded"

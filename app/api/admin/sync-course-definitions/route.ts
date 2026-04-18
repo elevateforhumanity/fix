@@ -44,8 +44,8 @@ function buildLessonHtml(
   moduleName: string,
   lessonNum: number
 ): string {
-  const meta = duration ? `<p class="text-sm text-gray-500">Duration: ${duration} | Lesson ${lessonNum}</p>` : `<p class="text-sm text-gray-500">Lesson ${lessonNum}</p>`;
-  const modLine = `<p class="text-sm text-gray-400 mb-2">Module: ${moduleName}</p>`;
+  const meta = duration ? `<p class="text-sm text-slate-700">Duration: ${duration} | Lesson ${lessonNum}</p>` : `<p class="text-sm text-slate-700">Lesson ${lessonNum}</p>`;
+  const modLine = `<p class="text-sm text-slate-700 mb-2">Module: ${moduleName}</p>`;
 
   switch (type) {
     case 'quiz':

@@ -64,16 +64,16 @@ export default async function CopilotPage() {
         {/* Header */}
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Copilot</li>
+              <li className="text-slate-900 font-medium">Copilot</li>
             </ol>
           </nav>
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">AI Copilot Dashboard</h1>
-              <p className="text-gray-600 mt-2">Manage AI-powered features and assistants</p>
+              <h1 className="text-3xl font-bold text-slate-900">AI Copilot Dashboard</h1>
+              <p className="text-slate-700 mt-2">Manage AI-powered features and assistants</p>
             </div>
             <Link 
               href="/admin/copilot/deploy"
@@ -88,54 +88,54 @@ export default async function CopilotPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Total Conversations</h3>
+              <h3 className="text-sm font-medium text-slate-700">Total Conversations</h3>
               <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{totalDeployments}</p>
-            <p className="text-sm text-gray-500 mt-1">Active deployments</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{totalDeployments}</p>
+            <p className="text-sm text-slate-700 mt-1">Active deployments</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Active Users</h3>
+              <h3 className="text-sm font-medium text-slate-700">Active Users</h3>
               <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{(activeUsers ?? 0).toLocaleString()}</p>
-            <p className="text-sm text-gray-500 mt-1">Active users</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{(activeUsers ?? 0).toLocaleString()}</p>
+            <p className="text-sm text-slate-700 mt-1">Active users</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Satisfaction Rate</h3>
+              <h3 className="text-sm font-medium text-slate-700">Satisfaction Rate</h3>
               <span className="text-brand-green-600 bg-brand-green-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">—</p>
-            <p className="text-sm text-gray-500 mt-1">No feedback data yet</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">—</p>
+            <p className="text-sm text-slate-700 mt-1">No feedback data yet</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">API Usage</h3>
+              <h3 className="text-sm font-medium text-slate-700">API Usage</h3>
               <span className="text-brand-orange-600 bg-brand-orange-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">—</p>
-            <p className="text-sm text-gray-500 mt-1">Token tracking not configured</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">—</p>
+            <p className="text-sm text-slate-700 mt-1">Token tracking not configured</p>
           </div>
         </div>
 
@@ -143,7 +143,7 @@ export default async function CopilotPage() {
         <div className="bg-white rounded-lg shadow-sm border">
           <div className="p-6 border-b">
             <h2 className="text-lg font-semibold">AI Features</h2>
-            <p className="text-sm text-gray-500">Manage deployed AI capabilities</p>
+            <p className="text-sm text-slate-700">Manage deployed AI capabilities</p>
           </div>
           <div className="divide-y">
             {copilotFeatures.map((feature) => (
@@ -152,13 +152,13 @@ export default async function CopilotPage() {
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                     feature.status === 'active' ? 'bg-brand-green-100' : 'bg-gray-100'
                   }`}>
-                    <svg className={`w-5 h-5 ${feature.status === 'active' ? 'text-brand-green-600' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-5 h-5 ${feature.status === 'active' ? 'text-brand-green-600' : 'text-slate-700'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{feature.name}</p>
-                    <p className="text-sm text-gray-500">{feature.description}</p>
+                    <p className="font-medium text-slate-900">{feature.name}</p>
+                    <p className="text-sm text-slate-700">{feature.description}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -166,11 +166,11 @@ export default async function CopilotPage() {
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       feature.status === 'active' 
                         ? 'bg-brand-green-100 text-brand-green-800' 
-                        : 'bg-gray-100 text-gray-600'
+                        : 'bg-gray-100 text-slate-700'
                     }`}>
                       {feature.status}
                     </span>
-                    <p className="text-sm text-gray-500 mt-1">{feature.usage}</p>
+                    <p className="text-sm text-slate-700 mt-1">{feature.usage}</p>
                   </div>
                   <Link 
                     href={feature.href}

@@ -35,9 +35,9 @@ export default function BarberScoringSheetPage() {
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-lg font-bold">Barber Apprenticeship — Competency Scoring Sheet</h1>
-            <p className="text-[10px] text-gray-600">Elevate for Humanity | RAPIDS ID: 2025-IN-132301 | Occupation: Barber (330.371-010)</p>
+            <p className="text-[10px] text-slate-700">Elevate for Humanity | RAPIDS ID: 2025-IN-132301 | Occupation: Barber (330.371-010)</p>
           </div>
-          <div className="text-right text-[10px] text-gray-500">
+          <div className="text-right text-[10px] text-slate-700">
             <p>Total: 2,000 hours (144 RTI + 1,500 OJT)</p>
             <p>{BARBER_STATS.totalCompetencies} competencies | {BARBER_STATS.sections} sections</p>
           </div>
@@ -52,8 +52,8 @@ export default function BarberScoringSheetPage() {
       {/* Screen header */}
       <div className="print:hidden py-8 bg-white">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Barber Apprenticeship Scoring Sheet</h1>
-          <p className="text-gray-600 mb-4">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Barber Apprenticeship Scoring Sheet</h1>
+          <p className="text-slate-700 mb-4">
             Printable master scoring rubric. Print this page or save as PDF to use during competency evaluations.
           </p>
           <PrintButton />
@@ -72,7 +72,7 @@ export default function BarberScoringSheetPage() {
             <div className="border rounded py-1 bg-white print:bg-white"><strong>4</strong><br />Advanced</div>
             <div className="border rounded py-1 bg-white print:bg-white"><strong>5</strong><br />Independent Mastery</div>
           </div>
-          <p className="text-xs text-gray-500 mt-2 print:text-[9px] print:mt-1">
+          <p className="text-xs text-slate-700 mt-2 print:text-[9px] print:mt-1">
             Minimum passing standard: Score of 3 (Competent) in all core competencies. Sanitation failures require automatic remediation.
           </p>
         </div>
@@ -135,7 +135,7 @@ export default function BarberScoringSheetPage() {
             ].map((signer, i) => (
               <div key={i} className="border rounded-lg p-4 print:p-2 print:border-gray-400">
                 <p className="font-semibold text-sm print:text-[10px]">{signer.role}</p>
-                <p className="text-xs text-gray-500 mb-3 print:text-[9px] print:mb-2">{signer.scope}</p>
+                <p className="text-xs text-slate-700 mb-3 print:text-[9px] print:mb-2">{signer.scope}</p>
                 <div className="grid grid-cols-3 gap-4 text-xs print:text-[9px]">
                   <div>Name: ________________________________</div>
                   <div>Signature: ________________________________</div>
@@ -157,15 +157,15 @@ export default function BarberScoringSheetPage() {
           <div className="grid grid-cols-3 gap-4 text-sm print:text-[10px]">
             <div className="border rounded p-3 text-center print:p-2">
               <p className="font-semibold">☐ Competent</p>
-              <p className="text-xs text-gray-500">All core competencies ≥ 3</p>
+              <p className="text-xs text-slate-700">All core competencies ≥ 3</p>
             </div>
             <div className="border rounded p-3 text-center print:p-2">
               <p className="font-semibold">☐ Remediation Required</p>
-              <p className="text-xs text-gray-500">One or more competencies &lt; 3</p>
+              <p className="text-xs text-slate-700">One or more competencies &lt; 3</p>
             </div>
             <div className="border rounded p-3 text-center print:p-2">
               <p className="font-semibold">☐ Not Yet Assessed</p>
-              <p className="text-xs text-gray-500">Evaluation incomplete</p>
+              <p className="text-xs text-slate-700">Evaluation incomplete</p>
             </div>
           </div>
           <div className="mt-3 text-xs print:text-[9px]">
@@ -180,10 +180,10 @@ export default function BarberScoringSheetPage() {
           <Link href="/compliance/competency-verification/barber" className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700 transition">
             Barber Rubric Overview
           </Link>
-          <Link href="/compliance/competency-verification/barber/monthly-ojt-evaluation" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/monthly-ojt-evaluation" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Monthly OJT Evaluation
           </Link>
-          <Link href="/compliance/competency-verification/barber/final-signoff" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/final-signoff" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Final Sign-Off Form
           </Link>
         </div>

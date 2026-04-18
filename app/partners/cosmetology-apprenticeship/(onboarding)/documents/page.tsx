@@ -148,7 +148,7 @@ export default function CosmetologyPartnerDocumentsPage() {
         {/* Progress */}
         <div className="bg-white rounded-xl border shadow-sm p-5 mb-8">
           <div className="flex items-center justify-between mb-2">
-            <span className="font-semibold text-gray-900">Upload Progress</span>
+            <span className="font-semibold text-slate-900">Upload Progress</span>
             <span className="text-sm text-black">{doneCount} of {DOC_SLOTS.length} uploaded</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -190,12 +190,12 @@ export default function CosmetologyPartnerDocumentsPage() {
                     ) : isError ? (
                       <AlertCircle className="w-6 h-6 text-red-500" />
                     ) : (
-                      <FileText className="w-6 h-6 text-gray-400" />
+                      <FileText className="w-6 h-6 text-slate-700" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <h3 className="font-semibold text-gray-900">{slot.label}</h3>
+                      <h3 className="font-semibold text-slate-900">{slot.label}</h3>
                       {slot.required && (
                         <span className="text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-medium">Required</span>
                       )}
@@ -204,7 +204,7 @@ export default function CosmetologyPartnerDocumentsPage() {
                       )}
                     </div>
                     <p className="text-sm text-black mb-1">{slot.description}</p>
-                    <p className="text-xs text-gray-500 mb-3">{slot.hint}</p>
+                    <p className="text-xs text-slate-700 mb-3">{slot.hint}</p>
 
                     {slot.externalLink && (
                       <a
@@ -219,14 +219,14 @@ export default function CosmetologyPartnerDocumentsPage() {
                     )}
 
                     {state.fileName && (
-                      <p className="text-xs text-gray-700 mb-2 flex items-center gap-1">
+                      <p className="text-xs text-slate-900 mb-2 flex items-center gap-1">
                         <FileText className="w-3 h-3" />
                         {state.fileName}
                         {isDone && (
                           <button
                             type="button"
                             onClick={() => setSlot(slot.id, { status: 'idle', fileName: undefined })}
-                            className="ml-1 text-gray-400 hover:text-red-500"
+                            className="ml-1 text-slate-700 hover:text-red-500"
                             title="Remove and re-upload"
                           >
                             <X className="w-3 h-3" />
@@ -260,7 +260,7 @@ export default function CosmetologyPartnerDocumentsPage() {
                             <><Upload className="w-4 h-4" /> {isError ? 'Try Again' : 'Upload File'}</>
                           )}
                         </button>
-                        <p className="text-xs text-gray-400 mt-1">PDF, JPEG, or PNG · Max 10 MB · Drag &amp; drop supported</p>
+                        <p className="text-xs text-slate-700 mt-1">PDF, JPEG, or PNG · Max 10 MB · Drag &amp; drop supported</p>
                       </>
                     )}
                   </div>
@@ -272,7 +272,7 @@ export default function CosmetologyPartnerDocumentsPage() {
 
         <div className="mt-8 bg-purple-50 border border-purple-200 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="font-bold text-gray-900">All documents uploaded?</h3>
+            <h3 className="font-bold text-slate-900">All documents uploaded?</h3>
             <p className="text-sm text-black">Return to the forms checklist to complete remaining steps.</p>
           </div>
           <Link

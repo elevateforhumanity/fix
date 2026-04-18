@@ -115,7 +115,7 @@ export default async function TrainingPage() {
                   <span className={`text-2xl font-bold text-${color}-700`}>{num}</span>
                 </div>
                 <h3 className="text-xl font-bold mb-3">{title}</h3>
-                <p className="text-gray-600 mb-4">{desc}</p>
+                <p className="text-slate-700 mb-4">{desc}</p>
                 <Link href={href} className="text-brand-blue-700 font-semibold hover:underline">
                   {label} →
                 </Link>

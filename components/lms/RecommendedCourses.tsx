@@ -33,10 +33,10 @@ export function RecommendedCourses() {
       <div className="bg-white rounded-xl border p-6">
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="w-5 h-5 text-brand-blue-600" />
-          <h3 className="font-semibold text-gray-900">Recommended for You</h3>
+          <h3 className="font-semibold text-slate-900">Recommended for You</h3>
         </div>
         <div className="flex items-center justify-center py-8">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-slate-700" />
         </div>
       </div>
     );
@@ -48,7 +48,7 @@ export function RecommendedCourses() {
     <div className="bg-white rounded-xl border p-6">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-brand-blue-600" />
-        <h3 className="font-semibold text-gray-900">Recommended for You</h3>
+        <h3 className="font-semibold text-slate-900">Recommended for You</h3>
       </div>
       <div className="space-y-3">
         {recommendations.slice(0, 4).map((rec) => (
@@ -59,10 +59,10 @@ export function RecommendedCourses() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900 text-sm">
+                <p className="font-medium text-slate-900 text-sm">
                   {rec.course?.title || rec.courseId}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">{rec.reason}</p>
+                <p className="text-xs text-slate-700 mt-1">{rec.reason}</p>
               </div>
               <span className="text-xs bg-brand-blue-50 text-brand-blue-700 px-2 py-1 rounded-full font-medium">
                 {Math.round(rec.score * 100)}% match

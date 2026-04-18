@@ -27,21 +27,21 @@ export default async function EmployerProgramDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-6 py-10 space-y-6">
-        <nav className="text-sm text-gray-500">
+        <nav className="text-sm text-slate-700">
           <ol className="flex items-center gap-2">
-            <li><Link href="/employer/dashboard" className="hover:text-gray-900">Employer</Link></li>
+            <li><Link href="/employer/dashboard" className="hover:text-slate-900">Employer</Link></li>
             <li>/</li>
-            <li><Link href="/employer/dashboard" className="hover:text-gray-900">Programs</Link></li>
+            <li><Link href="/employer/dashboard" className="hover:text-slate-900">Programs</Link></li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">{program.title}</li>
+            <li className="text-slate-900 font-medium">{program.title}</li>
           </ol>
         </nav>
 
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">{program.title}</h1>
+            <h1 className="text-3xl font-bold text-slate-900">{program.title}</h1>
             {program.status && (
-              <span className="inline-block mt-2 text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">
+              <span className="inline-block mt-2 text-xs font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-gray-100 text-slate-700">
                 {program.status}
               </span>
             )}
@@ -57,7 +57,7 @@ export default async function EmployerProgramDetailPage({ params }: Props) {
         )}
 
         <div className="rounded-xl border p-6">
-          <p className="text-gray-700 whitespace-pre-wrap">
+          <p className="text-slate-900 whitespace-pre-wrap">
             {program.description || 'No description available.'}
           </p>
         </div>
@@ -65,7 +65,7 @@ export default async function EmployerProgramDetailPage({ params }: Props) {
         {Array.isArray(program.eligibility) && program.eligibility.length > 0 && (
           <div className="rounded-xl border p-6">
             <h2 className="text-xl font-semibold mb-4">Eligibility Requirements</h2>
-            <ul className="list-disc pl-6 space-y-1 text-gray-700">
+            <ul className="list-disc pl-6 space-y-1 text-slate-900">
               {program.eligibility.map((item: string) => (
                 <li key={item}>{item}</li>
               ))}
@@ -83,7 +83,7 @@ export default async function EmployerProgramDetailPage({ params }: Props) {
         <div className="flex gap-4">
           <Link
             href="/employer/dashboard"
-            className="px-5 py-2.5 rounded-lg border text-sm font-semibold text-gray-700 hover:bg-gray-50"
+            className="px-5 py-2.5 rounded-lg border text-sm font-semibold text-slate-900 hover:bg-gray-50"
           >
             ← Back to Programs
           </Link>

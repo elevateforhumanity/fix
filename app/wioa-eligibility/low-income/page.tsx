@@ -72,7 +72,7 @@ export default async function LowIncomePage() {
         {/* Income Guidelines Table */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">2024 Income Guidelines</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             You may qualify for WIOA funding if your household income is at or below 
             these levels (based on 70% of Lower Living Standard Income Level):
           </p>
@@ -91,7 +91,7 @@ export default async function LowIncomePage() {
                   <tr key={row.size} className="border-b">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4 text-gray-400" />
+                        <Users className="w-4 h-4 text-slate-700" />
                         {row.size} {row.size === 1 ? 'person' : 'people'}
                       </div>
                     </td>
@@ -107,7 +107,7 @@ export default async function LowIncomePage() {
             </table>
           </div>
           
-          <p className="text-sm text-gray-500 mt-4">
+          <p className="text-sm text-slate-700 mt-4">
             * For households larger than 6, add $5,380 per additional person.
           </p>
         </div>
@@ -115,14 +115,14 @@ export default async function LowIncomePage() {
         {/* Additional Qualifiers */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Other Ways to Qualify</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             Even if your income is above the guidelines, you may still qualify if you are:
           </p>
           <div className="grid md:grid-cols-2 gap-3">
             {additionalQualifiers.map((qualifier, index) => (
               <div key={index} className="flex items-center gap-2">
                 <span className="text-slate-500 flex-shrink-0">•</span>
-                <span className="text-gray-700">{qualifier}</span>
+                <span className="text-slate-900">{qualifier}</span>
               </div>
             ))}
           </div>
@@ -134,7 +134,7 @@ export default async function LowIncomePage() {
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="font-semibold text-brand-green-700 mb-3">Included:</h3>
-              <ul className="space-y-2 text-gray-600">
+              <ul className="space-y-2 text-slate-700">
                 <li>• Wages and salaries</li>
                 <li>• Self-employment income</li>
                 <li>• Unemployment benefits</li>
@@ -145,7 +145,7 @@ export default async function LowIncomePage() {
             </div>
             <div>
               <h3 className="font-semibold text-brand-red-700 mb-3">Not Included:</h3>
-              <ul className="space-y-2 text-gray-600">
+              <ul className="space-y-2 text-slate-700">
                 <li>• SNAP/Food stamps</li>
                 <li>• Housing assistance</li>
                 <li>• One-time payments</li>
@@ -170,7 +170,7 @@ export default async function LowIncomePage() {
                 >
                   <h3 className="font-semibold">{program.title || program.name}</h3>
                   {program.description && (
-                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">{program.description}</p>
+                    <p className="text-sm text-slate-700 mt-1 line-clamp-2">{program.description}</p>
                   )}
                 </Link>
               ))}

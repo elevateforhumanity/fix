@@ -228,8 +228,8 @@ export default function HeroAvatarGuide({
                     <MessageCircle className="w-6 h-6 text-brand-blue-600" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-900 text-lg">{avatarName}</p>
-                    <p className="text-gray-600 mt-1">{message}</p>
+                    <p className="font-semibold text-slate-900 text-lg">{avatarName}</p>
+                    <p className="text-slate-700 mt-1">{message}</p>
                     <button
                       onClick={() => setShowChat(true)}
                       className="mt-4 inline-flex items-center gap-2 bg-brand-blue-600 hover:bg-brand-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
@@ -240,7 +240,7 @@ export default function HeroAvatarGuide({
                   </div>
                   <button
                     onClick={() => setIsDismissed(true)}
-                    className="p-2 text-gray-400 hover:text-gray-600 flex-shrink-0"
+                    className="p-2 text-slate-700 hover:text-slate-700 flex-shrink-0"
                     aria-label="Dismiss"
                   >
                     <X className="w-5 h-5" />
@@ -280,7 +280,7 @@ export default function HeroAvatarGuide({
                         className={`max-w-[85%] px-4 py-2 rounded-2xl ${
                           msg.role === 'user'
                             ? 'bg-brand-blue-600 text-white rounded-br-md'
-                            : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md shadow-sm'
+                            : 'bg-white text-slate-900 border border-gray-200 rounded-bl-md shadow-sm'
                         }`}
                       >
                         {msg.content}

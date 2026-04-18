@@ -70,9 +70,9 @@ export default function AnnouncementsList() {
   if (announcements.length === 0) {
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-        <Bell className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">No Announcements</h2>
-        <p className="text-gray-600">
+        <Bell className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+        <h2 className="text-xl font-semibold text-slate-900 mb-2">No Announcements</h2>
+        <p className="text-slate-700">
           There are no announcements at this time. Check back later for updates.
         </p>
       </div>
@@ -151,10 +151,10 @@ export default function AnnouncementsList() {
                 {getIcon(announcement.severity)}
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-slate-900">
                   {announcement.title}
                 </h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-700">
                   {formatDate(announcement.published_at)}
                 </p>
               </div>
@@ -165,7 +165,7 @@ export default function AnnouncementsList() {
               {getLabel(announcement.severity)}
             </span>
           </div>
-          <p className="text-gray-700 leading-relaxed">{announcement.body}</p>
+          <p className="text-slate-900 leading-relaxed">{announcement.body}</p>
         </div>
       ))}
     </div>

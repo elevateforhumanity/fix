@@ -55,8 +55,8 @@ export function QuizForm({ quizId, quizTitle, questions }: QuizFormProps) {
   return (
     <div className="bg-white rounded-xl border">
       <div className="p-6 border-b">
-        <h2 className="text-xl font-bold text-gray-900">{quizTitle}</h2>
-        <p className="text-gray-600 mt-1">
+        <h2 className="text-xl font-bold text-slate-900">{quizTitle}</h2>
+        <p className="text-slate-700 mt-1">
           {answeredCount} of {totalQuestions} questions answered
         </p>
       </div>
@@ -74,7 +74,7 @@ export function QuizForm({ quizId, quizTitle, questions }: QuizFormProps) {
           <div className="divide-y">
             {questions.map((question, index) => (
               <div key={question.id} className="p-6">
-                <p className="font-medium text-gray-900 mb-4">
+                <p className="font-medium text-slate-900 mb-4">
                   {index + 1}. {question.text}
                 </p>
                 <div className="space-y-2">
@@ -95,7 +95,7 @@ export function QuizForm({ quizId, quizTitle, questions }: QuizFormProps) {
                         onChange={() => handleAnswerChange(question.id, option.id)}
                         className="w-4 h-4 text-brand-blue-600"
                       />
-                      <span className="text-gray-700">{option.text}</span>
+                      <span className="text-slate-900">{option.text}</span>
                     </label>
                   ))}
                 </div>
@@ -119,7 +119,7 @@ export function QuizForm({ quizId, quizTitle, questions }: QuizFormProps) {
               )}
             </button>
             {answeredCount < totalQuestions && (
-              <p className="text-center text-sm text-gray-500 mt-2">
+              <p className="text-center text-sm text-slate-700 mt-2">
                 Please answer all questions before submitting
               </p>
             )}

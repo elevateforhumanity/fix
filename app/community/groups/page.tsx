@@ -119,7 +119,7 @@ export default async function GroupsPage() {
           {/* Main Content */}
           <div className="lg:w-2/3">
             {/* Featured Groups */}
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Featured Groups</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-6">Featured Groups</h2>
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               {featuredGroups.map((group) => (
                 <Link
@@ -137,14 +137,14 @@ export default async function GroupsPage() {
                     />
                     
                     <div className="absolute bottom-3 left-3 right-3">
-                      <span className="bg-white/90 text-gray-800 text-xs font-medium px-2 py-1 rounded">
+                      <span className="bg-white/90 text-slate-900 text-xs font-medium px-2 py-1 rounded">
                         {group.category}
                       </span>
                     </div>
                   </div>
                   <div className="p-4">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-gray-900">{group.name}</h3>
+                      <h3 className="font-bold text-slate-900">{group.name}</h3>
                       {group.isPublic ? (
                         <Globe className="w-4 h-4 text-brand-green-600" title="Public Group" />
                       ) : (
@@ -163,8 +163,8 @@ export default async function GroupsPage() {
 
             {groupList.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-2xl border">
-                <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-2">No Groups Available</h3>
+                <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-slate-900 mb-2">No Groups Available</h3>
                 <p className="text-black mb-6">Be the first to create a community group!</p>
                 {user && (
                   <Link
@@ -201,7 +201,7 @@ export default async function GroupsPage() {
                           </div>
                         )}
                         <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center">
-                          <span className="bg-white/90 text-gray-800 text-xs font-medium px-2 py-1 rounded">
+                          <span className="bg-white/90 text-slate-900 text-xs font-medium px-2 py-1 rounded">
                             {group.category || 'General'}
                           </span>
                           {isMember && (
@@ -213,7 +213,7 @@ export default async function GroupsPage() {
                       </div>
                       <div className="p-4">
                         <div className="flex items-start justify-between mb-2">
-                          <h3 className="font-bold text-gray-900">{group.name}</h3>
+                          <h3 className="font-bold text-slate-900">{group.name}</h3>
                           {group.is_public ? (
                             <Globe className="w-4 h-4 text-brand-green-600" title="Public Group" />
                           ) : (
@@ -237,7 +237,7 @@ export default async function GroupsPage() {
           <div className="lg:w-1/3">
             {/* Categories */}
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Categories</h2>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Categories</h2>
               {categories.length > 0 ? (
                 <ul className="space-y-2">
                   {categories.map((category, index) => (
@@ -246,7 +246,7 @@ export default async function GroupsPage() {
                         href={`/community/groups?category=${encodeURIComponent(category.name)}`}
                         className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white transition"
                       >
-                        <span className="text-gray-700">{category.name}</span>
+                        <span className="text-slate-900">{category.name}</span>
                         <span className="bg-white text-black text-sm px-2 py-1 rounded">
                           {category.count}
                         </span>
@@ -261,19 +261,19 @@ export default async function GroupsPage() {
 
             {/* Your Groups */}
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Your Groups</h2>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Your Groups</h2>
               {user ? (
                 userGroups.length > 0 ? (
                   <p className="text-black text-sm">You are a member of {userGroups.length} group(s)</p>
                 ) : (
                   <div className="text-center py-4">
-                    <Users className="w-10 h-10 text-gray-300 mx-auto mb-2" />
+                    <Users className="w-10 h-10 text-slate-700 mx-auto mb-2" />
                     <p className="text-black text-sm">You have not joined any groups yet</p>
                   </div>
                 )
               ) : (
                 <div className="text-center py-4">
-                  <Users className="w-10 h-10 text-gray-300 mx-auto mb-2" />
+                  <Users className="w-10 h-10 text-slate-700 mx-auto mb-2" />
                   <p className="text-black mb-3">Sign in to join groups</p>
                   <Link
                     href="/login?redirect=/community/groups"
@@ -287,7 +287,7 @@ export default async function GroupsPage() {
 
             {/* Events CTA */}
             <div className="bg-brand-blue-50 rounded-lg p-6 border border-brand-blue-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+              <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center">
                 <Calendar className="w-5 h-5 mr-2 text-brand-blue-600" />
                 Community Events
               </h2>

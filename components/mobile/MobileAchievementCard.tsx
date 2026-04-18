@@ -49,20 +49,20 @@ export default function MobileAchievementCard({
               <Award size={24} className="text-white" />
             )
           ) : (
-            <Lock size={20} className="text-gray-500" />
+            <Lock size={20} className="text-slate-700" />
           )}
         </div>
         <div className="flex-1">
           <h3
             className={`font-semibold text-sm mb-1 ${
-              unlocked ? 'text-black' : 'text-gray-500'
+              unlocked ? 'text-black' : 'text-slate-700'
             }`}
           >
             {title}
           </h3>
           <p
             className={`text-xs ${
-              unlocked ? 'text-black' : 'text-gray-400'
+              unlocked ? 'text-black' : 'text-slate-700'
             }`}
           >
             {description}
@@ -72,7 +72,7 @@ export default function MobileAchievementCard({
       {/* Progress or Unlock Date */}
       {unlocked ? (
         unlockedAt && (
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-slate-700">
             Unlocked {new Date(unlockedAt).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
           </div>
         )

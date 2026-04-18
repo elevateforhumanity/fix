@@ -259,7 +259,7 @@ export default function AvatarChatAssistant({
                   className={`max-w-[85%] px-3 py-2 rounded-2xl text-sm ${
                     msg.role === 'user'
                       ? 'bg-brand-blue-600 text-white rounded-br-md'
-                      : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md shadow-sm'
+                      : 'bg-white text-slate-900 border border-gray-200 rounded-bl-md shadow-sm'
                   }`}
                 >
                   {msg.content}
@@ -268,7 +268,7 @@ export default function AvatarChatAssistant({
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-500 px-4 py-2 rounded-2xl rounded-bl-md border border-gray-200 shadow-sm">
+                <div className="bg-white text-slate-700 px-4 py-2 rounded-2xl rounded-bl-md border border-gray-200 shadow-sm">
                   <div className="flex gap-1">
                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />

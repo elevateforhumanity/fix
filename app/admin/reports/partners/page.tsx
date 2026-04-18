@@ -41,7 +41,7 @@ export default async function PartnerReportsPage() {
   const successRate = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   const stats = [
-    { label: 'Active Partners', value: activePartners || 0, icon: Building2, color: 'text-gray-900' },
+    { label: 'Active Partners', value: activePartners || 0, icon: Building2, color: 'text-slate-900' },
     { label: 'Total Enrollments', value: total, icon: Users, color: 'text-brand-blue-600' },
     { label: 'Completions', value: completed, icon: CheckCircle, color: 'text-brand-green-600' },
     { label: 'Completion Rate', value: `${successRate}%`, icon: TrendingUp, color: 'text-brand-blue-600' },
@@ -64,8 +64,8 @@ export default async function PartnerReportsPage() {
         </div>
 
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Partner Reports</h1>
-          <p className="text-gray-600 mt-2">Partner performance and enrollment metrics</p>
+          <h1 className="text-3xl font-bold text-slate-900">Partner Reports</h1>
+          <p className="text-slate-700 mt-2">Partner performance and enrollment metrics</p>
         </div>
 
         {/* Stats */}
@@ -73,8 +73,8 @@ export default async function PartnerReportsPage() {
           {stats.map((stat) => (
             <div key={stat.label} className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center gap-2 mb-2">
-                <stat.icon className="w-5 h-5 text-gray-400" />
-                <h3 className="text-sm font-medium text-gray-500">{stat.label}</h3>
+                <stat.icon className="w-5 h-5 text-slate-700" />
+                <h3 className="text-sm font-medium text-slate-700">{stat.label}</h3>
               </div>
               <p className={`text-3xl font-bold ${stat.color} mt-1`}>{stat.value}</p>
             </div>
@@ -93,13 +93,13 @@ export default async function PartnerReportsPage() {
                 {partners.map((p: any) => (
                   <div key={p.id} className="flex items-center justify-between py-2 border-b last:border-0">
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">{p.name || 'Unnamed'}</p>
-                      <p className="text-xs text-gray-500">{p.city || '—'}, {p.state || 'IN'}</p>
+                      <p className="font-medium text-slate-900 text-sm">{p.name || 'Unnamed'}</p>
+                      <p className="text-xs text-slate-700">{p.city || '—'}, {p.state || 'IN'}</p>
                     </div>
                     <span className={`text-xs font-medium px-2 py-1 rounded ${
                       p.status === 'active' ? 'bg-brand-green-100 text-brand-green-800' :
                       p.status === 'pending' ? 'bg-amber-100 text-amber-800' :
-                      'bg-gray-100 text-gray-600'
+                      'bg-gray-100 text-slate-700'
                     }`}>
                       {p.status || 'unknown'}
                     </span>
@@ -107,7 +107,7 @@ export default async function PartnerReportsPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-sm py-4 text-center">No partners found.</p>
+              <p className="text-slate-700 text-sm py-4 text-center">No partners found.</p>
             )}
           </div>
 
@@ -122,20 +122,20 @@ export default async function PartnerReportsPage() {
                 {inquiries.map((inq: any) => (
                   <div key={inq.id} className="flex items-center justify-between py-2 border-b last:border-0">
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">{inq.name}</p>
-                      <p className="text-xs text-gray-500">{inq.organization || '—'}</p>
+                      <p className="font-medium text-slate-900 text-sm">{inq.name}</p>
+                      <p className="text-xs text-slate-700">{inq.organization || '—'}</p>
                     </div>
                     <div className="text-right">
                       <span className={`text-xs font-medium px-2 py-1 rounded ${
                         inq.status === 'approved' ? 'bg-brand-green-100 text-brand-green-800' :
                         inq.status === 'pending' ? 'bg-amber-100 text-amber-800' :
                         inq.status === 'reviewing' ? 'bg-brand-blue-100 text-brand-blue-800' :
-                        'bg-gray-100 text-gray-600'
+                        'bg-gray-100 text-slate-700'
                       }`}>
                         {inq.status}
                       </span>
                       {inq.created_at && (
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-slate-700 mt-1">
                           {new Date(inq.created_at).toLocaleDateString()}
                         </p>
                       )}
@@ -144,7 +144,7 @@ export default async function PartnerReportsPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-sm py-4 text-center">No inquiries yet.</p>
+              <p className="text-slate-700 text-sm py-4 text-center">No inquiries yet.</p>
             )}
           </div>
         </div>

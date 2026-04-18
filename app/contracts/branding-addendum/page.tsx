@@ -12,7 +12,7 @@ export default function BrandingAddendumPage() {
         <Breadcrumbs items={[{ label: "Contracts", href: "/contracts" }, { label: "Branding Addendum" }]} />
       </div>
 <div className="max-w-4xl mx-auto px-4">
-        <Link href="/contracts" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6">
+        <Link href="/contracts" className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-6">
           <ArrowLeft className="w-4 h-4" /> Back to Contracts
         </Link>
         <div className="bg-white rounded-xl shadow-sm border">
@@ -20,8 +20,8 @@ export default function BrandingAddendumPage() {
             <div className="flex items-center gap-3">
               <FileText className="w-8 h-8 text-brand-blue-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Branding Addendum</h1>
-                <p className="text-gray-600">Co-branding and marketing guidelines</p>
+                <h1 className="text-2xl font-bold text-slate-900">Branding Addendum</h1>
+                <p className="text-slate-700">Co-branding and marketing guidelines</p>
               </div>
             </div>
             <div className="flex gap-2">

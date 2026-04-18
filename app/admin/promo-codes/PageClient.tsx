@@ -172,12 +172,12 @@ export default function PromoCodesAdminPage() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link href="/admin" className="text-gray-600 hover:text-gray-900">
+              <Link href="/admin" className="text-slate-700 hover:text-slate-900">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Promo Codes</h1>
-                <p className="text-sm text-gray-600">Manage discount codes for courses</p>
+                <h1 className="text-xl font-bold text-slate-900">Promo Codes</h1>
+                <p className="text-sm text-slate-700">Manage discount codes for courses</p>
               </div>
             </div>
             <button
@@ -199,24 +199,24 @@ export default function PromoCodesAdminPage() {
         {/* Stats */}
         <div className="grid grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-600">Total Codes</p>
+            <p className="text-sm text-slate-700">Total Codes</p>
             <p className="text-2xl font-bold">{promoCodes.length}</p>
           </div>
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-600">Active</p>
+            <p className="text-sm text-slate-700">Active</p>
             <p className="text-2xl font-bold text-brand-green-600">
               {promoCodes.filter(p => p.is_active).length}
             </p>
           </div>
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-600">Total Uses</p>
+            <p className="text-sm text-slate-700">Total Uses</p>
             <p className="text-2xl font-bold">
               {promoCodes.reduce((acc, p) => acc + (p.current_uses || 0), 0)}
             </p>
           </div>
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-600">Expired</p>
-            <p className="text-2xl font-bold text-gray-400">
+            <p className="text-sm text-slate-700">Expired</p>
+            <p className="text-2xl font-bold text-slate-700">
               {promoCodes.filter(p => p.valid_until && new Date(p.valid_until) < new Date()).length}
             </p>
           </div>
@@ -345,18 +345,18 @@ export default function PromoCodesAdminPage() {
           <table className="w-full">
             <thead className="bg-gray-50 border-b">
               <tr>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-900">Code</th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-900">Discount</th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-900">Uses</th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-900">Expires</th>
-                <th className="text-left px-6 py-3 text-sm font-semibold text-gray-900">Status</th>
-                <th className="text-right px-6 py-3 text-sm font-semibold text-gray-900">Actions</th>
+                <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900">Code</th>
+                <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900">Discount</th>
+                <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900">Uses</th>
+                <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900">Expires</th>
+                <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900">Status</th>
+                <th className="text-right px-6 py-3 text-sm font-semibold text-slate-900">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {promoCodes.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-700">
                     No promo codes yet. Create your first one!
                   </td>
                 </tr>
@@ -374,7 +374,7 @@ export default function PromoCodesAdminPage() {
                           </code>
                           <button
                             onClick={() => copyCode(promo.code)}
-                            className="text-gray-400 hover:text-gray-600"
+                            className="text-slate-700 hover:text-slate-700"
                           >
                             {copiedCode === promo.code ? (
                               <span className="text-slate-400 flex-shrink-0">•</span>
@@ -384,7 +384,7 @@ export default function PromoCodesAdminPage() {
                           </button>
                         </div>
                         {promo.description && (
-                          <p className="text-sm text-gray-500 mt-1">{promo.description}</p>
+                          <p className="text-sm text-slate-700 mt-1">{promo.description}</p>
                         )}
                       </td>
                       <td className="px-6 py-4">
@@ -404,19 +404,19 @@ export default function PromoCodesAdminPage() {
                       </td>
                       <td className="px-6 py-4">
                         <span className="flex items-center gap-1 text-sm">
-                          <Users className="w-4 h-4 text-gray-400" />
+                          <Users className="w-4 h-4 text-slate-700" />
                           {promo.current_uses || 0}
                           {promo.max_uses && ` / ${promo.max_uses}`}
                         </span>
                       </td>
                       <td className="px-6 py-4">
                         {promo.valid_until ? (
-                          <span className={`flex items-center gap-1 text-sm ${isExpired ? 'text-brand-red-600' : 'text-gray-600'}`}>
+                          <span className={`flex items-center gap-1 text-sm ${isExpired ? 'text-brand-red-600' : 'text-slate-700'}`}>
                             <Calendar className="w-4 h-4" />
                             {new Date(promo.valid_until).toLocaleDateString()}
                           </span>
                         ) : (
-                          <span className="text-sm text-gray-500">Never</span>
+                          <span className="text-sm text-slate-700">Never</span>
                         )}
                       </td>
                       <td className="px-6 py-4">
@@ -427,7 +427,7 @@ export default function PromoCodesAdminPage() {
                         ) : promo.is_active ? (
                           <span className="px-2 py-1 bg-brand-green-100 text-brand-green-700 text-xs rounded-full">Active</span>
                         ) : (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">Inactive</span>
+                          <span className="px-2 py-1 bg-gray-100 text-slate-900 text-xs rounded-full">Inactive</span>
                         )}
                       </td>
                       <td className="px-6 py-4">
@@ -436,7 +436,7 @@ export default function PromoCodesAdminPage() {
                             onClick={() => handleToggleActive(promo)}
                             className={`px-3 py-1 text-sm rounded ${
                               promo.is_active 
-                                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' 
+                                ? 'bg-gray-100 text-slate-900 hover:bg-gray-200' 
                                 : 'bg-brand-green-100 text-brand-green-700 hover:bg-brand-green-200'
                             }`}
                           >
@@ -444,13 +444,13 @@ export default function PromoCodesAdminPage() {
                           </button>
                           <button
                             onClick={() => startEdit(promo)}
-                            className="p-2 text-gray-400 hover:text-gray-600"
+                            className="p-2 text-slate-700 hover:text-slate-700"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(promo.id)}
-                            className="p-2 text-gray-400 hover:text-brand-red-600"
+                            className="p-2 text-slate-700 hover:text-brand-red-600"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

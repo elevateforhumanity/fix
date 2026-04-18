@@ -35,7 +35,7 @@ export function TimeclockWidget({ siteId, partnerId, programId }: TimeclockWidge
     switch (status.state) {
       case 'idle':
         return (
-          <div className="flex items-center gap-2 text-gray-500">
+          <div className="flex items-center gap-2 text-slate-700">
             <span className="w-3 h-3 rounded-full bg-gray-400" />
             <span>Not clocked in</span>
           </div>
@@ -159,7 +159,7 @@ export function TimeclockWidget({ siteId, partnerId, programId }: TimeclockWidge
   const renderActions = () => {
     const buttonBase = "px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
     const primaryButton = `${buttonBase} bg-brand-green-600 text-white hover:bg-brand-green-700`;
-    const secondaryButton = `${buttonBase} bg-gray-200 text-gray-800 hover:bg-gray-300`;
+    const secondaryButton = `${buttonBase} bg-gray-200 text-slate-900 hover:bg-gray-300`;
     const dangerButton = `${buttonBase} bg-brand-red-600 text-white hover:bg-brand-red-700`;
 
     switch (status.state) {
@@ -247,31 +247,31 @@ export function TimeclockWidget({ siteId, partnerId, programId }: TimeclockWidge
       <div className="grid grid-cols-2 gap-4 text-sm">
         {status.clockInAt && (
           <div>
-            <span className="text-gray-500">Clock in:</span>
+            <span className="text-slate-700">Clock in:</span>
             <span className="ml-2 font-medium">{formatTime(status.clockInAt)}</span>
           </div>
         )}
         {status.clockOutAt && (
           <div>
-            <span className="text-gray-500">Clock out:</span>
+            <span className="text-slate-700">Clock out:</span>
             <span className="ml-2 font-medium">{formatTime(status.clockOutAt)}</span>
           </div>
         )}
         {status.lunchStartAt && (
           <div>
-            <span className="text-gray-500">Lunch start:</span>
+            <span className="text-slate-700">Lunch start:</span>
             <span className="ml-2 font-medium">{formatTime(status.lunchStartAt)}</span>
           </div>
         )}
         {status.lunchEndAt && (
           <div>
-            <span className="text-gray-500">Lunch end:</span>
+            <span className="text-slate-700">Lunch end:</span>
             <span className="ml-2 font-medium">{formatTime(status.lunchEndAt)}</span>
           </div>
         )}
         {status.hoursWorked !== null && (
           <div className="col-span-2">
-            <span className="text-gray-500">Hours worked:</span>
+            <span className="text-slate-700">Hours worked:</span>
             <span className="ml-2 font-medium">{status.hoursWorked.toFixed(2)}</span>
           </div>
         )}
@@ -282,7 +282,7 @@ export function TimeclockWidget({ siteId, partnerId, programId }: TimeclockWidge
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Time Clock</h3>
+        <h3 className="text-lg font-semibold text-slate-900">Time Clock</h3>
         {renderStateIndicator()}
       </div>
 
@@ -298,7 +298,7 @@ export function TimeclockWidget({ siteId, partnerId, programId }: TimeclockWidge
         </div>
 
         {status.gpsAccuracy !== null && (
-          <div className="text-xs text-gray-400 mt-2">
+          <div className="text-xs text-slate-700 mt-2">
             GPS accuracy: {Math.round(status.gpsAccuracy)}m
           </div>
         )}

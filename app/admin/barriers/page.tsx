@@ -54,16 +54,16 @@ export default async function BarriersPage() {
         {/* Header */}
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Barriers</li>
+              <li className="text-slate-900 font-medium">Barriers</li>
             </ol>
           </nav>
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Barriers Management</h1>
-              <p className="text-gray-600 mt-2">Track and resolve participant barriers to success</p>
+              <h1 className="text-3xl font-bold text-slate-900">Barriers Management</h1>
+              <p className="text-slate-700 mt-2">Track and resolve participant barriers to success</p>
             </div>
             <button className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">
               Add Barrier
@@ -75,41 +75,41 @@ export default async function BarriersPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Total Barriers</h3>
+              <h3 className="text-sm font-medium text-slate-700">Total Barriers</h3>
               <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{totalBarriers || 0}</p>
-            <p className="text-sm text-gray-500 mt-1">Documented barriers</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{totalBarriers || 0}</p>
+            <p className="text-sm text-slate-700 mt-1">Documented barriers</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Active</h3>
+              <h3 className="text-sm font-medium text-slate-700">Active</h3>
               <span className="text-brand-orange-600 bg-brand-orange-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{activeBarriers || 0}</p>
-            <p className="text-sm text-gray-500 mt-1">Needs attention</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{activeBarriers || 0}</p>
+            <p className="text-sm text-slate-700 mt-1">Needs attention</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Resolved</h3>
+              <h3 className="text-sm font-medium text-slate-700">Resolved</h3>
               <span className="text-brand-green-600 bg-brand-green-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{resolvedBarriers || 0}</p>
-            <p className="text-sm text-gray-500 mt-1">Successfully addressed</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{resolvedBarriers || 0}</p>
+            <p className="text-sm text-slate-700 mt-1">Successfully addressed</p>
           </div>
         </div>
 
@@ -117,14 +117,14 @@ export default async function BarriersPage() {
         <div className="bg-white rounded-lg shadow-sm border mb-8">
           <div className="p-6 border-b">
             <h2 className="text-lg font-semibold">Barrier Categories</h2>
-            <p className="text-sm text-gray-500">Common barriers tracked in the system</p>
+            <p className="text-sm text-slate-700">Common barriers tracked in the system</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6">
             {barrierTypes.map((type) => (
               <div key={type.name} className="p-4 border rounded-lg hover:bg-gray-50">
                 <span className="text-2xl">{type.icon}</span>
                 <h3 className="font-medium mt-2">{type.name}</h3>
-                <p className="text-sm text-gray-500">{type.description}</p>
+                <p className="text-sm text-slate-700">{type.description}</p>
               </div>
             ))}
           </div>
@@ -134,29 +134,29 @@ export default async function BarriersPage() {
         <div className="bg-white rounded-lg shadow-sm border">
           <div className="p-6 border-b">
             <h2 className="text-lg font-semibold">Recent Barriers</h2>
-            <p className="text-sm text-gray-500">Latest documented barriers</p>
+            <p className="text-sm text-slate-700">Latest documented barriers</p>
           </div>
           <div className="divide-y">
             {barriers && barriers.length > 0 ? (
               barriers.map((barrier: any) => (
                 <div key={barrier.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
                   <div>
-                    <p className="font-medium text-gray-900">{barrier.type || 'Unknown'}</p>
-                    <p className="text-sm text-gray-500">{barrier.description || 'No description'}</p>
+                    <p className="font-medium text-slate-900">{barrier.type || 'Unknown'}</p>
+                    <p className="text-sm text-slate-700">{barrier.description || 'No description'}</p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                     barrier.status === 'resolved' 
                       ? 'bg-brand-green-100 text-brand-green-800' 
                       : barrier.status === 'active'
                       ? 'bg-brand-orange-100 text-brand-orange-800'
-                      : 'bg-gray-100 text-gray-800'
+                      : 'bg-gray-100 text-slate-900'
                   }`}>
                     {barrier.status || 'pending'}
                   </span>
                 </div>
               ))
             ) : (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-slate-700">
                 No barriers documented yet
               </div>
             )}

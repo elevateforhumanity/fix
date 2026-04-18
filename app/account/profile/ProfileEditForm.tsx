@@ -75,14 +75,14 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Avatar Section */}
       <div className="bg-white rounded-xl shadow-sm border p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Profile Photo</h2>
+        <h2 className="text-lg font-semibold text-slate-900 mb-4">Profile Photo</h2>
         <div className="flex items-center gap-6">
           <div className="relative">
             <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
               {profile?.avatar_url ? (
                 <Image src={profile.avatar_url} alt={`${profile.full_name || 'User'} profile photo`} width={96} height={96} className="w-full h-full object-cover" />
               ) : (
-                <UserIcon className="w-12 h-12 text-gray-400" />
+                <UserIcon className="w-12 h-12 text-slate-700" />
               )}
             </div>
             <button
@@ -93,7 +93,7 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
             </button>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Upload a new photo</p>
+            <p className="text-sm text-slate-700">Upload a new photo</p>
             <p className="text-xs text-slate-500 mt-1">JPG, PNG. Max 2MB</p>
           </div>
         </div>
@@ -101,10 +101,10 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
 
       {/* Basic Info */}
       <div className="bg-white rounded-xl shadow-sm border p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h2>
+        <h2 className="text-lg font-semibold text-slate-900 mb-4">Basic Information</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               Full Name
             </label>
             <input
@@ -117,19 +117,19 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               Email
             </label>
             <input
               type="email"
               value={user.email || ''}
               disabled
-              className="w-full px-4 py-2 border rounded-lg bg-white text-gray-500"
+              className="w-full px-4 py-2 border rounded-lg bg-white text-slate-700"
             />
             <p className="text-xs text-slate-500 mt-1">Email cannot be changed</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               Phone Number
             </label>
             <input
@@ -142,7 +142,7 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               Location
             </label>
             <input
@@ -156,7 +156,7 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
           </div>
         </div>
         <div className="mt-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Bio
           </label>
           <textarea
@@ -172,10 +172,10 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
 
       {/* Social Links */}
       <div className="bg-white rounded-xl shadow-sm border p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Social Links</h2>
+        <h2 className="text-lg font-semibold text-slate-900 mb-4">Social Links</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               Website
             </label>
             <input
@@ -188,7 +188,7 @@ export default function ProfileEditForm({ user, profile }: ProfileEditFormProps)
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               LinkedIn
             </label>
             <input

@@ -32,8 +32,8 @@ export default async function ErrorPage({
           <div className="w-16 h-16 bg-brand-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <AlertTriangle className="w-8 h-8 text-brand-red-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">Something went wrong</h1>
-          <p className="text-gray-600 mb-8">{displayMessage}</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-3">Something went wrong</h1>
+          <p className="text-slate-700 mb-8">{displayMessage}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/"
@@ -43,7 +43,7 @@ export default async function ErrorPage({
             </Link>
             <Link
               href="/support"
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-white font-medium"
+              className="px-6 py-3 border border-gray-300 text-slate-900 rounded-lg hover:bg-white font-medium"
             >
               Contact Support
             </Link>

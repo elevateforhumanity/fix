@@ -25,7 +25,7 @@ const PATHWAY_LABELS = {
 };
 
 const STATUS_COLORS = {
-  not_started: 'bg-gray-100 text-gray-600',
+  not_started: 'bg-gray-100 text-slate-700',
   identity_pending: 'bg-yellow-100 text-yellow-700',
   workforce_screening: 'bg-brand-blue-100 text-brand-blue-700',
   employer_screening: 'bg-brand-blue-100 text-brand-blue-700',
@@ -85,8 +85,8 @@ export default function AdminIntakePage() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Admissions Intake Management</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-2xl font-bold text-slate-900">Admissions Intake Management</h1>
+          <p className="text-slate-700 mt-1">
             Process intake workflows and assign funding pathways
           </p>
         </div>
@@ -118,14 +118,14 @@ export default function AdminIntakePage() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6 border-b border-gray-200">
-                <h2 className="text-xl font-bold text-gray-900">Admissions Funding Script</h2>
-                <p className="text-sm text-gray-600 mt-1">Required reading before processing intakes</p>
+                <h2 className="text-xl font-bold text-slate-900">Admissions Funding Script</h2>
+                <p className="text-sm text-slate-700 mt-1">Required reading before processing intakes</p>
               </div>
               
               <div className="p-6 space-y-6">
                 {/* Opening */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Opening Statement</h3>
+                  <h3 className="font-semibold text-slate-900 mb-2">Opening Statement</h3>
                   <div className="bg-gray-50 p-4 rounded-lg text-sm">
                     <p className="italic">
                       "Thank you for your interest in [Program Name]. Before we discuss enrollment, 
@@ -136,7 +136,7 @@ export default function AdminIntakePage() {
 
                 {/* Pathways */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Funding Pathways (In Order)</h3>
+                  <h3 className="font-semibold text-slate-900 mb-2">Funding Pathways (In Order)</h3>
                   <div className="space-y-3">
                     <div className="bg-brand-green-50 p-4 rounded-lg">
                       <p className="font-medium text-brand-green-800">1. Workforce-Funded</p>
@@ -179,25 +179,25 @@ export default function AdminIntakePage() {
 
                 {/* Objection Handling */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Objection Handling (Exact Responses)</h3>
+                  <h3 className="font-semibold text-slate-900 mb-2">Objection Handling (Exact Responses)</h3>
                   <div className="space-y-3 text-sm">
                     <div className="border border-gray-200 rounded-lg p-3">
                       <p className="font-medium">"I can only do $100 a month."</p>
-                      <p className="text-gray-600 mt-1">
+                      <p className="text-slate-700 mt-1">
                         → "At that level, a long-term payor is required. We would need to explore 
                         workforce funding, employer sponsorship, or external financing."
                       </p>
                     </div>
                     <div className="border border-gray-200 rounded-lg p-3">
                       <p className="font-medium">"Other schools let me pay less."</p>
-                      <p className="text-gray-600 mt-1">
+                      <p className="text-slate-700 mt-1">
                         → "Each institution structures tuition differently. Our model is designed 
                         to support completion and stability."
                       </p>
                     </div>
                     <div className="border border-gray-200 rounded-lg p-3">
                       <p className="font-medium">"Can you make an exception?"</p>
-                      <p className="text-gray-600 mt-1">
+                      <p className="text-slate-700 mt-1">
                         → "Our funding pathways are standardized. Exceptions are not handled 
                         at the admissions level."
                       </p>
@@ -224,7 +224,7 @@ export default function AdminIntakePage() {
                       }
                     }}
                   />
-                  <span className="text-sm text-gray-700">
+                  <span className="text-sm text-slate-900">
                     I have read and understand the admissions script. I will follow it exactly 
                     and will not deviate from approved language or make unauthorized promises.
                   </span>
@@ -237,7 +237,7 @@ export default function AdminIntakePage() {
         {/* Filters */}
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
             <input
               type="text"
               placeholder="Search by name or email..."
@@ -268,24 +268,24 @@ export default function AdminIntakePage() {
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="text-left px-6 py-3 text-sm font-medium text-gray-600">Student</th>
-                <th className="text-left px-6 py-3 text-sm font-medium text-gray-600">Program</th>
-                <th className="text-left px-6 py-3 text-sm font-medium text-gray-600">Status</th>
-                <th className="text-left px-6 py-3 text-sm font-medium text-gray-600">Pathway</th>
-                <th className="text-left px-6 py-3 text-sm font-medium text-gray-600">Started</th>
-                <th className="text-right px-6 py-3 text-sm font-medium text-gray-600">Action</th>
+                <th className="text-left px-6 py-3 text-sm font-medium text-slate-700">Student</th>
+                <th className="text-left px-6 py-3 text-sm font-medium text-slate-700">Program</th>
+                <th className="text-left px-6 py-3 text-sm font-medium text-slate-700">Status</th>
+                <th className="text-left px-6 py-3 text-sm font-medium text-slate-700">Pathway</th>
+                <th className="text-left px-6 py-3 text-sm font-medium text-slate-700">Started</th>
+                <th className="text-right px-6 py-3 text-sm font-medium text-slate-700">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-700">
                     Loading intakes...
                   </td>
                 </tr>
               ) : filteredIntakes.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-700">
                     No intakes found
                   </td>
                 </tr>
@@ -294,11 +294,11 @@ export default function AdminIntakePage() {
                   <tr key={intake.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div>
-                        <p className="font-medium text-gray-900">{intake.user_name || 'Unknown'}</p>
-                        <p className="text-sm text-gray-500">{intake.user_email}</p>
+                        <p className="font-medium text-slate-900">{intake.user_name || 'Unknown'}</p>
+                        <p className="text-sm text-slate-700">{intake.user_email}</p>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
+                    <td className="px-6 py-4 text-sm text-slate-700">
                       {intake.program_name || 'Not selected'}
                     </td>
                     <td className="px-6 py-4">
@@ -308,14 +308,14 @@ export default function AdminIntakePage() {
                     </td>
                     <td className="px-6 py-4 text-sm">
                       {intake.funding_pathway ? (
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-slate-900">
                           {PATHWAY_LABELS[intake.funding_pathway as keyof typeof PATHWAY_LABELS]}
                         </span>
                       ) : (
-                        <span className="text-gray-400">Not assigned</span>
+                        <span className="text-slate-700">Not assigned</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-6 py-4 text-sm text-slate-700">
                       {new Date(intake.intake_started_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -438,10 +438,10 @@ function IntakeDetailModal({
       <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Process Intake</h2>
-            <p className="text-sm text-gray-600">{intake.user_name} - {intake.program_name}</p>
+            <h2 className="text-xl font-bold text-slate-900">Process Intake</h2>
+            <p className="text-sm text-slate-700">{intake.user_name} - {intake.program_name}</p>
           </div>
-          <button onClick={onClose} aria-label="Close" className="text-gray-400 hover:text-gray-600">
+          <button onClick={onClose} aria-label="Close" className="text-slate-700 hover:text-slate-700">
             <XCircle className="w-6 h-6" />
           </button>
         </div>
@@ -456,7 +456,7 @@ function IntakeDetailModal({
                     ? 'bg-brand-green-100 text-brand-green-600' 
                     : activeStep === step.id 
                     ? 'bg-brand-blue-100 text-brand-blue-600'
-                    : 'bg-gray-100 text-gray-400'
+                    : 'bg-gray-100 text-slate-700'
                 }`}>
                   {step.completed ? (
                     <span className="text-slate-400 flex-shrink-0">•</span>
@@ -474,7 +474,7 @@ function IntakeDetailModal({
           </div>
           <div className="flex justify-between mt-2">
             {steps.map((step) => (
-              <span key={step.id} className="text-xs text-gray-500 w-10 text-center">
+              <span key={step.id} className="text-xs text-slate-700 w-10 text-center">
                 {step.label}
               </span>
             ))}
@@ -483,7 +483,7 @@ function IntakeDetailModal({
 
         {/* Funding Pathway Assignment */}
         <div className="p-6 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900 mb-4">Assign Funding Pathway</h3>
+          <h3 className="font-semibold text-slate-900 mb-4">Assign Funding Pathway</h3>
           <div className="grid grid-cols-3 gap-4">
             <button
               onClick={() => assignPathway('workforce_funded')}
@@ -495,8 +495,8 @@ function IntakeDetailModal({
               }`}
             >
               <Building2 className="w-6 h-6 text-brand-green-600 mb-2" />
-              <p className="font-medium text-gray-900">Workforce-Funded</p>
-              <p className="text-xs text-gray-500 mt-1">WIOA, VR, Job Ready Indy, etc.</p>
+              <p className="font-medium text-slate-900">Workforce-Funded</p>
+              <p className="text-xs text-slate-700 mt-1">WIOA, VR, Job Ready Indy, etc.</p>
             </button>
             
             <button
@@ -509,8 +509,8 @@ function IntakeDetailModal({
               }`}
             >
               <Building2 className="w-6 h-6 text-brand-blue-600 mb-2" />
-              <p className="font-medium text-gray-900">Employer-Sponsored</p>
-              <p className="text-xs text-gray-500 mt-1">Post-hire reimbursement</p>
+              <p className="font-medium text-slate-900">Employer-Sponsored</p>
+              <p className="text-xs text-slate-700 mt-1">Post-hire reimbursement</p>
             </button>
             
             <button
@@ -523,16 +523,16 @@ function IntakeDetailModal({
               }`}
             >
               <DollarSign className="w-6 h-6 text-slate-600 mb-2" />
-              <p className="font-medium text-gray-900">Structured Tuition</p>
-              <p className="text-xs text-gray-500 mt-1">$500 down, $200/mo, 3 mo max</p>
+              <p className="font-medium text-slate-900">Structured Tuition</p>
+              <p className="text-xs text-slate-700 mt-1">$500 down, $200/mo, 3 mo max</p>
             </button>
           </div>
         </div>
 
         {/* Script Deviation Log (Admin Only) */}
         <div className="p-6 bg-gray-50">
-          <h3 className="font-semibold text-gray-900 mb-2">Script Deviation Log</h3>
-          <p className="text-xs text-gray-500 mb-3">
+          <h3 className="font-semibold text-slate-900 mb-2">Script Deviation Log</h3>
+          <p className="text-xs text-slate-700 mb-3">
             Document any deviations from the approved script for audit purposes.
           </p>
           <div className="flex gap-2">

@@ -37,8 +37,8 @@ export default async function ProfilePage() {
 
       <div className="max-w-3xl mx-auto px-4 py-12">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Edit Profile</h1>
-          <p className="text-gray-600 mt-2">Update your personal information and preferences</p>
+          <h1 className="text-3xl font-bold text-slate-900">Edit Profile</h1>
+          <p className="text-slate-700 mt-2">Update your personal information and preferences</p>
         </div>
 
         <ProfileEditForm 

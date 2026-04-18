@@ -164,7 +164,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
               <p className="text-sm font-medium text-brand-blue-600 uppercase tracking-wide mb-1">
                 Elevate for Humanity
               </p>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-slate-900">
                 HVAC Technician Training Program
               </h1>
               <p className="text-lg text-black mt-1">
@@ -184,10 +184,10 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
       <div className="max-w-5xl mx-auto px-6 py-10 space-y-12">
         {/* Program Summary */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">
             Program Summary
           </h2>
-          <div className="bg-white rounded-lg border p-6 space-y-4 text-gray-700 leading-relaxed">
+          <div className="bg-white rounded-lg border p-6 space-y-4 text-slate-900 leading-relaxed">
             <p>
               The Elevate HVAC Technician Training Program is a {TOTAL_HOURS}-hour
               competency-based workforce development program that prepares
@@ -216,7 +216,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
 
         {/* Clock Hours Summary */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
             <Clock className="w-6 h-6 text-brand-blue-600" />
             Instructional Clock Hours
           </h2>
@@ -224,16 +224,16 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-white border-b">
-                  <th className="text-left px-4 py-3 font-semibold text-gray-700">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-900">
                     Domain
                   </th>
-                  <th className="text-center px-4 py-3 font-semibold text-gray-700">
+                  <th className="text-center px-4 py-3 font-semibold text-slate-900">
                     Theory Hours
                   </th>
-                  <th className="text-center px-4 py-3 font-semibold text-gray-700">
+                  <th className="text-center px-4 py-3 font-semibold text-slate-900">
                     OJT Hours
                   </th>
-                  <th className="text-center px-4 py-3 font-semibold text-gray-700">
+                  <th className="text-center px-4 py-3 font-semibold text-slate-900">
                     Total
                   </th>
                 </tr>
@@ -241,7 +241,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
               <tbody>
                 {DOMAINS.map((d) => (
                   <tr key={d.code} className="border-b last:border-0">
-                    <td className="px-4 py-3 text-gray-800">
+                    <td className="px-4 py-3 text-slate-900">
                       {d.code}: {d.name}
                     </td>
                     <td className="text-center px-4 py-3 text-black">
@@ -250,7 +250,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                     <td className="text-center px-4 py-3 text-black">
                       {d.hours.ojt}
                     </td>
-                    <td className="text-center px-4 py-3 font-medium text-gray-800">
+                    <td className="text-center px-4 py-3 font-medium text-slate-900">
                       {d.hours.theory + d.hours.ojt}
                     </td>
                   </tr>
@@ -258,14 +258,14 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
               </tbody>
               <tfoot>
                 <tr className="bg-white font-semibold">
-                  <td className="px-4 py-3 text-gray-900">Total</td>
-                  <td className="text-center px-4 py-3 text-gray-900">
+                  <td className="px-4 py-3 text-slate-900">Total</td>
+                  <td className="text-center px-4 py-3 text-slate-900">
                     {TOTAL_THEORY}
                   </td>
-                  <td className="text-center px-4 py-3 text-gray-900">
+                  <td className="text-center px-4 py-3 text-slate-900">
                     {TOTAL_OJT}
                   </td>
-                  <td className="text-center px-4 py-3 text-gray-900">
+                  <td className="text-center px-4 py-3 text-slate-900">
                     {TOTAL_HOURS}
                   </td>
                 </tr>
@@ -281,14 +281,14 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
 
         {/* Delivery Model */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
             <Building2 className="w-6 h-6 text-brand-blue-600" />
             Hybrid Delivery Model
           </h2>
-          <div className="bg-white rounded-lg border p-6 space-y-4 text-gray-700 leading-relaxed">
+          <div className="bg-white rounded-lg border p-6 space-y-4 text-slate-900 leading-relaxed">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="font-semibold text-gray-900 mb-2">
+                <h3 className="font-semibold text-slate-900 mb-2">
                   Online Theory ({TOTAL_THEORY} hours)
                 </h3>
                 <ul className="space-y-1 text-sm">
@@ -302,7 +302,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-2">
+                <h3 className="font-semibold text-slate-900 mb-2">
                   On-the-Job Training ({TOTAL_OJT} hours)
                 </h3>
                 <ul className="space-y-1 text-sm">
@@ -320,14 +320,14 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
 
         {/* Assessment Standards */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
             <GraduationCap className="w-6 h-6 text-brand-blue-600" />
             Assessment Standards
           </h2>
           <div className="bg-white rounded-lg border p-6">
-            <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-700">
+            <div className="grid md:grid-cols-2 gap-6 text-sm text-slate-900">
               <div>
-                <h3 className="font-semibold text-gray-900 mb-2">
+                <h3 className="font-semibold text-slate-900 mb-2">
                   Theory Assessments
                 </h3>
                 <ul className="space-y-1">
@@ -341,7 +341,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-2">
+                <h3 className="font-semibold text-slate-900 mb-2">
                   Performance Assessments (OJT)
                 </h3>
                 <ul className="space-y-1">
@@ -353,7 +353,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                   <li>5 core performance checksheets required</li>
                 </ul>
                 <div className="mt-3 p-3 bg-white rounded text-xs">
-                  <p className="font-medium text-gray-800 mb-1">Required Performance Checksheets:</p>
+                  <p className="font-medium text-slate-900 mb-1">Required Performance Checksheets:</p>
                   <ol className="list-decimal list-inside space-y-0.5">
                     <li>Brazing &amp; Soldering (Competency 5.6)</li>
                     <li>Manifold Gauge Reading (Competency 6.3)</li>
@@ -369,7 +369,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
 
         {/* Competency Domains */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">
             Competency Domains &amp; Standards
           </h2>
           <div className="space-y-8">
@@ -383,7 +383,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                   <div className="px-6 py-4 border-b bg-white flex items-center gap-3">
                     <Icon className="w-5 h-5 text-black" />
                     <div>
-                      <h3 className="font-bold text-gray-900">
+                      <h3 className="font-bold text-slate-900">
                         {domain.code}: {domain.name}
                       </h3>
                       <p className="text-xs text-black">
@@ -402,7 +402,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                           {comp.code}
                         </span>
                         <div className="flex-1">
-                          <p className="text-gray-800">{comp.name}</p>
+                          <p className="text-slate-900">{comp.name}</p>
                           <p className="text-xs text-black mt-0.5">
                             Lessons:{' '}
                             {comp.lessons.map((num: number, i: number) => {
@@ -435,7 +435,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
 
         {/* Credentials */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">
             Credentials Awarded
           </h2>
           <div className="bg-white rounded-lg border p-6">
@@ -451,7 +451,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                 <div key={cred.name} className="flex items-start gap-3 p-3 bg-white rounded">
                   <CheckCircle2 className="w-4 h-4 text-brand-green-600 mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-900">{cred.name}</p>
+                    <p className="font-medium text-slate-900">{cred.name}</p>
                     <p className="text-xs text-black">
                       {cred.issuer} &middot; {cred.type}
                     </p>
@@ -464,10 +464,10 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
 
         {/* Governance */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">
             Governance &amp; Policies
           </h2>
-          <div className="bg-white rounded-lg border p-6 text-sm text-gray-700 space-y-3">
+          <div className="bg-white rounded-lg border p-6 text-sm text-slate-900 space-y-3">
             <p>
               <strong>Attendance:</strong> Students must complete all 95 lessons
               and accumulate the required OJT hours. Consecutive absence of 14+

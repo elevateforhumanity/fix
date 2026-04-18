@@ -54,10 +54,10 @@ export default async function StaffCoursesPage() {
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Course Management</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Course Management</h1>
           <div className="flex gap-3">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input type="text" placeholder="Search courses..." className="pl-10 pr-4 py-2 border rounded-lg" />
             </div>
             <Link href="/staff-portal/courses/create" className="flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
@@ -71,18 +71,18 @@ export default async function StaffCoursesPage() {
             <table className="w-full">
               <thead className="bg-white border-b">
                 <tr>
-                  <th className="text-left p-4 font-semibold text-gray-900">Course</th>
-                  <th className="text-left p-4 font-semibold text-gray-900">Category</th>
-                  <th className="text-left p-4 font-semibold text-gray-900">Students</th>
-                  <th className="text-left p-4 font-semibold text-gray-900">Duration</th>
-                  <th className="text-left p-4 font-semibold text-gray-900">Status</th>
-                  <th className="text-left p-4 font-semibold text-gray-900">Actions</th>
+                  <th className="text-left p-4 font-semibold text-slate-900">Course</th>
+                  <th className="text-left p-4 font-semibold text-slate-900">Category</th>
+                  <th className="text-left p-4 font-semibold text-slate-900">Students</th>
+                  <th className="text-left p-4 font-semibold text-slate-900">Duration</th>
+                  <th className="text-left p-4 font-semibold text-slate-900">Status</th>
+                  <th className="text-left p-4 font-semibold text-slate-900">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {courseList.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="p-8 text-center text-gray-500">
+                    <td colSpan={6} className="p-8 text-center text-slate-700">
                       No courses found. Create your first course to get started.
                     </td>
                   </tr>
@@ -92,15 +92,15 @@ export default async function StaffCoursesPage() {
                       <td className="p-4">
                         <div className="flex items-center gap-3">
                           <BookOpen className="w-5 h-5 text-brand-blue-600" />
-                          <span className="font-medium text-gray-900">{course.title}</span>
+                          <span className="font-medium text-slate-900">{course.title}</span>
                         </div>
                       </td>
-                      <td className="p-4 text-gray-600 capitalize">{course.category || '-'}</td>
-                      <td className="p-4 text-gray-600">{course.students}</td>
-                      <td className="p-4 text-gray-600">{course.duration ? `${course.duration} weeks` : '-'}</td>
+                      <td className="p-4 text-slate-700 capitalize">{course.category || '-'}</td>
+                      <td className="p-4 text-slate-700">{course.students}</td>
+                      <td className="p-4 text-slate-700">{course.duration ? `${course.duration} weeks` : '-'}</td>
                       <td className="p-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          course.status === 'Active' ? 'bg-brand-green-100 text-brand-green-700' : 'bg-white text-gray-700'
+                          course.status === 'Active' ? 'bg-brand-green-100 text-brand-green-700' : 'bg-white text-slate-900'
                         }`}>{course.status}</span>
                       </td>
                       <td className="p-4">

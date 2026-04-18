@@ -145,7 +145,7 @@ export default async function CommunityHubPage() {
                   ))
                 ) : (
                   <div className="p-8 text-center text-black">
-                    <MessageSquare className="w-10 h-10 mx-auto mb-3 text-gray-300" />
+                    <MessageSquare className="w-10 h-10 mx-auto mb-3 text-slate-700" />
                     <p>No discussions yet. Start one!</p>
                   </div>
                 )}

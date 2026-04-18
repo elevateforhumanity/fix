@@ -61,7 +61,7 @@ export default async function LeadsReportPage() {
     appointment_set: 'bg-indigo-100 text-indigo-700',
     application_started: 'bg-brand-orange-100 text-brand-orange-700',
     enrolled: 'bg-brand-green-100 text-brand-green-700',
-    not_interested: 'bg-gray-100 text-gray-600',
+    not_interested: 'bg-gray-100 text-slate-700',
     unqualified: 'bg-brand-red-100 text-brand-red-700',
   };
 
@@ -83,13 +83,13 @@ export default async function LeadsReportPage() {
         <div className="mb-8">
           <Link 
             href="/admin/reports"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Reports
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Lead Generation Report</h1>
-          <p className="text-gray-600">Lead sources, conversion rates, and pipeline analysis</p>
+          <h1 className="text-2xl font-bold text-slate-900">Lead Generation Report</h1>
+          <p className="text-slate-700">Lead sources, conversion rates, and pipeline analysis</p>
         </div>
 
         <div className="grid md:grid-cols-4 gap-6 mb-8">
@@ -98,9 +98,9 @@ export default async function LeadsReportPage() {
               <div className="p-2 bg-brand-blue-100 rounded-lg">
                 <Users className="w-5 h-5 text-brand-blue-600" />
               </div>
-              <span className="text-sm text-gray-600">Total Leads</span>
+              <span className="text-sm text-slate-700">Total Leads</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{totalLeads || 0}</p>
+            <p className="text-3xl font-bold text-slate-900">{totalLeads || 0}</p>
           </div>
           
           <div className="bg-white rounded-xl shadow-sm p-6">
@@ -108,9 +108,9 @@ export default async function LeadsReportPage() {
               <div className="p-2 bg-brand-green-100 rounded-lg">
                 <TrendingUp className="w-5 h-5 text-brand-green-600" />
               </div>
-              <span className="text-sm text-gray-600">New This Month</span>
+              <span className="text-sm text-slate-700">New This Month</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{recentLeads.length}</p>
+            <p className="text-3xl font-bold text-slate-900">{recentLeads.length}</p>
           </div>
           
           <div className="bg-white rounded-xl shadow-sm p-6">
@@ -118,9 +118,9 @@ export default async function LeadsReportPage() {
               <div className="p-2 bg-brand-blue-100 rounded-lg">
                 <Target className="w-5 h-5 text-brand-blue-600" />
               </div>
-              <span className="text-sm text-gray-600">Conversion Rate</span>
+              <span className="text-sm text-slate-700">Conversion Rate</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{conversionRate}%</p>
+            <p className="text-3xl font-bold text-slate-900">{conversionRate}%</p>
           </div>
           
           <div className="bg-white rounded-xl shadow-sm p-6">
@@ -128,40 +128,40 @@ export default async function LeadsReportPage() {
               <div className="p-2 bg-yellow-100 rounded-lg">
                 <Clock className="w-5 h-5 text-yellow-600" />
               </div>
-              <span className="text-sm text-gray-600">Qualified</span>
+              <span className="text-sm text-slate-700">Qualified</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{qualified}</p>
+            <p className="text-3xl font-bold text-slate-900">{qualified}</p>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Leads</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Recent Leads</h2>
             {leads && leads.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">Name</th>
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">Interest</th>
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">Source</th>
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">Status</th>
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">Date</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">Name</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">Interest</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">Source</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">Status</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">Date</th>
                     </tr>
                   </thead>
                   <tbody>
                     {leads.slice(0, 10).map((lead) => (
                       <tr key={lead.id} className="border-b last:border-0">
                         <td className="py-3 px-2">
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-slate-900">
                             {lead.first_name} {lead.last_name}
                           </p>
-                          <p className="text-sm text-gray-500">{lead.email}</p>
+                          <p className="text-sm text-slate-700">{lead.email}</p>
                         </td>
-                        <td className="py-3 px-2 text-gray-600">
+                        <td className="py-3 px-2 text-slate-700">
                           {lead.program_interest || 'N/A'}
                         </td>
-                        <td className="py-3 px-2 text-gray-600">
+                        <td className="py-3 px-2 text-slate-700">
                           {sourceLabels[lead.source] || lead.source}
                         </td>
                         <td className="py-3 px-2">
@@ -169,7 +169,7 @@ export default async function LeadsReportPage() {
                             {lead.status.replace('_', ' ')}
                           </span>
                         </td>
-                        <td className="py-3 px-2 text-sm text-gray-600">
+                        <td className="py-3 px-2 text-sm text-slate-700">
                           {new Date(lead.created_at).toLocaleDateString()}
                         </td>
                       </tr>
@@ -178,13 +178,13 @@ export default async function LeadsReportPage() {
                 </table>
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No leads found</p>
+              <p className="text-slate-700 text-center py-8">No leads found</p>
             )}
           </div>
 
           <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Leads by Source</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Leads by Source</h2>
               {Object.keys(leadsBySource).length > 0 ? (
                 <div className="space-y-3">
                   {Object.entries(leadsBySource)
@@ -192,8 +192,8 @@ export default async function LeadsReportPage() {
                     .map(([source, count]) => (
                       <div key={source}>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-gray-700">{sourceLabels[source] || source}</span>
-                          <span className="font-medium text-gray-900">{count}</span>
+                          <span className="text-slate-900">{sourceLabels[source] || source}</span>
+                          <span className="font-medium text-slate-900">{count}</span>
                         </div>
                         <div className="w-full bg-gray-100 rounded-full h-2">
                           <div 
@@ -205,12 +205,12 @@ export default async function LeadsReportPage() {
                     ))}
                 </div>
               ) : (
-                <p className="text-gray-500 text-center py-4">No data available</p>
+                <p className="text-slate-700 text-center py-4">No data available</p>
               )}
             </div>
 
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Pipeline Status</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Pipeline Status</h2>
               {Object.keys(leadsByStatus).length > 0 ? (
                 <div className="space-y-2">
                   {Object.entries(leadsByStatus)
@@ -220,12 +220,12 @@ export default async function LeadsReportPage() {
                         <span className={`px-2 py-1 text-xs rounded-full ${statusColors[status] || 'bg-gray-100'}`}>
                           {status.replace('_', ' ')}
                         </span>
-                        <span className="font-medium text-gray-900">{count}</span>
+                        <span className="font-medium text-slate-900">{count}</span>
                       </div>
                     ))}
                 </div>
               ) : (
-                <p className="text-gray-500 text-center py-4">No data available</p>
+                <p className="text-slate-700 text-center py-4">No data available</p>
               )}
             </div>
           </div>

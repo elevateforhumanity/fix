@@ -64,7 +64,7 @@ export default async function MentorshipPage() {
             </div>
             <div className="p-4">
               <h3 className="font-semibold mb-2">Career Guidance</h3>
-              <p className="text-gray-600 text-sm">Get personalized advice from industry professionals</p>
+              <p className="text-slate-700 text-sm">Get personalized advice from industry professionals</p>
             </div>
           </div>
           <div className="bg-white rounded-xl overflow-hidden shadow-sm">
@@ -73,7 +73,7 @@ export default async function MentorshipPage() {
             </div>
             <div className="p-4">
               <h3 className="font-semibold mb-2">Networking</h3>
-              <p className="text-gray-600 text-sm">Build connections that can open doors</p>
+              <p className="text-slate-700 text-sm">Build connections that can open doors</p>
             </div>
           </div>
           <div className="bg-white rounded-xl overflow-hidden shadow-sm">
@@ -82,7 +82,7 @@ export default async function MentorshipPage() {
             </div>
             <div className="p-4">
               <h3 className="font-semibold mb-2">Skill Development</h3>
-              <p className="text-gray-600 text-sm">Learn from real-world experience</p>
+              <p className="text-slate-700 text-sm">Learn from real-world experience</p>
             </div>
           </div>
         </div>
@@ -105,10 +105,10 @@ export default async function MentorshipPage() {
                   <Image src={mentor.profile?.avatar_url || images[idx % images.length]} alt={mentor.profile?.full_name || 'Mentor'} fill sizes="100vw" className="object-cover" />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-semibold text-gray-900">{mentor.profile?.full_name || 'Industry Mentor'}</h3>
+                  <h3 className="font-semibold text-slate-900">{mentor.profile?.full_name || 'Industry Mentor'}</h3>
                   <p className="text-sm text-brand-blue-600 mb-2">{mentor.expertise || 'Industry Professional'}</p>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">{mentor.bio || 'Experienced professional ready to help guide your career.'}</p>
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                  <p className="text-slate-700 text-sm mb-4 line-clamp-3">{mentor.bio || 'Experienced professional ready to help guide your career.'}</p>
+                  <div className="flex items-center gap-2 text-sm text-slate-700 mb-4">
                     <Calendar className="w-4 h-4" />
                     <span>{mentor.availability || 'Available for mentoring'}</span>
                   </div>
@@ -129,8 +129,8 @@ export default async function MentorshipPage() {
               <Image src="/images/pages/mentorship-page-11.jpg" alt="Mentorship" fill sizes="100vw" className="object-cover" />
             </div>
             <div className="p-8 text-center">
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No Mentors Available</h2>
-              <p className="text-gray-600 mb-6">No mentors are available yet. Contact career services to be matched with a mentor.</p>
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">No Mentors Available</h2>
+              <p className="text-slate-700 mb-6">No mentors are available yet. Contact career services to be matched with a mentor.</p>
               <Link 
                 href="/lms/alumni"
                 className="inline-block px-6 py-3 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"

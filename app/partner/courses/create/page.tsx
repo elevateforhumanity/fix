@@ -132,8 +132,8 @@ export default function CreateCoursePage() {
           <div className="flex items-center gap-3 mb-8">
             <BookOpen className="w-8 h-8 text-brand-blue-600" />
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Create Partner Course</h1>
-              <p className="mt-1 text-gray-600">Add a new course to your LMS platform</p>
+              <h1 className="text-3xl font-bold text-slate-900">Create Partner Course</h1>
+              <p className="mt-1 text-slate-700">Add a new course to your LMS platform</p>
             </div>
           </div>
 
@@ -154,14 +154,14 @@ export default function CreateCoursePage() {
 
           {licenses.length === 0 ? (
             <div className="text-center py-12">
-              <AlertCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Active Licenses</h3>
-              <p className="text-gray-600">You need an active license to create courses.</p>
+              <AlertCircle className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">No Active Licenses</h3>
+              <p className="text-slate-700">You need an active license to create courses.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Select License *
                 </label>
                 <select
@@ -213,7 +213,7 @@ export default function CreateCoursePage() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Course Name *
                 </label>
                 <input
@@ -227,7 +227,7 @@ export default function CreateCoursePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Course Description *
                 </label>
                 <textarea
@@ -241,7 +241,7 @@ export default function CreateCoursePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Duration (hours) *
                 </label>
                 <input
@@ -257,7 +257,7 @@ export default function CreateCoursePage() {
 
               {selectedLicenseData?.can_upload_scorm && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     SCORM Package (Optional)
                   </label>
                   <div className="flex items-center gap-4">
@@ -269,8 +269,8 @@ export default function CreateCoursePage() {
                         className="hidden"
                       />
                       <div className="flex items-center justify-center gap-2 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-brand-blue-400 transition-colors">
-                        <Upload className="w-5 h-5 text-gray-400" />
-                        <span className="text-gray-600">
+                        <Upload className="w-5 h-5 text-slate-700" />
+                        <span className="text-slate-700">
                           {scormFile ? scormFile.name : 'Upload SCORM package (.zip)'}
                         </span>
                       </div>
@@ -290,7 +290,7 @@ export default function CreateCoursePage() {
                 <button
                   type="button"
                   onClick={() => window.history.back()}
-                  className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-white transition-colors"
+                  className="px-6 py-3 border border-gray-300 text-slate-900 font-semibold rounded-lg hover:bg-white transition-colors"
                 >
                   Cancel
                 </button>

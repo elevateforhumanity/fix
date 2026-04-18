@@ -37,19 +37,19 @@ export default async function InstructorAddStudentPage() {
       <div className="bg-white rounded-lg shadow-sm border p-6 max-w-2xl">
         <form action={enrollStudentAction} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Full Name *</label>
             <input name="full_name" type="text" required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500" placeholder="Jane Smith" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Student Email *</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Student Email *</label>
             <input name="email" type="email" required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500" placeholder="student@example.com" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Phone</label>
             <input name="phone" type="tel" className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500" placeholder="(317) 555-0100" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Course</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Course</label>
             <select name="program_id" className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500">
               <option value="">Select a course…</option>
               {(courses ?? []).map(c => (
@@ -58,7 +58,7 @@ export default async function InstructorAddStudentPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Notes</label>
             <textarea name="notes" rows={2} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500" placeholder="Any notes about this student…" />
           </div>
           <div className="flex gap-4 pt-2">

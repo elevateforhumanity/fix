@@ -74,15 +74,15 @@ export default async function EnrollmentPendingPage({
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">
           Funding Verification Required
         </h1>
 
-        <p className="text-gray-600 mb-1">
+        <p className="text-slate-700 mb-1">
           {profile?.full_name ? `Hi ${profile.full_name.split(' ')[0]}, your` : 'Your'} enrollment
           is provisionally confirmed, but your funding source has not yet been verified.
         </p>
-        <p className="text-gray-600 mb-6">
+        <p className="text-slate-700 mb-6">
           Course content is locked until an administrator confirms your funding.
         </p>
 
@@ -105,7 +105,7 @@ export default async function EnrollmentPendingPage({
           </ul>
         </div>
 
-        <p className="text-xs text-gray-400 mb-6">
+        <p className="text-xs text-slate-700 mb-6">
           SLA: administrators review funding verification requests within 14 days of enrollment.
           If you have not heard back, please contact us directly.
         </p>
@@ -113,7 +113,7 @@ export default async function EnrollmentPendingPage({
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/lms/programs"
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 text-slate-900 text-sm font-medium hover:bg-gray-50"
           >
             Browse Programs
           </Link>

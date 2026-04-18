@@ -132,11 +132,11 @@ export default async function BarberShopApplicationsPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
               <Building2 className="w-6 h-6 text-brand-blue-600" />
               Partner Barbershop Applications
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-slate-700 mt-1">
               Shops applying to host DOL-registered barber apprentices
             </p>
           </div>
@@ -158,7 +158,7 @@ export default async function BarberShopApplicationsPage() {
           ].map(({ label, count, color }) => (
             <div key={label} className="bg-white rounded-lg border border-gray-200 p-4 text-center">
               <div className={`text-3xl font-bold text-${color}-600`}>{count}</div>
-              <div className="text-sm text-gray-500 mt-1">{label}</div>
+              <div className="text-sm text-slate-700 mt-1">{label}</div>
             </div>
           ))}
         </div>
@@ -170,7 +170,7 @@ export default async function BarberShopApplicationsPage() {
         )}
 
         {rows.length === 0 && !error && (
-          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-400">
+          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-slate-700">
             No applications yet.
           </div>
         )}
@@ -181,13 +181,13 @@ export default async function BarberShopApplicationsPage() {
             <div key={app.id} className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div>
-                  <h2 className="text-lg font-bold text-gray-900">
+                  <h2 className="text-lg font-bold text-slate-900">
                     {app.shop_legal_name}
                     {app.shop_dba_name && (
-                      <span className="text-gray-400 font-normal text-sm ml-2">dba {app.shop_dba_name}</span>
+                      <span className="text-slate-700 font-normal text-sm ml-2">dba {app.shop_dba_name}</span>
                     )}
                   </h2>
-                  <p className="text-sm text-gray-500 mt-0.5">
+                  <p className="text-sm text-slate-700 mt-0.5">
                     Submitted {new Date(app.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     {' · '}ID: <span className="font-mono text-xs">{app.id.slice(0, 8)}</span>
                   </p>
@@ -198,54 +198,54 @@ export default async function BarberShopApplicationsPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm mb-4">
                 {/* Contact */}
                 <div className="space-y-1">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Contact</p>
-                  <p className="flex items-center gap-1.5 text-gray-700">
-                    <User className="w-3.5 h-3.5 text-gray-400" />
+                  <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide">Contact</p>
+                  <p className="flex items-center gap-1.5 text-slate-900">
+                    <User className="w-3.5 h-3.5 text-slate-700" />
                     {app.contact_name} (Owner: {app.owner_name})
                   </p>
-                  <p className="flex items-center gap-1.5 text-gray-700">
-                    <Mail className="w-3.5 h-3.5 text-gray-400" />
+                  <p className="flex items-center gap-1.5 text-slate-900">
+                    <Mail className="w-3.5 h-3.5 text-slate-700" />
                     <a href={`mailto:${app.contact_email}`} className="text-brand-blue-600 hover:underline">
                       {app.contact_email}
                     </a>
                   </p>
-                  <p className="flex items-center gap-1.5 text-gray-700">
-                    <Phone className="w-3.5 h-3.5 text-gray-400" />
+                  <p className="flex items-center gap-1.5 text-slate-900">
+                    <Phone className="w-3.5 h-3.5 text-slate-700" />
                     <a href={`tel:${app.contact_phone}`} className="hover:underline">{app.contact_phone}</a>
                   </p>
                 </div>
 
                 {/* Location & License */}
                 <div className="space-y-1">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Location & License</p>
-                  <p className="flex items-center gap-1.5 text-gray-700">
-                    <MapPin className="w-3.5 h-3.5 text-gray-400" />
+                  <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide">Location & License</p>
+                  <p className="flex items-center gap-1.5 text-slate-900">
+                    <MapPin className="w-3.5 h-3.5 text-slate-700" />
                     {app.shop_city}, {app.shop_state} {app.shop_zip}
                   </p>
                   {app.shop_physical_address && (
-                    <p className="flex items-center gap-1.5 text-gray-500 text-xs">
-                      <MapPin className="w-3 h-3 text-gray-300" />
+                    <p className="flex items-center gap-1.5 text-slate-700 text-xs">
+                      <MapPin className="w-3 h-3 text-slate-700" />
                       Physical: {app.shop_physical_address}
                     </p>
                   )}
-                  <p className="flex items-center gap-1.5 text-gray-700">
-                    <ShieldCheck className="w-3.5 h-3.5 text-gray-400" />
+                  <p className="flex items-center gap-1.5 text-slate-900">
+                    <ShieldCheck className="w-3.5 h-3.5 text-slate-700" />
                     IN Shop License: <span className="font-mono ml-1">{app.indiana_shop_license_number}</span>
                   </p>
-                  <p className="text-gray-700">
+                  <p className="text-slate-900">
                     Supervisor: {app.supervisor_name} — <span className="font-mono text-xs">{app.supervisor_license_number}</span>
                   </p>
                 </div>
 
                 {/* Employment & EIN */}
                 <div className="space-y-1">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Employment & EIN</p>
-                  <p className="text-gray-700">Compensation: {app.compensation_model || '—'}</p>
-                  <p className="text-gray-700">Employees: {app.number_of_employees ?? '—'}</p>
-                  <p className="text-gray-700">Workers Comp: {app.workers_comp_status}</p>
-                  <p className="flex items-center gap-1.5 text-gray-700">
-                    <Hash className="w-3.5 h-3.5 text-gray-400" />
-                    EIN: {app.ein ? <span className="font-mono">{app.ein}</span> : <span className="text-gray-400">Not provided</span>}
+                  <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide">Employment & EIN</p>
+                  <p className="text-slate-900">Compensation: {app.compensation_model || '—'}</p>
+                  <p className="text-slate-900">Employees: {app.number_of_employees ?? '—'}</p>
+                  <p className="text-slate-900">Workers Comp: {app.workers_comp_status}</p>
+                  <p className="flex items-center gap-1.5 text-slate-900">
+                    <Hash className="w-3.5 h-3.5 text-slate-700" />
+                    EIN: {app.ein ? <span className="font-mono">{app.ein}</span> : <span className="text-slate-700">Not provided</span>}
                     {app.ein_document_path && (
                       <span className="ml-1 inline-flex items-center gap-0.5 text-xs text-green-700 bg-green-50 px-1.5 py-0.5 rounded">
                         <FileText className="w-3 h-3" /> Doc uploaded
@@ -273,7 +273,7 @@ export default async function BarberShopApplicationsPage() {
 
               {/* Signature timestamps */}
               {(app.mou_signed_at || app.consent_signed_at || app.employer_acceptance_signed_at) && (
-                <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-500">
+                <div className="mt-3 flex flex-wrap gap-4 text-xs text-slate-700">
                   {app.employer_acceptance_signed_at && (
                     <span className="flex items-center gap-1">
                       <PenLine className="w-3 h-3" />
@@ -296,7 +296,7 @@ export default async function BarberShopApplicationsPage() {
               )}
 
               {app.notes && (
-                <p className="mt-3 text-sm text-gray-600 bg-gray-50 rounded p-3">
+                <p className="mt-3 text-sm text-slate-700 bg-gray-50 rounded p-3">
                   <span className="font-medium">Notes:</span> {app.notes}
                 </p>
               )}
@@ -312,7 +312,7 @@ export default async function BarberShopApplicationsPage() {
                 </a>
                 <a
                   href={`tel:${app.contact_phone}`}
-                  className="text-sm px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-gray-700"
+                  className="text-sm px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-slate-900"
                 >
                   Call
                 </a>

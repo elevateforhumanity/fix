@@ -37,16 +37,16 @@ export default async function DelegatesPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Delegates</li>
+              <li className="text-slate-900 font-medium">Delegates</li>
             </ol>
           </nav>
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Delegates</h1>
-              <p className="text-gray-600 mt-2">Manage users with delegated access</p>
+              <h1 className="text-3xl font-bold text-slate-900">Delegates</h1>
+              <p className="text-slate-700 mt-2">Manage users with delegated access</p>
             </div>
             <button className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">Add Delegate</button>
           </div>
@@ -63,7 +63,7 @@ export default async function DelegatesPage() {
                     </div>
                     <div>
                       <p className="font-medium">{delegate.profiles?.full_name || 'Unknown'}</p>
-                      <p className="text-sm text-gray-500">{delegate.profiles?.email}</p>
+                      <p className="text-sm text-slate-700">{delegate.profiles?.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -73,7 +73,7 @@ export default async function DelegatesPage() {
                 </div>
               ))
             ) : (
-              <div className="p-8 text-center text-gray-500">No delegates configured</div>
+              <div className="p-8 text-center text-slate-700">No delegates configured</div>
             )}
           </div>
         </div>

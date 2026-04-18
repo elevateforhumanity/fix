@@ -71,10 +71,10 @@ export default async function InstructorStudentsPage() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">My Students</h1>
-              <p className="text-gray-600">View and manage enrolled students</p>
+              <h1 className="text-2xl font-bold text-slate-900">My Students</h1>
+              <p className="text-slate-700">View and manage enrolled students</p>
             </div>
-            <Link href="/instructor/dashboard" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+            <Link href="/instructor/dashboard" className="px-4 py-2 text-slate-700 hover:text-slate-900">
               ← Dashboard
             </Link>
           </div>
@@ -89,7 +89,7 @@ export default async function InstructorStudentsPage() {
               <Users className="w-8 h-8 text-brand-blue-600" />
               <div>
                 <div className="text-2xl font-bold">{enrollments?.length || 0}</div>
-                <div className="text-sm text-gray-600">Total Students</div>
+                <div className="text-sm text-slate-700">Total Students</div>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default async function InstructorStudentsPage() {
               <Clock className="w-8 h-8 text-yellow-600" />
               <div>
                 <div className="text-2xl font-bold">{activeStudents.length}</div>
-                <div className="text-sm text-gray-600">Active</div>
+                <div className="text-sm text-slate-700">Active</div>
               </div>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default async function InstructorStudentsPage() {
               <span className="text-slate-500 flex-shrink-0">•</span>
               <div>
                 <div className="text-2xl font-bold">{completedStudents.length}</div>
-                <div className="text-sm text-gray-600">Completed</div>
+                <div className="text-sm text-slate-700">Completed</div>
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default async function InstructorStudentsPage() {
         {/* Search */}
         <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input
               type="text"
               placeholder="Search students..."
@@ -130,12 +130,12 @@ export default async function InstructorStudentsPage() {
           <table className="w-full">
             <thead className="bg-white border-b">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Program</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Progress</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Enrolled</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Student</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Program</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Progress</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Enrolled</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -148,16 +148,16 @@ export default async function InstructorStudentsPage() {
                           <Users className="w-4 h-4 text-brand-blue-600" />
                         </div>
                         <div>
-                          <div className="font-medium text-gray-900">
+                          <div className="font-medium text-slate-900">
                             {enrollment.profiles?.full_name || 'Student'}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-slate-700">
                             {enrollment.profiles?.email}
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
+                    <td className="px-6 py-4 text-sm text-slate-900">
                       {enrollment.programs?.name || 'N/A'}
                     </td>
                     <td className="px-6 py-4">
@@ -168,7 +168,7 @@ export default async function InstructorStudentsPage() {
                             style={{ width: `${enrollment.progress || 0}%` }}
                           />
                         </div>
-                        <span className="text-sm text-gray-600">{enrollment.progress || 0}%</span>
+                        <span className="text-sm text-slate-700">{enrollment.progress || 0}%</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -177,12 +177,12 @@ export default async function InstructorStudentsPage() {
                           ? 'bg-brand-green-100 text-brand-green-800'
                           : enrollment.status === 'active'
                           ? 'bg-brand-blue-100 text-brand-blue-800'
-                          : 'bg-white text-gray-800'
+                          : 'bg-white text-slate-900'
                       }`}>
                         {enrollment.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-6 py-4 text-sm text-slate-700">
                       {safeFormatDate(enrollment.enrolled_at)}
                     </td>
                     <td className="px-6 py-4">
@@ -199,8 +199,8 @@ export default async function InstructorStudentsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
-                    <GraduationCap className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-700">
+                    <GraduationCap className="w-12 h-12 mx-auto mb-4 text-slate-700" />
                     <p>No students enrolled yet.</p>
                   </td>
                 </tr>

@@ -39,7 +39,7 @@ export default async function VerificationPendingPage() {
             Verification Pending
           </h1>
 
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             {firstName ? `Hi ${firstName}, your` : 'Your'} identity documents have been submitted and are under review.
             Our team will verify your identity within 24–48 hours.
           </p>
@@ -63,14 +63,14 @@ export default async function VerificationPendingPage() {
             </Link>
             <Link
               href="/program-holder/onboarding"
-              className="block w-full px-4 py-3 border border-gray-200 text-gray-700 rounded-lg font-medium hover:bg-white transition text-center"
+              className="block w-full px-4 py-3 border border-gray-200 text-slate-900 rounded-lg font-medium hover:bg-white transition text-center"
             >
               Back to Onboarding
             </Link>
           </div>
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-slate-700 mt-6">
           Questions?{' '}
           <Link href="/contact" className="text-brand-blue-600 hover:underline">
             Contact support

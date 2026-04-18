@@ -148,7 +148,7 @@ export default async function MentorDashboardPage() {
     <div className="min-h-screen bg-white">
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-gray-900">Mentor Dashboard</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Mentor Dashboard</h1>
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -160,8 +160,8 @@ export default async function MentorDashboardPage() {
                   <stat.icon className="w-6 h-6 text-teal-600" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                  <p className="text-sm text-gray-600">{stat.label}</p>
+                  <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+                  <p className="text-sm text-slate-700">{stat.label}</p>
                 </div>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default async function MentorDashboardPage() {
         <div className="grid lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Upcoming Sessions</h2>
+              <h2 className="text-xl font-bold text-slate-900">Upcoming Sessions</h2>
               <Link href="/mentor/sessions" className="text-teal-600 hover:underline text-sm">View All</Link>
             </div>
             {upcomingSessions.length > 0 ? (
@@ -193,26 +193,26 @@ export default async function MentorDashboardPage() {
                 {upcomingSessions.map((session) => (
                   <div key={session.id} className="flex items-center justify-between p-4 bg-white rounded-lg">
                     <div>
-                      <p className="font-medium text-gray-900">{session.mentee}</p>
-                      <p className="text-sm text-gray-500">{session.topic}</p>
+                      <p className="font-medium text-slate-900">{session.mentee}</p>
+                      <p className="text-sm text-slate-700">{session.topic}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-gray-900">{session.date}</p>
-                      <p className="text-sm text-gray-500">{session.time}</p>
+                      <p className="font-medium text-slate-900">{session.date}</p>
+                      <p className="text-sm text-slate-700">{session.time}</p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-8">
-                <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">No upcoming sessions</p>
+                <Calendar className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+                <p className="text-slate-700">No upcoming sessions</p>
               </div>
             )}
           </div>
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">My Mentees</h2>
+              <h2 className="text-xl font-bold text-slate-900">My Mentees</h2>
               <Link href="/mentor/mentees" className="text-teal-600 hover:underline text-sm">View All</Link>
             </div>
             {recentMentees.length > 0 ? (
@@ -224,8 +224,8 @@ export default async function MentorDashboardPage() {
                         <span className="text-teal-600 font-medium">{mentee.name.charAt(0)}</span>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{mentee.name}</p>
-                        <p className="text-sm text-gray-500">{mentee.program}</p>
+                        <p className="font-medium text-slate-900">{mentee.name}</p>
+                        <p className="text-sm text-slate-700">{mentee.program}</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -233,7 +233,7 @@ export default async function MentorDashboardPage() {
                         <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div className="h-full bg-teal-500 rounded-full" style={{ width: `${mentee.progress}%` }}></div>
                         </div>
-                        <span className="text-sm text-gray-600">{mentee.progress}%</span>
+                        <span className="text-sm text-slate-700">{mentee.progress}%</span>
                       </div>
                     </div>
                   </div>
@@ -241,8 +241,8 @@ export default async function MentorDashboardPage() {
               </div>
             ) : (
               <div className="text-center py-8">
-                <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">No mentees assigned yet</p>
+                <Users className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+                <p className="text-slate-700">No mentees assigned yet</p>
               </div>
             )}
           </div>
@@ -251,7 +251,7 @@ export default async function MentorDashboardPage() {
         {recentSessions.length > 0 && (
           <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <Clock className="w-5 h-5 text-teal-600" />
                 Recent Sessions
               </h2>
@@ -261,10 +261,10 @@ export default async function MentorDashboardPage() {
               {recentSessions.map((s) => (
                 <div key={s.id} className="flex items-center justify-between py-3 text-sm">
                   <div>
-                    <p className="font-medium text-gray-900">{s.mentee}</p>
-                    <p className="text-gray-500 text-xs">{s.topic}</p>
+                    <p className="font-medium text-slate-900">{s.mentee}</p>
+                    <p className="text-slate-700 text-xs">{s.topic}</p>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-400 text-xs">
+                  <div className="flex items-center gap-2 text-slate-700 text-xs">
                     <CheckCircle className="w-3.5 h-3.5 text-green-500" />
                     {s.date}
                   </div>
@@ -279,27 +279,27 @@ export default async function MentorDashboardPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Users className="w-8 h-8 text-teal-600" />
-                <span className="font-semibold text-gray-900">Manage Mentees</span>
+                <span className="font-semibold text-slate-900">Manage Mentees</span>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </div>
           </Link>
           <Link href="/mentor/sessions" className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Calendar className="w-8 h-8 text-teal-600" />
-                <span className="font-semibold text-gray-900">Schedule Sessions</span>
+                <span className="font-semibold text-slate-900">Schedule Sessions</span>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </div>
           </Link>
           <Link href="/mentor/resources" className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Award className="w-8 h-8 text-teal-600" />
-                <span className="font-semibold text-gray-900">Resources</span>
+                <span className="font-semibold text-slate-900">Resources</span>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </div>
           </Link>
         </div>

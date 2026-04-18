@@ -54,7 +54,7 @@ export default async function TimeOffPage() {
       case 'denied':
         return <span className="bg-brand-red-100 text-brand-red-700 text-xs font-medium px-2 py-1 rounded flex items-center gap-1"><XCircle className="w-3 h-3" />Denied</span>;
       default:
-        return <span className="bg-white text-gray-700 text-xs font-medium px-2 py-1 rounded">{status}</span>;
+        return <span className="bg-white text-slate-900 text-xs font-medium px-2 py-1 rounded">{status}</span>;
     }
   };
 
@@ -64,8 +64,8 @@ export default async function TimeOffPage() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Time Off</h1>
-            <p className="text-gray-600">View balances and request time off</p>
+            <h1 className="text-2xl font-bold text-slate-900">Time Off</h1>
+            <p className="text-slate-700">View balances and request time off</p>
           </div>
           <Link
             href="/employee/time-off/request"
@@ -83,13 +83,13 @@ export default async function TimeOffPage() {
             const pct = b.total > 0 ? ((b.used + b.pending) / b.total) * 100 : 0;
             return (
               <div key={b.type} className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="font-medium text-gray-500 text-sm mb-1">{b.type}</h3>
-                <p className="text-3xl font-bold text-gray-900">{available}<span className="text-lg text-slate-500">h</span></p>
-                <p className="text-sm text-gray-500 mt-1">of {b.total}h available</p>
+                <h3 className="font-medium text-slate-700 text-sm mb-1">{b.type}</h3>
+                <p className="text-3xl font-bold text-slate-900">{available}<span className="text-lg text-slate-500">h</span></p>
+                <p className="text-sm text-slate-700 mt-1">of {b.total}h available</p>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-3">
                   <div className="bg-white h-2 rounded-full" style={{ width: `${Math.min(100, pct)}%` }} />
                 </div>
-                <div className="flex justify-between text-xs text-gray-500 mt-2">
+                <div className="flex justify-between text-xs text-slate-700 mt-2">
                   <span>{b.used}h used</span>
                   {b.pending > 0 && <span>{b.pending}h pending</span>}
                 </div>
@@ -101,11 +101,11 @@ export default async function TimeOffPage() {
         {/* Requests */}
         <div className="bg-white rounded-xl shadow-sm">
           <div className="p-4 border-b">
-            <h2 className="font-bold text-gray-900">Recent Requests</h2>
+            <h2 className="font-bold text-slate-900">Recent Requests</h2>
           </div>
           {items.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
-              <Calendar className="w-10 h-10 mx-auto mb-3 text-gray-300" />
+            <div className="p-8 text-center text-slate-700">
+              <Calendar className="w-10 h-10 mx-auto mb-3 text-slate-700" />
               <p>No time off requests yet.</p>
             </div>
           ) : (
@@ -116,13 +116,13 @@ export default async function TimeOffPage() {
                     <Calendar className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900 capitalize">{req.request_type}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-slate-900 capitalize">{req.request_type}</p>
+                    <p className="text-sm text-slate-700">
                       {new Date(req.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                       {req.start_date !== req.end_date && ` — ${new Date(req.end_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
                     <Clock className="w-4 h-4" />
                     {req.hours}h
                   </div>

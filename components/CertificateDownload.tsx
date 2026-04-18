@@ -320,8 +320,8 @@ export default function CertificateDownload({
       <div className="p-6 border-b bg-gradient-to-r from-brand-blue-50 to-indigo-50">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{certificate.credential_type}</h2>
-            <p className="text-sm text-gray-600">Certificate #{certificate.certificate_number}</p>
+            <h2 className="text-xl font-bold text-slate-900">{certificate.credential_type}</h2>
+            <p className="text-sm text-slate-700">Certificate #{certificate.certificate_number}</p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -342,7 +342,7 @@ export default function CertificateDownload({
             </button>
             <button
               onClick={printCertificate}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-slate-900 rounded-lg hover:bg-gray-200 text-sm font-medium"
             >
               <Printer className="w-4 h-4" />
               Print
@@ -369,26 +369,26 @@ export default function CertificateDownload({
           </div>
 
           <div className="relative z-10">
-            <p className="text-sm tracking-[0.3em] text-gray-500 mb-4">ELEVATE FOR HUMANITY</p>
+            <p className="text-sm tracking-[0.3em] text-slate-700 mb-4">ELEVATE FOR HUMANITY</p>
             <h3 className="text-3xl md:text-4xl font-bold text-brand-blue-700 mb-8">
               {certificate.credential_type}
             </h3>
             
-            <p className="text-lg text-gray-600 mb-2">This certifies that</p>
+            <p className="text-lg text-slate-700 mb-2">This certifies that</p>
             <p className="text-3xl md:text-4xl font-bold text-brand-blue-900 mb-4">
               {certificate.student_name}
             </p>
             
-            <p className="text-lg text-gray-600 mb-2">has successfully completed</p>
+            <p className="text-lg text-slate-700 mb-2">has successfully completed</p>
             <p className="text-2xl md:text-3xl font-bold text-brand-green-600 mb-4">
               {certificate.program_name}
             </p>
             
             {certificate.hours_completed && (
-              <p className="text-sm text-gray-500 mb-4">{certificate.hours_completed} Hours Completed</p>
+              <p className="text-sm text-slate-700 mb-4">{certificate.hours_completed} Hours Completed</p>
             )}
             
-            <p className="text-gray-600 mb-8">
+            <p className="text-slate-700 mb-8">
               Issued on {new Date(certificate.issue_date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
@@ -399,13 +399,13 @@ export default function CertificateDownload({
             <div className="flex justify-between items-end mt-12 pt-8 border-t border-gray-200">
               <div className="text-center">
                 <div className="w-32 border-t border-gray-400 mb-2"></div>
-                <p className="text-sm font-medium text-gray-700">{certificate.issuer_name}</p>
-                <p className="text-xs text-gray-500">{certificate.issuer_title}</p>
+                <p className="text-sm font-medium text-slate-900">{certificate.issuer_name}</p>
+                <p className="text-xs text-slate-700">{certificate.issuer_title}</p>
               </div>
               <div className="text-center">
                 <div className="w-32 border-t border-gray-400 mb-2"></div>
-                <p className="text-sm font-medium text-gray-700">Registrar</p>
-                <p className="text-xs text-gray-500">Office of the Registrar</p>
+                <p className="text-sm font-medium text-slate-900">Registrar</p>
+                <p className="text-xs text-slate-700">Office of the Registrar</p>
               </div>
             </div>
           </div>
@@ -415,7 +415,7 @@ export default function CertificateDownload({
       {/* Verification Footer */}
       <div className="px-6 py-4 bg-gray-50 border-t">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-slate-700">
             <span className="text-slate-500 flex-shrink-0">•</span>
             <span>Verification Code: <code className="bg-gray-200 px-2 py-0.5 rounded">{certificate.verification_code}</code></span>
           </div>

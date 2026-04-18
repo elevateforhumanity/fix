@@ -62,17 +62,17 @@ export default async function GradesPage() {
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Total Enrollments</h3>
+                <h3 className="text-sm font-medium text-slate-700 mb-2">Total Enrollments</h3>
                 <p className="text-3xl font-bold text-brand-blue-600">{count || 0}</p>
               </div>
               <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Active</h3>
+                <h3 className="text-sm font-medium text-slate-700 mb-2">Active</h3>
                 <p className="text-3xl font-bold text-brand-green-600">
                   {items?.filter((i: any) => i.status === 'active').length || 0}
                 </p>
               </div>
               <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Completed</h3>
+                <h3 className="text-sm font-medium text-slate-700 mb-2">Completed</h3>
                 <p className="text-3xl font-bold text-brand-blue-600">
                   {items?.filter((i: any) => i.status === 'completed').length || 0}
                 </p>
@@ -86,7 +86,7 @@ export default async function GradesPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="text-left text-gray-500 border-b">
+                      <tr className="text-left text-slate-700 border-b">
                         <th className="pb-3 font-medium">Student</th>
                         <th className="pb-3 font-medium">Program</th>
                         <th className="pb-3 font-medium text-center">Progress</th>
@@ -100,10 +100,10 @@ export default async function GradesPage() {
                         return (
                           <tr key={item.id} className="hover:bg-white">
                             <td className="py-3">
-                              <p className="font-medium text-gray-900">{studentProfile?.full_name || 'Unknown'}</p>
-                              <p className="text-xs text-gray-500">{studentProfile?.email || ''}</p>
+                              <p className="font-medium text-slate-900">{studentProfile?.full_name || 'Unknown'}</p>
+                              <p className="text-xs text-slate-700">{studentProfile?.email || ''}</p>
                             </td>
-                            <td className="py-3 text-gray-700">{programNames[item.program_id] || '—'}</td>
+                            <td className="py-3 text-slate-900">{programNames[item.program_id] || '—'}</td>
                             <td className="py-3 text-center">
                               <span className="font-medium">{item.progress || 0}%</span>
                             </td>
@@ -114,7 +114,7 @@ export default async function GradesPage() {
                               <span className={`text-xs font-medium px-2 py-1 rounded ${
                                 item.status === 'completed' ? 'bg-brand-green-100 text-brand-green-800' :
                                 item.status === 'active' ? 'bg-brand-blue-100 text-brand-blue-800' :
-                                'bg-white text-gray-600'
+                                'bg-white text-slate-700'
                               }`}>{item.status}</span>
                             </td>
                           </tr>
@@ -124,7 +124,7 @@ export default async function GradesPage() {
                   </table>
                 </div>
               ) : (
-                <p className="text-gray-500 text-center py-8">No student enrollments found for your programs.</p>
+                <p className="text-slate-700 text-center py-8">No student enrollments found for your programs.</p>
               )}
             </div>
           </div>

@@ -234,7 +234,7 @@ export default function GuidedTour({ tourId, onComplete, onSkip, autoStart = fal
           <h3 className="font-bold text-black text-lg mb-2">
             {currentStepData?.title}
           </h3>
-          <p className="text-gray-600 text-sm leading-relaxed">
+          <p className="text-slate-700 text-sm leading-relaxed">
             {currentStepData?.content}
           </p>
         </div>
@@ -261,7 +261,7 @@ export default function GuidedTour({ tourId, onComplete, onSkip, autoStart = fal
             {currentStep > 0 && (
               <button
                 onClick={prevStep}
-                className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 transition"
+                className="flex items-center gap-1 text-sm text-slate-700 hover:text-slate-900 transition"
               >
                 <ChevronLeft className="w-4 h-4" />
                 Back
@@ -270,7 +270,7 @@ export default function GuidedTour({ tourId, onComplete, onSkip, autoStart = fal
             {currentStep === steps.length - 1 && (
               <button
                 onClick={restartTour}
-                className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 transition"
+                className="flex items-center gap-1 text-sm text-slate-700 hover:text-slate-900 transition"
               >
                 <RotateCcw className="w-4 h-4" />
                 Restart

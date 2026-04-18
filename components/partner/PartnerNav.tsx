@@ -29,14 +29,14 @@ export default function PartnerNav({ isAdmin }: { isAdmin: boolean }) {
   return (
     <aside className="space-y-2">
       <div className="rounded-xl border bg-white p-3">
-        <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 px-3">Partner</div>
+        <div className="text-xs font-medium text-slate-700 uppercase tracking-wider mb-2 px-3">Partner</div>
         <nav className="flex flex-col gap-0.5" aria-label="Partner navigation">
           {items.map((i) => {
             const active = pathname === i.href || (i.href !== '/partner-portal' && pathname.startsWith(i.href));
             return (
               <Link key={i.href} href={i.href}
                 className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition ${
-                  active ? 'bg-brand-blue-50 text-brand-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-50'
+                  active ? 'bg-brand-blue-50 text-brand-blue-700 font-medium' : 'text-slate-900 hover:bg-gray-50'
                 }`}>
                 <i.icon className="w-4 h-4" />
                 {i.label}
@@ -48,14 +48,14 @@ export default function PartnerNav({ isAdmin }: { isAdmin: boolean }) {
 
       {isAdmin && (
         <div className="rounded-xl border bg-white p-3">
-          <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 px-3">Admin</div>
+          <div className="text-xs font-medium text-slate-700 uppercase tracking-wider mb-2 px-3">Admin</div>
           <nav className="flex flex-col gap-0.5" aria-label="Partner admin navigation">
             {adminItems.map((i) => {
               const active = pathname.startsWith(i.href);
               return (
                 <Link key={i.href} href={i.href}
                   className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition ${
-                    active ? 'bg-brand-blue-50 text-brand-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-50'
+                    active ? 'bg-brand-blue-50 text-brand-blue-700 font-medium' : 'text-slate-900 hover:bg-gray-50'
                   }`}>
                   <i.icon className="w-4 h-4" />
                   {i.label}

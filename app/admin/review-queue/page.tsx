@@ -95,8 +95,8 @@ export default async function ReviewQueuePage({
 
       {/* Hero Image */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Review Queue</h1>
-        <p className="text-gray-600">
+        <h1 className="text-2xl font-bold text-slate-900">Review Queue</h1>
+        <p className="text-slate-700">
           Items requiring manual review from automated processing
         </p>
       </div>
@@ -105,7 +105,7 @@ export default async function ReviewQueuePage({
       {pendingApps && pendingApps.length > 0 && (
         <div className="mb-8">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
               <AlertCircle className="w-5 h-5 text-amber-500" />
               Pending Applications
               <span className="ml-1 px-2 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
@@ -162,7 +162,7 @@ export default async function ReviewQueuePage({
           className={`px-4 py-2 rounded-lg text-sm font-medium ${
             !queue_type
               ? 'bg-gray-900 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-gray-100 text-slate-900 hover:bg-gray-200'
           }`}
         >
           All ({Object.values(countsByType).reduce((a, b) => a + b, 0)})
@@ -174,7 +174,7 @@ export default async function ReviewQueuePage({
             className={`px-4 py-2 rounded-lg text-sm font-medium ${
               queue_type === type
                 ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gray-100 text-slate-900 hover:bg-gray-200'
             }`}
           >
             {config.label} ({countsByType[type] || 0})
@@ -190,8 +190,8 @@ export default async function ReviewQueuePage({
       ) : !items || items.length === 0 ? (
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
           <span className="text-slate-400 flex-shrink-0">•</span>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Queue Empty</h3>
-          <p className="text-gray-600">No items require review at this time.</p>
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">Queue Empty</h3>
+          <p className="text-slate-700">No items require review at this time.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -221,7 +221,7 @@ export default async function ReviewQueuePage({
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-semibold text-gray-900">
+                        <span className="font-semibold text-slate-900">
                           {config.label}
                         </span>
                         <span
@@ -229,11 +229,11 @@ export default async function ReviewQueuePage({
                         >
                           {statusConfig.label}
                         </span>
-                        <span className="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700">
+                        <span className="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-slate-900">
                           Priority {item.priority}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-sm text-slate-700 mb-2">
                         {item.subject_type}: {item.subject_id.slice(0, 8)}...
                       </p>
                       {item.reasons && item.reasons.length > 0 && (
@@ -251,7 +251,7 @@ export default async function ReviewQueuePage({
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-slate-700">
                       {new Date(item.created_at).toLocaleDateString()}
                     </span>
                     <Link

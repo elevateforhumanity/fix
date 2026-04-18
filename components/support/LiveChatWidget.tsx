@@ -155,7 +155,7 @@ function FallbackChatWidget() {
                   <p className="text-sm">{message.text}</p>
                   <p
                     className={`text-xs mt-1 ${
-                      message.sender === 'user' ? 'text-white' : 'text-gray-400'
+                      message.sender === 'user' ? 'text-white' : 'text-slate-700'
                     }`}
                   >
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -173,7 +173,7 @@ function FallbackChatWidget() {
                 <button
                   key={reply}
                   onClick={() => handleSend(reply)}
-                  className="px-3 py-2 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-brand-blue-100 hover:text-brand-blue-700 transition"
+                  className="px-3 py-2 text-xs bg-gray-100 text-slate-900 rounded-full hover:bg-brand-blue-100 hover:text-brand-blue-700 transition"
                 >
                   {reply}
                 </button>

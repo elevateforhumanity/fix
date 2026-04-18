@@ -69,8 +69,8 @@ export default async function PartnerSettingsPage() {
       <div className="max-w-3xl">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Partner Settings</h1>
-            <p className="text-gray-600">Manage your organization profile and preferences</p>
+            <h1 className="text-3xl font-bold text-slate-900">Partner Settings</h1>
+            <p className="text-slate-700">Manage your organization profile and preferences</p>
           </div>
         </div>
         <PartnerSettingsForm initialData={initialData} />

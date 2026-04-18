@@ -262,9 +262,9 @@ export default function HandbookPage() {
 
         <div className="flex items-center gap-3 mb-2">
           <BookOpen className="w-7 h-7 text-brand-blue-600" />
-          <h1 className="text-2xl font-bold text-gray-900">Student Handbook</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Student Handbook</h1>
         </div>
-        <p className="text-gray-600 mb-6">
+        <p className="text-slate-700 mb-6">
           Read each section below and check the box to confirm you have read and understand the policy.
           You must acknowledge all {HANDBOOK_SECTIONS.length} sections to complete this step.
         </p>
@@ -289,8 +289,8 @@ export default function HandbookPage() {
             {/* Progress */}
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
               <div className="flex justify-between text-sm mb-2">
-                <span className="font-medium text-gray-700">Sections Acknowledged</span>
-                <span className="text-gray-500">{acknowledged.size} of {HANDBOOK_SECTIONS.length}</span>
+                <span className="font-medium text-slate-900">Sections Acknowledged</span>
+                <span className="text-slate-700">{acknowledged.size} of {HANDBOOK_SECTIONS.length}</span>
               </div>
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
@@ -316,17 +316,17 @@ export default function HandbookPage() {
                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${isAcked ? 'bg-brand-blue-600' : 'bg-gray-100'}`}>
                         {isAcked
                           ? <CheckCircle2 className="w-4 h-4 text-white" />
-                          : <BookOpen className="w-4 h-4 text-gray-500" />}
+                          : <BookOpen className="w-4 h-4 text-slate-700" />}
                       </div>
-                      <span className={`flex-1 font-semibold ${isAcked ? 'text-brand-blue-900' : 'text-gray-900'}`}>
+                      <span className={`flex-1 font-semibold ${isAcked ? 'text-brand-blue-900' : 'text-slate-900'}`}>
                         {section.title}
                       </span>
-                      {isExpanded ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
+                      {isExpanded ? <ChevronUp className="w-5 h-5 text-slate-700" /> : <ChevronDown className="w-5 h-5 text-slate-700" />}
                     </button>
 
                     {isExpanded && (
                       <div className="border-t border-gray-100 px-4 pb-4">
-                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-3 mb-4 text-sm text-gray-700 whitespace-pre-line leading-relaxed">
+                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-3 mb-4 text-sm text-slate-900 whitespace-pre-line leading-relaxed">
                           {section.content}
                         </div>
                         <label className="flex items-start gap-3 cursor-pointer p-3 rounded-lg hover:bg-brand-blue-50 border border-gray-200 bg-white transition-colors">
@@ -336,7 +336,7 @@ export default function HandbookPage() {
                             onChange={() => toggleAcknowledge(section.id)}
                             className="mt-0.5 w-5 h-5 text-brand-blue-600 border-gray-300 rounded focus:ring-brand-blue-500"
                           />
-                          <span className="text-sm text-gray-700">
+                          <span className="text-sm text-slate-900">
                             I have read and understand the <strong>{section.title}</strong>
                           </span>
                         </label>
@@ -359,12 +359,12 @@ export default function HandbookPage() {
                 className={`px-8 py-3 rounded-lg font-semibold transition-colors ${
                   allAcknowledged && !submitting
                     ? 'bg-brand-blue-600 text-white hover:bg-brand-blue-700'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-gray-300 text-slate-700 cursor-not-allowed'
                 }`}
               >
                 {submitting ? 'Submitting...' : `Acknowledge All ${HANDBOOK_SECTIONS.length} Sections`}
               </button>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-slate-700 mt-2">
                 Version {HANDBOOK_VERSION} — Your acknowledgment is recorded with timestamp for compliance purposes.
               </p>
             </div>

@@ -32,10 +32,10 @@ export function ErrorBoundaryUI({
       <div className="text-center max-w-2xl">
         <div className="mb-8">
           <AlertCircle className="h-20 w-20 text-brand-red-500 mx-auto mb-6" aria-hidden="true" />
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
             {title}
           </h1>
-          <p className="text-lg text-gray-600 mb-6">
+          <p className="text-lg text-slate-700 mb-6">
             We encountered an unexpected error. Our team has been notified.
           </p>
           {error.message && process.env.NODE_ENV === 'development' && (
@@ -57,7 +57,7 @@ export function ErrorBoundaryUI({
           {backHref ? (
             <Link
               href={backHref}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-semibold focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50 transition font-semibold focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             >
               <ArrowLeft className="h-5 w-5" aria-hidden="true" />
               {backLabel}
@@ -65,7 +65,7 @@ export function ErrorBoundaryUI({
           ) : (
             <Link
               href="/"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-semibold focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50 transition font-semibold focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             >
               <Home className="h-5 w-5" aria-hidden="true" />
               Go Home
@@ -73,7 +73,7 @@ export function ErrorBoundaryUI({
           )}
         </div>
 
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-slate-700">
           <p>If this problem persists, please contact support:</p>
           <a 
             href="/contact" 

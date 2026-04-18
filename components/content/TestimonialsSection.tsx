@@ -62,8 +62,8 @@ export default function TestimonialsSection({
       <section className={`py-20 ${bgColor}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-4">{title}</h2>
-            {subtitle && <p className="text-xl text-gray-600">{subtitle}</p>}
+            <h2 className="text-4xl font-black text-slate-900 mb-4">{title}</h2>
+            {subtitle && <p className="text-xl text-slate-700">{subtitle}</p>}
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
@@ -87,8 +87,8 @@ export default function TestimonialsSection({
     <section className={`py-20 ${bgColor}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-gray-900 mb-4">{title}</h2>
-          {subtitle && <p className="text-xl text-gray-600">{subtitle}</p>}
+          <h2 className="text-4xl font-black text-slate-900 mb-4">{title}</h2>
+          {subtitle && <p className="text-xl text-slate-700">{subtitle}</p>}
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -102,7 +102,7 @@ export default function TestimonialsSection({
               </div>
               
               {/* Quote */}
-              <p className="text-gray-700 mb-6">&ldquo;{testimonial.quote}&rdquo;</p>
+              <p className="text-slate-900 mb-6">&ldquo;{testimonial.quote}&rdquo;</p>
               
               {/* Author */}
               <div className="flex items-center gap-3">
@@ -116,12 +116,12 @@ export default function TestimonialsSection({
                   />
                 )}
                 <div>
-                  <p className="font-bold text-gray-900">{testimonial.name}</p>
+                  <p className="font-bold text-slate-900">{testimonial.name}</p>
                   {testimonial.role && (
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                    <p className="text-sm text-slate-700">{testimonial.role}</p>
                   )}
                   {testimonial.location && (
-                    <p className="text-xs text-gray-400">{testimonial.location}</p>
+                    <p className="text-xs text-slate-700">{testimonial.location}</p>
                   )}
                 </div>
               </div>

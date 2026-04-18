@@ -40,7 +40,7 @@ export default async function ApplicationSuccessPage() {
         <p className="text-lg text-black mb-4">
           Your application is received and time-stamped. You'll receive an email update. From here, your application moves into review.
         </p>
-        <p className="text-base text-gray-600 mb-8">
+        <p className="text-base text-slate-700 mb-8">
           One of two things happens: you'll be approved and receive your next step to enroll, or we'll send you a request for any missing items and your application pauses until it's provided.
         </p>
 

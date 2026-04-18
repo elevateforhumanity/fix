@@ -358,7 +358,7 @@ export default function AssetGenerator() {
           ) : (
             <div className="bg-white rounded-lg shadow-md p-12 text-center">
               <svg
-                className="mx-auto h-24 w-24 text-gray-400 mb-4"
+                className="mx-auto h-24 w-24 text-slate-700 mb-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

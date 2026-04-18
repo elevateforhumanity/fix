@@ -35,7 +35,7 @@ export function SupportForm() {
       )}
 
       <div>
-        <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="category" className="block text-sm font-medium text-slate-900 mb-2">
           Category
         </label>
         <select
@@ -53,7 +53,7 @@ export function SupportForm() {
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="subject" className="block text-sm font-medium text-slate-900 mb-2">
           Subject *
         </label>
         <input
@@ -67,7 +67,7 @@ export function SupportForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="message" className="block text-sm font-medium text-slate-900 mb-2">
           Message *
         </label>
         <textarea
@@ -81,7 +81,7 @@ export function SupportForm() {
       </div>
 
       <div>
-        <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="priority" className="block text-sm font-medium text-slate-900 mb-2">
           Priority
         </label>
         <select

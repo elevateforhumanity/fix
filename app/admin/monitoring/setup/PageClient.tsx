@@ -217,7 +217,7 @@ export default function MonitoringSetupPage() {
             <p className="text-sm text-black mb-4">
               Go to Supabase Dashboard → SQL Editor → New Query → Paste and run:
             </p>
-            <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+            <pre className="bg-gray-900 text-slate-700 p-4 rounded-lg overflow-x-auto text-sm">
 {`-- Add missing columns to audit_logs table
 DO $$ 
 BEGIN

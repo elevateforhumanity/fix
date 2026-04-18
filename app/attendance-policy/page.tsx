@@ -33,7 +33,7 @@ export default function AttendancePolicyPage() {
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Introduction */}
         <section className="mb-10">
-          <p className="text-gray-700 text-lg">
+          <p className="text-slate-900 text-lg">
             Regular attendance is essential for successful completion of your program. 
             Elevate for Humanity programs use hybrid delivery, combining online coursework 
             with in-person instruction. This policy outlines attendance requirements for both components.
@@ -42,13 +42,13 @@ export default function AttendancePolicyPage() {
 
         {/* Hybrid Attendance Definition */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Hybrid Attendance Definition</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Hybrid Attendance Definition</h2>
           
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Online Component</h3>
-              <p className="text-gray-700 mb-3">Attendance is measured by:</p>
-              <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <h3 className="font-bold text-slate-900 mb-3">Online Component</h3>
+              <p className="text-slate-900 mb-3">Attendance is measured by:</p>
+              <ul className="list-disc list-inside text-slate-900 space-y-2">
                 <li>Logging into the Learning Management System (LMS)</li>
                 <li>Completing assigned lessons and modules</li>
                 <li>Submitting assignments by deadlines</li>
@@ -58,9 +58,9 @@ export default function AttendancePolicyPage() {
             </div>
             
             <div className="bg-brand-green-50 border border-brand-green-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">In-Person Component</h3>
-              <p className="text-gray-700 mb-3">Attendance is measured by:</p>
-              <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <h3 className="font-bold text-slate-900 mb-3">In-Person Component</h3>
+              <p className="text-slate-900 mb-3">Attendance is measured by:</p>
+              <ul className="list-disc list-inside text-slate-900 space-y-2">
                 <li>Physical presence at scheduled training sessions</li>
                 <li>Sign-in/sign-out documentation</li>
                 <li>Participation in hands-on activities</li>
@@ -73,16 +73,16 @@ export default function AttendancePolicyPage() {
 
         {/* Attendance Requirements */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Attendance Requirements</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Attendance Requirements</h2>
           
           <div className="bg-white rounded-lg p-6 mb-6">
-            <h3 className="font-bold text-gray-900 mb-3">Minimum Attendance Standard</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="font-bold text-slate-900 mb-3">Minimum Attendance Standard</h3>
+            <p className="text-slate-900 mb-4">
               Students must maintain a minimum of <strong>80% attendance</strong> in both online 
               and in-person components to remain in good standing and be eligible for program completion.
             </p>
             <div className="bg-white border border-gray-200 rounded p-4">
-              <p className="text-gray-700">
+              <p className="text-slate-900">
                 <strong>Example:</strong> For a program with 100 scheduled in-person hours, 
                 students must attend at least 80 hours. For online coursework, students must 
                 complete at least 80% of assigned modules and activities.
@@ -91,8 +91,8 @@ export default function AttendancePolicyPage() {
           </div>
 
           <div className="bg-white rounded-lg p-6">
-            <h3 className="font-bold text-gray-900 mb-3">Clock Hour Programs</h3>
-            <p className="text-gray-700">
+            <h3 className="font-bold text-slate-900 mb-3">Clock Hour Programs</h3>
+            <p className="text-slate-900">
               Programs that require specific clock hours for certification or licensing 
               (such as Barber Apprenticeship with 2,000 hours) must complete <strong>100%</strong> of 
               required hours. These hours are tracked separately and reported to relevant 
@@ -103,15 +103,15 @@ export default function AttendancePolicyPage() {
 
         {/* Tracking and Documentation */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Attendance Tracking</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Attendance Tracking</h2>
           
           <div className="space-y-4">
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Online Tracking</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-3">Online Tracking</h3>
+              <p className="text-slate-900">
                 The Learning Management System (LMS) automatically tracks:
               </p>
-              <ul className="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 mt-2 space-y-1">
                 <li>Login dates and times</li>
                 <li>Time spent on each module</li>
                 <li>Assignment submission timestamps</li>
@@ -121,11 +121,11 @@ export default function AttendancePolicyPage() {
             </div>
             
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">In-Person Tracking</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-3">In-Person Tracking</h3>
+              <p className="text-slate-900">
                 In-person attendance is documented through:
               </p>
-              <ul className="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 mt-2 space-y-1">
                 <li>Daily sign-in sheets</li>
                 <li>Instructor attendance records</li>
                 <li>Time clock systems (where applicable)</li>
@@ -137,30 +137,30 @@ export default function AttendancePolicyPage() {
 
         {/* Absences */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Absences and Tardiness</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Absences and Tardiness</h2>
           
           <div className="space-y-4">
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Excused Absences</h3>
-              <p className="text-gray-700 mb-3">
+              <h3 className="font-bold text-slate-900 mb-3">Excused Absences</h3>
+              <p className="text-slate-900 mb-3">
                 The following may be considered excused absences with proper documentation:
               </p>
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 space-y-1">
                 <li>Illness (with doctor's note for extended absences)</li>
                 <li>Family emergency</li>
                 <li>Court appearance (with documentation)</li>
                 <li>Military duty</li>
                 <li>Pre-approved absence for work or personal reasons</li>
               </ul>
-              <p className="text-gray-700 mt-3">
+              <p className="text-slate-900 mt-3">
                 <strong>Note:</strong> Excused absences still count toward the attendance calculation 
                 but may be eligible for make-up work.
               </p>
             </div>
             
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Unexcused Absences</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-3">Unexcused Absences</h3>
+              <p className="text-slate-900">
                 Absences without prior approval or documentation are considered unexcused. 
                 Three consecutive unexcused absences from in-person sessions will trigger 
                 an attendance warning.
@@ -168,8 +168,8 @@ export default function AttendancePolicyPage() {
             </div>
             
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Tardiness</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-3">Tardiness</h3>
+              <p className="text-slate-900">
                 Arriving more than 15 minutes late to an in-person session is considered tardy. 
                 Three tardies equal one absence for attendance calculation purposes.
               </p>
@@ -179,26 +179,26 @@ export default function AttendancePolicyPage() {
 
         {/* Make-Up Work */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Make-Up Work</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Make-Up Work</h2>
           
           <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-lg p-6">
-            <h3 className="font-bold text-gray-900 mb-3">Online Coursework</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="font-bold text-slate-900 mb-3">Online Coursework</h3>
+            <p className="text-slate-900 mb-4">
               Students who fall behind on online coursework may request an extension by 
               contacting their instructor. Extensions are granted at the instructor's discretion 
               and typically do not exceed 7 days.
             </p>
             
-            <h3 className="font-bold text-gray-900 mb-3">In-Person Sessions</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="font-bold text-slate-900 mb-3">In-Person Sessions</h3>
+            <p className="text-slate-900 mb-4">
               Make-up sessions for missed in-person training may be available depending on:
             </p>
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
+            <ul className="list-disc list-inside text-slate-900 space-y-1">
               <li>Availability of instructors and facilities</li>
               <li>Nature of the missed content</li>
               <li>Student's overall attendance record</li>
             </ul>
-            <p className="text-gray-700 mt-4">
+            <p className="text-slate-900 mt-4">
               Make-up sessions must be completed within 14 days of the original session. 
               Contact your program coordinator to arrange make-up work.
             </p>
@@ -207,16 +207,16 @@ export default function AttendancePolicyPage() {
 
         {/* Consequences */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Attendance Warnings and Withdrawal</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Attendance Warnings and Withdrawal</h2>
           
           <div className="space-y-4">
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Attendance Warning</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-3">Attendance Warning</h3>
+              <p className="text-slate-900">
                 Students whose attendance falls below 85% will receive a written warning. 
                 The warning will include:
               </p>
-              <ul className="list-disc list-inside text-gray-700 mt-2 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 mt-2 space-y-1">
                 <li>Current attendance percentage</li>
                 <li>Specific absences or missed work</li>
                 <li>Steps required to return to good standing</li>
@@ -225,8 +225,8 @@ export default function AttendancePolicyPage() {
             </div>
             
             <div className="bg-brand-orange-50 border border-brand-orange-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Attendance Probation</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-3">Attendance Probation</h3>
+              <p className="text-slate-900">
                 Students whose attendance falls below 80% will be placed on attendance probation. 
                 During probation, students must meet with their program coordinator to develop 
                 an attendance improvement plan.
@@ -234,16 +234,16 @@ export default function AttendancePolicyPage() {
             </div>
             
             <div className="bg-brand-red-50 border border-brand-red-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">Withdrawal for Non-Attendance</h3>
-              <p className="text-gray-700 mb-3">
+              <h3 className="font-bold text-slate-900 mb-3">Withdrawal for Non-Attendance</h3>
+              <p className="text-slate-900 mb-3">
                 Students may be administratively withdrawn from the program if:
               </p>
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 space-y-1">
                 <li>Attendance remains below 80% after probation period</li>
                 <li>No contact with the School for 14 consecutive days</li>
                 <li>Failure to complete the attendance improvement plan</li>
               </ul>
-              <p className="text-gray-700 mt-3">
+              <p className="text-slate-900 mt-3">
                 Students withdrawn for non-attendance may be eligible for re-enrollment 
                 in a future cohort. See the <Link href="/refund-policy" className="text-brand-orange-600 hover:underline">Refund Policy</Link> for 
                 financial implications of withdrawal.
@@ -254,12 +254,12 @@ export default function AttendancePolicyPage() {
 
         {/* Appeals */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Appeals</h2>
-          <p className="text-gray-700 mb-4">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Appeals</h2>
+          <p className="text-slate-900 mb-4">
             Students who believe their attendance record is inaccurate or who have extenuating 
             circumstances may appeal attendance-related decisions through the <Link href="/grievance" className="text-brand-orange-600 hover:underline">Grievance Process</Link>.
           </p>
-          <p className="text-gray-700">
+          <p className="text-slate-900">
             Appeals must be submitted in writing within 5 business days of receiving an 
             attendance warning, probation notice, or withdrawal notification.
           </p>
@@ -267,10 +267,10 @@ export default function AttendancePolicyPage() {
 
         {/* Footer */}
         <div className="mt-12 pt-8 border-t">
-          <p className="text-gray-600 text-sm mb-4">
+          <p className="text-slate-700 text-sm mb-4">
             <strong>Effective Date:</strong> January 2026
           </p>
-          <p className="text-gray-600 text-sm mb-6">
+          <p className="text-slate-700 text-sm mb-6">
             Questions about attendance? Contact your program coordinator or call (317) 314-3757.
           </p>
           <div className="flex flex-wrap gap-4 text-sm">

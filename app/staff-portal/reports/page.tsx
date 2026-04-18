@@ -119,18 +119,18 @@ export default async function StaffReportsPage() {
 
       <div className="py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
+        <nav className="flex items-center gap-2 text-sm text-slate-700 mb-6">
           <Link href="/" className="hover:text-brand-orange-600">Home</Link>
           <ChevronRight className="w-4 h-4" />
           <Link href="/staff-portal" className="hover:text-brand-orange-600">Staff Portal</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900">Reports</span>
+          <span className="text-slate-900">Reports</span>
         </nav>
 
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Reports</h1>
-            <p className="text-gray-600">Generate and export reports</p>
+            <h1 className="text-3xl font-bold text-slate-900">Reports</h1>
+            <p className="text-slate-700">Generate and export reports</p>
           </div>
         </div>
 
@@ -139,23 +139,23 @@ export default async function StaffReportsPage() {
           <div className="bg-white rounded-xl p-6 border">
             <Users className="w-8 h-8 text-brand-blue-500 mb-2" />
             <p className="text-2xl font-bold">{totalStudents || 0}</p>
-            <p className="text-gray-600 text-sm">Total Students</p>
+            <p className="text-slate-700 text-sm">Total Students</p>
             <p className="text-xs text-brand-green-600 mt-1">+{newStudentsThisWeek || 0} this week</p>
           </div>
           <div className="bg-white rounded-xl p-6 border">
             <GraduationCap className="w-8 h-8 text-brand-green-500 mb-2" />
             <p className="text-2xl font-bold">{activeEnrollments || 0}</p>
-            <p className="text-gray-600 text-sm">Active Enrollments</p>
+            <p className="text-slate-700 text-sm">Active Enrollments</p>
           </div>
           <div className="bg-white rounded-xl p-6 border">
             <TrendingUp className="w-8 h-8 text-brand-orange-500 mb-2" />
             <p className="text-2xl font-bold">{completedThisMonth || 0}</p>
-            <p className="text-gray-600 text-sm">Completed This Month</p>
+            <p className="text-slate-700 text-sm">Completed This Month</p>
           </div>
           <div className="bg-white rounded-xl p-6 border">
             <Clock className="w-8 h-8 text-brand-blue-500 mb-2" />
             <p className="text-2xl font-bold">{attendanceToday || 0}</p>
-            <p className="text-gray-600 text-sm">Attendance Today</p>
+            <p className="text-slate-700 text-sm">Attendance Today</p>
           </div>
         </div>
 
@@ -168,10 +168,10 @@ export default async function StaffReportsPage() {
                 <report.icon className="w-6 h-6 text-brand-orange-600" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">{report.name}</h3>
-                <p className="text-sm text-gray-500">{report.description}</p>
+                <h3 className="font-semibold text-slate-900">{report.name}</h3>
+                <p className="text-sm text-slate-700">{report.description}</p>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </Link>
           ))}
         </div>
@@ -187,11 +187,11 @@ export default async function StaffReportsPage() {
           <table className="w-full">
             <thead className="bg-white">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Student</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Program</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Funding</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Status</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Enrolled</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Student</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Program</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Funding</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Status</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Enrolled</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -200,7 +200,7 @@ export default async function StaffReportsPage() {
                   <tr key={enrollment.id} className="hover:bg-white">
                     <td className="px-4 py-3">
                       <p className="font-medium">{enrollment.student?.full_name || 'Unknown'}</p>
-                      <p className="text-sm text-gray-500">{enrollment.student?.email}</p>
+                      <p className="text-sm text-slate-700">{enrollment.student?.email}</p>
                     </td>
                     <td className="px-4 py-3 text-sm">{(enrollment.program as any)?.title || (enrollment.program as any)?.name || 'N/A'}</td>
                     <td className="px-4 py-3">
@@ -213,19 +213,19 @@ export default async function StaffReportsPage() {
                         enrollment.status === 'active' ? 'bg-brand-green-100 text-brand-green-700' :
                         enrollment.status === 'completed' ? 'bg-brand-blue-100 text-brand-blue-700' :
                         enrollment.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                        'bg-white text-gray-700'
+                        'bg-white text-slate-900'
                       }`}>
                         {enrollment.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-500">
+                    <td className="px-4 py-3 text-sm text-slate-700">
                       {enrollment.enrolled_at ? new Date(enrollment.enrolled_at).toLocaleDateString() : 'N/A'}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-gray-500">
+                  <td colSpan={5} className="px-4 py-8 text-center text-slate-700">
                     No enrollments found
                   </td>
                 </tr>

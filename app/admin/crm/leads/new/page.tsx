@@ -24,26 +24,26 @@ export default async function NewLeadPage() {
         <div className="mb-8">
           <Link 
             href="/admin/crm/leads"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Leads
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Add New Lead</h1>
-          <p className="text-gray-600 mt-1">Enter the prospective student&apos;s information</p>
+          <h1 className="text-3xl font-bold text-slate-900">Add New Lead</h1>
+          <p className="text-slate-700 mt-1">Enter the prospective student&apos;s information</p>
         </div>
 
         {/* Form */}
         <form action={createLeadAction} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           {/* Personal Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <User className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <User className="w-5 h-5 text-slate-700" />
               Personal Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   First Name *
                 </label>
                 <input
@@ -55,7 +55,7 @@ export default async function NewLeadPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Last Name *
                 </label>
                 <input
@@ -71,13 +71,13 @@ export default async function NewLeadPage() {
 
           {/* Contact Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Mail className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Mail className="w-5 h-5 text-slate-700" />
               Contact Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Email Address *
                 </label>
                 <input
@@ -89,7 +89,7 @@ export default async function NewLeadPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Phone Number *
                 </label>
                 <input
@@ -105,13 +105,13 @@ export default async function NewLeadPage() {
 
           {/* Program Interest */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <GraduationCap className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-slate-700" />
               Program Interest
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Interested Program *
                 </label>
                 <select
@@ -143,7 +143,7 @@ export default async function NewLeadPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Preferred Start Date
                 </label>
                 <select
@@ -162,13 +162,13 @@ export default async function NewLeadPage() {
 
           {/* Lead Source */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-slate-700" />
               Lead Details
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Lead Source
                 </label>
                 <select
@@ -187,7 +187,7 @@ export default async function NewLeadPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Lead Status
                 </label>
                 <select
@@ -206,32 +206,32 @@ export default async function NewLeadPage() {
 
           {/* WIOA Eligibility */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               Potential WIOA Eligibility
             </label>
             <div className="space-y-2">
               <label className="flex items-center gap-2">
                 <input type="checkbox" name="unemployed" className="rounded border-gray-300" />
-                <span className="text-sm text-gray-700">Currently unemployed</span>
+                <span className="text-sm text-slate-900">Currently unemployed</span>
               </label>
               <label className="flex items-center gap-2">
                 <input type="checkbox" name="lowIncome" className="rounded border-gray-300" />
-                <span className="text-sm text-gray-700">Low income household</span>
+                <span className="text-sm text-slate-900">Low income household</span>
               </label>
               <label className="flex items-center gap-2">
                 <input type="checkbox" name="veteran" className="rounded border-gray-300" />
-                <span className="text-sm text-gray-700">Veteran or military spouse</span>
+                <span className="text-sm text-slate-900">Veteran or military spouse</span>
               </label>
               <label className="flex items-center gap-2">
                 <input type="checkbox" name="dislocatedWorker" className="rounded border-gray-300" />
-                <span className="text-sm text-gray-700">Dislocated worker</span>
+                <span className="text-sm text-slate-900">Dislocated worker</span>
               </label>
             </div>
           </div>
 
           {/* Notes */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Notes
             </label>
             <textarea
@@ -246,7 +246,7 @@ export default async function NewLeadPage() {
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200">
             <Link
               href="/admin/crm/leads"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-slate-900 hover:text-slate-900"
             >
               Cancel
             </Link>

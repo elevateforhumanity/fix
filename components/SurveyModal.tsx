@@ -229,7 +229,7 @@ export default function SurveyModal({
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-black transition-colors"
+              className="text-slate-700 hover:text-black transition-colors"
               disabled={isSubmitting}
             >
               <X className="w-6 h-6" />
@@ -261,7 +261,7 @@ export default function SurveyModal({
               )}
             </h4>
             {currentQuestion.type === 'checkbox' && (
-              <p className="text-sm text-gray-500">Select all that apply</p>
+              <p className="text-sm text-slate-700">Select all that apply</p>
             )}
           </div>
 

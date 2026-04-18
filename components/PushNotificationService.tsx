@@ -50,7 +50,7 @@ export function PushNotificationService() {
               <div key={notif.id} className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex justify-between items-start mb-1">
                   <h4 className="font-bold">{notif.title}</h4>
-                  <span className="text-xs text-gray-500">{notif.time}</span>
+                  <span className="text-xs text-slate-700">{notif.time}</span>
                 </div>
                 <p className="text-sm text-black">{notif.body}</p>
               </div>

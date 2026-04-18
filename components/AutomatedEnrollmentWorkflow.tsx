@@ -306,8 +306,8 @@ export default function AutomatedEnrollmentWorkflow({
       case 'completed': return <span className="text-slate-400 flex-shrink-0">•</span>;
       case 'in_progress': return <Loader2 className="w-5 h-5 text-brand-blue-500 animate-spin" />;
       case 'failed': return <AlertCircle className="w-5 h-5 text-brand-red-500" />;
-      case 'skipped': return <Circle className="w-5 h-5 text-gray-400" />;
-      default: return <Circle className="w-5 h-5 text-gray-300" />;
+      case 'skipped': return <Circle className="w-5 h-5 text-slate-700" />;
+      default: return <Circle className="w-5 h-5 text-slate-700" />;
     }
   };
 
@@ -343,10 +343,10 @@ export default function AutomatedEnrollmentWorkflow({
         <Card className="p-4 bg-gradient-to-r from-brand-blue-50 to-indigo-50 border-brand-blue-200">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-semibold text-gray-900">
+              <h3 className="font-semibold text-slate-900">
                 {enrollment.student?.full_name || 'Student'}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-slate-700">
                 {enrollment.program?.name || enrollment.course?.title || 'Program'}
               </p>
             </div>
@@ -354,7 +354,7 @@ export default function AutomatedEnrollmentWorkflow({
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
                 enrollment.status === 'active' ? 'bg-brand-green-100 text-brand-green-800' :
                 enrollment.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-gray-100 text-gray-800'
+                'bg-gray-100 text-slate-900'
               }`}>
                 {enrollment.status.replace('_', ' ').toUpperCase()}
               </span>
@@ -365,8 +365,8 @@ export default function AutomatedEnrollmentWorkflow({
 
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-900">Enrollment Workflow</h2>
-          <span className="text-sm text-gray-500">
+          <h2 className="text-xl font-bold text-slate-900">Enrollment Workflow</h2>
+          <span className="text-sm text-slate-700">
             {workflow.filter(s => s.status === 'completed').length} / {workflow.length} steps complete
           </span>
         </div>
@@ -388,18 +388,18 @@ export default function AutomatedEnrollmentWorkflow({
                 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-gray-400">STEP {step.step_number}</span>
+                    <span className="text-xs font-medium text-slate-700">STEP {step.step_number}</span>
                     {step.automated && (
                       <span className="inline-flex items-center gap-1 text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded">
                         <Zap className="w-3 h-3" /> Auto
                       </span>
                     )}
                   </div>
-                  <h4 className="font-semibold text-gray-900">{step.title}</h4>
-                  <p className="text-sm text-gray-600">{step.description}</p>
+                  <h4 className="font-semibold text-slate-900">{step.title}</h4>
+                  <p className="text-sm text-slate-700">{step.description}</p>
                   
                   {step.completed_at && step.status === 'completed' && (
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-xs text-slate-700 mt-1">
                       Completed {new Date(step.completed_at).toLocaleString('en-US')}
                     </p>
                   )}
@@ -432,8 +432,8 @@ export default function AutomatedEnrollmentWorkflow({
                 <Users className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.enrollmentsToday}</p>
-                <p className="text-xs text-gray-500">Today</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.enrollmentsToday}</p>
+                <p className="text-xs text-slate-700">Today</p>
               </div>
             </div>
             <p className={`text-xs mt-2 ${percentChange >= 0 ? 'text-brand-green-600' : 'text-brand-red-600'}`}>
@@ -447,11 +447,11 @@ export default function AutomatedEnrollmentWorkflow({
                 <Clock className="w-5 h-5 text-brand-orange-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.avgProcessingTimeMinutes}m</p>
-                <p className="text-xs text-gray-500">Avg Time</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.avgProcessingTimeMinutes}m</p>
+                <p className="text-xs text-slate-700">Avg Time</p>
               </div>
             </div>
-            <p className="text-xs mt-2 text-gray-500">Processing time</p>
+            <p className="text-xs mt-2 text-slate-700">Processing time</p>
           </Card>
 
           <Card className="p-4">
@@ -460,11 +460,11 @@ export default function AutomatedEnrollmentWorkflow({
                 <TrendingUp className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.successRate}%</p>
-                <p className="text-xs text-gray-500">Success</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.successRate}%</p>
+                <p className="text-xs text-slate-700">Success</p>
               </div>
             </div>
-            <p className="text-xs mt-2 text-gray-500">30-day rate</p>
+            <p className="text-xs mt-2 text-slate-700">30-day rate</p>
           </Card>
 
           <Card className="p-4">
@@ -473,8 +473,8 @@ export default function AutomatedEnrollmentWorkflow({
                 <AlertCircle className="w-5 h-5 text-yellow-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.pendingCount}</p>
-                <p className="text-xs text-gray-500">Pending</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.pendingCount}</p>
+                <p className="text-xs text-slate-700">Pending</p>
               </div>
             </div>
             <p className="text-xs mt-2 text-brand-red-500">{stats.failedCount} failed</p>

@@ -24,17 +24,17 @@ export default async function NewCoursePage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/lms/dashboard" className="hover:text-primary">LMS</Link></li><li>/</li><li><Link href="/lms/courses" className="hover:text-primary">Courses</Link></li><li>/</li><li className="text-gray-900 font-medium">New</li></ol></nav>
-          <h1 className="text-3xl font-bold text-gray-900">Create New Course</h1>
-          <p className="text-gray-600 mt-2">Set up a new course for learners</p>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/lms/dashboard" className="hover:text-primary">LMS</Link></li><li>/</li><li><Link href="/lms/courses" className="hover:text-primary">Courses</Link></li><li>/</li><li className="text-slate-900 font-medium">New</li></ol></nav>
+          <h1 className="text-3xl font-bold text-slate-900">Create New Course</h1>
+          <p className="text-slate-700 mt-2">Set up a new course for learners</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6">
           <form action={createCourseAction} className="space-y-6">
-            <div><label className="block text-sm font-medium text-gray-700 mb-2">Course Title *</label><input name="course_name" type="text" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" placeholder="Enter course title" required /></div>
-            <div><label className="block text-sm font-medium text-gray-700 mb-2">Description</label><textarea name="description" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" rows={4} placeholder="Course description" /></div>
+            <div><label className="block text-sm font-medium text-slate-900 mb-2">Course Title *</label><input name="course_name" type="text" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" placeholder="Enter course title" required /></div>
+            <div><label className="block text-sm font-medium text-slate-900 mb-2">Description</label><textarea name="description" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" rows={4} placeholder="Course description" /></div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Category</label>
                 <select name="category" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500">
                   <option value="">Select category</option>
                   <option value="Technology">Technology</option>
@@ -45,12 +45,12 @@ export default async function NewCoursePage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Duration (hours)</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Duration (hours)</label>
                 <input name="duration_hours" type="number" min="1" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" placeholder="e.g. 40" />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Price ($)</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Price ($)</label>
               <input name="price" type="number" min="0" step="0.01" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500" placeholder="0.00" defaultValue="0" />
             </div>
             <div className="flex gap-4 pt-4 border-t">

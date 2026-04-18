@@ -130,7 +130,7 @@ export default async function AchievementsPage() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="text-xl font-bold text-gray-900">
+            <Link href="/" className="text-xl font-bold text-slate-900">
               Elevate for Humanity
             </Link>
             <Link href="/learner/dashboard" className="text-sm text-brand-orange-600 hover:text-brand-orange-700">
@@ -143,8 +143,8 @@ export default async function AchievementsPage() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Achievements</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Achievements</h1>
+          <p className="text-slate-700">
             Track your progress and earn badges as you complete your learning journey.
           </p>
         </div>
@@ -157,8 +157,8 @@ export default async function AchievementsPage() {
                 <Trophy className="w-6 h-6 text-yellow-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Achievements Earned</p>
-                <p className="text-2xl font-bold text-gray-900">{earnedCount} / {totalCount}</p>
+                <p className="text-sm text-slate-700">Achievements Earned</p>
+                <p className="text-2xl font-bold text-slate-900">{earnedCount} / {totalCount}</p>
               </div>
             </div>
           </div>
@@ -169,8 +169,8 @@ export default async function AchievementsPage() {
                 <Star className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Total Points</p>
-                <p className="text-2xl font-bold text-gray-900">{totalPoints}</p>
+                <p className="text-sm text-slate-700">Total Points</p>
+                <p className="text-2xl font-bold text-slate-900">{totalPoints}</p>
               </div>
             </div>
           </div>
@@ -181,8 +181,8 @@ export default async function AchievementsPage() {
                 <Target className="w-6 h-6 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Completion</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm text-slate-700">Completion</p>
+                <p className="text-2xl font-bold text-slate-900">
                   {totalCount > 0 ? Math.round((earnedCount / totalCount) * 100) : 0}%
                 </p>
               </div>
@@ -193,7 +193,7 @@ export default async function AchievementsPage() {
         {/* Earned Achievements */}
         {earnedAchievements && earnedAchievements.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Achievements</h2>
+            <h2 className="text-xl font-semibold text-slate-900 mb-4">Your Achievements</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {earnedAchievements.map((item: any) => {
                 const achievement = item.achievements;
@@ -211,12 +211,12 @@ export default async function AchievementsPage() {
                         <IconComponent className="w-7 h-7 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 mb-1">{achievement.name}</h3>
-                        <p className="text-sm text-gray-500 mb-2 line-clamp-2">
+                        <h3 className="font-semibold text-slate-900 mb-1">{achievement.name}</h3>
+                        <p className="text-sm text-slate-700 mb-2 line-clamp-2">
                           {achievement.description}
                         </p>
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-slate-700">
                             Earned {new Date(item.earned_at).toLocaleDateString()}
                           </span>
                           <span className="text-xs font-medium text-brand-orange-600">
@@ -234,7 +234,7 @@ export default async function AchievementsPage() {
 
         {/* All Achievements */}
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">All Achievements</h2>
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">All Achievements</h2>
           {allAchievements && allAchievements.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {allAchievements.map((achievement: any) => {
@@ -259,21 +259,21 @@ export default async function AchievementsPage() {
                         {isEarned ? (
                           <IconComponent className="w-7 h-7 text-white" />
                         ) : (
-                          <Lock className="w-7 h-7 text-gray-500" />
+                          <Lock className="w-7 h-7 text-slate-700" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className={`font-semibold mb-1 ${isEarned ? 'text-gray-900' : 'text-gray-500'}`}>
+                        <h3 className={`font-semibold mb-1 ${isEarned ? 'text-slate-900' : 'text-slate-700'}`}>
                           {achievement.name}
                         </h3>
-                        <p className={`text-sm mb-2 line-clamp-2 ${isEarned ? 'text-gray-500' : 'text-gray-400'}`}>
+                        <p className={`text-sm mb-2 line-clamp-2 ${isEarned ? 'text-slate-700' : 'text-slate-700'}`}>
                           {achievement.description}
                         </p>
                         <div className="flex items-center justify-between">
-                          <span className={`text-xs ${isEarned ? 'text-brand-green-600 font-medium' : 'text-gray-400'}`}>
+                          <span className={`text-xs ${isEarned ? 'text-brand-green-600 font-medium' : 'text-slate-700'}`}>
                             {isEarned ? '• Earned' : 'Locked'}
                           </span>
-                          <span className={`text-xs font-medium ${isEarned ? 'text-brand-orange-600' : 'text-gray-400'}`}>
+                          <span className={`text-xs font-medium ${isEarned ? 'text-brand-orange-600' : 'text-slate-700'}`}>
                             {achievement.points} pts
                           </span>
                         </div>
@@ -285,9 +285,9 @@ export default async function AchievementsPage() {
             </div>
           ) : (
             <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
-              <Trophy className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Achievements Available</h3>
-              <p className="text-gray-500 mb-4">
+              <Trophy className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">No Achievements Available</h3>
+              <p className="text-slate-700 mb-4">
                 Achievements will appear here as they become available.
               </p>
               <Link

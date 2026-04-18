@@ -11,7 +11,7 @@ export function CtaBand({ heading, subheading, label, href }: CtaBandProps) {
       <div className="mx-auto max-w-6xl px-4 py-12 text-center">
         <h2 className="text-2xl font-bold">{heading}</h2>
         {subheading && (
-          <p className="mt-3 text-gray-600">{subheading}</p>
+          <p className="mt-3 text-slate-700">{subheading}</p>
         )}
         <a
           href={href}

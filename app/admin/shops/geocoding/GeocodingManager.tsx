@@ -145,28 +145,28 @@ export default function GeocodingManager({ shops }: Props) {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Shop</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Address</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Coordinates</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-              <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Shop</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Address</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Coordinates</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+              <th className="px-4 py-3 text-right text-xs font-medium text-slate-700 uppercase">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
             {filteredShops.map(shop => (
               <tr key={shop.id} className={currentShop === shop.id ? 'bg-brand-blue-50' : ''}>
                 <td className="px-4 py-3">
-                  <div className="font-medium text-gray-900">{shop.name}</div>
-                  {!shop.active && <span className="text-xs text-gray-400">Inactive</span>}
+                  <div className="font-medium text-slate-900">{shop.name}</div>
+                  {!shop.active && <span className="text-xs text-slate-700">Inactive</span>}
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-600">{formatAddress(shop)}</td>
-                <td className="px-4 py-3 text-sm text-gray-600">
+                <td className="px-4 py-3 text-sm text-slate-700">{formatAddress(shop)}</td>
+                <td className="px-4 py-3 text-sm text-slate-700">
                   {shop.latitude && shop.longitude ? (
                     <span className="font-mono text-xs">
                       {shop.latitude.toFixed(6)}, {shop.longitude.toFixed(6)}
                     </span>
                   ) : (
-                    <span className="text-gray-400">—</span>
+                    <span className="text-slate-700">—</span>
                   )}
                 </td>
                 <td className="px-4 py-3">
@@ -189,7 +189,7 @@ export default function GeocodingManager({ shops }: Props) {
                   ) : currentShop === shop.id ? (
                     <Loader2 className="w-4 h-4 animate-spin text-brand-blue-600" />
                   ) : (
-                    <span className="text-gray-500 text-sm">Pending</span>
+                    <span className="text-slate-700 text-sm">Pending</span>
                   )}
                 </td>
                 <td className="px-4 py-3 text-right">
@@ -214,7 +214,7 @@ export default function GeocodingManager({ shops }: Props) {
             ))}
             {filteredShops.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-gray-500">
+                <td colSpan={5} className="px-4 py-8 text-center text-slate-700">
                   No shops match this filter
                 </td>
               </tr>

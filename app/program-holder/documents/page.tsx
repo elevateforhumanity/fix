@@ -248,7 +248,7 @@ export default async function ProgramHolderDocumentsPage({
         {isOnboarding && nextStep === 'set-password' && (
           <div className="mt-8 bg-brand-blue-50 border-2 border-brand-blue-200 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <h3 className="font-bold text-gray-900 text-lg mb-1">Last step — create your password</h3>
+              <h3 className="font-bold text-slate-900 text-lg mb-1">Last step — create your password</h3>
               <p className="text-sm text-black">Set a permanent password so you can log in anytime without a magic link.</p>
             </div>
             <Link

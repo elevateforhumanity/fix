@@ -67,7 +67,7 @@ export function AutomatedCertificateWorkflow() {
                     <div>
                       <p className="font-bold">{cert.studentName}</p>
                       <p className="text-sm text-black">{cert.course}</p>
-                      <p className="text-xs text-gray-500">Completed: {cert.completionDate}</p>
+                      <p className="text-xs text-slate-700">Completed: {cert.completionDate}</p>
                     </div>
                     <Button size="sm">Generate</Button>
                   </div>

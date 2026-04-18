@@ -111,7 +111,7 @@ export default function SetPasswordPage() {
             <CheckCircle className="w-10 h-10 text-green-600" />
           </div>
           <h1 className="text-3xl font-extrabold text-black mb-3">Password Created</h1>
-          <p className="text-gray-600 mb-8 text-base">
+          <p className="text-slate-700 mb-8 text-base">
             {userRole === 'program_holder'
               ? 'Your account is ready. Complete your onboarding steps to activate your portal.'
               : nextParam?.includes('onboarding')
@@ -142,7 +142,7 @@ export default function SetPasswordPage() {
             <AlertCircle className="w-10 h-10 text-red-600" />
           </div>
           <h1 className="text-3xl font-extrabold text-black mb-3">Link Expired</h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-slate-700 mb-8">
             This invitation link has expired or already been used. Contact your coordinator to send a new one.
           </p>
           <Link
@@ -151,7 +151,7 @@ export default function SetPasswordPage() {
           >
             Go to Login
           </Link>
-          <p className="mt-4 text-sm text-gray-500">
+          <p className="mt-4 text-sm text-slate-700">
             Need help?{' '}
             <a href="tel:3173143757" className="text-brand-blue-600 hover:underline">(317) 314-3757</a>
           </p>
@@ -175,7 +175,7 @@ export default function SetPasswordPage() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-black mb-2">Create Your Password</h1>
-          <p className="text-gray-600">Set a password to secure your account.</p>
+          <p className="text-slate-700">Set a password to secure your account.</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-200 p-8">
@@ -204,7 +204,7 @@ export default function SetPasswordPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-700 hover:text-slate-700"
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}

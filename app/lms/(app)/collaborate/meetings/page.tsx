@@ -94,7 +94,7 @@ export default async function MeetingsPage() {
             {/* Upcoming Meetings */}
             <div className="bg-white rounded-xl shadow-sm border">
               <div className="p-6 border-b flex items-center justify-between">
-                <h2 className="font-semibold text-gray-900">Upcoming Meetings</h2>
+                <h2 className="font-semibold text-slate-900">Upcoming Meetings</h2>
                 <Link href="/lms/collaborate/meetings" className="text-brand-green-600 hover:text-brand-green-700 text-sm font-medium">
                   View Calendar
                 </Link>
@@ -110,9 +110,9 @@ export default async function MeetingsPage() {
                             <Video className="w-6 h-6 text-brand-green-600" />
                           </div>
                           <div>
-                            <h3 className="font-semibold text-gray-900">{meeting.title}</h3>
-                            <p className="text-sm text-gray-600 mt-1">{meeting.description}</p>
-                            <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                            <h3 className="font-semibold text-slate-900">{meeting.title}</h3>
+                            <p className="text-sm text-slate-700 mt-1">{meeting.description}</p>
+                            <div className="flex items-center gap-4 mt-2 text-sm text-slate-700">
                               <span className="flex items-center gap-1">
                                 <Calendar className="w-4 h-4" />
                                 {new Date(meeting.scheduled_at).toLocaleDateString()}
@@ -133,9 +133,9 @@ export default async function MeetingsPage() {
                 </div>
               ) : (
                 <div className="p-12 text-center">
-                  <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No upcoming meetings</h3>
-                  <p className="text-gray-600 mb-6">
+                  <Calendar className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">No upcoming meetings</h3>
+                  <p className="text-slate-700 mb-6">
                     Schedule a study session with your classmates or join an existing one.
                   </p>
                   <button className="inline-flex items-center gap-2 px-6 py-3 bg-brand-green-600 text-white rounded-lg hover:bg-brand-green-700 font-medium">
@@ -149,9 +149,9 @@ export default async function MeetingsPage() {
             {/* Past Meetings */}
             <div className="bg-white rounded-xl shadow-sm border">
               <div className="p-6 border-b">
-                <h2 className="font-semibold text-gray-900">Recent Meetings</h2>
+                <h2 className="font-semibold text-slate-900">Recent Meetings</h2>
               </div>
-              <div className="p-6 text-center text-gray-500">
+              <div className="p-6 text-center text-slate-700">
                 <p>Your past meetings will appear here.</p>
               </div>
             </div>
@@ -161,15 +161,15 @@ export default async function MeetingsPage() {
           <div className="space-y-6">
             {/* Quick Actions */}
             <div className="bg-white rounded-xl shadow-sm border p-6">
-              <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
+              <h3 className="font-semibold text-slate-900 mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-white text-left">
                   <div className="w-10 h-10 bg-brand-green-100 rounded-lg flex items-center justify-center">
                     <Plus className="w-5 h-5 text-brand-green-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">New Meeting</div>
-                    <div className="text-sm text-gray-500">Schedule a study session</div>
+                    <div className="font-medium text-slate-900">New Meeting</div>
+                    <div className="text-sm text-slate-700">Schedule a study session</div>
                   </div>
                 </button>
                 <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-white text-left">
@@ -177,8 +177,8 @@ export default async function MeetingsPage() {
                     <ExternalLink className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Join with Code</div>
-                    <div className="text-sm text-gray-500">Enter meeting ID</div>
+                    <div className="font-medium text-slate-900">Join with Code</div>
+                    <div className="text-sm text-slate-700">Enter meeting ID</div>
                   </div>
                 </button>
                 <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-white text-left">
@@ -186,8 +186,8 @@ export default async function MeetingsPage() {
                     <Copy className="w-5 h-5 text-purple-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Copy Personal Link</div>
-                    <div className="text-sm text-gray-500">Share your meeting room</div>
+                    <div className="font-medium text-slate-900">Copy Personal Link</div>
+                    <div className="text-sm text-slate-700">Share your meeting room</div>
                   </div>
                 </button>
               </div>
@@ -195,8 +195,8 @@ export default async function MeetingsPage() {
 
             {/* Meeting Tips */}
             <div className="bg-brand-green-50 rounded-xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-3">Meeting Tips</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+              <h3 className="font-semibold text-slate-900 mb-3">Meeting Tips</h3>
+              <ul className="space-y-2 text-sm text-slate-900">
                 <li className="flex items-start gap-2">
                   <span className="text-brand-green-600 mt-0.5">•</span>
                   Test your audio and video before joining
@@ -222,10 +222,10 @@ export default async function MeetingsPage() {
               className="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm border hover:border-gray-300"
             >
               <div className="flex items-center gap-3">
-                <Settings className="w-5 h-5 text-gray-400" />
-                <span className="font-medium text-gray-900">Meeting Settings</span>
+                <Settings className="w-5 h-5 text-slate-700" />
+                <span className="font-medium text-slate-900">Meeting Settings</span>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </Link>
           </div>
         </div>

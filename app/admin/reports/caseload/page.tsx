@@ -59,33 +59,33 @@ export default async function CaseloadReportsPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
               <li><Link href="/admin/reports" className="hover:text-primary">Reports</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Caseload</li>
+              <li className="text-slate-900 font-medium">Caseload</li>
             </ol>
           </nav>
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Caseload Reports</h1>
-              <p className="text-gray-600 mt-2">Staff caseload distribution and assignments</p>
+              <h1 className="text-3xl font-bold text-slate-900">Caseload Reports</h1>
+              <p className="text-slate-700 mt-2">Staff caseload distribution and assignments</p>
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-sm font-medium text-gray-500">Total Active Caseload</h3>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{totalCaseload ?? 0}</p>
+            <h3 className="text-sm font-medium text-slate-700">Total Active Caseload</h3>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{totalCaseload ?? 0}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-sm font-medium text-gray-500">Avg per Staff</h3>
+            <h3 className="text-sm font-medium text-slate-700">Avg per Staff</h3>
             <p className="text-3xl font-bold text-brand-blue-600 mt-2">{avgPerStaff}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-sm font-medium text-gray-500">Staff Members</h3>
+            <h3 className="text-sm font-medium text-slate-700">Staff Members</h3>
             <p className="text-3xl font-bold text-brand-green-600 mt-2">{staffCount ?? 0}</p>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default async function CaseloadReportsPage() {
           {staffWithCounts.length > 0 ? (
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 border-b bg-gray-50">
+                <tr className="text-left text-slate-700 border-b bg-gray-50">
                   <th className="px-4 py-3 font-medium">Staff Member</th>
                   <th className="px-4 py-3 font-medium">Role</th>
                   <th className="px-4 py-3 font-medium">Email</th>
@@ -107,16 +107,16 @@ export default async function CaseloadReportsPage() {
               <tbody className="divide-y">
                 {staffWithCounts.map((s: any) => (
                   <tr key={s.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-gray-900">{s.full_name || '—'}</td>
-                    <td className="px-4 py-3 text-gray-500 capitalize">{s.role}</td>
-                    <td className="px-4 py-3 text-gray-500">{s.email}</td>
+                    <td className="px-4 py-3 font-medium text-slate-900">{s.full_name || '—'}</td>
+                    <td className="px-4 py-3 text-slate-700 capitalize">{s.role}</td>
+                    <td className="px-4 py-3 text-slate-700">{s.email}</td>
                     <td className="px-4 py-3 text-right font-semibold">{s.caseload}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <p className="p-8 text-center text-gray-500">No staff members found.</p>
+            <p className="p-8 text-center text-slate-700">No staff members found.</p>
           )}
         </div>
       </div>

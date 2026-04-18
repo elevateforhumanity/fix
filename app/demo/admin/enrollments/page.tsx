@@ -51,7 +51,7 @@ export default function DemoEnrollmentsPage() {
       case 'completed': return <span className="text-slate-400 flex-shrink-0">•</span>;
       case 'pending': return <Clock className="w-3.5 h-3.5 text-amber-500" />;
       case 'at_risk': return <AlertTriangle className="w-3.5 h-3.5 text-brand-red-500" />;
-      default: return <XCircle className="w-3.5 h-3.5 text-gray-400" />;
+      default: return <XCircle className="w-3.5 h-3.5 text-slate-700" />;
     }
   };
 
@@ -71,7 +71,7 @@ export default function DemoEnrollmentsPage() {
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
           <input
             type="text"
             placeholder="Search students by name or email..."
@@ -81,7 +81,7 @@ export default function DemoEnrollmentsPage() {
           />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <Filter className="w-4 h-4 text-gray-400 hidden sm:block" />
+          <Filter className="w-4 h-4 text-slate-700 hidden sm:block" />
           <select value={programFilter} onChange={(e) => setProgramFilter(e.target.value)} className="border rounded-lg px-3 py-2.5 text-sm bg-white outline-none">
             <option value="all">All Programs</option>
             {programs.map(p => <option key={p} value={p}>{p}</option>)}
@@ -98,20 +98,20 @@ export default function DemoEnrollmentsPage() {
             <option value="progress">Sort: Progress</option>
             <option value="attendance">Sort: Attendance</option>
           </select>
-          <button onClick={() => showToast('Enrollment report exported to CSV')} className="inline-flex items-center gap-1.5 border rounded-lg px-3 py-2.5 text-sm text-gray-600 hover:bg-gray-50 transition">
+          <button onClick={() => showToast('Enrollment report exported to CSV')} className="inline-flex items-center gap-1.5 border rounded-lg px-3 py-2.5 text-sm text-slate-700 hover:bg-gray-50 transition">
             <Download className="w-3.5 h-3.5" /> Export
           </button>
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 mb-3">{filtered.length} student{filtered.length !== 1 ? 's' : ''}</p>
+      <p className="text-xs text-slate-700 mb-3">{filtered.length} student{filtered.length !== 1 ? 's' : ''}</p>
 
       {/* Table */}
       <div className="bg-white rounded-xl border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-xs text-gray-500 border-b bg-gray-50">
+              <tr className="text-left text-xs text-slate-700 border-b bg-gray-50">
                 <th className="px-4 py-3 font-medium">Student</th>
                 <th className="px-4 py-3 font-medium">Program</th>
                 <th className="px-4 py-3 font-medium">Status</th>
@@ -129,10 +129,10 @@ export default function DemoEnrollmentsPage() {
                     className="border-b last:border-0 hover:bg-gray-50 cursor-pointer transition"
                   >
                     <td className="px-4 py-3">
-                      <div className="font-medium text-gray-900">{s.full_name}</div>
-                      <div className="text-xs text-gray-400">{s.email}</div>
+                      <div className="font-medium text-slate-900">{s.full_name}</div>
+                      <div className="text-xs text-slate-700">{s.email}</div>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{s.program}</td>
+                    <td className="px-4 py-3 text-slate-700">{s.program}</td>
                     <td className="px-4 py-3">
                       <span className="flex items-center gap-1.5">
                         {statusIcon(s.status)}
@@ -144,7 +144,7 @@ export default function DemoEnrollmentsPage() {
                         <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                           <div className="h-full bg-brand-green-500 rounded-full transition-all" style={{ width: `${s.progress || 0}%` }} />
                         </div>
-                        <span className="text-xs text-gray-500">{s.progress || 0}%</span>
+                        <span className="text-xs text-slate-700">{s.progress || 0}%</span>
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -156,7 +156,7 @@ export default function DemoEnrollmentsPage() {
                       <span className="text-xs bg-brand-blue-50 text-brand-blue-700 px-2 py-0.5 rounded">{s.funding}</span>
                     </td>
                     <td className="px-4 py-3">
-                      {expandedId === s.id ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+                      {expandedId === s.id ? <ChevronUp className="w-4 h-4 text-slate-700" /> : <ChevronDown className="w-4 h-4 text-slate-700" />}
                     </td>
                   </tr>
                   {expandedId === s.id && (
@@ -164,27 +164,27 @@ export default function DemoEnrollmentsPage() {
                       <td colSpan={7} className="bg-gray-50 px-4 py-4 border-b">
                         <div className="grid sm:grid-cols-4 gap-4 mb-3 animate-fade-in-up">
                           <div>
-                            <p className="text-xs text-gray-500">Hours</p>
+                            <p className="text-xs text-slate-700">Hours</p>
                             <p className="text-sm font-semibold">{s.hours_completed?.toLocaleString()} / {s.hours_required?.toLocaleString()}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500">Start Date</p>
+                            <p className="text-xs text-slate-700">Start Date</p>
                             <p className="text-sm font-semibold">{s.start_date}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500">Mentor / Employer</p>
+                            <p className="text-xs text-slate-700">Mentor / Employer</p>
                             <p className="text-sm font-semibold">{s.mentor || s.company || '—'}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500">Certification</p>
+                            <p className="text-xs text-slate-700">Certification</p>
                             <p className="text-sm font-semibold">{s.certification || 'In progress'}</p>
                           </div>
                         </div>
                         <div className="flex gap-2 pt-2 border-t">
-                          <button onClick={() => showToast(`Email sent to ${s.full_name}`)} className="inline-flex items-center gap-1.5 border text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-white transition">
+                          <button onClick={() => showToast(`Email sent to ${s.full_name}`)} className="inline-flex items-center gap-1.5 border text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-white transition">
                             <Mail className="w-3 h-3" /> Send Email
                           </button>
-                          <button onClick={() => showToast(`Calling ${s.phone}`)} className="inline-flex items-center gap-1.5 border text-gray-600 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-white transition">
+                          <button onClick={() => showToast(`Calling ${s.phone}`)} className="inline-flex items-center gap-1.5 border text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-white transition">
                             <Phone className="w-3 h-3" /> Call
                           </button>
                           {s.status === 'at_risk' && (

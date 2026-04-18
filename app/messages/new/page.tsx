@@ -78,13 +78,13 @@ export default function NewMessagePage() {
       </div>
 
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <Link href="/messages" className="inline-flex items-center text-gray-600 hover:text-brand-blue-600 mb-6">
+        <Link href="/messages" className="inline-flex items-center text-slate-700 hover:text-brand-blue-600 mb-6">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Messages
         </Link>
 
         <div className="bg-white rounded-xl shadow-sm p-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">New Message</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-6">New Message</h1>
 
           {error && (
             <div className="mb-6 p-4 bg-brand-red-50 border border-brand-red-200 rounded-lg flex items-start">
@@ -95,7 +95,7 @@ export default function NewMessagePage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">To *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">To *</label>
               <select
                 value={formData.to}
                 onChange={(e) => setFormData({ ...formData, to: e.target.value })}
@@ -109,7 +109,7 @@ export default function NewMessagePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Subject *</label>
               <input
                 type="text"
                 value={formData.subject}
@@ -120,7 +120,7 @@ export default function NewMessagePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Message *</label>
               <textarea
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -131,12 +131,12 @@ export default function NewMessagePage() {
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t">
-              <button type="button" className="flex items-center text-gray-600 hover:text-brand-blue-600">
+              <button type="button" className="flex items-center text-slate-700 hover:text-brand-blue-600">
                 <Paperclip className="w-5 h-5 mr-2" />
                 Attach File
               </button>
               <div className="flex items-center gap-4">
-                <Link href="/messages" className="px-6 py-3 text-gray-700 hover:text-gray-900">
+                <Link href="/messages" className="px-6 py-3 text-slate-900 hover:text-slate-900">
                   Cancel
                 </Link>
                 <button

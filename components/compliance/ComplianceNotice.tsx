@@ -24,7 +24,7 @@ export function ComplianceNotice({
       <div
         className={`flex items-center gap-2 text-xs text-black ${className}`}
       >
-        <Shield className="w-4 h-4 text-gray-400" />
+        <Shield className="w-4 h-4 text-slate-700" />
         <span>
           Subject to:{' '}
           {policies.map((policy, index) => (

@@ -35,7 +35,7 @@ export default async function SecuritySettingsPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Security Settings</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-6">Security Settings</h1>
 
         <div className="space-y-6">
           {/* Password */}
@@ -45,11 +45,11 @@ export default async function SecuritySettingsPage() {
                 <Key className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div className="flex-1">
-                <h2 className="text-lg font-semibold text-gray-900">Password</h2>
-                <p className="text-gray-600 text-sm mt-1">
+                <h2 className="text-lg font-semibold text-slate-900">Password</h2>
+                <p className="text-slate-700 text-sm mt-1">
                   Change your password to keep your account secure.
                 </p>
-                <button className="mt-4 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-200 transition">
+                <button className="mt-4 px-4 py-2 bg-white text-slate-900 rounded-lg hover:bg-gray-200 transition">
                   Change Password
                 </button>
               </div>
@@ -63,8 +63,8 @@ export default async function SecuritySettingsPage() {
                 <Smartphone className="w-6 h-6 text-brand-green-600" />
               </div>
               <div className="flex-1">
-                <h2 className="text-lg font-semibold text-gray-900">Two-Factor Authentication</h2>
-                <p className="text-gray-600 text-sm mt-1">
+                <h2 className="text-lg font-semibold text-slate-900">Two-Factor Authentication</h2>
+                <p className="text-slate-700 text-sm mt-1">
                   Add an extra layer of security to your account.
                 </p>
                 <div className="mt-4 flex items-center gap-4">
@@ -86,15 +86,15 @@ export default async function SecuritySettingsPage() {
                 <History className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div className="flex-1">
-                <h2 className="text-lg font-semibold text-gray-900">Active Sessions</h2>
-                <p className="text-gray-600 text-sm mt-1">
+                <h2 className="text-lg font-semibold text-slate-900">Active Sessions</h2>
+                <p className="text-slate-700 text-sm mt-1">
                   Manage devices where you're currently logged in.
                 </p>
                 <div className="mt-4 p-4 bg-white rounded-lg">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-gray-900">Current Session</p>
-                      <p className="text-sm text-gray-500">This device</p>
+                      <p className="font-medium text-slate-900">Current Session</p>
+                      <p className="text-sm text-slate-700">This device</p>
                     </div>
                     <span className="px-3 py-1 bg-brand-green-100 text-brand-green-800 rounded-full text-sm">
                       Active

@@ -23,7 +23,7 @@ export default async function ProgramDashboardPage({ params }: { params: Promise
   if (!program) {
     // Try by slug
     const { data: bySlug } = await supabase.from('programs').select('*').eq('slug', code).maybeSingle();
-    if (!bySlug) return <div className="p-8"><h1 className="text-2xl font-bold">Program not found</h1><p className="text-gray-600 mt-2">No program with code &quot;{code}&quot;</p></div>;
+    if (!bySlug) return <div className="p-8"><h1 className="text-2xl font-bold">Program not found</h1><p className="text-slate-700 mt-2">No program with code &quot;{code}&quot;</p></div>;
     redirect(`/admin/programs/${bySlug.code || bySlug.slug}/dashboard`);
   }
 
@@ -44,21 +44,21 @@ export default async function ProgramDashboardPage({ params }: { params: Promise
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <nav className="text-sm mb-4">
-        <ol className="flex items-center space-x-2 text-gray-500">
+        <ol className="flex items-center space-x-2 text-slate-700">
           <li><Link href="/admin" className="hover:text-brand-blue-600">Admin</Link></li>
           <li>/</li>
           <li><Link href="/admin/programs" className="hover:text-brand-blue-600">Programs</Link></li>
           <li>/</li>
-          <li className="text-gray-900 font-medium">{program.title}</li>
+          <li className="text-slate-900 font-medium">{program.title}</li>
         </ol>
       </nav>
 
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">{program.title}</h1>
-          <p className="text-gray-600 mt-1">{program.category} &middot; {program.estimated_weeks || '—'} weeks &middot; {program.estimated_hours || '—'} hours</p>
+          <h1 className="text-3xl font-bold text-slate-900">{program.title}</h1>
+          <p className="text-slate-700 mt-1">{program.category} &middot; {program.estimated_weeks || '—'} weeks &middot; {program.estimated_hours || '—'} hours</p>
         </div>
-        <span className={`px-3 py-1 rounded-full text-sm font-medium ${program.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+        <span className={`px-3 py-1 rounded-full text-sm font-medium ${program.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-slate-700'}`}>
           {program.status || 'draft'}
         </span>
       </div>
@@ -66,19 +66,19 @@ export default async function ProgramDashboardPage({ params }: { params: Promise
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Courses</p>
+          <p className="text-sm text-slate-700">Courses</p>
           <p className="text-2xl font-bold">{courseCount || 0}</p>
         </div>
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Enrollments</p>
+          <p className="text-sm text-slate-700">Enrollments</p>
           <p className="text-2xl font-bold">{enrollmentCount || 0}</p>
         </div>
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Certificates</p>
+          <p className="text-sm text-slate-700">Certificates</p>
           <p className="text-2xl font-bold">{certCount || 0}</p>
         </div>
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Lessons</p>
+          <p className="text-sm text-slate-700">Lessons</p>
           <p className="text-2xl font-bold">{lessonCount || 0}</p>
         </div>
       </div>
@@ -93,12 +93,12 @@ export default async function ProgramDashboardPage({ params }: { params: Promise
           >
             <div className="flex items-center gap-3 mb-2">
               <section.icon className="w-5 h-5 text-brand-blue-600" />
-              <h3 className="font-semibold text-gray-900 group-hover:text-brand-blue-600">{section.name}</h3>
+              <h3 className="font-semibold text-slate-900 group-hover:text-brand-blue-600">{section.name}</h3>
               {section.count !== null && (
-                <span className="ml-auto text-sm text-gray-500">{section.count}</span>
+                <span className="ml-auto text-sm text-slate-700">{section.count}</span>
               )}
             </div>
-            <p className="text-sm text-gray-500">{section.desc}</p>
+            <p className="text-sm text-slate-700">{section.desc}</p>
           </Link>
         ))}
       </div>

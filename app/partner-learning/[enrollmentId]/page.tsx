@@ -65,7 +65,7 @@ export default async function PartnerLearningPage({ params }: Props) {
       case 'pending':
         return { icon: AlertCircle, Circle, color: 'text-amber-600 bg-amber-50', label: 'Pending Setup' };
       default:
-        return { icon: Clock, color: 'text-gray-600 bg-white', label: status || 'Unknown' };
+        return { icon: Clock, color: 'text-slate-700 bg-white', label: status || 'Unknown' };
     }
   };
 
@@ -79,7 +79,7 @@ export default async function PartnerLearningPage({ params }: Props) {
         <div className="max-w-4xl mx-auto px-6 py-6">
           <Link 
             href="/student-portal" 
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Student Portal
@@ -91,11 +91,11 @@ export default async function PartnerLearningPage({ params }: Props) {
                 <Building2 className="w-4 h-4" />
                 Short-Term Course
               </div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
                 {course?.title || enrollment.course_name || 'Partner Course'}
               </h1>
               {provider?.name && (
-                <p className="text-gray-600 mt-1">Provided by {provider.name}</p>
+                <p className="text-slate-700 mt-1">Provided by {provider.name}</p>
               )}
             </div>
             
@@ -116,10 +116,10 @@ export default async function PartnerLearningPage({ params }: Props) {
               <Mail className="w-6 h-6 text-brand-blue-600" />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              <h2 className="text-lg font-semibold text-slate-900 mb-2">
                 How to Access Your Course
               </h2>
-              <div className="text-gray-600 space-y-2">
+              <div className="text-slate-700 space-y-2">
                 <p>
                   You will receive login credentials for the partner learning portal via email. 
                   Please check your inbox (and spam folder) for instructions from {provider?.name || 'the course provider'}.
@@ -136,7 +136,7 @@ export default async function PartnerLearningPage({ params }: Props) {
         {/* Portal Access */}
         {provider?.portal_url && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Partner Portal</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Partner Portal</h2>
             <a
               href={provider.portal_url}
               target="_blank"
@@ -146,7 +146,7 @@ export default async function PartnerLearningPage({ params }: Props) {
               Open Partner Portal
               <ExternalLink className="w-4 h-4" />
             </a>
-            <p className="text-sm text-gray-500 mt-3">
+            <p className="text-sm text-slate-700 mt-3">
               Opens in a new tab. You'll need your partner login credentials.
             </p>
           </div>
@@ -155,20 +155,20 @@ export default async function PartnerLearningPage({ params }: Props) {
         {/* Course Details */}
         {course?.description && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">About This Course</h2>
-            <p className="text-gray-600">{course.description}</p>
+            <h2 className="text-lg font-semibold text-slate-900 mb-3">About This Course</h2>
+            <p className="text-slate-700">{course.description}</p>
           </div>
         )}
 
         {/* Support Contact */}
         {(provider?.support_email || provider?.support_phone) && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Need Help?</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Need Help?</h2>
             <div className="space-y-3">
               {provider.support_email && (
                 <a 
                   href={`mailto:${provider.support_email}`}
-                  className="flex items-center gap-3 text-gray-600 hover:text-brand-blue-600"
+                  className="flex items-center gap-3 text-slate-700 hover:text-brand-blue-600"
                 >
                   <Mail className="w-5 h-5" />
                   {provider.support_email}
@@ -177,7 +177,7 @@ export default async function PartnerLearningPage({ params }: Props) {
               {provider.support_phone && (
                 <a 
                   href={`tel:${provider.support_phone}`}
-                  className="flex items-center gap-3 text-gray-600 hover:text-brand-blue-600"
+                  className="flex items-center gap-3 text-slate-700 hover:text-brand-blue-600"
                 >
                   <BookOpen className="w-5 h-5" />
                   {provider.support_phone}
@@ -188,7 +188,7 @@ export default async function PartnerLearningPage({ params }: Props) {
         )}
 
         {/* Elevate Support */}
-        <div className="mt-8 text-center text-gray-500 text-sm">
+        <div className="mt-8 text-center text-slate-700 text-sm">
           <p>
             Having trouble? Contact Elevate for Humanity support at{' '}
             <a href="/support" className="text-brand-blue-600 hover:underline">

@@ -59,13 +59,13 @@ export default async function CourseTemplatesPage() {
         <div className="mb-8">
           <Link 
             href="/admin/course-builder"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Course Builder
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Course Templates</h1>
-          <p className="text-gray-600 mt-1">Start with a pre-built template to save time</p>
+          <h1 className="text-3xl font-bold text-slate-900">Course Templates</h1>
+          <p className="text-slate-700 mt-1">Start with a pre-built template to save time</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -75,13 +75,13 @@ export default async function CourseTemplatesPage() {
                 <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                   <FileText className="w-6 h-6 text-brand-blue-600" />
                 </div>
-                <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                <span className="text-xs font-medium text-slate-700 bg-gray-100 px-2 py-1 rounded">
                   {template.category}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{template.name}</h3>
-              <p className="text-gray-600 text-sm mb-4">{template.description}</p>
-              <p className="text-sm text-gray-500 mb-4">{template.modules} modules included</p>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">{template.name}</h3>
+              <p className="text-slate-700 text-sm mb-4">{template.description}</p>
+              <p className="text-sm text-slate-700 mb-4">{template.modules} modules included</p>
               <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition-colors">
                 <Copy className="w-4 h-4" />
                 Use Template
@@ -93,11 +93,11 @@ export default async function CourseTemplatesPage() {
         <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Plus className="w-6 h-6 text-gray-600" />
+              <Plus className="w-6 h-6 text-slate-700" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900">Create Custom Template</h3>
-              <p className="text-sm text-gray-600">Build your own reusable course template</p>
+              <h3 className="font-semibold text-slate-900">Create Custom Template</h3>
+              <p className="text-sm text-slate-700">Build your own reusable course template</p>
             </div>
             <Link
               href="/admin/course-builder"

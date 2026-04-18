@@ -87,8 +87,8 @@ export default function PendingAccessPanel({ enrollments }: Props) {
       <div className="bg-amber-50 border-b border-amber-200 px-6 py-4 flex items-center gap-3">
         <Clock className="w-5 h-5 text-amber-600 flex-shrink-0" />
         <div>
-          <h2 className="font-bold text-gray-900">Pending Access — Action Required</h2>
-          <p className="text-sm text-gray-500">
+          <h2 className="font-bold text-slate-900">Pending Access — Action Required</h2>
+          <p className="text-sm text-slate-700">
             {pending.length} student{pending.length !== 1 ? 's' : ''} waiting for LMS access. Review documents then grant access.
           </p>
         </div>
@@ -117,15 +117,15 @@ export default function PendingAccessPanel({ enrollments }: Props) {
             <div key={e.id}>
               <div className="px-6 py-4 flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-                  <User className="w-5 h-5 text-gray-400" />
+                  <User className="w-5 h-5 text-slate-700" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-gray-900 truncate">{name}</p>
-                  <p className="text-sm text-gray-500 truncate">{email}</p>
+                  <p className="font-semibold text-slate-900 truncate">{name}</p>
+                  <p className="text-sm text-slate-700 truncate">{email}</p>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
-                    <span className="text-xs text-gray-400 capitalize">{program}</span>
+                    <span className="text-xs text-slate-700 capitalize">{program}</span>
                     <span className="text-xs font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded-full">{paid}</span>
-                    <span className="text-xs text-gray-400">Enrolled {enrolledDate}</span>
+                    <span className="text-xs text-slate-700">Enrolled {enrolledDate}</span>
                     {onboarded
                       ? <span className="text-xs text-green-700 bg-green-50 px-2 py-0.5 rounded-full">Onboarding ✓</span>
                       : <span className="text-xs text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">Onboarding pending</span>
@@ -136,7 +136,7 @@ export default function PendingAccessPanel({ enrollments }: Props) {
                   <button
                     onClick={() => toggleExpand(e.id)}
                     aria-label="View documents"
-                    className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 text-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 transition"
+                    className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 text-slate-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition"
                   >
                     {isLoadingDocs ? <Loader2 className="w-4 h-4 animate-spin" /> : <Eye className="w-4 h-4" />}
                     Docs
@@ -159,14 +159,14 @@ export default function PendingAccessPanel({ enrollments }: Props) {
               {isExpanded && (
                 <div className="bg-gray-50 border-t border-gray-100 px-6 py-5">
                   {isLoadingDocs ? (
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-slate-700">
                       <Loader2 className="w-4 h-4 animate-spin" /> Loading documents…
                     </div>
                   ) : studentDocs.length === 0 ? (
-                    <p className="text-sm text-gray-500 italic">No documents uploaded yet.</p>
+                    <p className="text-sm text-slate-700 italic">No documents uploaded yet.</p>
                   ) : (
                     <div className="space-y-3">
-                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                      <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">
                         {studentDocs.length} document{studentDocs.length !== 1 ? 's' : ''} uploaded
                       </p>
                       {studentDocs.map(doc => {
@@ -176,12 +176,12 @@ export default function PendingAccessPanel({ enrollments }: Props) {
                         return (
                           <div key={doc.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
                             <div className="px-4 py-3 flex items-center gap-3">
-                              <FileText className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                              <FileText className="w-5 h-5 text-slate-700 flex-shrink-0" />
                               <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate capitalize">
+                                <p className="text-sm font-medium text-slate-900 truncate capitalize">
                                   {doc.title || doc.document_type?.replace(/_/g, ' ')}
                                 </p>
-                                <p className="text-xs text-gray-400 truncate">{doc.file_name}</p>
+                                <p className="text-xs text-slate-700 truncate">{doc.file_name}</p>
                               </div>
                               <div className="flex items-center gap-2 flex-shrink-0">
                                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
@@ -200,7 +200,7 @@ export default function PendingAccessPanel({ enrollments }: Props) {
                                 )}
                                 {doc.ocr_text && (
                                   <button onClick={() => setExpandedOcr(isOcrExpanded ? null : doc.id)}
-                                    className="text-xs text-gray-500 hover:text-gray-700 font-medium">
+                                    className="text-xs text-slate-700 hover:text-slate-900 font-medium">
                                     {isOcrExpanded ? 'Hide text' : 'Read text'}
                                   </button>
                                 )}
@@ -215,8 +215,8 @@ export default function PendingAccessPanel({ enrollments }: Props) {
                             )}
                             {isOcrExpanded && doc.ocr_text && (
                               <div className="border-t border-gray-100 px-4 py-3 bg-gray-50">
-                                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">OCR Extracted Text</p>
-                                <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono leading-relaxed max-h-48 overflow-y-auto">
+                                <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">OCR Extracted Text</p>
+                                <pre className="text-xs text-slate-900 whitespace-pre-wrap font-mono leading-relaxed max-h-48 overflow-y-auto">
                                   {doc.ocr_text}
                                 </pre>
                               </div>

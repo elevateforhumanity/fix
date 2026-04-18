@@ -202,16 +202,16 @@ export default async function EmployerOnboardingPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Employer Onboarding</h1>
-        <p className="text-gray-600 mb-4">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Employer Onboarding</h1>
+        <p className="text-slate-700 mb-4">
           Complete all required steps to activate your employer portal.
         </p>
 
         {/* Progress bar */}
         <div className="mb-8">
           <div className="flex items-center justify-between text-sm mb-2">
-            <span className="text-gray-600">{requiredComplete} of {totalRequired} required steps complete</span>
-            <span className="font-medium text-gray-900">{progressPercent}%</span>
+            <span className="text-slate-700">{requiredComplete} of {totalRequired} required steps complete</span>
+            <span className="font-medium text-slate-900">{progressPercent}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
@@ -272,17 +272,17 @@ export default async function EmployerOnboardingPage() {
                   ) : step.status === 'current' ? (
                     <Icon className="w-5 h-5 text-brand-blue-600" />
                   ) : (
-                    <Icon className="w-5 h-5 text-gray-400" />
+                    <Icon className="w-5 h-5 text-slate-700" />
                   )}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-gray-900">{step.title}</h3>
+                    <h3 className="font-semibold text-slate-900">{step.title}</h3>
                     {step.required && step.status !== 'complete' && (
                       <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">Required</span>
                     )}
                   </div>
-                  <p className="text-gray-600 text-sm">{step.description}</p>
+                  <p className="text-slate-700 text-sm">{step.description}</p>
                 </div>
                 {step.status === 'current' && (
                   <Link
@@ -302,7 +302,7 @@ export default async function EmployerOnboardingPage() {
 
         {/* Required documents reference */}
         <div className="mt-8 bg-white rounded-xl shadow-sm border p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
             <Upload className="w-5 h-5 text-brand-blue-600" />
             Required Documents Checklist
           </h2>
@@ -321,7 +321,7 @@ export default async function EmployerOnboardingPage() {
                 ) : (
                   <div className="w-4 h-4 rounded-full border-2 border-gray-300 flex-shrink-0" />
                 )}
-                <span className={doc.done ? 'text-green-800' : 'text-gray-700'}>{doc.label}</span>
+                <span className={doc.done ? 'text-green-800' : 'text-slate-900'}>{doc.label}</span>
               </div>
             ))}
           </div>

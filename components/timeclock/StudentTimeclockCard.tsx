@@ -89,8 +89,8 @@ export function StudentTimeclockCard({
     <div className="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold text-gray-900">Time Clock</h2>
-        <span className="text-sm text-gray-500">{siteName}</span>
+        <h2 className="text-xl font-semibold text-slate-900">Time Clock</h2>
+        <span className="text-sm text-slate-700">{siteName}</span>
       </div>
 
       {/* GPS Status */}
@@ -105,7 +105,7 @@ export function StudentTimeclockCard({
                 : 'bg-gray-400'
             }`}
           />
-          <span className="text-sm text-gray-700">
+          <span className="text-sm text-slate-900">
             {timeclock.gpsError
               ? timeclock.gpsError
               : timeclock.gpsPosition
@@ -116,7 +116,7 @@ export function StudentTimeclockCard({
           </span>
         </div>
         {timeclock.gpsPosition && (
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-slate-700 mt-1">
             Accuracy: {Math.round(timeclock.gpsPosition.accuracy_m)}m
           </p>
         )}
@@ -159,18 +159,18 @@ export function StudentTimeclockCard({
         <div className="mb-4 p-3 rounded-md bg-brand-blue-50">
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div>
-              <span className="text-gray-600">Clock In:</span>
+              <span className="text-slate-700">Clock In:</span>
               <span className="ml-2 font-medium">{formatTime(timeclock.clockInAt)}</span>
             </div>
             {timeclock.lunchStartAt && (
               <div>
-                <span className="text-gray-600">Lunch Start:</span>
+                <span className="text-slate-700">Lunch Start:</span>
                 <span className="ml-2 font-medium">{formatTime(timeclock.lunchStartAt)}</span>
               </div>
             )}
             {timeclock.lunchEndAt && (
               <div>
-                <span className="text-gray-600">Lunch End:</span>
+                <span className="text-slate-700">Lunch End:</span>
                 <span className="ml-2 font-medium">{formatTime(timeclock.lunchEndAt)}</span>
               </div>
             )}
@@ -183,15 +183,15 @@ export function StudentTimeclockCard({
         <div className="mb-4 p-3 rounded-md bg-brand-green-50">
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div>
-              <span className="text-gray-600">Clock In:</span>
+              <span className="text-slate-700">Clock In:</span>
               <span className="ml-2 font-medium">{formatTime(timeclock.clockInAt)}</span>
             </div>
             <div>
-              <span className="text-gray-600">Clock Out:</span>
+              <span className="text-slate-700">Clock Out:</span>
               <span className="ml-2 font-medium">{formatTime(timeclock.clockOutAt)}</span>
             </div>
             <div className="col-span-2">
-              <span className="text-gray-600">Hours Worked:</span>
+              <span className="text-slate-700">Hours Worked:</span>
               <span className="ml-2 font-semibold text-brand-green-700">
                 {formatHours(timeclock.hoursWorked)}
               </span>
@@ -271,7 +271,7 @@ export function StudentTimeclockCard({
               timeclock.reset();
               setAutoClockOutMessage(null);
             }}
-            className="w-full py-3 px-4 rounded-md font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+            className="w-full py-3 px-4 rounded-md font-medium text-slate-900 bg-gray-100 hover:bg-gray-200 transition-colors"
           >
             Start New Shift
           </button>
@@ -280,7 +280,7 @@ export function StudentTimeclockCard({
 
       {/* Geofence Disabled Notice */}
       {timeclock.isShiftOpen && !timeclock.withinGeofence && (
-        <p className="mt-3 text-xs text-center text-gray-500">
+        <p className="mt-3 text-xs text-center text-slate-700">
           Actions disabled while outside work site
         </p>
       )}

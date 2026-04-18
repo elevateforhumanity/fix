@@ -35,7 +35,7 @@ const TYPE_COLORS = {
   course: 'text-brand-green-600 bg-brand-green-100',
   article: 'text-purple-600 bg-purple-100',
   user: 'text-brand-orange-600 bg-brand-orange-100',
-  page: 'text-gray-600 bg-gray-100',
+  page: 'text-slate-700 bg-gray-100',
 };
 
 export function SearchBar({ placeholder = "Search programs, courses...", className, onSearch }: Props) {
@@ -230,7 +230,7 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
   return (
     <div className={`relative ${className || ''}`}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-700" />
         <input
           ref={inputRef}
           type="text"
@@ -249,7 +249,7 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
         {query && (
           <button
             onClick={() => { setQuery(''); setResults([]); }}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-700 hover:text-slate-700"
             aria-label="Clear search"
           >
             <X className="h-4 w-4" />
@@ -270,7 +270,7 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
           {/* Results */}
           {results.length > 0 && (
             <div className="max-h-80 overflow-y-auto">
-              <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-50">
+              <div className="px-3 py-2 text-xs font-semibold text-slate-700 uppercase tracking-wider bg-gray-50">
                 Results for "{query}"
               </div>
               {results.map((result, index) => {
@@ -293,16 +293,16 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-gray-900 truncate">
+                      <div className="font-medium text-slate-900 truncate">
                         {result.title}
                       </div>
                       {result.description && (
-                        <div className="text-sm text-gray-500 truncate">
+                        <div className="text-sm text-slate-700 truncate">
                           {result.description}
                         </div>
                       )}
                       {result.category && (
-                        <span className="inline-block mt-1 text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                        <span className="inline-block mt-1 text-xs bg-gray-100 text-slate-700 px-2 py-0.5 rounded">
                           {result.category}
                         </span>
                       )}
@@ -316,8 +316,8 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
           {/* No results */}
           {query.length >= 2 && !loading && results.length === 0 && (
             <div className="px-4 py-8 text-center">
-              <Search className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-              <p className="text-gray-500">No results found for "{query}"</p>
+              <Search className="w-8 h-8 text-slate-700 mx-auto mb-2" />
+              <p className="text-slate-700">No results found for "{query}"</p>
               <Link
                 href={`/search?q=${encodeURIComponent(query)}`}
                 className="text-sm text-brand-blue-600 hover:underline mt-2 inline-block"
@@ -330,7 +330,7 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
           {/* Recent searches */}
           {!query && recentSearches.length > 0 && (
             <div>
-              <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-50 flex items-center justify-between">
+              <div className="px-3 py-2 text-xs font-semibold text-slate-700 uppercase tracking-wider bg-gray-50 flex items-center justify-between">
                 <span className="flex items-center gap-1">
                   <Clock className="w-3 h-3" /> Recent Searches
                 </span>
@@ -353,8 +353,8 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
                     role="option"
                     aria-selected={isSelected}
                   >
-                    <Clock className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-700">{search}</span>
+                    <Clock className="w-4 h-4 text-slate-700" />
+                    <span className="text-slate-900">{search}</span>
                   </button>
                 );
               })}
@@ -364,13 +364,13 @@ export function SearchBar({ placeholder = "Search programs, courses...", classNa
           {/* Quick links when empty */}
           {!query && recentSearches.length === 0 && (
             <div className="p-4">
-              <p className="text-sm text-gray-500 mb-3">Popular searches:</p>
+              <p className="text-sm text-slate-700 mb-3">Popular searches:</p>
               <div className="flex flex-wrap gap-2">
                 {['CNA', 'Barber', 'HVAC', 'CDL', 'Medical Assistant'].map(term => (
                   <button
                     key={term}
                     onClick={() => setQuery(term)}
-                    className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700"
+                    className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-full text-slate-900"
                   >
                     {term}
                   </button>

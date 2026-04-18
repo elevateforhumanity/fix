@@ -61,16 +61,16 @@ export default async function CompletionsPage() {
         {/* Header */}
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Completions</li>
+              <li className="text-slate-900 font-medium">Completions</li>
             </ol>
           </nav>
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Course Completions</h1>
-              <p className="text-gray-600 mt-2">Track learner progress and completion records</p>
+              <h1 className="text-3xl font-bold text-slate-900">Course Completions</h1>
+              <p className="text-slate-700 mt-2">Track learner progress and completion records</p>
             </div>
             <button className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">
               Export Report
@@ -82,54 +82,54 @@ export default async function CompletionsPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Total Completions</h3>
+              <h3 className="text-sm font-medium text-slate-700">Total Completions</h3>
               <span className="text-brand-green-600 bg-brand-green-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{totalCompletions || 0}</p>
-            <p className="text-sm text-gray-500 mt-1">All time</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{totalCompletions || 0}</p>
+            <p className="text-sm text-slate-700 mt-1">All time</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">This Month</h3>
+              <h3 className="text-sm font-medium text-slate-700">This Month</h3>
               <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{thisMonthCompletions || 0}</p>
-            <p className="text-sm text-gray-500 mt-1">Current month</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{thisMonthCompletions || 0}</p>
+            <p className="text-sm text-slate-700 mt-1">Current month</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">This Week</h3>
+              <h3 className="text-sm font-medium text-slate-700">This Week</h3>
               <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{thisWeekCompletions || 0}</p>
-            <p className="text-sm text-gray-500 mt-1">Last 7 days</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{thisWeekCompletions || 0}</p>
+            <p className="text-sm text-slate-700 mt-1">Last 7 days</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-gray-500">Avg. Completion Time</h3>
+              <h3 className="text-sm font-medium text-slate-700">Avg. Completion Time</h3>
               <span className="text-brand-orange-600 bg-brand-orange-100 p-2 rounded-lg">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mt-2">14d</p>
-            <p className="text-sm text-gray-500 mt-1">Average days</p>
+            <p className="text-3xl font-bold text-slate-900 mt-2">14d</p>
+            <p className="text-sm text-slate-700 mt-1">Average days</p>
           </div>
         </div>
 
@@ -137,7 +137,7 @@ export default async function CompletionsPage() {
         <div className="bg-white rounded-lg shadow-sm border">
           <div className="p-6 border-b">
             <h2 className="text-lg font-semibold">Recent Completions</h2>
-            <p className="text-sm text-gray-500">Latest course completion records</p>
+            <p className="text-sm text-slate-700">Latest course completion records</p>
           </div>
           <div className="divide-y">
             {recentCompletions && recentCompletions.length > 0 ? (
@@ -148,16 +148,16 @@ export default async function CompletionsPage() {
                       <span className="text-slate-400 flex-shrink-0">•</span>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{completion.profiles?.full_name || 'Unknown'}</p>
-                      <p className="text-sm text-gray-500">{completion.profiles?.email}</p>
+                      <p className="font-medium text-slate-900">{completion.profiles?.full_name || 'Unknown'}</p>
+                      <p className="text-sm text-slate-700">{completion.profiles?.email}</p>
                     </div>
                   </div>
                   <div className="text-center">
-                    <p className="font-medium text-gray-900">{completion.courses?.title}</p>
-                    <p className="text-sm text-gray-500">Course completed</p>
+                    <p className="font-medium text-slate-900">{completion.courses?.title}</p>
+                    <p className="text-sm text-slate-700">Course completed</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-slate-900">
                       {completion.completed_at 
                         ? new Date(completion.completed_at).toLocaleDateString()
                         : 'N/A'}
@@ -167,7 +167,7 @@ export default async function CompletionsPage() {
                 </div>
               ))
             ) : (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-slate-700">
                 No completions recorded yet
               </div>
             )}

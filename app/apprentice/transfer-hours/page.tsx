@@ -67,7 +67,7 @@ export default async function TransferHoursPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold">Transfer Hours</h1>
-          <p className="text-gray-600">Request to transfer hours from previous training or employment</p>
+          <p className="text-slate-700">Request to transfer hours from previous training or employment</p>
         </div>
 
         {/* Info Box */}
@@ -87,7 +87,7 @@ export default async function TransferHoursPage() {
         {/* Request Form Link */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-8">
           <h2 className="text-lg font-semibold mb-4">Submit a Transfer Request</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             To request a transfer of hours, you'll need to provide documentation of your 
             previous experience and complete the transfer request form.
           </p>
@@ -115,7 +115,7 @@ export default async function TransferHoursPage() {
                       <h3 className="font-medium">
                         {request.hours_requested} hours from {request.source}
                       </h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-slate-700">
                         Submitted: {new Date(request.created_at).toLocaleDateString()}
                       </p>
                     </div>
@@ -131,8 +131,8 @@ export default async function TransferHoursPage() {
             </div>
           ) : (
             <div className="p-8 text-center">
-              <Clock className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">No transfer requests submitted</p>
+              <Clock className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-700">No transfer requests submitted</p>
             </div>
           )}
         </div>

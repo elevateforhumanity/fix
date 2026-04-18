@@ -84,7 +84,7 @@ export function ReviewActions({
 
   return (
     <div className="bg-white border rounded-lg p-4 space-y-4">
-      <h3 className="font-semibold text-gray-900">Actions</h3>
+      <h3 className="font-semibold text-slate-900">Actions</h3>
 
       {error && (
         <div className="bg-brand-red-50 border border-brand-red-200 rounded p-3 text-brand-red-700 text-sm">
@@ -95,7 +95,7 @@ export function ReviewActions({
       {/* Transcript Review - Hours Override */}
       {item.queue_type === 'transcript_review' && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-900 mb-1">
             Approved Transfer Hours
           </label>
           <input
@@ -105,7 +105,7 @@ export function ReviewActions({
             className="w-full px-3 py-2 border rounded-lg text-sm"
             placeholder="Enter hours to approve"
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-slate-700 mt-1">
             Extracted: {extraction?.extracted?.total_hours || 'N/A'}
           </p>
         </div>
@@ -114,7 +114,7 @@ export function ReviewActions({
       {/* Routing Review - Shop Selection */}
       {item.queue_type === 'routing_review' && routingScores.length > 0 && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-900 mb-1">
             Assign to Shop
           </label>
           <select
@@ -143,7 +143,7 @@ export function ReviewActions({
 
       {/* Reject Section */}
       <div className="border-t pt-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-slate-900 mb-1">
           Rejection Reason
         </label>
         <textarea

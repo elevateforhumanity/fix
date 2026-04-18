@@ -228,12 +228,12 @@ export default function AdminImportPage() {
           <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Import' }]} />
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Data Import</h1>
-              <p className="text-gray-600 mt-1">Import data from CSV files into your LMS</p>
+              <h1 className="text-2xl font-bold text-slate-900">Data Import</h1>
+              <p className="text-slate-700 mt-1">Import data from CSV files into your LMS</p>
             </div>
             <button
               onClick={downloadSampleCSV}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
             >
               <Download className="w-4 h-4" />
               Download Template
@@ -260,7 +260,7 @@ export default function AdminImportPage() {
                     className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
                       isActive
                         ? 'border-brand-blue-600 text-brand-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        : 'border-transparent text-slate-700 hover:text-slate-900 hover:border-gray-300'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -272,18 +272,18 @@ export default function AdminImportPage() {
           </div>
 
           <div className="p-6">
-            <p className="text-gray-600 mb-4">{activeTabData.description}</p>
+            <p className="text-slate-700 mb-4">{activeTabData.description}</p>
             
             <div className="flex flex-wrap gap-2 mb-6">
-              <span className="text-sm text-gray-500">Required fields:</span>
+              <span className="text-sm text-slate-700">Required fields:</span>
               {activeTabData.requiredFields.map(field => (
                 <span key={field} className="px-2 py-1 bg-brand-red-50 text-brand-red-700 text-xs font-medium rounded">
                   {field}
                 </span>
               ))}
-              <span className="text-sm text-gray-500 ml-2">Optional:</span>
+              <span className="text-sm text-slate-700 ml-2">Optional:</span>
               {activeTabData.sampleFields.filter(f => !activeTabData.requiredFields.includes(f)).map(field => (
-                <span key={field} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
+                <span key={field} className="px-2 py-1 bg-gray-100 text-slate-700 text-xs rounded">
                   {field}
                 </span>
               ))}
@@ -301,11 +301,11 @@ export default function AdminImportPage() {
                     : 'border-gray-300 hover:border-gray-400'
                 }`}
               >
-                <Upload className={`w-12 h-12 mx-auto mb-4 ${isDragging ? 'text-brand-blue-500' : 'text-gray-400'}`} />
-                <p className="text-lg font-medium text-gray-900 mb-2">
+                <Upload className={`w-12 h-12 mx-auto mb-4 ${isDragging ? 'text-brand-blue-500' : 'text-slate-700'}`} />
+                <p className="text-lg font-medium text-slate-900 mb-2">
                   {isDragging ? 'Drop your CSV file here' : 'Drag and drop your CSV file'}
                 </p>
-                <p className="text-gray-500 mb-4">or</p>
+                <p className="text-slate-700 mb-4">or</p>
                 <label className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue-600 text-white font-medium rounded-lg hover:bg-brand-blue-700 cursor-pointer transition-colors">
                   <FileSpreadsheet className="w-5 h-5" />
                   Browse Files
@@ -316,7 +316,7 @@ export default function AdminImportPage() {
                     className="hidden"
                   />
                 </label>
-                <p className="text-sm text-gray-500 mt-4">Supports CSV files up to 10MB</p>
+                <p className="text-sm text-slate-700 mt-4">Supports CSV files up to 10MB</p>
               </div>
             )}
 
@@ -328,15 +328,15 @@ export default function AdminImportPage() {
                   <div className="flex items-center gap-3">
                     <FileText className="w-8 h-8 text-brand-green-600" />
                     <div>
-                      <p className="font-medium text-gray-900">{file.name}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-medium text-slate-900">{file.name}</p>
+                      <p className="text-sm text-slate-700">
                         {(file.size / 1024).toFixed(1)} KB • {preview?.totalRows || 0} rows
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={resetImport}
-                    className="p-2 text-gray-400 hover:text-gray-600"
+                    className="p-2 text-slate-700 hover:text-slate-700"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -380,11 +380,11 @@ export default function AdminImportPage() {
                 {preview && preview.rows.length > 0 && (
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-medium text-gray-900 flex items-center gap-2">
+                      <h3 className="font-medium text-slate-900 flex items-center gap-2">
                         <Table className="w-5 h-5" />
                         Data Preview
                       </h3>
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-slate-700">
                         Showing {preview.rows.length} of {preview.totalRows} rows
                       </span>
                     </div>
@@ -396,7 +396,7 @@ export default function AdminImportPage() {
                               {preview.headers.map((header) => (
                                 <th
                                   key={header}
-                                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                  className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider"
                                 >
                                   {header}
                                   {activeTabData.requiredFields.includes(header) && (
@@ -410,8 +410,8 @@ export default function AdminImportPage() {
                             {preview.rows.slice(0, 10).map((row, rowIdx) => (
                               <tr key={rowIdx} className="hover:bg-gray-50">
                                 {preview.headers.map((header) => (
-                                  <td key={header} className="px-4 py-3 text-sm text-gray-900 whitespace-nowrap">
-                                    {row[header] || <span className="text-gray-300">—</span>}
+                                  <td key={header} className="px-4 py-3 text-sm text-slate-900 whitespace-nowrap">
+                                    {row[header] || <span className="text-slate-700">—</span>}
                                   </td>
                                 ))}
                               </tr>
@@ -427,7 +427,7 @@ export default function AdminImportPage() {
                 <div className="flex justify-end gap-4">
                   <button
                     onClick={resetImport}
-                    className="px-6 py-3 text-gray-700 font-medium border border-gray-300 rounded-lg hover:bg-gray-50"
+                    className="px-6 py-3 text-slate-900 font-medium border border-gray-300 rounded-lg hover:bg-gray-50"
                   >
                     Cancel
                   </button>
@@ -473,12 +473,12 @@ export default function AdminImportPage() {
                       <div className="mt-2 flex gap-6">
                         <div>
                           <span className="text-2xl font-bold text-brand-green-600">{importResult.success}</span>
-                          <span className="text-gray-600 ml-2">records imported</span>
+                          <span className="text-slate-700 ml-2">records imported</span>
                         </div>
                         {importResult.failed > 0 && (
                           <div>
                             <span className="text-2xl font-bold text-brand-red-600">{importResult.failed}</span>
-                            <span className="text-gray-600 ml-2">failed</span>
+                            <span className="text-slate-700 ml-2">failed</span>
                           </div>
                         )}
                       </div>
@@ -512,27 +512,27 @@ export default function AdminImportPage() {
 
         {/* Help Section */}
         <div className="bg-white rounded-xl shadow-sm border p-6">
-          <h3 className="font-bold text-gray-900 mb-4">Import Tips</h3>
+          <h3 className="font-bold text-slate-900 mb-4">Import Tips</h3>
           <div className="grid md:grid-cols-3 gap-6 text-sm">
             <div>
-              <h4 className="font-medium text-gray-900 mb-2">File Format</h4>
-              <ul className="text-gray-600 space-y-1">
+              <h4 className="font-medium text-slate-900 mb-2">File Format</h4>
+              <ul className="text-slate-700 space-y-1">
                 <li>• Use CSV format with comma separators</li>
                 <li>• First row must be column headers</li>
                 <li>• UTF-8 encoding recommended</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900 mb-2">Data Quality</h4>
-              <ul className="text-gray-600 space-y-1">
+              <h4 className="font-medium text-slate-900 mb-2">Data Quality</h4>
+              <ul className="text-slate-700 space-y-1">
                 <li>• Ensure required fields are filled</li>
                 <li>• Use consistent date formats (YYYY-MM-DD)</li>
                 <li>• Remove duplicate entries</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900 mb-2">Large Files</h4>
-              <ul className="text-gray-600 space-y-1">
+              <h4 className="font-medium text-slate-900 mb-2">Large Files</h4>
+              <ul className="text-slate-700 space-y-1">
                 <li>• Files up to 10MB supported</li>
                 <li>• Split larger files into batches</li>
                 <li>• Import may take a few minutes</li>

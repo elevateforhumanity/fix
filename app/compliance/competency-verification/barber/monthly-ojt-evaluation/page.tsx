@@ -90,9 +90,9 @@ export default function MonthlyOJTEvaluationPage() {
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-lg font-bold">Monthly OJT Evaluation — Barber Apprenticeship</h1>
-            <p className="text-[10px] text-gray-600">Elevate for Humanity | RAPIDS ID: 2025-IN-132301</p>
+            <p className="text-[10px] text-slate-700">Elevate for Humanity | RAPIDS ID: 2025-IN-132301</p>
           </div>
-          <div className="text-right text-[10px] text-gray-500">
+          <div className="text-right text-[10px] text-slate-700">
             <p>Completed by: Licensed Barbershop Supervisor</p>
             <p>Frequency: Monthly</p>
           </div>
@@ -102,8 +102,8 @@ export default function MonthlyOJTEvaluationPage() {
       {/* Screen header */}
       <div className="print:hidden py-8 bg-white">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Monthly OJT Evaluation</h1>
-          <p className="text-gray-600 mb-4">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Monthly OJT Evaluation</h1>
+          <p className="text-slate-700 mb-4">
             Standardized monthly evaluation form for barbershop supervisors. Print and complete for each apprentice every month.
           </p>
           <PrintButton />
@@ -198,15 +198,15 @@ export default function MonthlyOJTEvaluationPage() {
           <div className="grid grid-cols-3 gap-3 text-sm print:text-[10px] mb-4">
             <div className="border rounded p-3 text-center print:p-2">
               <p className="font-semibold">☐ On Track</p>
-              <p className="text-xs text-gray-500">Progressing as expected</p>
+              <p className="text-xs text-slate-700">Progressing as expected</p>
             </div>
             <div className="border rounded p-3 text-center print:p-2">
               <p className="font-semibold">☐ Needs Attention</p>
-              <p className="text-xs text-gray-500">Specific areas require focus</p>
+              <p className="text-xs text-slate-700">Specific areas require focus</p>
             </div>
             <div className="border rounded p-3 text-center print:p-2">
               <p className="font-semibold">☐ At Risk</p>
-              <p className="text-xs text-gray-500">Intervention required</p>
+              <p className="text-xs text-slate-700">Intervention required</p>
             </div>
           </div>
           <div className="space-y-3 text-sm print:text-[10px]">
@@ -253,10 +253,10 @@ export default function MonthlyOJTEvaluationPage() {
           <Link href="/compliance/competency-verification/barber" className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700 transition">
             Barber Rubric Overview
           </Link>
-          <Link href="/compliance/competency-verification/barber/scoring-sheet" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/scoring-sheet" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Scoring Sheet
           </Link>
-          <Link href="/compliance/competency-verification/barber/final-signoff" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/final-signoff" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Final Sign-Off Form
           </Link>
         </div>

@@ -85,7 +85,7 @@ export default async function StoreSuccessPage({
             <span className="text-slate-400 flex-shrink-0">•</span>
           </div>
           <h1 className="text-3xl font-bold mb-2">Thank You for Your Order!</h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-slate-700 mb-8">
             Your purchase was successful. A confirmation email has been sent to your inbox.
           </p>
 
@@ -94,15 +94,15 @@ export default async function StoreSuccessPage({
               <h2 className="font-semibold mb-4">Order Details</h2>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Order ID</span>
+                  <span className="text-slate-700">Order ID</span>
                   <span className="font-mono">{order.id}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Date</span>
+                  <span className="text-slate-700">Date</span>
                   <span>{new Date(order.created_at).toLocaleDateString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Total</span>
+                  <span className="text-slate-700">Total</span>
                   <span className="font-bold">${order.total?.toFixed(2)}</span>
                 </div>
               </div>
@@ -116,10 +116,10 @@ export default async function StoreSuccessPage({
                 {orderItems.map((item: any) => (
                   <div key={item.id} className="flex items-center justify-between p-4 bg-white rounded-lg">
                     <div className="flex items-center gap-3">
-                      <Package className="w-8 h-8 text-gray-400" />
+                      <Package className="w-8 h-8 text-slate-700" />
                       <div className="text-left">
                         <p className="font-medium">{item.product?.name}</p>
-                        <p className="text-sm text-gray-500 capitalize">{item.product?.type}</p>
+                        <p className="text-sm text-slate-700 capitalize">{item.product?.type}</p>
                       </div>
                     </div>
                     {item.product?.download_url && (
@@ -155,7 +155,7 @@ export default async function StoreSuccessPage({
             </div>
           )}
 
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500 mb-8">
+          <div className="flex items-center justify-center gap-2 text-sm text-slate-700 mb-8">
             <Mail className="w-4 h-4" />
             <span>Receipt sent to {user.email}</span>
           </div>

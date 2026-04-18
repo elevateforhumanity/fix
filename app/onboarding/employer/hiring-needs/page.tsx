@@ -184,7 +184,7 @@ export default function HiringNeedsPage() {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Industry */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <Building className="w-5 h-5 text-brand-blue-600" />
               Industry
             </h2>
@@ -203,11 +203,11 @@ export default function HiringNeedsPage() {
 
           {/* Position Types */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <Users className="w-5 h-5 text-brand-blue-600" />
               Position Types
             </h2>
-            <p className="text-gray-600 text-sm mb-4">Select all that apply</p>
+            <p className="text-slate-700 text-sm mb-4">Select all that apply</p>
             <div className="grid md:grid-cols-2 gap-4">
               {positionTypes.map(type => (
                 <button
@@ -222,8 +222,8 @@ export default function HiringNeedsPage() {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium text-gray-900">{type.label}</div>
-                      <div className="text-sm text-gray-500">{type.description}</div>
+                      <div className="font-medium text-slate-900">{type.label}</div>
+                      <div className="text-sm text-slate-700">{type.description}</div>
                     </div>
                     {formData.positionTypes.includes(type.id) && (
                       <CheckCircle className="w-5 h-5 text-brand-blue-600" />
@@ -236,7 +236,7 @@ export default function HiringNeedsPage() {
 
           {/* Number of Positions */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <Users className="w-5 h-5 text-brand-blue-600" />
               How Many Positions?
             </h2>
@@ -257,7 +257,7 @@ export default function HiringNeedsPage() {
 
           {/* Hiring Timeline */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <Clock className="w-5 h-5 text-brand-blue-600" />
               Hiring Timeline
             </h2>
@@ -275,8 +275,8 @@ export default function HiringNeedsPage() {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium text-gray-900">{timeline.label}</div>
-                      <div className="text-sm text-gray-500">{timeline.description}</div>
+                      <div className="font-medium text-slate-900">{timeline.label}</div>
+                      <div className="text-sm text-slate-700">{timeline.description}</div>
                     </div>
                     {formData.timeline === timeline.id && (
                       <CheckCircle className="w-5 h-5 text-brand-blue-600" />
@@ -289,7 +289,7 @@ export default function HiringNeedsPage() {
 
           {/* Location */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <MapPin className="w-5 h-5 text-brand-blue-600" />
               Work Location(s)
             </h2>
@@ -304,7 +304,7 @@ export default function HiringNeedsPage() {
 
           {/* Salary Range */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DollarSign className="w-5 h-5 text-brand-blue-600" />
               Salary Range (Optional)
             </h2>
@@ -326,7 +326,7 @@ export default function HiringNeedsPage() {
 
           {/* Additional Info */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Additional Information</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Additional Information</h2>
             <textarea
               value={formData.additionalInfo}
               onChange={(e) => setFormData({ ...formData, additionalInfo: e.target.value })}
@@ -340,7 +340,7 @@ export default function HiringNeedsPage() {
           <div className="flex items-center justify-between">
             <Link
               href="/onboarding/employer"
-              className="px-6 py-3 text-gray-600 hover:text-gray-900"
+              className="px-6 py-3 text-slate-700 hover:text-slate-900"
             >
               Save & Exit
             </Link>

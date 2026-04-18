@@ -49,7 +49,7 @@ export default async function AcceptInvitePage({ searchParams }: Props) {
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 max-w-md w-full">
         <div className="mb-6 text-center">
-          <h1 className="text-xl font-semibold text-gray-900">Organization Invitation</h1>
+          <h1 className="text-xl font-semibold text-slate-900">Organization Invitation</h1>
         </div>
 
         {fetchError ? (
@@ -59,7 +59,7 @@ export default async function AcceptInvitePage({ searchParams }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </div>
-            <p className="text-sm text-gray-700">{fetchError}</p>
+            <p className="text-sm text-slate-900">{fetchError}</p>
             <a href="/" className="mt-4 inline-block text-sm text-brand-blue-600 hover:underline">
               Return to home
             </a>
@@ -73,7 +73,7 @@ export default async function AcceptInvitePage({ searchParams }: Props) {
           />
         ) : (
           <div className="text-center">
-            <p className="text-sm text-gray-500">Loading invitation…</p>
+            <p className="text-sm text-slate-700">Loading invitation…</p>
           </div>
         )}
       </div>

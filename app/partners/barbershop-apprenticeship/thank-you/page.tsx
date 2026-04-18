@@ -25,21 +25,21 @@ export default function ThankYouPage() {
           <div className="w-20 h-20 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-black flex-shrink-0">•</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Application Received!</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">Application Received!</h1>
           <p className="text-lg text-black mb-8">
             Thank you for applying to become a barbershop partner for the Indiana Barber
             Apprenticeship program. We&apos;ve received your application and will be in touch soon.
           </p>
 
           <div className="bg-white p-8 rounded-xl shadow-sm text-left mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">What Happens Next</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">What Happens Next</h2>
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <div className="w-8 h-8 bg-brand-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-brand-blue-600 font-bold text-sm">1</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Verification (1-3 business days)</h3>
+                  <h3 className="font-semibold text-slate-900">Verification (1-3 business days)</h3>
                   <p className="text-black text-sm">
                     We&apos;ll verify your shop license and supervisor credentials with the Indiana
                     Professional Licensing Agency.
@@ -51,7 +51,7 @@ export default function ThankYouPage() {
                   <span className="text-brand-blue-600 font-bold text-sm">2</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">MOU Review & Signing</h3>
+                  <h3 className="font-semibold text-slate-900">MOU Review & Signing</h3>
                   <p className="text-black text-sm">
                     We&apos;ll send you the official MOU for review and electronic signature.
                   </p>
@@ -62,7 +62,7 @@ export default function ThankYouPage() {
                   <span className="text-brand-blue-600 font-bold text-sm">3</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Site Approval</h3>
+                  <h3 className="font-semibold text-slate-900">Site Approval</h3>
                   <p className="text-black text-sm">
                     Once verified and MOU signed, your shop becomes an approved worksite.
                   </p>
@@ -73,7 +73,7 @@ export default function ThankYouPage() {
                   <span className="text-brand-blue-600 font-bold text-sm">4</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Apprentice Matching</h3>
+                  <h3 className="font-semibold text-slate-900">Apprentice Matching</h3>
                   <p className="text-black text-sm">
                     We&apos;ll work with you to match qualified apprentice candidates to your shop.
                   </p>
@@ -83,7 +83,7 @@ export default function ThankYouPage() {
           </div>
 
           <div className="bg-orange-50 border border-orange-200 p-8 rounded-xl mb-8 text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Schedule Your Site Visit</h3>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">Schedule Your Site Visit</h3>
             <p className="text-black mb-4">
               Ready to move forward? Book your 15-minute Zoom site visit now. We&apos;ll walk through
               your shop and answer any questions.
@@ -101,7 +101,7 @@ export default function ThankYouPage() {
           <div className="bg-brand-blue-50 p-6 rounded-xl mb-8">
             <div className="flex items-center gap-3 mb-3">
               <Clock className="w-5 h-5 text-brand-blue-600" />
-              <span className="font-semibold text-gray-900">Confirmation Email Sent</span>
+              <span className="font-semibold text-slate-900">Confirmation Email Sent</span>
             </div>
             <p className="text-black text-sm">
               Check your inbox for a confirmation email with your application details, program info,
@@ -110,12 +110,12 @@ export default function ThankYouPage() {
           </div>
 
           <div className="bg-white p-6 rounded-xl mb-8">
-            <h3 className="font-semibold text-gray-900 mb-3">Questions?</h3>
+            <h3 className="font-semibold text-slate-900 mb-3">Questions?</h3>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:+13173143757" className="inline-flex items-center justify-center gap-2 text-gray-700 hover:text-brand-blue-600">
+              <a href="tel:+13173143757" className="inline-flex items-center justify-center gap-2 text-slate-900 hover:text-brand-blue-600">
                 <Phone className="w-4 h-4" /> (317) 314-3757
               </a>
-              <a href="/contact" className="inline-flex items-center justify-center gap-2 text-gray-700 hover:text-brand-blue-600">
+              <a href="/contact" className="inline-flex items-center justify-center gap-2 text-slate-900 hover:text-brand-blue-600">
                 <Mail className="w-4 h-4" /> Contact Us
               </a>
             </div>

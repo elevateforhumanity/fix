@@ -93,7 +93,7 @@ export function AchievementBadges() {
                   }`}
                 >
                   <Icon
-                    className={`h-10 w-10 ${badge.earned ? 'text-white' : 'text-gray-400'}`}
+                    className={`h-10 w-10 ${badge.earned ? 'text-white' : 'text-slate-700'}`}
                   />
                 </div>
               </div>
@@ -103,7 +103,7 @@ export function AchievementBadges() {
                 {badge.name}
               </h4>
               <p
-                className={`text-xs ${badge.earned ? 'text-white/90' : 'text-gray-500'}`}
+                className={`text-xs ${badge.earned ? 'text-white/90' : 'text-slate-700'}`}
               >
                 {badge.description}
               </p>

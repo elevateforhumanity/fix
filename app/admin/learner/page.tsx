@@ -30,8 +30,8 @@ export default async function LearnerPage() {
 
         <div className="flex items-center justify-between mt-4 mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Learner Management</h1>
-            <p className="text-gray-500 mt-1">{learners?.length ?? 0} learners</p>
+            <h1 className="text-2xl font-bold text-slate-900">Learner Management</h1>
+            <p className="text-slate-700 mt-1">{learners?.length ?? 0} learners</p>
           </div>
           <Link
             href="/admin/students"
@@ -45,9 +45,9 @@ export default async function LearnerPage() {
           <table className="w-full text-sm">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="text-left px-6 py-3 font-medium text-gray-600">Learner</th>
-                <th className="text-left px-6 py-3 font-medium text-gray-600">Email</th>
-                <th className="text-left px-6 py-3 font-medium text-gray-600">Joined</th>
+                <th className="text-left px-6 py-3 font-medium text-slate-700">Learner</th>
+                <th className="text-left px-6 py-3 font-medium text-slate-700">Email</th>
+                <th className="text-left px-6 py-3 font-medium text-slate-700">Joined</th>
                 <th className="px-6 py-3" />
               </tr>
             </thead>
@@ -59,11 +59,11 @@ export default async function LearnerPage() {
                       <div className="w-8 h-8 rounded-full bg-brand-blue-100 flex items-center justify-center text-brand-blue-600">
                         <User className="w-4 h-4" />
                       </div>
-                      <span className="font-medium text-gray-900">{l.full_name ?? '—'}</span>
+                      <span className="font-medium text-slate-900">{l.full_name ?? '—'}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-gray-600">{l.email ?? '—'}</td>
-                  <td className="px-6 py-4 text-gray-500">
+                  <td className="px-6 py-4 text-slate-700">{l.email ?? '—'}</td>
+                  <td className="px-6 py-4 text-slate-700">
                     {l.created_at ? new Date(l.created_at).toLocaleDateString() : '—'}
                   </td>
                   <td className="px-6 py-4 text-right">
@@ -78,7 +78,7 @@ export default async function LearnerPage() {
               ))}
               {(!learners || learners.length === 0) && (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-gray-400">
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-700">
                     No learners found
                   </td>
                 </tr>

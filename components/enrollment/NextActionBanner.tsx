@@ -63,8 +63,8 @@ export function NextActionBanner() {
             {ACTION_ICONS[nextAction.action] || <ArrowRight className="w-5 h-5" />}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">Next required action</h3>
-            <p className="text-sm text-gray-600">{nextAction.description}</p>
+            <h3 className="font-semibold text-slate-900">Next required action</h3>
+            <p className="text-sm text-slate-700">{nextAction.description}</p>
           </div>
         </div>
         <Link

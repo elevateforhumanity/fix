@@ -55,7 +55,7 @@ export default async function EmployeeDocumentsPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold">My Documents</h1>
-            <p className="text-gray-600">Access and manage your employee documents</p>
+            <p className="text-slate-700">Access and manage your employee documents</p>
           </div>
           <button className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-blue-700 transition">
             <Upload className="w-5 h-5" />
@@ -83,7 +83,7 @@ export default async function EmployeeDocumentsPage() {
                   <Link
                     key={category.id}
                     href={`/employee/documents?category=${category.id}`}
-                    className="flex items-center justify-between px-3 py-2 rounded-lg text-gray-600 hover:bg-white"
+                    className="flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-white"
                   >
                     <span className="flex items-center gap-2">
                       <Folder className="w-4 h-4" />
@@ -101,7 +101,7 @@ export default async function EmployeeDocumentsPage() {
             {/* Search */}
             <div className="mb-6">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                 <input
                   type="text"
                   placeholder="Search documents..."
@@ -120,7 +120,7 @@ export default async function EmployeeDocumentsPage() {
                         <FileText className="w-10 h-10 text-brand-blue-500" />
                         <div>
                           <h3 className="font-medium">{doc.name}</h3>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-slate-700">
                             {doc.category} • {new Date(doc.created_at).toLocaleDateString()}
                           </p>
                         </div>
@@ -138,8 +138,8 @@ export default async function EmployeeDocumentsPage() {
                 </div>
               ) : (
                 <div className="p-8 text-center">
-                  <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500">No documents found</p>
+                  <FileText className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+                  <p className="text-slate-700">No documents found</p>
                 </div>
               )}
             </div>

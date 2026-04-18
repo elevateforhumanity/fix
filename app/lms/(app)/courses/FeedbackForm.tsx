@@ -47,13 +47,13 @@ export function FeedbackForm({ courseId, courseName, onSubmit }: FeedbackFormPro
 
   return (
     <div className="bg-white border rounded-xl p-6">
-      <h3 className="text-lg font-bold text-gray-900 mb-2">Rate This Course</h3>
-      <p className="text-gray-600 text-sm mb-4">{courseName}</p>
+      <h3 className="text-lg font-bold text-slate-900 mb-2">Rate This Course</h3>
+      <p className="text-slate-700 text-sm mb-4">{courseName}</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Star Rating */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Your Rating
           </label>
           <div className="flex gap-1">
@@ -70,7 +70,7 @@ export function FeedbackForm({ courseId, courseName, onSubmit }: FeedbackFormPro
                   className={`w-8 h-8 transition ${
                     star <= (hoveredRating || rating)
                       ? 'text-yellow-400 fill-current'
-                      : 'text-gray-300'
+                      : 'text-slate-700'
                   }`}
                 />
               </button>
@@ -80,7 +80,7 @@ export function FeedbackForm({ courseId, courseName, onSubmit }: FeedbackFormPro
 
         {/* Feedback Text */}
         <div>
-          <label htmlFor="feedback" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="feedback" className="block text-sm font-medium text-slate-900 mb-2">
             Your Feedback (optional)
           </label>
           <textarea

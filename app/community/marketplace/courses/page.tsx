@@ -103,7 +103,7 @@ export default function CommunityCoursesPage() {
                   className={`px-4 py-2 rounded-lg whitespace-nowrap transition ${
                     index === 0
                       ? 'bg-brand-blue-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-200'
+                      : 'bg-white text-slate-900 hover:bg-gray-200'
                   }`}
                 >
                   {category}
@@ -131,7 +131,7 @@ export default function CommunityCoursesPage() {
                 />
                 
                 <div className="absolute bottom-3 left-3">
-                  <span className="bg-white/90 text-gray-800 text-xs font-medium px-2 py-1 rounded">
+                  <span className="bg-white/90 text-slate-900 text-xs font-medium px-2 py-1 rounded">
                     {course.category}
                   </span>
                 </div>
@@ -139,14 +139,14 @@ export default function CommunityCoursesPage() {
                   <span className={`text-sm font-bold px-3 py-1 rounded ${
                     course.price === 'Free' 
                       ? 'bg-brand-green-500 text-white' 
-                      : 'bg-white text-gray-900'
+                      : 'bg-white text-slate-900'
                   }`}>
                     {course.price}
                   </span>
                 </div>
               </div>
               <div className="p-4">
-                <h3 className="font-bold text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
+                <h3 className="font-bold text-slate-900 mb-2 line-clamp-2">{course.title}</h3>
                 <p className="text-sm text-black mb-3">by {course.instructor}</p>
                 
                 <div className="flex items-center gap-4 text-sm text-black mb-3">
@@ -177,7 +177,7 @@ export default function CommunityCoursesPage() {
 
         {/* Load More */}
         <div className="text-center mt-8">
-          <button className="bg-white border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-white transition">
+          <button className="bg-white border border-gray-300 text-slate-900 px-8 py-3 rounded-lg font-medium hover:bg-white transition">
             Load More Courses
           </button>
         </div>

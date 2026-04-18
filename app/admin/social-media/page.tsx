@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const STATUS_BADGE: Record<string, string> = {
   active:    'bg-green-100 text-green-800',
   paused:    'bg-yellow-100 text-yellow-800',
-  draft:     'bg-gray-100 text-gray-600',
+  draft:     'bg-gray-100 text-slate-700',
   scheduled: 'bg-blue-100 text-blue-800',
   completed: 'bg-purple-100 text-purple-800',
   failed:    'bg-red-100 text-red-800',
@@ -40,8 +40,8 @@ export default async function SocialMediaPage() {
 
         <div className="flex items-center justify-between mt-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Social Media Campaigns</h1>
-            <p className="text-gray-500 text-sm mt-1">Live campaign records from the database</p>
+            <h1 className="text-3xl font-bold text-slate-900">Social Media Campaigns</h1>
+            <p className="text-slate-700 text-sm mt-1">Live campaign records from the database</p>
           </div>
           <Link href="/admin/social-media/campaigns/new"
             className="bg-brand-orange-600 hover:bg-brand-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
@@ -56,8 +56,8 @@ export default async function SocialMediaPage() {
             { label: 'Posts Published',  value: totalPublished.toLocaleString() },
           ].map((kpi) => (
             <div key={kpi.label} className="bg-white rounded-lg border p-4 shadow-sm">
-              <p className="text-xs text-gray-500 uppercase tracking-wide">{kpi.label}</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{kpi.value}</p>
+              <p className="text-xs text-slate-700 uppercase tracking-wide">{kpi.label}</p>
+              <p className="text-2xl font-bold text-slate-900 mt-1">{kpi.value}</p>
             </div>
           ))}
         </div>
@@ -81,7 +81,7 @@ export default async function SocialMediaPage() {
                     <td className="px-4 py-3 font-medium text-slate-900">{r.name}</td>
                     <td className="px-4 py-3 text-slate-600 capitalize">{r.platform}</td>
                     <td className="px-4 py-3">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_BADGE[r.status] ?? 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_BADGE[r.status] ?? 'bg-gray-100 text-slate-700'}`}>
                         {r.status}
                       </span>
                     </td>

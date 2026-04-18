@@ -99,8 +99,8 @@ export default async function AutomationLogPage() {
           <div className="flex items-center gap-3">
             <Zap className="w-8 h-8 text-amber-500" />
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Automation Log</h1>
-              <p className="text-gray-600">View system automation execution and delivery status</p>
+              <h1 className="text-2xl font-bold text-slate-900">Automation Log</h1>
+              <p className="text-slate-700">View system automation execution and delivery status</p>
             </div>
           </div>
         </div>
@@ -116,8 +116,8 @@ export default async function AutomationLogPage() {
                   <stat.icon className={`w-6 h-6 text-${stat.color}-600`} />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                  <p className="text-sm text-gray-600">{stat.label}</p>
+                  <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+                  <p className="text-sm text-slate-700">{stat.label}</p>
                 </div>
               </div>
             </div>
@@ -128,11 +128,11 @@ export default async function AutomationLogPage() {
           {/* Delivery Logs */}
           <div className="bg-white rounded-xl shadow-sm">
             <div className="p-4 border-b flex items-center justify-between">
-              <h2 className="font-bold text-gray-900 flex items-center gap-2">
+              <h2 className="font-bold text-slate-900 flex items-center gap-2">
                 <Mail className="w-5 h-5 text-brand-blue-500" />
                 Email/SMS Delivery Log
               </h2>
-              <span className="text-sm text-gray-500">{deliveryLogs?.length || 0} records</span>
+              <span className="text-sm text-slate-700">{deliveryLogs?.length || 0} records</span>
             </div>
             <div className="divide-y max-h-[500px] overflow-y-auto">
               {deliveryLogs && deliveryLogs.length > 0 ? (
@@ -150,22 +150,22 @@ export default async function AutomationLogPage() {
                           )}
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">
+                          <p className="font-medium text-slate-900 text-sm">
                             {log.channel?.toUpperCase() || 'Email'}: {log.template_name || 'Message'}
                           </p>
-                          <p className="text-gray-500 text-xs truncate max-w-[200px]">
+                          <p className="text-slate-700 text-xs truncate max-w-[200px]">
                             To: {log.recipient || 'Unknown'}
                           </p>
                         </div>
                       </div>
-                      <span className="text-xs text-gray-400">{formatTime(log.created_at)}</span>
+                      <span className="text-xs text-slate-700">{formatTime(log.created_at)}</span>
                     </div>
                   </div>
                 ))
               ) : (
                 <div className="p-8 text-center">
-                  <Mail className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500">No delivery logs yet</p>
+                  <Mail className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+                  <p className="text-slate-700">No delivery logs yet</p>
                 </div>
               )}
             </div>
@@ -174,11 +174,11 @@ export default async function AutomationLogPage() {
           {/* Recent Enrollments (Automation Triggers) */}
           <div className="bg-white rounded-xl shadow-sm">
             <div className="p-4 border-b flex items-center justify-between">
-              <h2 className="font-bold text-gray-900 flex items-center gap-2">
+              <h2 className="font-bold text-slate-900 flex items-center gap-2">
                 <Users className="w-5 h-5 text-brand-green-500" />
                 Enrollment Automations
               </h2>
-              <span className="text-sm text-gray-500">{recentEnrollments?.length || 0} recent</span>
+              <span className="text-sm text-slate-700">{recentEnrollments?.length || 0} recent</span>
             </div>
             <div className="divide-y max-h-[500px] overflow-y-auto">
               {recentEnrollments && recentEnrollments.length > 0 ? (
@@ -190,22 +190,22 @@ export default async function AutomationLogPage() {
                           <span className="text-slate-400 flex-shrink-0">•</span>
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">
+                          <p className="font-medium text-slate-900 text-sm">
                             Enrollment completed
                           </p>
-                          <p className="text-gray-500 text-xs">
+                          <p className="text-slate-700 text-xs">
                             {enrollment.profiles?.full_name || 'Student'} → {(enrollment.programs as any)?.title || (enrollment.programs as any)?.name || 'Program'}
                           </p>
                         </div>
                       </div>
-                      <span className="text-xs text-gray-400">{formatTime(enrollment.created_at)}</span>
+                      <span className="text-xs text-slate-700">{formatTime(enrollment.created_at)}</span>
                     </div>
                   </div>
                 ))
               ) : (
                 <div className="p-8 text-center">
-                  <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500">No recent enrollments</p>
+                  <Users className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+                  <p className="text-slate-700">No recent enrollments</p>
                 </div>
               )}
             </div>
@@ -214,37 +214,37 @@ export default async function AutomationLogPage() {
 
         {/* Cron Job Status */}
         <div className="mt-8 bg-white rounded-xl shadow-sm p-6">
-          <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <h2 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
             <RefreshCw className="w-5 h-5 text-brand-blue-500" />
             Scheduled Jobs
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
             <div className="p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-medium text-gray-900">Nudge Emails</span>
+                <span className="font-medium text-slate-900">Nudge Emails</span>
                 <span className="text-xs px-2 py-1 bg-brand-green-100 text-brand-green-700 rounded">Active</span>
               </div>
-              <p className="text-sm text-gray-600">Sends inactivity reminders</p>
-              <p className="text-xs text-gray-400 mt-1">Runs daily at 9:00 AM</p>
+              <p className="text-sm text-slate-700">Sends inactivity reminders</p>
+              <p className="text-xs text-slate-700 mt-1">Runs daily at 9:00 AM</p>
             </div>
             <div className="p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-medium text-gray-900">Missed Check-ins</span>
+                <span className="font-medium text-slate-900">Missed Check-ins</span>
                 <span className="text-xs px-2 py-1 bg-brand-green-100 text-brand-green-700 rounded">Active</span>
               </div>
-              <p className="text-sm text-gray-600">Alerts for missed OJT check-ins</p>
-              <p className="text-xs text-gray-400 mt-1">Runs daily at 6:00 PM</p>
+              <p className="text-sm text-slate-700">Alerts for missed OJT check-ins</p>
+              <p className="text-xs text-slate-700 mt-1">Runs daily at 6:00 PM</p>
             </div>
             <div className="p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-medium text-gray-900">End of Day Summary</span>
+                <span className="font-medium text-slate-900">End of Day Summary</span>
                 <span className="text-xs px-2 py-1 bg-brand-green-100 text-brand-green-700 rounded">Active</span>
               </div>
-              <p className="text-sm text-gray-600">Daily progress summaries</p>
-              <p className="text-xs text-gray-400 mt-1">Runs daily at 8:00 PM</p>
+              <p className="text-sm text-slate-700">Daily progress summaries</p>
+              <p className="text-xs text-slate-700 mt-1">Runs daily at 8:00 PM</p>
             </div>
           </div>
-          <p className="text-xs text-gray-400 mt-4">
+          <p className="text-xs text-slate-700 mt-4">
             Note: Cron jobs are triggered by scheduled cron. Check deployment dashboard for execution logs.
           </p>
         </div>

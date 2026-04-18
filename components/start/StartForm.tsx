@@ -37,7 +37,7 @@ const FUNDING_OPTIONS = [
 ];
 
 const inputClass =
-  'w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 focus:border-brand-blue-500 focus:ring-2 focus:ring-brand-blue-200 focus:outline-none transition';
+  'w-full rounded-xl border border-gray-300 px-4 py-3 text-slate-900 focus:border-brand-blue-500 focus:ring-2 focus:ring-brand-blue-200 focus:outline-none transition';
 const selectClass = `${inputClass} bg-white`;
 
 export default function StartForm() {
@@ -99,14 +99,14 @@ export default function StartForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900">You&apos;re in the system.</h2>
-        <p className="mt-3 text-gray-700">
+        <h2 className="text-2xl font-bold text-slate-900">You&apos;re in the system.</h2>
+        <p className="mt-3 text-slate-900">
           We received your intake. Your next steps depend on your funding status,
           and we&apos;ll guide you through them.
         </p>
 
         <div className="mt-6 rounded-2xl bg-gray-50 p-4">
-          <div className="font-medium text-gray-900">Track your status</div>
+          <div className="font-medium text-slate-900">Track your status</div>
           <a
             href={`/status/application?token=${submitState.statusToken}`}
             className="mt-2 inline-block font-medium text-brand-blue-600 underline hover:text-brand-blue-800"
@@ -115,7 +115,7 @@ export default function StartForm() {
           </a>
         </div>
 
-        <p className="mt-4 text-sm text-gray-500">
+        <p className="mt-4 text-sm text-slate-700">
           Check your email — we&apos;ll send confirmation and next steps within 24 hours.
         </p>
       </div>
@@ -127,11 +127,11 @@ export default function StartForm() {
       onSubmit={handleSubmit}
       className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm"
     >
-      <h2 className="mb-6 text-xl font-bold text-gray-900">Start your application</h2>
+      <h2 className="mb-6 text-xl font-bold text-slate-900">Start your application</h2>
 
       <div className="grid gap-4">
         <div>
-          <label htmlFor="full_name" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="full_name" className="mb-1 block text-sm font-medium text-slate-900">
             Full name
           </label>
           <input
@@ -145,7 +145,7 @@ export default function StartForm() {
         </div>
 
         <div>
-          <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="mb-1 block text-sm font-medium text-slate-900">
             Email
           </label>
           <input
@@ -160,7 +160,7 @@ export default function StartForm() {
         </div>
 
         <div>
-          <label htmlFor="phone" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="phone" className="mb-1 block text-sm font-medium text-slate-900">
             Phone <span className="text-slate-500">(optional)</span>
           </label>
           <input
@@ -174,7 +174,7 @@ export default function StartForm() {
         </div>
 
         <div>
-          <label htmlFor="program_interest" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="program_interest" className="mb-1 block text-sm font-medium text-slate-900">
             Program interest
           </label>
           <select
@@ -193,7 +193,7 @@ export default function StartForm() {
         </div>
 
         <div>
-          <label htmlFor="funding_interest" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="funding_interest" className="mb-1 block text-sm font-medium text-slate-900">
             How do you plan to pay?
           </label>
           <select
@@ -213,7 +213,7 @@ export default function StartForm() {
         <div>
           <label
             htmlFor="is_indiana_resident"
-            className="mb-1 block text-sm font-medium text-gray-700"
+            className="mb-1 block text-sm font-medium text-slate-900"
           >
             Are you an Indiana resident?
             <span className="ml-1 text-slate-500 font-normal">(affects funding options)</span>

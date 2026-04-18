@@ -29,33 +29,33 @@ export default async function ProgramMediaPage({ params }: { params: Promise<{ c
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <nav className="text-sm mb-4">
-        <ol className="flex items-center space-x-2 text-gray-500">
+        <ol className="flex items-center space-x-2 text-slate-700">
           <li><Link href="/admin/programs" className="hover:text-brand-blue-600">Programs</Link></li>
           <li>/</li>
           <li><Link href={`/admin/programs/${code}/dashboard`} className="hover:text-brand-blue-600">{program.title}</Link></li>
           <li>/</li>
-          <li className="text-gray-900 font-medium">Media</li>
+          <li className="text-slate-900 font-medium">Media</li>
         </ol>
       </nav>
 
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Media — {program.title}</h1>
+      <h1 className="text-2xl font-bold text-slate-900 mb-6">Media — {program.title}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className="bg-white rounded-lg border p-6">
           <div className="flex items-center gap-3 mb-2">
             <Film className="w-5 h-5 text-brand-blue-600" />
-            <h3 className="font-medium text-gray-900">Lesson Videos</h3>
+            <h3 className="font-medium text-slate-900">Lesson Videos</h3>
           </div>
-          <p className="text-3xl font-bold text-gray-900">{withVideo.length}</p>
-          <p className="text-sm text-gray-500">of {(lessons?.length || 0)} lessons have video</p>
+          <p className="text-3xl font-bold text-slate-900">{withVideo.length}</p>
+          <p className="text-sm text-slate-700">of {(lessons?.length || 0)} lessons have video</p>
         </div>
         <div className="bg-white rounded-lg border p-6">
           <div className="flex items-center gap-3 mb-2">
             <ImageIcon className="w-5 h-5 text-amber-600" />
-            <h3 className="font-medium text-gray-900">Missing Video</h3>
+            <h3 className="font-medium text-slate-900">Missing Video</h3>
           </div>
-          <p className="text-3xl font-bold text-gray-900">{withoutVideo.length}</p>
-          <p className="text-sm text-gray-500">lessons without video content</p>
+          <p className="text-3xl font-bold text-slate-900">{withoutVideo.length}</p>
+          <p className="text-sm text-slate-700">lessons without video content</p>
         </div>
       </div>
 
@@ -66,7 +66,7 @@ export default async function ProgramMediaPage({ params }: { params: Promise<{ c
           </div>
           <ul className="divide-y max-h-96 overflow-y-auto">
             {withoutVideo.map((l: any) => (
-              <li key={l.id} className="px-4 py-3 text-sm text-gray-700">{l.title || l.id}</li>
+              <li key={l.id} className="px-4 py-3 text-sm text-slate-900">{l.title || l.id}</li>
             ))}
           </ul>
         </div>
@@ -80,8 +80,8 @@ export default async function ProgramMediaPage({ params }: { params: Promise<{ c
           <ul className="divide-y max-h-96 overflow-y-auto">
             {withVideo.map((l: any) => (
               <li key={l.id} className="px-4 py-3 text-sm flex items-center justify-between">
-                <span className="text-gray-700">{l.title || l.id}</span>
-                <span className="text-xs text-gray-400 font-mono truncate max-w-xs">{l.video_url?.slice(0, 60)}...</span>
+                <span className="text-slate-900">{l.title || l.id}</span>
+                <span className="text-xs text-slate-700 font-mono truncate max-w-xs">{l.video_url?.slice(0, 60)}...</span>
               </li>
             ))}
           </ul>

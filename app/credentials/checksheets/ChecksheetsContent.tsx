@@ -217,7 +217,7 @@ function PrintableChecksheet({ sheet }: { sheet: Checksheet }) {
             <p className="text-xs font-medium uppercase tracking-wide text-black">
               Elevate for Humanity — HVAC Technician Training Program
             </p>
-            <h2 className="text-xl font-bold text-gray-900 mt-1">
+            <h2 className="text-xl font-bold text-slate-900 mt-1">
               Performance Checksheet: {sheet.title}
             </h2>
             <p className="text-sm text-black mt-1">
@@ -264,7 +264,7 @@ function PrintableChecksheet({ sheet }: { sheet: Checksheet }) {
         <h3 className="text-xs font-semibold uppercase text-black mb-2">
           Required Tools &amp; Materials
         </h3>
-        <div className="grid grid-cols-2 gap-1 text-xs text-gray-700">
+        <div className="grid grid-cols-2 gap-1 text-xs text-slate-900">
           {sheet.tools.map((t) => (
             <span key={t}>&#9634; {t}</span>
           ))}
@@ -276,7 +276,7 @@ function PrintableChecksheet({ sheet }: { sheet: Checksheet }) {
         <h3 className="text-xs font-semibold uppercase text-brand-red-700 mb-2">
           Safety Requirements
         </h3>
-        <div className="grid grid-cols-2 gap-1 text-xs text-gray-700">
+        <div className="grid grid-cols-2 gap-1 text-xs text-slate-900">
           {sheet.safetyRequirements.map((s) => (
             <span key={s}>&#9888; {s}</span>
           ))}
@@ -310,7 +310,7 @@ function PrintableChecksheet({ sheet }: { sheet: Checksheet }) {
               <td className="border border-gray-400 px-2 py-2 text-xs font-mono text-black">
                 {item.id}
               </td>
-              <td className="border border-gray-400 px-2 py-2 text-gray-800">
+              <td className="border border-gray-400 px-2 py-2 text-slate-900">
                 {item.task}
               </td>
               <td className="border border-gray-400 px-2 py-2 text-xs text-black">
@@ -398,7 +398,7 @@ export default function ChecksheetsContent({ lessonMap }: { lessonMap?: Map<numb
         <div className="max-w-4xl mx-auto px-6 py-12">
           <div className="flex items-center gap-3 mb-2">
             <ClipboardCheck className="w-7 h-7 text-brand-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-slate-900">
               OJT Performance Checksheets
             </h1>
           </div>
@@ -423,7 +423,7 @@ export default function ChecksheetsContent({ lessonMap }: { lessonMap?: Map<numb
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-slate-900">
                       {sheet.title}
                     </h3>
                     <p className="text-sm text-black">

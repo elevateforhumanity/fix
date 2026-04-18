@@ -29,7 +29,7 @@ export default function DemoFundingPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-gray-500 border-b bg-gray-50">
+            <tr className="text-left text-xs text-slate-700 border-b bg-gray-50">
               <th className="px-5 py-3 font-medium">Funding Source</th>
               <th className="px-5 py-3 font-medium">Allocated</th>
               <th className="px-5 py-3 font-medium">Spent</th>
@@ -43,17 +43,17 @@ export default function DemoFundingPage() {
               const pct = Math.round((s.spent / s.allocated) * 100);
               return (
                 <tr key={i} className="border-b last:border-0 hover:bg-gray-50">
-                  <td className="px-5 py-3 font-medium text-gray-900">{s.name}</td>
-                  <td className="px-5 py-3 text-gray-600">${s.allocated.toLocaleString()}</td>
-                  <td className="px-5 py-3 text-gray-600">${s.spent.toLocaleString()}</td>
-                  <td className="px-5 py-3 text-gray-600">${(s.allocated - s.spent).toLocaleString()}</td>
-                  <td className="px-5 py-3 text-gray-600">{s.students}</td>
+                  <td className="px-5 py-3 font-medium text-slate-900">{s.name}</td>
+                  <td className="px-5 py-3 text-slate-700">${s.allocated.toLocaleString()}</td>
+                  <td className="px-5 py-3 text-slate-700">${s.spent.toLocaleString()}</td>
+                  <td className="px-5 py-3 text-slate-700">${(s.allocated - s.spent).toLocaleString()}</td>
+                  <td className="px-5 py-3 text-slate-700">{s.students}</td>
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-2">
                       <div className="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                         <div className={`h-full rounded-full ${pct >= 100 ? 'bg-red-500' : pct > 85 ? 'bg-amber-500' : 'bg-green-500'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
                       </div>
-                      <span className="text-xs text-gray-500">{pct}%</span>
+                      <span className="text-xs text-slate-700">{pct}%</span>
                     </div>
                   </td>
                 </tr>

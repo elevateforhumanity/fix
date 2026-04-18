@@ -180,7 +180,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
               <span className="text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full uppercase tracking-wide">
                 Draft — not published
               </span>
-              <span className="text-xs text-gray-400 capitalize">
+              <span className="text-xs text-slate-700 capitalize">
                 Detected: {bp.detected_source_type}
               </span>
             </div>
@@ -188,18 +188,18 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
               value={bp.title}
               onChange={(v) => set({ title: v })}
               placeholder="Course title"
-              className="text-xl font-bold text-gray-900"
+              className="text-xl font-bold text-slate-900"
             />
             <InlineField
               value={bp.subtitle || ''}
               onChange={(v) => set({ subtitle: v })}
               placeholder="One-line subtitle"
-              className="text-gray-500 mt-1"
+              className="text-slate-700 mt-1"
             />
           </div>
           <button
             onClick={onBack}
-            className="text-sm text-gray-500 hover:text-gray-700 border rounded-lg px-3 py-1.5 shrink-0"
+            className="text-sm text-slate-700 hover:text-slate-900 border rounded-lg px-3 py-1.5 shrink-0"
           >
             ← Edit input
           </button>
@@ -216,7 +216,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
               step={0.5}
               value={bp.estimated_duration_hours ?? ''}
               onChange={(e) => set({ estimated_duration_hours: parseFloat(e.target.value) || 0 })}
-              className="w-16 text-lg font-bold text-gray-900 border-b border-dashed border-gray-300 focus:outline-none focus:border-brand-blue-400 bg-transparent"
+              className="w-16 text-lg font-bold text-slate-900 border-b border-dashed border-gray-300 focus:outline-none focus:border-brand-blue-400 bg-transparent"
             />
           </StatBox>
           <StatBox icon={HelpCircle} label="Quiz questions" value={bp.quiz_questions?.length ?? 0} />
@@ -238,10 +238,10 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
 
       {/* Course details */}
       <div className="bg-white rounded-xl border shadow-sm p-6 space-y-4">
-        <h3 className="font-semibold text-gray-900">Course details</h3>
+        <h3 className="font-semibold text-slate-900">Course details</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs text-gray-500 mb-1">Description</label>
+            <label className="block text-xs text-slate-700 mb-1">Description</label>
             <InlineField
               value={bp.description || ''}
               onChange={(v) => set({ description: v })}
@@ -251,7 +251,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
           </div>
           <div className="space-y-3">
             <div>
-              <label className="block text-xs text-gray-500 mb-1">Skill level</label>
+              <label className="block text-xs text-slate-700 mb-1">Skill level</label>
               <select
                 value={bp.skill_level || 'beginner'}
                 onChange={(e) => set({ skill_level: e.target.value as CourseBlueprint['skill_level'] })}
@@ -263,7 +263,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
               </select>
             </div>
             <div>
-              <label className="block text-xs text-gray-500 mb-1">Category</label>
+              <label className="block text-xs text-slate-700 mb-1">Category</label>
               <InlineField
                 value={bp.category || ''}
                 onChange={(v) => set({ category: v })}
@@ -271,7 +271,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
               />
             </div>
             <div>
-              <label className="block text-xs text-gray-500 mb-1">Target audience</label>
+              <label className="block text-xs text-slate-700 mb-1">Target audience</label>
               <InlineField
                 value={bp.target_audience || ''}
                 onChange={(v) => set({ target_audience: v })}
@@ -284,7 +284,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
         {/* Learning objectives */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-xs text-gray-500">Learning objectives</label>
+            <label className="text-xs text-slate-700">Learning objectives</label>
             <button onClick={addObjective} className="text-xs text-brand-blue-600 hover:text-brand-blue-700 flex items-center gap-1">
               <Plus className="w-3 h-3" /> Add
             </button>
@@ -299,7 +299,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                   placeholder="Learning objective"
                   className="flex-1"
                 />
-                <button onClick={() => removeObjective(i)} className="text-gray-300 hover:text-red-400 shrink-0">
+                <button onClick={() => removeObjective(i)} className="text-slate-700 hover:text-red-400 shrink-0">
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -317,7 +317,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
             className="h-4 w-4 mt-0.5 rounded border-gray-300 text-brand-blue-600 focus:ring-brand-blue-500"
           />
           <div className="flex-1">
-            <label htmlFor="cert_toggle" className="text-sm font-medium text-gray-700 flex items-center gap-1">
+            <label htmlFor="cert_toggle" className="text-sm font-medium text-slate-900 flex items-center gap-1">
               <Award className="w-4 h-4 text-brand-blue-600" /> Certificate of completion
             </label>
             {bp.certificate_enabled && (
@@ -325,7 +325,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                 value={bp.certificate_title || ''}
                 onChange={(v) => set({ certificate_title: v })}
                 placeholder="Certificate title"
-                className="mt-1 text-gray-600"
+                className="mt-1 text-slate-700"
               />
             )}
           </div>
@@ -336,8 +336,8 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
       <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b flex items-center justify-between">
           <div>
-            <h3 className="font-semibold text-gray-900">Course structure</h3>
-            <p className="text-sm text-gray-500">{bp.modules?.length} modules · {totalLessons} lessons</p>
+            <h3 className="font-semibold text-slate-900">Course structure</h3>
+            <p className="text-sm text-slate-700">{bp.modules?.length} modules · {totalLessons} lessons</p>
           </div>
           <button
             onClick={addModule}
@@ -358,14 +358,14 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                     value={mod.title}
                     onChange={(v) => updateModule(mi, { title: v })}
                     placeholder="Module title"
-                    className="font-medium text-gray-900 flex-1"
+                    className="font-medium text-slate-900 flex-1"
                   />
-                  <span className="text-xs text-gray-400 shrink-0">{mod.lessons?.length ?? 0} lessons</span>
+                  <span className="text-xs text-slate-700 shrink-0">{mod.lessons?.length ?? 0} lessons</span>
                   {expandedModules.has(mi)
-                    ? <ChevronUp className="w-4 h-4 text-gray-400 shrink-0" />
-                    : <ChevronDown className="w-4 h-4 text-gray-400 shrink-0" />}
+                    ? <ChevronUp className="w-4 h-4 text-slate-700 shrink-0" />
+                    : <ChevronDown className="w-4 h-4 text-slate-700 shrink-0" />}
                 </button>
-                <button onClick={() => removeModule(mi)} className="text-gray-300 hover:text-red-400 shrink-0 ml-1">
+                <button onClick={() => removeModule(mi)} className="text-slate-700 hover:text-red-400 shrink-0 ml-1">
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
@@ -378,18 +378,18 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                       value={mod.description || ''}
                       onChange={(v) => updateModule(mi, { description: v })}
                       placeholder="Module description (optional)"
-                      className="text-xs text-gray-500"
+                      className="text-xs text-slate-700"
                     />
                   </div>
                   {mod.lessons?.map((lesson, li) => (
                     <div key={li} className="px-8 py-3 space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-400 w-5 shrink-0">{li + 1}</span>
+                        <span className="text-xs text-slate-700 w-5 shrink-0">{li + 1}</span>
                         <InlineField
                           value={lesson.title}
                           onChange={(v) => updateLesson(mi, li, { title: v })}
                           placeholder="Lesson title"
-                          className="font-medium text-gray-800 flex-1"
+                          className="font-medium text-slate-900 flex-1"
                         />
                         <div className="flex items-center gap-1 shrink-0">
                           <input
@@ -397,11 +397,11 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                             min={1}
                             value={lesson.duration_minutes}
                             onChange={(e) => updateLesson(mi, li, { duration_minutes: parseInt(e.target.value) || 20 })}
-                            className="w-12 text-xs text-gray-500 border-b border-dashed border-gray-300 focus:outline-none focus:border-brand-blue-400 bg-transparent text-right"
+                            className="w-12 text-xs text-slate-700 border-b border-dashed border-gray-300 focus:outline-none focus:border-brand-blue-400 bg-transparent text-right"
                           />
-                          <span className="text-xs text-gray-400">min</span>
+                          <span className="text-xs text-slate-700">min</span>
                         </div>
-                        <button onClick={() => removeLesson(mi, li)} className="text-gray-300 hover:text-red-400 shrink-0">
+                        <button onClick={() => removeLesson(mi, li)} className="text-slate-700 hover:text-red-400 shrink-0">
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -410,7 +410,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                           value={lesson.description || ''}
                           onChange={(v) => updateLesson(mi, li, { description: v })}
                           placeholder="Lesson description"
-                          className="text-xs text-gray-500"
+                          className="text-xs text-slate-700"
                         />
                       </div>
                     </div>
@@ -438,18 +438,18 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
         >
           <div className="flex items-center gap-2">
             <HelpCircle className="w-5 h-5 text-brand-blue-600" />
-            <span className="font-semibold text-gray-900">
+            <span className="font-semibold text-slate-900">
               {bp.quiz_title || 'Course Assessment'} · {bp.quiz_questions?.length ?? 0} questions
             </span>
           </div>
-          {showQuiz ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          {showQuiz ? <ChevronUp className="w-4 h-4 text-slate-700" /> : <ChevronDown className="w-4 h-4 text-slate-700" />}
         </button>
 
         {showQuiz && (
           <div className="border-t px-6 py-4 space-y-4">
             <div className="flex items-center gap-4">
               <div className="flex-1">
-                <label className="block text-xs text-gray-500 mb-1">Quiz title</label>
+                <label className="block text-xs text-slate-700 mb-1">Quiz title</label>
                 <InlineField
                   value={bp.quiz_title || ''}
                   onChange={(v) => set({ quiz_title: v })}
@@ -457,7 +457,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Passing score %</label>
+                <label className="block text-xs text-slate-700 mb-1">Passing score %</label>
                 <input
                   type="number"
                   min={0}
@@ -472,14 +472,14 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
             {bp.quiz_questions?.map((q, qi) => (
               <div key={qi} className="border rounded-lg p-4 space-y-2 bg-gray-50">
                 <div className="flex items-start gap-2">
-                  <span className="text-xs font-medium text-gray-500 mt-1.5 shrink-0">Q{qi + 1}</span>
+                  <span className="text-xs font-medium text-slate-700 mt-1.5 shrink-0">Q{qi + 1}</span>
                   <InlineField
                     value={q.question_text}
                     onChange={(v) => updateQuestion(qi, { question_text: v })}
                     placeholder="Question text"
-                    className="flex-1 font-medium text-gray-800"
+                    className="flex-1 font-medium text-slate-900"
                   />
-                  <button onClick={() => removeQuestion(qi)} className="text-gray-300 hover:text-red-400 shrink-0 mt-1">
+                  <button onClick={() => removeQuestion(qi)} className="text-slate-700 hover:text-red-400 shrink-0 mt-1">
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -498,11 +498,11 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
                         value={opt}
                         onChange={(v) => updateOption(qi, oi, v)}
                         placeholder={`Option ${oi + 1}`}
-                        className={`flex-1 text-sm ${q.correct_answer === opt ? 'text-green-700 font-medium' : 'text-gray-700'}`}
+                        className={`flex-1 text-sm ${q.correct_answer === opt ? 'text-green-700 font-medium' : 'text-slate-900'}`}
                       />
                     </div>
                   ))}
-                  <p className="text-xs text-gray-400 pl-5">Select radio button to mark correct answer</p>
+                  <p className="text-xs text-slate-700 pl-5">Select radio button to mark correct answer</p>
                 </div>
               </div>
             ))}
@@ -532,7 +532,7 @@ export default function BlueprintReview({ initial, error, onBack, onSave }: Prop
         </button>
         <button
           onClick={onBack}
-          className="px-6 py-3 border rounded-lg hover:bg-gray-50 text-gray-700 text-sm"
+          className="px-6 py-3 border rounded-lg hover:bg-gray-50 text-slate-900 text-sm"
         >
           Start over
         </button>
@@ -553,8 +553,8 @@ function StatBox({
     <div className="bg-gray-50 rounded-lg p-3 flex items-center gap-3">
       <Icon className="w-5 h-5 text-brand-blue-600 shrink-0" />
       <div>
-        <p className="text-xs text-gray-500">{label}</p>
-        {children ?? <p className="text-lg font-bold text-gray-900 leading-tight">{value}</p>}
+        <p className="text-xs text-slate-700">{label}</p>
+        {children ?? <p className="text-lg font-bold text-slate-900 leading-tight">{value}</p>}
       </div>
     </div>
   );

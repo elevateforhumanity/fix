@@ -129,7 +129,7 @@ export default async function CMLearnerDetailPage({ params }: Props) {
               <p className="text-slate-600">{learner.email}</p>
               <div className="flex items-center gap-2 mt-1">
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                  learner.status === 'active' ? 'bg-brand-green-100 text-brand-green-800' : 'bg-white text-gray-800'
+                  learner.status === 'active' ? 'bg-brand-green-100 text-brand-green-800' : 'bg-white text-slate-900'
                 }`}>
                   {learner.status || 'Active'}
                 </span>
@@ -238,7 +238,7 @@ export default async function CMLearnerDetailPage({ params }: Props) {
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       goal.status === 'completed' ? 'bg-brand-green-100 text-brand-green-800' :
                       goal.status === 'in_progress' ? 'bg-brand-blue-100 text-brand-blue-800' :
-                      'bg-white text-gray-800'
+                      'bg-white text-slate-900'
                     }`}>
                       {goal.status?.replace('_', ' ')}
                     </span>

@@ -47,7 +47,7 @@ export default async function EditCoursePage({
       {/* Hero Image */}
       <div className="max-w-3xl mx-auto px-4 py-8">
         <nav className="text-sm mb-6">
-          <ol className="flex items-center space-x-2 text-gray-500">
+          <ol className="flex items-center space-x-2 text-slate-700">
             <li>
               <Link href="/admin" className="hover:text-brand-blue-600">Admin</Link>
             </li>
@@ -56,11 +56,11 @@ export default async function EditCoursePage({
               <Link href="/admin/courses" className="hover:text-brand-blue-600">Courses</Link>
             </li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">Edit</li>
+            <li className="text-slate-900 font-medium">Edit</li>
           </ol>
         </nav>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        <h1 className="text-2xl font-bold text-slate-900 mb-6">
           Edit: {course.title}
         </h1>
 

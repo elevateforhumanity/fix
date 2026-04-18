@@ -88,7 +88,7 @@ export default function NewDiscussionPage() {
 
         {/* Form */}
         <div className="bg-white rounded-xl shadow-sm p-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">Start a New Discussion</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-6">Start a New Discussion</h1>
 
           {error && (
             <div className="mb-6 p-4 bg-brand-red-50 border border-brand-red-200 rounded-lg flex items-start">
@@ -100,7 +100,7 @@ export default function NewDiscussionPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Title */}
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="title" className="block text-sm font-medium text-slate-900 mb-2">
                 Discussion Title *
               </label>
               <input
@@ -117,7 +117,7 @@ export default function NewDiscussionPage() {
 
             {/* Category */}
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="category" className="block text-sm font-medium text-slate-900 mb-2">
                 Category *
               </label>
               <select
@@ -135,7 +135,7 @@ export default function NewDiscussionPage() {
 
             {/* Content */}
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="content" className="block text-sm font-medium text-slate-900 mb-2">
                 Discussion Content *
               </label>
               <textarea
@@ -153,8 +153,8 @@ export default function NewDiscussionPage() {
 
             {/* Guidelines */}
             <div className="bg-brand-blue-50 rounded-lg p-4 border border-brand-blue-200">
-              <h3 className="font-semibold text-gray-900 mb-2">Posting Guidelines</h3>
-              <ul className="text-sm text-gray-700 space-y-1">
+              <h3 className="font-semibold text-slate-900 mb-2">Posting Guidelines</h3>
+              <ul className="text-sm text-slate-900 space-y-1">
                 <li>• Be respectful and constructive in your posts</li>
                 <li>• Search existing discussions before creating a new one</li>
                 <li>• Use a clear, descriptive title</li>
@@ -166,7 +166,7 @@ export default function NewDiscussionPage() {
             <div className="flex items-center justify-end gap-4">
               <Link
                 href="/community/discussions"
-                className="px-6 py-3 text-gray-700 hover:text-gray-900"
+                className="px-6 py-3 text-slate-900 hover:text-slate-900"
               >
                 Cancel
               </Link>

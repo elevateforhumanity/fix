@@ -82,7 +82,7 @@ export default async function HelpArticlePage({ params }: { params: Params }) {
         <div className="max-w-4xl mx-auto px-6">
           <Link
             href="/support/help"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-black transition mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Help Center
@@ -91,7 +91,7 @@ export default async function HelpArticlePage({ params }: { params: Params }) {
             <span className="px-3 py-2 bg-brand-blue-100 text-brand-blue-600 text-sm font-medium rounded-full">
               {article.category}
             </span>
-            <span className="flex items-center gap-1 text-sm text-gray-500">
+            <span className="flex items-center gap-1 text-sm text-slate-700">
               <Eye className="w-4 h-4" />
               {article.views || 0} views
             </span>
@@ -105,19 +105,19 @@ export default async function HelpArticlePage({ params }: { params: Params }) {
         <div className="max-w-4xl mx-auto px-6">
           <div className="bg-white rounded-2xl p-8 shadow-sm">
             <div 
-              className="prose prose-lg max-w-none prose-headings:text-black prose-p:text-gray-700 prose-a:text-brand-blue-600 prose-strong:text-black prose-li:text-gray-700"
+              className="prose prose-lg max-w-none prose-headings:text-black prose-p:text-slate-900 prose-a:text-brand-blue-600 prose-strong:text-black prose-li:text-slate-900"
               dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(formatContent(article.content)) }}
             />
             
             {/* Tags */}
             {article.tags && article.tags.length > 0 && (
               <div className="mt-8 pt-8 border-t border-gray-200">
-                <p className="text-sm text-gray-500 mb-2">Related topics:</p>
+                <p className="text-sm text-slate-700 mb-2">Related topics:</p>
                 <div className="flex flex-wrap gap-2">
                   {article.tags.map((tag: string) => (
                     <span
                       key={tag}
-                      className="px-3 py-2 bg-white text-gray-700 text-sm rounded-full"
+                      className="px-3 py-2 bg-white text-slate-900 text-sm rounded-full"
                     >
                       {tag}
                     </span>
@@ -128,13 +128,13 @@ export default async function HelpArticlePage({ params }: { params: Params }) {
 
             {/* Feedback */}
             <div className="mt-8 pt-8 border-t border-gray-200">
-              <p className="text-center text-gray-700 mb-4">Was this article helpful?</p>
+              <p className="text-center text-slate-900 mb-4">Was this article helpful?</p>
               <div className="flex justify-center gap-4">
                 <button className="flex items-center gap-2 px-6 py-3 bg-brand-green-100 text-brand-green-700 rounded-lg hover:bg-brand-green-200 transition font-medium">
                   <ThumbsUp className="w-5 h-5" />
                   Yes, helpful
                 </button>
-                <button className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-lg hover:bg-gray-200 transition font-medium">
+                <button className="flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-lg hover:bg-gray-200 transition font-medium">
                   <ThumbsDown className="w-5 h-5" />
                   Not helpful
                 </button>
@@ -165,7 +165,7 @@ export default async function HelpArticlePage({ params }: { params: Params }) {
           {/* Still need help */}
           <div className="mt-12 p-8 bg-brand-blue-50 rounded-2xl text-center">
             <h2 className="text-xl font-bold text-black mb-2">Still need help?</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-700 mb-6">
               Our support team is ready to assist you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

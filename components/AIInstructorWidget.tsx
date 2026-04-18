@@ -152,7 +152,7 @@ export function AIInstructorWidget({
 
           {/* Footer */}
           <div className="p-4 bg-gray-50 border-t text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-slate-700">
               Automated learning support • Available 24/7
             </p>
           </div>

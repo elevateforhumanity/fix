@@ -68,8 +68,8 @@ export function AuthorityBanner() {
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="text-center mb-8">
           <p className="text-xs font-semibold text-brand-red-600 uppercase tracking-widest mb-2">Institutional Authority</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Authorized. Registered. Certified.</h2>
-          <p className="text-sm text-gray-500 mt-2 max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900">Authorized. Registered. Certified.</h2>
+          <p className="text-sm text-slate-700 mt-2 max-w-2xl mx-auto">
             Elevate for Humanity is a DOL-registered apprenticeship sponsor, ETPL-approved training provider,
             and authorized testing center — not a content vendor.
           </p>
@@ -81,8 +81,8 @@ export function AuthorityBanner() {
                 <Image src={a.image} alt={a.abbr} width={48} height={48} className="object-contain w-10 h-10" />
               </div>
               <div className={`text-xs font-bold ${a.color} mb-1`}>{a.abbr}</div>
-              <div className="text-[11px] font-semibold text-gray-900 leading-tight">{a.title}</div>
-              <div className="text-[10px] text-gray-500 mt-1 leading-snug">{a.desc}</div>
+              <div className="text-[11px] font-semibold text-slate-900 leading-tight">{a.title}</div>
+              <div className="text-[10px] text-slate-700 mt-1 leading-snug">{a.desc}</div>
             </div>
           ))}
         </div>
@@ -125,7 +125,7 @@ export function CredentialPipeline() {
     <section className="py-10 bg-gray-50 border-t border-gray-100">
       <div className="max-w-5xl mx-auto px-4">
         <p className="text-xs font-semibold text-brand-red-600 uppercase tracking-widest mb-2 text-center">Credential Pipeline</p>
-        <h3 className="text-xl font-bold text-gray-900 text-center mb-8">From Enrollment to Employment</h3>
+        <h3 className="text-xl font-bold text-slate-900 text-center mb-8">From Enrollment to Employment</h3>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
           {steps.map((s, i) => (
             <div key={s.step} className="flex items-center gap-3 md:flex-col md:text-center md:gap-2 flex-1">
@@ -133,8 +133,8 @@ export function CredentialPipeline() {
                 {s.step}
               </div>
               <div>
-                <div className="text-sm font-semibold text-gray-900">{s.label}</div>
-                <div className="text-[11px] text-gray-500">{s.desc}</div>
+                <div className="text-sm font-semibold text-slate-900">{s.label}</div>
+                <div className="text-[11px] text-slate-700">{s.desc}</div>
               </div>
               {i < steps.length - 1 && (
                 <div className="hidden md:block w-full h-0.5 bg-brand-red-200 mt-5 mx-2" />

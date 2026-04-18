@@ -34,9 +34,9 @@ export default async function PlacementsPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/employer" className="hover:text-primary">Employer</Link></li><li>/</li><li className="text-gray-900 font-medium">Placements</li></ol></nav>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/employer" className="hover:text-primary">Employer</Link></li><li>/</li><li className="text-slate-900 font-medium">Placements</li></ol></nav>
           <div className="flex justify-between items-center">
-            <div><h1 className="text-3xl font-bold text-gray-900">Job Placements</h1><p className="text-gray-600 mt-2">{count || 0} total placements</p></div>
+            <div><h1 className="text-3xl font-bold text-slate-900">Job Placements</h1><p className="text-slate-700 mt-2">{count || 0} total placements</p></div>
             <button className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">Record Placement</button>
           </div>
         </div>
@@ -50,10 +50,10 @@ export default async function PlacementsPage() {
           <div className="divide-y">
             {placements && placements.length > 0 ? placements.map((p: any) => (
               <div key={p.id} className="p-4 flex items-center justify-between hover:bg-white">
-                <div><p className="font-medium">{p.profiles?.full_name || 'Employee'}</p><p className="text-sm text-gray-500">{p.job_title} • Started {p.placement_date ? new Date(p.placement_date).toLocaleDateString() : 'N/A'}</p></div>
-                <span className={`px-2 py-1 rounded-full text-xs ${p.status === 'active' ? 'bg-brand-green-100 text-brand-green-800' : 'bg-white text-gray-600'}`}>{p.status || 'active'}</span>
+                <div><p className="font-medium">{p.profiles?.full_name || 'Employee'}</p><p className="text-sm text-slate-700">{p.job_title} • Started {p.placement_date ? new Date(p.placement_date).toLocaleDateString() : 'N/A'}</p></div>
+                <span className={`px-2 py-1 rounded-full text-xs ${p.status === 'active' ? 'bg-brand-green-100 text-brand-green-800' : 'bg-white text-slate-700'}`}>{p.status || 'active'}</span>
               </div>
-            )) : <div className="p-8 text-center text-gray-500">No placements recorded</div>}
+            )) : <div className="p-8 text-center text-slate-700">No placements recorded</div>}
           </div>
         </div>
       </div>

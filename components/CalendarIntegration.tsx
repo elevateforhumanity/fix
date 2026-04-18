@@ -95,7 +95,7 @@ export function CalendarIntegration() {
                           ? hasEvent
                             ? 'bg-brand-red-100 text-brand-red-700 font-bold'
                             : 'bg-white hover:bg-gray-50'
-                          : 'bg-gray-50 text-gray-400'
+                          : 'bg-gray-50 text-slate-700'
                       }`}
                     >
                       {day > 0 && day <= 29 ? day : ''}
@@ -119,7 +119,7 @@ export function CalendarIntegration() {
                         {event.type}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-slate-700">
                       📅 {event.date} at {event.time}
                     </p>
                   </div>

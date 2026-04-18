@@ -173,7 +173,7 @@ export function RealTimeCollaboration({
             {/* Messages */}
             <div className="h-64 overflow-y-auto space-y-3 p-4 bg-gray-50 rounded-lg">
               {messages.length === 0 ? (
-                <div className="text-center text-gray-500 text-sm">
+                <div className="text-center text-slate-700 text-sm">
                   No messages yet. Start the conversation!
                 </div>
               ) : (
@@ -182,7 +182,7 @@ export function RealTimeCollaboration({
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-semibold text-sm">{msg.user}</span>
-                        <span className="text-xs text-gray-500">{msg.time}</span>
+                        <span className="text-xs text-slate-700">{msg.time}</span>
                       </div>
                       <div className="bg-white p-2 rounded text-sm">{msg.text}</div>
                     </div>
@@ -219,7 +219,7 @@ export function RealTimeCollaboration({
         </CardHeader>
         <CardContent>
           <div className="text-center py-8">
-            <Share2 className="mx-auto text-gray-400 mb-4" size={48} />
+            <Share2 className="mx-auto text-slate-700 mb-4" size={48} />
             <p className="text-black mb-4">Share your screen with the study group</p>
             <Button className="bg-brand-green-600 hover:bg-brand-green-700">
               Start Screen Share

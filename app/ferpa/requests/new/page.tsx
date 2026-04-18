@@ -119,16 +119,16 @@ export default function NewFerpaRequestPage() {
 {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href="/ferpa/requests" className="hover:text-gray-700">Requests</Link>
+            <Link href="/ferpa/requests" className="hover:text-slate-900">Requests</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">New Request</span>
+            <span className="text-slate-900 font-medium">New Request</span>
           </nav>
 
-          <h1 className="text-2xl font-bold text-gray-900">New Access Request</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-2xl font-bold text-slate-900">New Access Request</h1>
+          <p className="text-slate-700 mt-1">
             Submit a new FERPA records access request
           </p>
         </div>
@@ -147,7 +147,7 @@ export default function NewFerpaRequestPage() {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Request Type */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Request Type</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Request Type</h2>
             <div className="grid gap-3">
               {REQUEST_TYPES.map((type) => (
                 <label
@@ -168,8 +168,8 @@ export default function NewFerpaRequestPage() {
                     required
                   />
                   <div>
-                    <p className="font-medium text-gray-900">{type.label}</p>
-                    <p className="text-sm text-gray-500">{type.description}</p>
+                    <p className="font-medium text-slate-900">{type.label}</p>
+                    <p className="text-sm text-slate-700">{type.description}</p>
                   </div>
                 </label>
               ))}
@@ -178,14 +178,14 @@ export default function NewFerpaRequestPage() {
 
           {/* Requester Information */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <User className="w-5 h-5" />
               Requester Information
             </h2>
             <div className="grid gap-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="requester_name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="requester_name" className="block text-sm font-medium text-slate-900 mb-1">
                     Full Name <span className="text-brand-red-500">*</span>
                   </label>
                   <input
@@ -198,7 +198,7 @@ export default function NewFerpaRequestPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="requester_relationship" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="requester_relationship" className="block text-sm font-medium text-slate-900 mb-1">
                     Relationship to Student <span className="text-brand-red-500">*</span>
                   </label>
                   <select
@@ -217,7 +217,7 @@ export default function NewFerpaRequestPage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="requester_email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="requester_email" className="block text-sm font-medium text-slate-900 mb-1">
                     Email <span className="text-brand-red-500">*</span>
                   </label>
                   <input
@@ -230,7 +230,7 @@ export default function NewFerpaRequestPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="requester_phone" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="requester_phone" className="block text-sm font-medium text-slate-900 mb-1">
                     Phone
                   </label>
                   <input
@@ -247,13 +247,13 @@ export default function NewFerpaRequestPage() {
 
           {/* Student Information */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <User className="w-5 h-5" />
               Student Information
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="student_name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="student_name" className="block text-sm font-medium text-slate-900 mb-1">
                   Student Name <span className="text-brand-red-500">*</span>
                 </label>
                 <input
@@ -266,7 +266,7 @@ export default function NewFerpaRequestPage() {
                 />
               </div>
               <div>
-                <label htmlFor="student_email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="student_email" className="block text-sm font-medium text-slate-900 mb-1">
                   Student Email
                 </label>
                 <input
@@ -282,11 +282,11 @@ export default function NewFerpaRequestPage() {
 
           {/* Records Requested */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <FileText className="w-5 h-5" />
               Records Requested
             </h2>
-            <p className="text-sm text-gray-600 mb-4">Select all record types being requested:</p>
+            <p className="text-sm text-slate-700 mb-4">Select all record types being requested:</p>
             <div className="grid sm:grid-cols-2 gap-3">
               {RECORD_TYPES.map((record) => (
                 <label
@@ -303,7 +303,7 @@ export default function NewFerpaRequestPage() {
                     onChange={() => handleRecordToggle(record)}
                     className="rounded"
                   />
-                  <span className="text-sm text-gray-900">{record}</span>
+                  <span className="text-sm text-slate-900">{record}</span>
                 </label>
               ))}
             </div>
@@ -311,10 +311,10 @@ export default function NewFerpaRequestPage() {
 
           {/* Purpose */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Purpose of Request</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Purpose of Request</h2>
             <div className="space-y-4">
               <div>
-                <label htmlFor="purpose" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="purpose" className="block text-sm font-medium text-slate-900 mb-1">
                   Explain the purpose for this records request <span className="text-brand-red-500">*</span>
                 </label>
                 <textarea
@@ -328,7 +328,7 @@ export default function NewFerpaRequestPage() {
                 />
               </div>
               <div>
-                <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="priority" className="block text-sm font-medium text-slate-900 mb-1">
                   Priority Level
                 </label>
                 <select
@@ -365,7 +365,7 @@ export default function NewFerpaRequestPage() {
           <div className="flex items-center justify-end gap-4">
             <Link
               href="/ferpa/requests"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-slate-900 hover:text-slate-900"
             >
               Cancel
             </Link>

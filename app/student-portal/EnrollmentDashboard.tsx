@@ -89,7 +89,7 @@ export default function EnrollmentDashboard() {
       case 'in_progress':
         return <Clock className="w-5 h-5 text-brand-blue-500" />;
       default:
-        return <Clock className="w-5 h-5 text-gray-400" />;
+        return <Clock className="w-5 h-5 text-slate-700" />;
     }
   };
 
@@ -106,7 +106,7 @@ export default function EnrollmentDashboard() {
 
   return (
     <section className="rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+      <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
         <GraduationCap className="w-6 h-6 text-brand-blue-600" />
         My Enrollments
       </h2>
@@ -125,7 +125,7 @@ export default function EnrollmentDashboard() {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     {getStatusIcon(enrollment.status)}
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-slate-900">
                       {enrollment.program_title || enrollment.course_title || 'Untitled Program'}
                     </h3>
                   </div>
@@ -137,12 +137,12 @@ export default function EnrollmentDashboard() {
                     </span>
 
                     {enrollment.provider_name && (
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-slate-700">
                         via {enrollment.provider_name}
                       </span>
                     )}
 
-                    <span className="text-xs text-gray-500 capitalize">
+                    <span className="text-xs text-slate-700 capitalize">
                       {enrollment.status}
                     </span>
 
@@ -156,7 +156,7 @@ export default function EnrollmentDashboard() {
 
                   {enrollment.progress > 0 && (
                     <div className="mt-3">
-                      <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+                      <div className="flex items-center justify-between text-xs text-slate-700 mb-1">
                         <span>Progress</span>
                         <span>{enrollment.progress}%</span>
                       </div>

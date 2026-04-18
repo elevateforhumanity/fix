@@ -303,7 +303,7 @@ export default function ProgramDiscussionsPage() {
             ))
           ) : (
             <div className="bg-white rounded-xl border p-12 text-center">
-              <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+              <MessageSquare className="w-12 h-12 text-slate-700 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-slate-900 mb-2">No discussions yet</h3>
               <p className="text-black mb-6">
                 Be the first to start a conversation with fellow learners!

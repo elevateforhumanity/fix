@@ -73,8 +73,8 @@ export default async function EmployerHoursPage() {
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Hours Approval</h1>
-          <p className="text-gray-600 mt-1">Review and approve apprentice training hours</p>
+          <h1 className="text-3xl font-bold text-slate-900">Hours Approval</h1>
+          <p className="text-slate-700 mt-1">Review and approve apprentice training hours</p>
         </div>
 
         {/* Stats */}
@@ -85,8 +85,8 @@ export default async function EmployerHoursPage() {
                 <Clock className="w-5 h-5 text-yellow-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{pendingCount || 0}</p>
-                <p className="text-sm text-gray-500">Pending</p>
+                <p className="text-2xl font-bold text-slate-900">{pendingCount || 0}</p>
+                <p className="text-sm text-slate-700">Pending</p>
               </div>
             </div>
           </div>
@@ -96,8 +96,8 @@ export default async function EmployerHoursPage() {
                 <CheckCircle className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{approvedCount || 0}</p>
-                <p className="text-sm text-gray-500">Approved</p>
+                <p className="text-2xl font-bold text-slate-900">{approvedCount || 0}</p>
+                <p className="text-sm text-slate-700">Approved</p>
               </div>
             </div>
           </div>
@@ -107,8 +107,8 @@ export default async function EmployerHoursPage() {
                 <XCircle className="w-5 h-5 text-brand-red-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{rejectedCount || 0}</p>
-                <p className="text-sm text-gray-500">Rejected</p>
+                <p className="text-2xl font-bold text-slate-900">{rejectedCount || 0}</p>
+                <p className="text-sm text-slate-700">Rejected</p>
               </div>
             </div>
           </div>
@@ -118,8 +118,8 @@ export default async function EmployerHoursPage() {
                 <TrendingUp className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{totalApprovedHours.toFixed(0)}</p>
-                <p className="text-sm text-gray-500">Total Approved Hrs</p>
+                <p className="text-2xl font-bold text-slate-900">{totalApprovedHours.toFixed(0)}</p>
+                <p className="text-sm text-slate-700">Total Approved Hrs</p>
               </div>
             </div>
           </div>

@@ -15,11 +15,11 @@ export default function DashboardError({
         <div className="w-12 h-12 bg-brand-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
           <AlertTriangle className="w-6 h-6 text-brand-red-600" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-2">Dashboard Error</h2>
-        <p className="text-sm text-gray-500 mb-1">
+        <h2 className="text-lg font-semibold text-slate-900 mb-2">Dashboard Error</h2>
+        <p className="text-sm text-slate-700 mb-1">
           Failed to load dashboard data. This may be a temporary database issue.
         </p>
-        <p className="text-xs text-gray-400 mb-6 font-mono">
+        <p className="text-xs text-slate-700 mb-6 font-mono">
           {error.digest || 'ERR_DASHBOARD_LOAD'}
         </p>
         <button

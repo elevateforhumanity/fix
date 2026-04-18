@@ -57,7 +57,7 @@ export default async function CommunityPage() {
                 </svg>
               </div>
               <h2 className="text-lg font-semibold mb-2">Forums</h2>
-              <p className="text-gray-600 text-sm">
+              <p className="text-slate-700 text-sm">
                 Discuss topics with fellow learners
               </p>
             </Link>
@@ -82,7 +82,7 @@ export default async function CommunityPage() {
                 </svg>
               </div>
               <h2 className="text-lg font-semibold mb-2">Study Groups</h2>
-              <p className="text-gray-600 text-sm">
+              <p className="text-slate-700 text-sm">
                 Join or create study groups
               </p>
             </Link>
@@ -107,7 +107,7 @@ export default async function CommunityPage() {
                 </svg>
               </div>
               <h2 className="text-lg font-semibold mb-2">Leaderboard</h2>
-              <p className="text-gray-600 text-sm">
+              <p className="text-slate-700 text-sm">
                 See top learners and achievements
               </p>
             </Link>
@@ -123,7 +123,7 @@ export default async function CommunityPage() {
                 </div>
                 <div>
                   <p className="font-medium">Community Discussion</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-700">
                     Join the conversation in our forums
                   </p>
                   <Link
@@ -151,7 +151,7 @@ export default async function CommunityPage() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="p-4 bg-white rounded-lg">
                 <h3 className="font-medium mb-1">General Discussion</h3>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-slate-700 mb-2">
                   Connect with all learners
                 </p>
                 <Link
@@ -163,7 +163,7 @@ export default async function CommunityPage() {
               </div>
               <div className="p-4 bg-white rounded-lg">
                 <h3 className="font-medium mb-1">Study Partners</h3>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-slate-700 mb-2">
                   Find study partners for your courses
                 </p>
                 <Link

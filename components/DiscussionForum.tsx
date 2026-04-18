@@ -141,7 +141,7 @@ export function DiscussionForum({
                   <div className="flex items-center justify-between mb-2">
                     <div>
                       <h4 className="font-semibold">{post.author}</h4>
-                      <p className="text-sm text-gray-500">{post.timestamp}</p>
+                      <p className="text-sm text-slate-700">{post.timestamp}</p>
                     </div>
                   </div>
                   <p className="text-black mb-4">{post.content}</p>

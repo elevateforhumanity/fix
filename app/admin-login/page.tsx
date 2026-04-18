@@ -68,10 +68,10 @@ export default function AdminLoginPage() {
             <Shield className="w-10 h-10 text-cyan-400" />
             <div>
               <div className="text-2xl font-bold text-white">Admin Dashboard</div>
-              <div className="text-sm text-gray-500">Elevate for Humanity</div>
+              <div className="text-sm text-slate-700">Elevate for Humanity</div>
             </div>
           </div>
-          <p className="text-gray-300 text-lg max-w-md">
+          <p className="text-slate-700 text-lg max-w-md">
             Manage programs, users, enrollments, analytics, and platform configuration.
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
 
           <div className="hidden lg:block mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">Sign In</h1>
-            <p className="text-gray-500">Enter your administrator credentials</p>
+            <p className="text-slate-700">Enter your administrator credentials</p>
           </div>
 
           {error && (
@@ -109,7 +109,7 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">
                 Email Address
               </label>
               <input
@@ -125,7 +125,7 @@ export default function AdminLoginPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1.5">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -142,7 +142,7 @@ export default function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-700 hover:text-slate-700"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -172,7 +172,7 @@ export default function AdminLoginPage() {
             >
               Forgot your password?
             </Link>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-slate-700">
               Not an admin?{' '}
               <Link href="/login" className="text-cyan-400 hover:text-cyan-300">
                 Sign in to your portal

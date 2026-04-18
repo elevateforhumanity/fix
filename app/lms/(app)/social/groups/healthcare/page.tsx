@@ -55,28 +55,28 @@ export default async function GroupPage() {
 
           <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-sm border p-6">
-              <h3 className="font-semibold text-gray-900 mb-4">Group Resources</h3>
+              <h3 className="font-semibold text-slate-900 mb-4">Group Resources</h3>
               <div className="space-y-3">
                 <Link href="/programs/cna" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
                   <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
-                  <div><div className="font-medium text-gray-900 text-sm">Certification Guides</div><div className="text-xs text-gray-500">CNA, MA, Phlebotomy prep</div></div>
+                  <div><div className="font-medium text-slate-900 text-sm">Certification Guides</div><div className="text-xs text-slate-700">CNA, MA, Phlebotomy prep</div></div>
                 </Link>
                 <Link href="/career-services" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
                   <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
-                  <div><div className="font-medium text-gray-900 text-sm">Clinical Tips</div><div className="text-xs text-gray-500">Best practices from the field</div></div>
+                  <div><div className="font-medium text-slate-900 text-sm">Clinical Tips</div><div className="text-xs text-slate-700">Best practices from the field</div></div>
                 </Link>
                 <Link href="/employer" className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
                   <BookOpen className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
-                  <div><div className="font-medium text-gray-900 text-sm">Job Placement</div><div className="text-xs text-gray-500">Healthcare employer connections</div></div>
+                  <div><div className="font-medium text-slate-900 text-sm">Job Placement</div><div className="text-xs text-slate-700">Healthcare employer connections</div></div>
                 </Link>
               </div>
             </div>
 
             <div className="bg-slate-50 rounded-xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-3">Related Groups</h3>
+              <h3 className="font-semibold text-slate-900 mb-3">Related Groups</h3>
               <div className="space-y-3">
-                <Link href="/lms/social/groups/career" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-gray-900 text-sm">Career Changers</div></Link>
-                <Link href="/lms/social/groups/trades" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-gray-900 text-sm">Skilled Trades Network</div></Link>
+                <Link href="/lms/social/groups/career" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-slate-900 text-sm">Career Changers</div></Link>
+                <Link href="/lms/social/groups/trades" className="block p-3 bg-white rounded-lg hover:shadow-sm transition-shadow"><div className="font-medium text-slate-900 text-sm">Skilled Trades Network</div></Link>
               </div>
             </div>
           </div>

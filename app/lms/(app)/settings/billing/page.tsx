@@ -126,7 +126,7 @@ export default function BillingSettingsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+        <Loader2 className="w-8 h-8 animate-spin text-slate-700" />
       </div>
     );
   }
@@ -141,7 +141,7 @@ export default function BillingSettingsPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Billing & Payments</h1>
+        <h1 className="text-3xl font-bold text-slate-900 mb-8">Billing & Payments</h1>
 
         {error && (
           <div className="bg-brand-red-50 border border-brand-red-200 rounded-lg p-4 mb-6">
@@ -153,8 +153,8 @@ export default function BillingSettingsPage() {
         <div className="bg-white rounded-xl border p-6 mb-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Account Balance</h2>
-              <p className="text-3xl font-bold text-gray-900 mt-2">${balance.toFixed(2)}</p>
+              <h2 className="text-lg font-semibold text-slate-900">Account Balance</h2>
+              <p className="text-3xl font-bold text-slate-900 mt-2">${balance.toFixed(2)}</p>
             </div>
             <div className="w-12 h-12 bg-brand-green-100 rounded-full flex items-center justify-center">
               <DollarSign className="w-6 h-6 text-brand-green-600" />
@@ -165,7 +165,7 @@ export default function BillingSettingsPage() {
         {/* Payment Methods */}
         <div className="bg-white rounded-xl border p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Payment Methods</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Payment Methods</h2>
             <button
               onClick={handleManageBilling}
               className="inline-flex items-center gap-2 text-brand-blue-600 hover:underline text-sm"
@@ -181,14 +181,14 @@ export default function BillingSettingsPage() {
                 <div key={method.id} className="flex items-center justify-between p-4 bg-white rounded-lg">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-white rounded-lg border flex items-center justify-center">
-                      <CreditCard className="w-5 h-5 text-gray-600" />
+                      <CreditCard className="w-5 h-5 text-slate-700" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-slate-900">
                         {method.brand || 'Card'} •••• {method.last4}
                       </p>
                       {method.expiry && (
-                        <p className="text-sm text-gray-500">Expires {method.expiry}</p>
+                        <p className="text-sm text-slate-700">Expires {method.expiry}</p>
                       )}
                     </div>
                   </div>
@@ -204,8 +204,8 @@ export default function BillingSettingsPage() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-600 mb-4">No payment methods on file</p>
+              <CreditCard className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+              <p className="text-slate-700 mb-4">No payment methods on file</p>
               <button
                 onClick={handleManageBilling}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"
@@ -219,15 +219,15 @@ export default function BillingSettingsPage() {
 
         {/* Invoices */}
         <div className="bg-white rounded-xl border p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Billing History</h2>
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Billing History</h2>
 
           {invoices.length > 0 ? (
             <div className="divide-y">
               {invoices.map((invoice) => (
                 <div key={invoice.id} className="py-4 flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-gray-900">{invoice.description}</p>
-                    <p className="text-sm text-gray-500">{formatDate(invoice.date)}</p>
+                    <p className="font-medium text-slate-900">{invoice.description}</p>
+                    <p className="text-sm text-slate-700">{formatDate(invoice.date)}</p>
                   </div>
                   <div className="flex items-center gap-4">
                     <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
@@ -241,13 +241,13 @@ export default function BillingSettingsPage() {
                       {invoice.status === 'failed' && <AlertCircle className="w-3 h-3" />}
                       {invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}
                     </span>
-                    <span className="font-semibold text-gray-900">${invoice.amount.toFixed(2)}</span>
+                    <span className="font-semibold text-slate-900">${invoice.amount.toFixed(2)}</span>
                     {invoice.invoice_url && (
                       <a
                         href={invoice.invoice_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 text-gray-400 hover:text-gray-600"
+                        className="p-2 text-slate-700 hover:text-slate-700"
                       >
                         <Download className="w-4 h-4" />
                       </a>
@@ -258,8 +258,8 @@ export default function BillingSettingsPage() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <DollarSign className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-600">No billing history yet</p>
+              <DollarSign className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+              <p className="text-slate-700">No billing history yet</p>
             </div>
           )}
         </div>
@@ -273,7 +273,7 @@ export default function BillingSettingsPage() {
             Manage Billing
             <ExternalLink className="w-4 h-4" />
           </button>
-          <p className="text-xs text-gray-500 mt-2">Opens Stripe billing portal</p>
+          <p className="text-xs text-slate-700 mt-2">Opens Stripe billing portal</p>
         </div>
       </div>
     </div>

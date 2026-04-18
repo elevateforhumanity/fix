@@ -168,8 +168,8 @@ export default function DocumentsPage() {
           <ArrowLeft className="w-4 h-4" /> Back to Onboarding
         </Link>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Upload Required Documents</h1>
-        <p className="text-gray-600 mb-4">
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">Upload Required Documents</h1>
+        <p className="text-slate-700 mb-4">
           Upload the documents listed below. Required documents must be submitted before you can be enrolled.
         </p>
 
@@ -196,8 +196,8 @@ export default function DocumentsPage() {
         {/* Progress */}
         <div className="bg-white border rounded-lg p-4 mb-6">
           <div className="flex justify-between text-sm mb-2">
-            <span className="font-medium text-gray-700">Required Documents</span>
-            <span className="text-gray-500">
+            <span className="font-medium text-slate-900">Required Documents</span>
+            <span className="text-slate-700">
               {REQUIRED_DOCUMENTS.filter(d => d.required && uploadedTypes.has(d.type)).length} of {REQUIRED_DOCUMENTS.filter(d => d.required).length}
             </span>
           </div>
@@ -211,11 +211,11 @@ export default function DocumentsPage() {
 
         {/* Social Security Number — text entry, not file upload */}
         <div className="bg-white border rounded-lg p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-1">Social Security Number</h2>
-          <p className="text-sm text-gray-500 mb-4">Enter your SSN below. It is stored securely and never displayed after submission.</p>
+          <h2 className="text-lg font-semibold text-slate-900 mb-1">Social Security Number</h2>
+          <p className="text-sm text-slate-700 mb-4">Enter your SSN below. It is stored securely and never displayed after submission.</p>
           <div className="flex gap-3 items-end">
             <div className="flex-1">
-              <label htmlFor="ssn-input" className="block text-sm font-medium text-gray-700 mb-1">SSN *</label>
+              <label htmlFor="ssn-input" className="block text-sm font-medium text-slate-900 mb-1">SSN *</label>
               <input
                 id="ssn-input"
                 type="text"
@@ -304,16 +304,16 @@ export default function DocumentsPage() {
               <div key={doc.type} className={`bg-white border rounded-xl p-5 ${isUploaded ? 'border-brand-blue-200' : 'border-gray-200'}`}>
                 <div className="flex items-start gap-4">
                   <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${isUploaded ? 'bg-brand-blue-100' : 'bg-white'}`}>
-                    {isUploaded ? <CheckCircle2 className="w-5 h-5 text-brand-blue-600" /> : <FileText className="w-5 h-5 text-gray-400" />}
+                    {isUploaded ? <CheckCircle2 className="w-5 h-5 text-brand-blue-600" /> : <FileText className="w-5 h-5 text-slate-700" />}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className={`font-semibold ${isUploaded ? 'text-brand-blue-900' : 'text-gray-900'}`}>{doc.title}</h3>
+                      <h3 className={`font-semibold ${isUploaded ? 'text-brand-blue-900' : 'text-slate-900'}`}>{doc.title}</h3>
                       {doc.required && !isUploaded && <span className="text-xs bg-brand-red-100 text-brand-red-700 px-2 py-0.5 rounded">Required</span>}
-                      {!doc.required && !isUploaded && <span className="text-xs bg-white text-gray-500 px-2 py-0.5 rounded">Optional</span>}
+                      {!doc.required && !isUploaded && <span className="text-xs bg-white text-slate-700 px-2 py-0.5 rounded">Optional</span>}
                       {isUploaded && <span className="text-xs bg-white text-slate-600 px-2 py-0.5 rounded font-medium">Uploaded</span>}
                     </div>
-                    <p className="text-gray-600 text-sm mb-2">{doc.description}</p>
+                    <p className="text-slate-700 text-sm mb-2">{doc.description}</p>
                     <p className="text-xs text-slate-500 mb-3">Accepted: {doc.acceptedFormats}</p>
 
                     <input
@@ -349,8 +349,8 @@ export default function DocumentsPage() {
           })}
         </div>
 
-        <div className="mt-8 bg-white rounded-lg p-4 text-sm text-gray-600">
-          <p className="font-medium text-gray-700 mb-1">Document Security</p>
+        <div className="mt-8 bg-white rounded-lg p-4 text-sm text-slate-700">
+          <p className="font-medium text-slate-900 mb-1">Document Security</p>
           <p>All uploaded documents are encrypted and stored securely. Only authorized admissions staff can access your documents for verification purposes. Documents are retained per federal record-keeping requirements.</p>
         </div>
       </div>

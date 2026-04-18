@@ -31,7 +31,7 @@ export default function Terminal({ output, onClear }: TerminalProps) {
         {onClear && (
           <button
             onClick={onClear}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-slate-700 hover:text-white transition-colors"
             title="Clear terminal"
           >
             <X className="w-4 h-4" />
@@ -45,7 +45,7 @@ export default function Terminal({ output, onClear }: TerminalProps) {
         className="flex-1 overflow-auto p-4 space-y-1"
       >
         {output.length === 0 ? (
-          <div className="text-gray-500">
+          <div className="text-slate-700">
             $ Ready. Run commands or save files to see output here...
           </div>
         ) : (

@@ -79,7 +79,7 @@ export default function BulkIssueForm({
       <div className="bg-white rounded-xl border p-8 text-center">
         <CheckCircle className="w-16 h-16 text-brand-green-600 mx-auto mb-4" />
         <h2 className="text-2xl font-bold mb-2">Certificates Issued</h2>
-        <p className="text-gray-600 mb-4">{result.success} issued, {result.failed} failed</p>
+        <p className="text-slate-700 mb-4">{result.success} issued, {result.failed} failed</p>
         <button onClick={() => router.push('/admin/certificates')}
           className="bg-brand-blue-600 text-white px-6 py-2 rounded-lg hover:bg-brand-blue-700">
           View All Certificates
@@ -95,7 +95,7 @@ export default function BulkIssueForm({
           <h2 className="text-lg font-semibold mb-4">Configuration</h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Certificate Template *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Certificate Template *</label>
               <select value={templateId} onChange={e => setTemplateId(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500">
                 <option value="">Select a template</option>
@@ -103,12 +103,12 @@ export default function BulkIssueForm({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Issue Date</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Issue Date</label>
               <input type="date" value={issueDate} onChange={e => setIssueDate(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Signed By</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Signed By</label>
               <input type="text" value={signedBy} onChange={e => setSignedBy(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
                 placeholder="Director Name" />
@@ -140,7 +140,7 @@ export default function BulkIssueForm({
           <div className="p-6 border-b flex justify-between items-center">
             <div>
               <h2 className="text-lg font-semibold">Eligible Participants</h2>
-              <p className="text-sm text-gray-500">{selected.size} of {eligibleParticipants.length} selected</p>
+              <p className="text-sm text-slate-700">{selected.size} of {eligibleParticipants.length} selected</p>
             </div>
             <button onClick={toggleAll} className="text-sm text-brand-blue-600 hover:text-brand-blue-800">
               {selected.size === eligibleParticipants.length ? 'Clear All' : 'Select All'}
@@ -152,18 +152,18 @@ export default function BulkIssueForm({
                 <div key={e.id} className="p-4 flex items-center gap-4 hover:bg-gray-50 cursor-pointer" onClick={() => toggle(e.id)}>
                   <input type="checkbox" checked={selected.has(e.id)} readOnly className="w-4 h-4 text-brand-blue-600 rounded" />
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900">{e.profiles?.full_name || 'Unknown'}</p>
-                    <p className="text-sm text-gray-500">{e.profiles?.email}</p>
+                    <p className="font-medium text-slate-900">{e.profiles?.full_name || 'Unknown'}</p>
+                    <p className="text-sm text-slate-700">{e.profiles?.email}</p>
                     <p className="text-sm text-brand-blue-600">{e.courses?.title}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-gray-500">Completed</p>
+                    <p className="text-sm text-slate-700">Completed</p>
                     <p className="text-sm font-medium">{e.completed_at ? new Date(e.completed_at).toLocaleDateString() : 'N/A'}</p>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="p-8 text-center text-gray-500">No eligible participants found</div>
+              <div className="p-8 text-center text-slate-700">No eligible participants found</div>
             )}
           </div>
         </div>

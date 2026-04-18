@@ -91,13 +91,13 @@ export default function HiringGuidePage() {
           ].map((stat, index) => (
             <div key={index} className="bg-white rounded-xl p-6 shadow-sm text-center">
               <stat.icon className={`w-8 h-8 text-${stat.color}-600 mx-auto mb-3`} />
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-gray-600">{stat.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-slate-700">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">6 Steps to Successful Hiring</h2>
+        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">6 Steps to Successful Hiring</h2>
 
         <div className="space-y-12 mb-16">
           {steps.map((step, index) => (
@@ -116,13 +116,13 @@ export default function HiringGuidePage() {
                 </div>
               </div>
               <div className="md:w-1/2">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
-                <p className="text-gray-600 mb-6">{step.description}</p>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">{step.title}</h3>
+                <p className="text-slate-700 mb-6">{step.description}</p>
                 <div className="bg-brand-blue-50 rounded-xl p-4">
                   <p className="font-semibold text-brand-blue-900 mb-3">Pro Tips:</p>
                   <ul className="space-y-2">
                     {step.tips.map((tip, i) => (
-                      <li key={i} className="flex items-center gap-2 text-gray-700">
+                      <li key={i} className="flex items-center gap-2 text-slate-900">
                         <Circle className="w-4 h-4 text-brand-blue-600 flex-shrink-0" />
                         {tip}
                       </li>
@@ -135,7 +135,7 @@ export default function HiringGuidePage() {
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm p-8 mb-12">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">Downloadable Resources</h3>
+          <h3 className="text-2xl font-bold text-slate-900 mb-6">Downloadable Resources</h3>
           <div className="grid md:grid-cols-2 gap-4">
             {resources.map((resource, index) => (
               <div key={index} className="flex items-center justify-between p-4 border rounded-xl hover:border-brand-blue-300 transition">
@@ -144,12 +144,12 @@ export default function HiringGuidePage() {
                     <FileText className="w-6 h-6 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{resource.title}</p>
-                    <p className="text-sm text-gray-500">{resource.type} - {resource.size}</p>
+                    <p className="font-medium text-slate-900">{resource.title}</p>
+                    <p className="text-sm text-slate-700">{resource.type} - {resource.size}</p>
                   </div>
                 </div>
                 <button className="p-2 hover:bg-white rounded-lg transition">
-                  <Download className="w-5 h-5 text-gray-600" />
+                  <Download className="w-5 h-5 text-slate-700" />
                 </button>
               </div>
             ))}

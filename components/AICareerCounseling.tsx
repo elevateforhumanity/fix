@@ -137,10 +137,10 @@ export default function AICareerCounseling() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-6">
               <Sparkles className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
               AI Career Counseling
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-700 max-w-2xl mx-auto">
               Get personalized career guidance powered by AI. Discover career paths that match your skills, interests, and goals.
             </p>
           </div>
@@ -149,17 +149,17 @@ export default function AICareerCounseling() {
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <Target className="w-10 h-10 text-brand-blue-600 mb-4" />
               <h3 className="font-bold text-lg mb-2">Personalized Guidance</h3>
-              <p className="text-gray-600 text-sm">Get career recommendations tailored to your unique skills and interests.</p>
+              <p className="text-slate-700 text-sm">Get career recommendations tailored to your unique skills and interests.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <TrendingUp className="w-10 h-10 text-brand-green-600 mb-4" />
               <h3 className="font-bold text-lg mb-2">Salary Insights</h3>
-              <p className="text-gray-600 text-sm">Learn about earning potential and job market trends in your field.</p>
+              <p className="text-slate-700 text-sm">Learn about earning potential and job market trends in your field.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <GraduationCap className="w-10 h-10 text-brand-orange-600 mb-4" />
               <h3 className="font-bold text-lg mb-2">Training Paths</h3>
-              <p className="text-gray-600 text-sm">Discover FREE training programs to help you reach your career goals.</p>
+              <p className="text-slate-700 text-sm">Discover FREE training programs to help you reach your career goals.</p>
             </div>
           </div>
 
@@ -171,7 +171,7 @@ export default function AICareerCounseling() {
               Start Career Assessment
               <ChevronRight className="w-5 h-5" />
             </button>
-            <p className="text-sm text-gray-500 mt-4">Free • No account required • Takes 2 minutes</p>
+            <p className="text-sm text-slate-700 mt-4">Free • No account required • Takes 2 minutes</p>
           </div>
         </div>
       </div>
@@ -184,12 +184,12 @@ export default function AICareerCounseling() {
       <div className="min-h-screen bg-gradient-to-br from-brand-blue-50 to-brand-blue-100 py-12">
         <div className="max-w-2xl mx-auto px-4">
           <div className="bg-white rounded-2xl shadow-xl p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Tell us about yourself</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Tell us about yourself</h2>
             
             <div className="space-y-8">
               {/* Skills */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <label className="block text-sm font-semibold text-slate-900 mb-3">
                   What are your strongest skills? (Select all that apply)
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -200,7 +200,7 @@ export default function AICareerCounseling() {
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                         profile.skills.includes(skill)
                           ? 'bg-brand-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-slate-900 hover:bg-gray-200'
                       }`}
                     >
                       {skill}
@@ -211,7 +211,7 @@ export default function AICareerCounseling() {
 
               {/* Experience Level */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <label className="block text-sm font-semibold text-slate-900 mb-3">
                   What's your experience level?
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -222,7 +222,7 @@ export default function AICareerCounseling() {
                       className={`px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                         profile.level === level
                           ? 'bg-brand-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-slate-900 hover:bg-gray-200'
                       }`}
                     >
                       {level}
@@ -233,7 +233,7 @@ export default function AICareerCounseling() {
 
               {/* Career Goal */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <label className="block text-sm font-semibold text-slate-900 mb-3">
                   What's your primary career goal?
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -251,7 +251,7 @@ export default function AICareerCounseling() {
                       className={`px-4 py-3 rounded-lg text-sm font-medium text-left transition-all ${
                         profile.goal === goal
                           ? 'bg-brand-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-slate-900 hover:bg-gray-200'
                       }`}
                     >
                       {goal}
@@ -262,7 +262,7 @@ export default function AICareerCounseling() {
 
               {/* Interests */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <label className="block text-sm font-semibold text-slate-900 mb-3">
                   What industries interest you?
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -273,7 +273,7 @@ export default function AICareerCounseling() {
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                         profile.interests.includes(interest)
                           ? 'bg-brand-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 text-slate-900 hover:bg-gray-200'
                       }`}
                     >
                       {interest}
@@ -286,7 +286,7 @@ export default function AICareerCounseling() {
             <div className="flex gap-4 mt-8">
               <button
                 onClick={() => setStep('intro')}
-                className="px-6 py-3 rounded-lg font-medium text-gray-600 hover:bg-gray-100"
+                className="px-6 py-3 rounded-lg font-medium text-slate-700 hover:bg-gray-100"
               >
                 Back
               </button>
@@ -315,8 +315,8 @@ export default function AICareerCounseling() {
               <Briefcase className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="font-bold text-gray-900">AI Career Counselor</h1>
-              <p className="text-xs text-gray-500">Personalized guidance for your career journey</p>
+              <h1 className="font-bold text-slate-900">AI Career Counselor</h1>
+              <p className="text-xs text-slate-700">Personalized guidance for your career journey</p>
             </div>
           </div>
           <Link href="/programs" className="text-sm text-brand-blue-600 hover:underline">
@@ -344,7 +344,7 @@ export default function AICareerCounseling() {
               </div>
               {message.role === 'user' && (
                 <div className="bg-gray-200 rounded-full p-2 h-fit">
-                  <User className="w-5 h-5 text-gray-600" />
+                  <User className="w-5 h-5 text-slate-700" />
                 </div>
               )}
             </div>

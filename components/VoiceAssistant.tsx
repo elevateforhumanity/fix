@@ -92,7 +92,7 @@ export function VoiceAssistant() {
           <div className="p-4 border-t border-gray-200 bg-white">
             <div className="flex flex-col items-center gap-3">
               <VoiceInput onCommand={handleCommand} />
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-slate-700 text-center">
                 Click the microphone and speak your command
               </p>
             </div>

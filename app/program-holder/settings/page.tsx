@@ -22,16 +22,16 @@ export default async function ProgramSettingsPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/program-holder" className="hover:text-primary">Program Holder</Link></li><li>/</li><li className="text-gray-900 font-medium">Settings</li></ol></nav>
-          <h1 className="text-3xl font-bold text-gray-900">Program Settings</h1>
-          <p className="text-gray-600 mt-2">Manage your account and program preferences</p>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/program-holder" className="hover:text-primary">Program Holder</Link></li><li>/</li><li className="text-slate-900 font-medium">Settings</li></ol></nav>
+          <h1 className="text-3xl font-bold text-slate-900">Program Settings</h1>
+          <p className="text-slate-700 mt-2">Manage your account and program preferences</p>
         </div>
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <h2 className="text-lg font-semibold mb-4">Organization Information</h2>
             <div className="space-y-4">
-              <div><label className="block text-sm font-medium text-gray-700 mb-2">Organization Name</label><input type="text" className="w-full border rounded-lg px-3 py-2" defaultValue={profile?.organization || ''} /></div>
-              <div><label className="block text-sm font-medium text-gray-700 mb-2">Contact Email</label><input type="email" className="w-full border rounded-lg px-3 py-2" defaultValue={profile?.email || ''} /></div>
+              <div><label className="block text-sm font-medium text-slate-900 mb-2">Organization Name</label><input type="text" className="w-full border rounded-lg px-3 py-2" defaultValue={profile?.organization || ''} /></div>
+              <div><label className="block text-sm font-medium text-slate-900 mb-2">Contact Email</label><input type="email" className="w-full border rounded-lg px-3 py-2" defaultValue={profile?.email || ''} /></div>
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-sm border p-6">

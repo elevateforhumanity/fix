@@ -126,12 +126,12 @@ export default function ApplicationAssistantPage() {
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
               <span className="bg-brand-green-100 text-brand-green-700 text-xs font-bold px-2 py-1 rounded-full">SAEF 3 — ROUND 2</span>
-              <h1 className="text-2xl font-bold text-gray-900 mt-2">Application Assistant</h1>
-              <p className="text-gray-500 text-sm">Indiana DWD · Education & Advanced Manufacturing · Up to $400,000</p>
+              <h1 className="text-2xl font-bold text-slate-900 mt-2">Application Assistant</h1>
+              <p className="text-slate-700 text-sm">Indiana DWD · Education & Advanced Manufacturing · Up to $400,000</p>
             </div>
             <div className="text-right">
               <p className="text-3xl font-bold text-brand-blue-600">{progress}%</p>
-              <p className="text-xs text-gray-400">{filledCount}/{totalFields} fields</p>
+              <p className="text-xs text-slate-700">{filledCount}/{totalFields} fields</p>
             </div>
           </div>
 
@@ -174,7 +174,7 @@ export default function ApplicationAssistantPage() {
           const sectionFields = SAEF_FIELDS.filter((f) => f.section === section);
           return (
             <div key={section} className="bg-white rounded-2xl shadow-sm p-6 mb-4">
-              <h2 className="text-base font-bold text-gray-900 mb-5 pb-2 border-b border-gray-100">
+              <h2 className="text-base font-bold text-slate-900 mb-5 pb-2 border-b border-gray-100">
                 {section}
               </h2>
               {sectionFields.map((field) => (
@@ -199,18 +199,18 @@ export default function ApplicationAssistantPage() {
           {submitted ? (
             <div className="flex flex-col items-center gap-3">
               <CheckCircle className="w-10 h-10 text-green-500" />
-              <p className="font-semibold text-gray-900">Form opened with your answers pre-filled.</p>
-              <p className="text-sm text-gray-500">Review the form in the new tab and hit <strong>Submit</strong> to send to DWD.</p>
+              <p className="font-semibold text-slate-900">Form opened with your answers pre-filled.</p>
+              <p className="text-sm text-slate-700">Review the form in the new tab and hit <strong>Submit</strong> to send to DWD.</p>
               <button
                 onClick={openPrefilledForm}
-                className="flex items-center gap-2 border border-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-2 border border-gray-300 text-slate-900 px-5 py-2 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors"
               >
                 <ExternalLink className="w-4 h-4" /> Re-open Form
               </button>
             </div>
           ) : (
             <>
-              <p className="text-gray-500 text-sm mb-4">
+              <p className="text-slate-700 text-sm mb-4">
                 Review all fields above, then open the Google Form with your answers pre-filled.
               </p>
               <button
@@ -222,7 +222,7 @@ export default function ApplicationAssistantPage() {
                 Open Pre-Filled Form
               </button>
               {filledCount < 6 && (
-                <p className="text-xs text-gray-400 mt-2">Fill at least 6 fields to continue</p>
+                <p className="text-xs text-slate-700 mt-2">Fill at least 6 fields to continue</p>
               )}
             </>
           )}

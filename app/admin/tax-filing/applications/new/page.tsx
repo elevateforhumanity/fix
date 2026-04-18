@@ -34,11 +34,11 @@ export default function NewTaxFilingApplicationPage() {
           <ArrowLeft className="w-4 h-4" /> Back to Applications
         </Link>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">New Tax Filing Application</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-6">New Tax Filing Application</h1>
 
         <form action={createTaxApplication} className="bg-white rounded-xl border border-gray-200 p-6 space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               <span className="flex items-center gap-1"><User className="w-3.5 h-3.5" /> Client Name *</span>
             </label>
             <input name="client_name" required className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="Full legal name" />
@@ -46,13 +46,13 @@ export default function NewTaxFilingApplicationPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5" /> Email *</span>
               </label>
               <input name="client_email" type="email" required className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="client@email.com" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5" /> Phone</span>
               </label>
               <input name="client_phone" type="tel" className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="(317) 314-3757" />
@@ -61,7 +61,7 @@ export default function NewTaxFilingApplicationPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 <span className="flex items-center gap-1"><FileText className="w-3.5 h-3.5" /> Filing Type</span>
               </label>
               <select name="filing_type" className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500">
@@ -72,7 +72,7 @@ export default function NewTaxFilingApplicationPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> Tax Year</span>
               </label>
               <select name="tax_year" className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500">
@@ -85,12 +85,12 @@ export default function NewTaxFilingApplicationPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Notes</label>
             <textarea name="notes" rows={3} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="Special circumstances, documents needed, etc." />
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-            <Link href="/admin/tax-filing/applications" className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800">Cancel</Link>
+            <Link href="/admin/tax-filing/applications" className="px-4 py-2 text-sm text-slate-700 hover:text-slate-900">Cancel</Link>
             <button type="submit" className="flex items-center gap-2 px-5 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700">
               <Save className="w-4 h-4" /> Create Application
             </button>

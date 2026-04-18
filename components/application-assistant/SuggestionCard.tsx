@@ -19,7 +19,7 @@ export function SuggestionCard({ suggestion, onUse, onSkip }: Props) {
   const confidenceColor =
     suggestion.confidence >= 0.9 ? 'text-green-600 bg-green-50 border-green-200' :
     suggestion.confidence >= 0.7 ? 'text-yellow-600 bg-yellow-50 border-yellow-200' :
-    'text-gray-500 bg-gray-50 border-gray-200';
+    'text-slate-700 bg-gray-50 border-gray-200';
 
   const handleUse = (value: string) => {
     onUse(value);
@@ -46,13 +46,13 @@ export function SuggestionCard({ suggestion, onUse, onSkip }: Props) {
 
       {editing ? (
         <textarea
-          className="w-full border border-gray-300 rounded p-2 text-gray-800 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand-blue-400"
+          className="w-full border border-gray-300 rounded p-2 text-slate-900 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand-blue-400"
           rows={4}
           value={editValue}
           onChange={(e) => setEditValue(e.target.value)}
         />
       ) : (
-        <p className="text-gray-800 whitespace-pre-wrap line-clamp-3">{suggestion.suggestion}</p>
+        <p className="text-slate-900 whitespace-pre-wrap line-clamp-3">{suggestion.suggestion}</p>
       )}
 
       <div className="flex items-center gap-2 mt-3 flex-wrap">
@@ -64,13 +64,13 @@ export function SuggestionCard({ suggestion, onUse, onSkip }: Props) {
         </button>
         <button
           onClick={() => setEditing(!editing)}
-          className="flex items-center gap-1 border border-gray-300 hover:bg-white text-gray-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+          className="flex items-center gap-1 border border-gray-300 hover:bg-white text-slate-900 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
         >
           <Edit2 className="w-3 h-3" /> {editing ? 'Cancel' : 'Edit'}
         </button>
         <button
           onClick={onSkip}
-          className="flex items-center gap-1 text-gray-400 hover:text-gray-600 px-2 py-1.5 text-xs transition-colors"
+          className="flex items-center gap-1 text-slate-700 hover:text-slate-700 px-2 py-1.5 text-xs transition-colors"
         >
           <SkipForward className="w-3 h-3" /> Skip
         </button>
@@ -78,7 +78,7 @@ export function SuggestionCard({ suggestion, onUse, onSkip }: Props) {
         {suggestion.alternatives && suggestion.alternatives.length > 0 && (
           <button
             onClick={() => setShowAlts(!showAlts)}
-            className="flex items-center gap-1 text-gray-400 hover:text-gray-600 px-2 py-1.5 text-xs transition-colors ml-auto"
+            className="flex items-center gap-1 text-slate-700 hover:text-slate-700 px-2 py-1.5 text-xs transition-colors ml-auto"
           >
             Alternatives {showAlts ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
           </button>
@@ -91,7 +91,7 @@ export function SuggestionCard({ suggestion, onUse, onSkip }: Props) {
             <button
               key={i}
               onClick={() => handleUse(alt)}
-              className="w-full text-left text-xs text-gray-700 hover:bg-white px-2 py-1.5 rounded transition-colors"
+              className="w-full text-left text-xs text-slate-900 hover:bg-white px-2 py-1.5 rounded transition-colors"
             >
               {alt}
             </button>

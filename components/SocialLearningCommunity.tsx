@@ -151,7 +151,7 @@ export function SocialLearningCommunity() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`py-4 px-2 border-b-2 font-medium capitalize ${
-                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-gray-500'
+                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-slate-700'
                 }`}
               >
                 {tab}
@@ -195,7 +195,7 @@ export function SocialLearningCommunity() {
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="font-bold">{post.author}</h4>
-                          <p className="text-sm text-gray-500">{post.timestamp}</p>
+                          <p className="text-sm text-slate-700">{post.timestamp}</p>
                         </div>
                       </div>
                       <p className="text-black mb-3">{post.content}</p>
@@ -224,7 +224,7 @@ export function SocialLearningCommunity() {
                   {['#React', '#JavaScript', '#WebDevelopment', '#NodeJS', '#TypeScript'].map((tag) => (
                     <div key={tag} className="flex justify-between items-center">
                       <span className="text-brand-blue-600 hover:underline cursor-pointer">{tag}</span>
-                      <span className="text-sm text-gray-500">245 posts</span>
+                      <span className="text-sm text-slate-700">245 posts</span>
                     </div>
                   ))}
                 </div>
@@ -239,7 +239,7 @@ export function SocialLearningCommunity() {
                         <div className="text-2xl">👤</div>
                         <div>
                           <p className="font-medium text-sm">{name}</p>
-                          <p className="text-xs text-gray-500">Full-Stack Developer</p>
+                          <p className="text-xs text-slate-700">Full-Stack Developer</p>
                         </div>
                       </div>
                       <Button size="sm" variant="secondary">Follow</Button>

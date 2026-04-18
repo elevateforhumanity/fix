@@ -50,8 +50,8 @@ export default async function VerifyIdentityPage() {
           <ArrowLeft className="w-4 h-4" /> Back to Onboarding
         </Link>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Verify Your Identity</h1>
-        <p className="text-gray-600 mb-6">
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">Verify Your Identity</h1>
+        <p className="text-slate-700 mb-6">
           Federal and state workforce regulations require identity verification for all enrolled students.
           Upload a clear photo of your government-issued ID (front and back) and a selfie.
         </p>

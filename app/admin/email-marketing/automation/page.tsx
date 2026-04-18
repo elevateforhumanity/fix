@@ -37,8 +37,8 @@ export default async function EmailAutomationPage() {
 
         <div className="flex items-center justify-between mt-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Email Automations</h1>
-            <p className="text-gray-500 text-sm mt-1">Live workflow records from the database</p>
+            <h1 className="text-3xl font-bold text-slate-900">Email Automations</h1>
+            <p className="text-slate-700 text-sm mt-1">Live workflow records from the database</p>
           </div>
           <Link href="/admin/email-marketing/automation/new"
             className="bg-brand-orange-600 hover:bg-brand-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
@@ -53,8 +53,8 @@ export default async function EmailAutomationPage() {
             { label: 'Total Recipients',  value: totalRecipients.toLocaleString() },
           ].map((kpi) => (
             <div key={kpi.label} className="bg-white rounded-lg border p-4 shadow-sm">
-              <p className="text-xs text-gray-500 uppercase tracking-wide">{kpi.label}</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{kpi.value}</p>
+              <p className="text-xs text-slate-700 uppercase tracking-wide">{kpi.label}</p>
+              <p className="text-2xl font-bold text-slate-900 mt-1">{kpi.value}</p>
             </div>
           ))}
         </div>
@@ -79,7 +79,7 @@ export default async function EmailAutomationPage() {
                     <td className="px-4 py-3 text-slate-600">{r.trigger_type.replace(/_/g, ' ')}</td>
                     <td className="px-4 py-3 text-slate-600">{r.audience_type}</td>
                     <td className="px-4 py-3">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${r.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${r.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-slate-700'}`}>
                         {r.is_active ? 'Active' : 'Inactive'}
                       </span>
                     </td>
@@ -89,7 +89,7 @@ export default async function EmailAutomationPage() {
                     <td className="px-4 py-3 text-slate-600">{r.last_recipient_count}</td>
                     <td className="px-4 py-3">
                       {r.last_run_status ? (
-                        <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_BADGE[r.last_run_status] ?? 'bg-gray-100 text-gray-600'}`}>
+                        <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_BADGE[r.last_run_status] ?? 'bg-gray-100 text-slate-700'}`}>
                           {r.last_run_status}
                         </span>
                       ) : '—'}

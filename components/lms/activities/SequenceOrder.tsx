@@ -68,8 +68,8 @@ export function SequenceOrder({ title, description, steps, onComplete }: Sequenc
     <div className="rounded-2xl border border-gray-200 bg-white p-6">
       <div className="mb-4">
         <span className="text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2 py-0.5 rounded">Activity</span>
-        <h3 className="text-xl font-bold text-gray-900 mt-2">{title}</h3>
-        {description && <p className="text-gray-500 text-sm mt-1">{description}</p>}
+        <h3 className="text-xl font-bold text-slate-900 mt-2">{title}</h3>
+        {description && <p className="text-slate-700 text-sm mt-1">{description}</p>}
         {!submitted && <p className="text-sm text-brand-blue-600 font-medium mt-2">Use the arrows to put the steps in the correct order.</p>}
       </div>
 
@@ -91,7 +91,7 @@ export function SequenceOrder({ title, description, steps, onComplete }: Sequenc
               <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${
                 isCorrect ? 'bg-green-500 text-white' :
                 isWrong ? 'bg-red-400 text-white' :
-                'bg-gray-100 text-gray-600'
+                'bg-gray-100 text-slate-700'
               }`}>
                 {isCorrect ? <CheckCircle className="w-5 h-5" /> :
                  isWrong ? <XCircle className="w-5 h-5" /> :
@@ -101,10 +101,10 @@ export function SequenceOrder({ title, description, steps, onComplete }: Sequenc
               {/* Content */}
               <div className="flex-1 min-w-0">
                 <p className={`font-semibold text-base ${
-                  isCorrect ? 'text-green-800' : isWrong ? 'text-red-800' : 'text-gray-900'
+                  isCorrect ? 'text-green-800' : isWrong ? 'text-red-800' : 'text-slate-900'
                 }`}>{step.label}</p>
                 {submitted && (
-                  <p className={`text-sm mt-0.5 ${isCorrect ? 'text-green-600' : 'text-gray-500'}`}>
+                  <p className={`text-sm mt-0.5 ${isCorrect ? 'text-green-600' : 'text-slate-700'}`}>
                     {step.explanation}
                   </p>
                 )}
@@ -115,11 +115,11 @@ export function SequenceOrder({ title, description, steps, onComplete }: Sequenc
                 <div className="flex flex-col gap-1 flex-shrink-0">
                   <button onClick={() => moveUp(pos)} disabled={pos === 0}
                     className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-brand-blue-50 flex items-center justify-center disabled:opacity-20 transition-colors">
-                    <ArrowUp className="w-4 h-4 text-gray-600" />
+                    <ArrowUp className="w-4 h-4 text-slate-700" />
                   </button>
                   <button onClick={() => moveDown(pos)} disabled={pos === order.length - 1}
                     className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-brand-blue-50 flex items-center justify-center disabled:opacity-20 transition-colors">
-                    <ArrowDown className="w-4 h-4 text-gray-600" />
+                    <ArrowDown className="w-4 h-4 text-slate-700" />
                   </button>
                 </div>
               )}
@@ -147,7 +147,7 @@ export function SequenceOrder({ title, description, steps, onComplete }: Sequenc
               </p>
             </div>
             {score < 100 && (
-              <button onClick={handleRetry} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50">
+              <button onClick={handleRetry} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white border border-gray-200 text-slate-900 text-sm font-semibold hover:bg-gray-50">
                 <RotateCcw className="w-4 h-4" /> Try Again
               </button>
             )}

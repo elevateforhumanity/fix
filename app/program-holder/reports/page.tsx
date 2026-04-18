@@ -215,7 +215,7 @@ export default async function ReportsPage() {
                                   ? 'bg-brand-green-100 text-brand-green-800'
                                   : report.status === 'pending'
                                     ? 'bg-yellow-100 text-yellow-800'
-                                    : 'bg-gray-100 text-gray-700'
+                                    : 'bg-gray-100 text-slate-900'
                               }`}
                             >
                               {report.status || 'submitted'}

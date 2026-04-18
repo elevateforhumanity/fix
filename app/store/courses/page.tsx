@@ -71,14 +71,14 @@ export default function StoreCoursesPage() {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-brand-blue-600 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-blue-600 transition-colors">
                     {course.name}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-slate-700 text-sm mb-4 line-clamp-2">
                     {course.shortDescription}
                   </p>
 
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                  <div className="flex items-center gap-4 text-sm text-slate-700 mb-4">
                     <div className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
                       {course.duration}
@@ -91,7 +91,7 @@ export default function StoreCoursesPage() {
 
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                     <div>
-                      <span className="text-2xl font-black text-gray-900">
+                      <span className="text-2xl font-black text-slate-900">
                         ${course.price}
                       </span>
                     </div>
@@ -116,22 +116,22 @@ export default function StoreCoursesPage() {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
               <Shield className="w-12 h-12 text-brand-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Authorized Providers</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Authorized Providers</h3>
+              <p className="text-slate-700">
                 All certifications from recognized providers like Certiport, HSI, and CareerSafe.
               </p>
             </div>
             <div>
               <Award className="w-12 h-12 text-brand-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Exam Voucher Included</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Exam Voucher Included</h3>
+              <p className="text-slate-700">
                 Every course includes the certification exam voucher - no hidden costs.
               </p>
             </div>
             <div>
               <BookOpen className="w-12 h-12 text-brand-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Self-Paced Learning</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Self-Paced Learning</h3>
+              <p className="text-slate-700">
                 Learn at your own pace with lifetime access to course materials.
               </p>
             </div>

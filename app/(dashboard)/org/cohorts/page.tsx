@@ -14,7 +14,7 @@ export const metadata = {
 const STATUS_STYLES: Record<string, string> = {
   active:    'bg-green-100 text-green-800',
   upcoming:  'bg-blue-100 text-blue-800',
-  completed: 'bg-gray-100 text-gray-700',
+  completed: 'bg-gray-100 text-slate-900',
   archived:  'bg-yellow-100 text-yellow-800',
 };
 
@@ -36,42 +36,42 @@ export default async function OrgCohortsPage() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Cohorts</h1>
-          <p className="mt-1 text-sm text-gray-500">{ctx.organization.name}</p>
+          <h1 className="text-2xl font-semibold text-slate-900">Cohorts</h1>
+          <p className="mt-1 text-sm text-slate-700">{ctx.organization.name}</p>
         </div>
       </div>
 
       {cohorts.length === 0 ? (
         <div className="mt-12 text-center">
-          <p className="text-sm text-gray-500">No cohorts found for this organization.</p>
+          <p className="text-sm text-slate-700">No cohorts found for this organization.</p>
         </div>
       ) : (
         <div className="mt-6 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Learners</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Start Date</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Delivery</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Name</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Status</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Learners</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Start Date</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase tracking-wide">Delivery</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {cohorts.map((cohort) => (
                 <tr key={cohort.cohortId} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{cohort.name}</td>
+                  <td className="px-4 py-3 text-sm font-medium text-slate-900">{cohort.name}</td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[cohort.status] ?? 'bg-gray-100 text-gray-700'}`}>
+                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[cohort.status] ?? 'bg-gray-100 text-slate-900'}`}>
                       {cohort.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{cohort.enrolledCount}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500">
+                  <td className="px-4 py-3 text-sm text-slate-900">{cohort.enrolledCount}</td>
+                  <td className="px-4 py-3 text-sm text-slate-700">
                     {cohort.startDate ? new Date(cohort.startDate).toLocaleDateString() : '—'}
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{cohort.deliveryMode ?? '—'}</td>
+                  <td className="px-4 py-3 text-sm text-slate-700">{cohort.deliveryMode ?? '—'}</td>
                   <td className="px-4 py-3 text-right">
                     <Link
                       href={`/org/cohorts/${cohort.cohortId}`}

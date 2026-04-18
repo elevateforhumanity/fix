@@ -62,7 +62,7 @@ export function ContextualHelp({
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="text-gray-400 hover:text-brand-blue-600 transition-colors"
+        className="text-slate-700 hover:text-brand-blue-600 transition-colors"
         aria-label="Help"
         type="button"
       >
@@ -81,7 +81,7 @@ export function ContextualHelp({
               </h4>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-black transition-colors"
+                className="text-slate-700 hover:text-black transition-colors"
                 aria-label="Close"
               >
                 <X className="w-4 h-4" />
@@ -126,7 +126,7 @@ export function ContextualHelp({
 // Inline help text component
 export function InlineHelp({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-sm text-gray-500 mt-1 flex items-start gap-1">
+    <p className="text-sm text-slate-700 mt-1 flex items-start gap-1">
       <HelpCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
       <span>{children}</span>
     </p>
@@ -227,7 +227,7 @@ export function KeyboardShortcuts({
               </h3>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-black"
+                className="text-slate-700 hover:text-black"
                 aria-label="Close"
               >
                 <X className="w-6 h-6" />
@@ -249,7 +249,7 @@ export function KeyboardShortcuts({
                             {key}
                           </kbd>
                           {keyIndex < shortcut.keys.length - 1 && (
-                            <span className="mx-1 text-gray-400">+</span>
+                            <span className="mx-1 text-slate-700">+</span>
                           )}
                         </span>
                       ))}

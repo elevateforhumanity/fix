@@ -199,16 +199,16 @@ export default function DeployClient() {
                           ? 'bg-brand-green-100 text-brand-green-700' 
                           : deployment.status === 'deploying'
                           ? 'bg-yellow-100 text-yellow-700'
-                          : 'bg-gray-100 text-gray-600'
+                          : 'bg-gray-100 text-slate-700'
                       }`}>
                         {deployment.status === 'active' ? 'Active' : deployment.status === 'deploying' ? 'Deploying...' : 'Stopped'}
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-600 mt-1">{option.description}</p>
+                  <p className="text-slate-700 mt-1">{option.description}</p>
                   <ul className="mt-3 space-y-1">
                     {option.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-sm text-gray-500">
+                      <li key={idx} className="flex items-center gap-2 text-sm text-slate-700">
                         <span className="text-slate-400 flex-shrink-0">•</span>
                         {feature}
                       </li>
@@ -242,7 +242,7 @@ export default function DeployClient() {
                     disabled={isDeploying}
                     className={`px-4 py-2 rounded-lg font-medium ${
                       isDeploying
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        ? 'bg-gray-100 text-slate-700 cursor-not-allowed'
                         : 'bg-brand-blue-600 text-white hover:bg-brand-blue-700'
                     }`}
                   >
@@ -260,7 +260,7 @@ export default function DeployClient() {
         <h2 className="text-lg font-semibold mb-4">Deployment Configuration</h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               API Key
             </label>
             <input 
@@ -270,10 +270,10 @@ export default function DeployClient() {
               value={config.apiKey}
               onChange={(e) => setConfig({ ...config, apiKey: e.target.value })}
             />
-            <p className="text-xs text-gray-500 mt-1">Required for AI features</p>
+            <p className="text-xs text-slate-700 mt-1">Required for AI features</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-900 mb-2">
               Model Selection
             </label>
             <select 
@@ -293,7 +293,7 @@ export default function DeployClient() {
               checked={config.enableLogging}
               onChange={(e) => setConfig({ ...config, enableLogging: e.target.checked })}
             />
-            <label htmlFor="logging" className="text-sm text-gray-700">
+            <label htmlFor="logging" className="text-sm text-slate-900">
               Enable conversation logging for quality improvement
             </label>
           </div>
@@ -320,7 +320,7 @@ export default function DeployClient() {
                     <td className="py-2 px-3">
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         d.status === 'active' ? 'bg-brand-green-100 text-brand-green-700' :
-                        d.status === 'stopped' ? 'bg-gray-100 text-gray-600' :
+                        d.status === 'stopped' ? 'bg-gray-100 text-slate-700' :
                         d.status === 'deploying' ? 'bg-yellow-100 text-yellow-700' :
                         'bg-brand-red-100 text-brand-red-700'
                       }`}>

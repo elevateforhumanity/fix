@@ -136,7 +136,7 @@ export default async function PricingPage() {
               <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
                 <span className="text-slate-500 flex-shrink-0">•</span>
                 <h3 className="font-semibold mb-2">{feature.name}</h3>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
+                <p className="text-slate-700 text-sm">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -152,9 +152,9 @@ export default async function PricingPage() {
               <details key={index} className="bg-white rounded-lg shadow-sm border group">
                 <summary className="p-6 cursor-pointer flex items-center justify-between font-semibold list-none">
                   {faq.question}
-                  <HelpCircle className="w-5 h-5 text-gray-400" />
+                  <HelpCircle className="w-5 h-5 text-slate-700" />
                 </summary>
-                <div className="px-6 pb-6 text-gray-600">
+                <div className="px-6 pb-6 text-slate-700">
                   {faq.answer}
                 </div>
               </details>
@@ -192,7 +192,7 @@ export default async function PricingPage() {
 
       {/* Disclaimer */}
       <section className="py-8">
-        <div className="max-w-4xl mx-auto px-4 text-center text-sm text-gray-500">
+        <div className="max-w-4xl mx-auto px-4 text-center text-sm text-slate-700">
           <p>{DISCLAIMERS.pricing}</p>
         </div>
       </section>

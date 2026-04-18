@@ -61,26 +61,26 @@ export default async function EnrollProgramPage({ params }: Props) {
             {course ? (
               <>
                 <div className="mb-8">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Program Details</h2>
+                  <h2 className="text-xl font-semibold text-slate-900 mb-4">Program Details</h2>
                   <div className="grid md:grid-cols-3 gap-4">
                     <div className="flex items-center gap-3 p-4 bg-white rounded-lg">
                       <Clock className="w-5 h-5 text-brand-blue-600" />
                       <div>
-                        <p className="text-sm text-gray-500">Duration</p>
+                        <p className="text-sm text-slate-700">Duration</p>
                         <p className="font-medium">{course.duration || '8-16 weeks'}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-4 bg-white rounded-lg">
                       <Award className="w-5 h-5 text-brand-blue-600" />
                       <div>
-                        <p className="text-sm text-gray-500">Certification</p>
+                        <p className="text-sm text-slate-700">Certification</p>
                         <p className="font-medium">Industry Recognized</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-4 bg-white rounded-lg">
                       <span className="text-slate-400 flex-shrink-0">•</span>
                       <div>
-                        <p className="text-sm text-gray-500">Cost</p>
+                        <p className="text-sm text-slate-700">Cost</p>
                         <p className="font-medium text-brand-green-600">Free with WIOA</p>
                       </div>
                     </div>
@@ -88,27 +88,27 @@ export default async function EnrollProgramPage({ params }: Props) {
                 </div>
 
                 <div className="mb-8">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Next Steps</h2>
+                  <h2 className="text-xl font-semibold text-slate-900 mb-4">Next Steps</h2>
                   <ol className="space-y-4">
                     <li className="flex items-start gap-4">
                       <span className="flex-shrink-0 w-8 h-8 bg-brand-blue-100 text-brand-blue-600 rounded-full flex items-center justify-center font-semibold">1</span>
                       <div>
-                        <p className="font-medium text-gray-900">Verify WIOA Eligibility</p>
-                        <p className="text-sm text-gray-600">Complete the eligibility check to qualify for free training</p>
+                        <p className="font-medium text-slate-900">Verify WIOA Eligibility</p>
+                        <p className="text-sm text-slate-700">Complete the eligibility check to qualify for free training</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-4">
                       <span className="flex-shrink-0 w-8 h-8 bg-brand-blue-100 text-brand-blue-600 rounded-full flex items-center justify-center font-semibold">2</span>
                       <div>
-                        <p className="font-medium text-gray-900">Submit Application</p>
-                        <p className="text-sm text-gray-600">Provide your information and select your preferred start date</p>
+                        <p className="font-medium text-slate-900">Submit Application</p>
+                        <p className="text-sm text-slate-700">Provide your information and select your preferred start date</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-4">
                       <span className="flex-shrink-0 w-8 h-8 bg-brand-blue-100 text-brand-blue-600 rounded-full flex items-center justify-center font-semibold">3</span>
                       <div>
-                        <p className="font-medium text-gray-900">Begin Training</p>
-                        <p className="text-sm text-gray-600">Start your journey to a new career</p>
+                        <p className="font-medium text-slate-900">Begin Training</p>
+                        <p className="text-sm text-slate-700">Start your journey to a new career</p>
                       </div>
                     </li>
                   </ol>
@@ -123,7 +123,7 @@ export default async function EnrollProgramPage({ params }: Props) {
                   </Link>
                   <Link
                     href={`/programs/${programSlug}`}
-                    className="flex-1 border border-gray-300 text-gray-700 text-center py-3 px-6 rounded-lg font-semibold hover:bg-white transition"
+                    className="flex-1 border border-gray-300 text-slate-900 text-center py-3 px-6 rounded-lg font-semibold hover:bg-white transition"
                   >
                     View Program Details
                   </Link>
@@ -131,7 +131,7 @@ export default async function EnrollProgramPage({ params }: Props) {
               </>
             ) : (
               <div className="text-center py-8">
-                <p className="text-gray-600 mb-6">
+                <p className="text-slate-700 mb-6">
                   Ready to enroll in {programTitle}? Start by checking your eligibility for free training.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -143,7 +143,7 @@ export default async function EnrollProgramPage({ params }: Props) {
                   </Link>
                   <Link
                     href="/lms/programs"
-                    className="border border-gray-300 text-gray-700 py-3 px-8 rounded-lg font-semibold hover:bg-white transition"
+                    className="border border-gray-300 text-slate-900 py-3 px-8 rounded-lg font-semibold hover:bg-white transition"
                   >
                     Browse Programs
                   </Link>

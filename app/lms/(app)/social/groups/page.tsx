@@ -133,11 +133,11 @@ export default async function GroupsPage() {
           {/* Search Bar */}
           <div className="mt-8 max-w-2xl">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search groups by name or topic..."
-                className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className="w-full pl-12 pr-4 py-4 rounded-xl text-slate-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
               />
             </div>
           </div>
@@ -148,7 +148,7 @@ export default async function GroupsPage() {
         {/* My Groups */}
         <div className="bg-white rounded-xl shadow-sm border mb-8">
           <div className="p-6 border-b flex items-center justify-between">
-            <h2 className="font-semibold text-gray-900">My Groups</h2>
+            <h2 className="font-semibold text-slate-900">My Groups</h2>
             <Link href="/lms/study-groups" className="text-purple-600 hover:text-purple-700 text-sm font-medium">
               Manage Groups
             </Link>
@@ -166,26 +166,26 @@ export default async function GroupsPage() {
                       <Users className="w-6 h-6 text-purple-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-gray-900 truncate">{group.name}</div>
-                      <div className="text-sm text-gray-500">{group.member_count || 0} members</div>
+                      <div className="font-medium text-slate-900 truncate">{group.name}</div>
+                      <div className="text-sm text-slate-700">{group.member_count || 0} members</div>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                    <ChevronRight className="w-5 h-5 text-slate-700" />
                   </div>
                 </Link>
               ))}
             </div>
           ) : (
             <div className="p-8 text-center">
-              <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-600">You haven&apos;t joined any groups yet.</p>
-              <p className="text-sm text-gray-500 mt-1">Browse the groups below to get started!</p>
+              <Users className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+              <p className="text-slate-700">You haven&apos;t joined any groups yet.</p>
+              <p className="text-sm text-slate-700 mt-1">Browse the groups below to get started!</p>
             </div>
           )}
         </div>
 
         {/* Featured Groups */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Featured Groups</h2>
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">Featured Groups</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredGroups.map((group) => (
               <Link
@@ -210,9 +210,9 @@ export default async function GroupsPage() {
                     }`} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900">{group.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{group.description}</p>
-                    <div className="flex items-center gap-2 mt-3 text-sm text-gray-500">
+                    <h3 className="font-semibold text-slate-900">{group.name}</h3>
+                    <p className="text-sm text-slate-700 mt-1">{group.description}</p>
+                    <div className="flex items-center gap-2 mt-3 text-sm text-slate-700">
                       <Users className="w-4 h-4" />
                       {group.members} members
                     </div>
@@ -228,8 +228,8 @@ export default async function GroupsPage() {
 
         {/* Create Your Own */}
         <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-8 text-center">
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">Can&apos;t find what you&apos;re looking for?</h3>
-          <p className="text-gray-600 mb-6">Create your own study group and invite others to join!</p>
+          <h3 className="text-xl font-semibold text-slate-900 mb-2">Can&apos;t find what you&apos;re looking for?</h3>
+          <p className="text-slate-700 mb-6">Create your own study group and invite others to join!</p>
           <button className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
             <Plus className="w-5 h-5" />
             Create a New Group

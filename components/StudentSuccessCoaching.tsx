@@ -89,7 +89,7 @@ export function StudentSuccessCoaching() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`py-4 px-2 border-b-2 font-medium ${
-                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-gray-500'
+                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-slate-700'
                 }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -105,17 +105,17 @@ export function StudentSuccessCoaching() {
             <Card className="p-6">
               <h3 className="text-sm text-black mb-2">Coaching Sessions</h3>
               <p className="text-3xl font-bold text-brand-orange-600">{sessions.length}</p>
-              <p className="text-sm text-gray-500">1 upcoming</p>
+              <p className="text-sm text-slate-700">1 upcoming</p>
             </Card>
             <Card className="p-6">
               <h3 className="text-sm text-black mb-2">Active Goals</h3>
               <p className="text-3xl font-bold text-brand-orange-500">{goals.filter(g => g.status !== 'completed').length}</p>
-              <p className="text-sm text-gray-500">2 in progress</p>
+              <p className="text-sm text-slate-700">2 in progress</p>
             </Card>
             <Card className="p-6">
               <h3 className="text-sm text-black mb-2">Success Rate</h3>
               <p className="text-3xl font-bold text-brand-green-600">85%</p>
-              <p className="text-sm text-gray-500">Above average</p>
+              <p className="text-sm text-slate-700">Above average</p>
             </Card>
           </div>
         )}
@@ -132,7 +132,7 @@ export function StudentSuccessCoaching() {
                   <div>
                     <h3 className="text-xl font-bold">{session.topic}</h3>
                     <p className="text-black">Coach: {session.coach}</p>
-                    <p className="text-sm text-gray-500">{session.date}</p>
+                    <p className="text-sm text-slate-700">{session.date}</p>
                     {session.notes && (
                       <p className="mt-2 text-sm text-black">{session.notes}</p>
                     )}
@@ -162,7 +162,7 @@ export function StudentSuccessCoaching() {
                   <div>
                     <h3 className="text-xl font-bold">{goal.title}</h3>
                     <p className="text-sm text-black">{goal.category}</p>
-                    <p className="text-sm text-gray-500">Due: {goal.dueDate}</p>
+                    <p className="text-sm text-slate-700">Due: {goal.dueDate}</p>
                   </div>
                   <span className={`px-3 py-2 rounded text-sm ${
                     goal.status === 'on-track' ? 'bg-brand-green-100 text-brand-green-700' :

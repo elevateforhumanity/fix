@@ -105,7 +105,7 @@ export function EmailCampaignManager() {
                   </div>
                   <p className="text-black">{campaign.subject}</p>
                   {campaign.scheduledDate && (
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-slate-700 mt-1">
                       Scheduled for: {campaign.scheduledDate}
                     </p>
                   )}

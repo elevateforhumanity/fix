@@ -132,11 +132,11 @@ function EnrollmentConfirmedContent() {
           <div className="inline-flex items-center justify-center w-20 h-20 bg-brand-green-100 rounded-full mb-4">
             <Award className="w-10 h-10 text-brand-green-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-slate-900">
             {isApproved ? 'Confirm Your Enrollment' : 'Enrollment Confirmed'}
           </h1>
           {isApproved && (
-            <p className="text-gray-600 mt-2">
+            <p className="text-slate-700 mt-2">
               Your application has been approved. Review the details below and confirm to begin onboarding.
             </p>
           )}
@@ -148,15 +148,15 @@ function EnrollmentConfirmedContent() {
             <div className="flex items-start gap-3">
               <Award className="w-5 h-5 text-brand-blue-600 mt-0.5" />
               <div>
-                <p className="text-sm text-gray-500">Program</p>
-                <p className="font-semibold text-gray-900">{enrollment.program_name}</p>
+                <p className="text-sm text-slate-700">Program</p>
+                <p className="font-semibold text-slate-900">{enrollment.program_name}</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
               <Calendar className="w-5 h-5 text-brand-blue-600 mt-0.5" />
               <div>
-                <p className="text-sm text-gray-500">Status</p>
+                <p className="text-sm text-slate-700">Status</p>
                 <p className={`font-semibold ${isApproved ? 'text-amber-600' : 'text-brand-green-600'}`}>
                   {isApproved ? 'Approved — Awaiting Confirmation' : 'Confirmed'}
                 </p>
@@ -167,8 +167,8 @@ function EnrollmentConfirmedContent() {
               <div className="flex items-start gap-3">
                 <Calendar className="w-5 h-5 text-brand-blue-600 mt-0.5" />
                 <div>
-                  <p className="text-sm text-gray-500">Confirmed Date</p>
-                  <p className="font-semibold text-gray-900">{confirmDate}</p>
+                  <p className="text-sm text-slate-700">Confirmed Date</p>
+                  <p className="font-semibold text-slate-900">{confirmDate}</p>
                 </div>
               </div>
             )}
@@ -176,8 +176,8 @@ function EnrollmentConfirmedContent() {
             <div className="flex items-start gap-3">
               <Building2 className="w-5 h-5 text-brand-blue-600 mt-0.5" />
               <div>
-                <p className="text-sm text-gray-500">Sponsor</p>
-                <p className="font-semibold text-gray-900">Elevate for Humanity (USDOL Registered)</p>
+                <p className="text-sm text-slate-700">Sponsor</p>
+                <p className="font-semibold text-slate-900">Elevate for Humanity (USDOL Registered)</p>
               </div>
             </div>
           </div>
@@ -202,7 +202,7 @@ function EnrollmentConfirmedContent() {
         )}
 
         {/* Helper Text */}
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p className="text-center text-sm text-slate-700 mt-4">
           This program is sponsor-managed. Orientation and required documents must be completed before course access is unlocked.
         </p>
       </div>

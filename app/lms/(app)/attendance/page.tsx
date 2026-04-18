@@ -44,22 +44,22 @@ export default async function AttendancePage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/lms/dashboard" className="hover:text-primary">LMS</Link></li><li>/</li><li className="text-gray-900 font-medium">Attendance</li></ol></nav>
-          <h1 className="text-3xl font-bold text-gray-900">My Attendance</h1>
-          <p className="text-gray-600 mt-2">Track your course attendance</p>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/lms/dashboard" className="hover:text-primary">LMS</Link></li><li>/</li><li className="text-slate-900 font-medium">Attendance</li></ol></nav>
+          <h1 className="text-3xl font-bold text-slate-900">My Attendance</h1>
+          <p className="text-slate-700 mt-2">Track your course attendance</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-sm font-medium text-gray-500">Total Hours Logged</h3>
+            <h3 className="text-sm font-medium text-slate-700">Total Hours Logged</h3>
             <p className="text-3xl font-bold text-brand-green-600 mt-2">{totalHoursLogged.toFixed(1)}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-sm font-medium text-gray-500">Verified Sessions</h3>
+            <h3 className="text-sm font-medium text-slate-700">Verified Sessions</h3>
             <p className="text-3xl font-bold text-brand-blue-600 mt-2">{verifiedCount}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-sm font-medium text-gray-500">Total Sessions</h3>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{totalCount}</p>
+            <h3 className="text-sm font-medium text-slate-700">Total Sessions</h3>
+            <p className="text-3xl font-bold text-slate-900 mt-2">{totalCount}</p>
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-sm border">
@@ -72,7 +72,7 @@ export default async function AttendancePage() {
               <div key={record.id} className="p-4 flex items-center justify-between">
                 <div>
                   <p className="font-medium">{courseTitle}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-slate-700">
                     {new Date(record.date).toLocaleDateString()} &middot; {record.hours_logged}h &middot; {record.type}
                   </p>
                 </div>
@@ -85,7 +85,7 @@ export default async function AttendancePage() {
                 </div>
               </div>
               );
-            }) : <div className="p-8 text-center text-gray-500">No attendance records yet. Your instructor will log your hours.</div>}
+            }) : <div className="p-8 text-center text-slate-700">No attendance records yet. Your instructor will log your hours.</div>}
           </div>
         </div>
       </div>

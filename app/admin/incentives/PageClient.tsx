@@ -205,7 +205,7 @@ export default function IncentivesPage() {
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {filteredIncentives.length === 0 ? (
             <div className="text-center py-12">
-              <DollarSign className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <DollarSign className="w-16 h-16 text-slate-700 mx-auto mb-4" />
               <p className="text-black text-lg">
                 No incentive programs found
               </p>

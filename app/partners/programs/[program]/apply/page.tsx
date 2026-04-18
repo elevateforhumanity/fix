@@ -61,7 +61,7 @@ export default function UniversalPartnerApplyPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Program Not Found</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Program Not Found</h1>
           <p className="text-black mb-6">The program you&apos;re looking for doesn&apos;t exist.</p>
           <Link href="/partners" className="text-orange-600 hover:text-orange-700 font-medium">
             View All Partner Programs →
@@ -115,8 +115,8 @@ export default function UniversalPartnerApplyPage() {
     }
   };
 
-  const inputClass = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition text-gray-900';
-  const labelClass = 'block text-sm font-medium text-gray-700 mb-1';
+  const inputClass = 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition text-slate-900';
+  const labelClass = 'block text-sm font-medium text-slate-900 mb-1';
 
   const renderProgramField = (field: typeof config.programFields[0]) => {
     const value = formData.programFields[field.name] || '';
@@ -177,7 +177,7 @@ export default function UniversalPartnerApplyPage() {
       <div className="max-w-3xl mx-auto px-4 pb-16">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{config.shortName} Partner Application</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">{config.shortName} Partner Application</h1>
           <p className="text-black">Become a partner {config.siteLabel} for the {config.name} program.</p>
         </div>
 
@@ -198,7 +198,7 @@ export default function UniversalPartnerApplyPage() {
             {/* Step 1: Business Info */}
             {step === 1 && (
               <div className="space-y-4">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Business Information</h2>
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Business Information</h2>
                 <div>
                   <label htmlFor="businessLegalName" className={labelClass}>Legal Business Name <span className="text-red-500">*</span></label>
                   <input type="text" id="businessLegalName" name="businessLegalName" value={formData.businessLegalName} onChange={handleChange} required className={inputClass} />
@@ -233,7 +233,7 @@ export default function UniversalPartnerApplyPage() {
             {/* Step 2: Location */}
             {step === 2 && (
               <div className="space-y-4">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">{config.siteLabel.charAt(0).toUpperCase() + config.siteLabel.slice(1)} Location</h2>
+                <h2 className="text-xl font-bold text-slate-900 mb-4">{config.siteLabel.charAt(0).toUpperCase() + config.siteLabel.slice(1)} Location</h2>
                 <div>
                   <label htmlFor="addressLine1" className={labelClass}>Street Address <span className="text-red-500">*</span></label>
                   <input type="text" id="addressLine1" name="addressLine1" value={formData.addressLine1} onChange={handleChange} required className={inputClass} />
@@ -268,7 +268,7 @@ export default function UniversalPartnerApplyPage() {
             {/* Step 3: Program-Specific */}
             {step === 3 && (
               <div className="space-y-4">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">{config.shortName} Details</h2>
+                <h2 className="text-xl font-bold text-slate-900 mb-4">{config.shortName} Details</h2>
                 {config.programFields.map(renderProgramField)}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
@@ -289,7 +289,7 @@ export default function UniversalPartnerApplyPage() {
             {/* Step 4: Agreements */}
             {step === 4 && (
               <div className="space-y-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Review &amp; Submit</h2>
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Review &amp; Submit</h2>
 
                 <div className="bg-white rounded-lg p-4 text-sm text-black space-y-2">
                   <p><strong>Business:</strong> {formData.businessLegalName} {formData.dba ? `(DBA: ${formData.dba})` : ''}</p>
@@ -302,18 +302,18 @@ export default function UniversalPartnerApplyPage() {
                 <div className="space-y-3">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" name="agreeToTerms" checked={formData.agreeToTerms} onChange={handleChange} required className="mt-1 w-4 h-4 text-orange-500" />
-                    <span className="text-sm text-gray-700">I agree to the <Link href="/legal/agreements" className="text-orange-600 underline" target="_blank">Partner Terms &amp; Conditions</Link> and the Memorandum of Understanding.</span>
+                    <span className="text-sm text-slate-900">I agree to the <Link href="/legal/agreements" className="text-orange-600 underline" target="_blank">Partner Terms &amp; Conditions</Link> and the Memorandum of Understanding.</span>
                   </label>
                   {config.siteVisitRequired && (
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input type="checkbox" name="agreeToSiteVisit" checked={formData.agreeToSiteVisit} onChange={handleChange} required className="mt-1 w-4 h-4 text-orange-500" />
-                      <span className="text-sm text-gray-700">I agree to complete a video site visit (via Zoom) before final approval.</span>
+                      <span className="text-sm text-slate-900">I agree to complete a video site visit (via Zoom) before final approval.</span>
                     </label>
                   )}
                   {config.workersCompRequired && (
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input type="checkbox" name="agreeToWorkersComp" checked={formData.agreeToWorkersComp} onChange={handleChange} required className="mt-1 w-4 h-4 text-orange-500" />
-                      <span className="text-sm text-gray-700">I acknowledge that workers&apos; compensation insurance is required for {config.traineeLabelPlural}.</span>
+                      <span className="text-sm text-slate-900">I acknowledge that workers&apos; compensation insurance is required for {config.traineeLabelPlural}.</span>
                     </label>
                   )}
                 </div>
@@ -326,11 +326,11 @@ export default function UniversalPartnerApplyPage() {
             {/* Navigation */}
             <div className="flex justify-between mt-8">
               {step > 1 ? (
-                <button type="button" onClick={() => setStep(s => s - 1)} className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-white transition font-medium">
+                <button type="button" onClick={() => setStep(s => s - 1)} className="px-6 py-3 border border-gray-300 rounded-lg text-slate-900 hover:bg-white transition font-medium">
                   Back
                 </button>
               ) : (
-                <Link href={`/partners/programs/${slug}`} className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-white transition font-medium inline-flex items-center">
+                <Link href={`/partners/programs/${slug}`} className="px-6 py-3 border border-gray-300 rounded-lg text-slate-900 hover:bg-white transition font-medium inline-flex items-center">
                   Cancel
                 </Link>
               )}

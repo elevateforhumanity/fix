@@ -471,7 +471,7 @@ export default async function EmployerDashboardOrchestrated() {
               </div>
             </div>
             {!profile.verified && (
-              <p className="text-xs text-gray-500 mt-4">Complete verification to access full workforce analytics.</p>
+              <p className="text-xs text-slate-700 mt-4">Complete verification to access full workforce analytics.</p>
             )}
           </div>
         </div>

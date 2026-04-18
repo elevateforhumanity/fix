@@ -11,11 +11,11 @@ export default function CnaWaitlistPage() {
   return (
     <section className="mx-auto max-w-3xl px-4 py-16">
       <h1 className="text-3xl font-bold">CNA Interest List</h1>
-      <p className="mt-4 text-gray-600">
+      <p className="mt-4 text-slate-700">
         Join the interest list to be notified about CNA training pathway updates,
         eligibility details, and upcoming enrollment opportunities.
       </p>
-      <p className="mt-3 text-gray-600">
+      <p className="mt-3 text-slate-700">
         The Certified Nursing Assistant program is a 6-week Indiana state certification
         program with clinical rotations at licensed healthcare facilities. WIOA and
         Workforce Ready Grant funding available for eligible Indiana residents.

@@ -20,7 +20,7 @@ export default async function ProgramStudentsPage({
     .eq('id', programId)
     .maybeSingle();
 
-  if (!program) return <div className="p-8 text-center text-gray-500">Program not found.</div>;
+  if (!program) return <div className="p-8 text-center text-slate-700">Program not found.</div>;
 
   // Fetch students enrolled in THIS program — canonical enrollment table
   const { data: enrollments } = await db
@@ -49,10 +49,10 @@ export default async function ProgramStudentsPage({
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-slate-900">
           Students — {program.name || program.title}
         </h1>
-        <span className="text-sm text-gray-500">{students.length} enrolled</span>
+        <span className="text-sm text-slate-700">{students.length} enrolled</span>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border">
@@ -60,7 +60,7 @@ export default async function ProgramStudentsPage({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 border-b bg-white">
+                <tr className="text-left text-slate-700 border-b bg-white">
                   <th className="px-4 py-3 font-medium">Student</th>
                   <th className="px-4 py-3 font-medium text-center">Progress</th>
                   <th className="px-4 py-3 font-medium text-center">Status</th>
@@ -72,8 +72,8 @@ export default async function ProgramStudentsPage({
                 {students.map((s) => (
                   <tr key={s.id} className="hover:bg-slate-50">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{s.name}</p>
-                      <p className="text-xs text-gray-500">{s.email}</p>
+                      <p className="font-medium text-slate-900">{s.name}</p>
+                      <p className="text-xs text-slate-700">{s.email}</p>
                     </td>
                     <td className="px-4 py-3 text-center">
                       <div className="flex items-center justify-center gap-2">
@@ -88,18 +88,18 @@ export default async function ProgramStudentsPage({
                         s.status === 'completed' ? 'bg-brand-green-100 text-brand-green-800' :
                         s.status === 'active' ? 'bg-brand-blue-100 text-brand-blue-800' :
                         s.status === 'pending' ? 'bg-amber-100 text-amber-800' :
-                        'bg-slate-100 text-gray-600'
+                        'bg-slate-100 text-slate-700'
                       }`}>{s.status}</span>
                     </td>
-                    <td className="px-4 py-3 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-slate-700 text-xs">
                       {new Date(s.enrolledAt).toLocaleDateString()}
                     </td>
                     <td className="px-4 py-3 text-center">
                       <div className="flex items-center justify-center gap-2">
-                        <button className="p-1 text-gray-400 hover:text-brand-blue-600" title="View details">
+                        <button className="p-1 text-slate-700 hover:text-brand-blue-600" title="View details">
                           <Eye className="w-4 h-4" />
                         </button>
-                        <a href={`mailto:${s.email}`} className="p-1 text-gray-400 hover:text-brand-blue-600" title="Email student">
+                        <a href={`mailto:${s.email}`} className="p-1 text-slate-700 hover:text-brand-blue-600" title="Email student">
                           <Mail className="w-4 h-4" />
                         </a>
                       </div>
@@ -111,8 +111,8 @@ export default async function ProgramStudentsPage({
           </div>
         ) : (
           <div className="text-center py-12">
-            <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500">No students enrolled in this program yet.</p>
+            <Users className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+            <p className="text-slate-700">No students enrolled in this program yet.</p>
           </div>
         )}
       </div>

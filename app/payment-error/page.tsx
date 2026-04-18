@@ -35,9 +35,9 @@ function PaymentErrorContent() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-rose-100">
       <div className="bg-white rounded-2xl shadow-xl p-10 max-w-md w-full text-center">
         <div className="text-6xl mb-4">⚠️</div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{msg.title}</h1>
-        <p className="text-gray-600 mb-6">{msg.body}</p>
-        <p className="text-xs text-gray-400 mb-6">Error code: {reason}</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">{msg.title}</h1>
+        <p className="text-slate-700 mb-6">{msg.body}</p>
+        <p className="text-xs text-slate-700 mb-6">Error code: {reason}</p>
         <div className="flex flex-col gap-3">
           <Link
             href="/programs"
@@ -47,13 +47,13 @@ function PaymentErrorContent() {
           </Link>
           <Link
             href="/contact"
-            className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition"
+            className="border border-gray-300 text-slate-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition"
           >
             Contact Support
           </Link>
           <Link
             href="/"
-            className="text-sm text-gray-500 hover:text-gray-600 transition"
+            className="text-sm text-slate-700 hover:text-slate-700 transition"
           >
             Return to Home
           </Link>
@@ -67,7 +67,7 @@ export default function PaymentErrorPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-gray-500">Loading...</div>
+        <div className="text-slate-700">Loading...</div>
       </div>
     }>
       <PaymentErrorContent />

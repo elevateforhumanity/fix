@@ -297,10 +297,10 @@ export function GuidedDemoChat() {
             <div className="w-16 h-16 bg-gradient-to-r from-brand-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Play className="w-8 h-8 text-brand-blue-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">
               Welcome to the Platform Demo
             </h3>
-            <p className="text-gray-600 text-sm mb-6">
+            <p className="text-slate-700 text-sm mb-6">
               I'll walk you through our workforce training platform in about 10 minutes.
             </p>
             <button
@@ -326,7 +326,7 @@ export function GuidedDemoChat() {
                   className={`max-w-[80%] p-3 rounded-2xl ${
                     msg.role === 'user'
                       ? 'bg-brand-blue-600 text-white rounded-br-md'
-                      : 'bg-gray-100 text-gray-800 rounded-bl-md'
+                      : 'bg-gray-100 text-slate-900 rounded-bl-md'
                   }`}
                 >
                   <p className="text-sm">{msg.text}</p>

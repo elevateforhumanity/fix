@@ -70,7 +70,7 @@ export default async function AccountSettingsPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-8">Account Settings</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-8">Account Settings</h1>
 
         {/* Settings Sections */}
         <div className="space-y-4 mb-12">
@@ -81,29 +81,29 @@ export default async function AccountSettingsPage() {
               className="bg-white rounded-xl p-6 shadow-sm border hover:border-brand-blue-300 hover:shadow-md transition-all flex items-center gap-4"
             >
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
-                <section.icon className="w-6 h-6 text-gray-600" />
+                <section.icon className="w-6 h-6 text-slate-700" />
               </div>
               <div className="flex-1">
-                <h2 className="font-semibold text-gray-900">{section.title}</h2>
-                <p className="text-gray-600 text-sm">{section.description}</p>
+                <h2 className="font-semibold text-slate-900">{section.title}</h2>
+                <p className="text-slate-700 text-sm">{section.description}</p>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </Link>
           ))}
         </div>
 
         {/* Quick Settings */}
         <div className="bg-white rounded-xl p-6 shadow-sm border mb-8">
-          <h2 className="font-semibold text-gray-900 mb-6">Quick Settings</h2>
+          <h2 className="font-semibold text-slate-900 mb-6">Quick Settings</h2>
           
           <div className="space-y-6">
             {/* Email Notifications Toggle */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gray-400" />
+                <Mail className="w-5 h-5 text-slate-700" />
                 <div>
-                  <div className="font-medium text-gray-900">Email Notifications</div>
-                  <div className="text-sm text-gray-600">Receive updates via email</div>
+                  <div className="font-medium text-slate-900">Email Notifications</div>
+                  <div className="text-sm text-slate-700">Receive updates via email</div>
                 </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -115,10 +115,10 @@ export default async function AccountSettingsPage() {
             {/* SMS Notifications Toggle */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Smartphone className="w-5 h-5 text-gray-400" />
+                <Smartphone className="w-5 h-5 text-slate-700" />
                 <div>
-                  <div className="font-medium text-gray-900">SMS Notifications</div>
-                  <div className="text-sm text-gray-600">Receive text message alerts</div>
+                  <div className="font-medium text-slate-900">SMS Notifications</div>
+                  <div className="text-sm text-slate-700">Receive text message alerts</div>
                 </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -130,10 +130,10 @@ export default async function AccountSettingsPage() {
             {/* Two-Factor Auth */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Lock className="w-5 h-5 text-gray-400" />
+                <Lock className="w-5 h-5 text-slate-700" />
                 <div>
-                  <div className="font-medium text-gray-900">Two-Factor Authentication</div>
-                  <div className="text-sm text-gray-600">Add an extra layer of security</div>
+                  <div className="font-medium text-slate-900">Two-Factor Authentication</div>
+                  <div className="text-sm text-slate-700">Add an extra layer of security</div>
                 </div>
               </div>
               <Link 
@@ -152,7 +152,7 @@ export default async function AccountSettingsPage() {
             <Trash2 className="w-5 h-5" />
             Danger Zone
           </h2>
-          <p className="text-gray-600 text-sm mb-4">
+          <p className="text-slate-700 text-sm mb-4">
             Once you delete your account, there is no going back. Please be certain.
           </p>
           <button

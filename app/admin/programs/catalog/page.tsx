@@ -70,15 +70,15 @@ export default async function ProgramCatalogPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-              <Link href="/admin" className="hover:text-gray-700">Admin</Link>
+            <div className="flex items-center gap-2 text-sm text-slate-700 mb-2">
+              <Link href="/admin" className="hover:text-slate-900">Admin</Link>
               <span>/</span>
-              <Link href="/admin/programs" className="hover:text-gray-700">Programs</Link>
+              <Link href="/admin/programs" className="hover:text-slate-900">Programs</Link>
               <span>/</span>
-              <span className="text-gray-900">Catalog Generator</span>
+              <span className="text-slate-900">Catalog Generator</span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">Program Catalog Generator</h1>
-            <p className="text-gray-600 mt-1">Generate official program catalogs for state submission</p>
+            <h1 className="text-3xl font-bold text-slate-900">Program Catalog Generator</h1>
+            <p className="text-slate-700 mt-1">Generate official program catalogs for state submission</p>
           </div>
         </div>
 
@@ -90,8 +90,8 @@ export default async function ProgramCatalogPage() {
                 <GraduationCap className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Total Programs</p>
-                <p className="text-2xl font-bold text-gray-900">{totalPrograms}</p>
+                <p className="text-sm text-slate-700">Total Programs</p>
+                <p className="text-2xl font-bold text-slate-900">{totalPrograms}</p>
               </div>
             </div>
           </div>
@@ -102,8 +102,8 @@ export default async function ProgramCatalogPage() {
                 <Clock className="w-6 h-6 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Total Clock Hours</p>
-                <p className="text-2xl font-bold text-gray-900">{totalClockHours.toLocaleString()}</p>
+                <p className="text-sm text-slate-700">Total Clock Hours</p>
+                <p className="text-2xl font-bold text-slate-900">{totalClockHours.toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -114,8 +114,8 @@ export default async function ProgramCatalogPage() {
                 <Building2 className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Categories</p>
-                <p className="text-2xl font-bold text-gray-900">4</p>
+                <p className="text-sm text-slate-700">Categories</p>
+                <p className="text-2xl font-bold text-slate-900">4</p>
               </div>
             </div>
           </div>
@@ -126,8 +126,8 @@ export default async function ProgramCatalogPage() {
                 <Calendar className="w-6 h-6 text-brand-orange-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Last Updated</p>
-                <p className="text-lg font-bold text-gray-900">{new Date().toLocaleDateString()}</p>
+                <p className="text-sm text-slate-700">Last Updated</p>
+                <p className="text-lg font-bold text-slate-900">{new Date().toLocaleDateString()}</p>
               </div>
             </div>
           </div>
@@ -142,8 +142,8 @@ export default async function ProgramCatalogPage() {
                 <FileText className="w-7 h-7 text-brand-blue-600" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900">Full Program Catalog</h3>
-                <p className="text-sm text-gray-600 mt-1 mb-4">
+                <h3 className="text-lg font-semibold text-slate-900">Full Program Catalog</h3>
+                <p className="text-sm text-slate-700 mt-1 mb-4">
                   Complete catalog with all programs, descriptions, clock hours, credentials, and requirements.
                   Suitable for state submission and accreditation.
                 </p>
@@ -157,7 +157,7 @@ export default async function ProgramCatalogPage() {
                   </Link>
                   <Link
                     href="/admin/programs/catalog"
-                    className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50 text-sm font-medium"
                   >
                     <Eye className="w-4 h-4" />
                     Preview
@@ -174,8 +174,8 @@ export default async function ProgramCatalogPage() {
                 <FileText className="w-7 h-7 text-brand-green-600" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900">Summary Catalog</h3>
-                <p className="text-sm text-gray-600 mt-1 mb-4">
+                <h3 className="text-lg font-semibold text-slate-900">Summary Catalog</h3>
+                <p className="text-sm text-slate-700 mt-1 mb-4">
                   Condensed version with program names, clock hours, and credentials only.
                   Ideal for quick reference and marketing materials.
                 </p>
@@ -187,7 +187,7 @@ export default async function ProgramCatalogPage() {
                     <Download className="w-4 h-4" />
                     Download PDF
                   </Link>
-                  <button className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium">
+                  <button className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50 text-sm font-medium">
                     <Printer className="w-4 h-4" />
                     Print
                   </button>
@@ -200,21 +200,21 @@ export default async function ProgramCatalogPage() {
         {/* Programs by Category */}
         <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
           <div className="px-6 py-4 border-b">
-            <h2 className="text-lg font-semibold text-gray-900">Programs by Category</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Programs by Category</h2>
           </div>
 
           <div className="divide-y">
             {/* Healthcare */}
             <div className="p-6">
-              <h3 className="text-md font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <span className="w-3 h-3 bg-brand-red-500 rounded-full"></span>
                 Healthcare ({categories.healthcare.length} programs)
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categories.healthcare.slice(0, 6).map((program) => (
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-900 text-sm">{program.title || program.name}</h4>
-                    <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                    <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
+                    <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
                       <span>{program.duration}</span>
                       {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
                     </div>
@@ -225,15 +225,15 @@ export default async function ProgramCatalogPage() {
 
             {/* Skilled Trades */}
             <div className="p-6">
-              <h3 className="text-md font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <span className="w-3 h-3 bg-brand-orange-500 rounded-full"></span>
                 Skilled Trades ({categories.trades.length} programs)
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categories.trades.slice(0, 6).map((program) => (
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-900 text-sm">{program.title || program.name}</h4>
-                    <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                    <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
+                    <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
                       <span>{program.duration}</span>
                       {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
                     </div>
@@ -244,15 +244,15 @@ export default async function ProgramCatalogPage() {
 
             {/* Technology */}
             <div className="p-6">
-              <h3 className="text-md font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <span className="w-3 h-3 bg-brand-blue-500 rounded-full"></span>
                 Technology ({categories.technology.length} programs)
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categories.technology.slice(0, 6).map((program) => (
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-900 text-sm">{program.title || program.name}</h4>
-                    <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                    <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
+                    <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
                       <span>{program.duration}</span>
                       {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
                     </div>
@@ -263,15 +263,15 @@ export default async function ProgramCatalogPage() {
 
             {/* Business */}
             <div className="p-6">
-              <h3 className="text-md font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-md font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <span className="w-3 h-3 bg-brand-blue-500 rounded-full"></span>
                 Business & Finance ({categories.business.length} programs)
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categories.business.slice(0, 6).map((program) => (
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-900 text-sm">{program.title || program.name}</h4>
-                    <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                    <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
+                    <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
                       <span>{program.duration}</span>
                       {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
                     </div>
@@ -284,25 +284,25 @@ export default async function ProgramCatalogPage() {
 
         {/* Export Options */}
         <div className="mt-8 bg-brand-blue-50 rounded-xl p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Export Options</h3>
+          <h3 className="font-semibold text-slate-900 mb-4">Export Options</h3>
           <div className="flex flex-wrap gap-3">
             <Link
               href="/api/admin/catalog/export?format=csv"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50 text-sm font-medium"
             >
               <Download className="w-4 h-4" />
               Export as CSV
             </Link>
             <Link
               href="/api/admin/catalog/export?format=xlsx"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50 text-sm font-medium"
             >
               <Download className="w-4 h-4" />
               Export as Excel
             </Link>
             <Link
               href="/api/admin/catalog/export?format=json"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-slate-900 rounded-lg hover:bg-gray-50 text-sm font-medium"
             >
               <Download className="w-4 h-4" />
               Export as JSON

@@ -94,14 +94,14 @@ export default async function ParticipantDetailPage({ params }: Props) {
     if (status === 'verified' || status === 'active' || status === 'approved') return 'bg-green-100 text-green-800';
     if (status === 'pending')   return 'bg-yellow-100 text-yellow-800';
     if (status === 'rejected' || status === 'lost') return 'bg-red-100 text-red-800';
-    return 'bg-gray-100 text-gray-700';
+    return 'bg-gray-100 text-slate-900';
   };
 
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-5xl mx-auto px-6 py-8">
         {/* Breadcrumb */}
-        <nav className="text-xs text-gray-500 mb-4">
+        <nav className="text-xs text-slate-700 mb-4">
           <Link href="/case-manager/dashboard" className="hover:underline">Dashboard</Link>
           <span className="mx-1">/</span>
           <Link href="/case-manager/participants" className="hover:underline">Participants</Link>
@@ -109,8 +109,8 @@ export default async function ParticipantDetailPage({ params }: Props) {
           <span>{app.first_name} {app.last_name}</span>
         </nav>
 
-        <h1 className="text-2xl font-bold text-gray-900">{app.first_name} {app.last_name}</h1>
-        <p className="text-sm text-gray-500 mt-1">{app.email} {app.phone ? `· ${app.phone}` : ''}</p>
+        <h1 className="text-2xl font-bold text-slate-900">{app.first_name} {app.last_name}</h1>
+        <p className="text-sm text-slate-700 mt-1">{app.email} {app.phone ? `· ${app.phone}` : ''}</p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {/* Left column */}
@@ -119,28 +119,28 @@ export default async function ParticipantDetailPage({ params }: Props) {
             {/* Enrollments */}
             <Section title="Enrollments">
               {!enrollments?.length ? (
-                <p className="text-sm text-gray-500">No enrollments found.</p>
+                <p className="text-sm text-slate-700">No enrollments found.</p>
               ) : (
                 <table className="min-w-full divide-y divide-gray-100 text-sm">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Program</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Progress</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Funding</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Program</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Progress</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Funding</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {enrollments.map((e: any) => (
                       <tr key={e.id}>
-                        <td className="px-3 py-2 font-medium text-gray-900">{(e.programs as any)?.title || (e.programs as any)?.name || '—'}</td>
+                        <td className="px-3 py-2 font-medium text-slate-900">{(e.programs as any)?.title || (e.programs as any)?.name || '—'}</td>
                         <td className="px-3 py-2">
                           <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${statusBadge(e.status)}`}>
                             {e.status}
                           </span>
                         </td>
-                        <td className="px-3 py-2 text-gray-700">{e.progress_percent ?? 0}%</td>
-                        <td className="px-3 py-2 text-gray-600">{e.funding_source ?? '—'}</td>
+                        <td className="px-3 py-2 text-slate-900">{e.progress_percent ?? 0}%</td>
+                        <td className="px-3 py-2 text-slate-700">{e.funding_source ?? '—'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -151,25 +151,25 @@ export default async function ParticipantDetailPage({ params }: Props) {
             {/* Placements */}
             <Section title="Employment Placements">
               {!placements?.length ? (
-                <p className="text-sm text-gray-500 mb-4">No placements recorded.</p>
+                <p className="text-sm text-slate-700 mb-4">No placements recorded.</p>
               ) : (
                 <table className="min-w-full divide-y divide-gray-100 text-sm mb-4">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Employer</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Title</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Wage</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Employer</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Title</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Type</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Wage</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {placements.map((p: any) => (
                       <tr key={p.id}>
-                        <td className="px-3 py-2 font-medium text-gray-900">{p.employer_name ?? '—'}</td>
-                        <td className="px-3 py-2 text-gray-700">{p.job_title ?? '—'}</td>
-                        <td className="px-3 py-2 text-gray-600">{p.employment_type ?? '—'}</td>
-                        <td className="px-3 py-2 text-gray-600">{p.hourly_wage ? `$${p.hourly_wage}/hr` : '—'}</td>
+                        <td className="px-3 py-2 font-medium text-slate-900">{p.employer_name ?? '—'}</td>
+                        <td className="px-3 py-2 text-slate-900">{p.job_title ?? '—'}</td>
+                        <td className="px-3 py-2 text-slate-700">{p.employment_type ?? '—'}</td>
+                        <td className="px-3 py-2 text-slate-700">{p.hourly_wage ? `$${p.hourly_wage}/hr` : '—'}</td>
                         <td className="px-3 py-2">
                           <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${statusBadge(p.status)}`}>
                             {p.status}
@@ -188,25 +188,25 @@ export default async function ParticipantDetailPage({ params }: Props) {
             {/* Credentials */}
             <Section title="Credentials">
               {!credentials?.length ? (
-                <p className="text-sm text-gray-500">No credentials on record.</p>
+                <p className="text-sm text-slate-700">No credentials on record.</p>
               ) : (
                 <table className="min-w-full divide-y divide-gray-100 text-sm">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Credential</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Issued</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Expires</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Credential</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Type</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Issued</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Expires</th>
+                      <th className="px-3 py-2 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {credentials.map((c: any) => (
                       <tr key={c.id}>
-                        <td className="px-3 py-2 font-medium text-gray-900">{c.credential_name}</td>
-                        <td className="px-3 py-2 text-gray-600">{c.credential_type ?? '—'}</td>
-                        <td className="px-3 py-2 text-gray-600">{c.issued_date ? new Date(c.issued_date).toLocaleDateString() : '—'}</td>
-                        <td className="px-3 py-2 text-gray-600">{c.expiry_date ? new Date(c.expiry_date).toLocaleDateString() : '—'}</td>
+                        <td className="px-3 py-2 font-medium text-slate-900">{c.credential_name}</td>
+                        <td className="px-3 py-2 text-slate-700">{c.credential_type ?? '—'}</td>
+                        <td className="px-3 py-2 text-slate-700">{c.issued_date ? new Date(c.issued_date).toLocaleDateString() : '—'}</td>
+                        <td className="px-3 py-2 text-slate-700">{c.expiry_date ? new Date(c.expiry_date).toLocaleDateString() : '—'}</td>
                         <td className="px-3 py-2">
                           <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${statusBadge(c.status ?? 'active')}`}>
                             {c.status ?? 'active'}
@@ -224,7 +224,7 @@ export default async function ParticipantDetailPage({ params }: Props) {
           <div className="space-y-4">
             {/* Application info */}
             <div className="rounded-xl border border-gray-200 bg-white p-4">
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Application</h3>
+              <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">Application</h3>
               <dl className="space-y-2 text-sm">
                 <Row label="Status"        value={app.status ?? '—'} />
                 <Row label="Program"       value={app.program_interest ?? '—'} />
@@ -236,7 +236,7 @@ export default async function ParticipantDetailPage({ params }: Props) {
             {/* WIOA */}
             {wioa && (
               <div className="rounded-xl border border-gray-200 bg-white p-4">
-                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">WIOA</h3>
+                <h3 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">WIOA</h3>
                 <dl className="space-y-2 text-sm">
                   <Row label="Program"     value={wioa.wioa_program ?? '—'} />
                   <Row label="Eligibility" value={wioa.eligibility_status ?? '—'} />
@@ -256,7 +256,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
       <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
-        <h2 className="text-sm font-semibold text-gray-700">{title}</h2>
+        <h2 className="text-sm font-semibold text-slate-900">{title}</h2>
       </div>
       <div className="p-4">{children}</div>
     </div>
@@ -266,8 +266,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-2">
-      <dt className="text-gray-500 shrink-0">{label}</dt>
-      <dd className="text-gray-900 text-right">{value}</dd>
+      <dt className="text-slate-700 shrink-0">{label}</dt>
+      <dd className="text-slate-900 text-right">{value}</dd>
     </div>
   );
 }

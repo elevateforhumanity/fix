@@ -49,7 +49,7 @@ export default async function HSILearnPage({
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Course Not Found</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Course Not Found</h1>
           <p className="text-black mb-4">The requested course could not be found.</p>
           <a href="/courses/hsi" className="text-brand-blue-600 hover:underline">
             Browse HSI Courses
@@ -87,7 +87,7 @@ export default async function HSILearnPage({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Enrollment Processing</h1>
+            <h1 className="text-2xl font-bold text-slate-900 mb-4">Enrollment Processing</h1>
             <p className="text-black mb-4">
               Your enrollment is being processed. You'll receive an email with access instructions shortly.
             </p>

@@ -341,7 +341,7 @@ export default function InteractiveVideoPlayer({
           <div className="w-full aspect-video flex items-center justify-center bg-gray-900 text-white">
             <div className="text-center p-8">
               <p className="text-lg font-medium mb-2">Unable to load media</p>
-              <p className="text-sm text-gray-400 mb-4">The video may be temporarily unavailable.</p>
+              <p className="text-sm text-slate-700 mb-4">The video may be temporarily unavailable.</p>
               <button
                 onClick={() => { setLoadError(false); videoRef.current?.load(); }}
                 className="px-4 py-2 bg-brand-blue-600 rounded-lg text-sm hover:bg-brand-blue-700"
@@ -356,7 +356,7 @@ export default function InteractiveVideoPlayer({
               <Volume2 className="w-12 h-12 text-white" />
             </div>
             <p className="text-white text-lg font-medium mb-2">{title}</p>
-            <p className="text-gray-400 text-sm">Audio Lesson</p>
+            <p className="text-slate-700 text-sm">Audio Lesson</p>
             {/* Hidden audio element using same ref */}
             <audio
               ref={videoRef as React.RefObject<HTMLAudioElement>}
@@ -583,7 +583,7 @@ export default function InteractiveVideoPlayer({
             className={`flex items-center gap-2 px-6 py-3 ${
               activeTab === 'transcript'
                 ? 'border-b-2 border-brand-blue-500 text-brand-blue-400'
-                : 'text-gray-400'
+                : 'text-slate-700'
             }`}
           >
             <FileText className="w-4 h-4" />
@@ -594,7 +594,7 @@ export default function InteractiveVideoPlayer({
             className={`flex items-center gap-2 px-6 py-3 ${
               activeTab === 'notes'
                 ? 'border-b-2 border-brand-blue-500 text-brand-blue-400'
-                : 'text-gray-400'
+                : 'text-slate-700'
             }`}
           >
             <Bookmark className="w-4 h-4" />
@@ -619,11 +619,11 @@ export default function InteractiveVideoPlayer({
                     <span className="text-brand-blue-400 text-sm mr-3">
                       {formatTime(segment.start)}
                     </span>
-                    <span className="text-gray-300">{segment.text}</span>
+                    <span className="text-slate-700">{segment.text}</span>
                   </div>
                 ))
               ) : (
-                <p className="text-gray-500">No transcript available</p>
+                <p className="text-slate-700">No transcript available</p>
               )}
             </div>
           )}
@@ -657,15 +657,15 @@ export default function InteractiveVideoPlayer({
                       >
                         {formatTime(note.timestamp)}
                       </button>
-                      <span className="text-gray-500 text-xs">
+                      <span className="text-slate-700 text-xs">
                         {note.createdAt.toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="text-gray-300">{note.content}</p>
+                    <p className="text-slate-700">{note.content}</p>
                   </div>
                 ))}
                 {notes.length === 0 && (
-                  <p className="text-gray-500 text-center py-8">
+                  <p className="text-slate-700 text-center py-8">
                     No notes yet. Add your first note!
                   </p>
                 )}

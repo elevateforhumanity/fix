@@ -29,7 +29,7 @@ export default async function ReportingPage() {
       {/* Hero Image */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/admin" className="hover:text-primary">Admin</Link></li><li>/</li><li className="text-gray-900 font-medium">Reporting</li></ol></nav>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/admin" className="hover:text-primary">Admin</Link></li><li>/</li><li className="text-slate-900 font-medium">Reporting</li></ol></nav>
         </div>
         
         {/* Full Reporting Dashboard */}
@@ -42,7 +42,7 @@ export default async function ReportingPage() {
             {reportTypes.map((report) => (
               <Link key={report.href} href={report.href} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md">
                 <h3 className="font-semibold mb-2">{report.name}</h3>
-                <p className="text-sm text-gray-500">{report.description}</p>
+                <p className="text-sm text-slate-700">{report.description}</p>
               </Link>
             ))}
           </div>

@@ -105,7 +105,7 @@ export function CourseCompletionTracking() {
                     <div>
                       <h3 className="text-xl font-bold">{milestone.title}</h3>
                       <p className="text-sm text-black">{milestone.description}</p>
-                      <p className="text-xs text-gray-500 mt-1">Due: {milestone.dueDate}</p>
+                      <p className="text-xs text-slate-700 mt-1">Due: {milestone.dueDate}</p>
                     </div>
                     <span className="text-2xl font-bold text-brand-orange-600">{milestone.progress}%</span>
                   </div>

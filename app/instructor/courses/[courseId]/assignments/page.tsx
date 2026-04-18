@@ -72,21 +72,21 @@ export default async function InstructorAssignmentsPage({ params }: { params: Pa
       </section>
       <div className="max-w-5xl mx-auto px-4 py-8">
         <nav className="text-sm mb-4">
-          <ol className="flex items-center space-x-2 text-gray-500">
+          <ol className="flex items-center space-x-2 text-slate-700">
             <li><Link href="/instructor" className="hover:text-brand-blue-600">Instructor</Link></li>
             <li>/</li>
             <li><Link href="/instructor/courses" className="hover:text-brand-blue-600">Courses</Link></li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">Assignments</li>
+            <li className="text-slate-900 font-medium">Assignments</li>
           </ol>
         </nav>
 
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-slate-900">
               {course?.title} — Assignments
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-slate-700 mt-1">
               {assignments?.length || 0} assignment{(assignments?.length || 0) !== 1 ? 's' : ''}
             </p>
           </div>

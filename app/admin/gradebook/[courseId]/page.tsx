@@ -80,12 +80,12 @@ export default async function AdminGradebookPage({
         <div className="mb-6">
           <Link
             href="/admin/courses"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Courses
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-slate-900">
             Gradebook: {course.title}
           </h1>
         </div>

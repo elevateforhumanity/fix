@@ -41,15 +41,15 @@ export default async function InstructorAnalyticsPage() {
       </section>
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/instructor" className="hover:text-primary">Instructor</Link></li><li>/</li><li className="text-gray-900 font-medium">Analytics</li></ol></nav>
-          <h1 className="text-3xl font-bold text-gray-900">Teaching Analytics</h1>
-          <p className="text-gray-600 mt-2">Track your teaching performance</p>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/instructor" className="hover:text-primary">Instructor</Link></li><li>/</li><li className="text-slate-900 font-medium">Analytics</li></ol></nav>
+          <h1 className="text-3xl font-bold text-slate-900">Teaching Analytics</h1>
+          <p className="text-slate-700 mt-2">Track your teaching performance</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-gray-500">Total Students</h3><p className="text-3xl font-bold text-brand-blue-600 mt-2">{totalStudents || 0}</p></div>
-          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-gray-500">Active Courses</h3><p className="text-3xl font-bold text-brand-green-600 mt-2">{totalCourses || 0}</p></div>
-          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-gray-500">Avg. Rating</h3><p className="text-3xl font-bold text-yellow-600 mt-2">N/A</p></div>
-          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-gray-500">Completion Rate</h3><p className="text-3xl font-bold text-brand-blue-600 mt-2">{completionRate}%</p></div>
+          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-slate-700">Total Students</h3><p className="text-3xl font-bold text-brand-blue-600 mt-2">{totalStudents || 0}</p></div>
+          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-slate-700">Active Courses</h3><p className="text-3xl font-bold text-brand-green-600 mt-2">{totalCourses || 0}</p></div>
+          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-slate-700">Avg. Rating</h3><p className="text-3xl font-bold text-yellow-600 mt-2">N/A</p></div>
+          <div className="bg-white rounded-lg shadow-sm border p-6"><h3 className="text-sm font-medium text-slate-700">Completion Rate</h3><p className="text-3xl font-bold text-brand-blue-600 mt-2">{completionRate}%</p></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-sm border p-6"><h2 className="text-lg font-semibold mb-4">Student Engagement</h2><StudentEngagementChart /></div>

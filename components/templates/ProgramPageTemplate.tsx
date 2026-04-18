@@ -168,23 +168,23 @@ export function ProgramPageTemplate({
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center p-4">
               <Clock className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Duration</p>
-              <p className="text-lg font-bold text-gray-900">{duration}</p>
+              <p className="text-sm text-slate-700">Duration</p>
+              <p className="text-lg font-bold text-slate-900">{duration}</p>
             </div>
             <div className="text-center p-4">
               <MapPin className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Format</p>
-              <p className="text-lg font-bold text-gray-900">{format}</p>
+              <p className="text-sm text-slate-700">Format</p>
+              <p className="text-lg font-bold text-slate-900">{format}</p>
             </div>
             <div className="text-center p-4">
               <DollarSign className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Tuition</p>
-              <p className="text-lg font-bold text-gray-900">${price.toLocaleString('en-US')}</p>
+              <p className="text-sm text-slate-700">Tuition</p>
+              <p className="text-lg font-bold text-slate-900">${price.toLocaleString('en-US')}</p>
             </div>
             <div className="text-center p-4">
               <Award className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Credential</p>
-              <p className="text-lg font-bold text-gray-900">{outcomes.credential || 'Certificate'}</p>
+              <p className="text-sm text-slate-700">Credential</p>
+              <p className="text-lg font-bold text-slate-900">{outcomes.credential || 'Certificate'}</p>
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ export function ProgramPageTemplate({
       {/* What's Included / Not Included */}
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">What's Included</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">What's Included</h2>
           
           <div className="grid md:grid-cols-2 gap-8">
             {/* Included */}
@@ -235,14 +235,14 @@ export function ProgramPageTemplate({
             {/* Not Included */}
             {notIncluded && notIncluded.length > 0 && (
               <div className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-gray-700 mb-6 flex items-center gap-2">
+                <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                   <XCircle className="w-6 h-6" />
                   Not Included
                 </h3>
                 <ul className="space-y-4">
                   {notIncluded.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-gray-600">
-                      <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-gray-400" />
+                    <li key={i} className="flex items-start gap-3 text-slate-700">
+                      <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-slate-700" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -256,13 +256,13 @@ export function ProgramPageTemplate({
       {/* Requirements */}
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Requirements</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Requirements</h2>
           
           <div className="max-w-3xl mx-auto">
             <div className="bg-purple-50 border-2 border-purple-200 rounded-2xl p-8">
               <ul className="space-y-4">
                 {requirements.map((req, i) => (
-                  <li key={i} className="flex items-start gap-3 text-gray-800">
+                  <li key={i} className="flex items-start gap-3 text-slate-900">
                     <div className="w-6 h-6 bg-brand-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">
                       {i + 1}
                     </div>
@@ -317,8 +317,8 @@ export function ProgramPageTemplate({
       {/* Pricing */}
       <section className="py-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Investment</h2>
-          <p className="text-gray-600 mb-8">Transparent pricing with flexible options</p>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Investment</h2>
+          <p className="text-slate-700 mb-8">Transparent pricing with flexible options</p>
           
           <div className="border border-slate-200 rounded-2xl p-8">
             <p className="text-slate-500 text-sm uppercase tracking-wide mb-2">Program Tuition</p>

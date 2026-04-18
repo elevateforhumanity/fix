@@ -52,16 +52,16 @@ export default async function BulkCertificatesPage() {
         {/* Header */}
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
               <li><Link href="/admin/certificates" className="hover:text-primary">Certificates</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Bulk Issue</li>
+              <li className="text-slate-900 font-medium">Bulk Issue</li>
             </ol>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">Bulk Certificate Issuance</h1>
-          <p className="text-gray-600 mt-2">Issue certificates to multiple participants at once</p>
+          <h1 className="text-3xl font-bold text-slate-900">Bulk Certificate Issuance</h1>
+          <p className="text-slate-700 mt-2">Issue certificates to multiple participants at once</p>
         </div>
 
         <BulkIssueForm

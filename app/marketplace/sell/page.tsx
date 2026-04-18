@@ -95,10 +95,10 @@ export default async function SellOnMarketplacePage() {
       </div>
 <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/marketplace" className="hover:text-gray-700">Marketplace</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/marketplace" className="hover:text-slate-900">Marketplace</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Sell</span>
+            <span className="text-slate-900 font-medium">Sell</span>
           </nav>
         </div>
       </div>
@@ -140,8 +140,8 @@ export default async function SellOnMarketplacePage() {
                 <div className="w-16 h-16 bg-brand-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Icon className="w-8 h-8 text-brand-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">{benefit.title}</h3>
+                <p className="text-slate-700">{benefit.description}</p>
               </div>
             );
           })}
@@ -149,7 +149,7 @@ export default async function SellOnMarketplacePage() {
 
         {/* What You Can Sell */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">What You Can Sell</h2>
+          <h2 className="text-2xl font-bold text-slate-900 text-center mb-8">What You Can Sell</h2>
           <div className="grid sm:grid-cols-3 gap-6">
             {contentTypes.map((type, index) => {
               const Icon = type.icon;
@@ -158,11 +158,11 @@ export default async function SellOnMarketplacePage() {
                   <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6 text-brand-blue-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{type.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{type.description}</p>
+                  <h3 className="font-semibold text-slate-900 mb-2">{type.title}</h3>
+                  <p className="text-sm text-slate-700 mb-4">{type.description}</p>
                   <ul className="space-y-2">
                     {type.examples.map((example, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-gray-500">
+                      <li key={i} className="flex items-center gap-2 text-sm text-slate-700">
                         <span className="text-slate-500 flex-shrink-0">•</span>
                         {example}
                       </li>
@@ -176,15 +176,15 @@ export default async function SellOnMarketplacePage() {
 
         {/* How It Works */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-16">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">How It Works</h2>
+          <h2 className="text-2xl font-bold text-slate-900 text-center mb-8">How It Works</h2>
           <div className="grid sm:grid-cols-4 gap-6">
             {steps.map((step) => (
               <div key={step.number} className="text-center">
                 <div className="w-12 h-12 bg-brand-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                   {step.number}
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-600">{step.description}</p>
+                <h3 className="font-semibold text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-sm text-slate-700">{step.description}</p>
               </div>
             ))}
           </div>
@@ -194,19 +194,19 @@ export default async function SellOnMarketplacePage() {
         <div className="bg-brand-green-50 rounded-2xl p-8 mb-16">
           <div className="max-w-2xl mx-auto text-center">
             <DollarSign className="w-12 h-12 text-brand-green-600 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Competitive Revenue Share</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">Competitive Revenue Share</h2>
             <div className="flex items-center justify-center gap-8 mb-6">
               <div>
                 <p className="text-5xl font-bold text-brand-green-600">70%</p>
-                <p className="text-gray-600">You Keep</p>
+                <p className="text-slate-700">You Keep</p>
               </div>
-              <div className="text-4xl text-gray-300">/</div>
+              <div className="text-4xl text-slate-700">/</div>
               <div>
                 <p className="text-5xl font-bold text-slate-500">30%</p>
-                <p className="text-gray-600">Platform Fee</p>
+                <p className="text-slate-700">Platform Fee</p>
               </div>
             </div>
-            <p className="text-gray-600">
+            <p className="text-slate-700">
               Payments are processed monthly. Minimum payout threshold is $50.
             </p>
           </div>
@@ -214,8 +214,8 @@ export default async function SellOnMarketplacePage() {
 
         {/* CTA */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Selling?</h2>
-          <p className="text-gray-600 mb-8 max-w-xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Ready to Start Selling?</h2>
+          <p className="text-slate-700 mb-8 max-w-xl mx-auto">
             Join our community of expert instructors and start earning from your knowledge today.
           </p>
           {user ? (

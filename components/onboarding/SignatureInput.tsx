@@ -228,7 +228,7 @@ export function SignatureInput({
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 transition-colors ${
             signatureType === 'TYPED'
               ? 'border-brand-blue-600 bg-brand-blue-50 text-brand-blue-900'
-              : 'border-slate-300 bg-white text-gray-700 hover:border-slate-400'
+              : 'border-slate-300 bg-white text-slate-900 hover:border-slate-400'
           }`}
         >
           <Type className="w-5 h-5" />
@@ -240,7 +240,7 @@ export function SignatureInput({
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 transition-colors ${
             signatureType === 'DRAWN'
               ? 'border-brand-blue-600 bg-brand-blue-50 text-brand-blue-900'
-              : 'border-slate-300 bg-white text-gray-700 hover:border-slate-400'
+              : 'border-slate-300 bg-white text-slate-900 hover:border-slate-400'
           }`}
         >
           <Pen className="w-5 h-5" />
@@ -251,7 +251,7 @@ export function SignatureInput({
       {/* Typed Signature Input */}
       {signatureType === 'TYPED' && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Type Your Full Name {required && <span className="text-brand-red-500">*</span>}
           </label>
           <input
@@ -267,8 +267,8 @@ export function SignatureInput({
             style={{ fontFamily: "'Brush Script MT', 'Segoe Script', cursive" }}
           />
           <div className="flex items-center justify-between mt-2">
-            <p className="text-sm text-gray-600">
-              Must match: <strong className="text-gray-900">{userName}</strong>
+            <p className="text-sm text-slate-700">
+              Must match: <strong className="text-slate-900">{userName}</strong>
             </p>
             {typedSignature && (
               <span className={`text-sm flex items-center gap-1 ${isValid ? 'text-brand-green-600' : 'text-brand-red-600'}`}>
@@ -291,7 +291,7 @@ export function SignatureInput({
       {signatureType === 'DRAWN' && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-slate-900">
               Draw Your Signature {required && <span className="text-brand-red-500">*</span>}
             </label>
             <button
@@ -316,7 +316,7 @@ export function SignatureInput({
               onTouchEnd={stopDrawing}
             />
           </div>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-slate-700 mt-2">
             Draw your signature using your mouse or touchscreen
           </p>
         </div>

@@ -45,8 +45,8 @@ export default function LicenseRequestPage() {
           <div className="w-16 h-16 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-slate-500 flex-shrink-0">•</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Request Received</h1>
-          <p className="text-gray-600 mb-8">
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Request Received</h1>
+          <p className="text-slate-700 mb-8">
             We will review your license request and contact you within 2 business days to discuss setup and onboarding.
           </p>
           <Link href="/store/licensing" className="text-brand-blue-600 font-semibold hover:underline">
@@ -66,17 +66,17 @@ export default function LicenseRequestPage() {
         ]}
       />
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl font-bold text-slate-900 mb-4">
           Request Managed Enterprise LMS License
         </h1>
-        <p className="text-gray-600 mb-8">
+        <p className="text-slate-700 mb-8">
           Complete this form to begin the licensing process. We will contact you to discuss your 
           organization's needs, setup requirements, and subscription terms.
         </p>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6">
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
+            <label className="block text-sm font-semibold text-slate-900 mb-2">
               Organization Name *
             </label>
             <input
@@ -90,7 +90,7 @@ export default function LicenseRequestPage() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-slate-900 mb-2">
                 Contact Name *
               </label>
               <input
@@ -102,7 +102,7 @@ export default function LicenseRequestPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-slate-900 mb-2">
                 Email *
               </label>
               <input
@@ -117,7 +117,7 @@ export default function LicenseRequestPage() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-slate-900 mb-2">
                 Phone
               </label>
               <input
@@ -128,7 +128,7 @@ export default function LicenseRequestPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-slate-900 mb-2">
                 Organization Type *
               </label>
               <select
@@ -150,7 +150,7 @@ export default function LicenseRequestPage() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-slate-900 mb-2">
                 Estimated Users
               </label>
               <select
@@ -167,7 +167,7 @@ export default function LicenseRequestPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-2">
+              <label className="block text-sm font-semibold text-slate-900 mb-2">
                 Timeline
               </label>
               <select
@@ -185,7 +185,7 @@ export default function LicenseRequestPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
+            <label className="block text-sm font-semibold text-slate-900 mb-2">
               Additional Information
             </label>
             <textarea
@@ -197,7 +197,7 @@ export default function LicenseRequestPage() {
             />
           </div>
 
-          <div className="bg-white rounded-lg p-4 text-sm text-gray-600">
+          <div className="bg-white rounded-lg p-4 text-sm text-slate-700">
             By submitting this request, you acknowledge that licensing requires an active subscription 
             and that non-payment results in platform lockout.
           </div>

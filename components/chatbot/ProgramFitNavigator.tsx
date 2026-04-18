@@ -40,7 +40,7 @@ export function ProgramFitNavigator({
     return (
       <button
         onClick={openChat}
-        className={`text-sm text-gray-600 hover:text-brand-blue-600 transition-colors ${className}`}
+        className={`text-sm text-slate-700 hover:text-brand-blue-600 transition-colors ${className}`}
       >
         Program Fit Review
       </button>
@@ -53,10 +53,10 @@ export function ProgramFitNavigator({
       <div className={`bg-gray-50 border border-gray-200 rounded-xl p-6 ${className}`}>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <p className="text-gray-700 font-medium">
+            <p className="text-slate-900 font-medium">
               Not sure if this platform fits your program structure?
             </p>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-slate-700 mt-1">
               Built for institutions managing enrollment, compliance, and credentialed outcomes.
             </p>
           </div>
@@ -99,8 +99,8 @@ export function ProgramFitNavigator({
         <div className="bg-brand-blue-50 border-b border-brand-blue-100 px-6 py-4">
           <div className="flex justify-between items-start">
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">What is this?</h4>
-              <p className="text-sm text-gray-700">
+              <h4 className="font-semibold text-slate-900 mb-2">What is this?</h4>
+              <p className="text-sm text-slate-900">
                 The Program Fit Navigator is a guided intake designed to help institutions 
                 determine whether our platform is the right fit for their program operations. 
                 It asks a small number of questions about scale, governance, and outcomes, 
@@ -110,7 +110,7 @@ export function ProgramFitNavigator({
             </div>
             <button
               onClick={() => setShowInfo(false)}
-              className="p-1 text-gray-400 hover:text-gray-600"
+              className="p-1 text-slate-700 hover:text-slate-700"
             >
               <X className="w-4 h-4" />
             </button>
@@ -120,7 +120,7 @@ export function ProgramFitNavigator({
 
       {/* Body */}
       <div className="px-6 py-5">
-        <p className="text-gray-700 text-sm leading-relaxed mb-4">
+        <p className="text-slate-900 text-sm leading-relaxed mb-4">
           Built for institutions managing enrollment, compliance, and credentialed outcomes — not just course content.
         </p>
 
@@ -132,7 +132,7 @@ export function ProgramFitNavigator({
           <ArrowRight className="w-4 h-4" />
         </button>
 
-        <p className="text-xs text-gray-500 text-center mt-3">
+        <p className="text-xs text-slate-700 text-center mt-3">
           5-minute guided review • No sales pressure
         </p>
       </div>

@@ -131,7 +131,7 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-slate-50 rounded-2xl p-6">
               <h3 className="font-bold text-slate-900 mb-4">HVAC/Electrical</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <ul className="space-y-2 text-slate-700 text-sm">
                 <li>• Heating and cooling system installation</li>
                 <li>• Electrical wiring and circuits</li>
                 <li>• EPA 608 certification prep</li>
@@ -141,7 +141,7 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
             </div>
             <div className="bg-slate-50 rounded-2xl p-6">
               <h3 className="font-bold text-slate-900 mb-4">Welding/Manufacturing</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <ul className="space-y-2 text-slate-700 text-sm">
                 <li>• MIG, TIG, and stick welding</li>
                 <li>• Blueprint reading</li>
                 <li>• Metal fabrication</li>
@@ -151,7 +151,7 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
             </div>
             <div className="bg-slate-50 rounded-2xl p-6">
               <h3 className="font-bold text-slate-900 mb-4">Construction/Maintenance</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <ul className="space-y-2 text-slate-700 text-sm">
                 <li>• Building maintenance</li>
                 <li>• Plumbing basics</li>
                 <li>• Carpentry fundamentals</li>
@@ -179,7 +179,7 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
                     <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    <span className="text-gray-700">{req}</span>
+                    <span className="text-slate-900">{req}</span>
                   </li>
                 ))}
               </ul>
@@ -192,7 +192,7 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
                     <svg className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    <span className="text-gray-700">{req}</span>
+                    <span className="text-slate-900">{req}</span>
                   </li>
                 ))}
               </ul>

@@ -145,7 +145,7 @@ export function ResourceLibrary() {
                 </div>
               </div>
 
-              <div className="text-xs text-gray-500 mb-3">
+              <div className="text-xs text-slate-700 mb-3">
                 <p>By {resource.author}</p>
                 <p>{resource.date} • {resource.downloads} downloads</p>
               </div>
@@ -158,7 +158,7 @@ export function ResourceLibrary() {
         {filteredResources.length === 0 && (
           <Card className="p-12 text-center">
             <p className="text-xl text-black mb-2">No resources found</p>
-            <p className="text-gray-500">Try adjusting your search or filters</p>
+            <p className="text-slate-700">Try adjusting your search or filters</p>
           </Card>
         )}
       </div>

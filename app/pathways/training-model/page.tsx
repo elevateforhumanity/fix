@@ -30,8 +30,8 @@ export default function TrainingModelPage() {
       {/* Intro */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">How Training Works</h1>
-          <div className="text-gray-700 space-y-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">How Training Works</h1>
+          <div className="text-slate-900 space-y-4">
             <p>
               This page explains what your experience looks like as a student at Elevate — from
               the day you enroll to the day you start your new job. No jargon, no acronyms without
@@ -59,7 +59,7 @@ export default function TrainingModelPage() {
       {/* Three training formats */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Three Ways We Deliver Training</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">Three Ways We Deliver Training</h2>
 
           <div className="space-y-6">
             {/* Hybrid */}
@@ -69,16 +69,16 @@ export default function TrainingModelPage() {
                   <Image src="/images/pages/pathways-page-10.jpg" alt="Hands-on trades training" fill sizes="(max-width: 640px) 100vw, 256px" className="object-cover" />
                 </div>
                 <div className="p-5 flex-1">
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Classroom + Hands-On Lab</h3>
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">Classroom + Hands-On Lab</h3>
                   <p className="text-xs text-black mb-3">Programs: HVAC, Electrical, Welding, Plumbing, CNA, Medical Assistant, Phlebotomy</p>
-                  <p className="text-sm text-gray-700 mb-3">
+                  <p className="text-sm text-slate-900 mb-3">
                     You come to a training facility 3–5 days per week. Mornings are typically classroom
                     instruction — theory, code requirements, safety protocols, exam prep. Afternoons are
                     hands-on: you work with real tools and equipment in a lab or shop environment.
                     Healthcare students do clinical rotations at actual healthcare facilities where they
                     work with real patients under supervision.
                   </p>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-slate-900">
                     You also have access to an online learning platform where you can review lessons,
                     take practice quizzes, and track your progress outside of class. This is not a
                     replacement for in-person training — it is a supplement that helps you study on
@@ -95,19 +95,19 @@ export default function TrainingModelPage() {
                   <Image src="/images/pages/pathways-page-11.jpg" alt="CDL behind-the-wheel training" fill sizes="(max-width: 640px) 100vw, 256px" className="object-cover" />
                 </div>
                 <div className="p-5 flex-1">
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Full-Time In-Person</h3>
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">Full-Time In-Person</h3>
                   <p className="text-xs text-black mb-3">Programs: CDL, Barber Apprenticeship, CPR/First Aid</p>
-                  <p className="text-sm text-gray-700 mb-3">
+                  <p className="text-sm text-slate-900 mb-3">
                     CDL students spend 160+ hours in a truck — classroom instruction for permit prep
                     and regulations, then behind-the-wheel training on highways and city streets. You
                     train on the same Freightliner, Peterbilt, and Kenworth trucks used by major carriers.
                   </p>
-                  <p className="text-sm text-gray-700 mb-3">
+                  <p className="text-sm text-slate-900 mb-3">
                     Barber apprentices train at a real barbershop under a licensed instructor. You work
                     with real clients from day one. The full apprenticeship is 1,500 hours of on-the-job
                     training plus required classroom instruction — approximately 18 months.
                   </p>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-slate-900">
                     CPR/First Aid is a single-day certification course. You learn and get certified the same day.
                   </p>
                 </div>
@@ -121,16 +121,16 @@ export default function TrainingModelPage() {
                   <Image src="/images/pages/pathways-page-12.jpg" alt="Online cybersecurity training" fill sizes="(max-width: 640px) 100vw, 256px" className="object-cover" />
                 </div>
                 <div className="p-5 flex-1">
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Online with Live Instructors</h3>
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">Online with Live Instructors</h3>
                   <p className="text-xs text-black mb-3">Programs: IT Support, Cybersecurity</p>
-                  <p className="text-sm text-gray-700 mb-3">
+                  <p className="text-sm text-slate-900 mb-3">
                     You work through lessons on our online learning platform with instructor oversight — video
                     lessons, reading materials, hands-on labs, and practice quizzes. Your instructor
                     reviews your progress and signs off on module completion. You also attend scheduled
                     live sessions with your instructor and cohort where you ask questions, work through
                     problems together, and get real-time help.
                   </p>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-slate-900">
                     This format works well if you are working part-time, have family obligations, or
                     live outside the Indianapolis area. All you need is a computer and internet access.
                   </p>
@@ -144,7 +144,7 @@ export default function TrainingModelPage() {
       {/* What a typical week looks like */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">What a Typical Week Looks Like</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">What a Typical Week Looks Like</h2>
           <p className="text-black mb-8">
             Here is an example week for an HVAC or Electrical student in a 12-week program.
             Schedules vary by program, but this gives you a realistic picture.
@@ -159,10 +159,10 @@ export default function TrainingModelPage() {
               { day: 'Friday', am: 'Online: Review lessons on the learning platform, take practice quizzes, study for certification exam', pm: 'Career services: Resume workshop, interview practice, or employer meet-and-greet (scheduled periodically)' },
             ].map((d) => (
               <div key={d.day} className="bg-white rounded-lg border border-gray-200 p-4">
-                <h3 className="font-bold text-gray-900 text-sm mb-2">{d.day}</h3>
-                <div className="grid sm:grid-cols-2 gap-2 text-sm text-gray-700">
-                  <div><span className="font-semibold text-gray-800">Morning:</span> {d.am}</div>
-                  <div><span className="font-semibold text-gray-800">Afternoon:</span> {d.pm}</div>
+                <h3 className="font-bold text-slate-900 text-sm mb-2">{d.day}</h3>
+                <div className="grid sm:grid-cols-2 gap-2 text-sm text-slate-900">
+                  <div><span className="font-semibold text-slate-900">Morning:</span> {d.am}</div>
+                  <div><span className="font-semibold text-slate-900">Afternoon:</span> {d.pm}</div>
                 </div>
               </div>
             ))}
@@ -173,7 +173,7 @@ export default function TrainingModelPage() {
       {/* How we track your progress */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">How We Track Your Progress</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">How We Track Your Progress</h2>
           <p className="text-black mb-8">
             When you enroll, you get a personal account on our online learning platform. Here is
             what you see when you log in and what your instructors and case managers can see.
@@ -181,8 +181,8 @@ export default function TrainingModelPage() {
 
           <div className="space-y-4">
             <div className="bg-white rounded-lg border border-gray-200 p-5">
-              <h3 className="font-bold text-gray-900 mb-2">What you see (your student dashboard)</h3>
-              <ul className="space-y-1.5 text-sm text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-2">What you see (your student dashboard)</h3>
+              <ul className="space-y-1.5 text-sm text-slate-900">
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Your course progress — which lessons you have completed and which are next</li>
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Your quiz and assessment scores</li>
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Your attendance record</li>
@@ -193,8 +193,8 @@ export default function TrainingModelPage() {
             </div>
 
             <div className="bg-white rounded-lg border border-gray-200 p-5">
-              <h3 className="font-bold text-gray-900 mb-2">What your instructor sees</h3>
-              <ul className="space-y-1.5 text-sm text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-2">What your instructor sees</h3>
+              <ul className="space-y-1.5 text-sm text-slate-900">
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Progress for every student in the cohort — who is on track, who is falling behind</li>
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Attendance records with automatic flags for missed sessions</li>
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Assessment scores and areas where students need extra help</li>
@@ -203,8 +203,8 @@ export default function TrainingModelPage() {
             </div>
 
             <div className="bg-white rounded-lg border border-gray-200 p-5">
-              <h3 className="font-bold text-gray-900 mb-2">What your case manager or funding agency sees (if applicable)</h3>
-              <ul className="space-y-1.5 text-sm text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-2">What your case manager or funding agency sees (if applicable)</h3>
+              <ul className="space-y-1.5 text-sm text-slate-900">
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Attendance and progress reports — sent weekly or biweekly</li>
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Credential attainment reports — who passed, what credential, which issuing authority</li>
                 <li className="flex items-start gap-2"><span className="text-brand-blue-600 mt-0.5">•</span>Employment outcome reports — employer, job title, wage, retention at 6 and 12 months</li>
@@ -218,8 +218,8 @@ export default function TrainingModelPage() {
       {/* What happens if you fall behind */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">What Happens If You Fall Behind</h2>
-          <p className="text-gray-700 mb-4">
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">What Happens If You Fall Behind</h2>
+          <p className="text-slate-900 mb-4">
             Life happens. If you miss a class, fail a quiz, or hit a personal barrier, here is
             what we do — because we do not just let people drop out quietly.
           </p>
@@ -231,8 +231,8 @@ export default function TrainingModelPage() {
               { title: 'Need to pause', desc: 'If you need to take a break for a serious reason, we work with you and your funding source to pause and resume in the next cohort. You do not lose your progress.' },
             ].map((item) => (
               <div key={item.title} className="bg-white rounded-lg border border-gray-200 p-4">
-                <h3 className="font-bold text-gray-900 text-sm mb-1">{item.title}</h3>
-                <p className="text-sm text-gray-700">{item.desc}</p>
+                <h3 className="font-bold text-slate-900 text-sm mb-1">{item.title}</h3>
+                <p className="text-sm text-slate-900">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -242,7 +242,7 @@ export default function TrainingModelPage() {
       {/* Cohort timeline example */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Example: 12-Week Skilled Trades Program Timeline</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Example: 12-Week Skilled Trades Program Timeline</h2>
           <p className="text-black mb-6 text-sm">
             This is a real example of how a 12-week HVAC, Electrical, or Welding program flows
             from enrollment to employment.
@@ -258,8 +258,8 @@ export default function TrainingModelPage() {
               { week: 'After graduation', activity: 'Job placement support, employer referrals, follow-up at 6 and 12 months', result: 'You are working in your field. We track your employment and wage to make sure the pathway delivered.' },
             ].map((r) => (
               <div key={r.week} className="bg-white rounded-lg border border-gray-200 p-4">
-                <h3 className="font-bold text-gray-900 text-sm mb-1">{r.week}</h3>
-                <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">What you do:</span> {r.activity}</p>
+                <h3 className="font-bold text-slate-900 text-sm mb-1">{r.week}</h3>
+                <p className="text-sm text-slate-900 mb-1"><span className="font-semibold">What you do:</span> {r.activity}</p>
                 <p className="text-sm text-black"><span className="font-semibold">What you walk away with:</span> {r.result}</p>
               </div>
             ))}

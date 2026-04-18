@@ -87,8 +87,8 @@ export default async function RecordAttendancePage() {
       <div className="py-8">
       <div className="max-w-5xl mx-auto px-4">
 
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Record Attendance</h1>
-        <p className="text-gray-600 mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Record Attendance</h1>
+        <p className="text-slate-700 mb-8">
           {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
 

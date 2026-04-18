@@ -79,11 +79,11 @@ export default function AutomaticCourseBuilder() {
   return (
     <div className="max-w-2xl">
       <div className="mb-6">
-        <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-brand-blue-600" />
           AI Course Generator
         </h2>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-slate-700 mt-1">
           Generates a complete 24-lesson course (5 modules, 3 checkpoints, 1 exam) using GPT-4o and publishes it immediately.
           Requires <code className="bg-gray-100 px-1 rounded text-xs">OPENAI_API_KEY</code> to be set in environment variables.
         </p>
@@ -91,7 +91,7 @@ export default function AutomaticCourseBuilder() {
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-900 mb-1">
             Course Title <span className="text-red-500">*</span>
           </label>
           <input
@@ -104,7 +104,7 @@ export default function AutomaticCourseBuilder() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-900 mb-1">
             Target Audience <span className="text-red-500">*</span>
           </label>
           <input
@@ -118,7 +118,7 @@ export default function AutomaticCourseBuilder() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Total Hours</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Total Hours</label>
             <input
               type="number"
               value={hours}
@@ -129,7 +129,7 @@ export default function AutomaticCourseBuilder() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">State</label>
             <select
               value={state}
               onChange={e => setState(e.target.value)}
@@ -142,7 +142,7 @@ export default function AutomaticCourseBuilder() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Credential or Exam</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Credential or Exam</label>
           <input
             type="text"
             value={credential}
@@ -153,7 +153,7 @@ export default function AutomaticCourseBuilder() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Delivery Format</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Delivery Format</label>
           <input
             type="text"
             value={deliveryFormat}
@@ -164,7 +164,7 @@ export default function AutomaticCourseBuilder() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Additional Instructions</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Additional Instructions</label>
           <textarea
             value={prompt}
             onChange={e => setPrompt(e.target.value)}
@@ -175,8 +175,8 @@ export default function AutomaticCourseBuilder() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Program ID <span className="text-gray-400 font-normal">(optional — links course to a program)</span>
+          <label className="block text-sm font-medium text-slate-900 mb-1">
+            Program ID <span className="text-slate-700 font-normal">(optional — links course to a program)</span>
           </label>
           <input
             type="text"

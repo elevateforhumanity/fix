@@ -174,8 +174,8 @@ export default function DocumentsPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-green-100 rounded-full mb-4">
             <span className="text-slate-500 flex-shrink-0">•</span>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Documents Received</h2>
-          <p className="text-gray-600">Your enrollment is being activated.</p>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Documents Received</h2>
+          <p className="text-slate-700">Your enrollment is being activated.</p>
         </div>
       </div>
     );
@@ -188,8 +188,8 @@ export default function DocumentsPage() {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Upload Required Documents</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-bold text-slate-900">Upload Required Documents</h1>
+          <p className="text-slate-700 mt-2">
             These are required to activate your enrollment and unlock course access.
           </p>
         </div>
@@ -209,12 +209,12 @@ export default function DocumentsPage() {
                     {doc.uploaded ? (
                       <span className="text-slate-500 flex-shrink-0">•</span>
                     ) : (
-                      <FileText className="w-5 h-5 text-gray-400" />
+                      <FileText className="w-5 h-5 text-slate-700" />
                     )}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">{doc.name}</h3>
-                    <p className="text-sm text-gray-500">{doc.description}</p>
+                    <h3 className="font-semibold text-slate-900">{doc.name}</h3>
+                    <p className="text-sm text-slate-700">{doc.description}</p>
                   </div>
                 </div>
 
@@ -223,14 +223,14 @@ export default function DocumentsPage() {
                     onClick={() => setDocuments(docs => 
                       docs.map(d => d.id === doc.id ? { ...d, uploaded: false, file_url: undefined } : d)
                     )}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-slate-700 hover:text-slate-700"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 ) : (
                   <label className={`flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer transition-colors ${
                     uploading === doc.id
-                      ? 'bg-white text-gray-400'
+                      ? 'bg-white text-slate-700'
                       : 'bg-brand-blue-50 text-brand-blue-600 hover:bg-brand-blue-100'
                   }`}>
                     {uploading === doc.id ? (
@@ -276,7 +276,7 @@ export default function DocumentsPage() {
           className={`w-full py-4 px-6 rounded-lg font-semibold transition-colors ${
             allUploaded && !submitting
               ? 'bg-brand-blue-600 hover:bg-brand-blue-700 text-white'
-              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+              : 'bg-gray-200 text-slate-700 cursor-not-allowed'
           }`}
         >
           {submitting ? (

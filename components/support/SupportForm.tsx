@@ -41,8 +41,8 @@ export default function SupportForm() {
     return (
       <div className="bg-white rounded-xl shadow-sm border p-8 text-center">
         <span className="text-slate-500 flex-shrink-0">•</span>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Request Submitted</h3>
-        <p className="text-gray-600 mb-6">
+        <h3 className="text-xl font-bold text-slate-900 mb-2">Request Submitted</h3>
+        <p className="text-slate-700 mb-6">
           We've received your support request and will respond within 24 hours.
         </p>
         <button
@@ -71,7 +71,7 @@ export default function SupportForm() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Subject</label>
           <input
             type="text"
             value={subject}
@@ -82,7 +82,7 @@ export default function SupportForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Category</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -97,7 +97,7 @@ export default function SupportForm() {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Description</label>
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}

@@ -31,7 +31,7 @@ export default function PathwayDisclosure({
 }: PathwayDisclosureProps) {
   if (variant === 'inline') {
     return (
-      <p className={`text-sm text-gray-500 ${className}`}>
+      <p className={`text-sm text-slate-700 ${className}`}>
         {INLINE_DISCLOSURE}
       </p>
     );
@@ -58,8 +58,8 @@ export default function PathwayDisclosure({
           <Shield className="w-5 h-5 text-brand-blue-600" />
         </div>
         <div>
-          <h4 className="font-bold text-gray-900 mb-2">Career Pathway Disclosure</h4>
-          <p className="text-sm text-gray-700 leading-relaxed">
+          <h4 className="font-bold text-slate-900 mb-2">Career Pathway Disclosure</h4>
+          <p className="text-sm text-slate-900 leading-relaxed">
             {FULL_DISCLOSURE}
           </p>
         </div>

@@ -11,10 +11,10 @@ export function EnrollmentDisclaimer({
 }: EnrollmentDisclaimerProps) {
   const content = (
     <>
-      <p className="text-sm text-gray-600 mb-2">
+      <p className="text-sm text-slate-700 mb-2">
         Enrollment is program-based. Courses, projects, and hands-on activities are part of your program and cannot be accessed independently.
       </p>
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-700">
         Some programs are publicly funded. Some are self-pay. All pathways are sponsor-managed and state-approved.
       </p>
     </>

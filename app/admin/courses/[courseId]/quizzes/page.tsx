@@ -28,12 +28,12 @@ export default async function CourseQuizzesPage({ params }: { params: Promise<{ 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
               <li><Link href="/admin/course-builder" className="hover:text-primary">Course Builder</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Quizzes</li>
+              <li className="text-slate-900 font-medium">Quizzes</li>
             </ol>
           </nav>
         </div>

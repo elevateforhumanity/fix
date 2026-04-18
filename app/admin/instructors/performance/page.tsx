@@ -58,16 +58,16 @@ export default async function InstructorPerformancePage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
               <li><Link href="/admin/instructors" className="hover:text-primary">Instructors</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Performance</li>
+              <li className="text-slate-900 font-medium">Performance</li>
             </ol>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">Instructor Performance</h1>
-          <p className="text-gray-600 mt-2">Teaching effectiveness and student outcomes</p>
+          <h1 className="text-3xl font-bold text-slate-900">Instructor Performance</h1>
+          <p className="text-slate-700 mt-2">Teaching effectiveness and student outcomes</p>
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border">
@@ -81,26 +81,26 @@ export default async function InstructorPerformancePage() {
                   </div>
                   <div>
                     <p className="font-medium">{inst.full_name || 'Instructor'}</p>
-                    <p className="text-sm text-gray-500">{inst.email}</p>
+                    <p className="text-sm text-slate-700">{inst.email}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-6 text-sm">
                   <div className="text-center">
                     <p className="font-semibold">{inst.totalStudents}</p>
-                    <p className="text-gray-500">Students</p>
+                    <p className="text-slate-700">Students</p>
                   </div>
                   <div className="text-center">
                     <p className="font-semibold">{inst.completionRate}%</p>
-                    <p className="text-gray-500">Completion</p>
+                    <p className="text-slate-700">Completion</p>
                   </div>
                   <div className="text-center">
                     <p className="font-semibold">{inst.avgScore > 0 ? `${inst.avgScore}%` : '—'}</p>
-                    <p className="text-gray-500">Avg Score</p>
+                    <p className="text-slate-700">Avg Score</p>
                   </div>
                 </div>
               </div>
             )) : (
-              <div className="p-8 text-center text-gray-500">No instructors found</div>
+              <div className="p-8 text-center text-slate-700">No instructors found</div>
             )}
           </div>
         </div>

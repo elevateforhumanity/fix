@@ -35,7 +35,7 @@ export default async function PartnerLayout({
               <Link href="/partner/attendance" className="text-lg font-bold text-brand-orange-600">Partner Portal</Link>
               <div className="hidden md:flex items-center gap-4">
                 {navItems.map((item) => (
-                  <Link key={item.href} href={item.href} className="text-sm text-gray-600 hover:text-brand-blue-700">{item.label}</Link>
+                  <Link key={item.href} href={item.href} className="text-sm text-slate-700 hover:text-brand-blue-700">{item.label}</Link>
                 ))}
               </div>
             </div>

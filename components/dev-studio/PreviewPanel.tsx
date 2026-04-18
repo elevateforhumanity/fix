@@ -46,7 +46,7 @@ export default function PreviewPanel({ url, filePath }: PreviewPanelProps) {
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-black">Live Preview</span>
           {filePath && (
-            <span className="text-xs text-gray-500 truncate max-w-[200px]">
+            <span className="text-xs text-slate-700 truncate max-w-[200px]">
               {filePath}
             </span>
           )}
@@ -110,7 +110,7 @@ export default function PreviewPanel({ url, filePath }: PreviewPanelProps) {
               sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+            <div className="w-full h-full flex items-center justify-center text-slate-700 text-sm">
               <RefreshCw className="w-4 h-4 animate-spin mr-2" />
               Loading preview…
             </div>

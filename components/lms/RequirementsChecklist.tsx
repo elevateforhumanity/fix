@@ -104,14 +104,14 @@ export function RequirementsChecklist({ requirements: initialRequirements, enrol
   if (loading) {
     return (
       <div className="text-center py-8">
-        <Loader2 className="w-5 h-5 animate-spin text-gray-400 mx-auto" />
+        <Loader2 className="w-5 h-5 animate-spin text-slate-700 mx-auto" />
       </div>
     );
   }
 
   if (sortedRequirements.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className="text-center py-8 text-slate-700">
         <p>No requirements yet. Check back soon!</p>
       </div>
     );

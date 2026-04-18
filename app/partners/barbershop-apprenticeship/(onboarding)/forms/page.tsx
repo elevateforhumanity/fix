@@ -171,7 +171,7 @@ export default function RequiredFormsPage() {
         {/* Progress Bar */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-8">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-bold text-gray-900">Completion Progress</h2>
+            <h2 className="text-lg font-bold text-slate-900">Completion Progress</h2>
             <span className="text-sm font-medium text-black">{completedCount} of {totalRequired} complete</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
@@ -201,7 +201,7 @@ export default function RequiredFormsPage() {
               <Image src="/images/pages/barber-tools.jpg" alt="Sign MOU" fill className="object-cover group-hover:scale-105 transition-transform" sizes="33vw" />
             </div>
             <div className="p-4">
-              <p className="font-semibold text-gray-900">Sign MOU</p>
+              <p className="font-semibold text-slate-900">Sign MOU</p>
               <p className="text-sm text-black">Digital signature required</p>
             </div>
           </Link>
@@ -213,7 +213,7 @@ export default function RequiredFormsPage() {
               <Image src="/images/pages/admin-campaigns-new-hero.jpg" alt="Partner Handbook" fill className="object-cover group-hover:scale-105 transition-transform" sizes="33vw" />
             </div>
             <div className="p-4">
-              <p className="font-semibold text-gray-900">Partner Handbook</p>
+              <p className="font-semibold text-slate-900">Partner Handbook</p>
               <p className="text-sm text-black">Policies & responsibilities</p>
             </div>
           </Link>
@@ -225,7 +225,7 @@ export default function RequiredFormsPage() {
               <Image src="/images/pages/barber-shop-interior.jpg" alt="Policy Forms" fill className="object-cover group-hover:scale-105 transition-transform" sizes="33vw" />
             </div>
             <div className="p-4">
-              <p className="font-semibold text-gray-900">Policy Forms</p>
+              <p className="font-semibold text-slate-900">Policy Forms</p>
               <p className="text-sm text-black">6 acknowledgments required</p>
             </div>
           </Link>
@@ -249,7 +249,7 @@ export default function RequiredFormsPage() {
                     <catInfo.icon className="w-4 h-4" />
                   </div>
                 )}
-                <h3 className="text-lg font-bold text-gray-900">{catInfo.label}</h3>
+                <h3 className="text-lg font-bold text-slate-900">{catInfo.label}</h3>
               </div>
               <div className="space-y-3">
                 {catForms.map((form) => {
@@ -272,12 +272,12 @@ export default function RequiredFormsPage() {
                         {isComplete ? (
                           <CheckCircle2 className="w-6 h-6 text-brand-green-500" />
                         ) : (
-                          <Circle className="w-6 h-6 text-gray-300" />
+                          <Circle className="w-6 h-6 text-slate-700" />
                         )}
                       </button>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <h4 className={`font-semibold ${isComplete ? 'text-black line-through' : 'text-gray-900'}`}>
+                          <h4 className={`font-semibold ${isComplete ? 'text-black line-through' : 'text-slate-900'}`}>
                             {form.name}
                           </h4>
                           {form.required && (
@@ -297,7 +297,7 @@ export default function RequiredFormsPage() {
                             <Link
                               href={form.downloadHref}
                               target="_blank"
-                              className="inline-flex items-center gap-1 text-sm font-medium text-black hover:text-gray-700"
+                              className="inline-flex items-center gap-1 text-sm font-medium text-black hover:text-slate-900"
                             >
                               <Download className="w-3 h-3" />
                               Preview
@@ -331,7 +331,7 @@ export default function RequiredFormsPage() {
         {/* Next Step */}
         <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-xl p-6 mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="font-bold text-gray-900">All forms ready?</h3>
+            <h3 className="font-bold text-slate-900">All forms ready?</h3>
             <p className="text-sm text-black">Submit your partner application to get started.</p>
           </div>
           <Link

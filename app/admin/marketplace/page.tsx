@@ -38,7 +38,7 @@ export default async function AdminMarketplacePage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Marketplace' }]} />
-        <h1 className="text-2xl font-bold text-gray-900 mt-4 mb-6">Marketplace</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mt-4 mb-6">Marketplace</h1>
         <div className="grid gap-4 sm:grid-cols-3">
           {sections.map((s) => (
             <Link
@@ -47,8 +47,8 @@ export default async function AdminMarketplacePage() {
               className="bg-white rounded-lg border p-6 hover:shadow-md transition-shadow"
             >
               <s.icon className="w-8 h-8 text-brand-blue-600 mb-3" />
-              <h2 className="font-semibold text-gray-900">{s.name}</h2>
-              <p className="text-sm text-gray-500 mt-1">{s.description}</p>
+              <h2 className="font-semibold text-slate-900">{s.name}</h2>
+              <p className="text-sm text-slate-700 mt-1">{s.description}</p>
             </Link>
           ))}
         </div>

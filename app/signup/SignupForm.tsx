@@ -164,7 +164,7 @@ function SignupFormContent() {
           <p className="text-black mb-2">
             Check your email for a verification link and click it to activate your account.
           </p>
-          <p className="text-sm text-gray-600 mb-6">
+          <p className="text-sm text-slate-700 mb-6">
             Once verified, you will be taken directly to your onboarding portal based on your selected role.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -177,7 +177,7 @@ function SignupFormContent() {
             <button
               onClick={handleResendVerification}
               disabled={resendLoading || resendSent}
-              className="px-6 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-2 border border-gray-300 rounded-lg text-sm text-slate-900 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {resendSent ? 'Email resent ✓' : resendLoading ? 'Sending…' : 'Resend verification email'}
             </button>
@@ -304,7 +304,7 @@ function SignupFormContent() {
                 <span aria-hidden="true">✓</span> Password looks good
               </p>
             ) : (
-              <p className="text-xs text-gray-500">Must be at least 8 characters</p>
+              <p className="text-xs text-slate-700">Must be at least 8 characters</p>
             )}
           </div>
         </div>
@@ -347,7 +347,7 @@ function SignupFormContent() {
             <option value="partner">Program Partner / Instructor</option>
             <option value="employer">Employer</option>
           </select>
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-slate-700">
             Select the role that best describes why you are creating this account.
           </p>
         </div>
@@ -389,7 +389,7 @@ function SignupFormContent() {
       <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-300" /></div>
-          <div className="relative flex justify-center text-sm"><span className="px-2 bg-white text-gray-500">Or continue with</span></div>
+          <div className="relative flex justify-center text-sm"><span className="px-2 bg-white text-slate-700">Or continue with</span></div>
         </div>
 
         <div className="mt-4 space-y-3">

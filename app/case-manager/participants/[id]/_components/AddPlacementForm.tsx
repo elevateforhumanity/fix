@@ -79,7 +79,7 @@ export default function AddPlacementForm({ learnerId, caseManagerId }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="border border-gray-200 rounded-lg p-4 space-y-3 bg-gray-50">
-      <h4 className="text-sm font-semibold text-gray-700">New Placement</h4>
+      <h4 className="text-sm font-semibold text-slate-900">New Placement</h4>
 
       <div className="grid grid-cols-2 gap-3">
         <Field label="Employer">
@@ -131,7 +131,7 @@ export default function AddPlacementForm({ learnerId, caseManagerId }: Props) {
           {loading ? 'Saving…' : 'Save Placement'}
         </button>
         <button type="button" onClick={() => setOpen(false)}
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50">
+          className="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-gray-50">
           Cancel
         </button>
       </div>
@@ -142,7 +142,7 @@ export default function AddPlacementForm({ learnerId, caseManagerId }: Props) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-600 mb-1">{label}</label>
+      <label className="block text-xs font-medium text-slate-700 mb-1">{label}</label>
       {children}
     </div>
   );

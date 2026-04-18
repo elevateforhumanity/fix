@@ -67,18 +67,18 @@ export default async function AdminFerpaPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
               <Shield className="w-8 h-8 text-brand-blue-600" />
               FERPA Compliance Dashboard
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-slate-700 mt-1">
               Manage student privacy, consent forms, and records access
             </p>
           </div>
           <div className="flex gap-3">
             <Link
               href="/admin/ferpa"
-              className="px-4 py-2 bg-white border rounded-lg hover:bg-gray-50 text-gray-700 font-medium"
+              className="px-4 py-2 bg-white border rounded-lg hover:bg-gray-50 text-slate-900 font-medium"
             >
               Audit Log
             </Link>
@@ -99,18 +99,18 @@ export default async function AdminFerpaPage() {
                 <stat.icon className={`w-8 h-8 ${
                   stat.color === 'green' ? 'text-brand-green-600' :
                   stat.color === 'yellow' ? 'text-yellow-600' :
-                  stat.color === 'blue' ? 'text-brand-blue-600' : 'text-gray-600'
+                  stat.color === 'blue' ? 'text-brand-blue-600' : 'text-slate-700'
                 }`} />
                 <span className={`text-xs font-medium px-2 py-1 rounded-full ${
                   stat.color === 'green' ? 'bg-brand-green-100 text-brand-green-700' :
                   stat.color === 'yellow' ? 'bg-yellow-100 text-yellow-700' :
-                  stat.color === 'blue' ? 'bg-brand-blue-100 text-brand-blue-700' : 'bg-gray-100 text-gray-700'
+                  stat.color === 'blue' ? 'bg-brand-blue-100 text-brand-blue-700' : 'bg-gray-100 text-slate-900'
                 }`}>
                   {stat.color === 'green' ? 'Good' : stat.color === 'yellow' ? 'Action Needed' : 'Info'}
                 </span>
               </div>
-              <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
-              <div className="text-gray-600 text-sm">{stat.label}</div>
+              <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
+              <div className="text-slate-700 text-sm">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -119,58 +119,58 @@ export default async function AdminFerpaPage() {
           {/* Quick Actions */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl p-6 shadow-sm border">
-              <h2 className="font-semibold text-gray-900 mb-4">Quick Actions</h2>
+              <h2 className="font-semibold text-slate-900 mb-4">Quick Actions</h2>
               <div className="space-y-3">
                 <Link
                   href="/admin/ferpa"
                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <FileText className="w-5 h-5 text-brand-blue-600" />
-                  <span className="text-gray-700">Manage Consent Forms</span>
+                  <span className="text-slate-900">Manage Consent Forms</span>
                 </Link>
                 <Link
                   href="/admin/ferpa"
                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <Eye className="w-5 h-5 text-brand-blue-600" />
-                  <span className="text-gray-700">Review Access Requests</span>
+                  <span className="text-slate-900">Review Access Requests</span>
                 </Link>
                 <Link
                   href="/admin/ferpa"
                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <Users className="w-5 h-5 text-brand-green-600" />
-                  <span className="text-gray-700">Directory Information</span>
+                  <span className="text-slate-900">Directory Information</span>
                 </Link>
                 <Link
                   href="/admin/ferpa"
                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <Download className="w-5 h-5 text-brand-orange-600" />
-                  <span className="text-gray-700">Generate Reports</span>
+                  <span className="text-slate-900">Generate Reports</span>
                 </Link>
               </div>
             </div>
 
             {/* Compliance Checklist */}
             <div className="bg-white rounded-xl p-6 shadow-sm border mt-6">
-              <h2 className="font-semibold text-gray-900 mb-4">Annual Compliance</h2>
+              <h2 className="font-semibold text-slate-900 mb-4">Annual Compliance</h2>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <span className="text-slate-400 flex-shrink-0">•</span>
-                  <span className="text-gray-700 text-sm">Annual FERPA notice sent</span>
+                  <span className="text-slate-900 text-sm">Annual FERPA notice sent</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="text-slate-400 flex-shrink-0">•</span>
-                  <span className="text-gray-700 text-sm">Staff training completed</span>
+                  <span className="text-slate-900 text-sm">Staff training completed</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="text-slate-400 flex-shrink-0">•</span>
-                  <span className="text-gray-700 text-sm">Directory opt-out period closed</span>
+                  <span className="text-slate-900 text-sm">Directory opt-out period closed</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-yellow-600" />
-                  <span className="text-gray-700 text-sm">Q1 audit pending</span>
+                  <span className="text-slate-900 text-sm">Q1 audit pending</span>
                 </div>
               </div>
             </div>
@@ -181,10 +181,10 @@ export default async function AdminFerpaPage() {
             <div className="bg-white rounded-xl shadow-sm border">
               <div className="p-6 border-b">
                 <div className="flex items-center justify-between">
-                  <h2 className="font-semibold text-gray-900">Recent Activity</h2>
+                  <h2 className="font-semibold text-slate-900">Recent Activity</h2>
                   <div className="flex gap-2">
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                       <input
                         type="text"
                         placeholder="Search..."
@@ -192,7 +192,7 @@ export default async function AdminFerpaPage() {
                       />
                     </div>
                     <button className="p-2 border rounded-lg hover:bg-gray-50">
-                      <Filter className="w-4 h-4 text-gray-600" />
+                      <Filter className="w-4 h-4 text-slate-700" />
                     </button>
                   </div>
                 </div>
@@ -202,8 +202,8 @@ export default async function AdminFerpaPage() {
                   <div key={index} className="p-4 hover:bg-gray-50">
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-medium text-gray-900">{activity.action}</div>
-                        <div className="text-sm text-gray-600">Student: {activity.student}</div>
+                        <div className="font-medium text-slate-900">{activity.action}</div>
+                        <div className="text-sm text-slate-700">Student: {activity.student}</div>
                       </div>
                       <div className="text-right">
                         <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
@@ -213,7 +213,7 @@ export default async function AdminFerpaPage() {
                         }`}>
                           {activity.status}
                         </span>
-                        <div className="text-sm text-gray-500 mt-1">{activity.date}</div>
+                        <div className="text-sm text-slate-700 mt-1">{activity.date}</div>
                       </div>
                     </div>
                   </div>

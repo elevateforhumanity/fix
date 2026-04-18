@@ -118,8 +118,8 @@ export default async function BookingPage() {
                 >
                   <IconComponent className="w-10 h-10 text-slate-700 mb-4 group-hover:text-slate-900" />
                   <h3 className="font-semibold text-xl mb-2">{type.name}</h3>
-                  <p className="text-gray-600 mb-4">{type.description}</p>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <p className="text-slate-700 mb-4">{type.description}</p>
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
                     <Clock className="w-4 h-4" />
                     <span>{type.duration} minutes</span>
                   </div>
@@ -140,7 +140,7 @@ export default async function BookingPage() {
                     <MapPin className="w-6 h-6 text-slate-700 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">{location.name}</h3>
-                      <p className="text-gray-600">
+                      <p className="text-slate-700">
                         {location.address}<br />
                         {location.city}, {location.state}
                       </p>
@@ -155,7 +155,7 @@ export default async function BookingPage() {
                     <MapPin className="w-6 h-6 text-slate-700 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">Main Campus</h3>
-                      <p className="text-gray-600">
+                      <p className="text-slate-700">
                         123 Education Way<br />
                         Indianapolis, IN 46204
                       </p>
@@ -167,7 +167,7 @@ export default async function BookingPage() {
                     <Video className="w-6 h-6 text-slate-700 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg">Virtual Appointments</h3>
-                      <p className="text-gray-600">
+                      <p className="text-slate-700">
                         Available via Zoom or Google Meet<br />
                         Flexible scheduling options
                       </p>
@@ -196,7 +196,7 @@ export default async function BookingPage() {
                     )}
                   </div>
                   <h3 className="font-semibold">{member.name}</h3>
-                  <p className="text-sm text-gray-600">{member.title}</p>
+                  <p className="text-sm text-slate-700">{member.title}</p>
                 </div>
               ))}
             </div>
@@ -207,7 +207,7 @@ export default async function BookingPage() {
         <section>
           <div className="bg-white rounded-xl p-8 text-center">
             <h3 className="font-semibold text-xl mb-2">Need Immediate Assistance?</h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-slate-700 mb-4">
               Our team is available Monday-Friday, 9am-5pm EST.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
