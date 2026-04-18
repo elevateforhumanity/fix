@@ -208,7 +208,7 @@ export default function HeroVideo({
                   </h1>
                 )}
                 {belowHeroSubheadline && (
-                  <p className="text-slate-600 text-lg leading-relaxed mb-8 max-w-2xl">
+                  <p className="text-slate-900 text-lg leading-relaxed mb-8 max-w-2xl">
                     {belowHeroSubheadline}
                   </p>
                 )}
@@ -262,7 +262,7 @@ export default function HeroVideo({
             {transcriptOpen && (
               <p
                 id={transcriptId}
-                className="mt-3 text-slate-600 text-sm leading-relaxed max-w-2xl"
+                className="mt-3 text-slate-800 text-sm leading-relaxed max-w-2xl"
               >
                 {transcript}
               </p>

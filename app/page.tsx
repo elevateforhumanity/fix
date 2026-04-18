@@ -80,7 +80,7 @@ export default function HomePage() {
             ].map((b) => (
               <div key={b.label} className={`bg-white border-t-4 ${b.accent} rounded-xl shadow-sm p-6 flex flex-col`}>
                 <h3 className="text-base font-bold text-slate-900 mb-2">{b.label}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed flex-1 mb-5">{b.desc}</p>
+                <p className="text-sm text-slate-800 leading-relaxed flex-1 mb-5">{b.desc}</p>
                 <Link href={b.href} className={`${b.ctaClass} text-white text-sm font-bold px-4 py-2.5 rounded-lg text-center transition-colors`}>
                   {b.cta}
                 </Link>
@@ -126,7 +126,7 @@ export default function HomePage() {
                   <div key={f.label} className="bg-white rounded-xl p-4">
                     <p className="text-brand-red-600 text-xs font-bold uppercase tracking-widest mb-1">{f.tag}</p>
                     <h3 className="text-slate-900 font-bold text-sm mb-1">{f.label}</h3>
-                    <p className="text-slate-600 text-xs leading-relaxed">{f.desc}</p>
+                    <p className="text-slate-800 text-xs leading-relaxed">{f.desc}</p>
                   </div>
                 ))}
               </div>
@@ -137,7 +137,7 @@ export default function HomePage() {
             <div className="lg:flex-shrink-0 bg-white rounded-2xl p-8 text-center lg:w-64">
               <p className="text-4xl font-black text-brand-red-600 mb-2">Funded</p>
               <p className="text-slate-800 text-sm font-semibold mb-4">for eligible participants</p>
-              <p className="text-slate-500 text-xs leading-relaxed">Funding covers tuition, books, tools, and exam fees for qualifying programs. Not all programs qualify — check eligibility first.</p>
+              <p className="text-slate-700 text-xs leading-relaxed">Funding covers tuition, books, tools, and exam fees for qualifying programs. Not all programs qualify — check eligibility first.</p>
             </div>
           </div>
         </div>

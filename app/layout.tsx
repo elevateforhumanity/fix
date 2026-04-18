@@ -17,7 +17,7 @@ import PWAManager from '@/app/components/PWAManager';
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'block',
   variable: '--font-inter',
   preload: true,
   fallback: ['system-ui', '-apple-system', 'sans-serif'],
@@ -183,8 +183,8 @@ export default function RootLayout({
         {/* Critical CSS to prevent FOUC on mobile */}
         <style dangerouslySetInnerHTML={{__html: `
           *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-          html{-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;background:#fff}
-          body{margin:0;line-height:1.6;background:#fff;font-size:17px;min-height:100vh}
+          html{-webkit-text-size-adjust:100%;background:#fff}
+          body{margin:0;line-height:1.6;background:#fff;font-size:17px;min-height:100vh;color:#111827}
           img{max-width:100%;height:auto;display:block}
           button,input,select,textarea{font-family:inherit;font-size:100%}
           .flex{display:flex}
