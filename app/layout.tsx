@@ -7,7 +7,6 @@ import './globals.css';
 import StructuredData from '@/components/StructuredData';
 import PublicLayout from '@/components/layout/PublicLayout';
 import ToasterClient from '@/components/ui/ToasterClient';
-import CookieConsent from '@/components/CookieConsent';
 import { SkipToContent } from '@/components/ui/SkipToContent';
 import { DMCATrackingPixel } from '@/components/InvisibleWatermark';
 import { Inter } from 'next/font/google';
@@ -231,7 +230,6 @@ export default function RootLayout({
         <AdminPWAInit />
         <PWAManager />
         <PublicLayout>{children}</PublicLayout>
-        <CookieConsent />
         <DMCATrackingPixel />
         <RootWidgets />
         <ToasterClient />

@@ -95,7 +95,7 @@ const EXCLUDED_PREFIXES = [
   '/supersonic-fast-cash',
   '/supersonic',
   // Redirect-only routes — canonical URLs are elsewhere
-  '/programs/cna-certification',
+  '/programs/cna',
   '/programs/cdl/waitlist',
 
   // Portal/role-specific routes — auth-gated, not public content

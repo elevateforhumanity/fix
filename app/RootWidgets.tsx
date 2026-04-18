@@ -22,6 +22,13 @@ const ServiceWorkerRegistration = dynamicImport(
   { ssr: false, loading: () => null }
 );
 
+// Deferred — cookie banner shows after 1s delay anyway, no reason to block
+// the critical bundle. Moved here from app/layout.tsx synchronous import.
+const CookieConsent = dynamicImport(() => import('@/components/CookieConsent'), {
+  ssr: false,
+  loading: () => null,
+});
+
 export default function RootWidgets() {
   return (
     <>
@@ -29,6 +36,7 @@ export default function RootWidgets() {
       <FacebookPixel />
       <ConditionalAIBubble />
       <ServiceWorkerRegistration />
+      <CookieConsent />
     </>
   );
 }
