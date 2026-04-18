@@ -1,5 +1,6 @@
 // GDPR compliance utilities
 
+import { randomBytes } from 'crypto';
 import { createClient } from '@/lib/supabase/server';
 
 import { logAuditEvent } from '@/lib/audit';
@@ -115,7 +116,6 @@ export async function anonymizeUserData(userId: string) {
     // Use randomBytes for the anonymous ID — Date.now() produces the same value
     // for two users anonymized within the same millisecond, causing a unique
     // constraint violation on the email column that silently fails.
-    const { randomBytes } = require('crypto') as typeof import('crypto');
     const anonymousId = `anonymous_${randomBytes(8).toString('hex')}`;
 
     // Check each update result — Promise.all swallows individual errors, so

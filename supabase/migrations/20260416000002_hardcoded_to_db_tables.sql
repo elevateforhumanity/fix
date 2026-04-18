@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS public.team_members (
   display_order   integer DEFAULT 0,
   is_active       boolean DEFAULT true,
   created_at      timestamptz DEFAULT now(),
-  updated_at      timestamptz DEFAULT now(),
+  updated_at      timestamptz DEFAULT now()
   UNIQUE (name)
 );
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS public.testimonials (
   is_active       boolean DEFAULT true,
   display_order   integer DEFAULT 0,
   created_at      timestamptz DEFAULT now(),
-  updated_at      timestamptz DEFAULT now(),
+  updated_at      timestamptz DEFAULT now()
   UNIQUE (name, quote)
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS public.faqs (
   display_order   integer DEFAULT 0,
   is_active       boolean DEFAULT true,
   created_at      timestamptz DEFAULT now(),
-  updated_at      timestamptz DEFAULT now(),
+  updated_at      timestamptz DEFAULT now()
   UNIQUE (question, program_slug)
 );
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS public.state_licensing (
   notes               text,
   display_order       integer DEFAULT 0,
   created_at          timestamptz DEFAULT now(),
-  updated_at          timestamptz DEFAULT now(),
+  updated_at          timestamptz DEFAULT now()
   UNIQUE (program_type, state_code)
 );
 

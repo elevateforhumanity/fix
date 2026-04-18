@@ -188,8 +188,12 @@ const nextConfig = {
     // Filesystem cache: serialises the module graph to disk between builds.
     // On Netlify this persists across deploys via the build cache, cutting
     // both cold-start RAM and build time significantly.
+    //
+    // version is tied to the git commit so a new deploy always gets a fresh
+    // cache key — prevents stale partial caches from OOM'd builds being reused.
     config.cache = {
       type: 'filesystem',
+      version: process.env.COMMIT_REF || process.env.GITHUB_SHA || String(Date.now()),
       buildDependencies: {
         config: [new URL(import.meta.url).pathname],
       },

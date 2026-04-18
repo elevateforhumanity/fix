@@ -12,7 +12,7 @@ create table if not exists public.program_instructors (
   program_id    uuid not null references public.programs(id) on delete cascade,
   assigned_at   timestamptz not null default now(),
   assigned_by   uuid references public.profiles(id) on delete set null,
-  is_primary    boolean not null default false,
+  is_primary    boolean not null default false
 
   unique (instructor_id, program_id)
 );

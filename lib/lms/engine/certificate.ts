@@ -12,6 +12,7 @@
  * - No existing certificate for this user+course.
  */
 
+import { randomBytes } from 'crypto';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
 import { sendEmail } from '@/lib/email/sendgrid';
@@ -109,7 +110,6 @@ export async function issueCertificateIfEligible(
   // Use crypto.randomBytes for certificate numbers — Math.random() has only
   // ~2.8 trillion combinations and is not collision-safe under load.
   // 8 random bytes → 16 hex chars gives 1.8 × 10^19 combinations.
-  const { randomBytes } = require('crypto') as typeof import('crypto');
   const certNumber = `EFH-${randomBytes(8).toString('hex').toUpperCase()}`;
   const verificationUrl = `/verify/${certNumber}`;
 

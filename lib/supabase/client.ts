@@ -67,7 +67,7 @@ const noOpClient = {
   removeChannel: () => {},
 } as unknown as SupabaseClient<any>;
 
-let warnedOnce = false;
+const warnedOnce = false;
 
 export function createBrowserClient(): SupabaseClient<any> {
   // process.env.NEXT_PUBLIC_* is inlined by Next.js at build time.

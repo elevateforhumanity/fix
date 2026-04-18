@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS public.competency_results (
   user_id               uuid        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   course_id             uuid        NOT NULL REFERENCES public.courses(id) ON DELETE CASCADE,
   competency_key        text        NOT NULL,
-  status                text        NOT NULL DEFAULT 'not_started'
+  status                text        NOT NULL DEFAULT 'not_started',
                                     CHECK (status IN ('not_started','in_progress','achieved','failed')),
   achieved_at           timestamptz,
   achieved_via          text        CHECK (achieved_via IN ('quiz','lab','exam','observation','assignment')),
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS public.competency_results (
   lesson_id             uuid        REFERENCES public.course_lessons(id) ON DELETE SET NULL,
   evidence_submission_id uuid       REFERENCES public.step_submissions(id) ON DELETE SET NULL,
   created_at            timestamptz NOT NULL DEFAULT now(),
-  updated_at            timestamptz NOT NULL DEFAULT now(),
+  updated_at            timestamptz NOT NULL DEFAULT now()
   UNIQUE (user_id, course_id, competency_key)
 );
 
