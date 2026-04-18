@@ -134,15 +134,13 @@ export default function HeroVideo({
         style={{ height: 'clamp(400px, 56vw, 780px)' }}
         aria-label={analyticsName ? `${analyticsName} hero video` : 'Hero video'}
       >
-        {/* loop — hero videos loop indefinitely; without this the video ends,
-            onEnded fires, and the poster fades back in over the video.
-            No autoPlayOnMount — the 200px rootMargin on the IntersectionObserver
-            fires immediately for above-fold content without making a network
-            request on mount. Poster shows instantly; video loads only when needed. */}
+        {/* autoPlayOnMount — hero is always above the fold; start immediately.
+            loop — prevents the poster fading back in when the video ends. */}
         <CanonicalVideo
           src={videoSrc}
           poster={posterImage}
           className="absolute inset-0 w-full h-full object-cover object-center"
+          autoPlayOnMount
           loop
         />
 
