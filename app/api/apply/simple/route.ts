@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 
 async function _POST(req: Request) {
   try {
-    try { const rl = await applyRateLimit(req, 'strict'); if (rl) return rl; } catch { /* non-fatal */ }
+    try { const rl = await applyRateLimit(req, 'strict'); if (rl) return rl; } catch (e) { console.warn('[rate-limit] applyRateLimit failed — continuing without limit', e); }
 
     // Accept both form data and JSON
     const contentType = req.headers.get('content-type') || '';

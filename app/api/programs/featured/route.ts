@@ -14,7 +14,7 @@ export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 async function _GET(req: NextRequest) {
-  try { const rl = await applyRateLimit(req, 'api'); if (rl) return rl; } catch { /* non-fatal */ }
+  try { const rl = await applyRateLimit(req, 'api'); if (rl) return rl; } catch (e) { console.warn('[rate-limit] applyRateLimit failed — continuing without limit', e); }
   let supabase: Awaited<ReturnType<typeof getAdminClient>> | null = null;
   try { supabase = await getAdminClient(); } catch { /* non-fatal — falls back to anon client */ }
   if (!supabase) return NextResponse.json({ programs: [], cached: false });

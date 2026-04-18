@@ -86,7 +86,7 @@ export default async function ApplicationDetailPage({
 
   // Fetch eligibility review if exists
   let adminDb: Awaited<ReturnType<typeof getAdminClient>> | null = null;
-  try { adminDb = await getAdminClient(); } catch { /* non-fatal */ }
+  try { adminDb = await getAdminClient(); } catch (e) { console.warn('[admin/applications] getAdminClient failed — falling back to anon client', e); }
   const { data: eligibilityReview } = adminDb
     ? await adminDb
         .from('application_eligibility_reviews')

@@ -5,7 +5,7 @@ import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeDbError } from '@/lib/api/safe-error';
 
 export async function POST(request: NextRequest) {
-  try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch { /* non-fatal */ }
+  try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch (e) { console.warn('[rate-limit] applyRateLimit failed — continuing without limit', e); }
 
   const auth = await apiAuthGuard(request);
   if (auth.error) return auth.error;
