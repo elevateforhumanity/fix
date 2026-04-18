@@ -74,7 +74,7 @@ async function _POST(req: Request) {
     } else {
       // Step 3: Create auth user with a cryptographically random temp password.
       // Math.random() is predictable — use randomBytes instead.
-      const { randomBytes: _rb } = require('crypto') as typeof import('crypto');
+      const { randomBytes: _rb } = await import('crypto');
       const tempPassword = `EFH-${_rb(8).toString('hex')}-Temp!`;
       const { data: authData, error: authError } =
         await supabase.auth.admin.createUser({

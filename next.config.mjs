@@ -65,7 +65,6 @@ const nextConfig = {
     'hls.js',
     '@mediapipe/tasks-vision',
     // Monaco editor (75 MB) — client-only, loaded via dynamic import
-    '@monaco-editor/react',
     'monaco-editor',
   ],
 

@@ -329,7 +329,7 @@ export default function LessonPage() {
     // 2. Set state
     if (lessonData) {
       let quizQuestions = lessonData.quiz_questions;
-      let quizPassingScore = lessonData.passing_score;
+      const quizPassingScore = lessonData.passing_score;
 
       // Enrich placeholder content with generated rich HTML.
       // If the lesson has pre-rendered HTML (written by the generate route), use it.

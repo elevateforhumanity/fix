@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 
 async function _POST(req: Request) {
   try {
-    try { const rl = await applyRateLimit(req, 'strict'); if (rl) return rl; } catch {}
+    try { const rl = await applyRateLimit(req, 'strict'); if (rl) return rl; } catch { /* non-fatal */ }
 
     // Accept both form data and JSON
     const contentType = req.headers.get('content-type') || '';
@@ -30,7 +30,7 @@ async function _POST(req: Request) {
     const eligible = funding !== "Self Pay" && program !== "Not Sure";
 
     let supabase: Awaited<ReturnType<typeof getAdminClient>> | null = null;
-    try { supabase = await getAdminClient(); } catch {}
+    try { supabase = await getAdminClient(); } catch { /* non-fatal — falls back to anon client */ }
 
     if (!supabase) {
       return NextResponse.json(
