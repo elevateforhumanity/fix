@@ -134,9 +134,7 @@ export default function HeroVideo({
         style={{ height: 'clamp(400px, 56vw, 780px)' }}
         aria-label={analyticsName ? `${analyticsName} hero video` : 'Hero video'}
       >
-        {/* autoPlayOnMount + preloadFull — hero is always above the fold.
-            preloadFull buffers the video immediately so the first frame
-            appears without waiting for the IntersectionObserver tick.
+        {/* autoPlayOnMount — hero is above the fold, play immediately.
             loop — hero videos loop indefinitely; without this the video ends,
             onEnded fires, and the poster fades back in over the video. */}
         <CanonicalVideo
@@ -144,7 +142,6 @@ export default function HeroVideo({
           poster={posterImage}
           className="absolute inset-0 w-full h-full object-cover object-center"
           autoPlayOnMount
-          preloadFull
           loop
         />
 

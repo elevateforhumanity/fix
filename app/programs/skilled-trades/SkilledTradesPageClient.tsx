@@ -36,7 +36,6 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
           src="https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4"
           className="absolute inset-0 w-full h-full object-cover brightness-110"
           autoPlayOnMount
-          preloadFull
           playThrough={false}
         />
 
