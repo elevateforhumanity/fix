@@ -103,10 +103,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
     if (formData.w2Wages || formData.income1099) {
       fetchCalculation();
     }
-    // fetchCalculation is stable across the specific field changes listed here;
-    // including it would cause re-runs on unrelated formData fields.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData.w2Wages, formData.w2Withholding, formData.income1099, formData.filingStatus, formData.deductionType]);
+  }, [formData.w2Wages, formData.w2Withholding, formData.income1099, formData.filingStatus, formData.deductionType, fetchCalculation]);
 
   const saveDraft = async () => {
     setIsSaving(true);
