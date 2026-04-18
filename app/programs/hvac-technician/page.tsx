@@ -9,7 +9,8 @@ import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 import { EPA608_LEAD_OFFER, EPA608_UPSELL_OFFER, EPA608_ONLINE_PRODUCTS } from '@/lib/testing/providers/epa608-pricing';
 
-export const revalidate = 600;
+export const revalidate = 3600; // 1 hour — flat parallel queries are fast enough
+export const maxDuration = 20; // Netlify Pro allows up to 26s; stay under
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

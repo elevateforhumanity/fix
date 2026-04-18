@@ -6,7 +6,8 @@ import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 import { BNPL_PROVIDER_SUMMARY, BNPL_DESCRIPTION } from '@/lib/bnpl-config';
 
-export const revalidate = 600;
+export const revalidate = 3600;
+export const maxDuration = 20;
 
 export const metadata: Metadata = {
   title: 'Peer Recovery Specialist (CPRS) | Indiana Certification | Elevate for Humanity',
