@@ -53,7 +53,7 @@ export const BNPL_PROVIDERS: BnplProvider[] = [
     minAmount: 35,
     maxAmount: 1500,
     description: 'Pay in 4 installments',
-    enabled: true,
+    enabled: false, // no dedicated checkout route — do not advertise until wired
   },
   {
     id: 'cashapp',
