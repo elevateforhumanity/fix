@@ -27,7 +27,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_OPTIONS = "--max-old-space-size=4096"
+  NODE_OPTIONS = "--max-old-space-size=8192"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   # TURBOPACK=0 is the correct env var for Next.js 16.x to disable Turbopack.
   # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are no longer
