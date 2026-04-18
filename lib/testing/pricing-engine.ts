@@ -19,7 +19,9 @@ export type Provider =
   | 'nrf'
   | 'workkeys'
   | 'esco'
-  | 'nha';
+  | 'nha'
+  | 'careersafe'
+  | 'midland';
 
 export interface PricingInput {
   /** Voucher/exam fee you pay the provider — the true variable cost */
@@ -60,11 +62,13 @@ export const GLOBAL_PRICE_MULTIPLIER = 1.05;
  * system maintenance, annual authorization fees) so it gets a higher multiplier.
  */
 const PROVIDER_MULTIPLIERS: Record<Provider, number> = {
-  certiport: 2.1,  // higher compliance burden
-  nrf:       1.9,
-  workkeys:  1.9,
-  esco:      1.8,
-  nha:       1.6,  // NHA already has a high voucher cost; lower multiplier keeps price competitive
+  certiport:  2.1,  // higher compliance burden
+  nrf:        1.9,
+  workkeys:   1.9,
+  esco:       1.8,
+  nha:        1.6,  // NHA already has a high voucher cost; lower multiplier keeps price competitive
+  careersafe: 1.8,  // online delivery — lower fixed cost, same compliance obligation
+  midland:    1.9,  // in-person trade assessment
 };
 
 export function calculatePrice(input: PricingInput): PricingResult {

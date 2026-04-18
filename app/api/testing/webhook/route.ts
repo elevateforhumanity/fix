@@ -116,6 +116,24 @@ export const POST = withRuntime(
       logger.warn('[testing/webhook] Could not generate Calendly link — using public URL', { err });
     }
 
+    // Resolve slot_id — verify the slot still exists and is not cancelled before
+    // writing the FK. If the slot was removed between checkout and webhook, fall
+    // back to null so the booking insert still succeeds.
+    const rawSlotId = meta.slot_id || null;
+    let slotId: string | null = null;
+    if (rawSlotId) {
+      const { data: slotRow } = await db
+        .from('testing_slots')
+        .select('id')
+        .eq('id', rawSlotId)
+        .eq('is_cancelled', false)
+        .maybeSingle();
+      slotId = slotRow?.id ?? null;
+      if (!slotId) {
+        logger.warn('[testing/webhook] slot_id in metadata not found or cancelled — booking without slot', { rawSlotId });
+      }
+    }
+
     const { error: insertErr } = await db.from('exam_bookings').insert({
       exam_type:               meta.exam_type,
       exam_name:               meta.exam_name,
@@ -132,6 +150,7 @@ export const POST = withRuntime(
       add_on:                  hasAddOn,
       add_on_paid:             hasAddOn, // payment confirmed — flip immediately
       calendly_scheduling_url: calendlySchedulingUrl,
+      slot_id:                 slotId,
     });
 
     if (insertErr) {
@@ -139,7 +158,14 @@ export const POST = withRuntime(
       return NextResponse.json({ received: true }); // don't 500 — Stripe will retry
     }
 
-    logger.info('[testing/webhook] Booking created after payment', { confirmationCode, hasAddOn, calendlySchedulingUrl });
+    // Increment slot capacity counter atomically now that the booking row exists
+    if (slotId) {
+      await db.rpc('increment_slot_booked_count', { slot_id: slotId }).catch((err) => {
+        logger.warn('[testing/webhook] Failed to increment slot booked_count', { slotId, err });
+      });
+    }
+
+    logger.info('[testing/webhook] Booking created after payment', { confirmationCode, hasAddOn, calendlySchedulingUrl, slotId });
 
     if (customerEmail) {
       const emailJobs: Promise<unknown>[] = [];

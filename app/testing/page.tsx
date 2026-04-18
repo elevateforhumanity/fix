@@ -19,11 +19,13 @@ export const metadata: Metadata = {
 };
 
 const PROVIDER_IMAGES: Record<string, string> = {
-  esco: '/images/pages/hvac-technician.jpg',
-  nrf: '/images/pages/apply-employer-hero.jpg',
-  certiport: '/images/pages/testing-page-1.jpg',
-  nha: '/images/pages/medical-assistant.jpg',
-  workkeys: '/images/pages/career-services-page-4.jpg',
+  esco:       '/images/pages/hvac-technician.jpg',
+  nrf:        '/images/pages/apply-employer-hero.jpg',
+  certiport:  '/images/pages/testing-page-1.jpg',
+  nha:        '/images/pages/medical-assistant.jpg',
+  workkeys:   '/images/pages/career-services-page-4.jpg',
+  careersafe: '/images/pages/apprenticeships-hero.jpg',
+  midland:    '/images/pages/hvac-technician.jpg',
 };
 
 const CAPABILITY_LABELS: Record<string, string> = {

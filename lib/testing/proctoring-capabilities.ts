@@ -1,3 +1,10 @@
+import { EPA608_FEES }     from './providers/epa608-pricing';
+import { CERTIPORT_FEES }  from './providers/certiport-pricing';
+import { WORKKEYS_FEES }   from './providers/workkeys-pricing';
+import { NRF_FEES }        from './providers/nrf-riseup';
+import { CAREERSAFE_FEES } from './providers/careersafe-pricing';
+import { MIDLAND_FEES }    from './providers/midland-pricing';
+
 /**
  * Proctoring capability model for Elevate's testing center.
  *
@@ -50,6 +57,17 @@ export interface CertProvider {
   exams: (string | ExamDefinition)[];
   /** External verification or scheduling URL */
   verifyUrl?: string;
+  /**
+   * Direct URL to the provider's exam delivery portal.
+   * Used on provider detail pages so a proctor at the testing center can
+   * launch the exam system with one click without hunting for the login page.
+   */
+  examPortalUrl?: string;
+  /**
+   * Short proctor note shown next to the portal button — login requirements,
+   * candidate check-in steps, or anything the proctor needs before clicking launch.
+   */
+  examPortalNote?: string;
   /** Whether Elevate is currently an active authorized site */
   status: 'active' | 'available_through_partner';
   /** Hide from public-facing pages (e.g. not yet offered, internal only) */
@@ -118,11 +136,10 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.escogroup.org/esco/certifications/epa608.aspx',
+    examPortalUrl: 'https://www.escogroup.org/esco/login/',
+    examPortalNote: 'Log in with the Elevate proctor account. Select "Administer Exam", then check in the candidate by confirmation code.',
     status: 'active',
-    fees: [
-      { label: 'Universal (all sections)', amount: 55, note: 'Includes exam fee + proctoring' },
-      { label: 'Single section', amount: 35, note: 'Includes exam fee + proctoring' },
-    ],
+    fees: [...EPA608_FEES],
     groupDiscount: 'Groups of 5+ — contact us for employer/cohort pricing',
     ncrcJobProfiles: [
       {
@@ -192,10 +209,10 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://nrffoundation.org/riseup',
+    examPortalUrl: 'https://riseup.nrf.com/',
+    examPortalNote: 'Log in to the RISE Up Testing Center portal. Select the candidate\'s name from today\'s roster to launch their exam.',
     status: 'active',
-    fees: [
-      { label: 'Per credential exam', amount: 45, note: 'Includes exam fee + proctoring' },
-    ],
+    fees: [...NRF_FEES],
     ncrcJobProfiles: [
       {
         level: 'Retail Industry Fundamentals',
@@ -283,10 +300,10 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://certiport.pearsonvue.com/Locator',
+    examPortalUrl: 'https://certiport.pearsonvue.com/',
+    examPortalNote: 'Log in to the Certiport Management System (CMS) with the proctor account. Go to Exams → Start Exam Session → enter the candidate\'s CMS username to begin.',
     status: 'active',
-    fees: [
-      { label: 'Per exam', amount: 65, note: 'Includes exam voucher + proctoring' },
-    ],
+    fees: [...CERTIPORT_FEES],
     groupDiscount: 'Groups of 5+ — contact us for cohort pricing',
     ncrcJobProfiles: [
       {
@@ -391,6 +408,8 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.nhanow.com/',
+    examPortalUrl: 'https://www.nhanow.com/testing-centers',
+    examPortalNote: 'Log in to the NHA Testing Center portal (account #412957). Search candidate by last name or confirmation code, verify eligibility, then launch the exam session.',
     status: 'active',
     // All NHA exams: $149 exam voucher (pass-through) + $94 testing & administration = $243 total.
     // Pricing locked per owner decision — do not modify without approval.
@@ -494,12 +513,10 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.act.org/content/act/en/products-and-services/workkeys-for-job-seekers.html',
+    examPortalUrl: 'https://workkeys.act.org/',
+    examPortalNote: 'Log in to the ACT WorkKeys Testing Center portal (Realm: 1317721865). Locate the candidate\'s registration, verify their photo ID, then launch the assigned assessments.',
     status: 'active',
-    fees: [
-      { label: 'Per assessment (individual)', amount: 45, note: 'Includes ACT fee + proctoring' },
-      { label: 'Full NCRC (3 assessments)', amount: 120, note: 'Applied Math + Workplace Documents + Graphic Literacy' },
-      { label: 'Per assessment (workforce agency referral)', amount: 35, note: 'WorkOne / WIOA-referred candidates' },
-    ],
+    fees: [...WORKKEYS_FEES],
     groupDiscount: 'Groups of 5+ — $30/assessment. Contact us for employer or cohort scheduling.',
     /**
      * NCRC level requirements by career/industry.
@@ -575,7 +592,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
   // not through the testing center. See /programs/culinary-apprenticeship.
   careersafe: {
     key: 'careersafe',
-    name: 'CareerSafe / OSHA Outreach',
+    name: 'OSHA Outreach Training',
     capability: 'CENTER_REMOTE_ALLOWED',
     description: 'OSHA Outreach Training Program certifications issued through the U.S. Department of Labor. The OSHA 10 and OSHA 30 are the most widely recognized workplace safety credentials in the country. Required by many construction employers, union apprenticeship programs, and federal contractors. A DOL wallet card is issued upon completion — valid for life.',
     exams: [
@@ -601,8 +618,10 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.osha.gov/training/outreach',
+    examPortalUrl: 'https://www.careersafeonline.com/',
+    examPortalNote: 'Log in to the CareerSafe instructor portal. Enroll the candidate in the appropriate OSHA course, then launch the online course session for them.',
     status: 'active',
-    publicVisible: false, // not yet offered publicly — internal/partner use only
+    publicVisible: true,
     fees: [
       { label: 'OSHA 10-Hour', amount: 65, note: 'Includes course + DOL card' },
       { label: 'OSHA 30-Hour', amount: 185, note: 'Includes course + DOL card' },
@@ -630,6 +649,85 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
           { title: 'Union Journeyman (trades)', note: 'OSHA 30 required for journeyman status in many locals' },
           { title: 'Federal Contractor', note: 'Davis-Bacon and federal construction contracts often require OSHA 30' },
           { title: 'Plant / Facilities Manager', note: 'Manufacturing and industrial facility oversight' },
+        ],
+      },
+    ],
+  },
+  midland: {
+    key: 'midland',
+    name: 'Midland Testing — HVAC/R Certifications',
+    capability: 'IN_PERSON_ONLY',
+    description: 'Elevate is an authorized Midland testing partner for HVAC/R trade certifications. Midland provides nationally recognized written and practical assessments for heating, ventilation, air conditioning, and refrigeration technicians. Credentials are issued by Midland upon passing and are recognized by employers, contractors, and state licensing boards across the country.',
+    exams: [
+      {
+        name: 'HVAC/R Technician — Core',
+        description: 'Covers foundational HVAC/R knowledge: electrical theory, refrigeration cycle, tools and safety, system components, and basic troubleshooting. Required before any specialty track assessment.',
+        durationMinutes: 60,
+        questionCount: 60,
+      },
+      {
+        name: 'Air Conditioning & Heat Pumps',
+        description: 'Validates skills in residential and light commercial A/C and heat pump systems — system installation, charging, diagnosing faults, and heat pump reversing valve operation.',
+        durationMinutes: 60,
+        questionCount: 60,
+      },
+      {
+        name: 'Gas & Oil Heating',
+        description: 'Covers installation, service, and troubleshooting of forced-air gas furnaces, oil burners, and hydronic heating systems. Includes combustion analysis, venting, and safety controls.',
+        durationMinutes: 60,
+        questionCount: 60,
+      },
+      {
+        name: 'Commercial Refrigeration',
+        description: 'Tests knowledge of commercial refrigeration systems — reach-in cases, walk-in coolers and freezers, condensing units, and supermarket systems. Includes system design, leak detection, and recovery procedures.',
+        durationMinutes: 60,
+        questionCount: 60,
+      },
+      {
+        name: 'Light Commercial HVAC/R',
+        description: 'Covers rooftop units, split systems, packaged equipment, and light commercial refrigeration. Bridges the gap between residential service and full commercial systems.',
+        durationMinutes: 75,
+        questionCount: 75,
+      },
+    ],
+    verifyUrl: 'https://www.midlandtesting.com/',
+    examPortalUrl: 'https://www.midlandtesting.com/testing-centers',
+    examPortalNote: 'Log in to the Midland Testing proctor portal with the Elevate site credentials. Locate the candidate by their registration ID or last name, verify photo ID, then launch the assigned assessment.',
+    status: 'active',
+    fees: [
+      { label: 'Core assessment', amount: 50, note: 'Includes exam + Midland registration' },
+      { label: 'Specialty track assessment', amount: 60, note: 'Includes exam + Midland registration' },
+    ],
+    groupDiscount: 'Groups of 5+ — contact us for employer or cohort pricing',
+    ncrcJobProfiles: [
+      {
+        level: 'Core',
+        score: 'Entry HVAC/R',
+        color: 'amber',
+        jobs: [
+          { title: 'HVAC/R Installer Helper', note: 'Assists journeyman techs on residential installs' },
+          { title: 'Maintenance Technician', note: 'Preventive maintenance, filter changes, basic service' },
+          { title: 'Refrigeration Apprentice', note: 'Entry-level food service and cold storage work' },
+        ],
+      },
+      {
+        level: 'A/C & Heat Pumps / Gas & Oil Heating',
+        score: 'Residential Service',
+        color: 'blue',
+        jobs: [
+          { title: 'Residential HVAC Technician', note: 'Full-service residential installs and repairs' },
+          { title: 'HVAC Service Tech', note: 'Seasonal tune-ups, warranty service, emergency calls' },
+          { title: 'Heat Pump Specialist', note: 'Inverter and variable-speed heat pump systems' },
+        ],
+      },
+      {
+        level: 'Commercial Refrigeration / Light Commercial HVAC',
+        score: 'Commercial Tech',
+        color: 'yellow',
+        jobs: [
+          { title: 'Commercial Refrigeration Technician', note: 'Grocery stores, restaurants, cold storage facilities' },
+          { title: 'Light Commercial HVAC Tech', note: 'Rooftop units, small commercial split systems' },
+          { title: 'Facilities HVAC Tech', note: 'Office buildings, schools, healthcare facilities' },
         ],
       },
     ],
