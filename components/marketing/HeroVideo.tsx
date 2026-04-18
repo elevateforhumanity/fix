@@ -235,7 +235,7 @@ export default function HeroVideo({
                 {trustIndicators && trustIndicators.length > 0 && (
                   <ul className="flex flex-wrap gap-x-6 gap-y-1.5 mt-2">
                     {trustIndicators.map((item) => (
-                      <li key={item} className="flex items-center gap-1.5 text-white text-sm">
+                      <li key={item} className="flex items-center gap-1.5 text-slate-900 text-sm font-medium">
                         <span className="w-1 h-1 rounded-full bg-brand-red-400 flex-shrink-0" />
                         {item}
                       </li>
