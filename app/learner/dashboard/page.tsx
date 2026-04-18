@@ -14,7 +14,6 @@ import {
   Trophy,
   BookOpen,
   BarChart3,
-  GraduationCap,
   Award,
   CheckCircle,
   Upload,
@@ -24,6 +23,8 @@ import {
   Calendar,
   FileText,
   ScrollText,
+  Mail,
+  MapPin,
 } from 'lucide-react';
 import { logger } from '@/lib/logger';
 import HeroVideo from '@/components/marketing/HeroVideo';
@@ -103,13 +104,13 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
             <div className="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-6">
               <Clock className="w-10 h-10 text-amber-600" />
             </div>
-            <h1 className="text-2xl font-black text-gray-900 mb-3">
+            <h1 className="text-2xl font-black text-slate-900 mb-3">
               Thank you for completing onboarding!
             </h1>
-            <p className="text-gray-600 mb-2">
+            <p className="text-slate-600 mb-2">
               Your application for <strong>{programName}</strong> is under review.
             </p>
-            <p className="text-gray-500 text-sm mb-8">
+            <p className="text-slate-500 text-sm mb-8">
               Access to your courses will be granted once your full application is approved by our admissions team. You'll receive an email at <strong>{user.email}</strong> as soon as access is granted — typically within 1 business day.
             </p>
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-left mb-8">
@@ -120,12 +121,12 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                 <li>Log back in to access your courses and start training</li>
               </ol>
             </div>
-            <p className="text-sm text-gray-500 mb-6">
-              Questions? Call <a href="tel:3173143757" className="text-gray-900 font-semibold">(317) 314-3757</a> or email{' '}
-              <a href="mailto:info@elevateforhumanity.org" className="text-gray-900 font-semibold">info@elevateforhumanity.org</a>
+            <p className="text-sm text-slate-500 mb-6">
+              Questions? Call <a href="tel:3173143757" className="text-slate-900 font-semibold">(317) 314-3757</a> or email{' '}
+              <a href="mailto:info@elevateforhumanity.org" className="text-slate-900 font-semibold">info@elevateforhumanity.org</a>
             </p>
             <div className="border-t pt-6 text-left">
-              <p className="text-sm text-gray-500 mb-1">Need another sign-in link?</p>
+              <p className="text-sm text-slate-500 mb-1">Need another sign-in link?</p>
               <ResendMagicLinkForm
                 defaultEmail={user.email ?? ''}
                 next="/learner/dashboard"
@@ -190,30 +191,30 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
     <div className="min-h-screen bg-white">
 
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
-              <Link href="/" className="text-xl font-bold text-gray-900">
+              <Link href="/" className="text-xl font-bold text-slate-900">
                 Elevate LMS
               </Link>
               <span className="text-slate-300">|</span>
-              <span className="text-gray-500 text-sm">Learner Portal</span>
+              <span className="text-slate-500 text-sm">Learner Portal</span>
             </div>
             <div className="flex items-center gap-4">
-              <button className="relative p-2 text-gray-500 hover:text-gray-700">
+              <Link href="/lms/notifications" className="relative p-2 text-slate-500 hover:text-slate-700" aria-label="Notifications">
                 <Bell className="w-5 h-5" />
                 {notifications && notifications.length > 0 && (
                   <span className="absolute top-0 right-0 w-2 h-2 bg-brand-red-500 rounded-full" />
                 )}
-              </button>
+              </Link>
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-brand-orange-100 rounded-full flex items-center justify-center">
                   <span className="text-brand-orange-600 font-medium text-sm">
                     {userName.charAt(0).toUpperCase()}
                   </span>
                 </div>
-                <span className="text-sm font-medium text-gray-700">{userName}</span>
+                <span className="text-sm font-medium text-slate-700">{userName}</span>
               </div>
             </div>
           </div>
@@ -236,17 +237,17 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome + How to use */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-1">
+          <h1 className="text-2xl font-bold text-slate-900 mb-1">
             Welcome back, {userName}
           </h1>
           {activeEnrollments.length > 0 ? (
-            <p className="text-gray-500 text-sm mb-6">
+            <p className="text-slate-500 text-sm mb-6">
               {activeEnrollments.length === 1
                 ? `1 active program — ${averageProgress}% complete`
                 : `${activeEnrollments.length} active programs — ${averageProgress}% average progress`}
             </p>
           ) : (
-            <p className="text-gray-500 text-sm mb-6">No active programs yet — see available programs below.</p>
+            <p className="text-slate-500 text-sm mb-6">No active programs yet — see available programs below.</p>
           )}
 
           {/* How to use your dashboard */}
@@ -307,50 +308,50 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                 <BookOpen className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Active Programs</p>
-                <p className="text-2xl font-bold text-gray-900">{activeEnrollments.length}</p>
+                <p className="text-sm text-slate-500">Active Programs</p>
+                <p className="text-2xl font-bold text-slate-900">{activeEnrollments.length}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-brand-green-100 rounded-lg flex items-center justify-center">
                 <span className="text-slate-500 flex-shrink-0">•</span>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Completed</p>
-                <p className="text-2xl font-bold text-gray-900">{completedEnrollments.length}</p>
+                <p className="text-sm text-slate-500">Completed</p>
+                <p className="text-2xl font-bold text-slate-900">{completedEnrollments.length}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-brand-orange-100 rounded-lg flex items-center justify-center">
                 <Clock className="w-6 h-6 text-brand-orange-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Training Hours</p>
-                <p className="text-2xl font-bold text-gray-900">{totalHours}</p>
+                <p className="text-sm text-slate-500">Training Hours</p>
+                <p className="text-2xl font-bold text-slate-900">{totalHours}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                 <BarChart3 className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Avg Progress</p>
-                <p className="text-2xl font-bold text-gray-900">{averageProgress}%</p>
+                <p className="text-sm text-slate-500">Avg Progress</p>
+                <p className="text-2xl font-bold text-slate-900">{averageProgress}%</p>
               </div>
             </div>
           </div>
@@ -360,12 +361,12 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
           {/* Main Content - Programs */}
           <div className="lg:col-span-2 space-y-6">
             {/* Current Programs */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">My Programs</h2>
-                <p className="text-xs text-gray-400 mt-0.5">Programs you are currently enrolled in</p>
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
+                <h2 className="text-lg font-semibold text-slate-900">My Programs</h2>
+                <p className="text-xs text-slate-400 mt-0.5">Programs you are currently enrolled in</p>
               </div>
-              <div className="divide-y divide-gray-200">
+              <div className="divide-y divide-slate-200">
                 {activeEnrollments.length > 0 ? (
                   activeEnrollments.map((enrollment: any) => {
                     const course = Array.isArray(enrollment.courses) ? enrollment.courses[0] : enrollment.courses;
@@ -374,23 +375,23 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                       <div className="flex gap-4">
                         <div className="w-20 h-20 bg-white rounded-lg overflow-hidden flex-shrink-0">
                             <div className="w-full h-full flex items-center justify-center">
-                              <GraduationCap className="w-8 h-8 text-gray-400" />
+                              <BookOpen className="w-8 h-8 text-slate-400" />
                             </div>
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 mb-1">
+                          <h3 className="font-semibold text-slate-900 mb-1">
                             {course?.title || 'Course'}
                           </h3>
-                          <p className="text-sm text-gray-500 mb-3 line-clamp-1">
+                          <p className="text-sm text-slate-500 mb-3 line-clamp-1">
                             {course?.description || 'No description available'}
                           </p>
                           <div className="flex items-center gap-4">
                             <div className="flex-1">
                               <div className="flex items-center justify-between text-sm mb-1">
-                                <span className="text-gray-500">Progress</span>
-                                <span className="font-medium text-gray-900">{enrollment.progress || 0}%</span>
+                                <span className="text-slate-500">Progress</span>
+                                <span className="font-medium text-slate-900">{enrollment.progress || 0}%</span>
                               </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div className="w-full bg-slate-200 rounded-full h-2">
                                 <div
                                   className="bg-brand-orange-500 h-2 rounded-full transition-all"
                                   style={{ width: `${enrollment.progress || 0}%` }}
@@ -414,25 +415,25 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                   
                 ) : (
                   <div className="p-10 text-center">
-                    <BookOpen className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-                    <h3 className="text-base font-medium text-gray-900 mb-1">No active programs yet</h3>
-                    <p className="text-sm text-gray-500">Once you enroll, your programs will appear here. See the WIOA-Funded Programs section below to get started.</p>
+                    <BookOpen className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+                    <h3 className="text-base font-medium text-slate-900 mb-1">No active programs yet</h3>
+                    <p className="text-sm text-slate-500">Once you enroll, your programs will appear here. See the WIOA-Funded Programs section below to get started.</p>
                   </div>
                 )}
               </div>
 
               {/* External (admin-managed) program enrollments */}
               {(externalEnrollments ?? []).length > 0 && (
-                <div className="divide-y divide-gray-200 border-t border-gray-200">
+                <div className="divide-y divide-slate-200 border-t border-slate-200">
                   {(externalEnrollments ?? []).map((ext: any) => (
                     <div key={ext.id} className="p-6">
                       <div className="flex gap-4 items-start">
                         <div className="w-16 h-16 bg-brand-blue-50 rounded-lg flex-shrink-0 flex items-center justify-center">
-                          <GraduationCap className="w-7 h-7 text-brand-blue-400" />
+                          <BookOpen className="w-7 h-7 text-brand-blue-400" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold text-gray-900 capitalize">
+                            <h3 className="font-semibold text-slate-900 capitalize">
                               {ext.program_slug.replace(/-/g, ' ')}
                             </h3>
                             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-brand-blue-100 text-brand-blue-800">
@@ -440,12 +441,12 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                             </span>
                           </div>
                           {ext.start_date && (
-                            <p className="text-xs text-gray-400 mb-3">
+                            <p className="text-xs text-slate-400 mb-3">
                               Start date: {new Date(ext.start_date).toLocaleDateString()}
                             </p>
                           )}
                           {ext.notes && (
-                            <p className="text-sm text-gray-500 mb-3">{ext.notes}</p>
+                            <p className="text-sm text-slate-500 mb-3">{ext.notes}</p>
                           )}
                           <div className="flex flex-wrap gap-2 mt-2">
                             <Link
@@ -456,13 +457,13 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                             </Link>
                             <Link
                               href="/support/contact"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:bg-gray-50 transition"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 text-slate-600 text-xs font-semibold rounded-lg hover:bg-slate-50 transition"
                             >
                               <MessageSquare className="w-3.5 h-3.5" /> Contact Advisor
                             </Link>
                             <Link
                               href="/lms/attendance"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-200 text-gray-600 text-xs font-semibold rounded-lg hover:bg-gray-50 transition"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 text-slate-600 text-xs font-semibold rounded-lg hover:bg-slate-50 transition"
                             >
                               <Calendar className="w-3.5 h-3.5" /> Track Hours
                             </Link>
@@ -486,50 +487,50 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Link
                   href="/lms/courses"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
+                  className="flex flex-col items-center p-4 rounded-lg border border-slate-100 hover:bg-slate-50 transition"
                 >
                   <BookOpen className="w-8 h-8 text-brand-blue-600 mb-2" />
-                  <span className="text-sm font-medium text-gray-700">My Courses</span>
+                  <span className="text-sm font-medium text-slate-700">My Courses</span>
                 </Link>
                 <Link
                   href="/lms/certificates"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
+                  className="flex flex-col items-center p-4 rounded-lg border border-slate-100 hover:bg-slate-50 transition"
                 >
                   <Award className="w-8 h-8 text-emerald-600 mb-2" />
-                  <span className="text-sm font-medium text-gray-700">Certificates</span>
+                  <span className="text-sm font-medium text-slate-700">Certificates</span>
                 </Link>
                 <Link
                   href="/lms/attendance"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
+                  className="flex flex-col items-center p-4 rounded-lg border border-slate-100 hover:bg-slate-50 transition"
                 >
                   <Calendar className="w-8 h-8 text-amber-600 mb-2" />
-                  <span className="text-sm font-medium text-gray-700">Attendance</span>
+                  <span className="text-sm font-medium text-slate-700">Attendance</span>
                 </Link>
                 <Link
                   href="/support/contact"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
+                  className="flex flex-col items-center p-4 rounded-lg border border-slate-100 hover:bg-slate-50 transition"
                 >
                   <MessageSquare className="w-8 h-8 text-brand-blue-600 mb-2" />
-                  <span className="text-sm font-medium text-gray-700">Get Help</span>
+                  <span className="text-sm font-medium text-slate-700">Get Help</span>
                 </Link>
                 <Link
                   href="/credentials"
                   className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-slate-50 transition"
                 >
                   <FileText className="w-8 h-8 text-brand-orange-600 mb-2" />
-                  <span className="text-sm font-medium text-gray-700">Credentials</span>
+                  <span className="text-sm font-medium text-slate-700">Credentials</span>
                 </Link>
                 <Link
                   href="/transcript"
                   className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-slate-50 transition"
                 >
                   <ScrollText className="w-8 h-8 text-slate-600 mb-2" />
-                  <span className="text-sm font-medium text-gray-700">Transcript</span>
+                  <span className="text-sm font-medium text-slate-700">Transcript</span>
                 </Link>
               </div>
             </div>
@@ -544,10 +545,10 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
             />
 
             {/* Achievements */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900">Recent Achievements</h2>
+                  <h2 className="text-lg font-semibold text-slate-900">Recent Achievements</h2>
                   <Link href="/achievements" className="text-sm text-brand-orange-600 hover:text-brand-orange-700">
                     View All
                   </Link>
@@ -562,10 +563,10 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                           <Trophy className="w-5 h-5 text-yellow-600" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">
+                          <p className="font-medium text-slate-900 text-sm">
                             {item.achievements?.name || 'Achievement'}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-slate-500">
                             {new Date(item.earned_at).toLocaleDateString()}
                           </p>
                         </div>
@@ -574,17 +575,17 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <Trophy className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Complete courses to earn achievements!</p>
+                    <Trophy className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <p className="text-sm text-slate-500">Complete courses to earn achievements!</p>
                   </div>
                 )}
               </div>
             </div>
 
             {/* Notifications */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">Notifications</h2>
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
+                <h2 className="text-lg font-semibold text-slate-900">Notifications</h2>
               </div>
               <div className="p-6">
                 {notifications && notifications.length > 0 ? (
@@ -593,16 +594,60 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                       <div key={notification.id} className="flex items-start gap-3">
                         <div className="w-2 h-2 bg-brand-blue-500 rounded-full mt-2 flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">{notification.title}</p>
-                          <p className="text-xs text-gray-500 line-clamp-2">{notification.message}</p>
+                          <p className="font-medium text-slate-900 text-sm">{notification.title}</p>
+                          <p className="text-xs text-slate-500 line-clamp-2">{notification.message}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <Bell className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">No new notifications</p>
+                    <Bell className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <p className="text-sm text-slate-500">No new notifications</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Recent Messages */}
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-semibold text-slate-900">Messages</h2>
+                  <Link href="/lms/messages" className="text-sm text-brand-orange-600 hover:text-brand-orange-700">
+                    View All
+                  </Link>
+                </div>
+              </div>
+              <div className="p-6">
+                {recentMessages && recentMessages.length > 0 ? (
+                  <div className="space-y-4">
+                    {recentMessages.map((msg: any) => (
+                      <Link
+                        key={msg.id}
+                        href="/lms/messages"
+                        className="flex items-start gap-3 hover:bg-slate-50 -mx-2 px-2 py-1 rounded-lg transition"
+                      >
+                        <div className="w-8 h-8 bg-brand-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                          <Mail className="w-4 h-4 text-brand-blue-600" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-slate-900 text-sm truncate">{msg.subject || '(No subject)'}</p>
+                          <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">{msg.body}</p>
+                          <p className="text-xs text-slate-400 mt-0.5">
+                            {new Date(msg.created_at).toLocaleDateString()}
+                          </p>
+                        </div>
+                        {!msg.read && (
+                          <span className="w-2 h-2 bg-brand-blue-500 rounded-full flex-shrink-0 mt-1.5" />
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-4">
+                    <Mail className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <p className="text-sm text-slate-500">No unread messages</p>
                   </div>
                 )}
               </div>
@@ -624,10 +669,10 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
             </div>
 
             {/* Certificates */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900">Certificates</h2>
+                  <h2 className="text-lg font-semibold text-slate-900">Certificates</h2>
                   <Link href="/certificates" className="text-sm text-brand-orange-600 hover:text-brand-orange-700">
                     View All
                   </Link>
@@ -642,10 +687,10 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                           <Award className="w-5 h-5 text-brand-green-600" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-gray-900 text-sm truncate">
+                          <p className="font-medium text-slate-900 text-sm truncate">
                             {cert.course_title || 'Certificate'}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-slate-500">
                             {cert.certificate_number} &middot; {cert.issued_at ? new Date(cert.issued_at).toLocaleDateString() : ''}
                           </p>
                         </div>
@@ -654,8 +699,8 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <Award className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">Complete courses to earn certificates</p>
+                    <Award className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <p className="text-sm text-slate-500">Complete courses to earn certificates</p>
                   </div>
                 )}
               </div>
@@ -663,10 +708,10 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
 
             {/* Certification Pipeline */}
             {certRequests && certRequests.length > 0 && (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-                <div className="p-6 border-b border-gray-200">
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+                <div className="p-6 border-b border-slate-200">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-gray-900">Certification Progress</h2>
+                    <h2 className="text-lg font-semibold text-slate-900">Certification Progress</h2>
                     <Link href="/lms/certificates" className="text-sm text-brand-orange-600 hover:text-brand-orange-700">
                       View All
                     </Link>
@@ -689,19 +734,19 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                     ];
 
                     return (
-                      <div key={req.id} className="border border-gray-100 rounded-lg p-4">
+                      <div key={req.id} className="border border-slate-100 rounded-lg p-4">
                         <div className="flex items-start justify-between mb-3">
                           <div>
-                            <p className="font-semibold text-gray-900 text-sm">{credName}</p>
-                            <p className="text-xs text-gray-500">{req.programs?.title}</p>
+                            <p className="font-semibold text-slate-900 text-sm">{credName}</p>
+                            <p className="text-xs text-slate-500">{req.programs?.title}</p>
                             {body && (
-                              <p className="text-xs text-gray-400 mt-0.5">
+                              <p className="text-xs text-slate-400 mt-0.5">
                                 Issued by: {body.name}
                               </p>
                             )}
                           </div>
                           {credAbbr && (
-                            <span className="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                            <span className="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
                               {credAbbr}
                             </span>
                           )}
@@ -713,9 +758,9 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                             <li key={step.key} className="flex items-center gap-2 text-xs">
                               {step.done
                                 ? <CheckCircle className="w-3.5 h-3.5 text-green-500 shrink-0" />
-                                : <div className="w-3.5 h-3.5 rounded-full border-2 border-gray-300 shrink-0" />
+                                : <div className="w-3.5 h-3.5 rounded-full border-2 border-slate-300 shrink-0" />
                               }
-                              <span className={step.done ? 'text-gray-700' : 'text-gray-400'}>
+                              <span className={step.done ? 'text-slate-700' : 'text-slate-400'}>
                                 {step.label}
                               </span>
                             </li>
@@ -742,7 +787,7 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                             <p className="font-medium">Your exam authorization is on its way.</p>
                             <p className="text-brand-blue-600">Check your email for instructions from Elevate staff.</p>
                             {req.authorization_expires_at && (
-                              <p className="text-gray-500">
+                              <p className="text-slate-500">
                                 Authorization expires: {new Date(req.authorization_expires_at).toLocaleDateString()}
                               </p>
                             )}
@@ -768,8 +813,8 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                         )}
 
                         {req.status === 'upload_pending' && (
-                          <div className="flex items-center gap-2 text-xs text-gray-600 bg-gray-50 rounded p-2">
-                            <FileCheck className="w-3.5 h-3.5 shrink-0 text-gray-400" />
+                          <div className="flex items-center gap-2 text-xs text-slate-600 bg-slate-50 rounded p-2">
+                            <FileCheck className="w-3.5 h-3.5 shrink-0 text-slate-400" />
                             Certificate uploaded — Elevate is reviewing it. You will be notified when verified.
                           </div>
                         )}
@@ -790,7 +835,7 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                             href={body.website}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 mt-2"
+                            className="flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600 mt-2"
                           >
                             <ExternalLink className="w-3 h-3" />
                             {body.name}
@@ -804,20 +849,20 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
             )}
 
             {/* Attendance Summary */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">Attendance</h2>
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
+                <h2 className="text-lg font-semibold text-slate-900">Attendance</h2>
               </div>
               <div className="p-6">
                 {attendanceData && attendanceData.length > 0 ? (
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Total Hours Logged</span>
-                      <span className="font-semibold text-gray-900">{attendanceHours.toFixed(1)}h</span>
+                      <span className="text-slate-500">Total Hours Logged</span>
+                      <span className="font-semibold text-slate-900">{attendanceHours.toFixed(1)}h</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Sessions This Month</span>
-                      <span className="font-semibold text-gray-900">
+                      <span className="text-slate-500">Sessions This Month</span>
+                      <span className="font-semibold text-slate-900">
                         {attendanceData.filter((a: any) => {
                           const d = new Date(a.date);
                           const now = new Date();
@@ -826,32 +871,76 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                       </span>
                     </div>
                     <div className="border-t pt-3 mt-3">
-                      <p className="text-xs text-gray-500 mb-2">Recent Sessions</p>
+                      <p className="text-xs text-slate-500 mb-2">Recent Sessions</p>
                       {attendanceData.slice(0, 3).map((a: any, i: number) => (
                         <div key={i} className="flex justify-between text-xs py-1">
-                          <span className="text-gray-600">{new Date(a.date).toLocaleDateString()}</span>
-                          <span className="text-gray-900 font-medium">{a.hours_logged}h ({a.type})</span>
+                          <span className="text-slate-600">{new Date(a.date).toLocaleDateString()}</span>
+                          <span className="text-slate-900 font-medium">{a.hours_logged}h ({a.type})</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <Clock className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-                    <p className="text-sm text-gray-500">No attendance records yet</p>
+                    <Clock className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <p className="text-sm text-slate-500">No attendance records yet</p>
                   </div>
                 )}
               </div>
             </div>
+
+            {/* Upcoming Schedule */}
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-semibold text-slate-900">Upcoming Schedule</h2>
+                  <Link href="/lms/schedule" className="text-sm text-brand-orange-600 hover:text-brand-orange-700">
+                    View All
+                  </Link>
+                </div>
+              </div>
+              <div className="p-6">
+                {upcomingSchedule && upcomingSchedule.length > 0 ? (
+                  <div className="space-y-4">
+                    {upcomingSchedule.map((session: any) => (
+                      <div key={session.id} className="flex gap-3">
+                        <div className="w-8 h-8 bg-brand-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Calendar className="w-4 h-4 text-brand-orange-600" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-slate-900 text-sm truncate">{session.title}</p>
+                          <p className="text-xs text-slate-500 mt-0.5">
+                            {new Date(session.session_date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                            {session.start_time && ` · ${session.start_time}`}
+                            {session.end_time && `–${session.end_time}`}
+                          </p>
+                          {session.location && (
+                            <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                              <MapPin className="w-3 h-3" />{session.location}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-4">
+                    <Calendar className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <p className="text-sm text-slate-500">No upcoming sessions</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
           </div>
         </div>
 
         {/* Browse Programs — clearly separated from My Programs above */}
-        <div className="mt-10 pt-8 border-t border-gray-200">
+        <div className="mt-10 pt-8 border-t border-slate-200">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-lg font-bold text-gray-900">Browse Available Programs</h2>
-              <p className="text-sm text-gray-500 mt-0.5">
+              <h2 className="text-lg font-bold text-slate-900">Browse Available Programs</h2>
+              <p className="text-sm text-slate-500 mt-0.5">
                 All programs are listed on Indiana&apos;s Eligible Training Provider List (ETPL) — most students pay $0 through WIOA or the Workforce Ready Grant.
               </p>
             </div>
@@ -868,13 +957,13 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {FUNDED_PROGRAMS.map((prog) => (
-              <div key={prog.id} className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-3">
+              <div key={prog.id} className="bg-white rounded-xl border border-slate-200 p-5 flex flex-col gap-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-semibold text-gray-900 text-sm leading-snug">{prog.name}</h3>
-                  <span className="flex-shrink-0 text-[10px] font-mono text-gray-400 bg-gray-50 border border-gray-100 rounded px-1.5 py-0.5">{prog.id}</span>
+                  <h3 className="font-semibold text-slate-900 text-sm leading-snug">{prog.name}</h3>
+                  <span className="flex-shrink-0 text-[10px] font-mono text-slate-400 bg-slate-50 border border-slate-100 rounded px-1.5 py-0.5">{prog.id}</span>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs text-gray-500">
+                <div className="flex items-center gap-3 text-xs text-slate-500">
                   <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{prog.duration}</span>
                   <span className="flex items-center gap-1"><FileCheck className="w-3 h-3" />{prog.cost} total</span>
                 </div>
@@ -885,9 +974,9 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                   ))}
                 </div>
 
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-100">
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
                   <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
-                    <CheckCircle className="w-3.5 h-3.5" /> WIOA / WRG Eligible
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" /> WIOA / WRG Eligible
                   </span>
                   <Link
                     href={prog.href}
@@ -900,7 +989,7 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
             ))}
           </div>
 
-          <p className="text-xs text-gray-400 mt-4 text-center">
+          <p className="text-xs text-slate-400 mt-4 text-center">
             Provider: 2Exclusive LLC-S · Elevate for Humanity Training Center · Indianapolis, Indiana (Marion County) ·{' '}
             <a href="https://www.nextleveljobs.org" target="_blank" rel="noopener noreferrer" className="underline">NextLevelJobs.org</a>
           </p>
