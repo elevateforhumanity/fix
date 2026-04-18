@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { FileText, User, Briefcase, Home, Heart, DollarSign, ArrowRight, Save } from 'lucide-react';
@@ -27,6 +27,8 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
     existingDraft?.completed_sections || []
   );
   const [isSaving, setIsSaving] = useState(false);
+  const [apiRefund, setApiRefund] = useState<number | null>(null);
+  const [isCalculating, setIsCalculating] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const [formData, setFormData] = useState({
@@ -53,32 +55,55 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Calculate estimated refund
-  const calculateRefund = () => {
-    const wages = parseFloat(formData.w2Wages) || 0;
-    const withholding = parseFloat(formData.w2Withholding) || 0;
-    const income1099 = parseFloat(formData.income1099) || 0;
-    const totalIncome = wages + income1099;
-    
-    // Simplified tax calculation
-    let tax = 0;
-    if (totalIncome <= 10000) tax = totalIncome * 0.10;
-    else if (totalIncome <= 40000) tax = 1000 + (totalIncome - 10000) * 0.12;
-    else if (totalIncome <= 85000) tax = 4600 + (totalIncome - 40000) * 0.22;
-    else tax = 14500 + (totalIncome - 85000) * 0.24;
-
-    // Standard deduction
-    if (formData.deductionType === 'standard') {
-      tax = Math.max(0, tax - 13850 * 0.12);
+  const fetchCalculation = useCallback(async () => {
+    setIsCalculating(true);
+    try {
+      const payload = {
+        taxYear: taxYear,
+        filingStatus: formData.filingStatus === 'married-joint' ? 'married_filing_jointly'
+          : formData.filingStatus === 'married-separate' ? 'married_filing_separately'
+          : formData.filingStatus === 'head' ? 'head_of_household'
+          : 'single',
+        w2Income: formData.w2Wages ? [{
+          employerName: formData.w2Employer || '',
+          wages: parseFloat(formData.w2Wages) || 0,
+          federalWithholding: parseFloat(formData.w2Withholding) || 0,
+          stateWithholding: 0,
+          ein: '',
+        }] : [],
+        deductionType: formData.deductionType,
+        taxpayer: {
+          firstName: formData.firstName || '',
+          lastName: formData.lastName || '',
+          ssn: '',
+          dateOfBirth: formData.dateOfBirth || '',
+        },
+        address: { street: '', city: '', state: 'IN', zip: '' },
+        dependents: [],
+      };
+      const res = await fetch('/api/tax/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const refund = data.calculation?.refund ?? (data.calculation?.amountOwed ? data.calculation.amountOwed * -1 : null);
+        setApiRefund(refund);
+      }
+    } catch (err) {
+      // Non-critical: calculation errors don't block form submission
+      console.warn('[TaxPrepForm] fetchCalculation error:', err);
+    } finally {
+      setIsCalculating(false);
     }
+  }, [formData, taxYear]);
 
-    // Credits
-    if (formData.eitc && totalIncome < 50000) tax = Math.max(0, tax - 1500);
-    if (formData.childTaxCredit) tax = Math.max(0, tax - 2000);
-    if (formData.educationCredits) tax = Math.max(0, tax - 1000);
-
-    return Math.round(withholding - tax);
-  };
+  useEffect(() => {
+    if (formData.w2Wages || formData.income1099) {
+      fetchCalculation();
+    }
+  }, [formData.w2Wages, formData.w2Withholding, formData.income1099, formData.filingStatus, formData.deductionType, fetchCalculation]);
 
   const saveDraft = async () => {
     setIsSaving(true);
@@ -146,7 +171,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
           filing_status: formData.filingStatus,
           total_income: (parseFloat(formData.w2Wages) || 0) + (parseFloat(formData.income1099) || 0),
           total_withholding: parseFloat(formData.w2Withholding) || 0,
-          estimated_refund: calculateRefund(),
+          estimated_refund: apiRefund ?? 0,
           status: 'submitted',
         });
 
@@ -166,7 +191,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
     }
   };
 
-  const estimatedRefund = calculateRefund();
+  const estimatedRefund = apiRefund ?? 0;
 
   return (
     <div className="grid md:grid-cols-4 gap-6">
@@ -352,6 +377,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
                 </p>
                 <p className={`text-4xl font-bold ${estimatedRefund >= 0 ? 'text-brand-green-700' : 'text-brand-red-700'}`}>
                   ${Math.abs(estimatedRefund).toLocaleString()}
+                  {isCalculating && <span role="status" aria-live="polite" className="ml-2 text-base font-normal text-gray-400">(calculating...)</span>}
                 </p>
               </div>
               <div className="space-y-2">
