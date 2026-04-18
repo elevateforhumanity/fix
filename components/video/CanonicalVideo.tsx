@@ -51,9 +51,14 @@ type Props = {
    * Use only for the primary above-the-fold hero to reduce load delay.
    */
   preloadFull?: boolean;
+  /**
+   * When true, the video loops seamlessly. Use for ambient hero backgrounds
+   * so the video never ends, preventing the poster from fading back in.
+   */
+  loop?: boolean;
 };
 
-export default function CanonicalVideo({ src, poster, className, threshold = 0.1, playThrough = true, autoPlayOnMount = false, preloadFull = false }: Props) {
+export default function CanonicalVideo({ src, poster, className, threshold = 0.1, playThrough = true, autoPlayOnMount = false, preloadFull = false, loop = false }: Props) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const [failed, setFailed] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -156,12 +161,14 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           alt=""
           aria-hidden="true"
           fetchPriority={autoPlayOnMount ? 'high' : 'auto'}
+          loading={autoPlayOnMount ? 'eager' : 'lazy'}
           decoding="async"
           className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           style={{ objectFit: 'cover', zIndex: 0 }}
         />
         {/* Video — z-10, fades in once onPlaying fires (first real frame on screen).
-            Fades back out when ended — poster takes over for the rest of the session.
+            When loop=true (hero videos), onEnded never fires so the poster stays
+            hidden and the video plays seamlessly in perpetuity.
             src set directly on <video> (not only via <source>) so canplay fires
             reliably on Safari/iOS and Firefox without waiting for a child parse. */}
         <video
@@ -170,6 +177,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
           muted
           playsInline
+          loop={loop}
           preload={preloadFull ? 'auto' : 'metadata'}
           aria-hidden="true"
           onPlaying={() => setPlaying(true)}
@@ -181,7 +189,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
     );
   }
 
-  // No poster — single video element, hide it after playback ends
+  // No poster — single video element, hide it after playback ends (unless looping)
   return (
     <video
       ref={ref}
@@ -189,6 +197,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
       className={`${className} transition-opacity duration-700 ${ended ? 'opacity-0' : ''}`}
       muted
       playsInline
+      loop={loop}
       preload={preloadFull ? 'auto' : 'metadata'}
       aria-hidden="true"
       onEnded={() => setEnded(true)}

@@ -9,6 +9,7 @@ export default function ProgramsHeroVideo() {
       className="absolute inset-0 w-full h-full object-cover"
       autoPlayOnMount
       preloadFull
+      loop
       playThrough={false}
     />
   );
