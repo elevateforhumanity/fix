@@ -44,10 +44,8 @@ export default function PartnerHoursPendingPage() {
       if (hours.length > 0) {
         const enrichedHours = hours.map((h: any) => ({
           ...h,
-          student_name: h.user_profiles
-            ? `${h.user_profiles.first_name || ''} ${h.user_profiles.last_name || ''}`.trim() || 'Unknown'
-            : 'Unknown',
-          student_email: h.user_profiles?.email || '',
+          student_name: h.profiles?.full_name || 'Unknown',
+          student_email: h.profiles?.email || '',
         }));
 
         setPendingHours(enrichedHours);

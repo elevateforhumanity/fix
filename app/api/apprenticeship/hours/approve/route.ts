@@ -32,16 +32,25 @@ async function _POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Check if user is admin/sponsor/employer
+    // Check if user is admin/sponsor/employer (legacy path) or an active partner
     const { data: profile } = await supabase
       .from('user_profiles')
       .select('role, employer_id')
       .eq('user_id', user.id)
       .maybeSingle();
 
-    if (!profile || !['admin', 'sponsor', 'employer'].includes(profile.role)) {
+    const { data: partnerUser } = await supabase
+      .from('partner_users')
+      .select('partner_id, role')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    const isLegacyApprover = !!profile?.role && ['admin', 'sponsor', 'employer'].includes(profile.role);
+    const isPartner = !!partnerUser;
+
+    if (!isLegacyApprover && !isPartner) {
       return NextResponse.json(
-        { error: 'Forbidden - requires admin/sponsor/employer role' },
+        { error: 'Forbidden - requires admin/sponsor/employer or partner role' },
         { status: 403 }
       );
     }
@@ -63,7 +72,7 @@ async function _POST(req: Request) {
 
     // Employer can only approve OJL hours, not RTI
     const isRti = ['rti', 'in_state_barber_school', 'continuing_education'].includes(hourEntry.source_type);
-    if (isRti && profile.role === 'employer') {
+    if (isRti && profile?.role === 'employer') {
       return NextResponse.json(
         { error: 'Employers cannot approve RTI hours — requires sponsor or admin' },
         { status: 403 }
@@ -71,7 +80,7 @@ async function _POST(req: Request) {
     }
 
     // OJL hours: employer must supervise this specific student
-    if (profile.role === 'employer' && profile.employer_id) {
+    if (profile?.role === 'employer' && profile.employer_id) {
       const { data: studentProfile } = await supabase
         .from('user_profiles')
         .select('employer_id')
@@ -79,6 +88,23 @@ async function _POST(req: Request) {
         .maybeSingle();
 
       if (studentProfile?.employer_id !== profile.employer_id) {
+        return NextResponse.json(
+          { error: 'Forbidden - can only approve hours for your own apprentices' },
+          { status: 403 }
+        );
+      }
+    }
+
+    // Partner: can only approve hours for their own apprentices
+    if (isPartner && !isLegacyApprover) {
+      const { data: apprenticeship } = await supabase
+        .from('apprenticeships')
+        .select('id')
+        .eq('apprentice_id', hourEntry.user_id)
+        .eq('partner_id', partnerUser!.partner_id)
+        .maybeSingle();
+
+      if (!apprenticeship) {
         return NextResponse.json(
           { error: 'Forbidden - can only approve hours for your own apprentices' },
           { status: 403 }
@@ -140,22 +166,31 @@ async function _PUT(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Check if user is admin/sponsor/employer
+    // Check if user is admin/sponsor/employer (legacy path) or an active partner
     const { data: profile } = await supabase
       .from('user_profiles')
       .select('role, employer_id')
       .eq('user_id', user.id)
       .maybeSingle();
 
-    if (!profile || !['admin', 'sponsor', 'employer'].includes(profile.role)) {
+    const { data: partnerUser } = await supabase
+      .from('partner_users')
+      .select('partner_id, role')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    const isLegacyApprover = !!profile?.role && ['admin', 'sponsor', 'employer'].includes(profile.role);
+    const isPartner = !!partnerUser;
+
+    if (!isLegacyApprover && !isPartner) {
       return NextResponse.json(
-        { error: 'Forbidden - requires admin/sponsor/employer role' },
+        { error: 'Forbidden - requires admin/sponsor/employer or partner role' },
         { status: 403 }
       );
     }
 
     // If employer, verify all hours belong to their apprentices
-    if (profile.role === 'employer' && profile.employer_id) {
+    if (profile?.role === 'employer' && profile.employer_id) {
       const { data: entries } = await supabase
         .from('hour_entries')
         .select('user_id')
@@ -172,6 +207,32 @@ async function _PUT(req: Request) {
           sp => sp.employer_id !== profile.employer_id
         );
         if (unauthorized && unauthorized.length > 0) {
+          return NextResponse.json(
+            { error: 'Forbidden - can only approve hours for your own apprentices' },
+            { status: 403 }
+          );
+        }
+      }
+    }
+
+    // Partner: can only approve hours for their own apprentices
+    if (isPartner && !isLegacyApprover) {
+      const { data: entries } = await supabase
+        .from('hour_entries')
+        .select('user_id')
+        .in('id', hour_ids);
+
+      if (entries) {
+        const studentIds = [...new Set(entries.map((e: { user_id: string }) => e.user_id))];
+        const { data: apprenticeships } = await supabase
+          .from('apprenticeships')
+          .select('apprentice_id')
+          .in('apprentice_id', studentIds)
+          .eq('partner_id', partnerUser!.partner_id);
+
+        const authorizedIds = new Set((apprenticeships || []).map((a: { apprentice_id: string }) => a.apprentice_id));
+        const unauthorized = studentIds.filter(id => !authorizedIds.has(id));
+        if (unauthorized.length > 0) {
           return NextResponse.json(
             { error: 'Forbidden - can only approve hours for your own apprentices' },
             { status: 403 }

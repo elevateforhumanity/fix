@@ -23,7 +23,7 @@ async function _GET(request: NextRequest) {
 
   const { data: partnerUser } = await db
     .from('partner_users')
-    .select('organization_id')
+    .select('partner_id')
     .eq('user_id', user.id)
     .maybeSingle();
 
@@ -31,9 +31,23 @@ async function _GET(request: NextRequest) {
     return NextResponse.json({ error: 'Not a partner' }, { status: 403 });
   }
 
+  // Scope to apprentices enrolled with this partner
+  const { data: apprenticeships } = await db
+    .from('apprenticeships')
+    .select('apprentice_id')
+    .eq('partner_id', partnerUser.partner_id)
+    .eq('status', 'active');
+
+  const apprenticeIds = (apprenticeships || []).map((a: { apprentice_id: string }) => a.apprentice_id);
+
+  if (apprenticeIds.length === 0) {
+    return NextResponse.json({ hours: [] });
+  }
+
   const query = db
     .from('hour_entries')
-    .select('*')
+    .select('*, profiles:user_id(full_name, email)')
+    .in('user_id', apprenticeIds)
     .order('work_date', { ascending: false })
     .limit(100);
 
@@ -47,7 +61,7 @@ async function _GET(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to fetch hours' }, { status: 500 });
   }
 
-  return NextResponse.json(hours || []);
+  return NextResponse.json({ hours: hours || [] });
 }
 
 async function _POST(request: NextRequest) {
