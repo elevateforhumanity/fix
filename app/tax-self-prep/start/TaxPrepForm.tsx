@@ -88,10 +88,12 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
       });
       if (res.ok) {
         const data = await res.json();
-        setApiRefund(data.calculation?.refund ?? data.calculation?.amountOwed * -1 ?? null);
+        const refund = data.calculation?.refund ?? (data.calculation?.amountOwed ? data.calculation.amountOwed * -1 : null);
+        setApiRefund(refund);
       }
-    } catch {
-      // silently ignore calculation errors
+    } catch (err) {
+      // Non-critical: calculation errors don't block form submission
+      console.warn('[TaxPrepForm] fetchCalculation error:', err);
     } finally {
       setIsCalculating(false);
     }
@@ -101,7 +103,10 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
     if (formData.w2Wages || formData.income1099) {
       fetchCalculation();
     }
-  }, [formData.w2Wages, formData.w2Withholding, formData.income1099, formData.filingStatus, formData.deductionType, fetchCalculation]);
+    // fetchCalculation is stable across the specific field changes listed here;
+    // including it would cause re-runs on unrelated formData fields.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.w2Wages, formData.w2Withholding, formData.income1099, formData.filingStatus, formData.deductionType]);
 
   const saveDraft = async () => {
     setIsSaving(true);
@@ -375,7 +380,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
                 </p>
                 <p className={`text-4xl font-bold ${estimatedRefund >= 0 ? 'text-brand-green-700' : 'text-brand-red-700'}`}>
                   ${Math.abs(estimatedRefund).toLocaleString()}
-                  {isCalculating && <span className="ml-2 text-base font-normal text-gray-400">(calculating...)</span>}
+                  {isCalculating && <span role="status" aria-live="polite" className="ml-2 text-base font-normal text-gray-400">(calculating...)</span>}
                 </p>
               </div>
               <div className="space-y-2">
