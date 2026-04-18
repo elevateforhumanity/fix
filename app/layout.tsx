@@ -12,7 +12,7 @@ import { DMCATrackingPixel } from '@/components/InvisibleWatermark';
 import { Inter } from 'next/font/google';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import RootWidgets from './RootWidgets';
-import AdminPWAInit from '@/components/admin/AdminPWAInit';
+
 import PWAManager from '@/app/components/PWAManager';
 
 const inter = Inter({
@@ -227,7 +227,6 @@ export default function RootLayout({
         <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(){var p=location.pathname;var APP=['/admin','/lms','/learner','/instructor','/employer','/partner','/staff-portal','/mentor','/program-holder'];if(APP.some(function(a){return p===a||p.startsWith(a+'/')})){document.body.setAttribute('data-app-route','true');}if(p==='/admin'||p.startsWith('/admin/')){document.body.setAttribute('data-admin-route','true');}})();` }} />
         <SkipToContent />
         <GoogleAnalytics />
-        <AdminPWAInit />
         <PWAManager />
         <PublicLayout>{children}</PublicLayout>
         <DMCATrackingPixel />

@@ -10,56 +10,50 @@ export default function PWAManager() {
     if (typeof window === 'undefined') return;
     if (!('serviceWorker' in navigator)) return;
 
-    // On first load after a new deploy, clear all old caches so users
-    // never see stale content. The SW itself handles cache versioning,
-    // but this client-side check catches edge cases where the SW hasn't
-    // activated yet (e.g. first visit after a hard refresh).
-    const lastDeploy = localStorage.getItem('elevate-deploy-version');
-    if (lastDeploy !== DEPLOY_VERSION) {
-      // New deploy — wipe ALL caches so users get fresh assets immediately.
-      if ('caches' in window) {
-        caches.keys()
-          .then(keys => Promise.all(keys.map(k => caches.delete(k))))
-          .catch(() => {});
+    // Defer all SW work until the browser is idle — never block page load.
+    const register = () => {
+      // On new deploy: clear stale caches. Done lazily so it never delays
+      // first paint. The SW handles versioning; this is just a safety net.
+      const lastDeploy = localStorage.getItem('elevate-deploy-version');
+      if (lastDeploy !== DEPLOY_VERSION) {
+        if ('caches' in window) {
+          caches.keys()
+            .then(keys => Promise.all(keys.map(k => caches.delete(k))))
+            .catch(() => {});
+        }
+        localStorage.setItem('elevate-deploy-version', DEPLOY_VERSION);
       }
-      localStorage.setItem('elevate-deploy-version', DEPLOY_VERSION);
-    }
 
-    // Register the service worker
-    navigator.serviceWorker
-      .register('/sw.js', { scope: '/', updateViaCache: 'none' })
-      .then(reg => {
-        // Check for updates every 60 minutes
-        setInterval(() => reg.update(), 60 * 60 * 1000);
-
-        // When a new SW is waiting, activate it immediately
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          if (!newWorker) return;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // New SW ready — skip waiting and reload to get fresh content
-              newWorker.postMessage({ type: 'SKIP_WAITING' });
-            }
+      navigator.serviceWorker
+        .register('/sw.js', { scope: '/', updateViaCache: 'none' })
+        .then(reg => {
+          setInterval(() => reg.update(), 60 * 60 * 1000);
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            if (!newWorker) return;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                newWorker.postMessage({ type: 'SKIP_WAITING' });
+              }
+            });
           });
-        });
-      })
-      .catch(() => {
-        // SW registration failed — site still works, just no offline support
-      });
+        })
+        .catch(() => {});
 
-    // When a new SW takes control, reload once to pick up fresh assets.
-    // Guard with sessionStorage so a reload triggered by SW activation
-    // doesn't immediately trigger another reload on the next page load.
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      const key = 'elevate-sw-reload';
-      if (sessionStorage.getItem(key)) {
-        sessionStorage.removeItem(key);
-        return;
-      }
-      sessionStorage.setItem(key, '1');
-      window.location.reload();
-    });
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        const key = 'elevate-sw-reload';
+        if (sessionStorage.getItem(key)) { sessionStorage.removeItem(key); return; }
+        sessionStorage.setItem(key, '1');
+        window.location.reload();
+      });
+    };
+
+    // Use requestIdleCallback when available, otherwise defer 4s after load
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(register, { timeout: 5000 });
+    } else {
+      setTimeout(register, 4000);
+    }
   }, []);
 
   return null;

@@ -53,7 +53,7 @@ export default function FacebookPixel() {
   try {
     return (
       <>
-        <Script id="fb-pixel" strategy="afterInteractive">
+        <Script id="fb-pixel" strategy="lazyOnload">
           {`
             try {
               !function(f,b,e,v,n,t,s)
