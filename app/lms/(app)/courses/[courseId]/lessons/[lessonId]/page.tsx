@@ -4,7 +4,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import React from 'react';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
@@ -27,15 +27,8 @@ import {
   Lock,
 } from 'lucide-react';
 import { QuizSystem } from '@/components/lms/QuizSystem';
-import QuizPlayer from '@/components/lms/QuizPlayer';
 import LessonPlayer from '@/components/lms/LessonPlayer';
-import StepSubmissionForm from '@/components/lms/StepSubmissionForm';
-import OjtCompletionPanel from '@/components/lms/OjtCompletionPanel';
-import InteractiveVideoPlayer from '@/components/lms/InteractiveVideoPlayer';
-import HvacLessonVideo from '@/components/lms/HvacLessonVideo';
 import { sanitizeRichHtml } from '@/lib/security/sanitize-html';
-import { NoteTaking } from '@/components/NoteTaking';
-import DigitalBinder from '@/components/DigitalBinder';
 import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
 
 // Reverse map: UUID → definition key (e.g. '2f172cb2-...' → 'hvac-01-01').
@@ -86,14 +79,23 @@ function barberVideoUrl(
 }
 import dynamic from 'next/dynamic';
 import { lessonUuidToSimulationKey } from '@/lib/lms/hvac-simulations';
-
-import { ExplainSimply } from '@/components/lms/ai/ExplainSimply';
-import { TranslateToggle } from '@/components/lms/ai/TranslateToggle';
-import SpacedRepetitionReview from '@/components/lms/SpacedRepetitionReview';
-import LessonActivityMenu from '@/components/lms/LessonActivityMenu';
 import { getActivitiesForLesson, getDefaultActivity } from '@/lib/lms/activity-map';
 import type { ActivityId } from '@/lib/lms/activity-map';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
+
+// Heavy components — loaded on demand, not part of the initial JS bundle.
+// This keeps the lesson page shell fast and reduces memory pressure on load.
+const QuizPlayer = dynamic(() => import('@/components/lms/QuizPlayer'), { ssr: false });
+const StepSubmissionForm = dynamic(() => import('@/components/lms/StepSubmissionForm'), { ssr: false });
+const OjtCompletionPanel = dynamic(() => import('@/components/lms/OjtCompletionPanel'), { ssr: false });
+const InteractiveVideoPlayer = dynamic(() => import('@/components/lms/InteractiveVideoPlayer'), { ssr: false });
+const HvacLessonVideo = dynamic(() => import('@/components/lms/HvacLessonVideo'), { ssr: false });
+const NoteTaking = dynamic(() => import('@/components/NoteTaking').then(m => ({ default: m.NoteTaking })), { ssr: false });
+const DigitalBinder = dynamic(() => import('@/components/DigitalBinder'), { ssr: false });
+const ExplainSimply = dynamic(() => import('@/components/lms/ai/ExplainSimply').then(m => ({ default: m.ExplainSimply })), { ssr: false });
+const TranslateToggle = dynamic(() => import('@/components/lms/ai/TranslateToggle').then(m => ({ default: m.TranslateToggle })), { ssr: false });
+const SpacedRepetitionReview = dynamic(() => import('@/components/lms/SpacedRepetitionReview'), { ssr: false });
+const LessonActivityMenu = dynamic(() => import('@/components/lms/LessonActivityMenu'), { ssr: false });
 
 
 const LessonVideoWithSimulation = dynamic(
