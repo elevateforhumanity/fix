@@ -913,127 +913,127 @@
 
 [[redirects]]
   from = "/curvature-body-sculpting"
-  to = "https://www.elevateforhumanity.org/curvature-body-sculpting"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
 [[redirects]]
   from = "/curvature-body-sculpting/apply"
-  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/apply"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
 [[redirects]]
   from = "/curvature-body-sculpting/book-appointment"
-  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/book-appointment"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
 [[redirects]]
   from = "/curvature-body-sculpting/careers"
-  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/careers"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
 [[redirects]]
   from = "/curvature-body-sculpting/services"
-  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/services"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
 [[redirects]]
   from = "/curvature-body-sculpting/shop"
-  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/shop"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
 [[redirects]]
   from = "/curvature-body-sculpting/shop/success"
-  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/shop/success"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs"
-  to = "https://www.elevateforhumanity.org/docs"
+  to = "https://www.elevateforhumanity.org/about"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/ENV_CONFIG.md"
-  to = "https://www.elevateforhumanity.org/docs/ENV_CONFIG.md"
+  to = "https://www.elevateforhumanity.org/about"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/Indiana-Barbershop-Apprenticeship-MOU"
-  to = "https://www.elevateforhumanity.org/docs/Indiana-Barbershop-Apprenticeship-MOU"
+  to = "https://www.elevateforhumanity.org/programs/barber-apprenticeship"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/admins"
-  to = "https://www.elevateforhumanity.org/docs/admins"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/api"
-  to = "https://www.elevateforhumanity.org/docs/api"
+  to = "https://www.elevateforhumanity.org/about"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/case-management"
-  to = "https://www.elevateforhumanity.org/docs/case-management"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/changelog"
-  to = "https://www.elevateforhumanity.org/docs/changelog"
+  to = "https://www.elevateforhumanity.org/about"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/licensing-architecture"
-  to = "https://www.elevateforhumanity.org/docs/licensing-architecture"
+  to = "https://www.elevateforhumanity.org/about"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/lms"
-  to = "https://www.elevateforhumanity.org/docs/lms"
+  to = "https://learn.elevateforhumanity.org/lms"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/program-holder-guide"
-  to = "https://www.elevateforhumanity.org/docs/program-holder-guide"
+  to = "https://learn.elevateforhumanity.org/program-holder/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/program-holders"
-  to = "https://www.elevateforhumanity.org/docs/program-holders"
+  to = "https://learn.elevateforhumanity.org/program-holder/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/quickstart"
-  to = "https://www.elevateforhumanity.org/docs/quickstart"
+  to = "https://www.elevateforhumanity.org/about"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/reporting"
-  to = "https://www.elevateforhumanity.org/docs/reporting"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/docs/students"
-  to = "https://www.elevateforhumanity.org/docs/students"
+  to = "https://learn.elevateforhumanity.org/learner/dashboard"
   status = 301
   force = true
 
@@ -1057,43 +1057,43 @@
 
 [[redirects]]
   from = "/drug-testing/dot-testing"
-  to = "https://www.elevateforhumanity.org/drug-testing/dot-testing"
+  to = "https://www.elevateforhumanity.org/drug-testing"
   status = 301
   force = true
 
 [[redirects]]
   from = "/drug-testing/employer-programs"
-  to = "https://www.elevateforhumanity.org/drug-testing/employer-programs"
+  to = "https://www.elevateforhumanity.org/drug-testing"
   status = 301
   force = true
 
 [[redirects]]
   from = "/drug-testing/hair-tests"
-  to = "https://www.elevateforhumanity.org/drug-testing/hair-tests"
+  to = "https://www.elevateforhumanity.org/drug-testing"
   status = 301
   force = true
 
 [[redirects]]
   from = "/drug-testing/instant-tests"
-  to = "https://www.elevateforhumanity.org/drug-testing/instant-tests"
+  to = "https://www.elevateforhumanity.org/drug-testing"
   status = 301
   force = true
 
 [[redirects]]
   from = "/drug-testing/success"
-  to = "https://www.elevateforhumanity.org/drug-testing/success"
+  to = "https://www.elevateforhumanity.org/drug-testing"
   status = 301
   force = true
 
 [[redirects]]
   from = "/drug-testing/training"
-  to = "https://www.elevateforhumanity.org/drug-testing/training"
+  to = "https://www.elevateforhumanity.org/drug-testing"
   status = 301
   force = true
 
 [[redirects]]
   from = "/drug-testing/urine-tests"
-  to = "https://www.elevateforhumanity.org/drug-testing/urine-tests"
+  to = "https://www.elevateforhumanity.org/drug-testing"
   status = 301
   force = true
 
@@ -1297,43 +1297,43 @@
 
 [[redirects]]
   from = "/legal/governance/compliance"
-  to = "https://www.elevateforhumanity.org/legal/governance/compliance"
+  to = "https://www.elevateforhumanity.org/legal"
   status = 301
   force = true
 
 [[redirects]]
   from = "/legal/governance/lms-standards"
-  to = "https://www.elevateforhumanity.org/legal/governance/lms-standards"
+  to = "https://www.elevateforhumanity.org/legal"
   status = 301
   force = true
 
 [[redirects]]
   from = "/legal/governance/onboarding-ux"
-  to = "https://www.elevateforhumanity.org/legal/governance/onboarding-ux"
+  to = "https://www.elevateforhumanity.org/legal"
   status = 301
   force = true
 
 [[redirects]]
   from = "/legal/governance/platform-overview"
-  to = "https://www.elevateforhumanity.org/legal/governance/platform-overview"
+  to = "https://www.elevateforhumanity.org/legal"
   status = 301
   force = true
 
 [[redirects]]
   from = "/legal/governance/security"
-  to = "https://www.elevateforhumanity.org/legal/governance/security"
+  to = "https://www.elevateforhumanity.org/legal"
   status = 301
   force = true
 
 [[redirects]]
   from = "/legal/governance/store-payments"
-  to = "https://www.elevateforhumanity.org/legal/governance/store-payments"
+  to = "https://www.elevateforhumanity.org/legal"
   status = 301
   force = true
 
 [[redirects]]
   from = "/legal/governance/tax-operations"
-  to = "https://www.elevateforhumanity.org/legal/governance/tax-operations"
+  to = "https://www.elevateforhumanity.org/legal"
   status = 301
   force = true
 
@@ -1417,49 +1417,49 @@
 
 [[redirects]]
   from = "/mentorship"
-  to = "https://www.elevateforhumanity.org/mentorship"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/mentorship/become-mentor"
-  to = "https://www.elevateforhumanity.org/mentorship/become-mentor"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/mentorship/career-guidance"
-  to = "https://www.elevateforhumanity.org/mentorship/career-guidance"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/mentorship/goal-setting"
-  to = "https://www.elevateforhumanity.org/mentorship/goal-setting"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/mentorship/industry-insights"
-  to = "https://www.elevateforhumanity.org/mentorship/industry-insights"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/mentorship/networking"
-  to = "https://www.elevateforhumanity.org/mentorship/networking"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/mentorship/ongoing-support"
-  to = "https://www.elevateforhumanity.org/mentorship/ongoing-support"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
 [[redirects]]
   from = "/mentorship/skill-development"
-  to = "https://www.elevateforhumanity.org/mentorship/skill-development"
+  to = "https://www.elevateforhumanity.org/career-services"
   status = 301
   force = true
 
@@ -1501,55 +1501,55 @@
 
 [[redirects]]
   from = "/platform/overview"
-  to = "https://www.elevateforhumanity.org/platform/overview"
+  to = "https://www.elevateforhumanity.org/platform"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/partner-portal"
-  to = "https://www.elevateforhumanity.org/platform/partner-portal"
+  to = "https://learn.elevateforhumanity.org/partner/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/partners"
-  to = "https://www.elevateforhumanity.org/platform/partners"
+  to = "https://www.elevateforhumanity.org/platform"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/program-holders"
-  to = "https://www.elevateforhumanity.org/platform/program-holders"
+  to = "https://learn.elevateforhumanity.org/program-holder/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/providers"
-  to = "https://www.elevateforhumanity.org/platform/providers"
+  to = "https://www.elevateforhumanity.org/training-providers"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/sponsors"
-  to = "https://www.elevateforhumanity.org/platform/sponsors"
+  to = "https://www.elevateforhumanity.org/about/partners"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/training-providers"
-  to = "https://www.elevateforhumanity.org/platform/training-providers"
+  to = "https://www.elevateforhumanity.org/training-providers"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/workforce-analytics"
-  to = "https://www.elevateforhumanity.org/platform/workforce-analytics"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
   status = 301
   force = true
 
 [[redirects]]
   from = "/platform/workforce-boards"
-  to = "https://www.elevateforhumanity.org/platform/workforce-boards"
+  to = "https://www.elevateforhumanity.org/platform"
   status = 301
   force = true
 
@@ -2407,25 +2407,25 @@
 
 [[redirects]]
   from = "/tax/book-appointment"
-  to = "https://www.elevateforhumanity.org/tax/book-appointment"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/book-appointment"
   status = 301
   force = true
 
 [[redirects]]
   from = "/tax/free"
-  to = "https://www.elevateforhumanity.org/tax/free"
+  to = "https://www.elevateforhumanity.org/tax"
   status = 301
   force = true
 
 [[redirects]]
   from = "/tax/professional"
-  to = "https://www.elevateforhumanity.org/tax/professional"
+  to = "https://www.elevateforhumanity.org/tax"
   status = 301
   force = true
 
 [[redirects]]
   from = "/tax/rise-up-foundation"
-  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
   status = 301
   force = true
 
@@ -2485,7 +2485,7 @@
 
 [[redirects]]
   from = "/tax/volunteer"
-  to = "https://www.elevateforhumanity.org/tax/volunteer"
+  to = "https://www.elevateforhumanity.org/tax"
   status = 301
   force = true
 
