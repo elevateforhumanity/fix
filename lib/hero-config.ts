@@ -12,28 +12,30 @@ import type { HeroVariant, HeroHeight, HeroCTA } from '@/components/ui/HeroSecti
 
 // Video hero sources - used across the site
 // Rules: No gradient overlays, text in solid container, calm motion only
+// All URLs point to R2 CDN — confirmed 206 on all files listed below.
+const R2 = 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos';
 export const VIDEO_HEROES = {
   // Main/Marketing
-  homepage: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
-  careerServices: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+  homepage: `${R2}/hero-home-fast.mp4`,
+  careerServices: `${R2}/career-services-hero.mp4`,
   
   // Program Categories
-  barber: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
-  barberApprenticeship: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
-  healthcare: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
-  skilledTrades: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
-  technology: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  barber: `${R2}/barber-hero.mp4`,
+  barberApprenticeship: `${R2}/barber-hero.mp4`,
+  healthcare: `${R2}/cna-hero.mp4`,
+  skilledTrades: `${R2}/hvac-hero-final.mp4`,
+  technology: `${R2}/hero-home-fast.mp4`,
   
   // Government/Enterprise
-  government: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
-  workforceBoard: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  government: `${R2}/hero-home-fast.mp4`,
+  workforceBoard: `${R2}/hero-home-fast.mp4`,
   
   // Store
-  storeCourses: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
-  storeDigital: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  storeCourses: `${R2}/hero-home-fast.mp4`,
+  storeDigital: `${R2}/hero-home-fast.mp4`,
   
   // LMS
-  lmsCourses: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  lmsCourses: `${R2}/hero-home-fast.mp4`,
 } as const;
 
 // Category-based hero image assignments
