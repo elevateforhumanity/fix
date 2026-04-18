@@ -159,7 +159,7 @@ const nextConfig = {
   ],
 
   // Experimental — minimal set only. Removed optimizePackageImports and other
-  // memory-intensive experiments to stay within Netlify's 4GB build container.
+  // memory-intensive experiments to stay within Netlify's build container limits.
   experimental: {
     serverActions: {
       allowedOrigins: [
@@ -173,6 +173,9 @@ const nextConfig = {
     optimizeCss: false,
     parallelServerCompiles: false,
     parallelServerBuildTraces: false,
+    // Limit static page generation to 1 worker at a time.
+    // Default is the number of CPUs; with 1,486 pages this exhausts container RAM.
+    staticGenerationConcurrency: 1,
   },
   
   // Suppress middleware deprecation warning (middleware.ts is still correct for our use case)
