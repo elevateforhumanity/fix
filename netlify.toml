@@ -82,10 +82,11 @@
   package = "./netlify/plugins/prune-handler"
 
 # CDN caching — pages cached 60s at edge, static assets cached 1 year
+# stale-while-revalidate kept short (10s) so deploys are visible immediately.
 [[headers]]
   for = "/*"
   [headers.values]
-    Cache-Control = "public, s-maxage=60, stale-while-revalidate=300"
+    Cache-Control = "public, s-maxage=60, stale-while-revalidate=10"
 
 [[headers]]
   for = "/_next/static/*"

@@ -1075,10 +1075,11 @@ const nextConfig = {
       // 1) Non-app routes (marketing stubs, public info pages) — short CDN cache.
       //    Marketing content is served by Cloudflare Pages (www.elevateforhumanity.org).
       //    These stubs just redirect there; short cache is fine.
+      //    stale-while-revalidate kept short (10s) so deploys are visible immediately.
       {
         source: '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|studio|api|lms|admin|learner|instructor|employer|partner|program-holder|staff-portal|mentor|student-portal|onboarding|franchise|tax|supersonic).*)',
         headers: [
-          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
+          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=10' },
           { key: 'X-Build-ID', value: process.env.COMMIT_REF?.slice(0, 7) || 'dev' },
           { key: 'X-Deployment-ID', value: process.env.DEPLOY_ID || 'local' },
           ...securityHeaders,
