@@ -45,7 +45,7 @@ export const VIDEO_REGISTRY: Record<string, VideoRecord> = {
     id: 'hero-home',
     title: 'Elevate for Humanity - Free Career Training Programs',
     description: 'Discover 100% free, funded workforce training programs in Indianapolis. WIOA-funded programs in healthcare, skilled trades, technology, and business.',
-    video_url: '/videos/hero-home.mp4',
+    video_url: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     thumbnail_url: '/images/pages/healthcare-grad.jpg',
     duration: 'PT1M30S',
     upload_date: '2025-01-01',

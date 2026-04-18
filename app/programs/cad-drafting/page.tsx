@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 const config: ProgramPageConfig = {
-  videoSrc: '/videos/it-technology.mp4',
+  videoSrc: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
   voiceoverSrc: '/audio/heroes/technology.mp3',
 
   title: 'CAD/Drafting Technician',

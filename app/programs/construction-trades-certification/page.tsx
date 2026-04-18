@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 const config: ProgramPageConfig = {
-  videoSrc: '/videos/electrician-trades.mp4',
+  videoSrc: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
   voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
 
   title: 'Construction Trades Certification Pathway',
