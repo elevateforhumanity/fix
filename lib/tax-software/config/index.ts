@@ -275,4 +275,10 @@ export function getConfigMetadata(taxYear: number): { lastUpdated: string; sourc
 
 // Export default config for current tax year
 export const currentTaxYear = 2024;
-export const currentConfig = loadTaxConfig(currentTaxYear);
+let _currentConfig: TaxConfig | undefined;
+export function getCurrentConfig(): TaxConfig {
+  if (!_currentConfig) {
+    _currentConfig = loadTaxConfig(currentTaxYear);
+  }
+  return _currentConfig;
+}

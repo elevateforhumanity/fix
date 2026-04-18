@@ -1,3 +1,5 @@
+export const runtime = 'nodejs';
+
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { calculateForm1040, getStandardDeduction } from '@/lib/tax-software/forms/form-1040';
