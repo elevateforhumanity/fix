@@ -3,6 +3,7 @@ export const revalidate = 3600;
 
 import Link from 'next/link';
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';
+import SfcTrustBar from '@/components/supersonic/SfcTrustBar';
 
 export default function RefundAdvancePage() {
   return (
@@ -85,6 +86,8 @@ export default function RefundAdvancePage() {
           </Link>
         </section>
       </main>
+
+      <SfcTrustBar />
     </>
   );
 }

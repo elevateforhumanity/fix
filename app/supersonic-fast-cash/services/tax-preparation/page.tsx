@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import Link from 'next/link';
 import { Shield, Clock, DollarSign, FileText } from 'lucide-react';
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';

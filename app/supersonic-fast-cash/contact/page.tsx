@@ -3,6 +3,8 @@ export const revalidate = 3600;
 
 import Link from 'next/link';
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';
+import SfcLeadCaptureForm from '@/components/supersonic/SfcLeadCaptureForm';
+import SfcTrustBar from '@/components/supersonic/SfcTrustBar';
 
 export default function ContactPage() {
   return (
@@ -104,7 +106,20 @@ export default function ContactPage() {
             Book an Appointment
           </Link>
         </section>
+
+        {/* Lead capture — turns contact page into a funnel entry point */}
+        <section>
+          <div className="max-w-xl mx-auto">
+            <SfcLeadCaptureForm
+              source="contact"
+              heading="Or Leave Your Info — We'll Call You"
+              ctaLabel="Request a Callback"
+            />
+          </div>
+        </section>
       </main>
+
+      <SfcTrustBar showEstimateDisclaimer={false} />
     </>
   );
 }

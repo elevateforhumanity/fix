@@ -1,6 +1,9 @@
 export const dynamic = 'force-static';
 export const revalidate = 3600;
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import Link from 'next/link';
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';
 

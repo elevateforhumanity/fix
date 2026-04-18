@@ -3,6 +3,8 @@ export const revalidate = 3600;
 
 import Link from 'next/link';
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';
+import SfcLeadCaptureForm from '@/components/supersonic/SfcLeadCaptureForm';
+import SfcTrustBar from '@/components/supersonic/SfcTrustBar';
 
 export default function BookAppointmentPage() {
   return (
@@ -15,6 +17,45 @@ export default function BookAppointmentPage() {
       />
 
       <main className="max-w-5xl mx-auto px-4 py-14 space-y-16">
+
+        {/* ── Primary CTA: intake form ────────────────────────────────── */}
+        <section className="grid md:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              Request Your Appointment Online
+            </h2>
+            <p className="text-slate-600 leading-relaxed mb-6">
+              Fill in your details and a team member will confirm your appointment within
+              one business day. Or call us directly at{' '}
+              <a href="tel:3173143757" className="text-brand-red-600 font-bold hover:underline">
+                (317) 314-3757
+              </a>
+              .
+            </p>
+            <div className="space-y-4 text-slate-600 text-sm">
+              <h3 className="font-bold text-slate-900 text-base">What to Bring</h3>
+              {[
+                'Government-issued photo ID',
+                'Social Security cards for all household members',
+                'All W-2, 1099, and other income statements',
+                "Last year's tax return (if available)",
+                'Bank account and routing numbers for direct deposit',
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-brand-red-500 flex-shrink-0 mt-1" aria-hidden="true" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <SfcLeadCaptureForm
+            source="book_appointment"
+            serviceType="tax_prep"
+            heading="Request Your Appointment"
+            ctaLabel="Request Appointment"
+          />
+        </section>
 
         {/* Appointment types */}
         <section>
@@ -34,7 +75,7 @@ export default function BookAppointmentPage() {
               {
                 type: 'Drop-Off',
                 location: 'Leave your documents with us',
-                desc: 'Drop off your paperwork at our office. We\'ll prepare your return and call you to review and sign.',
+                desc: "Drop off your paperwork at our office. We'll prepare your return and call you to review and sign.",
               },
             ].map(({ type, location, desc }) => (
               <div key={type} className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm text-center flex flex-col gap-3">
@@ -46,43 +87,21 @@ export default function BookAppointmentPage() {
           </div>
         </section>
 
-        {/* What to bring */}
-        <section className="bg-slate-50 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">What to Bring</h2>
-          <ul className="space-y-3">
-            {[
-              'Government-issued photo ID (driver\'s license, state ID, or passport)',
-              'Social Security cards for all household members being claimed',
-              'All W-2, 1099, and other income statements',
-              'Last year\'s tax return (if available)',
-              'Bank account and routing numbers for direct deposit',
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-brand-red-500 flex-shrink-0 mt-1" aria-hidden="true" />
-                <span className="text-slate-600">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
         {/* Tax season callout */}
         <section className="bg-brand-blue-900 text-white rounded-2xl p-8 text-center">
           <p className="text-lg font-semibold max-w-xl mx-auto">
-            Appointments fill fast during January–April. Call or walk in to secure your time.
+            Appointments fill fast during January–April. Walk-ins welcome, appointments get priority.
           </p>
-        </section>
-
-        {/* Large phone CTA */}
-        <section className="text-center space-y-4">
           <a
             href="tel:3173143757"
-            className="inline-block bg-brand-red-600 hover:bg-brand-red-700 text-white font-black text-2xl px-12 py-5 rounded-xl transition-colors"
+            className="inline-block mt-6 bg-brand-red-600 hover:bg-brand-red-700 text-white font-black text-xl px-10 py-4 rounded-xl transition-colors"
           >
             Call (317) 314-3757
           </a>
-          <p className="text-slate-500 text-sm">Walk-ins also welcome during business hours.</p>
         </section>
       </main>
+
+      <SfcTrustBar showEstimateDisclaimer={false} />
     </>
   );
 }

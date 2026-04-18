@@ -1,5 +1,9 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import Link from 'next/link';
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';
+import SfcTrustBar from '@/components/supersonic/SfcTrustBar';
 
 const proFeatures = [
   'In-person or remote',
@@ -123,6 +127,8 @@ export default function StartPage() {
           </Link>
         </div>
       </section>
+
+      <SfcTrustBar showEstimateDisclaimer={false} />
     </>
   );
 }

@@ -1,4 +1,8 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';
+import SfcTrustBar from '@/components/supersonic/SfcTrustBar';
 import RefundCalculatorClient from './RefundCalculatorClient';
 
 export default function CalculatorPage() {
@@ -11,6 +15,7 @@ export default function CalculatorPage() {
         subtitle="Estimate your federal tax refund in under 2 minutes."
       />
       <RefundCalculatorClient />
+      <SfcTrustBar />
     </>
   );
 }

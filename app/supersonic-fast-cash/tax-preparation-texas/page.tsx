@@ -1,5 +1,10 @@
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 import Link from 'next/link';
 import SupersonicPageHero from '@/components/supersonic/SupersonicPageHero';
+import SfcLeadCaptureForm from '@/components/supersonic/SfcLeadCaptureForm';
+import SfcTrustBar from '@/components/supersonic/SfcTrustBar';
 
 const cities = [
   'Dallas', 'Houston', 'San Antonio', 'Austin', 'Fort Worth',
@@ -88,7 +93,26 @@ export default function TaxPreparationTexasPage() {
           </div>
         </section>
 
+
+        {/* Inline lead capture — state page funnel entry */}
+        <section className="py-16 bg-white border-t border-slate-100">
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="max-w-xl mx-auto">
+              <h2 className="text-2xl font-bold text-slate-900 mb-2 text-center">Ready to File in Texas?</h2>
+              <p className="text-slate-600 text-center mb-8">Leave your info and we'll reach out to confirm your appointment.</p>
+              <SfcLeadCaptureForm
+                source="state_page"
+                sourceDetail="tax-preparation-texas"
+                serviceType="tax_prep"
+                heading="Get Started — We'll Contact You"
+                ctaLabel="Request a Callback"
+              />
+            </div>
+          </div>
+        </section>
       </main>
+
+      <SfcTrustBar />
     </>
   );
 }
