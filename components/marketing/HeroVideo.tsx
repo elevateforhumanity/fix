@@ -136,13 +136,16 @@ export default function HeroVideo({
       >
         {/* autoPlayOnMount + preloadFull — hero is always above the fold.
             preloadFull buffers the video immediately so the first frame
-            appears without waiting for the IntersectionObserver tick. */}
+            appears without waiting for the IntersectionObserver tick.
+            loop — hero videos loop indefinitely; without this the video ends,
+            onEnded fires, and the poster fades back in over the video. */}
         <CanonicalVideo
           src={videoSrc}
           poster={posterImage}
           className="absolute inset-0 w-full h-full object-cover object-center"
           autoPlayOnMount
           preloadFull
+          loop
         />
 
         {/* Hidden audio element for voiceover */}

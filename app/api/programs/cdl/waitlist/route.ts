@@ -5,6 +5,7 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { sendEmail } from '@/lib/email/sendgrid';
 import { hydrateProcessEnv } from '@/lib/secrets';
 import { logger } from '@/lib/logger';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
 export const runtime = 'nodejs';
 
 export const dynamic = 'force-dynamic';
@@ -12,6 +13,9 @@ export const dynamic = 'force-dynamic';
 const ADMIN_EMAIL = process.env.PARTNER_NOTIFICATION_EMAIL || 'elevate4humanityedu@gmail.com';
 
 export async function POST(request: NextRequest) {
+  const limited = await applyRateLimit(request, 'contact');
+  if (limited) return limited;
+
   try {
   await hydrateProcessEnv();
     const body = await request.json();

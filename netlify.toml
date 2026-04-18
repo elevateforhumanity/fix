@@ -5,7 +5,7 @@
 [build]
   # libxml2-utils provides xmllint, required for IRS MeF XSD validation.
   # Without it, schema-validator.ts returns XMLLINT_NOT_AVAILABLE and blocks all submissions.
-  command = "corepack enable && pnpm install --no-frozen-lockfile && pnpm run build && node scripts/prune-node-modules.mjs"
+  command = "corepack enable && pnpm install --no-frozen-lockfile && pnpm run build"
   # publish is intentionally omitted — @netlify/plugin-nextjs manages the output directory.
   # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
   functions = "netlify/functions"
@@ -29,6 +29,10 @@
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=4096"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
+  # TURBOPACK=0 is the correct env var for Next.js 16.x to disable Turbopack.
+  # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are no longer
+  # respected in Next.js 16 — they have been replaced by TURBOPACK.
+  TURBOPACK = "0"
   NEXT_DISABLE_MANAGED_TURBOPACK = "1"
   NEXT_DISABLE_TURBOPACK = "1"
   NETLIFY_USE_PNPM = "true"
@@ -76,10 +80,11 @@
   package = "./netlify/plugins/prune-handler"
 
 # CDN caching — pages cached 60s at edge, static assets cached 1 year
+# stale-while-revalidate kept short (10s) so deploys are visible immediately.
 [[headers]]
   for = "/*"
   [headers.values]
-    Cache-Control = "public, s-maxage=60, stale-while-revalidate=300"
+    Cache-Control = "public, s-maxage=60, stale-while-revalidate=10"
 
 [[headers]]
   for = "/_next/static/*"

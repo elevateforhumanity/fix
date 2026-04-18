@@ -1,6 +1,3 @@
-export const revalidate = 3600;
-
-
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -33,7 +30,7 @@ export default function BarberApprenticeshipPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50">
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[100vh] sm:min-h-[70vh] md:min-h-[75vh] w-full overflow-hidden">
           <img
@@ -45,10 +42,10 @@ export default function BarberApprenticeshipPage() {
       </section>
 
       {/* Hero Content */}
-      <section className="bg-gray-50">
+      <section className="bg-slate-50">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="px-3 py-1 bg-green-500 text-white text-sm font-medium rounded-full">
+            <span className="px-3 py-1 bg-brand-green-500 text-white text-sm font-medium rounded-full">
               Free with funding
             </span>
             <span className="px-3 py-1 bg-brand-orange-600 text-white text-sm font-medium rounded-full">
@@ -71,21 +68,21 @@ export default function BarberApprenticeshipPage() {
 
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <Link
-              href="/apply"
-              className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-base font-semibold text-white hover:bg-blue-700 transition-colors"
+              href="/programs/barber-apprenticeship/apply"
+              className="inline-flex items-center justify-center rounded-lg bg-brand-blue-600 px-6 py-3 text-base font-semibold text-white hover:bg-brand-blue-700 transition-colors"
             >
               Apply for Free Training
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-lg border-2 border-gray-300 px-6 py-3 text-base font-semibold text-black hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center rounded-lg border-2 border-slate-300 px-6 py-3 text-base font-semibold text-black hover:bg-slate-50 transition-colors"
             >
               Talk to an Advisor
             </Link>
           </div>
 
           {/* Funding & Payment Options */}
-          <div className="mt-8 p-6 bg-green-50 border-2 border-green-300 rounded-lg max-w-2xl">
+          <div className="mt-8 p-6 bg-brand-green-50 border-2 border-brand-green-300 rounded-lg max-w-2xl">
             <div className="flex items-start gap-3 mb-4">
               <Image src="/images/icons/dollar.png" alt="Funding" width={24} height={24} className="flex-shrink-0 mt-1" />
               <div className="w-full">
@@ -96,14 +93,14 @@ export default function BarberApprenticeshipPage() {
                   This program is fully funded through WIOA and WRG for eligible students. You pay nothing for tuition, books, supplies, or tools.
                 </p>
                 
-                <div className="bg-white rounded-lg p-4 mb-4 border-2 border-green-200">
+                <div className="bg-white rounded-lg p-4 mb-4 border-2 border-brand-green-200">
                   <h4 className="font-bold text-black mb-2">What's Covered:</h4>
-                  <ul className="text-sm text-black space-y-1">
-                    <li>✓ All tuition and instructional costs</li>
-                    <li>✓ Milady RISE curriculum ($299 value)</li>
-                    <li>✓ Books and learning materials</li>
-                    <li>✓ Supplies and tools</li>
-                    <li>✓ Career placement assistance</li>
+                  <ul className="text-sm text-black space-y-1.5">
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-red-500 flex-shrink-0" /> All tuition and instructional costs</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-red-500 flex-shrink-0" /> Milady RISE curriculum ($299 value)</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-red-500 flex-shrink-0" /> Books and learning materials</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-red-500 flex-shrink-0" /> Supplies and tools</li>
+                    <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-red-500 flex-shrink-0" /> Career placement assistance</li>
                   </ul>
                   <p className="text-xs text-black mt-3">
                     Note: State barber license fee ($45) paid separately to Indiana State Board
@@ -116,7 +113,7 @@ export default function BarberApprenticeshipPage() {
 
                 <Link
                   href="/funding"
-                  className="inline-block px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all"
+                  className="inline-block px-6 py-3 bg-brand-green-600 hover:bg-brand-green-700 text-white font-bold rounded-lg transition-all"
                 >
                   Check Your Eligibility
                 </Link>
@@ -164,7 +161,7 @@ export default function BarberApprenticeshipPage() {
                   {/* Stripe Payment */}
                   <Link
                     href="/checkout/barber-apprenticeship?method=stripe"
-                    className="w-full flex items-center justify-between px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all"
+                    className="w-full flex items-center justify-between px-6 py-4 bg-brand-blue-600 hover:bg-brand-blue-700 text-white font-bold rounded-lg transition-all"
                   >
                     <div className="flex items-center gap-3">
                       <svg
@@ -176,7 +173,7 @@ export default function BarberApprenticeshipPage() {
                       </svg>
                       <div className="text-left">
                         <div className="font-bold">Pay with Stripe</div>
-                        <div className="text-sm text-blue-100">
+                        <div className="text-sm text-brand-blue-100">
                           Secure one-time payment
                         </div>
                       </div>
@@ -199,7 +196,7 @@ export default function BarberApprenticeshipPage() {
                   {/* Affirm Payment */}
                   <Link
                     href="/checkout/barber-apprenticeship?method=affirm"
-                    className="w-full flex items-center justify-between px-6 py-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all"
+                    className="w-full flex items-center justify-between px-6 py-4 bg-brand-blue-500 hover:bg-brand-blue-600 text-white font-bold rounded-lg transition-all"
                   >
                     <div className="flex items-center gap-3">
                       <svg
@@ -211,7 +208,7 @@ export default function BarberApprenticeshipPage() {
                       </svg>
                       <div className="text-left">
                         <div className="font-bold">Pay with Affirm</div>
-                        <div className="text-sm text-blue-100">
+                        <div className="text-sm text-brand-blue-100">
                           As low as $206/month • 0% APR available
                         </div>
                       </div>
@@ -234,7 +231,7 @@ export default function BarberApprenticeshipPage() {
 
                 <p className="text-xs text-black mt-3 text-center">
                   <Lightbulb className="w-5 h-5 inline-block" /> Most students qualify for 100% FREE training through WIOA funding.{' '}
-                  <Link href="/funding" className="text-blue-600 underline">
+                  <Link href="/funding" className="text-brand-blue-600 underline">
                     Check eligibility
                   </Link>
                 </p>
@@ -271,7 +268,7 @@ export default function BarberApprenticeshipPage() {
       </section>
 
       {/* What You'll Learn */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-4xl px-6">
           <h2 className="text-3xl font-bold text-black mb-6">What You'll Learn</h2>
           <p className="text-black mb-6">
@@ -303,7 +300,7 @@ export default function BarberApprenticeshipPage() {
               prose-h3:text-2xl prose-h3:mt-4 prose-h3:mb-3
               prose-h4:text-xl prose-h4:mt-3 prose-h4:mb-2
               prose-p:text-black prose-p:leading-relaxed prose-p:mb-4
-              prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+              prose-a:text-brand-blue-600 prose-a:no-underline hover:prose-a:underline
               prose-strong:text-black prose-strong:font-bold
               prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
               prose-ol:my-4 prose-ol:list-decimal prose-ol:pl-6
@@ -322,12 +319,12 @@ export default function BarberApprenticeshipPage() {
       )}
 
       {/* What is a Registered Apprenticeship */}
-      <section className="py-20 md:py-24 bg-blue-50">
+      <section className="py-20 md:py-24 bg-brand-blue-50">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
             What is a Registered Apprenticeship?
           </h2>
-          <div className="bg-white border-2 border-blue-200 rounded-xl p-6 md:p-8">
+          <div className="bg-white border-2 border-brand-blue-200 rounded-xl p-6 md:p-8">
             <p className="text-lg text-black mb-4">
               A <strong>Registered Apprenticeship</strong> is a structured
               talent development strategy approved by the U.S. Department of
@@ -379,7 +376,7 @@ export default function BarberApprenticeshipPage() {
             </p>
 
             {/* Transfer Hours Explanation */}
-            <div className="mt-6 p-6 bg-blue-50 border-2 border-blue-300 rounded-lg">
+            <div className="mt-6 p-6 bg-brand-blue-50 border-2 border-brand-blue-300 rounded-lg">
               <h4 className="text-lg font-bold text-black mb-3 flex items-center gap-2">
                 <Image src="/images/icons/award.png" alt="Award" width={24} height={24} className="flex-shrink-0" />
                 How Transfer Hours Work
@@ -491,7 +488,7 @@ export default function BarberApprenticeshipPage() {
       </section>
 
       {/* Who This Program Is For */}
-      <section className="bg-gray-50 py-16">
+      <section className="bg-slate-50 py-16">
         <div className="mx-auto max-w-4xl px-6">
           <h2 className="text-3xl font-bold text-black mb-6">
             Who This Program Is For
@@ -535,23 +532,23 @@ export default function BarberApprenticeshipPage() {
           </h2>
           <p className="text-black mb-6">You may qualify for:</p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-blue-50 rounded-lg p-6">
+            <div className="bg-brand-blue-50 rounded-lg p-6">
               <h3 className="font-bold text-black mb-2">WIOA</h3>
               <p className="text-black text-sm">
                 Workforce Innovation and Opportunity Act funding
               </p>
             </div>
-            <div className="bg-blue-50 rounded-lg p-6">
+            <div className="bg-brand-blue-50 rounded-lg p-6">
               <h3 className="font-bold text-black mb-2">WRG</h3>
               <p className="text-black text-sm">Workforce Ready Grant</p>
             </div>
-            <div className="bg-blue-50 rounded-lg p-6">
+            <div className="bg-brand-blue-50 rounded-lg p-6">
               <h3 className="font-bold text-black mb-2">JRI</h3>
               <p className="text-black text-sm">
                 Justice Reinvestment Initiative
               </p>
             </div>
-            <div className="bg-blue-50 rounded-lg p-6">
+            <div className="bg-brand-blue-50 rounded-lg p-6">
               <h3 className="font-bold text-black mb-2">
                 Employer Sponsorship
               </h3>
@@ -564,7 +561,7 @@ export default function BarberApprenticeshipPage() {
       </section>
 
       {/* Support Services */}
-      <section className="bg-gray-50 py-16">
+      <section className="bg-slate-50 py-16">
         <div className="mx-auto max-w-4xl px-6">
           <h2 className="text-3xl font-bold text-black mb-6">
             Support Services
@@ -605,17 +602,17 @@ export default function BarberApprenticeshipPage() {
           <h2 className="text-3xl font-bold text-black mb-6">Outcomes</h2>
           <p className="text-black mb-6">Students typically move into:</p>
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-green-50 rounded-lg p-6 text-center">
+            <div className="bg-brand-green-50 rounded-lg p-6 text-center">
               <h3 className="font-bold text-black mb-2">Licensed Barber</h3>
               <p className="text-black text-sm">Full state license</p>
             </div>
-            <div className="bg-green-50 rounded-lg p-6 text-center">
+            <div className="bg-brand-green-50 rounded-lg p-6 text-center">
               <h3 className="font-bold text-black mb-2">Shop Employment</h3>
               <p className="text-black text-sm">
                 Job at training shop or other
               </p>
             </div>
-            <div className="bg-green-50 rounded-lg p-6 text-center">
+            <div className="bg-brand-green-50 rounded-lg p-6 text-center">
               <h3 className="font-bold text-black mb-2">Shop Ownership</h3>
               <p className="text-black text-sm">Pathway to own business</p>
             </div>
@@ -624,12 +621,12 @@ export default function BarberApprenticeshipPage() {
       </section>
 
       {/* Earn While You Learn */}
-      <section className="py-20 md:py-24 bg-green-50">
+      <section className="py-20 md:py-24 bg-brand-green-50">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
             Earn While You Learn
           </h2>
-          <div className="bg-white border-2 border-green-200 rounded-xl p-6 md:p-8">
+          <div className="bg-white border-2 border-brand-green-200 rounded-xl p-6 md:p-8">
             <p className="text-lg text-black mb-4">
               <strong>
                 All registered apprenticeships include wage progression.
@@ -638,17 +635,17 @@ export default function BarberApprenticeshipPage() {
               skills.
             </p>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-4 bg-green-50 rounded-lg">
+              <div className="text-center p-4 bg-brand-green-50 rounded-lg">
                 <p className="text-sm text-black mb-1">Starting Wage</p>
                 <p className="text-2xl font-bold text-black">$12-15/hr</p>
                 <p className="text-xs text-black">Months 1-6</p>
               </div>
-              <div className="text-center p-4 bg-green-50 rounded-lg">
+              <div className="text-center p-4 bg-brand-green-50 rounded-lg">
                 <p className="text-sm text-black mb-1">Mid-Program</p>
                 <p className="text-2xl font-bold text-black">$15-18/hr</p>
                 <p className="text-xs text-black">Months 7-12</p>
               </div>
-              <div className="text-center p-4 bg-green-50 rounded-lg">
+              <div className="text-center p-4 bg-brand-green-50 rounded-lg">
                 <p className="text-sm text-black mb-1">Licensed Barber</p>
                 <p className="text-2xl font-bold text-black">$25-40/hr+</p>
                 <p className="text-xs text-black">After licensure</p>
@@ -697,7 +694,7 @@ export default function BarberApprenticeshipPage() {
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-3 p-4 border-2 border-gray-200 rounded-lg hover:border-brand-orange-600 hover:bg-orange-50 transition group"
+                className="flex items-start gap-3 p-4 border-2 border-slate-200 rounded-lg hover:border-brand-orange-600 hover:bg-orange-50 transition group"
               >
                 <FileText className="w-6 h-6 text-black group-hover:text-brand-orange-600 flex-shrink-0 mt-1" />
                 <div className="flex-1">
@@ -714,17 +711,17 @@ export default function BarberApprenticeshipPage() {
       </section>
 
       {/* Shop Owners CTA */}
-      <section className="py-20 md:py-24 bg-slate-800 text-black">
+      <section className="py-20 md:py-24 bg-slate-800 text-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Barber Shop Owners
           </h2>
-          <p className="text-xl text-black mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
             Interested in hosting an apprentice? Learn about program holder
             requirements, benefits, and how to get started.
           </p>
           <Link
-            href="/program-holders/barber-apprenticeship"
+            href="/partners/barbershop-apprenticeship"
             className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange-600 hover:bg-brand-orange-700 text-white font-bold text-lg rounded-lg transition"
           >
             Program Holder Guidelines
@@ -738,53 +735,53 @@ export default function BarberApprenticeshipPage() {
           <h2 className="text-3xl font-bold mb-6">Next Steps</h2>
           <div className="space-y-4 text-left max-w-2xl mx-auto mb-8">
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full bg-brand-orange-600 text-white font-bold flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-brand-red-600 text-white font-bold flex items-center justify-center flex-shrink-0">
                 1
               </div>
               <div>
                 <h3 className="font-bold mb-1">Apply</h3>
-                <p className="text-black text-sm">
+                <p className="text-white/80 text-sm">
                   Submit your application online
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full bg-brand-orange-600 text-white font-bold flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-brand-red-600 text-white font-bold flex items-center justify-center flex-shrink-0">
                 2
               </div>
               <div>
                 <h3 className="font-bold mb-1">Meet with advisor</h3>
-                <p className="text-black text-sm">
+                <p className="text-white/80 text-sm">
                   Discuss your goals and eligibility
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full bg-brand-orange-600 text-white font-bold flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-brand-red-600 text-white font-bold flex items-center justify-center flex-shrink-0">
                 3
               </div>
               <div>
                 <h3 className="font-bold mb-1">Confirm eligibility</h3>
-                <p className="text-black text-sm">
+                <p className="text-white/80 text-sm">
                   We help with funding paperwork
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full bg-brand-orange-600 text-white font-bold flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-brand-red-600 text-white font-bold flex items-center justify-center flex-shrink-0">
                 4
               </div>
               <div>
                 <h3 className="font-bold mb-1">Enroll</h3>
-                <p className="text-black text-sm">
+                <p className="text-white/80 text-sm">
                   Get matched to a shop and start training
                 </p>
               </div>
             </div>
           </div>
           <Link
-            href="/apply"
-            className="inline-block px-10 py-5 bg-brand-orange-600 hover:bg-brand-orange-600 text-white font-bold text-xl rounded-lg transition-all shadow-lg hover:shadow-xl"
+            href="/programs/barber-apprenticeship/apply"
+            className="inline-block px-10 py-5 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold text-xl rounded-lg transition-all shadow-lg hover:shadow-xl"
           >
             Apply Now
           </Link>
