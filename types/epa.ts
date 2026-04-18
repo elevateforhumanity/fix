@@ -49,6 +49,12 @@ export interface EpaPartner {
   email:       string;
   phone:       string;
   status:      EpaPartnerStatus;
+  /**
+   * Issued proctor ID for this authorized site.
+   * ADMIN ONLY — NEVER expose on any public-facing page or API response.
+   * Store in this file only; never log, render, or transmit to the client.
+   */
+  proctorId?:  string;
   notes?:      string[];
 }
 

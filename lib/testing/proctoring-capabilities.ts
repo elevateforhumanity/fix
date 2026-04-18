@@ -1,3 +1,10 @@
+import { EPA608_FEES }     from './providers/epa608-pricing';
+import { CERTIPORT_FEES }  from './providers/certiport-pricing';
+import { WORKKEYS_FEES }   from './providers/workkeys-pricing';
+import { NRF_FEES }        from './providers/nrf-riseup';
+import { CAREERSAFE_FEES } from './providers/careersafe-pricing';
+import { MIDLAND_FEES }    from './providers/midland-pricing';
+
 /**
  * Proctoring capability model for Elevate's testing center.
  *
@@ -132,10 +139,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     examPortalUrl: 'https://www.escogroup.org/esco/login/',
     examPortalNote: 'Log in with the Elevate proctor account. Select "Administer Exam", then check in the candidate by confirmation code.',
     status: 'active',
-    fees: [
-      { label: 'Universal (all sections)', amount: 55, note: 'Includes exam fee + proctoring' },
-      { label: 'Single section', amount: 35, note: 'Includes exam fee + proctoring' },
-    ],
+    fees: [...EPA608_FEES],
     groupDiscount: 'Groups of 5+ — contact us for employer/cohort pricing',
     ncrcJobProfiles: [
       {
@@ -208,9 +212,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     examPortalUrl: 'https://riseup.nrf.com/',
     examPortalNote: 'Log in to the RISE Up Testing Center portal. Select the candidate\'s name from today\'s roster to launch their exam.',
     status: 'active',
-    fees: [
-      { label: 'Per credential exam', amount: 45, note: 'Includes exam fee + proctoring' },
-    ],
+    fees: [...NRF_FEES],
     ncrcJobProfiles: [
       {
         level: 'Retail Industry Fundamentals',
@@ -301,9 +303,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     examPortalUrl: 'https://certiport.pearsonvue.com/',
     examPortalNote: 'Log in to the Certiport Management System (CMS) with the proctor account. Go to Exams → Start Exam Session → enter the candidate\'s CMS username to begin.',
     status: 'active',
-    fees: [
-      { label: 'Per exam', amount: 65, note: 'Includes exam voucher + proctoring' },
-    ],
+    fees: [...CERTIPORT_FEES],
     groupDiscount: 'Groups of 5+ — contact us for cohort pricing',
     ncrcJobProfiles: [
       {
@@ -516,11 +516,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     examPortalUrl: 'https://workkeys.act.org/',
     examPortalNote: 'Log in to the ACT WorkKeys Testing Center portal (Realm: 1317721865). Locate the candidate\'s registration, verify their photo ID, then launch the assigned assessments.',
     status: 'active',
-    fees: [
-      { label: 'Per assessment (individual)', amount: 45, note: 'Includes ACT fee + proctoring' },
-      { label: 'Full NCRC (3 assessments)', amount: 120, note: 'Applied Math + Workplace Documents + Graphic Literacy' },
-      { label: 'Per assessment (workforce agency referral)', amount: 35, note: 'WorkOne / WIOA-referred candidates' },
-    ],
+    fees: [...WORKKEYS_FEES],
     groupDiscount: 'Groups of 5+ — $30/assessment. Contact us for employer or cohort scheduling.',
     /**
      * NCRC level requirements by career/industry.
@@ -596,7 +592,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
   // not through the testing center. See /programs/culinary-apprenticeship.
   careersafe: {
     key: 'careersafe',
-    name: 'CareerSafe / OSHA Outreach',
+    name: 'OSHA Outreach Training',
     capability: 'CENTER_REMOTE_ALLOWED',
     description: 'OSHA Outreach Training Program certifications issued through the U.S. Department of Labor. The OSHA 10 and OSHA 30 are the most widely recognized workplace safety credentials in the country. Required by many construction employers, union apprenticeship programs, and federal contractors. A DOL wallet card is issued upon completion — valid for life.',
     exams: [

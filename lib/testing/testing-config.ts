@@ -10,6 +10,10 @@ export const TESTING_CENTER = {
   phone:   '(317) 314-3757',
   phoneTel: '+13173143757',
   email:   'testing@elevateforhumanity.org',
+  contact: {
+    name:  'Elizabeth Greene',
+    title: 'Founder & CEO / EPA 608 Certified Proctor',
+  },
   coordinator: {
     name:  'Alberta Davis',
     title: 'Testing Center Coordinator',
