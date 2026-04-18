@@ -650,12 +650,6 @@
 # eliminate build cost and redirect latency.
 
 [[redirects]]
-  from = "/apprenticeships"
-  to = "https://learn.elevateforhumanity.org/learner/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
   from = "/career-services/courses"
   to = "https://learn.elevateforhumanity.org/lms/courses"
   status = 301
