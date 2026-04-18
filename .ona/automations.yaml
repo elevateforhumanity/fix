@@ -28,12 +28,40 @@ tasks:
     dependsOn:
       - setup-env
 
+  generate-hvac-audio:
+    name: Generate HVAC audio
+    description: Generate Marcus Johnson MP3 voiceovers for all 94 HVAC lessons via OpenAI TTS. Skips lessons that already have audio. No-ops silently if OPENAI_API_KEY is not set.
+    command: |
+      if [ -z "$OPENAI_API_KEY" ]; then
+        echo "OPENAI_API_KEY not set — skipping HVAC audio generation"
+        exit 0
+      fi
+      npx tsx scripts/generate-hvac-audio.ts
+    triggeredBy:
+      - postDevcontainerStart
+    dependsOn:
+      - install-deps
+
+  generate-hvac-videos:
+    name: Generate HVAC videos
+    description: Generate D-ID talking-head MP4s for all 94 HVAC lessons. Requires HVAC MP3s to exist first. Skips lessons that already have a video. No-ops silently if DID_API_KEY is not set.
+    command: |
+      if [ -z "$DID_API_KEY" ]; then
+        echo "DID_API_KEY not set — skipping HVAC video generation"
+        exit 0
+      fi
+      npx tsx scripts/generate-hvac-videos-did.ts
+    triggeredBy:
+      - postDevcontainerStart
+    dependsOn:
+      - generate-hvac-audio
+
 
 services:
   dev-server:
     name: Dev Server
     description: Next.js development server with Turbopack on port 3000.
     commands:
-      start: pnpm dev
+      start: pnpm dev --turbopack
       stop: kill $(lsof -ti:3000) 2>/dev/null || true
       ready: curl -sf http://localhost:3000

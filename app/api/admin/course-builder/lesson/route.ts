@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getServiceDb } from '@/lib/course-builder/db';
+import { defaultActivities, normaliseStepType } from '@/lib/curriculum/activities';
 
 export const dynamic = 'force-dynamic';
 
@@ -97,7 +98,9 @@ export async function POST(req: NextRequest) {
       competency_checks: body.competencyChecks ?? [],
       instructor_notes: body.instructorNotes ?? null,
       practical_required: body.practicalRequired ?? false,
-      activities: body.activities ?? [],
+      activities: body.activities?.length
+        ? body.activities
+        : defaultActivities(normaliseStepType(body.lessonType)),
       is_required: body.isRequired ?? true,
       metadata: {
         requiredArtifacts: body.requiredArtifacts ?? [],
