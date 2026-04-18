@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiAuthGuard } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeDbError } from '@/lib/api/safe-error';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   const lessonId = searchParams.get('lesson_id');
   if (!lessonId) return safeError('lesson_id required', 400);
 
-  const db = createAdminClient();
+  const db = await getAdminClient();
   const { data, error } = await db
     .from('practical_requirements')
     .select('practical_type, required_hours, required_attempts, requires_evaluator_approval, requires_skill_signoff, allowed_submission_modes, instructions, rubric_json, safety_guidance, materials_needed')
