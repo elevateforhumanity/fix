@@ -38,7 +38,8 @@
       }
     ],
     "allowJs": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "skipDefaultLibCheck": true
   },
   "include": [
     "next-env.d.ts",
@@ -66,6 +67,11 @@
   ],
   "exclude": [
     "node_modules",
+    ".next",
+    "dist",
+    "build",
+    "coverage",
+    ".turbo",
     "workers",
     "deployment-ready",
     "supabase/functions",
