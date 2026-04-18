@@ -30,7 +30,7 @@ export default function PartnerCompetenciesPage() {
     setError(null);
     setSuccess(null);
     try {
-      const res = await fetch('/api/pwa/shop-owner/pending-reps');
+      const res = await fetch('/api/competency/pending-reps');
       if (res.status === 401) {
         setError('Please sign in to review competency reps.');
         return;
@@ -58,7 +58,7 @@ export default function PartnerCompetenciesPage() {
     setError(null);
     setSuccess(null);
     try {
-      const res = await fetch('/api/supervisor/verify-rep', {
+      const res = await fetch('/api/competency/verify-rep', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ competencyLogId: entry.id }),
@@ -141,7 +141,8 @@ export default function PartnerCompetenciesPage() {
         ) : (
           <div className="space-y-4">
             {entries.map(entry => {
-              const workDate = new Date(`${entry.workDate}T00:00:00Z`);
+              const hasValidDate = /^\d{4}-\d{2}-\d{2}$/.test(entry.workDate);
+              const workDate = hasValidDate ? new Date(`${entry.workDate}T00:00:00Z`) : null;
               const submitted = new Date(entry.submittedAt);
               return (
                 <div key={entry.id} className="bg-white rounded-xl border p-6">
@@ -163,7 +164,9 @@ export default function PartnerCompetenciesPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-600 mb-3">
                         <div>
                           <span className="block text-xs text-slate-400 uppercase tracking-wide">Date Performed</span>
-                          {workDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
+                          {workDate
+                            ? workDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+                            : entry.workDate}
                         </div>
                         <div>
                           <span className="block text-xs text-slate-400 uppercase tracking-wide">Reps Logged</span>

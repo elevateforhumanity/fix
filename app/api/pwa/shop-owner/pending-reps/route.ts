@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
         .eq('partner_id', partnerUser.partner_id)
         .eq('status', 'active');
 
-      const partnerApprenticeIds = (apprenticeships ?? []).map((a: { apprentice_id: string }) => a.apprentice_id);
+      const partnerApprenticeIds = (apprenticeships ?? []).map(apprenticeship => apprenticeship.apprentice_id);
       apprenticeIds = [...new Set([...apprenticeIds, ...partnerApprenticeIds])];
     }
 
