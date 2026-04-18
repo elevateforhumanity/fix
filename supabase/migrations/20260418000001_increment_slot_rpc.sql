@@ -2,9 +2,8 @@
 -- Called by /api/testing/book (org / waived-fee bookings) and
 -- /api/testing/webhook (paid individual bookings) after inserting an exam_bookings row.
 --
--- Uses UPDATE ... RETURNING to be idempotent-safe:
---   - Only increments when booked_count < capacity (prevents overselling)
---   - Returns the updated row so callers can detect a full slot
+-- Uses UPDATE ... WHERE booked_count < capacity to prevent overselling —
+-- if the slot is already full the UPDATE is a no-op (safe to call anyway).
 --
 -- Apply in Supabase Dashboard → SQL Editor.
 

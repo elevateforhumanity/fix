@@ -270,11 +270,11 @@ export default async function ProviderPage({ params }: Props) {
 
           {/* ── Exam Portal — proctor launch panel ── */}
           {provider.examPortalUrl && (
-            <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-sm">
+            <aside aria-label="Exam Portal for Proctors" className="bg-slate-900 rounded-2xl overflow-hidden shadow-sm">
               <div className="px-6 py-4 border-b border-slate-700">
                 <div className="flex items-center gap-2 text-white">
                   <Monitor className="w-5 h-5 text-green-400" />
-                  <h3 className="font-bold text-lg">Exam Portal</h3>
+                  <h3 id="exam-portal-heading" className="font-bold text-lg">Exam Portal</h3>
                   <span className="ml-auto text-xs font-semibold bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-0.5 rounded-full">
                     Proctor Use
                   </span>
@@ -290,6 +290,7 @@ export default async function ProviderPage({ params }: Props) {
                   href={provider.examPortalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-labelledby="exam-portal-heading"
                   className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white font-bold px-6 py-3.5 rounded-xl transition-colors text-sm"
                 >
                   <Monitor className="w-4 h-4" />
@@ -297,7 +298,7 @@ export default async function ProviderPage({ params }: Props) {
                   <ExternalLink className="w-3.5 h-3.5 opacity-70" />
                 </a>
               </div>
-            </div>
+            </aside>
           )}
 
           {/* Pricing card */}

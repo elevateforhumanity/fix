@@ -116,7 +116,23 @@ export const POST = withRuntime(
       logger.warn('[testing/webhook] Could not generate Calendly link — using public URL', { err });
     }
 
-    const slotId = meta.slot_id || null;
+    // Resolve slot_id — verify the slot still exists and is not cancelled before
+    // writing the FK. If the slot was removed between checkout and webhook, fall
+    // back to null so the booking insert still succeeds.
+    const rawSlotId = meta.slot_id || null;
+    let slotId: string | null = null;
+    if (rawSlotId) {
+      const { data: slotRow } = await db
+        .from('testing_slots')
+        .select('id')
+        .eq('id', rawSlotId)
+        .eq('is_cancelled', false)
+        .maybeSingle();
+      slotId = slotRow?.id ?? null;
+      if (!slotId) {
+        logger.warn('[testing/webhook] slot_id in metadata not found or cancelled — booking without slot', { rawSlotId });
+      }
+    }
 
     const { error: insertErr } = await db.from('exam_bookings').insert({
       exam_type:               meta.exam_type,
