@@ -31,6 +31,7 @@ export default function VideoHeroBanner({ videoSrc, posterSrc, caption }: VideoH
         poster={posterSrc as `/${string}`}
         className="absolute inset-0 w-full h-full object-cover"
         autoPlayOnMount
+        preloadFull
       />
 
       <button

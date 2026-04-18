@@ -14,26 +14,26 @@ import type { HeroVariant, HeroHeight, HeroCTA } from '@/components/ui/HeroSecti
 // Rules: No gradient overlays, text in solid container, calm motion only
 export const VIDEO_HEROES = {
   // Main/Marketing
-  homepage: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
-  careerServices: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+  homepage: '/videos/hero-home-fast.mp4',
+  careerServices: '/videos/career-services-hero.mp4',
   
   // Program Categories
-  barber: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
-  barberApprenticeship: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/barber-hero.mp4',
-  healthcare: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
-  skilledTrades: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
-  technology: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  barber: '/videos/barber-hero.mp4',
+  barberApprenticeship: '/videos/barber-hero.mp4',
+  healthcare: '/videos/cna-hero.mp4',
+  skilledTrades: '/videos/hvac-hero-final.mp4',
+  technology: '/videos/hero-home-fast.mp4',
   
   // Government/Enterprise
-  government: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
-  workforceBoard: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  government: '/videos/hero-home-fast.mp4',
+  workforceBoard: '/videos/hero-home-fast.mp4',
   
   // Store
-  storeCourses: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
-  storeDigital: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  storeCourses: '/videos/hero-home-fast.mp4',
+  storeDigital: '/videos/hero-home-fast.mp4',
   
   // LMS
-  lmsCourses: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+  lmsCourses: '/videos/hero-home-fast.mp4',
 } as const;
 
 // Category-based hero image assignments

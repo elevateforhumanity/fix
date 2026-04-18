@@ -24,6 +24,8 @@ export default function ApplyHeroVideo() {
         poster="/images/pages/apply-hero.jpg"
         className="absolute inset-0 w-full h-full object-cover"
         autoPlayOnMount
+        preloadFull
+        threshold={0.2}
       />
 
       <button
