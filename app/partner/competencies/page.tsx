@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, CheckCircle2, Clock, RefreshCcw, Scissors, User } from 'lucide-react';
+import { AlertCircle, BadgeCheck, Clock, RefreshCcw, Scissors, User } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 type PendingRep = {
@@ -67,8 +67,9 @@ export default function PartnerCompetenciesPage() {
       if (!res.ok) throw new Error(data.error || 'Failed to verify rep');
       setEntries(prev => prev.filter(item => item.id !== entry.id));
       setSuccess(`Verified ${entry.serviceCount} rep${entry.serviceCount !== 1 ? 's' : ''} for ${entry.apprenticeName}.`);
-    } catch (err: any) {
-      setError(err?.message || 'Failed to verify rep.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to verify rep.';
+      setError(message);
     } finally {
       setProcessing(null);
     }
@@ -77,7 +78,7 @@ export default function PartnerCompetenciesPage() {
   return (
     <div className="min-h-screen bg-white">
       <section className="relative h-[160px] sm:h-[220px] md:h-[280px] overflow-hidden rounded-xl mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
-        <Image src="/images/pages/partner-page-8.jpg" alt="Competency verification" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/partner-page-8.jpg" alt="Barber instructor reviewing apprentice skill practice" fill sizes="100vw" className="object-cover" priority />
       </section>
       <div className="mb-6">
         <Breadcrumbs items={[
@@ -115,7 +116,7 @@ export default function PartnerCompetenciesPage() {
 
         {success && (
           <div className="mb-6 p-4 bg-brand-green-50 border border-brand-green-200 rounded-lg flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-brand-green-600" />
+            <BadgeCheck className="w-5 h-5 text-brand-green-600" />
             <p className="text-brand-green-800">{success}</p>
           </div>
         )}
@@ -127,7 +128,7 @@ export default function PartnerCompetenciesPage() {
           </div>
         ) : entries.length === 0 ? (
           <div className="bg-white rounded-xl border p-10 text-center">
-            <CheckCircle2 className="w-12 h-12 text-brand-green-500 mx-auto mb-3" />
+            <BadgeCheck className="w-12 h-12 text-brand-green-500 mx-auto mb-3" />
             <h2 className="text-xl font-semibold text-slate-900 mb-2">All caught up</h2>
             <p className="text-slate-600 mb-4">No competency reps waiting for your review.</p>
             <Link
@@ -140,7 +141,7 @@ export default function PartnerCompetenciesPage() {
         ) : (
           <div className="space-y-4">
             {entries.map(entry => {
-              const workDate = new Date(`${entry.workDate}T12:00:00`);
+              const workDate = new Date(`${entry.workDate}T00:00:00Z`);
               const submitted = new Date(entry.submittedAt);
               return (
                 <div key={entry.id} className="bg-white rounded-xl border p-6">
@@ -162,7 +163,7 @@ export default function PartnerCompetenciesPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-600 mb-3">
                         <div>
                           <span className="block text-xs text-slate-400 uppercase tracking-wide">Date Performed</span>
-                          {workDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          {workDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
                         </div>
                         <div>
                           <span className="block text-xs text-slate-400 uppercase tracking-wide">Reps Logged</span>
@@ -188,7 +189,7 @@ export default function PartnerCompetenciesPage() {
                         disabled={processing === entry.id}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green-600 text-white rounded-lg hover:bg-brand-green-700 disabled:opacity-50"
                       >
-                        <CheckCircle2 className="w-4 h-4" />
+                        <BadgeCheck className="w-4 h-4" />
                         {processing === entry.id ? 'Verifying…' : 'Verify'}
                       </button>
                     </div>

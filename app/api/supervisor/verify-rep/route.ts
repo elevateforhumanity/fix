@@ -128,8 +128,8 @@ export async function POST(request: NextRequest) {
           .maybeSingle();
 
         if (apprenticeship) {
-          authorized     = true;
-          authPath       = 'partner_users';
+          authorized = true;
+          authPath = 'partner_users';
           verifiedShopId = null;
         }
       }
