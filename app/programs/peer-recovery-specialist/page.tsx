@@ -115,6 +115,7 @@ export default async function PeerRecoverySpecialistPage() {
       {/* Hero video */}
       <HeroVideo
         videoSrcDesktop={banner.videoSrcDesktop}
+        posterImage={banner.posterImage}
         voiceoverSrc={banner.voiceoverSrc}
         microLabel={banner.microLabel}
         analyticsName={banner.analyticsName}

@@ -26,6 +26,7 @@ export default function HomePage() {
       {/* ── HERO ── */}
       <HeroVideo
         videoSrcDesktop={heroBanners.home.videoSrcDesktop}
+        posterImage={heroBanners.home.posterImage}
         voiceoverSrc={heroBanners.home.voiceoverSrc}
         microLabel={heroBanners.home.microLabel}
         belowHeroHeadline={heroBanners.home.belowHeroHeadline}

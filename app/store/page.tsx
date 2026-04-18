@@ -28,6 +28,7 @@ export default function StorePage() {
       <HeroVideo
         videoSrcDesktop={hero.videoSrcDesktop}
         videoSrcMobile={hero.videoSrcMobile}
+        posterImage={hero.posterImage}
         voiceoverSrc={hero.voiceoverSrc}
         microLabel={hero.microLabel}
         transcript={hero.transcript}
