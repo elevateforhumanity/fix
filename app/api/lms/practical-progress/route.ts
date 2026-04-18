@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiAuthGuard } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeDbError } from '@/lib/api/safe-error';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
   if (!courseId || !lessonId) return safeError('course_id and lesson_id required', 400);
 
-  const db = createAdminClient();
+  const db = await getAdminClient();
   const { data, error } = await db
     .from('student_practical_progress')
     .select('accumulated_hours, approved_attempts, status, last_updated_at')
@@ -56,7 +56,7 @@ export async function PATCH(request: NextRequest) {
   if (!user_id || !course_id || !lesson_id) return safeError('user_id, course_id, lesson_id required', 400);
   if (typeof hours_to_add !== 'number' || hours_to_add <= 0) return safeError('hours_to_add must be a positive number', 400);
 
-  const db = createAdminClient();
+  const db = await getAdminClient();
 
   const { data: existing } = await db
     .from('student_practical_progress')
