@@ -124,9 +124,9 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
     return () => observer.disconnect();
   }, [autoPlayOnMount, reducedMotion, failed, threshold, playThrough]);
 
-  // Reduced-motion or error: render poster only
+  // Reduced-motion or error: render poster only (or transparent placeholder so layout doesn't collapse)
   if (reducedMotion || failed) {
-    if (!poster) return null;
+    if (!poster) return <div className={className} style={{ background: '#0f172a' }} aria-hidden="true" />;
     return (
       <img
         src={poster}

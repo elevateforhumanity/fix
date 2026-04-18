@@ -1,5 +1,4 @@
-export const revalidate = 3600;
-// Force static generation for performance
+export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
 import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';

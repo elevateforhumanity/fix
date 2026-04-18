@@ -282,6 +282,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     pageKey: 'funding-how-it-works',
     // orientation-full.mp4 used until a dedicated funding hero video is produced
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/wioa-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/apply.mp3',
     microLabel: 'Funded Training',
@@ -431,6 +432,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'skilled-trades': {
     pageKey: 'skilled-trades',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
+    posterImage: '/hero-images/skilled-trades-cat-new.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4',
     voiceoverSrc: '/audio/heroes/skilled-trades.mp3',
     microLabel: 'Skilled Trades',
@@ -1175,6 +1177,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'peer-recovery-specialist',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    posterImage: '/hero-images/career-services-hero.jpg',
     voiceoverSrc: '/audio/heroes/peer-recovery.mp3',
     microLabel: 'Indiana CPRS Credential',
     credentialLabel: 'Indiana CPRS',
@@ -1192,6 +1195,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'technology': {
     pageKey: 'technology',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/technology-cat-new.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/technology.mp3',
     microLabel: 'Technology Programs',
@@ -1207,6 +1211,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'business': {
     pageKey: 'business',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/business-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/business.mp3',
     microLabel: 'Business Programs',
@@ -1342,6 +1347,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'how-it-works': {
     pageKey: 'how-it-works',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/how-it-works-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/how-it-works.mp3',
     microLabel: 'How It Works',
@@ -1404,6 +1410,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'student-support': {
     pageKey: 'student-support',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/career-services-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/programs.mp3',
     microLabel: 'Student Support',
@@ -1426,6 +1433,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'hire-graduates': {
     pageKey: 'hire-graduates',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/employer-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/hire-graduates.mp3',
     microLabel: 'Hire Our Graduates',
@@ -1441,6 +1449,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'for-employers': {
     pageKey: 'for-employers',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/employer-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/for-employers.mp3',
     microLabel: 'For Employers',
@@ -1471,6 +1480,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'financial-aid': {
     pageKey: 'financial-aid',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/wioa-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/financial-aid.mp3',
     microLabel: 'Financial Aid & Funding',
@@ -1501,6 +1511,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'apprenticeship-sponsor': {
     pageKey: 'apprenticeship-sponsor',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    posterImage: '/hero-images/apprenticeships-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     voiceoverSrc: '/audio/heroes/apprenticeship-sponsor.mp3',
     microLabel: 'DOL Apprenticeship Sponsor',
@@ -1516,6 +1527,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
   'program-holder': {
     pageKey: 'program-holder',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/about-hero.jpg',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     voiceoverSrc: '/audio/heroes/program-holder.mp3',
     microLabel: 'Program Holders',

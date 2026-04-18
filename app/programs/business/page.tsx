@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { VideoHeroBanner } from '@/components/VideoHeroBanner';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Business & Administration Programs | Free QuickBooks, Office Training',
   description:
