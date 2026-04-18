@@ -1,0 +1,27 @@
+-- Atomic slot booking-count increment RPC.
+-- Called by /api/testing/book (org / waived-fee bookings) and
+-- /api/testing/webhook (paid individual bookings) after inserting an exam_bookings row.
+--
+-- Uses UPDATE ... RETURNING to be idempotent-safe:
+--   - Only increments when booked_count < capacity (prevents overselling)
+--   - Returns the updated row so callers can detect a full slot
+--
+-- Apply in Supabase Dashboard → SQL Editor.
+
+CREATE OR REPLACE FUNCTION public.increment_slot_booked_count(slot_id uuid)
+RETURNS void
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  UPDATE public.testing_slots
+  SET    booked_count = booked_count + 1,
+         updated_at   = now()
+  WHERE  id             = slot_id
+    AND  is_cancelled   = false
+    AND  booked_count   < capacity;
+END;
+$$;
+
+-- Grant execute to the service role (used by the admin Supabase client)
+GRANT EXECUTE ON FUNCTION public.increment_slot_booked_count(uuid) TO service_role;

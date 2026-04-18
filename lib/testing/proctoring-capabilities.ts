@@ -50,6 +50,17 @@ export interface CertProvider {
   exams: (string | ExamDefinition)[];
   /** External verification or scheduling URL */
   verifyUrl?: string;
+  /**
+   * Direct URL to the provider's exam delivery portal.
+   * Used on provider detail pages so a proctor at the testing center can
+   * launch the exam system with one click without hunting for the login page.
+   */
+  examPortalUrl?: string;
+  /**
+   * Short proctor note shown next to the portal button — login requirements,
+   * candidate check-in steps, or anything the proctor needs before clicking launch.
+   */
+  examPortalNote?: string;
   /** Whether Elevate is currently an active authorized site */
   status: 'active' | 'available_through_partner';
   /** Hide from public-facing pages (e.g. not yet offered, internal only) */
@@ -118,6 +129,8 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.escogroup.org/esco/certifications/epa608.aspx',
+    examPortalUrl: 'https://www.escogroup.org/esco/login/',
+    examPortalNote: 'Log in with the Elevate proctor account. Select "Administer Exam", then check in the candidate by confirmation code.',
     status: 'active',
     fees: [
       { label: 'Universal (all sections)', amount: 55, note: 'Includes exam fee + proctoring' },
@@ -192,6 +205,8 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://nrffoundation.org/riseup',
+    examPortalUrl: 'https://riseup.nrf.com/',
+    examPortalNote: 'Log in to the RISE Up Testing Center portal. Select the candidate\'s name from today\'s roster to launch their exam.',
     status: 'active',
     fees: [
       { label: 'Per credential exam', amount: 45, note: 'Includes exam fee + proctoring' },
@@ -283,6 +298,8 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://certiport.pearsonvue.com/Locator',
+    examPortalUrl: 'https://certiport.pearsonvue.com/',
+    examPortalNote: 'Log in to the Certiport Management System (CMS) with the proctor account. Go to Exams → Start Exam Session → enter the candidate\'s CMS username to begin.',
     status: 'active',
     fees: [
       { label: 'Per exam', amount: 65, note: 'Includes exam voucher + proctoring' },
@@ -391,6 +408,8 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.nhanow.com/',
+    examPortalUrl: 'https://www.nhanow.com/testing-centers',
+    examPortalNote: 'Log in to the NHA Testing Center portal (account #412957). Search candidate by last name or confirmation code, verify eligibility, then launch the exam session.',
     status: 'active',
     // All NHA exams: $149 exam voucher (pass-through) + $94 testing & administration = $243 total.
     // Pricing locked per owner decision — do not modify without approval.
@@ -494,6 +513,8 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.act.org/content/act/en/products-and-services/workkeys-for-job-seekers.html',
+    examPortalUrl: 'https://workkeys.act.org/',
+    examPortalNote: 'Log in to the ACT WorkKeys Testing Center portal (Realm: 1317721865). Locate the candidate\'s registration, verify their photo ID, then launch the assigned assessments.',
     status: 'active',
     fees: [
       { label: 'Per assessment (individual)', amount: 45, note: 'Includes ACT fee + proctoring' },
@@ -601,8 +622,10 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.osha.gov/training/outreach',
+    examPortalUrl: 'https://www.careersafeonline.com/',
+    examPortalNote: 'Log in to the CareerSafe instructor portal. Enroll the candidate in the appropriate OSHA course, then launch the online course session for them.',
     status: 'active',
-    publicVisible: false, // not yet offered publicly — internal/partner use only
+    publicVisible: true,
     fees: [
       { label: 'OSHA 10-Hour', amount: 65, note: 'Includes course + DOL card' },
       { label: 'OSHA 30-Hour', amount: 185, note: 'Includes course + DOL card' },
@@ -630,6 +653,179 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
           { title: 'Union Journeyman (trades)', note: 'OSHA 30 required for journeyman status in many locals' },
           { title: 'Federal Contractor', note: 'Davis-Bacon and federal construction contracts often require OSHA 30' },
           { title: 'Plant / Facilities Manager', note: 'Manufacturing and industrial facility oversight' },
+        ],
+      },
+    ],
+  },
+  nccer: {
+    key: 'nccer',
+    name: 'NCCER — Construction & Craft Assessments',
+    capability: 'IN_PERSON_ONLY',
+    description: 'NCCER (National Center for Construction Education and Research) delivers standardized craft assessments and credentials for the construction trades. Recognized by contractors, unions, and apprenticeship programs across the country. Craft assessments validate hands-on knowledge and are required by many union halls and commercial contractors for journeyman advancement.',
+    exams: [
+      {
+        name: 'Core Curriculum Assessment',
+        description: 'Covers basic safety, hand and power tools, construction math, communication, and employability skills. Required before any craft-specific assessment. Recognized as proof of construction industry readiness.',
+        durationMinutes: 60,
+        questionCount: 50,
+      },
+      {
+        name: 'Electrical — Levels 1–4',
+        description: 'Validates electrical trade knowledge from basic wiring and NEC code through commercial and industrial installations. Aligned with IBEW and NECA apprenticeship standards. Level 4 prepares candidates for journeyman licensure exams.',
+        durationMinutes: 90,
+        questionCount: 75,
+      },
+      {
+        name: 'HVAC — Levels 1–4',
+        description: 'Covers refrigeration principles, electrical systems, installation, and service of HVAC equipment. Complements EPA 608 certification. Level 4 prepares candidates for commercial HVAC roles and journeyman advancement.',
+        durationMinutes: 90,
+        questionCount: 75,
+      },
+      {
+        name: 'Pipefitting — Levels 1–4',
+        description: 'Covers pipe systems, fittings, welding, rigging, and blueprint reading for industrial and commercial piping. Aligned with UA (United Association) plumbers and pipefitters apprenticeship standards.',
+        durationMinutes: 90,
+        questionCount: 75,
+      },
+      {
+        name: 'Carpentry — Levels 1–4',
+        description: 'Covers framing, finishing, form-building, and exterior work. Aligned with UBC (United Brotherhood of Carpenters) apprenticeship standards. Level 4 prepares for journeyman carpenter advancement.',
+        durationMinutes: 90,
+        questionCount: 75,
+      },
+      {
+        name: 'Welding — Levels 1–3',
+        description: 'Covers SMAW, GMAW, GTAW, and FCAW welding processes, safety, and blueprint reading. Aligned with AWS and union welding apprenticeship programs. Practical performance tests administered separately.',
+        durationMinutes: 90,
+        questionCount: 60,
+      },
+    ],
+    verifyUrl: 'https://www.nccer.org/workforce-development/craft-assessments',
+    examPortalUrl: 'https://myacca.nccer.org/',
+    examPortalNote: 'Log in to the NCCER ACCA portal with the Elevate proctor credentials. Select the candidate\'s registered assessment from the dashboard and click "Launch" to begin the proctored session.',
+    status: 'active',
+    fees: [
+      { label: 'Core Curriculum Assessment', amount: 55, note: 'Includes assessment + NCCER registration' },
+      { label: 'Craft Level Assessment (per level)', amount: 65, note: 'Includes assessment + NCCER registration' },
+    ],
+    groupDiscount: 'Groups of 5+ — contact us for cohort or apprenticeship-program pricing',
+    ncrcJobProfiles: [
+      {
+        level: 'Core + Level 1',
+        score: 'Entry Trades',
+        color: 'amber',
+        jobs: [
+          { title: 'Construction Laborer', note: 'General site work, material handling' },
+          { title: 'Trades Helper / Apprentice', note: 'Assist journeymen — NCCER Core required by many union halls' },
+          { title: 'Maintenance Technician', note: 'Facilities, apartment complexes, light manufacturing' },
+        ],
+      },
+      {
+        level: 'Levels 2–3',
+        score: 'Journeyman Track',
+        color: 'blue',
+        jobs: [
+          { title: 'Electrician Apprentice (IBEW)', note: 'NCCER Electrical Levels 1–3 accepted by many locals' },
+          { title: 'HVAC Installer / Technician', note: 'Complements EPA 608 — required by some commercial contractors' },
+          { title: 'Pipefitter Apprentice (UA)', note: 'NCCER Pipefitting aligned with UA curriculum' },
+          { title: 'Carpenter Apprentice (UBC)', note: 'NCCER Carpentry maps to UBC apprenticeship levels' },
+        ],
+      },
+      {
+        level: 'Level 4',
+        score: 'Journeyman / Supervisor',
+        color: 'yellow',
+        jobs: [
+          { title: 'Journey-Level Electrician', note: 'State journeyman license exam prep' },
+          { title: 'Commercial HVAC Technician', note: 'Complex commercial and industrial systems' },
+          { title: 'Welder (Certified)', note: 'Structural, pipe, and pressure vessel welding' },
+          { title: 'Construction Foreman', note: 'Crew lead — NCCER Level 4 frequently required' },
+        ],
+      },
+    ],
+  },
+  psi: {
+    key: 'psi',
+    name: 'PSI Exams — Indiana State Licensing',
+    capability: 'IN_PERSON_ONLY',
+    description: 'PSI Exams administers state licensing exams for Indiana professional trades and services on behalf of the Indiana Professional Licensing Agency (IPLA). Elevate is an authorized PSI testing location. Candidates must apply for the exam through PSI and arrive with a valid PSI Authorization to Test (ATT) letter. Licenses are issued by the State of Indiana upon passing — not by Elevate or PSI.',
+    exams: [
+      {
+        name: 'Indiana Barber License Exam',
+        description: 'Required for Indiana barber licensure. Covers theory (safety, sanitation, barbering science) and is administered by PSI on behalf of the Indiana State Board of Cosmetology and Barber Examiners. Must complete 1,500 hours of training at a licensed school before applying.',
+        durationMinutes: 90,
+        questionCount: 100,
+      },
+      {
+        name: 'Indiana Cosmetology License Exam',
+        description: 'Required for Indiana cosmetology licensure. Covers cosmetology theory — safety, sanitation, hair, skin, and nail science. Must complete 1,500 hours at a licensed school. Practical skills exam is administered separately by the State Board.',
+        durationMinutes: 90,
+        questionCount: 100,
+      },
+      {
+        name: 'Indiana Esthetics License Exam',
+        description: 'Required for Indiana esthetics (skin care) licensure. Covers skin anatomy, facial treatments, chemical exfoliation, and sanitation. Must complete 700 hours at a licensed esthetics school.',
+        durationMinutes: 75,
+        questionCount: 90,
+      },
+      {
+        name: 'Indiana Nail Technology License Exam',
+        description: 'Required for Indiana nail technician licensure. Covers nail anatomy, sanitation, artificial nail application, and safety. Must complete 450 hours of training.',
+        durationMinutes: 60,
+        questionCount: 70,
+      },
+      {
+        name: 'Indiana Electrical Contractor Exam',
+        description: 'Required for Indiana electrical contractor licensure (EC-1 or EC-2). Covers the NEC (National Electrical Code), state electrical statutes, and business practices. Experience and application approval required before scheduling.',
+        durationMinutes: 240,
+        questionCount: 80,
+      },
+      {
+        name: 'Indiana Real Estate Salesperson Exam',
+        description: 'Required for Indiana real estate salesperson licensure. Covers national real estate principles and Indiana-specific law. Must complete 90 hours of pre-license education before applying.',
+        durationMinutes: 210,
+        questionCount: 150,
+      },
+    ],
+    verifyUrl: 'https://candidate.psiexams.com/',
+    examPortalUrl: 'https://www.psiexams.com/test_center/',
+    examPortalNote: 'Log in to the PSI Test Center portal with the Elevate site credentials. Candidate must present their PSI Authorization to Test (ATT) letter + valid photo ID. Verify in PSI portal before launching the exam.',
+    status: 'active',
+    fees: [
+      { label: 'Cosmetology / Barber / Esthetics / Nail Tech', amount: 55, note: 'PSI exam fee — paid by candidate at registration' },
+      { label: 'Electrical Contractor', amount: 90, note: 'PSI exam fee — paid by candidate at registration' },
+      { label: 'Real Estate Salesperson', amount: 65, note: 'PSI exam fee — paid by candidate at registration' },
+    ],
+    ncrcJobProfiles: [
+      {
+        level: 'Barber / Cosmetology / Esthetics / Nail Tech',
+        score: 'Licensed Trade',
+        color: 'amber',
+        jobs: [
+          { title: 'Licensed Barber', note: 'Barbershop, salon, independent booth rental' },
+          { title: 'Licensed Cosmetologist', note: 'Hair, color, chemical services — salon or independent' },
+          { title: 'Licensed Esthetician', note: 'Spa, medical aesthetics, skincare clinics' },
+          { title: 'Licensed Nail Technician', note: 'Nail salon, spa, independent studio' },
+        ],
+      },
+      {
+        level: 'Electrical Contractor',
+        score: 'Licensed Electrician',
+        color: 'yellow',
+        jobs: [
+          { title: 'EC-1 Electrical Contractor', note: 'Residential — up to 400-amp service' },
+          { title: 'EC-2 Electrical Contractor', note: 'Commercial and industrial — unlimited service size' },
+          { title: 'Self-Employed Electrician', note: 'Pull permits, take contracts independently' },
+        ],
+      },
+      {
+        level: 'Real Estate',
+        score: 'Licensed Agent',
+        color: 'blue',
+        jobs: [
+          { title: 'Real Estate Salesperson', note: 'Residential buying, selling, and leasing' },
+          { title: 'Property Manager', note: 'Leasing, tenant relations, maintenance coordination' },
+          { title: 'Real Estate Investor (licensed)', note: 'Direct access to MLS, represent yourself on transactions' },
         ],
       },
     ],

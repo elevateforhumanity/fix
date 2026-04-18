@@ -26,6 +26,8 @@ const PROVIDER_HERO: Record<string, string> = {
   nrf:        '/images/pages/apply-employer-hero.jpg',
   workkeys:   '/images/pages/career-services-page-4.jpg',
   careersafe: '/images/pages/apprenticeships-hero.jpg',
+  nccer:      '/images/pages/apprenticeships-hero.jpg',
+  psi:        '/images/pages/career-services-page-1.jpg',
 };
 
 const PROVIDER_ACCENT: Record<string, string> = {
@@ -35,6 +37,8 @@ const PROVIDER_ACCENT: Record<string, string> = {
   nrf:        'from-orange-900',
   workkeys:   'from-violet-900',
   careersafe: 'from-yellow-900',
+  nccer:      'from-orange-900',
+  psi:        'from-slate-900',
 };
 
 const CAPABILITY_LABEL: Record<string, { label: string; icon: typeof MapPin }> = {
@@ -261,8 +265,40 @@ export default async function ProviderPage({ params }: Props) {
 
         </div>
 
-        {/* Right — pricing + CTA */}
+        {/* Right — exam portal + pricing + CTA */}
         <aside className="space-y-6">
+
+          {/* ── Exam Portal — proctor launch panel ── */}
+          {provider.examPortalUrl && (
+            <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-sm">
+              <div className="px-6 py-4 border-b border-slate-700">
+                <div className="flex items-center gap-2 text-white">
+                  <Monitor className="w-5 h-5 text-green-400" />
+                  <h3 className="font-bold text-lg">Exam Portal</h3>
+                  <span className="ml-auto text-xs font-semibold bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-0.5 rounded-full">
+                    Proctor Use
+                  </span>
+                </div>
+              </div>
+              <div className="px-6 py-5 space-y-4">
+                {provider.examPortalNote && (
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    {provider.examPortalNote}
+                  </p>
+                )}
+                <a
+                  href={provider.examPortalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white font-bold px-6 py-3.5 rounded-xl transition-colors text-sm"
+                >
+                  <Monitor className="w-4 h-4" />
+                  Launch Exam Portal
+                  <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+                </a>
+              </div>
+            </div>
+          )}
 
           {/* Pricing card */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
