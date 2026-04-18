@@ -47,7 +47,25 @@ export async function GET(request: NextRequest) {
       apprenticeIds = (placements ?? []).map(p => p.student_id);
     }
 
-    // Path 2: shop_placements supervisor_email fallback.
+    // Path 2: partner user → apprenticeships scoped to partner_id
+    const { data: partnerUser } = await db
+      .from('partner_users')
+      .select('partner_id')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (partnerUser?.partner_id) {
+      const { data: apprenticeships } = await db
+        .from('apprenticeships')
+        .select('apprentice_id')
+        .eq('partner_id', partnerUser.partner_id)
+        .eq('status', 'active');
+
+      const partnerApprenticeIds = (apprenticeships ?? []).map((a: { apprentice_id: string }) => a.apprentice_id);
+      apprenticeIds = [...new Set([...apprenticeIds, ...partnerApprenticeIds])];
+    }
+
+    // Path 3: shop_placements supervisor_email fallback.
     // Gated by SUPERVISOR_EMAIL_FALLBACK_ENABLED=true. Disabled by default.
     const emailFallbackEnabled = process.env.SUPERVISOR_EMAIL_FALLBACK_ENABLED === 'true';
 

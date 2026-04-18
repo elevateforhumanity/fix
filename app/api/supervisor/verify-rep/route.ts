@@ -111,6 +111,30 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // --- Auth path 3: partner users (partner portal approvals) ---
+    if (!authorized) {
+      const { data: partnerUser } = await db
+        .from('partner_users')
+        .select('partner_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (partnerUser?.partner_id) {
+        const { data: apprenticeship } = await db
+          .from('apprenticeships')
+          .select('id')
+          .eq('apprentice_id', logEntry.apprentice_id)
+          .eq('partner_id', partnerUser.partner_id)
+          .maybeSingle();
+
+        if (apprenticeship) {
+          authorized     = true;
+          authPath       = 'partner_users';
+          verifiedShopId = null;
+        }
+      }
+    }
+
     if (!authorized) {
       return safeError('Not authorized to verify reps for this apprentice', 403);
     }
