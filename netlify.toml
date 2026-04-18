@@ -666,3 +666,1909 @@
 
 
 
+
+# ── Marketing/public page redirects to www.elevateforhumanity.org ──────────
+# These were previously Next.js stub pages — moved to edge redirects to
+# eliminate build cost and redirect latency.
+
+[[redirects]]
+  from = "/about"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/mission"
+  to = "https://www.elevateforhumanity.org/about/mission"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/partners"
+  to = "https://www.elevateforhumanity.org/about/partners"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team"
+  to = "https://www.elevateforhumanity.org/about/team"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/amir-naseen"
+  to = "https://www.elevateforhumanity.org/about/team/amir-naseen"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/carlina-wilkes"
+  to = "https://www.elevateforhumanity.org/about/team/carlina-wilkes"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/clystjah-woodley"
+  to = "https://www.elevateforhumanity.org/about/team/clystjah-woodley"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/delores-reynolds"
+  to = "https://www.elevateforhumanity.org/about/team/delores-reynolds"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/elizabeth-greene"
+  to = "https://www.elevateforhumanity.org/about/team/elizabeth-greene"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/jesse-wilkerson"
+  to = "https://www.elevateforhumanity.org/about/team/jesse-wilkerson"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/jozanna-george"
+  to = "https://www.elevateforhumanity.org/about/team/jozanna-george"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about/team/leslie-wafford"
+  to = "https://www.elevateforhumanity.org/about/team/leslie-wafford"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/alumni"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/apprenticeships"
+  to = "https://learn.elevateforhumanity.org/learner/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/apprenticeships/ipla-exam"
+  to = "https://www.elevateforhumanity.org/programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/career-counseling"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/contact"
+  to = "https://www.elevateforhumanity.org/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/courses"
+  to = "https://learn.elevateforhumanity.org/lms/courses"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/courses/my-courses"
+  to = "https://learn.elevateforhumanity.org/lms/courses"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/courses/success"
+  to = "https://learn.elevateforhumanity.org/lms/courses"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/interview-prep"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/job-placement"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/networking-events"
+  to = "https://learn.elevateforhumanity.org/learner/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/ongoing-support"
+  to = "https://learn.elevateforhumanity.org/learner/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-services/resume-building"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-training-illinois"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-training-indiana"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-training-ohio"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-training-tennessee"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/career-training-texas"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cna-waitlist"
+  to = "https://www.elevateforhumanity.org/cna-waitlist"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/community-services"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/community-services-illinois"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/community-services-indiana"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/community-services-ohio"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/community-services-tennessee"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/community-services-texas"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/consumer-education"
+  to = "https://www.elevateforhumanity.org/programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "https://www.elevateforhumanity.org/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/curvature-body-sculpting"
+  to = "https://www.elevateforhumanity.org/curvature-body-sculpting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/curvature-body-sculpting/apply"
+  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/curvature-body-sculpting/book-appointment"
+  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/book-appointment"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/curvature-body-sculpting/careers"
+  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/careers"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/curvature-body-sculpting/services"
+  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/curvature-body-sculpting/shop"
+  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/shop"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/curvature-body-sculpting/shop/success"
+  to = "https://www.elevateforhumanity.org/curvature-body-sculpting/shop/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs"
+  to = "https://www.elevateforhumanity.org/docs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/ENV_CONFIG.md"
+  to = "https://www.elevateforhumanity.org/docs/ENV_CONFIG.md"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/Indiana-Barbershop-Apprenticeship-MOU"
+  to = "https://www.elevateforhumanity.org/docs/Indiana-Barbershop-Apprenticeship-MOU"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/admins"
+  to = "https://www.elevateforhumanity.org/docs/admins"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/api"
+  to = "https://www.elevateforhumanity.org/docs/api"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/case-management"
+  to = "https://www.elevateforhumanity.org/docs/case-management"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/changelog"
+  to = "https://www.elevateforhumanity.org/docs/changelog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/licensing-architecture"
+  to = "https://www.elevateforhumanity.org/docs/licensing-architecture"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/lms"
+  to = "https://www.elevateforhumanity.org/docs/lms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/program-holder-guide"
+  to = "https://www.elevateforhumanity.org/docs/program-holder-guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/program-holders"
+  to = "https://www.elevateforhumanity.org/docs/program-holders"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/quickstart"
+  to = "https://www.elevateforhumanity.org/docs/quickstart"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/reporting"
+  to = "https://www.elevateforhumanity.org/docs/reporting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/students"
+  to = "https://www.elevateforhumanity.org/docs/students"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/donate"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/donations"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing"
+  to = "https://www.elevateforhumanity.org/drug-testing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing/dot-testing"
+  to = "https://www.elevateforhumanity.org/drug-testing/dot-testing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing/employer-programs"
+  to = "https://www.elevateforhumanity.org/drug-testing/employer-programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing/hair-tests"
+  to = "https://www.elevateforhumanity.org/drug-testing/hair-tests"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing/instant-tests"
+  to = "https://www.elevateforhumanity.org/drug-testing/instant-tests"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing/success"
+  to = "https://www.elevateforhumanity.org/drug-testing/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing/training"
+  to = "https://www.elevateforhumanity.org/drug-testing/training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/drug-testing/urine-tests"
+  to = "https://www.elevateforhumanity.org/drug-testing/urine-tests"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/employers"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/employers/apprenticeships"
+  to = "https://learn.elevateforhumanity.org/employer/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/employers/benefits"
+  to = "https://learn.elevateforhumanity.org/employer/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/employers/post-job"
+  to = "https://learn.elevateforhumanity.org/employer/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/employers/talent-pipeline"
+  to = "https://learn.elevateforhumanity.org/employer/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/employment-support"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/events"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/features"
+  to = "https://www.elevateforhumanity.org"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/confirm"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/dol"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/federal-programs"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/grant-programs"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/how-it-works"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/job-ready-indy"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/jri"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/state-programs"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/success"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/wioa"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/funding/wrg"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/grants"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/impact"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal"
+  to = "https://www.elevateforhumanity.org/legal"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/acceptable-use"
+  to = "https://www.elevateforhumanity.org/legal/acceptable-use"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/agreements"
+  to = "https://www.elevateforhumanity.org/legal/agreements"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/creator-agreement"
+  to = "https://www.elevateforhumanity.org/legal/creator-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/data-sharing"
+  to = "https://www.elevateforhumanity.org/legal/data-sharing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/disclosures"
+  to = "https://www.elevateforhumanity.org/legal/disclosures"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/employer-agreement"
+  to = "https://www.elevateforhumanity.org/legal/employer-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/enrollment-agreement"
+  to = "https://www.elevateforhumanity.org/legal/enrollment-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/eula"
+  to = "https://www.elevateforhumanity.org/legal/eula"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/ferpa-consent"
+  to = "https://www.elevateforhumanity.org/legal/ferpa-consent"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance"
+  to = "https://www.elevateforhumanity.org/legal/governance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance/compliance"
+  to = "https://www.elevateforhumanity.org/legal/governance/compliance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance/lms-standards"
+  to = "https://www.elevateforhumanity.org/legal/governance/lms-standards"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance/onboarding-ux"
+  to = "https://www.elevateforhumanity.org/legal/governance/onboarding-ux"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance/platform-overview"
+  to = "https://www.elevateforhumanity.org/legal/governance/platform-overview"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance/security"
+  to = "https://www.elevateforhumanity.org/legal/governance/security"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance/store-payments"
+  to = "https://www.elevateforhumanity.org/legal/governance/store-payments"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/governance/tax-operations"
+  to = "https://www.elevateforhumanity.org/legal/governance/tax-operations"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/license-agreement"
+  to = "https://www.elevateforhumanity.org/legal/license-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/marketplace-terms"
+  to = "https://www.elevateforhumanity.org/legal/marketplace-terms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/mou"
+  to = "https://www.elevateforhumanity.org/legal/mou"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/nda"
+  to = "https://www.elevateforhumanity.org/legal/nda"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/non-compete"
+  to = "https://www.elevateforhumanity.org/legal/non-compete"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/participation-agreement"
+  to = "https://www.elevateforhumanity.org/legal/participation-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/partner-mou"
+  to = "https://www.elevateforhumanity.org/legal/partner-mou"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/privacy"
+  to = "https://www.elevateforhumanity.org/legal/privacy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/program-holder-mou"
+  to = "https://www.elevateforhumanity.org/legal/program-holder-mou"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/program-host-agreement"
+  to = "https://www.elevateforhumanity.org/legal/program-host-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/program-license-agreement"
+  to = "https://www.elevateforhumanity.org/legal/program-license-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/staff-agreement"
+  to = "https://www.elevateforhumanity.org/legal/staff-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/legal/student-handbook"
+  to = "https://www.elevateforhumanity.org/legal/student-handbook"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship"
+  to = "https://www.elevateforhumanity.org/mentorship"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship/become-mentor"
+  to = "https://www.elevateforhumanity.org/mentorship/become-mentor"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship/career-guidance"
+  to = "https://www.elevateforhumanity.org/mentorship/career-guidance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship/goal-setting"
+  to = "https://www.elevateforhumanity.org/mentorship/goal-setting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship/industry-insights"
+  to = "https://www.elevateforhumanity.org/mentorship/industry-insights"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship/networking"
+  to = "https://www.elevateforhumanity.org/mentorship/networking"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship/ongoing-support"
+  to = "https://www.elevateforhumanity.org/mentorship/ongoing-support"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/mentorship/skill-development"
+  to = "https://www.elevateforhumanity.org/mentorship/skill-development"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/news"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/outcomes"
+  to = "https://www.elevateforhumanity.org/programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/outcomes/indiana"
+  to = "https://www.elevateforhumanity.org/programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/partnerships"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/philanthropy"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform"
+  to = "https://www.elevateforhumanity.org/platform"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/overview"
+  to = "https://www.elevateforhumanity.org/platform/overview"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/partner-portal"
+  to = "https://www.elevateforhumanity.org/platform/partner-portal"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/partners"
+  to = "https://www.elevateforhumanity.org/platform/partners"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/program-holders"
+  to = "https://www.elevateforhumanity.org/platform/program-holders"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/providers"
+  to = "https://www.elevateforhumanity.org/platform/providers"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/sponsors"
+  to = "https://www.elevateforhumanity.org/platform/sponsors"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/training-providers"
+  to = "https://www.elevateforhumanity.org/platform/training-providers"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/workforce-analytics"
+  to = "https://www.elevateforhumanity.org/platform/workforce-analytics"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/platform/workforce-boards"
+  to = "https://www.elevateforhumanity.org/platform/workforce-boards"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies"
+  to = "https://www.elevateforhumanity.org/policies"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/academic-integrity"
+  to = "https://www.elevateforhumanity.org/policies/academic-integrity"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/acceptable-use"
+  to = "https://www.elevateforhumanity.org/policies/acceptable-use"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/admissions"
+  to = "https://www.elevateforhumanity.org/policies/admissions"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/ai-usage"
+  to = "https://www.elevateforhumanity.org/policies/ai-usage"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/attendance"
+  to = "https://www.elevateforhumanity.org/policies/attendance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/community-guidelines"
+  to = "https://www.elevateforhumanity.org/policies/community-guidelines"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/content"
+  to = "https://www.elevateforhumanity.org/policies/content"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/copyright"
+  to = "https://www.elevateforhumanity.org/policies/copyright"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/credentials"
+  to = "https://www.elevateforhumanity.org/policies/credentials"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/data-retention"
+  to = "https://www.elevateforhumanity.org/policies/data-retention"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/disaster-recovery"
+  to = "https://www.elevateforhumanity.org/policies/disaster-recovery"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/disaster-recovery-test"
+  to = "https://www.elevateforhumanity.org/policies/disaster-recovery-test"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/dr-test-report"
+  to = "https://www.elevateforhumanity.org/policies/dr-test-report"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/editorial"
+  to = "https://www.elevateforhumanity.org/policies/editorial"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/federal-compliance"
+  to = "https://www.elevateforhumanity.org/policies/federal-compliance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/ferpa"
+  to = "https://www.elevateforhumanity.org/policies/ferpa"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/funding-verification"
+  to = "https://www.elevateforhumanity.org/policies/funding-verification"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/grant-application"
+  to = "https://www.elevateforhumanity.org/policies/grant-application"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/incident-response"
+  to = "https://www.elevateforhumanity.org/policies/incident-response"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/jri"
+  to = "https://www.elevateforhumanity.org/policies/jri"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/moderation"
+  to = "https://www.elevateforhumanity.org/policies/moderation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/privacy-notice"
+  to = "https://www.elevateforhumanity.org/policies/privacy-notice"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/progress"
+  to = "https://www.elevateforhumanity.org/policies/progress"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/response-sla"
+  to = "https://www.elevateforhumanity.org/policies/response-sla"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/revocation"
+  to = "https://www.elevateforhumanity.org/policies/revocation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/sam-gov-eligibility"
+  to = "https://www.elevateforhumanity.org/policies/sam-gov-eligibility"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/sla"
+  to = "https://www.elevateforhumanity.org/policies/sla"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/student-code"
+  to = "https://www.elevateforhumanity.org/policies/student-code"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/verification"
+  to = "https://www.elevateforhumanity.org/policies/verification"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/wioa"
+  to = "https://www.elevateforhumanity.org/policies/wioa"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/policies/wrg"
+  to = "https://www.elevateforhumanity.org/policies/wrg"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs"
+  to = "https://www.elevateforhumanity.org/programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/apprenticeships"
+  to = "https://www.elevateforhumanity.org/programs/apprenticeships"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/barber-apprenticeship"
+  to = "https://www.elevateforhumanity.org/programs/barber-apprenticeship"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/barber-apprenticeship/apply"
+  to = "https://www.elevateforhumanity.org/programs/barber-apprenticeship/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/barber-apprenticeship/apply/success"
+  to = "https://www.elevateforhumanity.org/programs/barber-apprenticeship/apply/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/barber-apprenticeship/confirm"
+  to = "https://www.elevateforhumanity.org/programs/barber-apprenticeship/confirm"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/barber-apprenticeship/host-shops"
+  to = "https://www.elevateforhumanity.org/programs/barber-apprenticeship/host-shops"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/beauty-career-educator"
+  to = "https://www.elevateforhumanity.org/programs/beauty-career-educator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/bookkeeping"
+  to = "https://www.elevateforhumanity.org/programs/bookkeeping"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/business"
+  to = "https://www.elevateforhumanity.org/programs/business"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cad-drafting"
+  to = "https://www.elevateforhumanity.org/programs/cad-drafting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cdl/waitlist"
+  to = "https://www.elevateforhumanity.org/programs/cdl/waitlist"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cna/enroll"
+  to = "https://www.elevateforhumanity.org/programs/cna/enroll"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/construction-trades-certification"
+  to = "https://www.elevateforhumanity.org/programs/construction-trades-certification"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cosmetology-apprenticeship"
+  to = "https://www.elevateforhumanity.org/programs/cosmetology-apprenticeship"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cosmetology-apprenticeship/apply"
+  to = "https://www.elevateforhumanity.org/programs/cosmetology-apprenticeship/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cosmetology-apprenticeship/apply/success"
+  to = "https://www.elevateforhumanity.org/programs/cosmetology-apprenticeship/apply/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cpr-first-aid"
+  to = "https://www.elevateforhumanity.org/programs/cpr-first-aid"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/culinary-apprenticeship"
+  to = "https://www.elevateforhumanity.org/programs/culinary-apprenticeship"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/culinary-apprenticeship/apply"
+  to = "https://www.elevateforhumanity.org/programs/culinary-apprenticeship/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/cybersecurity-analyst"
+  to = "https://www.elevateforhumanity.org/programs/cybersecurity-analyst"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/diesel-mechanic"
+  to = "https://www.elevateforhumanity.org/programs/diesel-mechanic"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/electrical"
+  to = "https://www.elevateforhumanity.org/programs/electrical"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/electrical/apply"
+  to = "https://www.elevateforhumanity.org/programs/electrical/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/emergency-health-safety"
+  to = "https://www.elevateforhumanity.org/programs/emergency-health-safety"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/entrepreneurship"
+  to = "https://www.elevateforhumanity.org/programs/entrepreneurship"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/esthetician"
+  to = "https://www.elevateforhumanity.org/programs/esthetician"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/esthetician/apply"
+  to = "https://www.elevateforhumanity.org/programs/esthetician/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/esthetician/apply/success"
+  to = "https://www.elevateforhumanity.org/programs/esthetician/apply/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/federal-funded"
+  to = "https://www.elevateforhumanity.org/programs/federal-funded"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/finance-bookkeeping-accounting"
+  to = "https://www.elevateforhumanity.org/programs/finance-bookkeeping-accounting"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/forklift"
+  to = "https://www.elevateforhumanity.org/programs/forklift"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/graphic-design"
+  to = "https://www.elevateforhumanity.org/programs/graphic-design"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/healthcare"
+  to = "https://www.elevateforhumanity.org/programs/healthcare"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/home-health-aide"
+  to = "https://www.elevateforhumanity.org/programs/home-health-aide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/hospitality"
+  to = "https://www.elevateforhumanity.org/programs/hospitality"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/hvac-technician"
+  to = "https://www.elevateforhumanity.org/programs/hvac-technician"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/hvac-technician/apply"
+  to = "https://www.elevateforhumanity.org/programs/hvac-technician/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/hvac-technician/apply/success"
+  to = "https://www.elevateforhumanity.org/programs/hvac-technician/apply/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/hvac-technician/study-guide"
+  to = "https://www.elevateforhumanity.org/programs/hvac-technician/study-guide"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/it-help-desk"
+  to = "https://www.elevateforhumanity.org/programs/it-help-desk"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/medical-assistant"
+  to = "https://www.elevateforhumanity.org/programs/medical-assistant"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/medical-assistant/apply"
+  to = "https://www.elevateforhumanity.org/programs/medical-assistant/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/micro-programs"
+  to = "https://www.elevateforhumanity.org/programs/micro-programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/nail-technician-apprenticeship"
+  to = "https://www.elevateforhumanity.org/programs/nail-technician-apprenticeship"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/nail-technician-apprenticeship/apply"
+  to = "https://www.elevateforhumanity.org/programs/nail-technician-apprenticeship/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/nail-technician-apprenticeship/apply/success"
+  to = "https://www.elevateforhumanity.org/programs/nail-technician-apprenticeship/apply/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/network-support-technician"
+  to = "https://www.elevateforhumanity.org/programs/network-support-technician"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/peer-recovery-specialist"
+  to = "https://www.elevateforhumanity.org/programs/peer-recovery-specialist"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/peer-recovery-specialist/apply"
+  to = "https://www.elevateforhumanity.org/programs/peer-recovery-specialist/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/peer-recovery-specialist/apply/success"
+  to = "https://www.elevateforhumanity.org/programs/peer-recovery-specialist/apply/success"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/pharmacy-technician"
+  to = "https://www.elevateforhumanity.org/programs/pharmacy-technician"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/phlebotomy"
+  to = "https://www.elevateforhumanity.org/programs/phlebotomy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/plumbing"
+  to = "https://www.elevateforhumanity.org/programs/plumbing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/plumbing/apply"
+  to = "https://www.elevateforhumanity.org/programs/plumbing/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/project-management"
+  to = "https://www.elevateforhumanity.org/programs/project-management"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/sanitation-infection-control"
+  to = "https://www.elevateforhumanity.org/programs/sanitation-infection-control"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/sanitation-infection-control/apply"
+  to = "https://www.elevateforhumanity.org/programs/sanitation-infection-control/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/skilled-trades"
+  to = "https://www.elevateforhumanity.org/programs/skilled-trades"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/software-development"
+  to = "https://www.elevateforhumanity.org/programs/software-development"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/tax-preparation"
+  to = "https://www.elevateforhumanity.org/programs/tax-preparation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/technology"
+  to = "https://www.elevateforhumanity.org/programs/technology"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/technology/web-development"
+  to = "https://www.elevateforhumanity.org/programs/technology/web-development"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/web-development"
+  to = "https://www.elevateforhumanity.org/programs/web-development"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/welding"
+  to = "https://www.elevateforhumanity.org/programs/welding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/programs/welding/apply"
+  to = "https://www.elevateforhumanity.org/programs/welding/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation"
+  to = "https://www.elevateforhumanity.org/rise-foundation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/about"
+  to = "https://www.elevateforhumanity.org/rise-foundation/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/addiction-rehabilitation"
+  to = "https://www.elevateforhumanity.org/rise-foundation/addiction-rehabilitation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/curvature"
+  to = "https://www.elevateforhumanity.org/rise-foundation/curvature"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/divorce-support"
+  to = "https://www.elevateforhumanity.org/rise-foundation/divorce-support"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/donate"
+  to = "https://www.elevateforhumanity.org/rise-foundation/donate"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/events"
+  to = "https://www.elevateforhumanity.org/rise-foundation/events"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/get-involved"
+  to = "https://www.elevateforhumanity.org/rise-foundation/get-involved"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/programs"
+  to = "https://www.elevateforhumanity.org/rise-foundation/programs"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/trauma-recovery"
+  to = "https://www.elevateforhumanity.org/rise-foundation/trauma-recovery"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/rise-foundation/young-adult-wellness"
+  to = "https://www.elevateforhumanity.org/rise-foundation/young-adult-wellness"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/scholarships"
+  to = "https://learn.elevateforhumanity.org/learner/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/solutions"
+  to = "https://www.elevateforhumanity.org"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/solutions/distance-learning"
+  to = "https://www.elevateforhumanity.org"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/solutions/higher-ed"
+  to = "https://www.elevateforhumanity.org"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/solutions/k12"
+  to = "https://www.elevateforhumanity.org"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/apply"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/book-appointment"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/book-appointment"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/calculator"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/calculator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/cash-advance"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/cash-advance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/consent"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/consent"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/contact"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/diy/interview"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/diy/start"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/governance/contact"
+  to = "https://www.elevateforhumanity.org/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/governance/seo-indexing"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/how-it-works"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/how-it-works"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/legal/privacy"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/legal/privacy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/legal/terms"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/legal/terms"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/locations"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/locations"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/multi-site"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/multi-site"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/multi-site/apply"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/multi-site/apply"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/pricing"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/pricing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/start"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/start"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/sub-office-agreement"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/sub-office-agreement"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/support"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/support"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/tax-preparation-illinois"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/tax-preparation-illinois"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/tax-preparation-indiana"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/tax-preparation-indiana"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/tax-preparation-ohio"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/tax-preparation-ohio"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/tax-preparation-tennessee"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/tax-preparation-tennessee"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/tax-preparation-texas"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/tax-preparation-texas"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/supersonic-fast-cash/transparency"
+  to = "https://www.elevateforhumanity.org/supersonic-fast-cash/transparency"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax"
+  to = "https://www.elevateforhumanity.org/tax"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/book-appointment"
+  to = "https://www.elevateforhumanity.org/tax/book-appointment"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/free"
+  to = "https://www.elevateforhumanity.org/tax/free"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/professional"
+  to = "https://www.elevateforhumanity.org/tax/professional"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/rise-up-foundation"
+  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/rise-up-foundation/documents"
+  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation/documents"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/rise-up-foundation/faq"
+  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation/faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/rise-up-foundation/free-tax-help"
+  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation/free-tax-help"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/rise-up-foundation/site-locator"
+  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation/site-locator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/rise-up-foundation/training"
+  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation/training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/rise-up-foundation/volunteer"
+  to = "https://www.elevateforhumanity.org/tax/rise-up-foundation/volunteer"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/supersonicfastcash/documents"
+  to = "https://www.elevateforhumanity.org/tax/supersonicfastcash/documents"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/supersonicfastcash/faq"
+  to = "https://www.elevateforhumanity.org/tax/supersonicfastcash/faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/supersonicfastcash/services"
+  to = "https://www.elevateforhumanity.org/tax/supersonicfastcash/services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tax/volunteer"
+  to = "https://www.elevateforhumanity.org/tax/volunteer"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/testimonials"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/training-providers"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tuition"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tuition-fees"
+  to = "https://learn.elevateforhumanity.org/learner/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/eligibility"
+  to = "https://www.elevateforhumanity.org/funding"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/employment"
+  to = "https://www.elevateforhumanity.org/career-training"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/follow-ups"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/participants"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/reports"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/reports/performance"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/supportive-services"
+  to = "https://www.elevateforhumanity.org/community-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-board/training"
+  to = "https://learn.elevateforhumanity.org/admin/dashboard"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/workforce-partners"
+  to = "https://www.elevateforhumanity.org/about"
+  status = 301
+  force = true
