@@ -222,7 +222,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     pageKey: 'home',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
-    posterImage: '/hero-images/how-it-works-hero.jpg',
+    posterImage: '/images/pages/comp-home-hero.jpg',
     voiceoverSrc: '/audio/heroes/home.mp3',
     microLabel: 'Indianapolis, Indiana',
     belowHeroHeadline: 'Workforce training for real jobs.',
