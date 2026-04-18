@@ -174,7 +174,7 @@ export default function ProgramDiscussionsPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Community Discussions</h1>
+              <h1 className="text-3xl font-bold text-slate-900">Community Discussions</h1>
               <p className="text-black mt-1">{program?.title || program?.name}</p>
             </div>
             {user && isEnrolled && (
@@ -209,10 +209,10 @@ export default function ProgramDiscussionsPage() {
         {/* New Thread Form */}
         {showForm && (
           <div className="bg-white rounded-xl border p-6 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Start a New Discussion</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Start a New Discussion</h2>
             <form onSubmit={createThread} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-800 mb-2">
                   Topic Title
                 </label>
                 <input
@@ -225,7 +225,7 @@ export default function ProgramDiscussionsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-800 mb-2">
                   Your Message
                 </label>
                 <textarea
@@ -249,7 +249,7 @@ export default function ProgramDiscussionsPage() {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+                  className="px-6 py-2 bg-gray-200 text-slate-800 rounded-lg hover:bg-gray-300 transition"
                 >
                   Cancel
                 </button>
@@ -276,7 +276,7 @@ export default function ProgramDiscussionsPage() {
                       {thread.pinned && (
                         <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Pinned</span>
                       )}
-                      <h3 className="text-lg font-semibold text-gray-900 truncate">{thread.title}</h3>
+                      <h3 className="text-lg font-semibold text-slate-900 truncate">{thread.title}</h3>
                     </div>
                     <p className="text-black mt-1 line-clamp-2">{thread.content}</p>
                     <div className="flex items-center gap-4 mt-3 text-sm text-black">
@@ -304,7 +304,7 @@ export default function ProgramDiscussionsPage() {
           ) : (
             <div className="bg-white rounded-xl border p-12 text-center">
               <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No discussions yet</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No discussions yet</h3>
               <p className="text-black mb-6">
                 Be the first to start a conversation with fellow learners!
               </p>

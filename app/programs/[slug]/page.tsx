@@ -71,7 +71,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
             </Link>
             <Link
               href="/programs"
-              className="rounded border px-6 py-3 text-slate-700 font-semibold hover:bg-gray-50"
+              className="rounded border px-6 py-3 text-slate-700 font-semibold hover:bg-slate-50"
             >
               All Programs
             </Link>

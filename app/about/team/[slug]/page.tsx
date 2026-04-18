@@ -27,8 +27,8 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
   return (
     <section className="mx-auto max-w-3xl px-4 py-16">
       <h1 className="text-3xl font-bold">{member.name}</h1>
-      <p className="mt-1 text-lg text-gray-500">{member.title}</p>
-      <p className="mt-6 text-gray-600">{member.bio}</p>
+      <p className="mt-1 text-lg text-slate-600">{member.title}</p>
+      <p className="mt-6 text-slate-700">{member.bio}</p>
       <div className="mt-10">
         <a href={siteConfig.handoff.apply} className="rounded bg-black px-5 py-3 text-white hover:bg-gray-800">
           Apply Now

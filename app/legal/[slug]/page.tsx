@@ -27,10 +27,10 @@ export default async function LegalDocPage({ params }: { params: Promise<{ slug:
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-bold">{doc.title}</h1>
-      <p className="mt-4 text-gray-600">{doc.summary}</p>
+      <p className="mt-4 text-slate-700">{doc.summary}</p>
 
-      <div className="mt-8 rounded border bg-gray-50 p-6">
-        <p className="text-sm text-gray-600">
+      <div className="mt-8 rounded border bg-slate-50 p-6">
+        <p className="text-sm text-slate-700">
           For the full text of this document, contact us at{' '}
           <a href={`mailto:${siteConfig.email}`} className="underline">
             {siteConfig.email}

@@ -30,7 +30,7 @@ export default function PartnersPage() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-bold">Partners</h1>
-      <p className="mt-4 text-gray-600">
+      <p className="mt-4 text-slate-700">
         Our network of employer, workforce, and community partners makes it possible to connect
         learners to training, funding, and jobs.
       </p>
@@ -38,7 +38,7 @@ export default function PartnersPage() {
         {partnerTypes.map((p) => (
           <div key={p.heading}>
             <h2 className="text-xl font-semibold">{p.heading}</h2>
-            <p className="mt-2 text-gray-600">{p.body}</p>
+            <p className="mt-2 text-slate-700">{p.body}</p>
           </div>
         ))}
       </div>

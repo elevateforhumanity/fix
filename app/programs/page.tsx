@@ -49,7 +49,7 @@ export default async function ProgramsPage() {
       </p>
       <div className="mt-8 grid gap-6 md:grid-cols-2">
         {programs.map((program) => (
-          <article key={program.slug} className="rounded border p-6 hover:bg-gray-50">
+          <article key={program.slug} className="rounded border p-6 hover:bg-slate-50">
             <h2 className="text-xl font-semibold text-slate-900">{program.title}</h2>
             {program.description && (
               <p className="mt-2 text-sm text-slate-700">{program.description}</p>

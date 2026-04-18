@@ -12,18 +12,18 @@ export default function CareerTrainingPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-3xl font-bold">Career Training</h1>
-      <p className="mt-4 text-gray-600">
+      <p className="mt-4 text-slate-700">
         Short-term, credential-bearing programs designed for workforce entry and career advancement.
         WIOA and Workforce Ready Grant funding available for eligible Indiana residents.
       </p>
       <div className="mt-8 grid gap-6 md:grid-cols-2">
         {careerTrainingAreas.map((area) => (
-          <article key={area.slug} className="rounded border p-6 hover:bg-gray-50">
+          <article key={area.slug} className="rounded border p-6 hover:bg-slate-50">
             <h2 className="text-xl font-semibold">{area.title}</h2>
-            <p className="mt-2 text-sm text-gray-600">{area.summary}</p>
+            <p className="mt-2 text-sm text-slate-700">{area.summary}</p>
             <ul className="mt-3 space-y-1">
               {area.programs.map((p) => (
-                <li key={p} className="text-sm text-gray-500">· {p}</li>
+                <li key={p} className="text-sm text-slate-600">· {p}</li>
               ))}
             </ul>
             <Link

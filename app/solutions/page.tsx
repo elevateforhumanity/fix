@@ -18,12 +18,12 @@ export default function SolutionsPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-3xl font-bold">Solutions</h1>
-      <p className="mt-4 text-gray-600">Workforce training solutions for institutions, employers, and learners.</p>
+      <p className="mt-4 text-slate-700">Workforce training solutions for institutions, employers, and learners.</p>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {solutions.map((s) => (
-          <article key={s.slug} className="rounded border p-6 hover:bg-gray-50">
+          <article key={s.slug} className="rounded border p-6 hover:bg-slate-50">
             <h2 className="text-xl font-semibold">{s.title}</h2>
-            <p className="mt-2 text-sm text-gray-600">{s.summary}</p>
+            <p className="mt-2 text-sm text-slate-700">{s.summary}</p>
             <Link href={`/solutions/${s.slug}`} className="mt-4 inline-block text-sm underline">Learn more</Link>
           </article>
         ))}

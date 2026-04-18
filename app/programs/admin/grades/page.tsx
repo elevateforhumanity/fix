@@ -112,7 +112,7 @@ export default async function GradesPage() {
                   {items.map((item: any) => (
                     <div
                       key={item.id}
-                      className="p-4 border rounded-lg hover:bg-gray-50"
+                      className="p-4 border rounded-lg hover:bg-slate-50"
                     >
                       <p className="font-semibold">
                         {item.title || item.name || item.id}
@@ -145,7 +145,7 @@ export default async function GradesPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/support"
-                className="bg-white text-brand-blue-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 text-lg"
+                className="bg-white text-brand-blue-700 px-8 py-4 rounded-lg font-semibold hover:bg-slate-50 text-lg"
               >
                 Apply Now
               </Link>
