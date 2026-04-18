@@ -25,8 +25,7 @@ const PROVIDER_IMAGES: Record<string, string> = {
   nha:        '/images/pages/medical-assistant.jpg',
   workkeys:   '/images/pages/career-services-page-4.jpg',
   careersafe: '/images/pages/apprenticeships-hero.jpg',
-  nccer:      '/images/pages/apprenticeships-hero.jpg',
-  psi:        '/images/pages/career-services-page-1.jpg',
+  midland:    '/images/pages/hvac-technician.jpg',
 };
 
 const CAPABILITY_LABELS: Record<string, string> = {
