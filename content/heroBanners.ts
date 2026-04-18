@@ -30,6 +30,8 @@ export interface HeroBannerConfig {
   pageKey: string;
   videoSrcDesktop: string;
   videoSrcMobile?: string;
+  /** Poster image shown while video loads — strongly recommended for all banners */
+  posterImage?: string;
   voiceoverSrc?: string;
   microLabel?: string;
   belowHeroHeadline: string;
@@ -71,6 +73,8 @@ const BANNED_PHRASES = [
 export type ProgramHeroBannerConfig = {
   pageKey: string;
   videoSrcDesktop: string;
+  /** Poster image shown while video loads — strongly recommended for all banners */
+  posterImage?: string;
   microLabel: string;
   credentialLabel: string;
   durationLabel: string;
@@ -218,6 +222,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     pageKey: 'home',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/how-it-works-hero.jpg',
     voiceoverSrc: '/audio/heroes/home.mp3',
     microLabel: 'Indianapolis, Indiana',
     belowHeroHeadline: 'Workforce training for real jobs.',
@@ -240,6 +245,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     pageKey: 'about',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/about-hero.jpg',
     voiceoverSrc: '/audio/heroes/about.mp3',
     microLabel: 'Our Mission',
     belowHeroHeadline: 'Built for workforce outcomes.',
@@ -261,6 +267,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     pageKey: 'platform',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/technology-hero.jpg',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'Workforce Infrastructure',
     belowHeroHeadline: 'Workforce infrastructure, not just a website.',
@@ -305,6 +312,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
   healthcare: {
     pageKey: 'healthcare',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4',
+    posterImage: '/hero-images/healthcare-cat-new.jpg',
     voiceoverSrc: '/audio/heroes/healthcare.mp3',
     microLabel: 'Healthcare Programs',
     belowHeroHeadline: 'Healthcare training that leads to certification.',
@@ -327,6 +335,7 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     pageKey: 'store',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/technology-hero.jpg',
     voiceoverSrc: '/audio/heroes/store.mp3',
     microLabel: 'White-Label Platform',
     belowHeroHeadline: 'License the LMS that runs workforce programs end to end.',
@@ -367,6 +376,7 @@ Try the live demo — no signup, no time limit. Every screen is clickable. Searc
     pageKey: 'programs',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/pathways-hero.jpg',
     voiceoverSrc: '/audio/heroes/programs.mp3',
     microLabel: 'Career Training',
     belowHeroHeadline: 'Start a Career — Not Just a Class',
@@ -411,6 +421,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'learner',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/how-it-works-hero.jpg',
     voiceoverSrc: '/audio/heroes/learner.mp3',
     microLabel: 'Your Training',
     belowHeroHeadline: 'Your credential is the goal. Everything here moves you toward it.',
@@ -1228,6 +1239,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'mission',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/images/pages/mission-hero.jpg',
     voiceoverSrc: '/audio/heroes/mission.mp3',
     microLabel: 'Our Mission',
     belowHeroHeadline: 'Pathways out of poverty. Into prosperity.',
@@ -1243,6 +1255,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'partners',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/images/pages/partner-page-1.jpg',
     voiceoverSrc: '/audio/heroes/partners.mp3',
     microLabel: 'Partner With Us',
     belowHeroHeadline: 'Build the workforce your community needs.',
@@ -1258,6 +1271,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'lms',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/how-it-works-hero.jpg',
     voiceoverSrc: '/audio/heroes/lms.mp3',
     microLabel: 'Student Training Portal',
     belowHeroHeadline: 'Your career training starts here.',
@@ -1273,6 +1287,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'training',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/how-it-works-hero.jpg',
     voiceoverSrc: '/audio/heroes/training.mp3',
     microLabel: 'Training Programs',
     belowHeroHeadline: 'Career training for real jobs.',
@@ -1288,6 +1303,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'jri',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    posterImage: '/hero-images/jri-hero.jpg',
     voiceoverSrc: '/audio/heroes/jri.mp3',
     microLabel: 'Justice-Involved Reentry',
     belowHeroHeadline: 'A second chance backed by real training.',
@@ -1303,6 +1319,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'supersonic',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/tax-hero.jpg',
     voiceoverSrc: '/audio/heroes/supersonic.mp3',
     microLabel: 'SupersonicFastCash',
     belowHeroHeadline: 'Tax software built for speed.',
@@ -1318,6 +1335,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'services',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    posterImage: '/hero-images/services-hero.jpg',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'Our Services',
     belowHeroHeadline: 'Training, credentials, and support — end to end.',
@@ -1333,6 +1351,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'enrollment',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/apply-hero.jpg',
     voiceoverSrc: '/audio/heroes/enrollment.mp3',
     microLabel: 'Enrollment',
     belowHeroHeadline: 'Ready to start? Let\'s get you enrolled.',
@@ -1365,6 +1384,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'employer',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/employer-hero.jpg',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'For Employers',
     belowHeroHeadline: 'Hire credentialed graduates. Access tax credits and apprenticeship support.',
@@ -1388,6 +1408,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'credentials',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/career-services-hero.mp4',
+    posterImage: '/hero-images/how-it-works-hero.jpg',
     voiceoverSrc: '/audio/heroes/career-services.mp3',
     microLabel: 'Compliance Infrastructure',
     belowHeroHeadline: 'Credentials and compliance — active, verifiable, and integrated.',
@@ -1466,6 +1487,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'faq',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/images/pages/faq-page-1.jpg',
     voiceoverSrc: '/audio/heroes/faq.mp3',
     microLabel: 'Frequently Asked Questions',
     belowHeroHeadline: 'Questions? We have answers.',
@@ -1497,6 +1519,7 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     pageKey: 'certifications',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
     videoSrcMobile: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',
+    posterImage: '/hero-images/how-it-works-hero.jpg',
     voiceoverSrc: '/audio/heroes/certifications.mp3',
     microLabel: 'Credentials & Certifications',
     belowHeroHeadline: 'Earn credentials employers recognize.',
