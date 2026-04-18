@@ -1,306 +1,225 @@
 'use client';
 
-import { useTimeclock } from '@/hooks/useTimeclock';
+import { useState } from 'react';
+import { logger } from '@/lib/logger';
+import { useTimeclock } from '@/lib/timeclock/useTimeclock';
 
 interface TimeclockWidgetProps {
+  apprenticeId: string;
   siteId: string;
   partnerId: string;
   programId: string;
+  siteName?: string;
 }
 
-export function TimeclockWidget({ siteId, partnerId, programId }: TimeclockWidgetProps) {
-  const {
-    status,
-    isLoading,
-    clockIn,
-    clockOut,
-    startLunch,
-    endLunch,
-    resetAfterAutoClockOut,
-  } = useTimeclock({ siteId, partnerId, programId });
+export function TimeclockWidget({
+  apprenticeId,
+  siteId,
+  partnerId,
+  programId,
+  siteName,
+}: TimeclockWidgetProps) {
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [autoClockOutMsg, setAutoClockOutMsg] = useState<string | null>(null);
+
+  const timeclock = useTimeclock({
+    apprenticeId,
+    partnerId,
+    programId,
+    siteId,
+    onError: (err) => {
+      setErrorMsg(err);
+      setTimeout(() => setErrorMsg(null), 5000);
+    },
+    onAutoClockOut: (reason) => {
+      setAutoClockOutMsg(reason);
+    },
+  });
 
   const formatTime = (isoString: string | null) => {
     if (!isoString) return '--:--';
     return new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const formatGraceTime = (seconds: number | null) => {
-    if (seconds === null) return '';
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const renderStateIndicator = () => {
-    switch (status.state) {
-      case 'idle':
-        return (
-          <div className="flex items-center gap-2 text-gray-500">
-            <span className="w-3 h-3 rounded-full bg-gray-400" />
-            <span>Not clocked in</span>
-          </div>
-        );
-      case 'clocked_in':
-        return (
-          <div className="flex items-center gap-2 text-brand-green-600">
-            <span className="w-3 h-3 rounded-full bg-brand-green-500 animate-pulse" />
-            <span>Clocked in</span>
-          </div>
-        );
-      case 'offsite_grace':
-        return (
-          <div className="flex items-center gap-2 text-yellow-600">
-            <span className="w-3 h-3 rounded-full bg-yellow-500 animate-pulse" />
-            <span>Offsite - Return within {formatGraceTime(status.graceTimeRemaining)}</span>
-          </div>
-        );
-      case 'auto_clocked_out':
-        return (
-          <div className="flex items-center gap-2 text-brand-red-600">
-            <span className="w-3 h-3 rounded-full bg-brand-red-500" />
-            <span>Auto clocked out</span>
-          </div>
-        );
-      case 'on_lunch':
-        return (
-          <div className="flex items-center gap-2 text-brand-blue-600">
-            <span className="w-3 h-3 rounded-full bg-brand-blue-500 animate-pulse" />
-            <span>On lunch break</span>
-          </div>
-        );
-      case 'error':
-        return (
-          <div className="flex items-center gap-2 text-brand-red-600">
-            <span className="w-3 h-3 rounded-full bg-brand-red-500" />
-            <span>Error</span>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
-
-  const renderWarningBanner = () => {
-    if (status.state === 'offsite_grace') {
-      return (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-          <div className="flex items-start gap-3">
-            <svg className="w-5 h-5 text-yellow-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <div>
-              <h4 className="font-medium text-yellow-800">You are offsite</h4>
-              <p className="text-sm text-yellow-700 mt-1">
-                Return to your work site within {formatGraceTime(status.graceTimeRemaining)} to avoid automatic clock-out.
-              </p>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (status.state === 'auto_clocked_out') {
-      return (
-        <div className="bg-brand-red-50 border border-brand-red-200 rounded-lg p-4 mb-4">
-          <div className="flex items-start gap-3">
-            <svg className="w-5 h-5 text-brand-red-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div>
-              <h4 className="font-medium text-brand-red-800">Automatically clocked out</h4>
-              <p className="text-sm text-brand-red-700 mt-1">
-                You were clocked out at {formatTime(status.clockOutAt)} for leaving the work site for more than 15 minutes.
-              </p>
-              <button
-                onClick={resetAfterAutoClockOut}
-                className="mt-2 text-sm text-brand-red-700 underline hover:text-brand-red-800"
-              >
-                Dismiss and clock in again
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return null;
-  };
-
-  const renderAlertBanner = () => {
-    if (!status.alert) return null;
-
-    return (
-      <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-lg p-4 mb-4">
-        <div className="flex items-start gap-3">
-          <svg className="w-5 h-5 text-brand-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p className="text-sm text-brand-blue-700">{status.alert}</p>
-        </div>
-      </div>
-    );
-  };
-
-  const renderErrorBanner = () => {
-    if (!status.error) return null;
-
-    return (
-      <div className="bg-brand-red-50 border border-brand-red-200 rounded-lg p-4 mb-4">
-        <div className="flex items-start gap-3">
-          <svg className="w-5 h-5 text-brand-red-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p className="text-sm text-brand-red-700">{status.error}</p>
-        </div>
-      </div>
-    );
-  };
-
-  const renderActions = () => {
-    const buttonBase = "px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
-    const primaryButton = `${buttonBase} bg-brand-green-600 text-white hover:bg-brand-green-700`;
-    const secondaryButton = `${buttonBase} bg-gray-200 text-gray-800 hover:bg-gray-300`;
-    const dangerButton = `${buttonBase} bg-brand-red-600 text-white hover:bg-brand-red-700`;
-
-    switch (status.state) {
-      case 'idle':
-        return (
-          <button
-            onClick={clockIn}
-            disabled={isLoading}
-            className={primaryButton}
-          >
-            {isLoading ? 'Clocking in...' : 'Clock In'}
-          </button>
-        );
-
-      case 'clocked_in':
-        return (
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={startLunch}
-              disabled={isLoading || !!status.lunchStartAt}
-              className={secondaryButton}
-            >
-              {status.lunchStartAt ? 'Lunch taken' : 'Start Lunch'}
-            </button>
-            <button
-              onClick={clockOut}
-              disabled={isLoading}
-              className={dangerButton}
-            >
-              {isLoading ? 'Clocking out...' : 'Clock Out'}
-            </button>
-          </div>
-        );
-
-      case 'on_lunch':
-        return (
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={endLunch}
-              disabled={isLoading}
-              className={primaryButton}
-            >
-              {isLoading ? 'Ending lunch...' : 'End Lunch'}
-            </button>
-          </div>
-        );
-
-      case 'offsite_grace':
-        return (
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={clockOut}
-              disabled={isLoading}
-              className={dangerButton}
-            >
-              {isLoading ? 'Clocking out...' : 'Clock Out Now'}
-            </button>
-          </div>
-        );
-
-      case 'auto_clocked_out':
-        return (
-          <button
-            onClick={() => {
-              resetAfterAutoClockOut();
-              // Small delay to allow state reset before clock in
-              setTimeout(clockIn, 100);
-            }}
-            disabled={isLoading}
-            className={primaryButton}
-          >
-            {isLoading ? 'Clocking in...' : 'Clock In Again'}
-          </button>
-        );
-
-      default:
-        return null;
-    }
-  };
-
-  const renderTimeInfo = () => {
-    if (status.state === 'idle' && !status.clockOutAt) return null;
-
-    return (
-      <div className="grid grid-cols-2 gap-4 text-sm">
-        {status.clockInAt && (
-          <div>
-            <span className="text-gray-500">Clock in:</span>
-            <span className="ml-2 font-medium">{formatTime(status.clockInAt)}</span>
-          </div>
-        )}
-        {status.clockOutAt && (
-          <div>
-            <span className="text-gray-500">Clock out:</span>
-            <span className="ml-2 font-medium">{formatTime(status.clockOutAt)}</span>
-          </div>
-        )}
-        {status.lunchStartAt && (
-          <div>
-            <span className="text-gray-500">Lunch start:</span>
-            <span className="ml-2 font-medium">{formatTime(status.lunchStartAt)}</span>
-          </div>
-        )}
-        {status.lunchEndAt && (
-          <div>
-            <span className="text-gray-500">Lunch end:</span>
-            <span className="ml-2 font-medium">{formatTime(status.lunchEndAt)}</span>
-          </div>
-        )}
-        {status.hoursWorked !== null && (
-          <div className="col-span-2">
-            <span className="text-gray-500">Hours worked:</span>
-            <span className="ml-2 font-medium">{status.hoursWorked.toFixed(2)}</span>
-          </div>
-        )}
-      </div>
-    );
-  };
+  const buttonBase =
+    'px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed';
+  const primaryButton = `${buttonBase} bg-brand-green-600 text-white hover:bg-brand-green-700`;
+  const secondaryButton = `${buttonBase} bg-gray-200 text-gray-800 hover:bg-gray-300`;
+  const dangerButton = `${buttonBase} bg-brand-red-600 text-white hover:bg-brand-red-700`;
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Time Clock</h3>
-        {renderStateIndicator()}
+        <div className="flex items-baseline gap-2">
+          <h3 className="text-lg font-semibold text-slate-900">Time Clock</h3>
+          {siteName && <span className="text-sm text-slate-500">{siteName}</span>}
+        </div>
+        <div className="flex items-center gap-2 text-sm">
+          {timeclock.isShiftOpen ? (
+            timeclock.isOnLunch ? (
+              <>
+                <span className="w-3 h-3 rounded-full bg-brand-blue-500 animate-pulse" />
+                <span className="text-brand-blue-600">On lunch</span>
+              </>
+            ) : timeclock.withinGeofence ? (
+              <>
+                <span className="w-3 h-3 rounded-full bg-brand-green-500 animate-pulse" />
+                <span className="text-brand-green-600">Clocked in</span>
+              </>
+            ) : (
+              <>
+                <span className="w-3 h-3 rounded-full bg-yellow-500 animate-pulse" />
+                <span className="text-yellow-600">Off-site</span>
+              </>
+            )
+          ) : timeclock.autoClockOut ? (
+            <>
+              <span className="w-3 h-3 rounded-full bg-brand-red-500" />
+              <span className="text-brand-red-600">Auto clocked out</span>
+            </>
+          ) : (
+            <>
+              <span className="w-3 h-3 rounded-full bg-gray-400" />
+              <span className="text-slate-500">Not clocked in</span>
+            </>
+          )}
+        </div>
       </div>
 
-      {renderWarningBanner()}
-      {renderAlertBanner()}
-      {renderErrorBanner()}
-
-      <div className="space-y-4">
-        {renderTimeInfo()}
-        
-        <div className="pt-4 border-t border-gray-100">
-          {renderActions()}
+      {/* Off-site warning */}
+      {timeclock.isShiftOpen && !timeclock.withinGeofence && !timeclock.autoClockOut && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+          <p className="text-sm font-medium text-yellow-800">You are outside the work site</p>
+          <p className="text-xs text-yellow-700 mt-1">
+            Return within 15 minutes or your shift will be automatically ended.
+          </p>
         </div>
+      )}
 
-        {status.gpsAccuracy !== null && (
-          <div className="text-xs text-gray-400 mt-2">
-            GPS accuracy: {Math.round(status.gpsAccuracy)}m
-          </div>
+      {/* Auto clock-out message */}
+      {autoClockOutMsg && (
+        <div className="bg-brand-red-50 border border-brand-red-200 rounded-lg p-4 mb-4">
+          <p className="text-sm font-medium text-brand-red-800">Shift ended automatically</p>
+          <p className="text-xs text-brand-red-700 mt-1">{autoClockOutMsg}</p>
+        </div>
+      )}
+
+      {/* GPS / error messages */}
+      {(timeclock.gpsError || errorMsg) && (
+        <div className="bg-brand-red-50 border border-brand-red-200 rounded-lg p-4 mb-4">
+          <p className="text-sm text-brand-red-700">{errorMsg ?? timeclock.gpsError}</p>
+        </div>
+      )}
+
+      {/* Shift time info */}
+      {(timeclock.isShiftOpen || timeclock.clockOutAt) && (
+        <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+          {timeclock.clockInAt && (
+            <div>
+              <span className="text-slate-500">Clock in:</span>
+              <span className="ml-2 font-medium">{formatTime(timeclock.clockInAt)}</span>
+            </div>
+          )}
+          {timeclock.clockOutAt && (
+            <div>
+              <span className="text-slate-500">Clock out:</span>
+              <span className="ml-2 font-medium">{formatTime(timeclock.clockOutAt)}</span>
+            </div>
+          )}
+          {timeclock.lunchStartAt && (
+            <div>
+              <span className="text-slate-500">Lunch start:</span>
+              <span className="ml-2 font-medium">{formatTime(timeclock.lunchStartAt)}</span>
+            </div>
+          )}
+          {timeclock.lunchEndAt && (
+            <div>
+              <span className="text-slate-500">Lunch end:</span>
+              <span className="ml-2 font-medium">{formatTime(timeclock.lunchEndAt)}</span>
+            </div>
+          )}
+          {timeclock.hoursWorked !== null && (
+            <div className="col-span-2">
+              <span className="text-slate-500">Hours worked:</span>
+              <span className="ml-2 font-medium">{timeclock.hoursWorked.toFixed(2)}</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* GPS accuracy */}
+      {timeclock.gpsPosition && (
+        <p className="text-xs text-slate-400 mb-3">
+          GPS accuracy: {Math.round(timeclock.gpsPosition.accuracy_m)}m
+        </p>
+      )}
+
+      {/* Actions */}
+      <div className="pt-4 border-t border-gray-100 space-y-2">
+        {timeclock.canClockIn && (
+          <button
+            onClick={async () => {
+              setErrorMsg(null);
+              setAutoClockOutMsg(null);
+              try { await timeclock.clockIn(); } catch (err) { logger.error('[TimeclockWidget] clockIn failed', err); }
+            }}
+            disabled={timeclock.loading}
+            className={`w-full ${primaryButton}`}
+          >
+            {timeclock.loading ? 'Clocking in…' : 'Clock In'}
+          </button>
+        )}
+
+        {timeclock.canStartLunch && (
+          <button
+            onClick={async () => {
+              setErrorMsg(null);
+              try { await timeclock.lunchStart(); } catch (err) { logger.error('[TimeclockWidget] lunchStart failed', err); }
+            }}
+            disabled={timeclock.loading}
+            className={`w-full ${secondaryButton}`}
+          >
+            {timeclock.loading ? 'Saving…' : 'Start Lunch'}
+          </button>
+        )}
+
+        {timeclock.canEndLunch && (
+          <button
+            onClick={async () => {
+              setErrorMsg(null);
+              try { await timeclock.lunchEnd(); } catch (err) { logger.error('[TimeclockWidget] lunchEnd failed', err); }
+            }}
+            disabled={timeclock.loading}
+            className={`w-full ${secondaryButton}`}
+          >
+            {timeclock.loading ? 'Saving…' : 'End Lunch'}
+          </button>
+        )}
+
+        {timeclock.canClockOut && (
+          <button
+            onClick={async () => {
+              setErrorMsg(null);
+              try { await timeclock.clockOut(); } catch (err) { logger.error('[TimeclockWidget] clockOut failed', err); }
+            }}
+            disabled={timeclock.loading}
+            className={`w-full ${dangerButton}`}
+          >
+            {timeclock.loading ? 'Clocking out…' : 'Clock Out'}
+          </button>
+        )}
+
+        {timeclock.clockOutAt && (
+          <button
+            onClick={() => {
+              timeclock.reset();
+              setAutoClockOutMsg(null);
+            }}
+            className={`w-full ${secondaryButton}`}
+          >
+            Start New Shift
+          </button>
         )}
       </div>
     </div>

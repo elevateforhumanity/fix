@@ -1,7 +1,7 @@
-import { logger } from '@/lib/logger';
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { logger } from '@/lib/logger';
 
 const MAX_ACCURACY_M = 50;
 const HEARTBEAT_INTERVAL_MS = 2 * 60 * 1000; // 2 minutes
