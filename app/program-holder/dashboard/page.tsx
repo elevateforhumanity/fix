@@ -130,7 +130,7 @@ export default async function ProgramHolderDashboardPage() {
   const stats = [
     { label: 'Active Learners', value: totalActive.toLocaleString(), icon: Users, color: 'text-brand-blue-600', bg: 'bg-brand-blue-100' },
     { label: 'Programs', value: programs.length.toString(), icon: BookOpen, color: 'text-brand-orange-600', bg: 'bg-brand-orange-100' },
-    { label: 'Completions', value: totalCompleted.toLocaleString(), icon: TrendingUp, color: 'text-green-600', bg: 'bg-green-100' },
+    { label: 'Completions', value: totalCompleted.toLocaleString(), icon: TrendingUp, color: 'text-brand-green-600', bg: 'bg-brand-green-100' },
     { label: 'Certificates Issued', value: totalCerts.toLocaleString(), icon: Award, color: 'text-yellow-600', bg: 'bg-yellow-100' },
   ];
 
@@ -207,15 +207,15 @@ export default async function ProgramHolderDashboardPage() {
         </div>
 
         {totalRevenueCents > 0 && (
-          <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-8 flex items-center justify-between">
+          <div className="bg-brand-green-50 border border-brand-green-200 rounded-xl p-4 mb-8 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <DollarSign className="w-5 h-5 text-green-600" />
+              <DollarSign className="w-5 h-5 text-brand-green-600" />
               <div>
-                <p className="text-sm font-semibold text-green-800">Total Revenue</p>
-                <p className="text-xs text-green-600">Across all programs</p>
+                <p className="text-sm font-semibold text-brand-green-800">Total Revenue</p>
+                <p className="text-xs text-brand-green-600">Across all programs</p>
               </div>
             </div>
-            <p className="text-2xl font-bold text-green-800">
+            <p className="text-2xl font-bold text-brand-green-800">
               ${(totalRevenueCents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}
             </p>
           </div>
@@ -248,7 +248,7 @@ export default async function ProgramHolderDashboardPage() {
                         </td>
                         <td className="py-3 text-center text-slate-600">{(enrollmentsByProgram[p.id] ?? 0).toLocaleString()}</td>
                         <td className="py-3 text-center">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${p.isActive ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${p.isActive ? 'bg-brand-green-100 text-brand-green-700' : 'bg-slate-100 text-slate-500'}`}>
                             {p.isActive ? 'Active' : p.status}
                           </span>
                         </td>
