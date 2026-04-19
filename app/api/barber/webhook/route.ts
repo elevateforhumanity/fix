@@ -16,140 +16,74 @@ import {
 
 import { withRuntime } from '@/lib/api/withRuntime';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
-import type { SupabaseClient } from '@supabase/supabase-js';
 
 const LMS_URL =
   (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org') + '/lms/courses';
 
 /**
- * Create a Stripe subscription that auto-charges the student's saved card weekly.
+ * Schedule weekly invoices for a customer
+ * Creates invoice items for each Friday until program completion
  *
- * Called after both barber_enrollment and barber_full_tuition checkout completions.
- * Returns the subscription ID, or null if no payment method was found or on error.
- *
- * getBillingCycleAnchor() returns a Unix timestamp (seconds). Stripe's
- * billing_cycle_anchor and cancel_at both expect Unix timestamps.
+ * TODO: replace createWeeklySubscription call-site with this function once
+ * tested in staging. Currently defined but not yet invoked.
  */
-async function createWeeklySubscription(
-  stripe: ReturnType<typeof getStripe>,
-  db: SupabaseClient,
-  {
-    stripeSessionId,
-    customerId,
-    customerEmail,
-    weeklyPaymentCents,
-    weeksRemaining,
-    applicationId,
-    subscriptionDbId,
-  }: {
-    stripeSessionId: string;
+async function scheduleWeeklyInvoices(
+  stripe: Stripe,
+  params: {
     customerId: string;
     customerEmail: string;
-    weeklyPaymentCents: number;
     weeksRemaining: number;
+    weeklyPaymentCents: number;
+    hoursPerWeek: number;
+    transferredHours: number;
     applicationId?: string;
-    subscriptionDbId?: string;
   }
-): Promise<string | null> {
-  try {
-    // Retrieve the payment method saved by setup_future_usage: 'off_session'
-    const checkoutSession = await stripe.checkout.sessions.retrieve(stripeSessionId, {
-      expand: ['payment_intent.payment_method'],
-    });
-    const pi = checkoutSession.payment_intent as Stripe.PaymentIntent | null;
-    const pmId = typeof pi?.payment_method === 'string'
-      ? pi.payment_method
-      : (pi?.payment_method as Stripe.PaymentMethod | null)?.id;
+) {
+  const { customerId, weeksRemaining, weeklyPaymentCents } = params;
 
-    if (!pmId) {
-      logger.warn('[createWeeklySubscription] No saved payment method — subscription not created', { customerId });
-      return null;
-    }
+  // Get next Friday
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  const daysUntilFriday = dayOfWeek === 5 ? 7 : (5 - dayOfWeek + 7) % 7 || 7;
+  
+  // Schedule invoices for each week
+  for (let week = 0; week < weeksRemaining; week++) {
+    const invoiceDate = new Date(now);
+    invoiceDate.setDate(now.getDate() + daysUntilFriday + (week * 7));
+    invoiceDate.setHours(10, 0, 0, 0); // 10 AM
 
-    // Attach to customer and set as default for future off-session charges
-    await stripe.paymentMethods.attach(pmId, { customer: customerId }).catch(() => {
-      // Already attached — safe to ignore
-    });
-    await stripe.customers.update(customerId, {
-      invoice_settings: { default_payment_method: pmId },
-    });
-
-    // Create a metered weekly price for the remaining tuition balance
-    const weeklyPrice = await stripe.prices.create({
-      currency: 'usd',
-      unit_amount: weeklyPaymentCents,
-      recurring: { interval: 'week', interval_count: 1 },
-      product_data: { name: 'Barber Apprenticeship — Weekly Tuition' },
-    });
-
-    // Anchor billing to the next Friday; cancel automatically after all weeks are billed.
-    // getBillingCycleAnchor() returns a Unix timestamp (seconds) — no .getTime() needed.
-    const anchorTs = getBillingCycleAnchor();
-    const cancelAtTs = anchorTs + weeksRemaining * 7 * 24 * 60 * 60;
-
-    const subscription = await stripe.subscriptions.create({
+    // Create invoice item scheduled for that date
+    await stripe.invoiceItems.create({
       customer: customerId,
-      items: [{ price: weeklyPrice.id }],
-      default_payment_method: pmId,
-      billing_cycle_anchor: anchorTs,
-      proration_behavior: 'none',
-      cancel_at_period_end: false,
-      cancel_at: cancelAtTs,
+      amount: weeklyPaymentCents,
+      currency: 'usd',
+      description: `Barber Apprenticeship - Week ${week + 1} of ${weeksRemaining}`,
       metadata: {
         program: 'barber-apprenticeship',
-        weeks_remaining: weeksRemaining.toString(),
-        application_id: applicationId || '',
+        week_number: (week + 1).toString(),
+        total_weeks: weeksRemaining.toString(),
       },
     });
 
-    // Store subscription ID on the enrollment record (best-effort)
-    if (subscriptionDbId) {
-      await db
-        .from('barber_subscriptions')
-        .update({
-          stripe_subscription_id: subscription.id,
-          payment_model: 'subscription',
-          payment_status: 'active',
-        })
-        .eq('id', subscriptionDbId);
-    } else {
-      await db
-        .from('barber_subscriptions')
-        .update({
-          stripe_subscription_id: subscription.id,
-          payment_model: 'subscription',
-          payment_status: 'active',
-        })
-        .eq('stripe_customer_id', customerId)
-        .order('created_at', { ascending: false })
-        .limit(1);
-    }
-
-    logger.info('[createWeeklySubscription] Subscription created', {
-      customerId,
-      subscriptionId: subscription.id,
-      weeklyPaymentCents,
-      weeks: weeksRemaining,
-      firstChargeDate: new Date(anchorTs * 1000).toISOString(),
-      finalChargeDate: new Date(cancelAtTs * 1000).toISOString(),
+    // Create and finalize the invoice to be sent on that date
+    const invoice = await stripe.invoices.create({
+      customer: customerId,
+      collection_method: 'send_invoice',
+      days_until_due: 3, // 3 days to pay
+      auto_advance: true,
+      metadata: {
+        program: 'barber-apprenticeship',
+        week_number: (week + 1).toString(),
+      },
     });
 
-    return subscription.id;
-  } catch (err) {
-    logger.error('[createWeeklySubscription] Failed — billing not scheduled', { customerId, err });
-    // Non-fatal: notify admin so manual recovery is possible
-    try {
-      const { sendEmail } = await import('@/lib/email/sendgrid');
-      await sendEmail({
-        to: 'elevate4humanityedu@gmail.com',
-        subject: '⚠️ Weekly billing setup failed — manual action required',
-        html: `<p>Student: ${customerEmail}<br>Stripe Customer ID: ${customerId}<br>Weekly amount: $${(weeklyPaymentCents / 100).toFixed(2)}<br>Weeks: ${weeksRemaining}</p><p>Stripe subscription was not created. Set it up manually in the Stripe Dashboard.</p>`,
-      });
-    } catch { /* non-fatal */ }
-    return null;
+    // Schedule the invoice to be sent on the Friday
+    // Note: Stripe will auto-send when finalized if collection_method is send_invoice
+    await stripe.invoices.finalizeInvoice(invoice.id);
   }
-}
 
+  logger.info(`Scheduled ${weeksRemaining} weekly invoices for customer ${customerId}`);
+}
 function getWebhookSecret() {
   return process.env.STRIPE_WEBHOOK_SECRET_BARBER || process.env.STRIPE_WEBHOOK_SECRET || '';
 }
@@ -186,12 +120,8 @@ async function _POST(request: NextRequest) {
   }
 
   // Webhook handlers must use the admin (service role) client — there is no user session.
+  // await getAdminClient() throws if env vars are missing, which is the correct behaviour.
   const supabase = await getAdminClient();
-  if (!supabase) {
-    logger.error('[barber/webhook] SUPABASE_SERVICE_ROLE_KEY missing — cannot process webhook', { eventId: event.id, eventType: event.type });
-    // Return 200 to Stripe so it does not retry — the env issue must be fixed in Netlify config.
-    return NextResponse.json({ received: true, warning: 'DB unavailable' });
-  }
 
   try {
     switch (event.type) {
@@ -296,18 +226,84 @@ async function _POST(request: NextRequest) {
             }
           }
 
+
           // ── Wire weekly billing via Stripe subscription ──────────────────
           // Only for card payments on a payment plan (BNPL providers manage
           // their own schedules; fully-paid students have no recurring balance).
           if (!fullyPaid && !bnplProvider && weeklyPaymentCents > 0) {
-            await createWeeklySubscription(stripe, supabase, {
-              stripeSessionId: session.id,
-              customerId,
-              customerEmail,
-              weeklyPaymentCents,
-              weeksRemaining: invoiceWeeks,
-              applicationId,
-            });
+            try {
+              // Retrieve the payment method saved during checkout
+              const checkoutSession = await stripe.checkout.sessions.retrieve(
+                session.id,
+                { expand: ['payment_intent.payment_method'] }
+              );
+              const pi = checkoutSession.payment_intent as Stripe.PaymentIntent | null;
+              const pmId = typeof pi?.payment_method === 'string'
+                ? pi.payment_method
+                : (pi?.payment_method as Stripe.PaymentMethod | null)?.id;
+
+              if (pmId) {
+                // Attach payment method to customer and set as default
+                await stripe.paymentMethods.attach(pmId, { customer: customerId }).catch(() => {});
+                await stripe.customers.update(customerId, {
+                  invoice_settings: { default_payment_method: pmId },
+                });
+
+                // Create a one-time price for the weekly amount
+                const weeklyPrice = await stripe.prices.create({
+                  currency: 'usd',
+                  unit_amount: weeklyPaymentCents,
+                  recurring: { interval: 'week', interval_count: 1 },
+                  product_data: { name: 'Barber Apprenticeship — Weekly Tuition' },
+                });
+
+                // Billing anchor: next Friday at 10 AM ET
+                const billingAnchor = getBillingCycleAnchor();
+
+                const subscription = await stripe.subscriptions.create({
+                  customer: customerId,
+                  items: [{ price: weeklyPrice.id }],
+                  billing_cycle_anchor: billingAnchor,
+                  proration_behavior: 'none',
+                  cancel_at_period_end: false,
+                  metadata: {
+                    program: 'barber-apprenticeship',
+                    weeks_remaining: invoiceWeeks.toString(),
+                    application_id: applicationId || '',
+                  },
+                  // Cancel automatically after all weeks are billed
+                  cancel_at: billingAnchor + invoiceWeeks * 7 * 24 * 60 * 60,
+                });
+
+                // Store subscription ID on the enrollment record
+                await supabase
+                  .from('barber_subscriptions')
+                  .update({ stripe_subscription_id: subscription.id })
+                  .eq('stripe_customer_id', customerId)
+                  .order('created_at', { ascending: false })
+                  .limit(1);
+
+                logger.info('[Barber Webhook] Weekly subscription created', {
+                  customerId,
+                  subscriptionId: subscription.id,
+                  weeklyPaymentCents,
+                  weeks: invoiceWeeks,
+                });
+              } else {
+                logger.warn('[Barber Webhook] No payment method found — weekly billing not scheduled', { customerId });
+              }
+            } catch (billingErr) {
+              // Non-fatal — log and alert admin but do not block enrollment
+              logger.error('[Barber Webhook] Failed to create weekly subscription', { customerId, billingErr });
+              try {
+                const { sendEmail } = await import('@/lib/email/sendgrid');
+                await sendEmail({
+                  to: 'elevate4humanityedu@gmail.com',
+                  subject: '⚠️ Weekly billing setup failed — manual action required',
+                  html: `<p>Student: ${customerEmail}<br>Customer ID: ${customerId}<br>Weekly amount: $${(weeklyPaymentCents / 100).toFixed(2)}<br>Weeks: ${invoiceWeeks}</p><p>Stripe subscription was not created. Set up manually in Stripe dashboard.</p>`,
+                });
+              } catch { /* non-fatal */ }
+            }
           }
 
           // Run post-payment pipeline (enrollment, emails)
@@ -360,7 +356,7 @@ async function _POST(request: NextRequest) {
   <li><strong>Access your dashboard</strong> — log hours, track progress, and access your coursework in the Elevate LMS once orientation is complete.</li>
 </ol>
 
-${!fullyPaid ? `<p><strong>Payment plan:</strong> Your card on file will be automatically charged \$${(weeklyPaymentCents / 100).toFixed(2)} every Friday until your balance is paid in full. No action needed — charges happen automatically.</p>` : ''}
+${!fullyPaid ? `<p><strong>Payment plan:</strong> Weekly invoices will arrive every Friday starting next week.</p>` : ''}
 
 <p>Questions? Call <a href="tel:3173143757">(317) 314-3757</a> or reply to this email.</p>
 <p>— Elevate for Humanity</p>
@@ -422,6 +418,13 @@ ${!fullyPaid ? `<p><strong>Payment plan:</strong> Your card on file will be auto
           const fullyPaid = paymentType === 'pay_in_full' || amountPaidCents >= adjustedPriceCents;
           const remainingBalanceCents = Math.max(0, adjustedPriceCents - amountPaidCents);
 
+          // NOTE: Weekly invoices are NOT pre-created here.
+          // Pre-creating all 29 invoices at once sends 29 emails to the student immediately.
+          // Weekly billing is handled by the Stripe subscription or a cron job.
+          if (!fullyPaid && weeklyPaymentCents > 0 && weeksRemaining > 0) {
+            logger.info(`[barber/webhook] Payment plan: $${(weeklyPaymentCents / 100).toFixed(2)}/week for ${weeksRemaining} weeks — billing handled by subscription`);
+          }
+
           const { data: subRecord } = await supabase.from('barber_subscriptions').insert({
             stripe_customer_id: customerId,
             customer_email: customerEmail,
@@ -437,27 +440,11 @@ ${!fullyPaid ? `<p><strong>Payment plan:</strong> Your card on file will be auto
             weeks_remaining: fullyPaid ? 0 : weeksRemaining,
             hours_per_week: hoursPerWeek,
             transferred_hours_verified: transferredHours,
-            payment_model: fullyPaid ? 'paid_in_full' : 'subscription',
+            payment_model: fullyPaid ? 'paid_in_full' : 'invoices',
             created_at: new Date().toISOString(),
           }).select('id').maybeSingle();
           if (subRecord?.error) {
             logger.error('barber_subscriptions insert error:', subRecord.error);
-          }
-
-          // ── Wire weekly automatic billing ────────────────────────────────────
-          // For payment plan enrollments: create a Stripe subscription so the
-          // student's saved card is automatically charged each Friday.
-          // Fully-paid enrollments have no recurring balance.
-          if (!fullyPaid && weeklyPaymentCents > 0 && weeksRemaining > 0) {
-            await createWeeklySubscription(stripe, supabase, {
-              stripeSessionId: session.id,
-              customerId,
-              customerEmail,
-              weeklyPaymentCents,
-              weeksRemaining,
-              applicationId,
-              subscriptionDbId: subRecord?.data?.id,
-            });
           }
 
           // Update applications.payment_status so the admin approval gate passes
@@ -546,7 +533,7 @@ ${!fullyPaid ? `<p><strong>Payment plan:</strong> Your card on file will be auto
   <li><strong>Access your dashboard</strong> — log hours, track progress, and access your coursework in the Elevate LMS once orientation is complete.</li>
 </ol>
 
-${!fullyPaid ? `<p><strong>Payment plan:</strong> Your card on file will be automatically charged \$${(weeklyPaymentCents / 100).toFixed(2)} every Friday until your balance is paid in full. No action needed — charges happen automatically.</p>` : ''}
+${!fullyPaid ? `<p><strong>Payment plan:</strong> Weekly invoices will arrive every Friday starting next week.</p>` : ''}
 
 <p>Questions? Call <a href="tel:3173143757">(317) 314-3757</a> or reply to this email.</p>
 <p>— Elevate for Humanity</p>

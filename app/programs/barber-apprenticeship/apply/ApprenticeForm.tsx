@@ -764,7 +764,7 @@ export default function ApprenticeForm({ initialPayment }: { initialPayment?: st
                               <span className="text-sm text-slate-700">Term</span>
                               <span className="font-bold text-black">{PRICING.paymentTermWeeks} weeks</span>
                             </div>
-                            <p className="text-xs text-black mt-2">Card automatically charged every Friday — no action needed.</p>
+                            <p className="text-xs text-black mt-2">Weekly invoices sent every Friday. Pay by link or saved card.</p>
                           </div>
                         );
                       })()}
@@ -957,25 +957,6 @@ export default function ApprenticeForm({ initialPayment }: { initialPayment?: st
                 {/* Pay Button — hidden while embedded checkout is open */}
                 {!embeddedClientSecret && (
                   <>
-                    {/* Autopay disclosure — shown for payment plan options only */}
-                    {(paymentOption === 'weekly' || paymentOption === 'custom') && (
-                      <div className="bg-amber-50 border border-amber-300 rounded-lg p-4 mb-4 text-sm text-amber-900">
-                        <p className="font-semibold mb-1">📅 Automatic Weekly Billing Authorization</p>
-                        <p>
-                          By completing this payment you authorize Elevate for Humanity to automatically
-                          charge the card you provide{' '}
-                          <strong>
-                            ${((Math.min(PRICING.fullPrice, Math.max(PRICING.minDownPayment, customAmount || PRICING.minDownPayment)) === PRICING.fullPrice
-                              ? 0
-                              : (PRICING.fullPrice - Math.min(PRICING.fullPrice, Math.max(PRICING.minDownPayment, customAmount || PRICING.minDownPayment))) / PRICING.paymentTermWeeks
-                            ).toFixed(2))}/week
-                          </strong>{' '}
-                          every Friday for {PRICING.paymentTermWeeks} weeks until your remaining balance is paid in full.
-                          Charges happen automatically — no action needed each week. If a payment fails you will be notified immediately
-                          and have 7 days to update your card before your hour-logging access is paused.
-                        </p>
-                      </div>
-                    )}
                     <button
                       onClick={handlePayNow}
                       disabled={loading || !formData.email || !formData.firstName || !formData.lastName || !formData.phone}

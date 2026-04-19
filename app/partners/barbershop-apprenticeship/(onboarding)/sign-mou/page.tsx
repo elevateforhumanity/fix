@@ -360,7 +360,7 @@ export default function SignMOUPage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-xl shadow-sm border p-8 text-center">
           <CheckCircle2 className="w-16 h-16 text-brand-green-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">MOU Signed Successfully</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">MOU Signed Successfully</h1>
           <p className="text-black mb-6">
             Your Memorandum of Understanding has been submitted. Our team will countersign
             and send you a fully executed copy within 2 business days.
@@ -374,7 +374,7 @@ export default function SignMOUPage() {
             </Link>
             <Link
               href="/partners/barbershop-apprenticeship"
-              className="block w-full px-6 py-3 text-gray-700 border border-gray-300 rounded-lg font-semibold hover:bg-white"
+              className="block w-full px-6 py-3 text-slate-900 border border-gray-300 rounded-lg font-semibold hover:bg-white"
             >
               Back to Partner Page
             </Link>
@@ -434,7 +434,7 @@ export default function SignMOUPage() {
                     onChange={(e) => setHandbookRead(e.target.checked)}
                     className="w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500"
                   />
-                  <span className="text-sm font-semibold text-gray-900">I have read and understood the Partner Handbook</span>
+                  <span className="text-sm font-semibold text-slate-900">I have read and understood the Partner Handbook</span>
                 </label>
               </div>
             </div>
@@ -458,7 +458,7 @@ export default function SignMOUPage() {
           <div className="p-6 space-y-6 max-h-[500px] overflow-y-auto">
             {MOU_SECTIONS.map((section) => (
               <div key={section.title}>
-                <h3 className="font-bold text-gray-900 mb-1">{section.title}</h3>
+                <h3 className="font-bold text-slate-900 mb-1">{section.title}</h3>
                 <p className="text-sm text-black leading-relaxed">{section.content}</p>
               </div>
             ))}
@@ -476,10 +476,10 @@ export default function SignMOUPage() {
 
         {/* Partner Information */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-8">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Partner Information</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Partner Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Shop Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Shop Name *</label>
               <input
                 type="text"
                 required
@@ -490,7 +490,7 @@ export default function SignMOUPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Your Name *</label>
               <input
                 type="text"
                 required
@@ -501,7 +501,7 @@ export default function SignMOUPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Your Title *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Your Title *</label>
               <input
                 type="text"
                 required
@@ -512,7 +512,7 @@ export default function SignMOUPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Supervising Barber Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Supervising Barber Name *</label>
               <input
                 type="text"
                 required
@@ -523,7 +523,7 @@ export default function SignMOUPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Supervisor Indiana License # *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Supervisor Indiana License # *</label>
               <input
                 type="text"
                 required
@@ -534,7 +534,7 @@ export default function SignMOUPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Compensation Model *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Compensation Model *</label>
               <select
                 required
                 value={compensationModel}
@@ -547,7 +547,7 @@ export default function SignMOUPage() {
               </select>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Agreed Rate *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Agreed Rate *</label>
               <input
                 type="text"
                 required
@@ -570,7 +570,7 @@ export default function SignMOUPage() {
 
         {/* Signature Blocks */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Signatures</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Signatures</h2>
           <div className="grid grid-cols-2 gap-6 mb-6">
             {/* Elevate — pre-signed */}
             <div className="border border-gray-200 rounded-lg p-4">
@@ -602,11 +602,11 @@ export default function SignMOUPage() {
         {/* Digital Signature Canvas */}
         <div className={`bg-white rounded-xl shadow-sm border p-6 mb-8 ${!handbookRead ? 'opacity-50 pointer-events-none select-none' : ''}`}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-gray-900">Draw Your Signature</h2>
+            <h2 className="text-lg font-bold text-slate-900">Draw Your Signature</h2>
             <button
               type="button"
               onClick={clearSignature}
-              className="inline-flex items-center gap-1 text-sm text-black hover:text-gray-700"
+              className="inline-flex items-center gap-1 text-sm text-black hover:text-slate-900"
             >
               <Eraser className="w-4 h-4" /> Clear
             </button>
@@ -644,7 +644,7 @@ export default function SignMOUPage() {
               onChange={(e) => setAgreedToTerms(e.target.checked)}
               className="mt-1 w-5 h-5 rounded border-gray-300 text-brand-blue-600 focus:ring-brand-blue-500"
             />
-            <span className="text-sm text-gray-700">
+            <span className="text-sm text-slate-900">
               I have read and agree to the terms of this Memorandum of Understanding. I confirm that
               I am authorized to sign on behalf of the barbershop named above. I understand that this
               is a legally binding agreement and that my digital signature has the same legal effect
@@ -684,7 +684,7 @@ export default function SignMOUPage() {
           </button>
           <Link
             href="/partners/barbershop-apprenticeship"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 text-gray-700 border border-gray-300 rounded-lg font-semibold hover:bg-white"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 text-slate-900 border border-gray-300 rounded-lg font-semibold hover:bg-white"
           >
             Cancel
           </Link>
@@ -699,13 +699,13 @@ export default function SignMOUPage() {
         {/* Next Steps */}
         <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-xl p-6 mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="font-bold text-gray-900">Next: Submit Your Application</h3>
+            <h3 className="font-bold text-slate-900">Next: Submit Your Application</h3>
             <p className="text-sm text-black">After signing the MOU, complete the partner application form.</p>
           </div>
           <div className="flex gap-3">
             <Link
               href="/partners/barbershop-apprenticeship/forms"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 border border-gray-300 rounded-lg font-semibold hover:bg-white text-sm whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 border border-gray-300 rounded-lg font-semibold hover:bg-white text-sm whitespace-nowrap"
             >
               Required Forms
             </Link>

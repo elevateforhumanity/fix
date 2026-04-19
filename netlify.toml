@@ -587,6 +587,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/docs/Indiana-Barbershop-Apprenticeship-MOU"
+  to = "https://www.elevateforhumanity.org/docs/Indiana-Barbershop-Apprenticeship-MOU"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

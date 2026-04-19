@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.lesson_competencies (
   lesson_id       uuid NOT NULL REFERENCES public.course_lessons(id) ON DELETE CASCADE,
   competency_id   uuid NOT NULL REFERENCES public.competencies(id)   ON DELETE CASCADE,
   is_primary      boolean NOT NULL DEFAULT true,
-  created_at      timestamptz NOT NULL DEFAULT now(),
+  created_at      timestamptz NOT NULL DEFAULT now()
   UNIQUE (lesson_id, competency_id)
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS public.student_competency_progress (
   touchpoints     int  NOT NULL DEFAULT 0,   -- lessons completed that touch this competency
   is_mastered     boolean NOT NULL DEFAULT false,
   mastered_at     timestamptz,
-  updated_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now()
   UNIQUE (user_id, competency_id)
 );
 
