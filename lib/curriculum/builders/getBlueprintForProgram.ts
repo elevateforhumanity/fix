@@ -25,7 +25,7 @@ const PRS_PROGRAM_SLUGS = new Set([
   'peer-recovery-support-specialist',
 ]);
 
-export function getBlueprintForProgram(program: ProgramLike): CredentialBlueprint | null {
+export async function getBlueprintForProgram(program: ProgramLike): Promise<CredentialBlueprint | null> {
   // Prefer explicit credential_slug
   if (program.credential_slug) {
     return getBlueprintByCredentialSlug(program.credential_slug);

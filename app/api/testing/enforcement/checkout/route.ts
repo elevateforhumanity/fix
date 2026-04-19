@@ -1,3 +1,4 @@
+import { getStripeServer } from '@/lib/stripe/get-stripe-server';
 // PUBLIC ROUTE: enforcement testing checkout
 /**
  * POST /api/testing/enforcement/checkout
@@ -11,7 +12,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import Stripe from 'stripe';
+
 import { getAdminClient } from '@/lib/supabase/admin';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { withRuntime } from '@/lib/api/withRuntime';
@@ -67,7 +68,7 @@ export const POST = withRuntime(
   const label = FEE_LABELS[hold.enforcement_type] ?? 'Testing Fee';
 
   try {
-    const stripe = new Stripe(stripeKey);
+    const stripe = await getStripeServer();
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],

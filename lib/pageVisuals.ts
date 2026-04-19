@@ -1,3 +1,4 @@
+import 'server-only';
 export interface HeroSection {
   id: string;
   imageSrc: string;

@@ -6,7 +6,7 @@ import { getAdminClient } from '@/lib/supabase/admin';
  *   - /api/enrollments/create-enforced (admin/partner)
  */
 
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { getStripe } from '@/lib/stripe/client';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';

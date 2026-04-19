@@ -1,3 +1,4 @@
+import { getStripeServer } from '@/lib/stripe/get-stripe-server';
 /**
  * POST /api/testing/webhook
  *
@@ -13,7 +14,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+
 import { getAdminClient } from '@/lib/supabase/admin';
 import { sendEmail } from '@/lib/email/sendgrid';
 import { logger } from '@/lib/logger';
@@ -46,7 +47,8 @@ export const POST = withRuntime(
 
   let event: Stripe.Event;
   try {
-    event = new Stripe(stripeKey).webhooks.constructEvent(body, sig, webhookSecret);
+    const _stripe = await getStripeServer();
+    event = _stripe!.webhooks.constructEvent(body, sig, webhookSecret);
   } catch {
     logger.warn('[testing/webhook] Signature verification failed', {
       ip: req.headers.get('x-forwarded-for') ?? 'unknown',
@@ -83,8 +85,8 @@ export const POST = withRuntime(
     }
 
     // Retrieve full session to get customer details (not in metadata for security)
-    const stripe = new Stripe(stripeKey);
-    const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+    const stripe = await getStripeServer();
+    const fullSession = await stripe!.checkout.sessions.retrieve(session.id, {
       expand: ['customer_details'],
     });
     const customerEmail = fullSession.customer_details?.email ?? meta.email ?? '';

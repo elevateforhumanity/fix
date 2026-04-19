@@ -1,3 +1,4 @@
+import { getStripeServer } from '@/lib/stripe/get-stripe-server';
 /**
  * POST /api/micro-classes/webhook
  *
@@ -13,7 +14,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+
 import { getAdminClient } from '@/lib/supabase/admin';
 import { sendEmail } from '@/lib/email/sendgrid';
 import { logger } from '@/lib/logger';
@@ -27,7 +28,6 @@ const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'info@elevateforhumanity.org';
 const FROM_EMAIL = 'noreply@elevateforhumanity.org';
 
 export async function POST(req: NextRequest) {
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
   const webhookSecret = process.env.STRIPE_MICRO_CLASS_WEBHOOK_SECRET;
 
   if (!stripeKey || !webhookSecret) {
@@ -43,7 +43,8 @@ export async function POST(req: NextRequest) {
 
   let event: Stripe.Event;
   try {
-    event = new Stripe(stripeKey).webhooks.constructEvent(body, sig, webhookSecret);
+    const _s = await getStripeServer();
+    event = _s!.webhooks.constructEvent(body, sig, webhookSecret);
   } catch {
     logger.warn('[micro-classes/webhook] Signature verification failed');
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
@@ -87,7 +88,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Retrieve full session for customer details
-  const stripe = new Stripe(stripeKey);
+  const stripe = await getStripeServer();
   const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
     expand: ['customer_details', 'line_items'],
   });

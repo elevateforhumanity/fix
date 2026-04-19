@@ -1,6 +1,6 @@
 
 
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { getStripe } from '@/lib/stripe/client';
 import { hydrateProcessEnv } from '@/lib/secrets';
 import { NextResponse } from 'next/server';

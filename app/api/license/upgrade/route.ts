@@ -1,5 +1,5 @@
 import { logger } from '@/lib/logger';
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { getStripe } from '@/lib/stripe/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';

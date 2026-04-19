@@ -20,33 +20,45 @@ export type {
   BlueprintAuditViolation,
 } from './types';
 
-export { prsIndianaBlueprint } from './prs-indiana';
-export { HVAC_EPA608_BLUEPRINT } from './hvac-epa-608';
-export { bookkeepingQuickbooksBlueprint } from './bookkeeping-quickbooks';
-export { barberApprenticeshipBlueprint } from './barber-apprenticeship';
-export { crsIndianaBlueprint } from './crs-indiana';
 export { validateBlueprint } from './validateBlueprint';
 
 import type { CredentialBlueprint } from './types';
-import { prsIndianaBlueprint } from './prs-indiana';
-import { HVAC_EPA608_BLUEPRINT } from './hvac-epa-608';
-import { bookkeepingQuickbooksBlueprint } from './bookkeeping-quickbooks';
-import { barberApprenticeshipBlueprint } from './barber-apprenticeship';
-import { crsIndianaBlueprint } from './crs-indiana';
 
 // ── Blueprint registry ────────────────────────────────────────────────────────
-// All programs in a single registry. Add new blueprints here.
+// Blueprints are loaded lazily to keep them out of the shared bundle.
+// Use getAllBlueprints() or getBlueprintByCredentialSlug() — never import
+// individual blueprint files at the top level.
 
-const REGISTRY: CredentialBlueprint[] = [
-  prsIndianaBlueprint,
-  HVAC_EPA608_BLUEPRINT,
-  bookkeepingQuickbooksBlueprint,
-  barberApprenticeshipBlueprint,
-  crsIndianaBlueprint,
-];
+let _registry: CredentialBlueprint[] | null = null;
 
-export function getBlueprintByCredentialSlug(credentialSlug: string): CredentialBlueprint | null {
-  return REGISTRY.find(bp => bp.credentialSlug === credentialSlug) ?? null;
+export async function getAllBlueprints(): Promise<CredentialBlueprint[]> {
+  if (_registry) return _registry;
+  const [
+    { prsIndianaBlueprint },
+    { HVAC_EPA608_BLUEPRINT },
+    { bookkeepingQuickbooksBlueprint },
+    { barberApprenticeshipBlueprint },
+    { crsIndianaBlueprint },
+  ] = await Promise.all([
+    import('./prs-indiana'),
+    import('./hvac-epa-608'),
+    import('./bookkeeping-quickbooks'),
+    import('./barber-apprenticeship'),
+    import('./crs-indiana'),
+  ]);
+  _registry = [
+    prsIndianaBlueprint,
+    HVAC_EPA608_BLUEPRINT,
+    bookkeepingQuickbooksBlueprint,
+    barberApprenticeshipBlueprint,
+    crsIndianaBlueprint,
+  ];
+  return _registry;
+}
+
+export async function getBlueprintByCredentialSlug(credentialSlug: string): Promise<CredentialBlueprint | null> {
+  const registry = await getAllBlueprints();
+  return registry.find(bp => bp.credentialSlug === credentialSlug) ?? null;
 }
 
 export function getBlueprintById(id: string): CredentialBlueprint | null {

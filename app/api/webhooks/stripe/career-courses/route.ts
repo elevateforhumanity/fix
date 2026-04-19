@@ -4,7 +4,7 @@ import { hydrateProcessEnv } from '@/lib/secrets';
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { getAdminClient } from '@/lib/supabase/admin';
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import * as Sentry from '@sentry/nextjs';
 

@@ -1,3 +1,4 @@
+import { getStripeServer } from '@/lib/stripe/get-stripe-server';
 /**
  * CANONICAL PROGRAM ENROLLMENT CHECKOUT
  * 
@@ -18,15 +19,11 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
-function getStripe() {
-  const key = process.env.STRIPE_SECRET_KEY;
-  if (!key) return null;
-  return new Stripe(key, { apiVersion: '2025-10-29.clover' });
-}
+
 
 type FundingSource = 'self_pay' | 'workone' | 'wioa' | 'grant' | 'employer';
 
@@ -37,7 +34,7 @@ interface CheckoutRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    const stripe = getStripe();
+    const stripe = await getStripeServer();
     if (!stripe) {
       return NextResponse.json(
         { error: 'Payment system not configured' },

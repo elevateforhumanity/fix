@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * Program Holder Responsibilities Guide
  * Complete documentation of all duties and obligations

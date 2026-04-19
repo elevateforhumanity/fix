@@ -1,3 +1,4 @@
+import { getStripeServer } from '@/lib/stripe/get-stripe-server';
 // PUBLIC ROUTE: testing booking status by token
 /**
  * GET /api/testing/booking-status?session_id=<stripe_session_id>
@@ -37,8 +38,7 @@ export const GET = withRuntime(
 
   let paymentIntentId: string | null = null;
   try {
-    const Stripe = (await import('stripe')).default;
-    const stripe = new Stripe(stripeKey);
+    const stripe = await getStripeServer();
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: [],
     });

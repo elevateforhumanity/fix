@@ -1,3 +1,4 @@
+import { getStripeServer } from '@/lib/stripe/get-stripe-server';
 /**
  * POST /api/credentials/exam-checkout
  *
@@ -12,7 +13,7 @@
 
 
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+
 import { apiAuthGuard } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { getAdminClient } from '@/lib/supabase/admin';
@@ -24,9 +25,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   await hydrateProcessEnv();
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  if (!stripeKey) return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 });
-  const stripe = new Stripe(stripeKey);
+  const stripe = await getStripeServer();
 
   const rateLimited = await applyRateLimit(req, 'payment');
   if (rateLimited) return rateLimited;

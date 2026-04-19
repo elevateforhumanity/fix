@@ -1,3 +1,4 @@
+import 'server-only';
 // lib/courses/hvac-quizzes.ts
 // EPA 608 + module quiz questions for HVAC Technician course
 // Format matches QuizSystem component: { id, question, options, correctAnswer, explanation }

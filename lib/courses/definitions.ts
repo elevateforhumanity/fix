@@ -1,3 +1,4 @@
+import 'server-only';
 // lib/courses/definitions.ts
 
 export type CredentialingPartner =

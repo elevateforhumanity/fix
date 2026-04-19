@@ -1,3 +1,4 @@
+import { getStripeServer } from '@/lib/stripe/get-stripe-server';
 /**
  * Stripe webhook handler for exam fee payments.
  *
@@ -9,7 +10,7 @@
  */
 
 
-import Stripe from 'stripe';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { markPaymentSucceeded } from '@/lib/services/credential-pipeline';
@@ -26,12 +27,11 @@ export async function POST(req: NextRequest) {
   if (rateLimited) return rateLimited;
 
   await hydrateProcessEnv();
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!stripeKey || !webhookSecret) {
     return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 });
   }
-  const stripe = new Stripe(stripeKey);
+  const stripe = await getStripeServer();
 
   const body = await req.text();
   const sig = req.headers.get('stripe-signature');
