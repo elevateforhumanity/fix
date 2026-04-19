@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       .eq('is_active', true)
       .maybeSingle();
 
-    let apprenticeIds: string[] = [];
+    const uniqueApprenticeIds = new Set<string>();
 
     if (supervisorRow) {
       const { data: placements } = await db
@@ -45,7 +45,9 @@ export async function GET(request: NextRequest) {
         .eq('shop_id', supervisorRow.shop_id)
         .eq('status', 'active');
 
-      apprenticeIds = (placements ?? []).map(p => p.student_id);
+      (placements ?? []).forEach(p => {
+        if (p.student_id) uniqueApprenticeIds.add(p.student_id);
+      });
     }
 
     // Path 2: partner user → apprenticeships scoped to partner_id
@@ -62,15 +64,16 @@ export async function GET(request: NextRequest) {
         .eq('partner_id', partnerUser.partner_id)
         .eq('status', 'active');
 
-      const partnerApprenticeIds = (apprenticeships ?? []).map(apprenticeship => apprenticeship.apprentice_id);
-      apprenticeIds = [...new Set([...apprenticeIds, ...partnerApprenticeIds])];
+      (apprenticeships ?? []).forEach(apprenticeship => {
+        if (apprenticeship.apprentice_id) uniqueApprenticeIds.add(apprenticeship.apprentice_id);
+      });
     }
 
     // Path 3: shop_placements supervisor_email fallback.
     // Gated by SUPERVISOR_EMAIL_FALLBACK_ENABLED=true. Disabled by default.
     const emailFallbackEnabled = process.env.SUPERVISOR_EMAIL_FALLBACK_ENABLED === 'true';
 
-    if (apprenticeIds.length === 0 && emailFallbackEnabled) {
+    if (uniqueApprenticeIds.size === 0 && emailFallbackEnabled) {
       const { data: profile } = await db
         .from('profiles')
         .select('email')
@@ -84,9 +87,13 @@ export async function GET(request: NextRequest) {
           .eq('supervisor_email', profile.email)
           .eq('status', 'active');
 
-        apprenticeIds = (textPlacements ?? []).map(p => p.student_id);
+        (textPlacements ?? []).forEach(p => {
+          if (p.student_id) uniqueApprenticeIds.add(p.student_id);
+        });
       }
     }
+
+    const apprenticeIds = [...uniqueApprenticeIds];
 
     if (apprenticeIds.length === 0) {
       return NextResponse.json({ entries: [] });

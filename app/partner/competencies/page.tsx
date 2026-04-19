@@ -18,6 +18,11 @@ type PendingRep = {
   submittedAt: string;
 };
 
+const parseWorkDate = (value: string) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  return new Date(`${value}T00:00:00Z`);
+};
+
 export default function PartnerCompetenciesPage() {
   const [entries, setEntries] = useState<PendingRep[]>([]);
   const [loading, setLoading] = useState(true);
@@ -71,7 +76,7 @@ export default function PartnerCompetenciesPage() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Failed to verify rep');
       setEntries(prev => prev.filter(item => item.id !== entry.id));
-      setSuccess(`Verified ${entry.serviceCount} rep${entry.serviceCount !== 1 ? 's' : ''} for ${entry.apprenticeName}.`);
+      setSuccess(`Verified ${entry.serviceCount} rep${entry.serviceCount !== 1 ? 's' : ''} successfully.`);
     } catch (err: unknown) {
       logger.error(
         'Failed to verify competency rep',
@@ -89,7 +94,7 @@ export default function PartnerCompetenciesPage() {
     <div className="min-h-screen bg-white">
       <div className="mb-6">
         <Breadcrumbs items={[
-          { label: 'Partner', href: '/partner/attendance' },
+          { label: 'Partner', href: '/partner/dashboard' },
           { label: 'Competencies' },
         ]} />
       </div>
@@ -148,8 +153,7 @@ export default function PartnerCompetenciesPage() {
         ) : (
           <div className="space-y-4">
             {entries.map(entry => {
-              const hasValidDate = /^\d{4}-\d{2}-\d{2}$/.test(entry.workDate);
-              const workDate = hasValidDate ? new Date(`${entry.workDate}T00:00:00Z`) : null;
+              const workDate = parseWorkDate(entry.workDate);
               const submitted = new Date(entry.submittedAt);
               return (
                 <div key={entry.id} className="bg-white rounded-xl border p-6">
