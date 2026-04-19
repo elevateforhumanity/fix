@@ -17,7 +17,9 @@ const PRUNE_PACKAGES = [
   '@next/swc-linux-x64-gnu', '@next/swc-linux-x64-musl',
   '@next/swc-darwin-x64', '@next/swc-darwin-arm64', '@next/swc-win32-x64-msvc',
   // Build tools
-  '@esbuild', 'esbuild', 'webpack', 'webpack-sources', '@swc',
+  '@esbuild', 'esbuild', 'webpack', 'webpack-sources',
+  // @swc/core and @swc/cli are build-only — @swc/helpers is required by Next.js at runtime, never prune it
+  '@swc/core', '@swc/cli',
   'typescript', 'prettier', 'tailwindcss', 'autoprefixer', 'postcss',
   'eslint', '@typescript-eslint', 'turbopack', 'rollup', 'vite',
   // Test / dev

@@ -28,8 +28,9 @@ const PRUNE_PACKAGES = [
   // webpack
   'webpack',
   'webpack-sources',
-  // SWC
-  '@swc',
+  // SWC compiler binaries only — @swc/helpers is required by Next.js at runtime
+  '@swc/core',
+  '@swc/cli',
   // Google APIs (194 MB)
   'googleapis',
   'google-auth-library',
