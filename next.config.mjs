@@ -402,6 +402,16 @@ const nextConfig = {
       { source: '/students/:path*', destination: '/lms/:path*', permanent: true },
       { source: '/learners/:path*', destination: '/lms/:path*', permanent: true },
       { source: '/program-holder-portal/:path*', destination: '/program-holder/:path*', permanent: true },
+      // Legacy pluralized Program Holder URLs → canonical singular routes
+      { source: '/program-holders', destination: '/program-holder', permanent: true },
+      { source: '/program-holders/portal', destination: '/program-holder/dashboard', permanent: true },
+      { source: '/program-holders/universal-mou', destination: '/legal/program-holder-mou', permanent: true },
+      { source: '/program-holders/sign-mou', destination: '/program-holder/sign-mou', permanent: true },
+      { source: '/program-holders/apply', destination: '/apply/program-holder', permanent: true },
+      { source: '/program-holders/onboarding', destination: '/program-holder/onboarding', permanent: true },
+      { source: '/program-holders/training-providers', destination: '/program-holder', permanent: true },
+      { source: '/program-holders/acknowledgement', destination: '/program-holder/rights-responsibilities', permanent: true },
+      { source: '/program-holders/:path*', destination: '/program-holder/:path*', permanent: true },
       // /admin-portal is now a public landing page - no redirect needed
       // /dashboard redirect removed - handled by middleware with auth check
 
