@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
       .eq('user_id', user.id)
       .maybeSingle();
 
-    if (partnerUser?.partner_id && apprenticeIds.length === 0) {
+    if (partnerUser?.partner_id) {
       const { data: apprenticeships } = await db
         .from('apprenticeships')
         .select('apprentice_id')
