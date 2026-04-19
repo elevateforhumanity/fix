@@ -48,7 +48,7 @@ export const PROVIDER_LABELS: Record<ExamProvider, string> = {
   esco_epa608: 'ESCO Institute (EPA 608)',
   mainstream_epa608: 'Mainstream Engineering (EPA 608)',
   certiport: 'Certiport',
-  act_workkeys: 'ACT WorkKeys / NCRC (Realm: 1317721865)',
+  act_workkeys: 'ACT WorkKeys / NCRC ',
   careersafe_osha: 'CareerSafe (OSHA)',
   other: 'Other',
 };

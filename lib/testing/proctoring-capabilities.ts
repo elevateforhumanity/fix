@@ -483,7 +483,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     key: 'workkeys',
     name: 'ACT WorkKeys / NCRC',
     capability: 'IN_PERSON_ONLY',
-    description: 'The National Career Readiness Certificate (NCRC) is a portable, evidence-based credential recognized by 22,000+ employers nationwide. Earned by passing three ACT WorkKeys assessments. Elevate is an authorized ACT testing site (Realm: 1317721865). Scores are valid for 5 years.',
+    description: 'The National Career Readiness Certificate (NCRC) is a portable, evidence-based credential recognized by 22,000+ employers nationwide. Earned by passing three ACT WorkKeys assessments. Elevate is an authorized ACT testing site. Scores are valid for 5 years.',
     exams: [
       {
         name: 'Applied Math',
@@ -514,7 +514,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     ],
     verifyUrl: 'https://www.act.org/content/act/en/products-and-services/workkeys-for-job-seekers.html',
     examPortalUrl: 'https://workkeys.act.org/',
-    examPortalNote: 'Log in to the ACT WorkKeys Testing Center portal (Realm: 1317721865). Locate the candidate\'s registration, verify their photo ID, then launch the assigned assessments.',
+    examPortalNote: 'Log in to the ACT WorkKeys Testing Center portal. Locate the candidate\'s registration, verify their photo ID, then launch the assigned assessments.',
     status: 'active',
     fees: [...WORKKEYS_FEES],
     groupDiscount: 'Groups of 5+ — $30/assessment. Contact us for employer or cohort scheduling.',
