@@ -13,9 +13,27 @@ interface NavItem {
 
 interface HeaderMobileMenuProps {
   items: NavItem[];
+  programApplyLinks?: Record<string, string>;
 }
 
-export default function HeaderMobileMenu({ items }: HeaderMobileMenuProps) {
+function getProgramSlugFromHref(href: string): string | null {
+  const match = href.match(/^\/programs\/([^/?#]+)$/);
+  if (!match) return null;
+  const slug = match[1];
+  if (
+    slug === 'programs' ||
+    slug === 'healthcare' ||
+    slug === 'skilled-trades' ||
+    slug === 'apprenticeships' ||
+    slug === 'technology' ||
+    slug === 'hospitality'
+  ) {
+    return null;
+  }
+  return slug;
+}
+
+export default function HeaderMobileMenu({ items, programApplyLinks = {} }: HeaderMobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const pathname = usePathname();
@@ -88,30 +106,48 @@ export default function HeaderMobileMenu({ items }: HeaderMobileMenuProps) {
                   </button>
                   {expandedItem === item.name && (
                     <div className="pb-3 pl-4">
-                      {item.subItems.map((subItem) => (
-                        subItem.isHeader ? (
-                          <div
-                            key={subItem.name}
-                            className="pt-3 pb-1 text-xs font-extrabold text-brand-red-600 uppercase tracking-wide border-l-3 border-brand-red-500 pl-2"
-                          >
-                            {subItem.name.replace(/—/g, '').trim()}
+                      {item.subItems.map((subItem) => {
+                        if (subItem.isHeader) {
+                          return (
+                            <div
+                              key={subItem.name}
+                              className="pt-3 pb-1 text-xs font-extrabold text-brand-red-600 uppercase tracking-wide border-l-3 border-brand-red-500 pl-2"
+                            >
+                              {subItem.name.replace(/—/g, '').trim()}
+                            </div>
+                          );
+                        }
+
+                        const programSlug = item.name === 'Programs' ? getProgramSlugFromHref(subItem.href) : null;
+                        const applyHref = programSlug ? programApplyLinks[programSlug] : undefined;
+
+                        return (
+                          <div key={subItem.name}>
+                            <Link
+                              href={subItem.href}
+                              prefetch={false}
+                              onClick={() => setIsOpen(false)}
+                              className={`block hover:text-brand-blue-600 ${
+                                subItem.nested
+                                  ? 'py-1.5 pl-4 text-xs text-slate-400 border-l border-slate-200'
+                                  : 'py-3 text-slate-600'
+                              }`}
+                            >
+                              {subItem.name}
+                            </Link>
+                            {applyHref && (
+                              <Link
+                                href={applyHref}
+                                prefetch={false}
+                                onClick={() => setIsOpen(false)}
+                                className="block py-1.5 pl-6 text-xs text-brand-blue-700 hover:text-brand-blue-800 border-l border-slate-200"
+                              >
+                                Apply to {subItem.name}
+                              </Link>
+                            )}
                           </div>
-                        ) : (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            prefetch={false}
-                            onClick={() => setIsOpen(false)}
-                            className={`block hover:text-brand-blue-600 ${
-                              subItem.nested
-                                ? 'py-1.5 pl-4 text-xs text-slate-400 border-l border-slate-200'
-                                : 'py-3 text-slate-600'
-                            }`}
-                          >
-                            {subItem.name}
-                          </Link>
-                        )
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </>

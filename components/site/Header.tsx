@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/components/ui/Logo';
 import LogoImage from '@/components/site/LogoImage';
+import { ALL_PROGRAMS } from '@/data/programs/catalog';
 import HeaderMobileMenu from './HeaderMobileMenu.client';
 import HeaderDesktopNav from './HeaderDesktopNav';
 
@@ -31,9 +32,11 @@ export const NAV_ITEMS = [
       { name: 'Medical Assistant', href: '/programs/medical-assistant' },
       { name: 'Peer Recovery Specialist', href: '/programs/peer-recovery-specialist' },
       { name: 'Pharmacy Technician', href: '/programs/pharmacy-technician' },
+      { name: 'Phlebotomy', href: '/programs/phlebotomy' },
       { name: 'Sanitation & Infection Control', href: '/programs/sanitation-infection-control' },
       { name: 'Emergency Health & Safety', href: '/programs/emergency-health-safety' },
       { name: 'CPR / First Aid', href: '/programs/cpr-first-aid' },
+      { name: 'Home Health Aide', href: '/programs/home-health-aide' },
       { name: 'All Healthcare Programs', href: '/programs/healthcare' },
       { name: '— Skilled Trades —', href: '/programs/skilled-trades', isHeader: true },
       { name: 'HVAC Technician', href: '/programs/hvac-technician' },
@@ -169,6 +172,10 @@ export const NAV_ITEMS = [
   },
 ];
 
+const PROGRAM_APPLY_LINKS = Object.fromEntries(
+  ALL_PROGRAMS.map((program) => [program.slug, program.cta.applyHref])
+);
+
 export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 h-[70px] bg-white z-[9999] shadow-md" role="banner">
@@ -202,7 +209,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu Toggle - Client component for interactivity */}
-        <HeaderMobileMenu items={NAV_ITEMS} />
+        <HeaderMobileMenu items={NAV_ITEMS} programApplyLinks={PROGRAM_APPLY_LINKS} />
       </div>
     </header>
   );
