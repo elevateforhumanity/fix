@@ -5,7 +5,7 @@ export const maxDuration = 60;
 
 // app/api/grants/draft/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
 import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -40,6 +40,7 @@ async function _POST(req: NextRequest) {
     );
   }
   try {
+    const supabaseAdmin = await getAdminClient();
     const body = await req.json();
     const { grantId, entityId } = body as { grantId: string; entityId: string };
 
