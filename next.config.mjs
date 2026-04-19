@@ -1,26 +1,10 @@
-// @sentry/nextjs is optional — stub when not installed
-let withSentryConfig;
-try {
-  ({ withSentryConfig } = await import('@sentry/nextjs'));
-} catch {
-  withSentryConfig = (config) => config;
-}
-import { adminRedirects } from './lib/admin-redirects.mjs';
+import { withSentryConfig } from '@sentry/nextjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    NEXT_PUBLIC_SUPABASE_URL: 'https://cuxzzpsyufcewtmicszk.supabase.co',
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN1eHp6cHN5dWZjZXd0bWljc3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxNjEwNDcsImV4cCI6MjA3MzczNzA0N30.DyFtzoKha_tuhKiSIPoQlKonIpaoSYrlhzntCUvLUnA',
-  },
   // Server external packages - exclude heavy dependencies from the server bundle
   // These are loaded at runtime instead of being bundled, reducing Lambda size
   serverExternalPackages: [
-    'fluent-ffmpeg',
-    '@ffmpeg-installer/ffmpeg',
-    '@ffprobe-installer/ffprobe',
-    'canvas',
-    '@napi-rs/canvas',
     'tesseract.js',
     'tesseract.js-core',
     'sharp',
@@ -34,7 +18,6 @@ const nextConfig = {
     '@aws-sdk/s3-request-presigner',
     'pg',
     'openai',
-    // googleapis removed — lib/google/calendar-integration.ts deleted (dead code, 194 MB)
     'stripe',
     'ioredis',
     'redis',
@@ -58,15 +41,6 @@ const nextConfig = {
     'jsdom',
     'typescript',
     'core-js',
-    // Client-only 3D/media packages — never needed server-side
-    'three',
-    'three-stdlib',
-    '@react-three/fiber',
-    '@react-three/drei',
-    'hls.js',
-    '@mediapipe/tasks-vision',
-    // Monaco editor (75 MB) — client-only, loaded via dynamic import
-    'monaco-editor',
   ],
 
   // Disable dev indicators (static route indicator, build indicator)
@@ -76,12 +50,15 @@ const nextConfig = {
     buildActivityPosition: 'bottom-right',
   },
   
+  // Empty turbopack config to silence the warning about webpack config
+  turbopack: {},
+
   // Force cache bust - build timestamp + deployment marker
   generateBuildId: async () => {
     return `build-${Date.now()}-production`;
   },
-  // Netlify uses .next directly — standalone mode causes prune complexity and runtime crashes
-  // output: 'standalone',
+  // Netlify uses 'export' or default, not 'standalone'
+  // output: 'standalone', // Commented out for Netlify compatibility
   reactStrictMode: true,
   trailingSlash: false,
   poweredByHeader: false,
@@ -94,7 +71,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    qualities: [85],
+    qualities: [85, 90, 95],
     minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: false,
     contentDispositionType: 'inline',
@@ -104,8 +81,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'www.elevateforhumanity.org' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'images.pexels.com' },
-      { protocol: 'https', hostname: 'static.wixstatic.com' },
-      { protocol: 'https', hostname: '*.wixstatic.com' },
       { protocol: 'https', hostname: '*.r2.dev' },
       { protocol: 'https', hostname: '*.cloudflarestream.com' },
       { protocol: 'https', hostname: '*.githubusercontent.com' },
@@ -130,8 +105,6 @@ const nextConfig = {
 
   // Experimental features for better performance
   experimental: {
-    // Limit page-data workers to 1 — Netlify's build container OOMs at 2+ workers
-    cpus: 1,
     serverActions: {
       allowedOrigins: [
         'localhost:3000',
@@ -151,8 +124,6 @@ const nextConfig = {
       '@radix-ui/react-popover',
       'recharts',
       'react-hot-toast',
-      // @react-three/* and three removed — they are in serverExternalPackages.
-      // Turbopack forbids a package appearing in both optimizePackageImports and serverExternalPackages.
       'date-fns',
       'framer-motion',
       '@stripe/stripe-js',
@@ -161,13 +132,11 @@ const nextConfig = {
       '@hookform/resolvers',
       'swr',
     ],
-    webpackBuildWorker: false,
-    // optimizeCss runs critters on every page — with 1,486 pages this causes OOM on Netlify (3 GB limit).
-    // Re-enable when build containers are upgraded or the page count is reduced.
-    optimizeCss: false,
+    webpackBuildWorker: true,
+    optimizeCss: true,
     // Parallel routes for faster builds
-    parallelServerCompiles: false,
-    parallelServerBuildTraces: false,
+    parallelServerCompiles: true,
+    parallelServerBuildTraces: true,
   },
   
   // Suppress middleware deprecation warning (middleware.ts is still correct for our use case)
@@ -185,26 +154,13 @@ const nextConfig = {
         tls: false,
       };
     }
-
-    // Filesystem cache: serialises the module graph to disk between builds.
-    // On Netlify this persists across deploys via the build cache, cutting
-    // both cold-start RAM and build time significantly.
-    config.cache = {
-      type: 'filesystem',
-      buildDependencies: {
-        config: [new URL(import.meta.url).pathname],
-      },
-    };
-
     config.optimization = {
       ...config.optimization,
       moduleIds: 'deterministic',
-      // Drop the commons cacheGroup. With 1,600+ pages, minChunks:2 forces
-      // webpack to compare every module against every page's module set,
-      // causing O(n^2) RAM growth. The framework chunk is sufficient.
       splitChunks: {
         chunks: 'all',
-        maxInitialRequests: 20, // cap chunk explosion on large page counts
+        maxInitialRequests: 25,
+        minSize: 20000,
         cacheGroups: {
           default: false,
           vendors: false,
@@ -215,6 +171,35 @@ const nextConfig = {
             priority: 40,
             enforce: true,
           },
+          lib: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)?.[1];
+              return `npm.${packageName?.replace('@', '')}`;
+            },
+            priority: 30,
+            minChunks: 1,
+            reuseExistingChunk: true,
+          },
+          // Split large UI libraries
+          ui: {
+            test: /[\\/]node_modules[\\/](@radix-ui|lucide-react)[\\/]/,
+            name: 'ui-libs',
+            priority: 35,
+            reuseExistingChunk: true,
+          },
+          // Split Supabase
+          supabase: {
+            test: /[\\/]node_modules[\\/](@supabase)[\\/]/,
+            name: 'supabase',
+            priority: 35,
+            reuseExistingChunk: true,
+          },
+          commons: {
+            name: 'commons',
+            minChunks: 2,
+            priority: 20,
+          },
         },
       },
     };
@@ -222,17 +207,14 @@ const nextConfig = {
   },
 
   typescript: {
-    // TypeScript type-checking is skipped during `next build` to stay within
-    // Netlify's 7 GB build container. The TS checker alone consumes ~4 GB on
-    // 4,450+ files and triggers OOM. Run `pnpm typecheck` separately in CI.
+    // OOMs during type-check on 4,450+ files in CI — keep enabled until project is split or memory increased
     ignoreBuildErrors: true,
   },
   // Removed staticPageGenerationTimeout - use route segment config instead
   // See: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
   outputFileTracingExcludes: {
     '/api/accreditation/report': ['**/*'],
-    // Aggressively exclude everything not needed at Lambda runtime.
-    // Target: keep handler under 45MB (Netlify hard limit is 50MB).
+    // Exclude heavy/dev files from ALL routes to reduce Netlify handler size
     '*': [
       // Generated media — served by CDN, not the server function
       'public/generated/**',
@@ -250,38 +232,10 @@ const nextConfig = {
       '**/node_modules/**/chromium/**',
       '**/node_modules/@sparticuz/**',
       '**/node_modules/chrome-aws-lambda/**',
-      // FFmpeg + FFprobe binaries (66MB + 76MB) — only used in video generator
-      '**/node_modules/@ffmpeg-installer/**',
-      '**/node_modules/.pnpm/@ffmpeg-installer*/**',
-      '**/node_modules/@ffprobe-installer/**',
-      '**/node_modules/.pnpm/@ffprobe-installer*/**',
-      '**/node_modules/fluent-ffmpeg/**',
-      '**/node_modules/.pnpm/fluent-ffmpeg*/**',
-      // Canvas native binaries — only used in video generator
-      '**/node_modules/canvas/**',
-      '**/node_modules/.pnpm/canvas*/**',
-      '**/node_modules/@napi-rs/canvas/**',
-      '**/node_modules/.pnpm/@napi-rs+canvas*/**',
-      // Other heavy packages
-      // googleapis removed — dead code deleted, no longer traced
-      // '**/node_modules/googleapis/**',
-      '**/node_modules/monaco-editor/**',
-      '**/node_modules/.pnpm/monaco-editor*/**',
-      '**/node_modules/node-pty/**',
-      '**/node_modules/.pnpm/node-pty*/**',
-      '**/node_modules/video.js/**',
-      '**/node_modules/.pnpm/video.js*/**',
-      '**/node_modules/pdfjs-dist/**',
-      '**/node_modules/.pnpm/pdfjs-dist*/**',
-      '**/node_modules/happy-dom/**',
-      '**/node_modules/.pnpm/happy-dom*/**',
-      '**/node_modules/@sentry/cli-linux-x64/**',
-      '**/node_modules/.pnpm/@sentry+cli-linux*/**',
       // Dev-only tools
       '**/node_modules/typescript/**',
       '**/node_modules/jsdom/**',
       '**/node_modules/core-js/**',
-      '**/node_modules/prettier/**',
       // Sharp native binaries
       '**/node_modules/@img/sharp-libvips-*/**',
       '**/node_modules/@img/sharp-linux-*/**',
@@ -293,22 +247,6 @@ const nextConfig = {
       '**/node_modules/.pnpm/pdf-lib*/**',
       '**/node_modules/@apm-js-collab/**',
       '**/node_modules/.pnpm/@apm-js-collab*/**',
-      // Client-only 3D / media packages (29MB + 24MB + 20MB) — never run server-side
-      '**/node_modules/three/**',
-      '**/node_modules/.pnpm/three*/**',
-      '**/node_modules/three-stdlib/**',
-      '**/node_modules/.pnpm/three-stdlib*/**',
-      '**/node_modules/@react-three/**',
-      '**/node_modules/.pnpm/@react-three*/**',
-      '**/node_modules/hls.js/**',
-      '**/node_modules/.pnpm/hls.js*/**',
-      '**/node_modules/@mediapipe/**',
-      '**/node_modules/.pnpm/@mediapipe*/**',
-      // Monaco editor (75 MB) — client-only, never traced into server bundle
-      '**/node_modules/monaco-editor/**',
-      '**/node_modules/.pnpm/monaco-editor*/**',
-      '**/node_modules/@monaco-editor/**',
-      '**/node_modules/.pnpm/@monaco-editor*/**',
       // Source files not needed at runtime
       'app/**/*.tsx',
       'app/**/*.ts',
@@ -316,158 +254,12 @@ const nextConfig = {
       'components/**/*.ts',
       'lib/**/*.ts',
       'lib/**/*.tsx',
-      // Heavy SDK packages — externalized, not needed in bundle
-      '**/node_modules/openai/**',
-      '**/node_modules/.pnpm/openai*/**',
-      '**/node_modules/stripe/**',
-      '**/node_modules/.pnpm/stripe*/**',
-      '**/node_modules/@aws-sdk/**',
-      '**/node_modules/.pnpm/@aws-sdk*/**',
-      '**/node_modules/@smithy/**',
-      '**/node_modules/.pnpm/@smithy*/**',
-      '**/node_modules/ioredis/**',
-      '**/node_modules/.pnpm/ioredis*/**',
-      '**/node_modules/@upstash/**',
-      '**/node_modules/.pnpm/@upstash*/**',
-      '**/node_modules/@sendgrid/**',
-      '**/node_modules/.pnpm/@sendgrid*/**',
-      '**/node_modules/nodemailer/**',
-      '**/node_modules/.pnpm/nodemailer*/**',
-      '**/node_modules/zod/**',
-      '**/node_modules/.pnpm/zod*/**',
-      '**/node_modules/date-fns/**',
-      '**/node_modules/.pnpm/date-fns*/**',
-      '**/node_modules/lodash/**',
-      '**/node_modules/.pnpm/lodash*/**',
-      '**/node_modules/axios/**',
-      '**/node_modules/.pnpm/axios*/**',
-      // Public static assets — served by CDN not the function
-      'public/videos/**',
-      'public/images/**',
-      'public/audio/**',
-      'public/hvac/**',
-      // Sentry CLI binaries (large native binaries, not needed at runtime)
-      '**/node_modules/@sentry/cli/**',
-      '**/node_modules/.pnpm/@sentry+cli*/**',
-      '**/node_modules/@sentry/nextjs/**',
-      '**/node_modules/.pnpm/@sentry+nextjs*/**',
-      '**/node_modules/@sentry/node/**',
-      '**/node_modules/.pnpm/@sentry+node*/**',
-      '**/node_modules/@sentry/core/**',
-      '**/node_modules/.pnpm/@sentry+core*/**',
-      // OpenTelemetry — not needed in Lambda
-      '**/node_modules/@opentelemetry/**',
-      '**/node_modules/.pnpm/@opentelemetry*/**',
-      // Socket.io — not used in Lambda context
-      '**/node_modules/socket.io/**',
-      '**/node_modules/.pnpm/socket.io*/**',
-      '**/node_modules/socket.io-client/**',
-      '**/node_modules/.pnpm/socket.io-client*/**',
-      '**/node_modules/engine.io/**',
-      '**/node_modules/.pnpm/engine.io*/**',
-      // React PDF
-      '**/node_modules/@react-pdf/**',
-      '**/node_modules/.pnpm/@react-pdf*/**',
-      // pnpm virtual store — massive, contains all packages
-      '**/.pnpm-store/**',
-      // Test / storybook
-      '**/node_modules/@storybook/**',
-      '**/node_modules/.pnpm/@storybook*/**',
-      '**/node_modules/jest/**',
-      '**/node_modules/.pnpm/jest*/**',
-      '**/node_modules/@jest/**',
-      '**/node_modules/.pnpm/@jest*/**',
-      // Build tools not needed at runtime
-      '**/node_modules/turbopack/**',
-      '**/node_modules/.pnpm/turbopack*/**',
-      '**/node_modules/esbuild/**',
-      '**/node_modules/.pnpm/esbuild*/**',
-      '**/node_modules/rollup/**',
-      '**/node_modules/.pnpm/rollup*/**',
-      '**/node_modules/vite/**',
-      '**/node_modules/.pnpm/vite*/**',
-      // Scripts and migrations — not needed at runtime
-      'scripts/**',
-      'supabase/**',
-      'docs/**',
-      '.git/**',
     ],
   },
 
   // Redirects for consolidated routes
   async redirects() {
     return [
-      // Admin domain consolidation — see lib/admin-redirects.ts
-      ...adminRedirects,
-      // ============================================
-      // ADMIN SHELL ROUTE REDIRECTS
-      // Routes removed from nav — redirect to nearest real surface
-      // ============================================
-      { source: '/admin/governance', destination: '/admin/compliance', permanent: false },
-      { source: '/admin/governance/:path*', destination: '/admin/compliance', permanent: false },
-      { source: '/admin/ai-studio', destination: '/admin/dashboard', permanent: false },
-      // duplicate removed — canonical entry below sends /admin/marketplace to /admin/store
-      { source: '/admin/dashboard/etpl', destination: '/admin/etpl-alignment', permanent: false },
-      { source: '/admin/integrations/salesforce', destination: '/admin/integrations', permanent: false },
-      { source: '/admin/certifications', destination: '/admin/certificates', permanent: false },
-      { source: '/admin/certifications/:path*', destination: '/admin/certificates', permanent: false },
-      { source: '/admin/crm', destination: '/admin/leads', permanent: false },
-      { source: '/admin/crm/:path*', destination: '/admin/leads', permanent: false },
-      { source: '/admin/email-marketing', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/email-marketing/:path*', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/social-media', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/social-media/:path*', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/campaigns', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/campaigns/:path*', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/content-automation', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/video-generator', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/video-manager', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/course-generator', destination: '/admin/courses/create', permanent: false },
-      { source: '/admin/program-generator', destination: '/admin/programs', permanent: false },
-      { source: '/admin/syllabus-generator', destination: '/admin/courses', permanent: false },
-      { source: '/admin/portal-map', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/advanced-tools', destination: '/admin/system-health', permanent: false },
-      { source: '/admin/dev-studio', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/media-studio', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/store', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/store/:path*', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/cash-advances', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/cash-advances/:path*', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/payroll-cards', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/incentives', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/incentives/:path*', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/live-chat', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/copilot', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/copilot/:path*', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/autopilot', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/ai-console', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/ai-tutor-logs', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/next-steps', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/intake', destination: '/admin/applications', permanent: false },
-      { source: '/admin/promo-codes', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/notifications', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/contacts', destination: '/admin/leads', permanent: false },
-      { source: '/admin/applicants-live', destination: '/admin/applicants', permanent: false },
-      { source: '/admin/licenses', destination: '/admin/license-requests', permanent: false },
-      { source: '/admin/licensing', destination: '/admin/license-requests', permanent: false },
-      { source: '/admin/sap', destination: '/admin/students', permanent: false },
-      { source: '/admin/rapids', destination: '/admin/apprenticeships', permanent: false },
-      { source: '/admin/rapids/:path*', destination: '/admin/apprenticeships', permanent: false },
-      { source: '/admin/import', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/migrations', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/data-processor', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/mobile-sync', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/test-emails', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/test-payments', destination: '/admin/dashboard', permanent: false },
-      { source: '/admin/url-health', destination: '/admin/site-health', permanent: false },
-      { source: '/admin/hvac-activation', destination: '/admin/courses', permanent: false },
-      { source: '/admin/automation-qa', destination: '/admin/system-monitor', permanent: false },
-      { source: '/admin/analytics', destination: '/admin/reports', permanent: false },
-      { source: '/admin/analytics/:path*', destination: '/admin/reports', permanent: false },
-      { source: '/admin/reporting', destination: '/admin/reports', permanent: false },
-      { source: '/admin/courses/builder', destination: '/admin/course-builder', permanent: false },
-      { source: '/admin/courses/create', destination: '/admin/courses/create', permanent: false },
-
       // ============================================
       // DELETED PAGE REDIRECTS
       // ============================================
@@ -483,11 +275,8 @@ const nextConfig = {
       { source: '/verifyemail', destination: '/verify-email', permanent: true },
       { source: '/lms/messages/new', destination: '/lms/messages', permanent: true },
       { source: '/lms/messages/support/new', destination: '/lms/messages', permanent: true },
-      { source: '/programs/building-maintenance', destination: '/programs/hvac-technician', permanent: true },
       { source: '/programs/building-maintenance-tech', destination: '/programs/hvac-technician', permanent: true },
       { source: '/programs/building-services-technician', destination: '/programs/hvac-technician', permanent: true },
-      { source: '/programs/building-technician', destination: '/programs/hvac-technician', permanent: true },
-      { source: '/programs/hvac-building-technician', destination: '/programs/hvac-technician', permanent: true },
       { source: '/programs/business-financial', destination: '/programs/tax-preparation', permanent: true },
       { source: '/programs/cpr-first-aid-hsi', destination: '/programs/cpr-first-aid', permanent: true },
       { source: '/programs/direct-support-professional', destination: '/programs/peer-recovery-specialist', permanent: true },
@@ -497,7 +286,6 @@ const nextConfig = {
       // forklift now has its own detail page — redirect removed
       { source: '/programs/it-support', destination: '/programs/it-help-desk', permanent: true },
       { source: '/programs/jri', destination: '/programs/peer-recovery-specialist', permanent: true },
-      { source: '/programs/peer-recovery-specialist-jri', destination: '/programs/peer-recovery-specialist', permanent: true },
       { source: '/programs/phlebotomy', destination: '/programs/healthcare', permanent: true },
       { source: '/programs/phlebotomy-technician', destination: '/programs/healthcare', permanent: true },
       { source: '/programs/business-startup-marketing', destination: '/programs/entrepreneurship', permanent: true },
@@ -549,18 +337,6 @@ const nextConfig = {
       // LMS
       { source: '/lms/catalog', destination: '/lms/courses', permanent: true },
 
-      // Programs/Courses terminology split — temporary redirects (permanent: false)
-      // until canonical path is decided and all internal links are updated.
-      //
-      // Current state:
-      //   /lms/programs  → public catalog (unauthenticated, app/lms/(public)/programs)
-      //   /lms/courses   → authenticated learner experience (app/lms/(app)/courses)
-      //
-      // Canonical term for learners is "Program". /lms/courses is the legacy path.
-      // Do not flip these to permanent until all 20+ internal hrefs are updated.
-      // See AGENTS.md "Programs vs Courses" tracked UX debt.
-      { source: '/lms/program/:programId', destination: '/lms/courses/:programId', permanent: false },
-
       // Mentor / Mentorship
       { source: '/mentor', destination: '/mentor/dashboard', permanent: false },
       { source: '/mentor/apply', destination: '/mentorship', permanent: true },
@@ -595,9 +371,6 @@ const nextConfig = {
       // Normalize "Institute" style routes into the infrastructure model
       { source: '/institute', destination: '/', permanent: true },
       { source: '/training-institute', destination: '/programs', permanent: true },
-      { source: '/data-protection', destination: '/security-and-data-protection', permanent: true },
-      { source: '/security-data-protection', destination: '/security-and-data-protection', permanent: true },
-      { source: '/data-privacy', destination: '/security-and-data-protection', permanent: true },
       { source: '/student/dashboard', destination: '/student-portal', permanent: true },
       
       // Fix old hero image paths
@@ -624,16 +397,9 @@ const nextConfig = {
       // Exact match first: /portal → portal chooser. Wildcard below catches /portal/anything → /lms/anything.
       { source: '/portal', destination: '/portals', permanent: true },
       { source: '/portal/:path*', destination: '/lms/:path*', permanent: true },
-      // Specific student routes before wildcard
-      { source: '/student/handbook', destination: '/student-handbook', permanent: true },
       { source: '/student/:path*', destination: '/lms/:path*', permanent: true },
       { source: '/students/:path*', destination: '/lms/:path*', permanent: true },
       { source: '/learners/:path*', destination: '/lms/:path*', permanent: true },
-      // /learner/certifications has no page — redirect to canonical certificates route
-      { source: '/learner/certifications', destination: '/certificates', permanent: true },
-      { source: '/learner/certifications/:path*', destination: '/certificates', permanent: true },
-      // /learner/courses has no page — redirect to LMS courses
-      { source: '/learner/courses', destination: '/lms/courses', permanent: true },
       { source: '/program-holder-portal/:path*', destination: '/program-holder/:path*', permanent: true },
       // /admin-portal is now a public landing page - no redirect needed
       // /dashboard redirect removed - handled by middleware with auth check
@@ -657,17 +423,16 @@ const nextConfig = {
       { source: '/programs/cdl-transportation', destination: '/programs/cdl-training', permanent: true },
       // CNA — /programs/cna is the canonical page
       { source: '/programs/cna-cert', destination: '/programs/cna', permanent: true },
-      { source: '/programs/cna-certification', destination: '/programs/cna', permanent: true },
-      { source: '/programs/cna-certification/enroll', destination: '/programs/cna/enroll', permanent: true },
       // HVAC
       { source: '/programs/hvac', destination: '/programs/hvac-technician', permanent: true },
       // Barber & Beauty
       { source: '/programs/barber', destination: '/programs/barber-apprenticeship', permanent: true },
       { source: '/programs/beauty', destination: '/programs/barber-apprenticeship', permanent: true },
-      // Business / Finance pathway
+      // Business
+      // Tax — real page is /programs/tax-preparation
       { source: '/programs/tax-prep', destination: '/programs/tax-preparation', permanent: true },
-      { source: '/programs/tax-entrepreneurship', destination: '/programs/finance-bookkeeping-accounting', permanent: true },
-      { source: '/programs/tax-prep-financial-services', destination: '/programs/finance-bookkeeping-accounting', permanent: true },
+      { source: '/programs/tax-entrepreneurship', destination: '/programs/tax-preparation', permanent: true },
+      { source: '/programs/tax-prep-financial-services', destination: '/programs/tax-preparation', permanent: true },
       // Healthcare aliases
       // Human Services
       // Skilled Trades aliases
@@ -719,35 +484,6 @@ const nextConfig = {
 
       // Verify consolidation
       { source: '/verifycertificate/:path*', destination: '/verify/:path*', permanent: true },
-
-      // Duplicate route consolidation
-      { source: '/mission', destination: '/about/mission', permanent: true },
-      { source: '/microclasses', destination: '/micro-classes', permanent: true },
-      { source: '/fundingimpact', destination: '/impact', permanent: true },
-      { source: '/getstarted', destination: '/apply/student', permanent: true },
-      { source: '/connect', destination: '/contact', permanent: true },
-      { source: '/call-now', destination: '/contact', permanent: true },
-      { source: '/share', destination: '/', permanent: true },
-      { source: '/learning', destination: '/learner', permanent: true },
-      { source: '/for/students', destination: '/apply/student', permanent: true },
-      { source: '/ecosystem', destination: '/about', permanent: true },
-      { source: '/impact', destination: '/about', permanent: true },
-
-      // Internal tools — redirect to admin
-      { source: '/ai-studio', destination: '/admin', permanent: true },
-      { source: '/preview/video-quiz', destination: '/admin', permanent: true },
-
-      // Deleted public routes — redirect to nearest relevant page
-      { source: '/creator/analytics', destination: '/admin', permanent: true },
-      { source: '/franchise/office/:path*', destination: '/admin', permanent: true },
-      { source: '/leaderboard', destination: '/lms/dashboard', permanent: true },
-      // duplicate removed — canonical entry at line 464 sends to /staff-portal/dashboard
-      { source: '/app-hub', destination: '/apps', permanent: true },
-      { source: '/card', destination: '/', permanent: true },
-      { source: '/calculator/revenue-share', destination: '/admin', permanent: true },
-      { source: '/apps/grants/start-trial', destination: '/apps', permanent: true },
-      { source: '/apps/sam-gov/start-trial', destination: '/apps', permanent: true },
-      { source: '/apps/website-builder/start-trial', destination: '/apps', permanent: true },
 
       // Misc redirects
       { source: '/dashboards/:path*', destination: '/lms/:path*', permanent: true },
@@ -814,9 +550,6 @@ const nextConfig = {
       { source: '/video', destination: '/videos', permanent: true },
       
       // LMS redirects
-      // /lms/dashboard was a standalone redirect page — removed because it conflicted
-      // with /lms/(app)/dashboard (same resolved path). Redirect lives here instead.
-      { source: '/lms/dashboard', destination: '/learner/dashboard', permanent: false },
       { source: '/lms/my-courses', destination: '/lms/courses', permanent: true },
       
       // Student portal redirects
@@ -829,7 +562,7 @@ const nextConfig = {
       // Partner portal redirects
       // NOTE: /partner/dashboard is the canonical partner dashboard page.
       // /partner/page.tsx redirects TO /partner/dashboard, so do NOT redirect /partner/dashboard back.
-      // duplicate removed — canonical entry below sends /partner/dashboard to /program-holder/dashboard
+      // Removed: { source: '/partner/dashboard', destination: '/partner', permanent: true },
       // Removed: { source: '/partner/courses', destination: '/partner', permanent: true },
       // Removed: { source: '/partner/students', destination: '/partner', permanent: true },
       
@@ -848,69 +581,6 @@ const nextConfig = {
       // /outcomes/indiana is a public page — do not redirect it
       // Other outcomes sub-routes redirect to programs until data exists
       { source: '/metrics', destination: '/programs', permanent: false },
-
-      // ============================================
-      // STUB PAGE REPLACEMENTS
-      // These were redirect-only page.tsx files (<12 lines).
-      // Moved here so they don't occupy a page slot in the build.
-      // ============================================
-      { source: '/admin',                                  destination: '/admin/dashboard',                    permanent: true  },
-      { source: '/admin/staff',                            destination: '/admin/users?role=staff',             permanent: true  },
-      { source: '/selfish-inc',                            destination: '/rise-foundation',                    permanent: true  },
-      { source: '/team',                                   destination: '/about/team',                         permanent: true  },
-      { source: '/partner/apply',                          destination: '/partner/onboarding',                 permanent: true  },
-      { source: '/partner/programs',                       destination: '/partner/dashboard',                  permanent: true  },
-      { source: '/partners/barber-shop',                   destination: '/partners/barbershop-apprenticeship', permanent: true  },
-      { source: '/partners/portal',                        destination: '/program-holder/dashboard',            permanent: true  },
-      { source: '/onboarding/handbook',                    destination: '/onboarding/learner/handbook',        permanent: true  },
-      { source: '/onboarding/partner',                     destination: '/partner/onboarding',                 permanent: true  },
-      { source: '/onboarding/employer/agreement',          destination: '/onboarding/mou',                    permanent: true  },
-      { source: '/student-portal/onboarding',              destination: '/onboarding/learner',                 permanent: true  },
-      { source: '/student-portal/onboarding/approved',     destination: '/onboarding/learner',                 permanent: true  },
-      { source: '/student-portal/onboarding/documents',    destination: '/onboarding/learner/documents',       permanent: true  },
-      { source: '/student-portal/onboarding/agreements',   destination: '/onboarding/learner/agreements',      permanent: true  },
-
-      // ============================================
-      // PHASE 1 STUB REPLACEMENTS
-      // Redirect-only page.tsx files moved here to free build slots.
-      // ============================================
-      // Handbook canonicalization — /student-handbook is the single source
-      { source: '/student-portal/handbook',            destination: '/student-handbook',              permanent: true },
-      // /student-portal/handbook/acknowledge → canonical onboarding handbook (has the acknowledge flow)
-      { source: '/student-portal/handbook/acknowledge', destination: '/onboarding/learner/handbook',  permanent: true },
-
-      // Orientation canonicalization
-      // Legacy enrollment orientation → onboarding flow
-      { source: '/onboarding/orientation',             destination: '/onboarding/learner/orientation', permanent: true },
-
-      // /cert/verify kept as page.tsx — passes query params to /verify
-      { source: '/partner/dashboard',           destination: '/program-holder/dashboard', permanent: true  },
-      { source: '/partner',                     destination: '/program-holder/dashboard', permanent: true  },
-      { source: '/partner-portal',              destination: '/program-holder/dashboard', permanent: true  },
-      { source: '/programs/admin/dashboard',    destination: '/admin/dashboard',      permanent: true  },
-      // /store/licenses/managed passes query params — handled by next.config rewrite
-      // pwa auth-redirect stubs: redirect to canonical pwa pages
-      { source: '/pwa/barber/dashboard',        destination: '/pwa/barber',          permanent: false },
-      { source: '/pwa/shop-owner/dashboard',    destination: '/pwa/shop-owner',      permanent: false },
-
-      // /employer-portal root → canonical employer dashboard
-      { source: '/employer-portal',           destination: '/employer/dashboard',  permanent: true },
-
-
-
-      // ============================================
-      // STUB PAGE REPLACEMENTS — working redirect stubs moved to config
-      // ============================================
-      { source: '/courses',                                    destination: '/lms/courses',                                                    permanent: true },
-      { source: '/courses/:courseId',                          destination: '/lms/courses/:courseId',                                          permanent: true },
-      { source: '/courses/:courseId/lessons/:lessonId',        destination: '/lms/courses/:courseId/lessons/:lessonId',                        permanent: true },
-      { source: '/register',                                   destination: '/signup',                                                         permanent: true },
-      { source: '/update-password',                            destination: '/auth/reset-password',                                            permanent: true },
-      { source: '/programs/hvac-technician/course',            destination: '/lms/courses/0ba9a61c-1f1b-4019-be6f-90e92eba2bc0',               permanent: true },
-      { source: '/programs/hvac-technician/curriculum',        destination: '/programs/hvac-technician',                                       permanent: true },
-      { source: '/hvac/lesson/:lessonId',                      destination: '/lms/courses/0ba9a61c-1f1b-4019-be6f-90e92eba2bc0/lessons/:lessonId', permanent: true },
-      { source: '/mentor/messages',                            destination: '/lms/messages',                                                   permanent: true },
-      { source: '/onboarding/legal',                           destination: '/onboarding/learner/agreements',                                  permanent: true },
 
       // ============================================
       // DEAD LINK FIXES — public-facing
@@ -964,11 +634,11 @@ const nextConfig = {
             ? "script-src 'self' 'unsafe-inline' https://connect.facebook.net https://js.stripe.com https://www.googletagmanager.com https://widget.sezzle.com"
             : "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://connect.facebook.net https://js.stripe.com https://widget.sezzle.com",
           "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-          "img-src 'self' data: blob: https://*.supabase.co https://*.elevateforhumanity.org https://www.elevateforhumanity.org https://images.unsplash.com https://images.pexels.com https://*.r2.dev https://*.cloudflarestream.com https://*.githubusercontent.com https://cdn.elevatelms.com https://cdn1.affirm.com https://cms-artifacts.artlist.io https://static.wixstatic.com https://*.wixstatic.com",
+          "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev https://cms-artifacts.artlist.io",
           "font-src 'self' data: https://fonts.gstatic.com",
           "connect-src 'self' https://*.supabase.co https://api.stripe.com wss://*.supabase.co https://us06web.zoom.us",
           "frame-src 'self' https://www.youtube.com https://player.vimeo.com https://js.stripe.com https://us06web.zoom.us",
-          "media-src 'self' data: blob: https://*.supabase.co https://*.r2.dev https://*.cloudflarestream.com https://cms-artifacts.artlist.io",
+          "media-src 'self' data: blob: https://*.supabase.co https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev https://cms-artifacts.artlist.io",
           "worker-src 'self' blob:",
           "object-src 'none'",
           "base-uri 'self'",
@@ -1025,24 +695,13 @@ const nextConfig = {
           { key: 'X-Build-ID', value: process.env.COMMIT_REF?.slice(0, 7) || 'dev' },
         ],
       },
-      // 1) Non-app routes (marketing stubs, public info pages) — short CDN cache.
-      //    Marketing content is served by Cloudflare Pages (www.elevateforhumanity.org).
-      //    These stubs just redirect there; short cache is fine.
+      // 1) Never allow HTML / app routes to be cached for a year
       {
-        source: '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|studio|api|lms|admin|learner|instructor|employer|partner|program-holder|staff-portal|mentor|student-portal|onboarding|franchise|tax|supersonic).*)',
-        headers: [
-          { key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' },
-          { key: 'X-Build-ID', value: process.env.COMMIT_REF?.slice(0, 7) || 'dev' },
-          { key: 'X-Deployment-ID', value: process.env.DEPLOY_ID || 'local' },
-          ...securityHeaders,
-        ],
-      },
-      // 1b) Authenticated / dynamic routes — never cache at edge
-      {
-        source: '/(api|lms|admin|learner|instructor|employer|partner|program-holder|staff-portal|mentor|student-portal|onboarding|franchise|tax|supersonic)/:path*',
+        source: '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|studio).*)',
         headers: [
           { key: 'Cache-Control', value: 'no-store, max-age=0' },
           { key: 'Pragma', value: 'no-cache' },
+          { key: 'Expires', value: '0' },
           { key: 'Surrogate-Control', value: 'no-store' },
           { key: 'X-Build-ID', value: process.env.COMMIT_REF?.slice(0, 7) || 'dev' },
           { key: 'X-Deployment-ID', value: process.env.DEPLOY_ID || 'local' },
@@ -1117,12 +776,6 @@ const sentryWebpackPluginOptions = {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
-  // Skip source map upload and webpack instrumentation when no auth token is
-  // configured. Without this, withSentryConfig wraps the entire webpack
-  // compilation even on builds where it cannot upload anything, adding
-  // measurable heap pressure on large codebases.
-  disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
-  disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
 };
 
 export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
