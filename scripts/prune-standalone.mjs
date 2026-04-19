@@ -126,8 +126,9 @@ const PRUNE_PACKAGES = [
   'axios',
   // Sentry (large)
   '@sentry',
-  // OpenTelemetry
-  '@opentelemetry',
+  // OpenTelemetry — DO NOT prune: @netlify/plugin-nextjs copies this when
+  // building the edge middleware handler. Removing it causes ENOENT at onBuild.
+  // '@opentelemetry',
   // Socket.io
   'socket.io',
   'socket.io-client',
