@@ -1,6 +1,4 @@
 
-
-import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireAuth } from '@/lib/api/requireAuth';
@@ -52,6 +50,8 @@ async function _POST(req: Request) {
       );
     }
 
+    const { getStripeServer } = await import('@/lib/stripe/get-stripe-server');
+    const stripe = await getStripeServer();
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ['card', 'klarna', 'afterpay_clearpay'],

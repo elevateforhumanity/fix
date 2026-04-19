@@ -38,8 +38,8 @@ export async function generateCourseFromBlueprint(
 ): Promise<GenerateCourseResult> {
   // Resolve blueprint — try by ID first, then by program slug
   const blueprint =
-    getBlueprintById(args.blueprintSlug) ??
-    getBlueprintByProgramSlug(args.blueprintSlug);
+    (await getBlueprintById(args.blueprintSlug)) ??
+    (await getBlueprintByProgramSlug(args.blueprintSlug));
 
   if (!blueprint) {
     throw new Error(

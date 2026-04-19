@@ -61,19 +61,17 @@ export async function getBlueprintByCredentialSlug(credentialSlug: string): Prom
   return registry.find(bp => bp.credentialSlug === credentialSlug) ?? null;
 }
 
-export function getBlueprintById(id: string): CredentialBlueprint | null {
-  return REGISTRY.find(bp => bp.id === id) ?? null;
+export async function getBlueprintById(id: string): Promise<CredentialBlueprint | null> {
+  const registry = await getAllBlueprints();
+  return registry.find(bp => bp.id === id) ?? null;
 }
 
-export function getBlueprintByProgramSlug(programSlug: string): CredentialBlueprint | null {
-  return REGISTRY.find(bp => bp.programSlug === programSlug) ?? null;
-}
-
-export function getAllBlueprints(): CredentialBlueprint[] {
-  return [...REGISTRY];
+export async function getBlueprintByProgramSlug(programSlug: string): Promise<CredentialBlueprint | null> {
+  const registry = await getAllBlueprints();
+  return registry.find(bp => bp.programSlug === programSlug) ?? null;
 }
 
 /** @deprecated Use getBlueprintById('hvac-epa608-v1') instead */
-export function getHvacBlueprint(): CredentialBlueprint {
-  return HVAC_EPA608_BLUEPRINT;
+export async function getHvacBlueprint(): Promise<CredentialBlueprint | null> {
+  return getBlueprintById('hvac-epa608-v1');
 }
