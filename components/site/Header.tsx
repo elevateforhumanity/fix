@@ -24,6 +24,7 @@ import HeaderDesktopNav from './HeaderDesktopNav';
 // extend navigation_items with: section, is_header, display_order (int), parent_id.
 export const NAV_ITEMS = [
   {
+    id: 'programs',
     name: 'Programs',
     href: '/programs',
     subItems: [
@@ -173,7 +174,9 @@ export const NAV_ITEMS = [
 ];
 
 const PROGRAM_APPLY_LINKS = Object.fromEntries(
-  ALL_PROGRAMS.map((program) => [program.slug, program.cta.applyHref])
+  ALL_PROGRAMS
+    .filter((program) => Boolean(program.cta?.applyHref))
+    .map((program) => [program.slug, program.cta.applyHref])
 );
 
 export default function Header() {

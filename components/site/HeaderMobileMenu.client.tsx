@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 
 interface NavItem {
+  id?: string;
   name: string;
   href?: string;
   subItems?: { name: string; href: string; isHeader?: boolean; nested?: boolean }[];
@@ -19,18 +20,7 @@ interface HeaderMobileMenuProps {
 function getProgramSlugFromHref(href: string): string | null {
   const match = href.match(/^\/programs\/([^/?#]+)$/);
   if (!match) return null;
-  const slug = match[1];
-  if (
-    slug === 'programs' ||
-    slug === 'healthcare' ||
-    slug === 'skilled-trades' ||
-    slug === 'apprenticeships' ||
-    slug === 'technology' ||
-    slug === 'hospitality'
-  ) {
-    return null;
-  }
-  return slug;
+  return match[1];
 }
 
 export default function HeaderMobileMenu({ items, programApplyLinks = {} }: HeaderMobileMenuProps) {
@@ -118,7 +108,7 @@ export default function HeaderMobileMenu({ items, programApplyLinks = {} }: Head
                           );
                         }
 
-                        const programSlug = item.name === 'Programs' ? getProgramSlugFromHref(subItem.href) : null;
+                        const programSlug = item.id === 'programs' ? getProgramSlugFromHref(subItem.href) : null;
                         const applyHref = programSlug ? programApplyLinks[programSlug] : undefined;
 
                         return (
