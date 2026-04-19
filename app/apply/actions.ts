@@ -811,47 +811,19 @@ export async function submitProgramHolderApplication(data: ProgramHolderApplicat
       logger.error('[Apply] getAdminClient failed in submitProgramHolderApplication', err);
     }
     if (adminDb) {
-      const normalizedEmail = data.email.toLowerCase().trim();
-      const { data: profile } = await adminDb
-        .from('profiles')
-        .select('id')
-        .eq('email', normalizedEmail)
-        .maybeSingle();
+      const provisioned = await ensureProgramHolderAccount(adminDb, data);
+      if (provisioned.userId) {
+        logger.info('[Apply] Program holder approved on submit', {
+          userId: provisioned.userId,
+          holderId: provisioned.holderId,
+          org: provisioned.organizationName,
+        });
 
-      if (profile?.id) {
-        const { data: holderRow } = await adminDb
-          .from('program_holders')
-          .upsert({
-            user_id: profile.id,
-            organization_name: data.organizationName || `${data.firstName} ${data.lastName}`,
-            contact_name: `${data.firstName} ${data.lastName}`,
-            contact_email: normalizedEmail,
-            contact_phone: data.phone || null,
-            // 'approved' + approved_at required by onboarding status check
-            status: 'approved',
-            approved_at: new Date().toISOString(),
-            name: data.organizationName || `${data.firstName} ${data.lastName}`,
-          }, { onConflict: 'user_id', ignoreDuplicates: false })
-          .select('id')
-          .maybeSingle();
-
-        // Set role and link profile to program_holders row immediately.
-        await adminDb
-          .from('profiles')
-          .update({
-            role: 'program_holder',
-            program_holder_id: holderRow?.id || null,
-          })
-          .eq('id', profile.id);
-
-        logger.info('[Apply] Program holder approved on submit', { userId: profile.id, holderId: holderRow?.id, org: data.organizationName });
-
-        // Send magic link — program holder never set a password, so they
-        // must use the emailed link to access their onboarding portal.
+        // Send password setup link so they can access onboarding immediately.
         await sendProgramHolderWelcomeEmail(adminDb, {
-          email: normalizedEmail,
+          email: provisioned.email,
           firstName: data.firstName,
-          organizationName: data.organizationName || `${data.firstName} ${data.lastName}`,
+          organizationName: provisioned.organizationName,
           referenceNumber: result.referenceNumber,
         });
       }
@@ -860,6 +832,122 @@ export async function submitProgramHolderApplication(data: ProgramHolderApplicat
     return { success: true, applicationId: result.applicationId, referenceNumber: result.referenceNumber, redirectTo: `/apply/program-holder/confirmation` };
   }
   return result;
+}
+
+async function ensureProgramHolderAccount(
+  adminDb: any,
+  data: ProgramHolderApplicationData,
+): Promise<{ userId: string | null; holderId: string | null; email: string; organizationName: string }> {
+  const normalizedEmail = data.email.toLowerCase().trim();
+  const fullName = `${data.firstName} ${data.lastName}`.trim();
+  const organizationName = data.organizationName?.trim() || fullName || 'Program Holder';
+  const phone = data.phone?.trim() || null;
+
+  let userId: string | null = null;
+  const { data: existingProfile } = await adminDb
+    .from('profiles')
+    .select('id')
+    .eq('email', normalizedEmail)
+    .maybeSingle();
+
+  if (existingProfile?.id) {
+    userId = existingProfile.id;
+  }
+
+  if (!userId) {
+    const tempPassword = `Elevate-${Date.now().toString(36)}!`;
+    const { data: newUser, error: createError } = await adminDb.auth.admin.createUser({
+      email: normalizedEmail,
+      password: tempPassword,
+      email_confirm: true,
+      user_metadata: {
+        role: 'program_holder',
+        full_name: fullName,
+        first_name: data.firstName,
+        last_name: data.lastName,
+      },
+    });
+
+    if (newUser?.user?.id) {
+      userId = newUser.user.id;
+    } else if (createError) {
+      logger.info('[Apply] Auth user may already exist, searching', {
+        email: normalizedEmail,
+        error: createError.message,
+      });
+
+      let page = 1;
+      while (page <= 6 && !userId) {
+        const { data: batch } = await adminDb.auth.admin.listUsers({
+          page,
+          perPage: 100,
+        });
+        if (!batch?.users?.length) break;
+        const found = batch.users.find((u: any) => u.email?.toLowerCase() === normalizedEmail);
+        if (found) {
+          userId = found.id;
+          break;
+        }
+        page++;
+      }
+    }
+  }
+
+  if (!userId) {
+    logger.error('[Apply] Unable to provision program holder auth account', {
+      email: normalizedEmail,
+      organizationName,
+    });
+    return { userId: null, holderId: null, email: normalizedEmail, organizationName };
+  }
+
+  await adminDb
+    .from('profiles')
+    .upsert(
+      {
+        id: userId,
+        email: normalizedEmail,
+        full_name: fullName || organizationName,
+        role: 'program_holder',
+        phone,
+      },
+      { onConflict: 'id', ignoreDuplicates: false }
+    );
+
+  const { data: holderRow } = await adminDb
+    .from('program_holders')
+    .upsert(
+      {
+        user_id: userId,
+        organization_name: organizationName,
+        contact_name: fullName || organizationName,
+        contact_email: normalizedEmail,
+        contact_phone: phone,
+        status: 'approved',
+        approved_at: new Date().toISOString(),
+        name: organizationName,
+      },
+      { onConflict: 'user_id', ignoreDuplicates: false }
+    )
+    .select('id')
+    .maybeSingle();
+
+  if (holderRow?.id) {
+    await adminDb
+      .from('profiles')
+      .update({
+        role: 'program_holder',
+        program_holder_id: holderRow.id,
+      })
+      .eq('id', userId);
+  } else {
+    await adminDb
+      .from('profiles')
+      .update({ role: 'program_holder' })
+      .eq('id', userId);
+  }
+
+  return { userId, holderId: holderRow?.id ?? null, email: normalizedEmail, organizationName };
 }
 
 async function sendProgramHolderWelcomeEmail(
@@ -874,27 +962,27 @@ async function sendProgramHolderWelcomeEmail(
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org';
 
-  // Generate an invite link — forces password creation at /auth/set-password,
-  // then redirects to /program-holder/onboarding. This is step 1 of onboarding.
+  // Generate a password setup link — forces password creation at /auth/set-password.
   // The full welcome email fires separately after all onboarding steps are complete.
   let setupLink = `${siteUrl}/login`;
+  const redirectTo = `${siteUrl}/auth/confirm?next=/auth/set-password`;
   try {
     const { data: linkData } = await adminDb.auth.admin.generateLink({
-      type: 'invite',
+      type: 'recovery',
       email: opts.email,
-      options: { redirectTo: `${siteUrl}/auth/set-password` },
+      options: { redirectTo },
     });
     if (linkData?.properties?.action_link) {
       setupLink = linkData.properties.action_link;
     }
   } catch (err) {
-    logger.warn('[Apply] Could not generate invite link for program holder', err);
+    logger.warn('[Apply] Could not generate password setup link for program holder', err);
     // Fallback: magic link to set-password
     try {
       const { data: linkData } = await adminDb.auth.admin.generateLink({
         type: 'magiclink',
         email: opts.email,
-        options: { redirectTo: `${siteUrl}/auth/set-password` },
+        options: { redirectTo },
       });
       if (linkData?.properties?.action_link) setupLink = linkData.properties.action_link;
     } catch {}
