@@ -1,11 +1,13 @@
 /**
- * Prune heavy packages from .next/standalone/node_modules after Next.js build.
+ * Prune build-time-only and browser-only packages from .next/standalone.
  *
- * outputFileTracingExcludes should prevent these from being traced in, but pnpm's
- * symlink structure means some packages still end up in standalone. This script
- * removes them before the Netlify plugin packages the handler zip.
+ * IMPORTANT: standalone/node_modules is the RUNTIME bundle. Only remove
+ * packages that are 100% never needed at request time. If a package is in
+ * serverExternalPackages it is loaded via require() at runtime — do NOT
+ * remove it from standalone.
  *
- * Run via: postbuild script in package.json
+ * Safe to remove: Next.js build binaries, browser-only packages, dev tools.
+ * Never remove: anything a route requires() at runtime.
  */
 
 import { rm, readdir, stat } from 'fs/promises';
@@ -14,47 +16,23 @@ import { existsSync } from 'fs';
 
 const STANDALONE_NODE_MODULES = resolve('.next/standalone/node_modules');
 
-// Packages that must not be in the Lambda bundle.
-// These are either build-time only, browser-only, or handled by separate Netlify functions.
 const PRUNE_PACKAGES = [
-  // Next.js build-time binaries
+  // ── Next.js SWC compiler platform binaries (113 MB each, build-time only) ──
   '@next/swc-linux-x64-gnu',
   '@next/swc-linux-x64-musl',
   '@next/swc-darwin-x64',
   '@next/swc-darwin-arm64',
   '@next/swc-win32-x64-msvc',
-  // esbuild
+  // ── esbuild binary (build-time only) ────────────────────────────────────────
   '@esbuild',
-  // webpack
+  'esbuild',
+  // ── webpack (build-time only) ────────────────────────────────────────────────
   'webpack',
   'webpack-sources',
-  // SWC compiler binaries only — @swc/helpers is required by Next.js at runtime
+  // ── SWC compiler (NOT @swc/helpers — that is required by Next.js at runtime) ─
   '@swc/core',
   '@swc/cli',
-  // Google APIs (194 MB)
-  'googleapis',
-  'google-auth-library',
-  // OCR (44 MB wasm)
-  'tesseract.js',
-  'tesseract.js-core',
-  // Sharp / image processing
-  'sharp',
-  '@img',
-  '@napi-rs',
-  // Canvas
-  'canvas',
-  // PDF
-  'pdf-lib',
-  'pdf-parse',
-  'pdfkit',
-  'pdfjs-dist',
-  'jspdf',
-  '@react-pdf',
-  // FFmpeg
-  '@ffmpeg-installer',
-  '@ffprobe-installer',
-  'fluent-ffmpeg',
-  // Browser automation
+  // ── Browser automation (never runs server-side) ──────────────────────────────
   'puppeteer',
   'puppeteer-core',
   'playwright',
@@ -62,89 +40,40 @@ const PRUNE_PACKAGES = [
   'chromium-bidi',
   '@playwright',
   '@sparticuz',
-  // Editor / terminal
-  'monaco-editor',
-  'node-pty',
-  // Video / media
-  'video.js',
-  'hls.js',
-  // MediaPipe
-  '@mediapipe',
-  // 3D
+  'chrome-aws-lambda',
+  // ── Browser-only 3D / media ──────────────────────────────────────────────────
   'three',
   'three-stdlib',
   '@react-three',
-  // Icons (42 MB)
+  'hls.js',
+  'video.js',
+  '@mediapipe',
+  // ── Browser-only UI (never imported server-side) ─────────────────────────────
+  'monaco-editor',
+  '@monaco-editor',
   'lucide-react',
-  // Charting
   'recharts',
-  // Screenshot
   'html2canvas',
-  // Sentry CLI binary
-  '@sentry/cli-linux-x64',
-  // Build / dev tools
+  // ── Dev / test tools ─────────────────────────────────────────────────────────
   'typescript',
-  'core-js',
   'prettier',
-  'tailwindcss',
-  'autoprefixer',
-  'postcss',
   'eslint',
   '@typescript-eslint',
   'vitest',
-  // DOM / test
-  'jsdom',
-  'happy-dom',
-  // Document generation
-  'docx',
-  'mammoth',
-  // Collaborative editing
-  'yjs',
-  'y-protocols',
-  'lib0',
-  // WebContainer
-  '@webcontainer',
-  // Misc
-  '@mailchimp',
-  'csv-parse',
-  'sitemap',
-  'jszip',
-  'fast-xml-parser',
-  'marked',
-  'cheerio',
-  // Heavy SDKs — externalized, loaded from node_modules at runtime not bundled
-  'openai',
-  'stripe',
-  '@aws-sdk',
-  '@smithy',
-  'ioredis',
-  '@upstash',
-  '@sendgrid',
-  'nodemailer',
-  'zod',
-  'date-fns',
-  'lodash',
-  'axios',
-  // Sentry (large)
-  '@sentry',
-  // OpenTelemetry — DO NOT prune: @netlify/plugin-nextjs copies this when
-  // building the edge middleware handler. Removing it causes ENOENT at onBuild.
-  // '@opentelemetry',
-  // Socket.io
-  'socket.io',
-  'socket.io-client',
-  'engine.io',
-  // React PDF
-  '@react-pdf',
-  // Build tools
-  'esbuild',
-  'rollup',
-  'turbopack',
-  // Test tools
   'jest',
   '@jest',
   '@storybook',
-  'vitest',
+  'jsdom',
+  'happy-dom',
+  // ── Sentry CLI binary (not the SDK — keep @sentry/nextjs, @sentry/node) ──────
+  '@sentry/cli-linux-x64',
+  '@sentry/cli',
+  // ── WebContainer (browser-only) ──────────────────────────────────────────────
+  '@webcontainer',
+  // ── Collaborative editing (browser-only) ─────────────────────────────────────
+  'yjs',
+  'y-protocols',
+  'lib0',
 ];
 
 async function pruneDir(nodeModulesDir) {
@@ -154,15 +83,11 @@ async function pruneDir(nodeModulesDir) {
   }
 
   let totalRemoved = 0;
-  let totalSaved = 0;
 
   for (const pkg of PRUNE_PACKAGES) {
     const pkgPath = join(nodeModulesDir, pkg);
     if (existsSync(pkgPath)) {
       try {
-        const s = await stat(pkgPath);
-        // du-style size estimate (rough)
-        const sizeMB = s.size / 1024 / 1024;
         await rm(pkgPath, { recursive: true, force: true });
         totalRemoved++;
         console.log(`[prune-standalone] removed ${pkg}`);
@@ -170,25 +95,20 @@ async function pruneDir(nodeModulesDir) {
         console.warn(`[prune-standalone] failed to remove ${pkg}: ${err.message}`);
       }
     }
-
-    // Also check scoped packages: @scope/pkg → nodeModulesDir/@scope/pkg
-    // Already handled above since PRUNE_PACKAGES includes full scoped names
   }
 
-  // Also prune .pnpm directory if present (pnpm virtual store in standalone)
+  // Prune pnpm virtual store entries
   const pnpmDir = join(nodeModulesDir, '.pnpm');
   if (existsSync(pnpmDir)) {
     const entries = await readdir(pnpmDir);
     for (const entry of entries) {
       const shouldPrune = PRUNE_PACKAGES.some(pkg => {
-        // Convert scoped package @scope/name → @scope+name for pnpm dir format
-        const pnpmName = pkg.replace('/', '+').replace('@', '@');
-        return entry.startsWith(pnpmName) || entry.startsWith(pkg.replace('@', '').replace('/', '+'));
+        const pnpmName = pkg.startsWith('@') ? pkg.replace('/', '+') : pkg;
+        return entry.startsWith(pnpmName + '@') || entry === pnpmName;
       });
       if (shouldPrune) {
-        const entryPath = join(pnpmDir, entry);
         try {
-          await rm(entryPath, { recursive: true, force: true });
+          await rm(join(pnpmDir, entry), { recursive: true, force: true });
           totalRemoved++;
           console.log(`[prune-standalone] removed .pnpm/${entry}`);
         } catch (err) {
