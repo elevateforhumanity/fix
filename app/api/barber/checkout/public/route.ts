@@ -214,6 +214,8 @@ async function _POST(request: NextRequest) {
         submit: {
           message: payment_type === 'bnpl'
             ? 'Select Klarna or Afterpay below to split into installments.'
+            : payment_type === 'payment_plan'
+            ? `By completing this payment you authorize Elevate for Humanity to automatically charge the card above $${(weeklyPaymentCentsValue / 100).toFixed(2)} every Friday for ${weeksRemaining} weeks until your $${TUITION_DOLLARS.toLocaleString()} balance is paid in full.`
             : `Total program tuition: $${TUITION_DOLLARS.toLocaleString()}.`,
         },
       },
