@@ -103,3 +103,12 @@ pnpm audit:hero-banners
 pnpm test:e2e tests/e2e/critical-flows.spec.ts
 pnpm audit-rls
 ```
+
+---
+
+## Same-day remediation applied (2026-04-19 follow-up)
+
+- Fixed build-blocking syntax error in `/lib/supabaseAdmin.ts` (removed invalid `await` usage in proxy getter).
+- Migrated `/app/api/grants/draft/route.ts` to canonical admin client import (`@/lib/supabase/admin`).
+- Removed duplicate route sources under `/app/partners/barbershop-apprenticeship/*` that conflicted with `/(onboarding)/...` pages (`forms`, `handbook`, `policy-acknowledgment`, `sign-mou`).
+- Result: duplicate-route startup blocker is resolved; remaining build failure in this environment is external font fetch (`fonts.googleapis.com`), and test failures remain pre-existing.
