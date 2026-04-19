@@ -157,7 +157,7 @@ export default function RequiredFormsPage() {
       {/* Hero */}
       <section className="relative py-16 overflow-hidden">
         <Image
-          src="/images/programs-hq/barber-hero.jpg"
+          src="/images/pages/barber-hero-main.jpg"
           alt="Barbershop partner forms"
           fill
           className="object-cover"

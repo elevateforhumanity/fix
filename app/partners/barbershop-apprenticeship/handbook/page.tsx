@@ -167,7 +167,7 @@ export default function PartnerHandbookPage() {
       {/* Hero */}
       <section className="relative py-16 overflow-hidden">
         <Image
-          src="/images/programs-hq/barber-training.jpg"
+          src="/images/pages/barber-training.jpg"
           alt="Barber training session"
           fill
           className="object-cover"

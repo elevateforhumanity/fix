@@ -313,7 +313,7 @@ export default function OnboardingDocumentsPage() {
 
       {/* Hero Image */}
       <section className="relative h-[160px] sm:h-[220px] md:h-[280px]">
-        <Image src="/images/heroes-hq/success-hero.jpg" alt="Student portal" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/comp-home-highlight-success.jpg" alt="Student portal" fill sizes="100vw" className="object-cover" priority />
       </section>
         <div className="text-center">
           <Loader2 className="w-8 h-8 text-brand-blue-600 animate-spin mx-auto mb-4" />

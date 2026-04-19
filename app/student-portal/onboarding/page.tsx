@@ -213,7 +213,7 @@ export default function StudentOnboardingPage() {
     <div className="min-h-screen bg-slate-50">
       {/* Hero Image */}
       <section className="relative h-[160px] sm:h-[220px] md:h-[280px]">
-        <Image src="/images/heroes-hq/success-hero.jpg" alt="Student onboarding" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/comp-home-highlight-success.jpg" alt="Student onboarding" fill sizes="100vw" className="object-cover" priority />
       </section>
 
       <div className="max-w-3xl mx-auto px-4 py-12">

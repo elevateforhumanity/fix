@@ -181,7 +181,7 @@ export default function PolicyAcknowledgmentPage() {
       {/* Hero */}
       <section className="relative py-12 overflow-hidden">
         <Image
-          src="/images/programs-hq/barber-training.jpg"
+          src="/images/pages/barber-training.jpg"
           alt="Policy acknowledgment"
           fill
           className="object-cover"

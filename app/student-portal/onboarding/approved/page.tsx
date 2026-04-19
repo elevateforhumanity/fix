@@ -130,7 +130,7 @@ export default async function ApprovedPage() {
 
       {/* Hero Image */}
       <section className="relative h-[160px] sm:h-[220px] md:h-[280px]">
-        <Image src="/images/heroes-hq/success-hero.jpg" alt="Student portal" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/images/pages/comp-home-highlight-success.jpg" alt="Student portal" fill sizes="100vw" className="object-cover" priority />
       </section>
       <div className="max-w-2xl mx-auto px-6">
         <div className="text-center mb-10">
