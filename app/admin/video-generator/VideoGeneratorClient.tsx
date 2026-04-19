@@ -7,6 +7,10 @@ import { Video, Play, Loader2, XCircle, RefreshCw } from 'lucide-react';
 interface GenerationStatus {
   total: number;
   withVideos: number;
+  // Legacy/compatibility fields from older API responses:
+  // - withoutVideos: prior single pending-count field
+  // - withoutMedia + withMp3Only: split pending counts
+  // Canonical field is `needsGeneration`.
   withoutVideos?: number;
   withoutMedia?: number;
   withMp3Only?: number;
@@ -29,8 +33,7 @@ export default function VideoGeneratorPage() {
   const [results, setResults] = useState<GenerationResult[]>([]);
   const [batchSize, setBatchSize] = useState(5);
   const [error, setError] = useState<string | null>(null);
-  // API compatibility: canonical field is `needsGeneration`; older payloads may
-  // expose `withoutVideos` or split counts via `withoutMedia` + `withMp3Only`.
+  // `0` is a valid canonical value, so we intentionally use `??` (not `||`).
   const pendingLessons =
     status?.needsGeneration ??
     status?.withoutVideos ??
