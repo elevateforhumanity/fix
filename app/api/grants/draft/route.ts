@@ -12,6 +12,7 @@ import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 import { auditMutation } from '@/lib/api/withAudit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
+import { apiAuthGuard } from '@/lib/admin/guards';
 
 // Lazy-load OpenAI client to prevent build-time errors
 function getOpenAI() {
@@ -23,8 +24,11 @@ function getOpenAI() {
 }
 
 async function _POST(req: NextRequest) {
-    const rateLimited = await applyRateLimit(req, 'api');
-    if (rateLimited) return rateLimited;
+  const rateLimited = await applyRateLimit(req, 'api');
+  if (rateLimited) return rateLimited;
+
+  const auth = await apiAuthGuard(req);
+  if (auth.error) return auth.error;
 
   if (
     !process.env.OPENAI_API_KEY ||

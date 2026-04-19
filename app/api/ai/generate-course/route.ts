@@ -105,7 +105,7 @@ async function _POST(req: NextRequest) {
       {
         error: 'Failed to generate content',
         message: toErrorMessage(error),
-        details: error.response?.data || error.toString(),
+        details: error.response?.data || 'See server logs',
       },
       { status: 500 }
     );
