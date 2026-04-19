@@ -70,10 +70,10 @@ import { createClient } from '@supabase/supabase-js';
 
 // ─── Supabase ─────────────────────────────────────────────────────────────────
 
-const sb = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const HAS_SUPABASE_ENV = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+const sb = HAS_SUPABASE_ENV
+  ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  : null;
 
 // ─── Course registry ──────────────────────────────────────────────────────────
 
@@ -124,6 +124,7 @@ const FORCE         = args.includes('--force');
 const DRY_RUN       = args.includes('--dry-run');
 const CHAPTER_MODE  = args.includes('--chapter');
 const UPLOAD        = args.includes('--upload');  // upload to Supabase after generating
+const SOURCE_MODE = (getArg('--source') ?? 'auto').toLowerCase(); // auto | db | generated
 const TTS_TIMEOUT_MS = parseInt(getArg('--tts-timeout-ms') ?? '120000', 10);
 const FFMPEG_TIMEOUT_MS = parseInt(getArg('--ffmpeg-timeout-ms') ?? '240000', 10);
 const TTS_MAX_RETRIES = parseInt(getArg('--tts-retries') ?? '3', 10);
@@ -351,12 +352,47 @@ function concatScenes(scenePaths: string[], outPath: string, tmpDir: string): vo
 // ─── Supabase upload ──────────────────────────────────────────────────────────
 
 async function uploadToSupabase(localPath: string, course: CourseConfig, slug: string): Promise<string> {
+  if (!sb) throw new Error('Supabase is not configured for upload');
   const file = fs.readFileSync(localPath);
   const storagePath = `${course.storagePrefix}/${slug}.mp4`;
   const { error } = await sb.storage.from(course.storageBucket).upload(storagePath, file, { contentType: 'video/mp4', upsert: true });
   if (error) throw new Error(`Upload failed: ${error.message}`);
   const { data } = sb.storage.from(course.storageBucket).getPublicUrl(storagePath);
   return data.publicUrl;
+}
+
+interface LessonRow {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  orderValue: number;
+}
+
+function loadLessonsFromGeneratedCourse(courseKey: string): LessonRow[] {
+  if (courseKey !== 'barber') {
+    throw new Error(`Generated source is currently supported for barber only (requested: ${courseKey})`);
+  }
+  const generatedPath = path.join(process.cwd(), 'scripts/generated/barber-course.generated.json');
+  if (!fs.existsSync(generatedPath)) {
+    throw new Error(`Generated course file not found: ${generatedPath}. Run "pnpm course:build" first.`);
+  }
+  const json = JSON.parse(fs.readFileSync(generatedPath, 'utf8')) as {
+    modules?: Array<{ lessons?: Array<{ slug: string; title: string; content: string }> }>;
+  };
+  const rows: LessonRow[] = [];
+  (json.modules ?? []).forEach((mod, modIdx) => {
+    (mod.lessons ?? []).forEach((lesson, lessonIdx) => {
+      rows.push({
+        id: lesson.slug,
+        slug: lesson.slug,
+        title: lesson.title,
+        content: lesson.content ?? '',
+        orderValue: (modIdx + 1) * 1000 + (lessonIdx + 1),
+      });
+    });
+  });
+  return rows;
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -370,21 +406,44 @@ async function main() {
 
   fs.mkdirSync(course.outDir, { recursive: true });
 
-  const { data: lessons, error } = await sb
-    .from(course.table)
-    .select(`id, title, slug, content, ${course.orderColumn}`)
-    .eq(course.idColumn, course.id)
-    .order(course.orderColumn);
+  const useGeneratedSource = SOURCE_MODE === 'generated' || (SOURCE_MODE === 'auto' && !HAS_SUPABASE_ENV);
+  const useDbSource = SOURCE_MODE === 'db' || (SOURCE_MODE === 'auto' && HAS_SUPABASE_ENV);
+  if (!useGeneratedSource && !useDbSource) {
+    console.error(`Invalid --source "${SOURCE_MODE}". Use one of: auto | db | generated`);
+    process.exit(1);
+  }
+  if (useDbSource && !sb) {
+    console.error('Supabase env vars are required for --source db');
+    process.exit(1);
+  }
 
-  if (error) { console.error('DB error:', error.message); process.exit(1); }
-  if (!lessons?.length) { console.error('No lessons found'); process.exit(1); }
+  const sourceLabel = useGeneratedSource ? 'generated course file' : 'database';
+  const lessons: LessonRow[] = useGeneratedSource
+    ? loadLessonsFromGeneratedCourse(COURSE_KEY)
+    : await (async () => {
+      const { data, error } = await sb!
+        .from(course.table)
+        .select(`id, title, slug, content, ${course.orderColumn}`)
+        .eq(course.idColumn, course.id)
+        .order(course.orderColumn);
+      if (error) throw new Error(`DB error: ${error.message}`);
+      return (data ?? []).map((l: any) => ({
+        id: l.id,
+        slug: l.slug,
+        title: l.title,
+        content: l.content ?? '',
+        orderValue: l[course.orderColumn],
+      }));
+    })();
 
-  let targets = lessons as any[];
+  if (!lessons.length) { console.error(`No lessons found from ${sourceLabel}`); process.exit(1); }
+
+  let targets = lessons;
   if (SLUG_FILTER)   targets = targets.filter(l => l.slug === SLUG_FILTER);
-  if (MODULE_FILTER) targets = targets.filter(l => Math.floor(l[course.orderColumn] / 1000) === MODULE_FILTER);
+  if (MODULE_FILTER) targets = targets.filter(l => Math.floor(l.orderValue / 1000) === MODULE_FILTER);
   if (!targets.length) { console.error('No lessons matched filters'); process.exit(1); }
 
-  console.log(`\n═══ ${course.label} — ${targets.length} lesson(s) ═══\n`);
+  console.log(`\n═══ ${course.label} — ${targets.length} lesson(s) [source: ${sourceLabel}] ═══\n`);
 
   let ok = 0, skipped = 0, failed = 0;
   let fallbackReused = 0;
@@ -392,7 +451,7 @@ async function main() {
 
   for (let i = 0; i < targets.length; i++) {
     const lesson = targets[i];
-    const modNum  = Math.floor(lesson[course.orderColumn] / 1000);
+    const modNum  = Math.floor(lesson.orderValue / 1000);
     const outPath = path.join(course.outDir, `${lesson.slug}.mp4`);
     const prefix  = `[${i + 1}/${targets.length}] ${lesson.slug}`;
 
@@ -448,9 +507,13 @@ async function main() {
         process.stdout.write(` ✅\n`);
       }
 
-      const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
-      if (upErr) process.stdout.write(`        ⚠️  DB: ${upErr.message}\n`);
-      else       process.stdout.write(`        DB ✅\n`);
+      if (!useGeneratedSource && sb) {
+        const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
+        if (upErr) process.stdout.write(`        ⚠️  DB: ${upErr.message}\n`);
+        else       process.stdout.write(`        DB ✅\n`);
+      } else {
+        process.stdout.write(`        DB skipped (generated source mode)\n`);
+      }
 
       ok++;
       previousVideoPath = outPath;
@@ -459,9 +522,11 @@ async function main() {
         try {
           fs.copyFileSync(previousVideoPath, outPath);
           const videoUrl = `/videos/${path.basename(course.outDir)}/${lesson.slug}.mp4`;
-          const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
-          if (upErr) {
-            throw new Error(`fallback copy succeeded but DB update failed: ${upErr.message}`);
+          if (!useGeneratedSource && sb) {
+            const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
+            if (upErr) {
+              throw new Error(`fallback copy succeeded but DB update failed: ${upErr.message}`);
+            }
           }
           console.warn(`  ⚠️    ${prefix} — generation failed (${err.message}); reused previous video`);
           ok++;
