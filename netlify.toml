@@ -33,6 +33,7 @@
   # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are no longer
   # respected in Next.js 16 — they have been replaced by TURBOPACK.
   TURBOPACK = "0"
+  NEXT_SKIP_TURBOPACK = "1"
   NEXT_DISABLE_MANAGED_TURBOPACK = "1"
   NEXT_DISABLE_TURBOPACK = "1"
   NETLIFY_USE_PNPM = "true"
@@ -668,7 +669,6 @@
   to = "/404"
   status = 410
   force = true
-
 
 
 
