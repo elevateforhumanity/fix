@@ -64,6 +64,17 @@ const PRUNE_PACKAGES = [
   // Misc
   '@mailchimp', 'csv-parse', 'sitemap', 'jszip',
   'fast-xml-parser', 'marked', 'cheerio',
+  // Heavy SDKs — in serverExternalPackages, loaded from node_modules not bundled
+  'openai', 'stripe',
+  '@aws-sdk', '@smithy',
+  'ioredis', '@upstash', '@redis',
+  '@sendgrid', 'nodemailer', 'resend',
+  '@sentry', '@opentelemetry',
+  'socket.io', 'socket.io-client', 'engine.io',
+  // Build tools
+  'esbuild', 'rollup', 'turbopack',
+  // Test tools
+  'jest', '@jest', '@storybook',
 ];
 
 async function pruneDir(nodeModulesDir) {
@@ -121,6 +132,13 @@ module.exports = {
         return;
       }
 
+      // Log handler size before pruning
+      try {
+        const { execSync } = require('child_process');
+        const sizeBefore = execSync(`du -sh ${dirs[0]} 2>/dev/null || echo 'unknown'`).toString().trim();
+        console.log(`[prune-handler] handler size BEFORE: ${sizeBefore}`);
+      } catch {}
+
       let total = 0;
       for (const dir of dirs) {
         console.log(`[prune-handler] pruning ${dir}`);
@@ -142,6 +160,12 @@ module.exports = {
         }
       }
 
+      // Log handler size after pruning
+      try {
+        const { execSync } = require('child_process');
+        const sizeAfter = execSync(`du -sh ${dirs[0]} 2>/dev/null || echo 'unknown'`).toString().trim();
+        console.log(`[prune-handler] handler size AFTER: ${sizeAfter}`);
+      } catch {}
       console.log(`[prune-handler] done — removed ${total} packages`);
     } catch (err) {
       // Never fail the build — pruning is best-effort
