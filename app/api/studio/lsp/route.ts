@@ -1,16 +1,13 @@
 import { logger } from '@/lib/logger';
+export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireAuth } from '@/lib/api/requireAuth';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
 
-export const runtime = 'nodejs';
-
-const getOpenAI = () => new (_requireOpenAI())({
+const getOpenAI = () => new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
@@ -228,4 +225,4 @@ Only include real issues, not style preferences.`;
     return NextResponse.json({ diagnostics: [] });
   }
 }
-export const POST = withRuntime(withApiAudit('/api/studio/lsp', _POST));
+export const POST = withApiAudit('/api/studio/lsp', _POST);

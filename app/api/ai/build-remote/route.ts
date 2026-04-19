@@ -1,18 +1,15 @@
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { apiAuthGuard } from '@/lib/admin/guards';
 
 // Lazy-load OpenAI client to prevent build-time errors
 function getOpenAI() {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
+    throw new Error('OPENAI_API_KEY not configured');
   }
-  return new (_requireOpenAI())({ apiKey });
+  return new OpenAI({ apiKey });
 }
 
 /**
@@ -29,9 +26,6 @@ async function _POST(request: NextRequest) {
   try {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
-  const auth = await apiAuthGuard(request);
-  if (auth.error) return auth.error;
-
 
     const body = await request.json();
     const { 
@@ -135,8 +129,6 @@ add_action('wp_enqueue_scripts', 'elevate_lms_init');
 // Add to page code for custom integration
 import { elevateLMS } from 'public/elevate-lms.js';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-
-import { withRuntime } from '@/lib/api/withRuntime';
 
 $w.onReady(function () {
     elevateLMS.init({

@@ -1,38 +1,30 @@
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 // app/api/grants/draft/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { logger } from '@/lib/logger';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 import { auditMutation } from '@/lib/api/withAudit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { apiRequireAdmin } from '@/lib/admin/guards';
-import { withRuntime } from '@/lib/api/withRuntime';
-
-export const runtime = 'nodejs';
-export const maxDuration = 60;
-
-export const dynamic = 'force-dynamic';
 
 // Lazy-load OpenAI client to prevent build-time errors
 function getOpenAI() {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey || apiKey === 'Content-key') {
-    return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
+    throw new Error('OPENAI_API_KEY not configured');
   }
-  return new (_requireOpenAI())({ apiKey });
+  return new OpenAI({ apiKey });
 }
 
 async function _POST(req: NextRequest) {
     const rateLimited = await applyRateLimit(req, 'api');
     if (rateLimited) return rateLimited;
-  const auth = await apiRequireAdmin(req);
-  const supabaseAdmin = await getAdminClient();
-
 
   if (
     !process.env.OPENAI_API_KEY ||
@@ -58,7 +50,7 @@ async function _POST(req: NextRequest) {
       .from('grant_opportunities')
       .select('*')
       .eq('id', grantId)
-      .maybeSingle();
+      .single();
 
     if (grantError || !grant) {
       logger.error(grantError);
@@ -69,7 +61,7 @@ async function _POST(req: NextRequest) {
       .from('entities')
       .select('*')
       .eq('id', entityId)
-      .maybeSingle();
+      .single();
 
     if (entityError || !entity) {
       logger.error(entityError);
@@ -141,7 +133,7 @@ Focus on workforce, community impact, and elevation if applicable.
         { onConflict: 'grant_id,entity_id' }
       )
       .select()
-      .maybeSingle();
+      .single();
 
     if (appError || !app) {
       logger.error(appError);
@@ -164,4 +156,4 @@ Focus on workforce, community impact, and elevation if applicable.
     );
   }
 }
-export const POST = withRuntime(withApiAudit('/api/grants/draft', _POST));
+export const POST = withApiAudit('/api/grants/draft', _POST);

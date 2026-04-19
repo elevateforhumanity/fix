@@ -1,3 +1,4 @@
+import OpenAI from 'openai';
 import type { AIProvider, AIImageProvider, ChatCompletionOptions, ChatCompletionResult, ImageGenerationOptions, GeneratedImage } from '../types';
 
 /**
@@ -5,12 +6,10 @@ import type { AIProvider, AIImageProvider, ChatCompletionOptions, ChatCompletion
  */
 export class OpenAIProvider implements AIProvider, AIImageProvider {
   readonly name = 'openai' as const;
-  private client: any = null;
+  private client: OpenAI | null = null;
 
-  private getClient() {
+  private getClient(): OpenAI {
     if (this.client) return this.client;
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const OpenAI = require('openai').default;
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey || apiKey === 'placeholder-build-key') {
       throw new Error('OPENAI_API_KEY not configured');

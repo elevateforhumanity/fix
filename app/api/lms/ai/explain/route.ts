@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { apiAuthGuard } from '@/lib/admin/guards';
 import { logger } from '@/lib/logger';
 
 import { hydrateProcessEnv } from '@/lib/secrets';
 
-let _client: import('openai').default | null = null;
+let _client: OpenAI | null = null;
 function getClient() {
-  if (!_client) _client = new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY });
+  if (!_client) _client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   return _client;
 }
 

@@ -1,16 +1,13 @@
+export const runtime = 'nodejs';
+export const maxDuration = 60;
 
 import { NextRequest, NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { logger } from '@/lib/logger';
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireAuth } from '@/lib/api/requireAuth';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
-
-export const runtime = 'nodejs';
-export const maxDuration = 60;
 
 async function _POST(req: NextRequest) {
   try {
@@ -37,7 +34,7 @@ async function _POST(req: NextRequest) {
       );
     }
 
-    const client = new (_requireOpenAI())({
+    const client = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
 
@@ -105,9 +102,13 @@ async function _POST(req: NextRequest) {
     );
 
     return NextResponse.json(
-      { error: 'Failed to generate content' },
+      {
+        error: 'Failed to generate content',
+        message: toErrorMessage(error),
+        details: error.response?.data || error.toString(),
+      },
       { status: 500 }
     );
   }
 }
-export const POST = withRuntime(withApiAudit('/api/ai/generate-course', _POST));
+export const POST = withApiAudit('/api/ai/generate-course', _POST);

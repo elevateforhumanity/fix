@@ -1,21 +1,18 @@
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import * as cheerio from 'cheerio';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireAuth } from '@/lib/api/requireAuth';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
-import { withRuntime } from '@/lib/api/withRuntime';
-
 // Lazy-load OpenAI client to prevent build-time errors
 function getOpenAI() {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
+    throw new Error('OPENAI_API_KEY not configured');
   }
-  return new (_requireOpenAI())({ apiKey });
+  return new OpenAI({ apiKey });
 }
 
 /**
@@ -326,4 +323,4 @@ Return ONLY valid JSON.`;
     };
   }
 }
-export const POST = withRuntime(withApiAudit('/api/ai/import-site', _POST));
+export const POST = withApiAudit('/api/ai/import-site', _POST);

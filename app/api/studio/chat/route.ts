@@ -1,20 +1,15 @@
-// PUBLIC ROUTE: studio chat — auth inside handler
 import { logger } from '@/lib/logger';
-import { getAdminClient } from '@/lib/supabase/admin';
-
-import { NextRequest, NextResponse } from 'next/server';
-
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
-import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
-
+import { createAdminClient } from '@/lib/supabase/admin';
 export const runtime = 'nodejs';
-
 export const dynamic = 'force-dynamic';
 
-const getOpenAI = () => new (_requireOpenAI())({
+import { NextRequest, NextResponse } from 'next/server';
+import { supabaseServer } from '@/lib/supabase-server';
+import OpenAI from 'openai';
+import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { withApiAudit } from '@/lib/audit/withApiAudit';
+
+const getOpenAI = () => new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
@@ -31,7 +26,7 @@ const userId = req.headers.get('x-user-id');
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const supabase = await getAdminClient();
+  const supabase = supabaseServer();
   
   let query = supabase
     .from('studio_chat_history')
@@ -108,7 +103,7 @@ Be concise, direct, and provide working code. Focus on the task at hand.`;
             
             // Save to history if user is authenticated
             if (userId && repo_id) {
-              const supabase = await getAdminClient();
+              const supabase = supabaseServer();
               const updatedMessages = [...messages, { role: 'assistant', content: fullContent }];
               
               if (session_id) {
@@ -134,8 +129,7 @@ Be concise, direct, and provide working code. Focus on the task at hand.`;
             controller.enqueue(encoder.encode('data: [DONE]\n\n'));
             controller.close();
           } catch (error) {
-            logger.error('studio/chat stream error', error instanceof Error ? error : undefined);
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: 'Stream error' })}\n\n`));
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: String(error) })}\n\n`));
             controller.close();
           }
         },
@@ -164,7 +158,7 @@ Be concise, direct, and provide working code. Focus on the task at hand.`;
 
       // Save to history
       if (userId && repo_id) {
-        const supabase = await getAdminClient();
+        const supabase = supabaseServer();
         const updatedMessages = [...messages, { role: 'assistant', content }];
         
         if (session_id) {
@@ -200,5 +194,5 @@ Be concise, direct, and provide working code. Focus on the task at hand.`;
     );
   }
 }
-export const GET = withRuntime(withApiAudit('/api/studio/chat', _GET));
-export const POST = withRuntime(withApiAudit('/api/studio/chat', _POST));
+export const GET = withApiAudit('/api/studio/chat', _GET);
+export const POST = withApiAudit('/api/studio/chat', _POST);

@@ -18,8 +18,7 @@
  */
 
 import { NextRequest } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { apiRequireAdmin } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError } from '@/lib/api/safe-error';
@@ -29,11 +28,11 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
-const getOpenAI = () => new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY });
+const getOpenAI = () => new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // ── Tool definitions ────────────────────────────────────────────────────────
 
-const TOOLS: import('openai').default.Chat.ChatCompletionTool[] = [
+const TOOLS: OpenAI.Chat.ChatCompletionTool[] = [
   {
     type: 'function',
     function: {
@@ -450,7 +449,7 @@ export async function POST(req: NextRequest) {
         write(`\x1b[90m$ ${command}\x1b[0m`);
         write('');
 
-        const messages: import('openai').default.Chat.ChatCompletionMessageParam[] = [
+        const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
           {
             role: 'system',
             content: `You are the Elevate for Humanity admin command assistant. 

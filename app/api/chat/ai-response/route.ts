@@ -1,6 +1,9 @@
-// PUBLIC ROUTE: live support chat AI — rate-limited, no PII stored
 import { logger } from '@/lib/logger';
+import { createAdminClient } from '@/lib/supabase/admin';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
 
 /**
  * AI Chat Response API
@@ -9,19 +12,12 @@ import { logger } from '@/lib/logger';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
-
-export const runtime = 'nodejs';
-export const maxDuration = 60;
-
-export const dynamic = 'force-dynamic';
 
 const openai = process.env.OPENAI_API_KEY
-  ? new (_requireOpenAI())({
+  ? new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     })
   : null;
@@ -69,7 +65,7 @@ What would you like to know more about?`,
 - Nonprofit workforce development organization in Indianapolis, Indiana
 - DOL Registered Apprenticeship Sponsor (Barber program)
 - WIOA-approved training provider
-- Job Ready Indy-approved for justice-involved individuals
+- JRI-approved for justice-involved individuals
 - Training is 100% FREE for eligible participants
 
 **Programs We Offer:**
@@ -82,7 +78,7 @@ What would you like to know more about?`,
 **Funding Options:**
 - WIOA (Workforce Innovation and Opportunity Act) - Free for eligible low-income individuals
 - WRG (Workforce Ready Grant) - Indiana state funding
-- Job Ready Indy - For justice-involved individuals
+- JRI (Justice Reinvestment Initiative) - For justice-involved individuals
 - Self-pay options with payment plans available
 
 **Eligibility (General):**
@@ -173,4 +169,4 @@ Keep responses concise but helpful. Use bullet points for clarity when listing i
     });
   }
 }
-export const POST = withRuntime(withApiAudit('/api/chat/ai-response', _POST));
+export const POST = withApiAudit('/api/chat/ai-response', _POST);

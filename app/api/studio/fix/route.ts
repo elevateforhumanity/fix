@@ -1,18 +1,14 @@
 import { logger } from '@/lib/logger';
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireAuth } from '@/lib/api/requireAuth';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
 
-export const runtime = 'nodejs';
-
-export const dynamic = 'force-dynamic';
-
-const getOpenAI = () => new (_requireOpenAI())({
+const getOpenAI = () => new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
@@ -71,4 +67,4 @@ Provide ONLY the fixed code, no explanation. Return the complete fixed code.`;
     );
   }
 }
-export const POST = withRuntime(withApiAudit('/api/studio/fix', _POST));
+export const POST = withApiAudit('/api/studio/fix', _POST);

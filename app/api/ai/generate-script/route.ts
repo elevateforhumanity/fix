@@ -1,18 +1,15 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireAuth } from '@/lib/api/requireAuth';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-
-import { withRuntime } from '@/lib/api/withRuntime';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 function getOpenAIClient() {
-  return new (_requireOpenAI())({
+  return new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
 }
@@ -79,4 +76,4 @@ Write the complete script now:`;
     );
   }
 }
-export const POST = withRuntime(withApiAudit('/api/ai/generate-script', _POST));
+export const POST = withApiAudit('/api/ai/generate-script', _POST);

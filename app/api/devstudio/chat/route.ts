@@ -1,14 +1,12 @@
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+import { createAdminClient } from '@/lib/supabase/admin';
+import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
-import { withRuntime } from '@/lib/api/withRuntime';
-
-const getOpenAI = () => new (_requireOpenAI())({
+const getOpenAI = () => new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
@@ -53,9 +51,10 @@ Be concise and direct. Provide working code.`;
     // Log interaction to database
     try {
       const supabase = await createClient();
+  const _admin = createAdminClient(); const db = _admin || supabase;
       const { data: { user } } = await supabase.auth.getUser();
       const userMessage = messages[messages.length - 1]?.content || '';
-      await supabase.from('devstudio_chat_log').insert({
+      await db.from('devstudio_chat_log').insert({
         user_id: user?.id || null,
         user_message: userMessage,
         assistant_response: assistantMessage,
@@ -78,4 +77,4 @@ Be concise and direct. Provide working code.`;
     );
   }
 }
-export const POST = withRuntime(withApiAudit('/api/devstudio/chat', _POST));
+export const POST = withApiAudit('/api/devstudio/chat', _POST);

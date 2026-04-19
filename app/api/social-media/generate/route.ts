@@ -1,26 +1,22 @@
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { NextResponse } from 'next/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-function _requireOpenAI() { return require('openai').default ?? require('openai'); }
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
+import OpenAI from 'openai';
 import { logger } from '@/lib/logger';
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { withRuntime } from '@/lib/api/withRuntime';
-
-export const runtime = 'nodejs';
-export const maxDuration = 60;
-
-export const dynamic = 'force-dynamic';
 
 const openai = process.env.OPENAI_API_KEY
-  ? new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY })
+  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   : null;
 
 const PROGRAM_INFO = {
   barber:
-    'DOL Registered Apprenticeship. 2,000 hours for barber and cosmetology. Earn while learning. State-licensed. WIOA-fundable.',
+    'DOL Registered Apprenticeship. 2,000 hours for barber, 1,500 for cosmetology. Earn while learning. State-licensed. WIOA-fundable.',
   cna: 'Certified Nursing Assistant. 4-6 weeks. High demand in Indianapolis hospitals. $16-20/hour starting. WIOA-funded.',
   cdl: "Commercial Driver's License Class A. 4-6 weeks. $50K-70K/year. High demand. WIOA-funded.",
   hvac: 'HVAC Technician. EPA 608 certification. 6-12 months. $45K-65K/year. ETPL-approved.',
@@ -36,9 +32,6 @@ const PROGRAM_INFO = {
 };
 
 async function _POST(req: Request) {
-  const auth = await apiRequireAdmin(request);
-  if (auth.error) return auth.error;
-
   try {
     const rateLimited = await applyRateLimit(req, 'contact');
     if (rateLimited) return rateLimited;
@@ -57,8 +50,9 @@ async function _POST(req: Request) {
       try {
         const { createClient } = await import('@/lib/supabase/server');
         const supabase = await createClient();
+  const _admin = createAdminClient(); const db = _admin || supabase;
 
-        const { data: blogPosts } = await supabase
+        const { data: blogPosts } = await db
           .from('blog_posts')
           .select('title, excerpt, slug')
           .eq('published', true)
@@ -165,4 +159,4 @@ Return ONLY a JSON array of ${count} posts, no other text.`;
     );
   }
 }
-export const POST = withRuntime(withApiAudit('/api/social-media/generate', _POST));
+export const POST = withApiAudit('/api/social-media/generate', _POST);
