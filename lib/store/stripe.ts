@@ -1,5 +1,6 @@
+import 'server-only';
 import { getStripe } from '@/lib/stripe/client';
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 
 /**
  * Create a Stripe checkout session for a product

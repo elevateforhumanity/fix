@@ -1,6 +1,6 @@
 import { logger } from '@/lib/logger';
 
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 
 // Instantiate once at module scope using the canonical getStripe() helper so
 // the key is read at request time (after hydrateProcessEnv). Falls back to a

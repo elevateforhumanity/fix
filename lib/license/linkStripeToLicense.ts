@@ -1,10 +1,11 @@
+import 'server-only';
 import { logger } from '@/lib/logger';
 /**
  * Shared license-linking logic for Stripe webhooks.
  * Called by both /api/license/webhook and /api/licenses/webhook.
  */
 
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { getStripe } from '@/lib/stripe/client';
 import { createAdminClient, getAdminClient } from '@/lib/supabase/admin';
 

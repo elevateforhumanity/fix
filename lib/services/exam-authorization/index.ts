@@ -1,3 +1,4 @@
+import 'server-only';
 // Exam authorization pipeline orchestrator.
 //
 // Single entry point for all certification workflows regardless of provider.

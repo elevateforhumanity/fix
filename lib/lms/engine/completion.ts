@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * recordStepCompletion / recordStepUncompletion / recordCheckpointAttempt
  *

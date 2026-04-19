@@ -1,3 +1,4 @@
+import 'server-only';
 
 /**
  * Partner LMS Payment Integration

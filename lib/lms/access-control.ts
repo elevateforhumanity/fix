@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * LMS access control — server-side enforcement only.
  *

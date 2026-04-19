@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { getAdminClient } from '@/lib/supabase/admin';
-import { getAllBlueprints } from '@/lib/curriculum/blueprints';
+import { loadAllBlueprints } from '@/lib/curriculum/load-blueprint';
 import { logger } from '@/lib/logger';
 
 export type AdminCourseStatus = 'complete' | 'partial' | 'structured' | 'empty';
@@ -38,7 +38,7 @@ export async function getAdminCoursesOverview(): Promise<AdminCourseOverview[]> 
   }
 
   // Build blueprint index keyed by programSlug for O(1) lookup
-  const blueprints = getAllBlueprints();
+  const blueprints = await loadAllBlueprints();
   const bpByProgramSlug = new Map(
     blueprints
       .filter(bp => bp.programSlug)

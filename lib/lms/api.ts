@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * Server-side data access for LMS pages.
  * Uses Supabase admin client directly — do not call fetch('/api/...') from server components.

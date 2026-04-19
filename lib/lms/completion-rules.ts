@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * Program-specific completion rules engine.
  *

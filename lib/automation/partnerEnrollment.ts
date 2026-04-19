@@ -1,3 +1,4 @@
+import 'server-only';
 
 // lib/automation/partnerEnrollment.ts
 import { getAdminClient } from '@/lib/supabase/admin';

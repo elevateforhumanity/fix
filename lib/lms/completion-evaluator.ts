@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * Completion rule evaluator.
  *

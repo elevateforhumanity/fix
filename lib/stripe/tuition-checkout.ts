@@ -1,3 +1,4 @@
+import 'server-only';
 import { logger } from '@/lib/logger';
 
 /**
@@ -9,7 +10,7 @@ import { logger } from '@/lib/logger';
  * 3. School Installment Plan - Two-step: Deposit checkout + Subscription creation
  */
 
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { stripe } from '@/lib/stripe/client';
 import { getTuitionConfig, PAYMENT_METHODS } from './tuition-config';
 

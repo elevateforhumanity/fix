@@ -1,3 +1,4 @@
+import 'server-only';
 import { getStripe } from '@/lib/stripe/client';
 import { gh, parseRepo } from "../github";
 

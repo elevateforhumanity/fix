@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * lib/lms/engine/org-scope.ts
  *

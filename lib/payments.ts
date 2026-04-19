@@ -1,5 +1,5 @@
 
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { createClient } from '@/lib/supabase/server';
 
 import { logAuditEvent } from '@/lib/audit';

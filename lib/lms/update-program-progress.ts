@@ -1,3 +1,4 @@
+import 'server-only';
 /**
  * updateProgramProgress — writes a durable summary row to lms_progress
  * after any LMS activity (quiz submit, lesson complete, assignment submit).

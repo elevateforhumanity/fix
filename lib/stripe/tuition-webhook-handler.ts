@@ -1,3 +1,4 @@
+import 'server-only';
 import { logger } from '@/lib/logger';
 /**
  * TUITION WEBHOOK HANDLER
@@ -10,7 +11,7 @@ import { logger } from '@/lib/logger';
  */
 
 import { getStripe } from '@/lib/stripe/client';
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { resend } from '@/lib/resend';
 import { setAuditContext } from '@/lib/audit-context';

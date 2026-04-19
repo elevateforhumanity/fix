@@ -13,7 +13,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiRequireAdmin } from '@/lib/admin/guards';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
-import { getAllBlueprints } from '@/lib/curriculum/blueprints';
+import { loadAllBlueprints } from '@/lib/curriculum/load-blueprint';
 import { generateCourseFromBlueprint } from '@/lib/curriculum/generate-course-from-blueprint';
 export const runtime = 'nodejs';
 
@@ -42,7 +42,7 @@ export async function POST(
   const programSlug = (course.programs as { slug: string } | null)?.slug ?? null;
   if (!programSlug) return safeError('Course has no linked program — cannot determine blueprint', 400);
 
-  const blueprint = getAllBlueprints().find(bp => bp.programSlug === programSlug);
+  const blueprint = (await loadAllBlueprints()).find(bp => bp.programSlug === programSlug);
   if (!blueprint)  return safeError(`No blueprint registered for program slug: ${programSlug}`, 400);
 
   const programId = course.program_id as string | null;
