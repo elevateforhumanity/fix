@@ -33,7 +33,9 @@ export default function VideoGeneratorPage() {
   const [results, setResults] = useState<GenerationResult[]>([]);
   const [batchSize, setBatchSize] = useState(5);
   const [error, setError] = useState<string | null>(null);
-  // `0` is a valid canonical value, so we intentionally use `??` (not `||`).
+  // Compatibility fallback order: newest canonical `needsGeneration` →
+  // legacy `withoutVideos` → derived sum from split legacy counters.
+  // `0` is valid, so we intentionally use `??` (not `||`).
   const pendingLessons =
     status?.needsGeneration ??
     status?.withoutVideos ??

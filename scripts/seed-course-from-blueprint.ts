@@ -107,14 +107,14 @@ async function main() {
     { auth: { persistSession: false } }
   );
 
-  console.log(`\nSeeding course from blueprint: ${blueprint!.id}`);
+  console.log(`\nSeeding course from blueprint: ${blueprint.id}`);
   console.log(`Program ID : ${programId}`);
   console.log(`Mode       : ${modeArg}`);
-  console.log(`Modules    : ${blueprint!.modules.length}`);
+  console.log(`Modules    : ${blueprint.modules.length}`);
   console.log('');
 
   // ── LQS validation — hard gate before any DB writes ──────────────────
-  const allLessons = blueprint!.modules.flatMap(m => m.lessons ?? []);
+  const allLessons = blueprint.modules.flatMap(m => m.lessons ?? []);
   if (allLessons.length > 0) {
     console.log(`Running LQS validation on ${allLessons.length} lessons...`);
     const lqsResults = validateBlueprintLessons(allLessons);
@@ -137,9 +137,9 @@ async function main() {
   // ─────────────────────────────────────────────────────────────────────
 
   const result = await buildCanonicalCourseFromBlueprint({
-    blueprint: blueprint!,
+    blueprint,
     programId: programId!,
-    courseSlug: blueprint!.programSlug,
+    courseSlug: blueprint.programSlug,
     mode: modeArg as 'replace' | 'missing-only',
   });
 
@@ -176,8 +176,8 @@ async function main() {
   // ── Certification pathway ─────────────────────────────────────────────
   // Write program_certification_pathways row so auto_create_exam_authorization
   // trigger can fire when a learner completes all checkpoints.
-  if (blueprint!.certificationPathway) {
-    const cp = blueprint!.certificationPathway;
+  if (blueprint.certificationPathway) {
+    const cp = blueprint.certificationPathway;
     const { error: pathwayError } = await supabase
       .from('program_certification_pathways')
       .upsert(
