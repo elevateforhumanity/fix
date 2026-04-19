@@ -76,7 +76,7 @@ export default function PartnerCompetenciesPage() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Failed to verify rep');
       setEntries(prev => prev.filter(item => item.id !== entry.id));
-      setSuccess(`Verified ${entry.serviceCount} rep${entry.serviceCount !== 1 ? 's' : ''} for ${entry.apprenticeName}.`);
+      setSuccess(`Verified ${entry.serviceCount} rep${entry.serviceCount !== 1 ? 's' : ''} successfully.`);
     } catch (err: unknown) {
       logger.error(
         'Failed to verify competency rep',

@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       .eq('is_active', true)
       .maybeSingle();
 
-    const apprenticeIdSet = new Set<string>();
+    const uniqueApprenticeIds = new Set<string>();
 
     if (supervisorRow) {
       const { data: placements } = await db
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
         .eq('status', 'active');
 
       (placements ?? []).forEach(p => {
-        if (p.student_id) apprenticeIdSet.add(p.student_id);
+        if (p.student_id) uniqueApprenticeIds.add(p.student_id);
       });
     }
 
@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
         .eq('status', 'active');
 
       (apprenticeships ?? []).forEach(apprenticeship => {
-        if (apprenticeship.apprentice_id) apprenticeIdSet.add(apprenticeship.apprentice_id);
+        if (apprenticeship.apprentice_id) uniqueApprenticeIds.add(apprenticeship.apprentice_id);
       });
     }
 
@@ -72,7 +72,7 @@ export async function GET(request: NextRequest) {
     // Gated by SUPERVISOR_EMAIL_FALLBACK_ENABLED=true. Disabled by default.
     const emailFallbackEnabled = process.env.SUPERVISOR_EMAIL_FALLBACK_ENABLED === 'true';
 
-    if (apprenticeIdSet.size === 0 && emailFallbackEnabled) {
+    if (uniqueApprenticeIds.size === 0 && emailFallbackEnabled) {
       const { data: profile } = await db
         .from('profiles')
         .select('email')
@@ -87,12 +87,12 @@ export async function GET(request: NextRequest) {
           .eq('status', 'active');
 
         (textPlacements ?? []).forEach(p => {
-          if (p.student_id) apprenticeIdSet.add(p.student_id);
+          if (p.student_id) uniqueApprenticeIds.add(p.student_id);
         });
       }
     }
 
-    const apprenticeIds = [...apprenticeIdSet];
+    const apprenticeIds = [...uniqueApprenticeIds];
 
     if (apprenticeIds.length === 0) {
       return NextResponse.json({ entries: [] });
