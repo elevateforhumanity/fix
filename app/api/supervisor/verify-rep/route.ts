@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
     if (!competencyLogId) return safeError('competencyLogId required', 400);
 
     const db = await getAdminClient();
+    if (!db) return safeError('Service unavailable', 503);
 
     // Fetch the log entry
     const { data: logEntry, error: logErr } = await db

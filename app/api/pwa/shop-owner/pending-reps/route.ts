@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const db = await getAdminClient();
+    if (!db) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
 
     // Resolve which apprentices this supervisor oversees.
     // Path 1: shop_supervisors row → apprentice_placements at same shop

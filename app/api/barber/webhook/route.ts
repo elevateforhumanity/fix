@@ -186,8 +186,12 @@ async function _POST(request: NextRequest) {
   }
 
   // Webhook handlers must use the admin (service role) client — there is no user session.
-  // await getAdminClient() throws if env vars are missing, which is the correct behaviour.
   const supabase = await getAdminClient();
+  if (!supabase) {
+    logger.error('[barber/webhook] SUPABASE_SERVICE_ROLE_KEY missing — cannot process webhook', { eventId: event.id, eventType: event.type });
+    // Return 200 to Stripe so it does not retry — the env issue must be fixed in Netlify config.
+    return NextResponse.json({ received: true, warning: 'DB unavailable' });
+  }
 
   try {
     switch (event.type) {
