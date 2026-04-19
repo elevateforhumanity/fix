@@ -73,7 +73,7 @@ export default async function ProgramHolderNotificationsPage() {
 
         {!notifications || notifications.length === 0 ? (
           <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-            <Bell className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <Bell className="w-16 h-16 text-slate-700 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-black mb-2">
               No Notifications Yet
             </h2>

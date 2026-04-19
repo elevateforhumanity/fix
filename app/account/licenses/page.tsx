@@ -37,13 +37,13 @@ export default async function AccountLicensesPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">My Licenses</h1>
+        <h1 className="text-3xl font-bold text-slate-900 mb-8">My Licenses</h1>
 
         {!licenses || licenses.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-            <Key className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">No Licenses Yet</h2>
-            <p className="text-gray-600 mb-6">
+            <Key className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">No Licenses Yet</h2>
+            <p className="text-slate-700 mb-6">
               You don&apos;t have any active licenses. Browse our store to get started.
             </p>
             <Link
@@ -62,10 +62,10 @@ export default async function AccountLicensesPage() {
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-slate-900">
                       {license.license_type || 'Platform License'}
                     </h3>
-                    <p className="text-gray-600 text-sm mt-1">
+                    <p className="text-slate-700 text-sm mt-1">
                       License Key: <code className="bg-white px-2 py-1 rounded">{license.license_key}</code>
                     </p>
                   </div>
@@ -83,7 +83,7 @@ export default async function AccountLicensesPage() {
                     )}
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-4 text-sm text-gray-500">
+                <div className="mt-4 flex items-center gap-4 text-sm text-slate-700">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
                     Expires: {license.expires_at ? new Date(license.expires_at).toLocaleDateString() : 'Never'}

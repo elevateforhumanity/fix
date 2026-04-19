@@ -57,7 +57,7 @@ export function SupersonicHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-brand-blue-900 font-medium text-sm"
+                  className="text-slate-900 hover:text-brand-blue-900 font-medium text-sm"
                 >
                   {link.label}
                 </Link>
@@ -73,7 +73,7 @@ export function SupersonicHeader() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-700 hover:text-brand-blue-900"
+              className="lg:hidden p-2 text-slate-900 hover:text-brand-blue-900"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -89,7 +89,7 @@ export function SupersonicHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block py-2 text-gray-700 hover:text-brand-blue-900 font-medium"
+                  className="block py-2 text-slate-900 hover:text-brand-blue-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}

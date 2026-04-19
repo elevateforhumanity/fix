@@ -260,7 +260,7 @@ export default function SideAvatarGuide({
                   className={`max-w-[85%] px-4 py-2 rounded-2xl ${
                     msg.role === 'user'
                       ? 'bg-brand-blue-600 text-white rounded-br-md'
-                      : 'bg-white text-gray-800 border border-gray-200 shadow-sm rounded-bl-md'
+                      : 'bg-white text-slate-900 border border-gray-200 shadow-sm rounded-bl-md'
                   }`}
                 >
                   {msg.content}

@@ -107,7 +107,7 @@ export default async function HireGraduatesPage() {
       {/* FAQ for Employers */}
       <section className="py-16 sm:py-20">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Employer FAQ</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Employer FAQ</h2>
           <div className="space-y-4">
             {[
               { q: 'Is there a fee to hire graduates?', a: 'No. There is no recruiting fee or placement fee. We are funded by workforce development grants, not employer fees.' },

@@ -164,18 +164,18 @@ export default async function BlogPostPage({ params }: { params: Params }) {
         </div>
         
         <div 
-          className="prose prose-lg max-w-none prose-headings:text-black prose-p:text-gray-700 prose-a:text-brand-blue-600 prose-strong:text-black"
+          className="prose prose-lg max-w-none prose-headings:text-black prose-p:text-slate-900 prose-a:text-brand-blue-600 prose-strong:text-black"
           dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(formatContent(post.content)) }}
         />
         
         {post.tags && post.tags.length > 0 && (
           <div className="mt-12 pt-8 border-t border-gray-200">
             <div className="flex items-center gap-2 flex-wrap">
-              <Tag className="w-5 h-5 text-gray-400" />
+              <Tag className="w-5 h-5 text-slate-700" />
               {post.tags.map((tag: string) => (
                 <span 
                   key={tag}
-                  className="px-3 py-2 bg-white text-gray-700 text-sm rounded-full"
+                  className="px-3 py-2 bg-white text-slate-900 text-sm rounded-full"
                 >
                   {tag}
                 </span>
@@ -185,7 +185,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
         )}
         
         <div className="mt-8 pt-8 border-t border-gray-200">
-          <p className="text-gray-600 mb-4">Found this helpful? Share it:</p>
+          <p className="text-slate-700 mb-4">Found this helpful? Share it:</p>
           <SocialShare url={postUrl} title={post.title} description={post.excerpt} />
         </div>
       </article>
@@ -213,7 +213,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                     <h3 className="font-bold text-black group-hover:text-brand-blue-600 transition line-clamp-2">
                       {related.title}
                     </h3>
-                    <p className="text-gray-600 text-sm mt-2 line-clamp-2">
+                    <p className="text-slate-700 text-sm mt-2 line-clamp-2">
                       {related.excerpt}
                     </p>
                   </div>

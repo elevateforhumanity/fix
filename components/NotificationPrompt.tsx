@@ -114,7 +114,7 @@ export default function NotificationPrompt() {
             onClick={handleDismiss}
             className="flex-shrink-0 p-1 hover:bg-gray-100 rounded"
           >
-            <X size={20} className="text-gray-400" />
+            <X size={20} className="text-slate-700" />
           </button>
         </div>
       </div>

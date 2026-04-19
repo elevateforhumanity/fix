@@ -43,13 +43,13 @@ export default async function LeadsPage() {
 
   const getStageColor = (stage: string) => {
     switch (stage) {
-      case 'Initial Contact': return 'bg-gray-100 text-gray-700';
+      case 'Initial Contact': return 'bg-gray-100 text-slate-900';
       case 'Discovery': return 'bg-brand-blue-100 text-brand-blue-700';
       case 'Qualified': return 'bg-yellow-100 text-yellow-700';
       case 'Proposal': return 'bg-brand-blue-100 text-brand-blue-700';
       case 'Negotiation': return 'bg-brand-orange-100 text-brand-orange-700';
       case 'Closed Won': return 'bg-brand-green-100 text-brand-green-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100 text-slate-900';
     }
   };
 
@@ -77,9 +77,9 @@ export default async function LeadsPage() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <Target className="w-8 h-8 text-brand-orange-600" />
-                <h1 className="text-3xl font-bold text-gray-900">Leads</h1>
+                <h1 className="text-3xl font-bold text-slate-900">Leads</h1>
               </div>
-              <p className="text-gray-600">Track and manage your sales pipeline</p>
+              <p className="text-slate-700">Track and manage your sales pipeline</p>
             </div>
             <Link
               href="/admin/crm/leads/new"
@@ -98,8 +98,8 @@ export default async function LeadsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
               <div key={index}>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                <p className="text-gray-500 text-sm">{stat.label}</p>
+                <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+                <p className="text-slate-700 text-sm">{stat.label}</p>
                 <p className="text-brand-green-600 text-sm font-medium">{stat.change}</p>
               </div>
             ))}
@@ -112,7 +112,7 @@ export default async function LeadsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search leads..."
@@ -144,12 +144,12 @@ export default async function LeadsPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Lead</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Value</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stage</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Probability</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Next Action</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"></th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Lead</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Value</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Stage</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Probability</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Next Action</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -157,13 +157,13 @@ export default async function LeadsPage() {
                   <tr key={lead.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div>
-                        <p className="font-medium text-gray-900">{lead.name}</p>
-                        <p className="text-gray-500 text-sm">{lead.contact}</p>
-                        <p className="text-gray-500 text-sm">{lead.email}</p>
+                        <p className="font-medium text-slate-900">{lead.name}</p>
+                        <p className="text-slate-700 text-sm">{lead.contact}</p>
+                        <p className="text-slate-700 text-sm">{lead.email}</p>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="font-semibold text-gray-900">{lead.value}</span>
+                      <span className="font-semibold text-slate-900">{lead.value}</span>
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStageColor(lead.stage)}`}>
@@ -178,13 +178,13 @@ export default async function LeadsPage() {
                             style={{ width: `${lead.probability}%` }}
                           />
                         </div>
-                        <span className="text-sm text-gray-600">{lead.probability}%</span>
+                        <span className="text-sm text-slate-700">{lead.probability}%</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <div>
-                        <p className="text-gray-900 text-sm">{lead.nextAction}</p>
-                        <p className="text-gray-500 text-xs flex items-center gap-1">
+                        <p className="text-slate-900 text-sm">{lead.nextAction}</p>
+                        <p className="text-slate-700 text-xs flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           Due: {lead.dueDate}
                         </p>

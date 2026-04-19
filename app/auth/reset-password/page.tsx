@@ -119,7 +119,7 @@ export default function AuthResetPasswordPage() {
             <CheckCircle className="w-10 h-10 text-brand-green-600" />
           </div>
           <h1 className="text-3xl font-extrabold text-black mb-4">Password Updated</h1>
-          <p className="text-gray-600 mb-8 text-lg">
+          <p className="text-slate-700 mb-8 text-lg">
             Your password has been reset. Sign in with your new password to continue.
           </p>
           <Link
@@ -142,7 +142,7 @@ export default function AuthResetPasswordPage() {
             <AlertCircle className="w-10 h-10 text-brand-red-600" />
           </div>
           <h1 className="text-3xl font-extrabold text-black mb-4">Link Expired</h1>
-          <p className="text-gray-600 mb-8 text-lg">
+          <p className="text-slate-700 mb-8 text-lg">
             This password reset link is invalid or has expired. Request a new one.
           </p>
           <Link
@@ -170,7 +170,7 @@ export default function AuthResetPasswordPage() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-black mb-2">Set New Password</h1>
-          <p className="text-gray-600 text-lg">Enter your new password below.</p>
+          <p className="text-slate-700 text-lg">Enter your new password below.</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-gray-200 p-8">
@@ -200,7 +200,7 @@ export default function AuthResetPasswordPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-700 hover:text-slate-700"
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -242,7 +242,7 @@ export default function AuthResetPasswordPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <Link href="/login" className="text-gray-600 hover:text-black transition font-medium">
+            <Link href="/login" className="text-slate-700 hover:text-black transition font-medium">
               Back to Login
             </Link>
           </div>

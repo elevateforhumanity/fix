@@ -158,7 +158,7 @@ export default function AmbientMusic({
       onClick={toggleMusic}
       className={`fixed bottom-6 left-6 z-40 p-3 rounded-full transition-all duration-300 shadow-lg backdrop-blur-sm ${
         isPlaying 
-          ? 'bg-white/90 text-gray-700 hover:bg-white' 
+          ? 'bg-white/90 text-slate-900 hover:bg-white' 
           : 'bg-gray-900/80 text-white hover:bg-gray-900'
       }`}
       aria-label={isPlaying ? 'Mute background music' : 'Play background music'}

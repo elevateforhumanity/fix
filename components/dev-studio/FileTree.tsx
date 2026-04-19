@@ -132,7 +132,7 @@ export default function FileTree({ files, onFileSelect, selectedFile, filterCour
           ) : (
             <>
               <div className="w-4" />
-              <File className="w-4 h-4 flex-shrink-0 text-gray-400" />
+              <File className="w-4 h-4 flex-shrink-0 text-slate-700" />
             </>
           )}
           <span className="text-sm truncate">{node.name}</span>
@@ -150,7 +150,7 @@ export default function FileTree({ files, onFileSelect, selectedFile, filterCour
   return (
     <div className="h-full overflow-auto bg-brand-blue-700 text-white">
       {fileTree.length === 0 ? (
-        <div className="p-4 text-sm text-gray-400">
+        <div className="p-4 text-sm text-slate-700">
           {filterCourses ? 'No course files found' : 'No files found'}
         </div>
       ) : (

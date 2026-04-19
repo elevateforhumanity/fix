@@ -85,11 +85,11 @@ export default async function ConnectionsPage() {
           {/* Search Bar */}
           <div className="mt-6 max-w-2xl">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search by name, program, or skills..."
-                className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className="w-full pl-12 pr-4 py-4 rounded-xl text-slate-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
               />
               <button className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
                 Search
@@ -104,7 +104,7 @@ export default async function ConnectionsPage() {
         {pending.length > 0 && (
           <div className="bg-white rounded-xl shadow-sm border mb-8">
             <div className="p-6 border-b">
-              <h2 className="font-semibold text-gray-900">Pending Requests ({pending.length})</h2>
+              <h2 className="font-semibold text-slate-900">Pending Requests ({pending.length})</h2>
             </div>
             <div className="divide-y">
               {pending.map((request: any) => (
@@ -114,19 +114,19 @@ export default async function ConnectionsPage() {
                       {request.profiles?.avatar_url ? (
                         <Image src={request.profiles.avatar_url} alt={`${request.profiles.full_name || "User"} avatar`} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                       ) : (
-                        <Users className="w-6 h-6 text-gray-400" />
+                        <Users className="w-6 h-6 text-slate-700" />
                       )}
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{request.profiles?.full_name || 'Unknown'}</div>
-                      <div className="text-sm text-gray-500">{request.profiles?.headline || 'Elevate Learner'}</div>
+                      <div className="font-medium text-slate-900">{request.profiles?.full_name || 'Unknown'}</div>
+                      <div className="text-sm text-slate-700">{request.profiles?.headline || 'Elevate Learner'}</div>
                     </div>
                   </div>
                   <div className="flex gap-2">
                     <button className="p-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
                       <CheckCircle className="w-5 h-5" />
                     </button>
-                    <button className="p-2 bg-white text-gray-600 rounded-lg hover:bg-gray-200">
+                    <button className="p-2 bg-white text-slate-700 rounded-lg hover:bg-gray-200">
                       <X className="w-5 h-5" />
                     </button>
                   </div>
@@ -139,8 +139,8 @@ export default async function ConnectionsPage() {
         {/* My Connections */}
         <div className="bg-white rounded-xl shadow-sm border mb-8">
           <div className="p-6 border-b flex items-center justify-between">
-            <h2 className="font-semibold text-gray-900">My Connections ({connections.length})</h2>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            <h2 className="font-semibold text-slate-900">My Connections ({connections.length})</h2>
+            <button className="flex items-center gap-2 text-slate-700 hover:text-slate-900">
               <Filter className="w-4 h-4" />
               Filter
             </button>
@@ -154,20 +154,20 @@ export default async function ConnectionsPage() {
                       {conn.profiles?.avatar_url ? (
                         <Image src={conn.profiles.avatar_url} alt={`${conn.profiles.full_name || "User"} avatar`} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                       ) : (
-                        <Users className="w-6 h-6 text-gray-400" />
+                        <Users className="w-6 h-6 text-slate-700" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-gray-900 truncate">{conn.profiles?.full_name || 'Unknown'}</div>
-                      <div className="text-sm text-gray-500 truncate">{conn.profiles?.headline || 'Elevate Learner'}</div>
+                      <div className="font-medium text-slate-900 truncate">{conn.profiles?.full_name || 'Unknown'}</div>
+                      <div className="text-sm text-slate-700 truncate">{conn.profiles?.headline || 'Elevate Learner'}</div>
                     </div>
                   </div>
                   <div className="mt-4 flex gap-2">
-                    <button className="flex-1 px-3 py-2 text-sm bg-white text-gray-700 rounded-lg hover:bg-gray-200">
+                    <button className="flex-1 px-3 py-2 text-sm bg-white text-slate-900 rounded-lg hover:bg-gray-200">
                       <MessageSquare className="w-4 h-4 inline mr-1" />
                       Message
                     </button>
-                    <button className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900">
+                    <button className="px-3 py-2 text-sm text-slate-700 hover:text-slate-900">
                       View
                     </button>
                   </div>
@@ -176,9 +176,9 @@ export default async function ConnectionsPage() {
             </div>
           ) : (
             <div className="p-12 text-center">
-              <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No connections yet</h3>
-              <p className="text-gray-600">Start connecting with fellow learners below!</p>
+              <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No connections yet</h3>
+              <p className="text-slate-700">Start connecting with fellow learners below!</p>
             </div>
           )}
         </div>
@@ -186,8 +186,8 @@ export default async function ConnectionsPage() {
         {/* Suggested Connections */}
         <div className="bg-white rounded-xl shadow-sm border">
           <div className="p-6 border-b">
-            <h2 className="font-semibold text-gray-900">People You May Know</h2>
-            <p className="text-sm text-gray-600 mt-1">Based on your programs and interests</p>
+            <h2 className="font-semibold text-slate-900">People You May Know</h2>
+            <p className="text-sm text-slate-700 mt-1">Based on your programs and interests</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
             {suggestions.length > 0 ? (
@@ -198,12 +198,12 @@ export default async function ConnectionsPage() {
                       {person.avatar_url ? (
                         <Image src={person.avatar_url} alt={`${person.full_name || "User"} avatar`} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                       ) : (
-                        <Users className="w-6 h-6 text-gray-400" />
+                        <Users className="w-6 h-6 text-slate-700" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-gray-900 truncate">{person.full_name || 'Elevate Learner'}</div>
-                      <div className="text-sm text-gray-500 truncate">{person.headline || person.role || 'Student'}</div>
+                      <div className="font-medium text-slate-900 truncate">{person.full_name || 'Elevate Learner'}</div>
+                      <div className="text-sm text-slate-700 truncate">{person.headline || person.role || 'Student'}</div>
                     </div>
                   </div>
                   <button className="w-full mt-4 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 text-sm font-medium flex items-center justify-center gap-2">
@@ -213,7 +213,7 @@ export default async function ConnectionsPage() {
                 </div>
               ))
             ) : (
-              <div className="col-span-full text-center py-8 text-gray-500">
+              <div className="col-span-full text-center py-8 text-slate-700">
                 <p>No suggestions available at this time.</p>
               </div>
             )}

@@ -85,7 +85,7 @@ const STATUS_STYLES: Record<string, string> = {
   processing: 'bg-yellow-100 text-yellow-800',
   failed: 'bg-red-100 text-red-800',
   errored: 'bg-red-100 text-red-900',
-  skipped: 'bg-gray-100 text-gray-600',
+  skipped: 'bg-gray-100 text-slate-700',
 };
 
 const PROVIDER_COLORS: Record<string, string> = {
@@ -130,7 +130,7 @@ function SummaryCard({
       </div>
       <div>
         <p className="text-2xl font-bold text-slate-900">{value.toLocaleString()}</p>
-        <p className="text-sm text-gray-500">{label}</p>
+        <p className="text-sm text-slate-700">{label}</p>
       </div>
     </div>
   );
@@ -143,7 +143,7 @@ function ProviderCard({ p }: { p: ProviderHealth }) {
   return (
     <div className={`bg-white rounded-xl border-2 p-5 ${p.healthy ? 'border-gray-200' : 'border-red-300'}`}>
       <div className="flex items-center justify-between mb-3">
-        <span className={`text-xs font-semibold px-2 py-1 rounded-full uppercase tracking-wide ${PROVIDER_COLORS[p.provider] || 'bg-gray-100 text-gray-700'}`}>
+        <span className={`text-xs font-semibold px-2 py-1 rounded-full uppercase tracking-wide ${PROVIDER_COLORS[p.provider] || 'bg-gray-100 text-slate-900'}`}>
           {p.provider}
         </span>
         {p.healthy
@@ -153,19 +153,19 @@ function ProviderCard({ p }: { p: ProviderHealth }) {
 
       <div className="grid grid-cols-2 gap-2 text-sm mb-3">
         <div>
-          <p className="text-gray-500 text-xs">Last 24h</p>
+          <p className="text-slate-700 text-xs">Last 24h</p>
           <p className="font-bold text-slate-900">{p.last24h}</p>
         </div>
         <div>
-          <p className="text-gray-500 text-xs">7d avg/day</p>
+          <p className="text-slate-700 text-xs">7d avg/day</p>
           <p className="font-bold text-slate-900">{p.baselineDailyAvg}</p>
         </div>
         <div>
-          <p className="text-gray-500 text-xs">Error rate</p>
+          <p className="text-slate-700 text-xs">Error rate</p>
           <p className={`font-bold ${errorRate > 20 ? 'text-red-600' : 'text-slate-900'}`}>{errorRate}%</p>
         </div>
         <div>
-          <p className="text-gray-500 text-xs">Last event</p>
+          <p className="text-slate-700 text-xs">Last event</p>
           <p className="font-medium text-slate-700 text-xs">{fmtRelative(p.lastEventAt)}</p>
         </div>
       </div>
@@ -194,7 +194,7 @@ function ProviderCard({ p }: { p: ProviderHealth }) {
 
 function StatusBadge({ status }: { status: string }) {
   return (
-    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[status] || 'bg-gray-100 text-gray-600'}`}>
+    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[status] || 'bg-gray-100 text-slate-700'}`}>
       {status}
     </span>
   );
@@ -202,7 +202,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function ProviderBadge({ provider }: { provider: string }) {
   return (
-    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${PROVIDER_COLORS[provider] || 'bg-gray-100 text-gray-600'}`}>
+    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${PROVIDER_COLORS[provider] || 'bg-gray-100 text-slate-700'}`}>
       {provider}
     </span>
   );
@@ -230,14 +230,14 @@ function EventDrawer({ event, onClose }: { event: WebhookEvent; onClose: () => v
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
           <div>
             <h2 className="text-lg font-bold text-slate-900">Event Detail</h2>
-            <p className="text-xs text-gray-500 font-mono mt-0.5">{event.id}</p>
+            <p className="text-xs text-slate-700 font-mono mt-0.5">{event.id}</p>
           </div>
           <button
             onClick={onClose}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="Close"
           >
-            <X className="h-5 w-5 text-gray-500" />
+            <X className="h-5 w-5 text-slate-700" />
           </button>
         </div>
 
@@ -268,7 +268,7 @@ function EventDrawer({ event, onClose }: { event: WebhookEvent; onClose: () => v
           {/* Metadata */}
           {event.metadata && Object.keys(event.metadata).length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Metadata</p>
+              <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">Metadata</p>
               <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-xs font-mono overflow-x-auto whitespace-pre-wrap break-all">
                 {JSON.stringify(event.metadata, null, 2)}
               </pre>
@@ -283,7 +283,7 @@ function EventDrawer({ event, onClose }: { event: WebhookEvent; onClose: () => v
 function Field({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div>
-      <dt className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{label}</dt>
+      <dt className="text-xs font-semibold text-slate-700 uppercase tracking-wide">{label}</dt>
       <dd className={`mt-0.5 text-sm text-slate-800 break-all ${mono ? 'font-mono' : ''}`}>{value}</dd>
     </div>
   );
@@ -377,7 +377,7 @@ export default function WebhookHealthDashboard() {
               <Zap className="h-8 w-8 text-brand-blue-600" />
               Webhook Health
             </h1>
-            <p className="text-gray-500 text-sm mt-1 flex items-center gap-1.5">
+            <p className="text-slate-700 text-sm mt-1 flex items-center gap-1.5">
               <Clock className="h-3.5 w-3.5" />
               Last refreshed {fmtRelative(lastRefresh.toISOString())}
             </p>
@@ -427,7 +427,7 @@ export default function WebhookHealthDashboard() {
             <SummaryCard label="Processed" value={health.summary.processed} icon={CheckCircle2} color="bg-green-100 text-green-700" />
             <SummaryCard label="Failed" value={health.summary.failed} icon={XCircle} color="bg-red-100 text-red-700" />
             <SummaryCard label="Errored" value={health.summary.errored} icon={AlertTriangle} color="bg-orange-100 text-orange-700" />
-            <SummaryCard label="Skipped" value={health.summary.skipped} icon={SkipForward} color="bg-gray-100 text-gray-600" />
+            <SummaryCard label="Skipped" value={health.summary.skipped} icon={SkipForward} color="bg-gray-100 text-slate-700" />
           </div>
         )}
 
@@ -453,10 +453,10 @@ export default function WebhookHealthDashboard() {
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
-                <Filter className="h-4 w-4 text-gray-400" />
+                <Filter className="h-4 w-4 text-slate-700" />
                 Event Log
                 {events && (
-                  <span className="text-sm font-normal text-gray-500">
+                  <span className="text-sm font-normal text-slate-700">
                     ({events.total.toLocaleString()} total)
                   </span>
                 )}
@@ -514,7 +514,7 @@ export default function WebhookHealthDashboard() {
                   className="text-sm border border-gray-300 rounded-lg px-3 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
                   aria-label="From date"
                 />
-                <span className="text-gray-500 text-sm">→</span>
+                <span className="text-slate-700 text-sm">→</span>
                 <input
                   type="datetime-local"
                   value={filters.to}
@@ -531,12 +531,12 @@ export default function WebhookHealthDashboard() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50">
-                  <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Received</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Provider</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Event Type</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Reference</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Error</th>
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-700 uppercase tracking-wide">Received</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-700 uppercase tracking-wide">Provider</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-700 uppercase tracking-wide">Event Type</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-700 uppercase tracking-wide">Status</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-700 uppercase tracking-wide">Reference</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-700 uppercase tracking-wide">Error</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -552,7 +552,7 @@ export default function WebhookHealthDashboard() {
                   ))
                 ) : events?.events.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                    <td colSpan={6} className="px-6 py-12 text-center text-slate-700">
                       No events match the current filters.
                     </td>
                   </tr>
@@ -563,7 +563,7 @@ export default function WebhookHealthDashboard() {
                       onClick={() => setSelectedEvent(ev)}
                       className="hover:bg-gray-50 cursor-pointer transition-colors"
                     >
-                      <td className="px-6 py-3 text-gray-600 whitespace-nowrap font-mono text-xs">
+                      <td className="px-6 py-3 text-slate-700 whitespace-nowrap font-mono text-xs">
                         {fmtDate(ev.received_at)}
                       </td>
                       <td className="px-4 py-3">
@@ -575,7 +575,7 @@ export default function WebhookHealthDashboard() {
                       <td className="px-4 py-3">
                         <StatusBadge status={ev.status} />
                       </td>
-                      <td className="px-4 py-3 font-mono text-xs text-gray-500 max-w-[140px] truncate">
+                      <td className="px-4 py-3 font-mono text-xs text-slate-700 max-w-[140px] truncate">
                         {ev.payment_reference || '—'}
                       </td>
                       <td className="px-4 py-3 text-xs text-red-600 max-w-[180px] truncate">
@@ -591,7 +591,7 @@ export default function WebhookHealthDashboard() {
           {/* Pagination */}
           {events && events.pages > 1 && (
             <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate-700">
                 Page {events.page} of {events.pages} ({events.total.toLocaleString()} events)
               </p>
               <div className="flex items-center gap-2">

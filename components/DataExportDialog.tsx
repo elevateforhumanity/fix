@@ -91,14 +91,14 @@ export default function DataExportDialog({
               <h3 className="text-lg font-semibold text-black">
                 Export Data
               </h3>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate-700">
                 {exportTypeLabels[exportType]}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-black transition-colors"
+            className="text-slate-700 hover:text-black transition-colors"
             disabled={isExporting}
           >
             <X className="w-5 h-5" />
@@ -123,7 +123,7 @@ export default function DataExportDialog({
                 } ${isExporting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <FileSpreadsheet className={`w-5 h-5 ${
-                  format === 'csv' ? 'text-brand-blue-600' : 'text-gray-400'
+                  format === 'csv' ? 'text-brand-blue-600' : 'text-slate-700'
                 }`} />
                 <div className="text-left">
                   <div className={`font-medium ${
@@ -131,7 +131,7 @@ export default function DataExportDialog({
                   }`}>
                     CSV
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-slate-700">
                     Excel compatible
                   </div>
                 </div>
@@ -147,7 +147,7 @@ export default function DataExportDialog({
                 } ${isExporting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <FileText className={`w-5 h-5 ${
-                  format === 'pdf' ? 'text-brand-blue-600' : 'text-gray-400'
+                  format === 'pdf' ? 'text-brand-blue-600' : 'text-slate-700'
                 }`} />
                 <div className="text-left">
                   <div className={`font-medium ${
@@ -155,7 +155,7 @@ export default function DataExportDialog({
                   }`}>
                     PDF
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-slate-700">
                     Print ready
                   </div>
                 </div>
@@ -325,14 +325,14 @@ export function BatchExportDialog({ isOpen, onClose }: BatchExportDialogProps) {
               <h3 className="text-lg font-semibold text-black">
                 Batch Export
               </h3>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate-700">
                 Export multiple tables at once
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-black transition-colors"
+            className="text-slate-700 hover:text-black transition-colors"
             disabled={isExporting}
           >
             <X className="w-5 h-5" />
@@ -361,7 +361,7 @@ export function BatchExportDialog({ isOpen, onClose }: BatchExportDialogProps) {
                   />
                   <div className="flex-1">
                     <div className="font-medium text-black">{table.label}</div>
-                    <div className="text-sm text-gray-500">{table.description}</div>
+                    <div className="text-sm text-slate-700">{table.description}</div>
                   </div>
                 </label>
               ))}

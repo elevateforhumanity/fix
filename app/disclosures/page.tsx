@@ -93,12 +93,12 @@ export default function DisclosuresPage() {
                 </div>
               </div>
               <div className="p-6">
-                <div className="space-y-3 text-gray-700">
-                  <p><span className="font-semibold text-gray-900">Legal Name:</span> 2Exclusive LLC-S (DBA Elevate for Humanity Career &amp; Technical Institute)</p>
-                  <p><span className="font-semibold text-gray-900">Location:</span> Indianapolis, Indiana</p>
-                  <p><span className="font-semibold text-gray-900">Phone:</span> (317) 314-3757</p>
-                  <p><span className="font-semibold text-gray-900">Email:</span> our contact form</p>
-                  <p><span className="font-semibold text-gray-900">RAPIDS #:</span> 2025-IN-132301</p>
+                <div className="space-y-3 text-slate-900">
+                  <p><span className="font-semibold text-slate-900">Legal Name:</span> 2Exclusive LLC-S (DBA Elevate for Humanity Career &amp; Technical Institute)</p>
+                  <p><span className="font-semibold text-slate-900">Location:</span> Indianapolis, Indiana</p>
+                  <p><span className="font-semibold text-slate-900">Phone:</span> (317) 314-3757</p>
+                  <p><span className="font-semibold text-slate-900">Email:</span> our contact form</p>
+                  <p><span className="font-semibold text-slate-900">RAPIDS #:</span> 2025-IN-132301</p>
                 </div>
                 <Link
                   href="/about"
@@ -132,7 +132,7 @@ export default function DisclosuresPage() {
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <span className="text-slate-500 flex-shrink-0">•</span>
-                      <span className="text-gray-700">{item}</span>
+                      <span className="text-slate-900">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -153,17 +153,17 @@ export default function DisclosuresPage() {
       <section id="policies" className="py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Policies & Disclosures
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-700 max-w-2xl mx-auto">
               Click on any policy below to view the complete document.
             </p>
           </div>
 
           {/* Institutional Policies */}
           <div className="mb-12">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
               <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                 <Building className="w-5 h-5 text-brand-blue-600" />
               </div>
@@ -186,10 +186,10 @@ export default function DisclosuresPage() {
                     <div className="w-12 h-12 bg-brand-blue-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand-blue-100 transition">
                       <Icon className="w-6 h-6 text-brand-blue-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 group-hover:text-brand-blue-600 transition">
+                    <h4 className="font-semibold text-slate-900 group-hover:text-brand-blue-600 transition">
                       {policy.title}
                     </h4>
-                    <span className="text-sm text-gray-500 group-hover:text-brand-blue-500 flex items-center gap-1 mt-2">
+                    <span className="text-sm text-slate-700 group-hover:text-brand-blue-500 flex items-center gap-1 mt-2">
                       View Policy <ArrowRight className="w-3 h-3" />
                     </span>
                   </Link>
@@ -200,7 +200,7 @@ export default function DisclosuresPage() {
 
           {/* Academic Policies */}
           <div className="mb-12">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
               <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                 <GraduationCap className="w-5 h-5 text-brand-blue-600" />
               </div>
@@ -223,10 +223,10 @@ export default function DisclosuresPage() {
                     <div className="w-12 h-12 bg-brand-blue-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand-blue-100 transition">
                       <Icon className="w-6 h-6 text-brand-blue-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 group-hover:text-brand-blue-600 transition">
+                    <h4 className="font-semibold text-slate-900 group-hover:text-brand-blue-600 transition">
                       {policy.title}
                     </h4>
-                    <span className="text-sm text-gray-500 group-hover:text-brand-blue-500 flex items-center gap-1 mt-2">
+                    <span className="text-sm text-slate-700 group-hover:text-brand-blue-500 flex items-center gap-1 mt-2">
                       View Policy <ArrowRight className="w-3 h-3" />
                     </span>
                   </Link>
@@ -237,7 +237,7 @@ export default function DisclosuresPage() {
 
           {/* Financial Policies */}
           <div className="mb-12">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
               <div className="w-10 h-10 bg-brand-green-100 rounded-lg flex items-center justify-center">
                 <DollarSign className="w-5 h-5 text-brand-green-600" />
               </div>
@@ -260,10 +260,10 @@ export default function DisclosuresPage() {
                     <div className="w-12 h-12 bg-brand-green-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand-green-100 transition">
                       <Icon className="w-6 h-6 text-brand-green-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 group-hover:text-brand-green-600 transition">
+                    <h4 className="font-semibold text-slate-900 group-hover:text-brand-green-600 transition">
                       {policy.title}
                     </h4>
-                    <span className="text-sm text-gray-500 group-hover:text-brand-green-500 flex items-center gap-1 mt-2">
+                    <span className="text-sm text-slate-700 group-hover:text-brand-green-500 flex items-center gap-1 mt-2">
                       View Policy <ArrowRight className="w-3 h-3" />
                     </span>
                   </Link>
@@ -274,7 +274,7 @@ export default function DisclosuresPage() {
 
           {/* Compliance Policies */}
           <div className="mb-12">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
               <div className="w-10 h-10 bg-brand-orange-100 rounded-lg flex items-center justify-center">
                 <Scale className="w-5 h-5 text-brand-orange-600" />
               </div>
@@ -297,10 +297,10 @@ export default function DisclosuresPage() {
                     <div className="w-12 h-12 bg-brand-orange-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand-orange-100 transition">
                       <Icon className="w-6 h-6 text-brand-orange-600" />
                     </div>
-                    <h4 className="font-semibold text-gray-900 group-hover:text-brand-orange-600 transition">
+                    <h4 className="font-semibold text-slate-900 group-hover:text-brand-orange-600 transition">
                       {policy.title}
                     </h4>
-                    <span className="text-sm text-gray-500 group-hover:text-brand-orange-500 flex items-center gap-1 mt-2">
+                    <span className="text-sm text-slate-700 group-hover:text-brand-orange-500 flex items-center gap-1 mt-2">
                       View Policy <ArrowRight className="w-3 h-3" />
                     </span>
                   </Link>
@@ -314,7 +314,7 @@ export default function DisclosuresPage() {
       {/* Important Notices */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Important Notices</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Important Notices</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-8">
               <div className="flex items-start gap-4">
@@ -322,8 +322,8 @@ export default function DisclosuresPage() {
                   <AlertCircle className="w-6 h-6 text-amber-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Transferability of Credits</h3>
-                  <p className="text-gray-700">
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">Transferability of Credits</h3>
+                  <p className="text-slate-900">
                     Credits earned at Elevate for Humanity are not guaranteed to transfer to other institutions. 
                     Our programs award industry certifications and Certificates of Completion, not academic degrees. 
                     Contact receiving institutions directly about transfer policies.
@@ -337,8 +337,8 @@ export default function DisclosuresPage() {
                   <GraduationCap className="w-6 h-6 text-brand-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Program Delivery</h3>
-                  <p className="text-gray-700">
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">Program Delivery</h3>
+                  <p className="text-slate-900">
                     Programs are delivered through hybrid format combining online coursework via our LMS 
                     with in-person instruction and hands-on training at our Indianapolis facilities. 
                     Specific requirements vary by program.
@@ -408,13 +408,13 @@ export default function DisclosuresPage() {
       {/* Footer Notice */}
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="font-semibold text-gray-900">
+          <p className="font-semibold text-slate-900">
             This institution is an equal opportunity provider and employer.
           </p>
-          <p className="text-gray-600 mt-2">
+          <p className="text-slate-700 mt-2">
             Auxiliary aids and services are available upon request to individuals with disabilities. TTY/TDD: 711 (Indiana Relay)
           </p>
-          <p className="text-gray-500 text-sm mt-4">
+          <p className="text-slate-700 text-sm mt-4">
             Last Updated: January 2026
           </p>
         </div>

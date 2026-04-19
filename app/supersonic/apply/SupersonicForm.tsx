@@ -99,7 +99,7 @@ export default function SupersonicForm({ userId, existingProfile }: Props) {
         {[1, 2, 3].map(s => (
           <div key={s} className="flex items-center">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              step >= s ? 'bg-brand-orange-500 text-white' : 'bg-gray-200 text-gray-500'
+              step >= s ? 'bg-brand-orange-500 text-white' : 'bg-gray-200 text-slate-700'
             }`}>
               {step > s ? <span className="text-slate-400 flex-shrink-0">•</span> : s}
             </div>
@@ -120,25 +120,25 @@ export default function SupersonicForm({ userId, existingProfile }: Props) {
             <h2 className="text-xl font-semibold">Personal & Income Information</h2>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">First Name *</label>
                 <input type="text" value={formData.firstName} 
                   onChange={e => updateField('firstName', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Last Name *</label>
                 <input type="text" value={formData.lastName}
                   onChange={e => updateField('lastName', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Email *</label>
                 <input type="email" value={formData.email}
                   onChange={e => updateField('email', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Phone</label>
                 <input type="tel" value={formData.phone}
                   onChange={e => updateField('phone', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" />
@@ -149,16 +149,16 @@ export default function SupersonicForm({ userId, existingProfile }: Props) {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Annual Income *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Estimated Annual Income *</label>
                 <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                   <input type="number" value={formData.income}
                     onChange={e => updateField('income', e.target.value)}
                     className="w-full pl-10 pr-4 py-2 border rounded-lg" placeholder="50000" required />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Filing Status *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Filing Status *</label>
                 <select value={formData.filingStatus}
                   onChange={e => updateField('filingStatus', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" required>
@@ -170,13 +170,13 @@ export default function SupersonicForm({ userId, existingProfile }: Props) {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Number of Dependents</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Number of Dependents</label>
                 <input type="number" value={formData.dependents}
                   onChange={e => updateField('dependents', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" placeholder="0" min="0" />
               </div>
               <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-700">Income Documents</p>
+                <p className="text-sm font-medium text-slate-900">Income Documents</p>
                 <label className="flex items-center gap-2">
                   <input type="checkbox" checked={formData.hasW2}
                     onChange={e => updateField('hasW2', e.target.checked)} />
@@ -196,9 +196,9 @@ export default function SupersonicForm({ userId, existingProfile }: Props) {
           <div className="space-y-6">
             <h2 className="text-xl font-semibold">Upload Documents</h2>
             <div className="border-2 border-dashed rounded-lg p-8 text-center">
-              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <Upload className="w-12 h-12 text-slate-700 mx-auto mb-4" />
               <p className="font-medium mb-2">Drag and drop your tax documents</p>
-              <p className="text-sm text-gray-500 mb-4">W-2s, 1099s, and other income documents</p>
+              <p className="text-sm text-slate-700 mb-4">W-2s, 1099s, and other income documents</p>
               <button type="button" className="px-4 py-2 bg-white rounded-lg hover:bg-gray-200">
                 Browse Files
               </button>
@@ -216,22 +216,22 @@ export default function SupersonicForm({ userId, existingProfile }: Props) {
         {step === 3 && (
           <div className="space-y-6">
             <h2 className="text-xl font-semibold">Bank Information</h2>
-            <p className="text-gray-600">Enter your bank details for direct deposit of your refund advance.</p>
+            <p className="text-slate-700">Enter your bank details for direct deposit of your refund advance.</p>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Bank Account Number *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Bank Account Number *</label>
                 <input type="text" value={formData.bankAccount}
                   onChange={e => updateField('bankAccount', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" placeholder="Enter account number" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Routing Number *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Routing Number *</label>
                 <input type="text" value={formData.routingNumber}
                   onChange={e => updateField('routingNumber', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg" placeholder="Enter routing number" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Account Type</label>
                 <select value={formData.accountType}
                   onChange={e => updateField('accountType', e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg">
@@ -251,7 +251,7 @@ export default function SupersonicForm({ userId, existingProfile }: Props) {
         <div className="flex justify-between mt-6 pt-4 border-t">
           {step > 1 ? (
             <button onClick={() => setStep(s => s - 1)}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900">
+              className="flex items-center gap-2 px-4 py-2 text-slate-700 hover:text-slate-900">
               <ChevronLeft className="w-4 h-4" /> Back
             </button>
           ) : <div />}

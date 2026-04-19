@@ -105,7 +105,7 @@ export default async function ReviewApplicationPage({
               <p className="text-slate-300 text-sm mt-1">{app.email}</p>
             </div>
             <div className="flex items-center gap-3">
-              <span className={`inline-flex px-3 py-1.5 text-sm font-bold rounded-full border ${statusColors[effectiveStatus] || 'bg-gray-100 text-gray-800 border-gray-300'}`}>
+              <span className={`inline-flex px-3 py-1.5 text-sm font-bold rounded-full border ${statusColors[effectiveStatus] || 'bg-gray-100 text-slate-900 border-gray-300'}`}>
                 {effectiveStatus === 'revoked' ? 'Revoked' : (statusLabels[app.status] || app.status)}
               </span>
               <Link href="/admin/applications" className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white text-sm font-semibold px-4 py-2 rounded-xl backdrop-blur-sm transition-colors">

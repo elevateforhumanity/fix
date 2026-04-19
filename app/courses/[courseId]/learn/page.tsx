@@ -26,7 +26,7 @@ export default async function LearnPage({ params }: { params: Promise<{ courseId
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-6">
           <Link href={`/courses/${courseId}`} className="text-brand-blue-600 hover:text-brand-blue-800 text-sm">← Back to Course</Link>
-          <h1 className="text-2xl font-bold text-gray-900 mt-2">{course?.course_name || course?.title || 'Course'}</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mt-2">{course?.course_name || course?.title || 'Course'}</h1>
           <div className="flex items-center gap-4 mt-2">
             <span className="text-sm text-black">{lessons?.length || 0} lessons</span>
             <span className="text-sm text-black">Progress: {enrollment?.progress || 0}%</span>

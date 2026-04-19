@@ -73,9 +73,9 @@ export default async function ApplicationsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center gap-3 mb-2">
             <FileText className="w-8 h-8 text-brand-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">Applications</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Applications</h1>
           </div>
-          <p className="text-gray-600">Review and manage applications from candidates</p>
+          <p className="text-slate-700">Review and manage applications from candidates</p>
         </div>
       </section>
       <ApplicationsClient applications={applications} />

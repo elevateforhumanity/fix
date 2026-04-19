@@ -201,7 +201,7 @@ export default function StudentChatPage() {
 
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h1 className="text-xl font-bold text-gray-900">Messages</h1>
+          <h1 className="text-xl font-bold text-slate-900">Messages</h1>
         </div>
       </div>
 
@@ -212,7 +212,7 @@ export default function StudentChatPage() {
             <div className="w-80 border-r border-gray-200 flex flex-col">
               <div className="p-4 border-b border-gray-200">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                   <input
                     type="text"
                     placeholder="Search conversations..."
@@ -231,7 +231,7 @@ export default function StudentChatPage() {
                   >
                     <div className="relative">
                       <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-gray-500" />
+                        <User className="w-5 h-5 text-slate-700" />
                       </div>
                       {convo.online && (
                         <span className="absolute bottom-0 right-0 w-3 h-3 bg-brand-green-500 border-2 border-white rounded-full" />
@@ -239,11 +239,11 @@ export default function StudentChatPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <p className="font-medium text-gray-900 truncate">{convo.name}</p>
-                        <span className="text-xs text-gray-500">{convo.timestamp}</span>
+                        <p className="font-medium text-slate-900 truncate">{convo.name}</p>
+                        <span className="text-xs text-slate-700">{convo.timestamp}</span>
                       </div>
-                      <p className="text-xs text-gray-500">{convo.role}</p>
-                      <p className="text-sm text-gray-600 truncate mt-1">{convo.lastMessage}</p>
+                      <p className="text-xs text-slate-700">{convo.role}</p>
+                      <p className="text-sm text-slate-700 truncate mt-1">{convo.lastMessage}</p>
                     </div>
                     {convo.unread > 0 && (
                       <span className="w-5 h-5 bg-brand-blue-600 text-white text-xs rounded-full flex items-center justify-center">
@@ -263,27 +263,27 @@ export default function StudentChatPage() {
                   <div className="flex items-center gap-3">
                     <div className="relative">
                       <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-gray-500" />
+                        <User className="w-5 h-5 text-slate-700" />
                       </div>
                       {selectedConvo.online && (
                         <span className="absolute bottom-0 right-0 w-3 h-3 bg-brand-green-500 border-2 border-white rounded-full" />
                       )}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{selectedConvo.name}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="font-medium text-slate-900">{selectedConvo.name}</p>
+                      <p className="text-xs text-slate-700">
                         {selectedConvo.online ? 'Online' : 'Offline'}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-white rounded-lg">
+                    <button className="p-2 text-slate-700 hover:text-slate-900 hover:bg-white rounded-lg">
                       <Phone className="w-5 h-5" />
                     </button>
-                    <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-white rounded-lg">
+                    <button className="p-2 text-slate-700 hover:text-slate-900 hover:bg-white rounded-lg">
                       <Video className="w-5 h-5" />
                     </button>
-                    <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-white rounded-lg">
+                    <button className="p-2 text-slate-700 hover:text-slate-900 hover:bg-white rounded-lg">
                       <MoreVertical className="w-5 h-5" />
                     </button>
                   </div>
@@ -300,12 +300,12 @@ export default function StudentChatPage() {
                         className={`max-w-md px-4 py-2 rounded-2xl ${
                           message.sender === 'me'
                             ? 'bg-brand-blue-600 text-white'
-                            : 'bg-white text-gray-900'
+                            : 'bg-white text-slate-900'
                         }`}
                       >
                         <p>{message.text}</p>
                         <p className={`text-xs mt-1 ${
-                          message.sender === 'me' ? 'text-white' : 'text-gray-500'
+                          message.sender === 'me' ? 'text-white' : 'text-slate-700'
                         }`}>
                           {message.timestamp}
                         </p>
@@ -317,7 +317,7 @@ export default function StudentChatPage() {
                 {/* Message Input */}
                 <div className="px-6 py-4 border-t border-gray-200">
                   <div className="flex items-center gap-3">
-                    <button className="p-2 text-gray-500 hover:text-gray-700">
+                    <button className="p-2 text-slate-700 hover:text-slate-900">
                       <Paperclip className="w-5 h-5" />
                     </button>
                     <input
@@ -328,7 +328,7 @@ export default function StudentChatPage() {
                       placeholder="Type a message..."
                       className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-blue-500"
                     />
-                    <button className="p-2 text-gray-500 hover:text-gray-700">
+                    <button className="p-2 text-slate-700 hover:text-slate-900">
                       <Smile className="w-5 h-5" />
                     </button>
                     <button
@@ -343,8 +343,8 @@ export default function StudentChatPage() {
             ) : (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
-                  <MessageCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500">Select a conversation to start messaging</p>
+                  <MessageCircle className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                  <p className="text-slate-700">Select a conversation to start messaging</p>
                 </div>
               </div>
             )}

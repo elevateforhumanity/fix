@@ -85,7 +85,7 @@ export function CoursePlayer() {
                 )}
               </div>
               <p className="text-lg font-semibold">{currentLesson.title}</p>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-sm text-slate-700 mt-1">
                 {currentLesson.duration}
               </p>
             </div>
@@ -195,7 +195,7 @@ export function CoursePlayer() {
                   {lesson.completed ? (
                     <span className="text-slate-400 flex-shrink-0">•</span>
                   ) : lesson.locked ? (
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Lock className="h-5 w-5 text-slate-700" />
                   ) : (
                     <div className="w-5 h-5 rounded-full border-2 border-gray-300" />
                   )}
@@ -204,7 +204,7 @@ export function CoursePlayer() {
                   <p className="font-medium text-sm text-black">
                     {lesson.title}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-slate-700 mt-1">
                     {lesson.duration}
                   </p>
                 </div>
@@ -224,7 +224,7 @@ export function CoursePlayer() {
               style={{ width: '40%' }}
             />
           </div>
-          <p className="text-xs text-gray-500 mt-2">2 of 5 lessons completed</p>
+          <p className="text-xs text-slate-700 mt-2">2 of 5 lessons completed</p>
         </div>
       </div>
     </div>

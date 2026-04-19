@@ -24,26 +24,26 @@ export default async function NewContactPage() {
         <div className="mb-8">
           <Link 
             href="/admin/crm/contacts"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Contacts
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Add New Contact</h1>
-          <p className="text-gray-600 mt-1">Enter the contact&apos;s information below</p>
+          <h1 className="text-3xl font-bold text-slate-900">Add New Contact</h1>
+          <p className="text-slate-700 mt-1">Enter the contact&apos;s information below</p>
         </div>
 
         {/* Form */}
         <form action={createContactAction} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           {/* Personal Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <User className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <User className="w-5 h-5 text-slate-700" />
               Personal Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   First Name *
                 </label>
                 <input
@@ -55,7 +55,7 @@ export default async function NewContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Last Name *
                 </label>
                 <input
@@ -71,13 +71,13 @@ export default async function NewContactPage() {
 
           {/* Contact Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Mail className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Mail className="w-5 h-5 text-slate-700" />
               Contact Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Email Address *
                 </label>
                 <input
@@ -89,7 +89,7 @@ export default async function NewContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Phone Number
                 </label>
                 <input
@@ -104,13 +104,13 @@ export default async function NewContactPage() {
 
           {/* Organization */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Building className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Building className="w-5 h-5 text-slate-700" />
               Organization
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Company/Organization
                 </label>
                 <input
@@ -121,7 +121,7 @@ export default async function NewContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Job Title
                 </label>
                 <input
@@ -136,13 +136,13 @@ export default async function NewContactPage() {
 
           {/* Address */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-slate-700" />
               Address
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Street Address
                 </label>
                 <input
@@ -154,7 +154,7 @@ export default async function NewContactPage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-900 mb-1">
                     City
                   </label>
                   <input
@@ -165,7 +165,7 @@ export default async function NewContactPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-900 mb-1">
                     State
                   </label>
                   <input
@@ -176,7 +176,7 @@ export default async function NewContactPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-900 mb-1">
                     ZIP Code
                   </label>
                   <input
@@ -192,7 +192,7 @@ export default async function NewContactPage() {
 
           {/* Contact Type */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Contact Type
             </label>
             <select
@@ -210,7 +210,7 @@ export default async function NewContactPage() {
 
           {/* Notes */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Notes
             </label>
             <textarea
@@ -225,7 +225,7 @@ export default async function NewContactPage() {
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200">
             <Link
               href="/admin/crm/contacts"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-slate-900 hover:text-slate-900"
             >
               Cancel
             </Link>

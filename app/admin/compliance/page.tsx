@@ -216,7 +216,7 @@ export default async function CompliancePage() {
       {/* Automated Guardrails */}
       <section className="py-8 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Automated Compliance Guardrails</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Automated Compliance Guardrails</h2>
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             {(['critical', 'major', 'minor'] as const).map((severity) => {
               const all = getAllGuardrails();
@@ -229,9 +229,9 @@ export default async function CompliancePage() {
               };
               return (
                 <div key={severity} className={`rounded-xl border-l-4 p-5 ${colors[severity]}`}>
-                  <h3 className="font-bold capitalize text-gray-900">{severity} Guardrails</h3>
+                  <h3 className="font-bold capitalize text-slate-900">{severity} Guardrails</h3>
                   <p className="text-3xl font-bold mt-2">{filtered.length}</p>
-                  <p className="text-sm text-gray-600 mt-1">{autoCount} auto-enforced</p>
+                  <p className="text-sm text-slate-700 mt-1">{autoCount} auto-enforced</p>
                 </div>
               );
             })}
@@ -257,9 +257,9 @@ export default async function CompliancePage() {
                   <tr key={g.id} className="hover:bg-gray-50">
                     <td className="px-6 py-3">
                       <p className="font-medium text-sm">{g.name}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{g.description}</p>
+                      <p className="text-xs text-slate-700 mt-0.5">{g.description}</p>
                     </td>
-                    <td className="px-6 py-3 text-sm text-gray-700 capitalize">{g.violationType.replace(/_/g, ' ')}</td>
+                    <td className="px-6 py-3 text-sm text-slate-900 capitalize">{g.violationType.replace(/_/g, ' ')}</td>
                     <td className="px-6 py-3 text-center">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${
                         g.severity === 'critical' ? 'bg-brand-red-100 text-brand-red-700' :
@@ -271,11 +271,11 @@ export default async function CompliancePage() {
                       {shouldAutoEnforce(g) ? (
                         <span className="text-brand-green-600 text-sm font-medium">Yes</span>
                       ) : (
-                        <span className="text-gray-500 text-sm">Manual</span>
+                        <span className="text-slate-700 text-sm">Manual</span>
                       )}
                     </td>
-                    <td className="px-6 py-3 text-sm text-gray-700 capitalize">{g.enforcementAction.replace(/_/g, ' ')}</td>
-                    <td className="px-6 py-3 text-xs text-gray-500">{g.mouSection}</td>
+                    <td className="px-6 py-3 text-sm text-slate-900 capitalize">{g.enforcementAction.replace(/_/g, ' ')}</td>
+                    <td className="px-6 py-3 text-xs text-slate-700">{g.mouSection}</td>
                   </tr>
                 ))}
               </tbody>

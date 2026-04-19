@@ -70,7 +70,7 @@ export default function PartnerPageClient() {
       {/* Program Overview */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">How the Program Works</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">How the Program Works</h2>
           <p className="text-lg font-medium text-black text-center mb-12 max-w-2xl mx-auto">
             The Indiana Barber Apprenticeship is a USDOL Registered Apprenticeship. Your shop hosts
             apprentices who train under your licensed barbers while earning a wage.
@@ -80,21 +80,21 @@ export default function PartnerPageClient() {
               <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-orange-600 font-bold text-xl">1</span>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Apply &amp; Get Approved</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Apply &amp; Get Approved</h3>
               <p className="text-sm font-medium text-black">Submit your application, complete a Zoom site visit, and sign the MOU. Approval takes about 1 week.</p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-orange-600 font-bold text-xl">2</span>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Host an Apprentice</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Host an Apprentice</h3>
               <p className="text-sm font-medium text-black">We match qualified apprentices to your shop. They complete 2,000 hours of on-the-job training under your supervision.</p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-orange-600 font-bold text-xl">3</span>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Grow Your Team</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Grow Your Team</h3>
               <p className="text-sm font-medium text-black">Apprentices complete theory through Elevate LMS, then sit for the Indiana State Board exam. You get a trained, licensed barber.</p>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function PartnerPageClient() {
       {/* What You Need to Know */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">What Partner Shops Need to Know</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">What Partner Shops Need to Know</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               { title: "Workers' Compensation", desc: "Partner shops must carry workers' comp insurance for apprentices. If you don't have it yet, we can help you understand your options." },
@@ -117,7 +117,7 @@ export default function PartnerPageClient() {
               { title: 'DOL Listing', desc: 'Approved shops are listed on the U.S. Department of Labor RAPIDS system as registered apprenticeship worksites.' },
             ].map((item) => (
               <div key={item.title} className="bg-white p-6 rounded-xl border border-gray-200">
-                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
+                <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
                 <p className="text-sm font-medium text-black">{item.desc}</p>
               </div>
             ))}
@@ -128,7 +128,7 @@ export default function PartnerPageClient() {
       {/* Timeline */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Approval Timeline</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Approval Timeline</h2>
           <div className="space-y-6">
             {[
               { step: '1', title: 'Submit Application', time: 'Day 1', desc: 'Complete the online partner application form.' },
@@ -143,7 +143,7 @@ export default function PartnerPageClient() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="font-bold text-gray-900">{item.title}</h3>
+                    <h3 className="font-bold text-slate-900">{item.title}</h3>
                     <span className="text-xs bg-white text-black px-2 py-0.5 rounded-full">{item.time}</span>
                   </div>
                   <p className="text-sm font-medium text-black">{item.desc}</p>
@@ -157,7 +157,7 @@ export default function PartnerPageClient() {
       {/* FAQ */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Frequently Asked Questions</h2>
           <div className="space-y-6">
             {[
               { q: 'How much does it cost to become a partner shop?', a: 'There is no fee to become a partner shop. You pay the apprentice a wage, and Elevate handles program administration, theory training, and DOL compliance.' },

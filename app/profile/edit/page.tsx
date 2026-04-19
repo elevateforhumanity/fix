@@ -54,7 +54,7 @@ export default async function EditProfilePage({
       <div className="max-w-2xl mx-auto">
         <Breadcrumbs items={[{ label: 'Onboarding', href: '/onboarding/learner' }, { label: 'Edit Profile' }]} />
         <Link href="/onboarding/learner" className="text-sm text-brand-blue-600 flex items-center gap-1 mt-4 mb-4"><ArrowLeft className="w-4 h-4" /> Back to Onboarding</Link>
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Complete Your Profile</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-6">Complete Your Profile</h1>
         {errorParam === 'save-failed' && (
           <div className="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
             Failed to save your profile. Please try again or call (317) 314-3757 for help.
@@ -62,28 +62,28 @@ export default async function EditProfilePage({
         )}
         <form action={updateProfile} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Full Name *</label>
             <input name="full_name" required defaultValue={profile?.full_name || ''} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Phone</label>
             <input name="phone" type="tel" defaultValue={profile?.phone || ''} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="(317) 314-3757" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Address</label>
             <input name="address" defaultValue={profile?.address || ''} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" />
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">City</label>
               <input name="city" defaultValue={profile?.city || ''} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">State</label>
               <input name="state" defaultValue={profile?.state || 'IN'} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">ZIP</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">ZIP</label>
               <input name="zip_code" defaultValue={profile?.zip_code || ''} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" />
             </div>
           </div>

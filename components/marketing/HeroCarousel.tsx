@@ -124,7 +124,7 @@ export function HeroCarousel() {
                     {activeSlide.secondaryCtaLabel}
                   </Link>
                 </div>
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 text-xs text-white ring-1 ring-zinc-700">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 text-xs text-zinc-800 ring-1 ring-zinc-700">
                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-orange-400 text-[10px] font-bold text-zinc-950">
                     ★
                   </span>

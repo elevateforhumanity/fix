@@ -108,8 +108,8 @@ export default async function PartnerReportsPage() {
       <div>
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Partnership Reports</h1>
-            <p className="text-gray-600">Performance metrics and analytics</p>
+            <h1 className="text-3xl font-bold text-slate-900">Partnership Reports</h1>
+            <p className="text-slate-700">Performance metrics and analytics</p>
           </div>
           <button className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-slate-50 text-sm">
             <Download className="w-4 h-4" /> Export Report
@@ -121,17 +121,17 @@ export default async function PartnerReportsPage() {
           <div className="bg-white rounded-xl p-6 border">
             <Users className="w-8 h-8 text-brand-blue-500 mb-2" />
             <p className="text-2xl font-bold">{totalEnrollments}</p>
-            <p className="text-gray-600 text-sm">Total Enrollments</p>
+            <p className="text-slate-700 text-sm">Total Enrollments</p>
           </div>
           <div className="bg-white rounded-xl p-6 border">
             <TrendingUp className="w-8 h-8 text-brand-green-500 mb-2" />
             <p className="text-2xl font-bold">{thisQuarterEnrollments}</p>
-            <p className="text-gray-600 text-sm">This Quarter</p>
+            <p className="text-slate-700 text-sm">This Quarter</p>
           </div>
           <div className="bg-white rounded-xl p-6 border">
             <Calendar className="w-8 h-8 text-brand-blue-500 mb-2" />
             <p className="text-2xl font-bold">{completedEnrollments}</p>
-            <p className="text-gray-600 text-sm">Completions</p>
+            <p className="text-slate-700 text-sm">Completions</p>
           </div>
         </div>
 
@@ -149,7 +149,7 @@ export default async function PartnerReportsPage() {
                 const isCurrent = idx === currentQuarter;
                 return (
                   <div key={q.label} className="flex items-center gap-4">
-                    <span className={`w-8 text-sm font-medium ${isCurrent ? 'text-brand-blue-600' : 'text-gray-500'}`}>
+                    <span className={`w-8 text-sm font-medium ${isCurrent ? 'text-brand-blue-600' : 'text-slate-700'}`}>
                       {q.label}
                     </span>
                     <div className="flex-1 bg-slate-100 rounded-full h-3 overflow-hidden">
@@ -158,7 +158,7 @@ export default async function PartnerReportsPage() {
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className="text-sm text-gray-600 w-8 text-right">{value}</span>
+                    <span className="text-sm text-slate-700 w-8 text-right">{value}</span>
                   </div>
                 );
               })}
@@ -174,16 +174,16 @@ export default async function PartnerReportsPage() {
                   <div key={c.id} className="flex items-center justify-between py-2 border-b last:border-0">
                     <div>
                       <p className="font-medium text-sm">{c.student_name}</p>
-                      <p className="text-xs text-gray-500 capitalize">{c.program_slug?.replace(/-/g, ' ') || '—'}</p>
+                      <p className="text-xs text-slate-700 capitalize">{c.program_slug?.replace(/-/g, ' ') || '—'}</p>
                     </div>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-slate-700">
                       {c.completed_at ? new Date(c.completed_at).toLocaleDateString() : '—'}
                     </span>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8 text-sm">No completions yet</p>
+              <p className="text-slate-700 text-center py-8 text-sm">No completions yet</p>
             )}
           </div>
         </div>
@@ -200,13 +200,13 @@ export default async function PartnerReportsPage() {
               <div key={report.name} className="border rounded-lg p-4 hover:bg-slate-50">
                 <div className="flex items-start justify-between">
                   <div>
-                    <FileText className="w-8 h-8 text-gray-400 mb-2" />
+                    <FileText className="w-8 h-8 text-slate-700 mb-2" />
                     <p className="font-medium text-sm">{report.name}</p>
-                    <p className="text-xs text-gray-500">{report.desc}</p>
-                    <p className="text-xs text-gray-400 mt-1">{report.period}</p>
+                    <p className="text-xs text-slate-700">{report.desc}</p>
+                    <p className="text-xs text-slate-700 mt-1">{report.period}</p>
                   </div>
                   <button className="p-2 hover:bg-slate-100 rounded">
-                    <Download className="w-4 h-4 text-gray-500" />
+                    <Download className="w-4 h-4 text-slate-700" />
                   </button>
                 </div>
               </div>

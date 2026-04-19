@@ -76,7 +76,7 @@ export function GenerateCertificateButton({
           'inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold',
           'transition focus:outline-none focus:ring-2 focus:ring-offset-2',
           effectiveDisabled || loading
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            ? 'bg-gray-300 text-slate-700 cursor-not-allowed'
             : '    text-white shadow-lg hover:brightness-110 hover:shadow-xl',
         ].join(' ')}
       >
@@ -84,7 +84,7 @@ export function GenerateCertificateButton({
         {loading ? 'Generating…' : 'Generate Certificate'}
       </button>
       {!isCompleted && (
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-slate-700">
           Complete all required lessons to unlock your certificate.
         </p>
       )}

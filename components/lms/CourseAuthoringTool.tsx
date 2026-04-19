@@ -84,7 +84,7 @@ function SortableModule(data: any) {
           {...listeners}
           className="cursor-grab active:cursor-grabbing"
         >
-          <GripVertical className="w-5 h-5 text-gray-400" />
+          <GripVertical className="w-5 h-5 text-slate-700" />
         </div>
         <div className="flex-1">
           <h3 className="font-semibold text-black">{module.title}</h3>
@@ -131,7 +131,7 @@ function SortableLesson(data: any) {
           {...listeners}
           className="cursor-grab active:cursor-grabbing"
         >
-          <GripVertical className="w-4 h-4 text-gray-400" />
+          <GripVertical className="w-4 h-4 text-slate-700" />
         </div>
         <div className="flex-1">
           <h4 className="font-medium text-black">{lesson.title}</h4>
@@ -360,7 +360,7 @@ export default function CourseAuthoringTool() {
               </div>
 
               {course.modules.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-slate-700">
                   <p>No modules yet</p>
                   <p className="text-sm">Click "Add Module" to start</p>
                 </div>
@@ -573,7 +573,7 @@ export default function CourseAuthoringTool() {
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-slate-700">
                   <p className="text-lg">Select a module or lesson to edit</p>
                   <p className="text-sm mt-2">
                     Or add a new module to get started

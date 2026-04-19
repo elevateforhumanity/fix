@@ -119,7 +119,7 @@ export default function PeerReviewSystem() {
 
       {reviews.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500">
+          <p className="text-slate-700">
             {activeTab === 'pending'
               ? 'No peer reviews pending'
               : 'No completed reviews yet'}

@@ -93,14 +93,14 @@ export function StudyGroups() {
 
               <div className="space-y-2 mb-4">
                 <div className="flex items-center gap-2 text-sm">
-                  <Users size={16} className="text-gray-400" />
+                  <Users size={16} className="text-slate-700" />
                   <span>
                     {group.members}/{group.maxMembers} members
                   </span>
                 </div>
                 {group.nextMeeting && (
                   <div className="flex items-center gap-2 text-sm">
-                    <Calendar size={16} className="text-gray-400" />
+                    <Calendar size={16} className="text-slate-700" />
                     <span>{group.nextMeeting}</span>
                   </div>
                 )}

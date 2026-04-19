@@ -69,8 +69,8 @@ export function FAQAccordion({ categories, searchQuery = '', activeCategory = 'a
   if (filteredCategories.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-xl text-gray-600 mb-4">No results found for "{searchQuery}"</p>
-        <p className="text-gray-500">Try different keywords or browse all categories</p>
+        <p className="text-xl text-slate-700 mb-4">No results found for "{searchQuery}"</p>
+        <p className="text-slate-700">Try different keywords or browse all categories</p>
       </div>
     );
   }
@@ -104,7 +104,7 @@ export function FAQAccordion({ categories, searchQuery = '', activeCategory = 'a
                   >
                     <span className="font-bold text-black pr-4">{faq.q}</span>
                     <ChevronDown
-                      className={`w-5 h-5 text-gray-600 flex-shrink-0 transition-transform ${
+                      className={`w-5 h-5 text-slate-700 flex-shrink-0 transition-transform ${
                         isOpen ? 'transform rotate-180' : ''
                       }`}
                       aria-hidden="true"
@@ -115,7 +115,7 @@ export function FAQAccordion({ categories, searchQuery = '', activeCategory = 'a
                       id={`faq-${category.id}-${index}`}
                       className="px-6 py-4 bg-gray-50 border-t-2 border-gray-200"
                     >
-                      <p className="text-gray-700 leading-relaxed">{faq.a}</p>
+                      <p className="text-slate-900 leading-relaxed">{faq.a}</p>
                     </div>
                   )}
                 </div>

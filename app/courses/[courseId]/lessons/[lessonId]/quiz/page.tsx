@@ -24,7 +24,7 @@ export default async function QuizPage({ params }: { params: { courseId: string;
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="mb-6">
           <Link href={`/lms/courses/${params.courseId}/lessons/${params.lessonId}`} className="text-brand-blue-600 hover:text-brand-blue-800 text-sm">← Back to Lesson</Link>
-          <h1 className="text-2xl font-bold text-gray-900 mt-2">{lesson?.title} - Quiz</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mt-2">{lesson?.title} - Quiz</h1>
           <p className="text-black mt-1">Test your understanding of this lesson</p>
         </div>
         {quiz ? (

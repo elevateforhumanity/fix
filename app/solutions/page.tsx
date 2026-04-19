@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export const dynamic = 'force-static';
 export const revalidate = 86400;
 
@@ -5,6 +6,12 @@ import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { siteConfig } from '@/content/site';
 
+=======
+import Link from 'next/link';
+import { buildMetadata } from '@/lib/cf-seo';
+import { siteConfig } from '@/content/cf-site';
+
+>>>>>>> preview/branch-consolidation-20260418
 export const metadata = buildMetadata({
   title: 'Solutions',
   description: 'Workforce training solutions for higher education, K-12, distance learning, and employer partners.',
@@ -21,12 +28,21 @@ export default function SolutionsPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-3xl font-bold">Solutions</h1>
+<<<<<<< HEAD
       <p className="mt-4 text-gray-600">Workforce training solutions for institutions, employers, and learners.</p>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {solutions.map((s) => (
           <article key={s.slug} className="rounded border p-6 hover:bg-gray-50">
             <h2 className="text-xl font-semibold">{s.title}</h2>
             <p className="mt-2 text-sm text-gray-600">{s.summary}</p>
+=======
+      <p className="mt-4 text-slate-700">Workforce training solutions for institutions, employers, and learners.</p>
+      <div className="mt-10 grid gap-6 md:grid-cols-3">
+        {solutions.map((s) => (
+          <article key={s.slug} className="rounded border p-6 hover:bg-slate-50">
+            <h2 className="text-xl font-semibold">{s.title}</h2>
+            <p className="mt-2 text-sm text-slate-700">{s.summary}</p>
+>>>>>>> preview/branch-consolidation-20260418
             <Link href={`/solutions/${s.slug}`} className="mt-4 inline-block text-sm underline">Learn more</Link>
           </article>
         ))}

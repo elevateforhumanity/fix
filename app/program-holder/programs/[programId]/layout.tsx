@@ -51,17 +51,17 @@ export default async function ProgramScopedLayout({
           <div className="flex items-center gap-3">
             <Link
               href="/program-holder/programs"
-              className="text-gray-400 hover:text-gray-600"
+              className="text-slate-700 hover:text-slate-700"
             >
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-500">Program:</span>
-              <span className="font-semibold text-gray-900">{programName}</span>
+              <span className="text-sm text-slate-700">Program:</span>
+              <span className="font-semibold text-slate-900">{programName}</span>
               {program.is_active ? (
                 <span className="text-xs bg-brand-green-100 text-brand-green-800 px-2 py-0.5 rounded">Active</span>
               ) : (
-                <span className="text-xs bg-white text-gray-600 px-2 py-0.5 rounded">Inactive</span>
+                <span className="text-xs bg-white text-slate-700 px-2 py-0.5 rounded">Inactive</span>
               )}
             </div>
           </div>
@@ -76,7 +76,7 @@ export default async function ProgramScopedLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 hover:text-brand-blue-600 hover:bg-white rounded-md transition whitespace-nowrap"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand-blue-600 hover:bg-white rounded-md transition whitespace-nowrap"
               >
                 <item.icon className="w-4 h-4" />
                 {item.label}

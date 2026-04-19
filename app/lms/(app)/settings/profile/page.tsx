@@ -31,15 +31,15 @@ export default async function ProfileSettingsPage() {
     <div className="max-w-3xl mx-auto px-4 py-8">
       <Link 
         href="/lms/settings" 
-        className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+        className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Settings
       </Link>
 
       <div className="bg-white rounded-xl shadow-sm border p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Edit Profile</h1>
-        <p className="text-gray-600 mb-8">Update your personal information below.</p>
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">Edit Profile</h1>
+        <p className="text-slate-700 mb-8">Update your personal information below.</p>
 
         <ProfileForm profile={profile} />
       </div>

@@ -37,7 +37,7 @@ const industryColors: Record<string, string> = {
   Transportation: 'bg-brand-green-100 text-brand-green-700',
   Technology: 'bg-purple-100 text-purple-700',
   Retail: 'bg-yellow-100 text-yellow-700',
-  Manufacturing: 'bg-gray-100 text-gray-700',
+  Manufacturing: 'bg-gray-100 text-slate-900',
   Pharmaceutical: 'bg-teal-100 text-teal-700',
   Hospitality: 'bg-indigo-100 text-indigo-700',
   'Food Service': 'bg-brand-red-100 text-brand-red-700',
@@ -170,14 +170,14 @@ export default function EmployerPartners({
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Our Employer Partners</h2>
-            <p className="text-gray-600">{stats.totalPartners}+ companies hire our graduates</p>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Our Employer Partners</h2>
+            <p className="text-slate-700">{stats.totalPartners}+ companies hire our graduates</p>
           </div>
           <div className="flex flex-wrap justify-center gap-4">
             {displayPartners.slice(0, 8).map(partner => (
               <div 
                 key={partner.id}
-                className="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-700"
+                className="px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-slate-900"
               >
                 {partner.name}
               </div>
@@ -200,8 +200,8 @@ export default function EmployerPartners({
       <section className="py-16 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Employer Partners</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Employer Partners</h2>
+            <p className="text-slate-700 max-w-2xl mx-auto">
               Our graduates work at leading companies across multiple industries
             </p>
           </div>
@@ -216,8 +216,8 @@ export default function EmployerPartners({
                     <Building2 className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 text-sm">{partner.name}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${industryColors[partner.industry] || 'bg-gray-100 text-gray-700'}`}>
+                    <h3 className="font-semibold text-slate-900 text-sm">{partner.name}</h3>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${industryColors[partner.industry] || 'bg-gray-100 text-slate-900'}`}>
                       {partner.industry}
                     </span>
                   </div>
@@ -240,10 +240,10 @@ export default function EmployerPartners({
             <Building2 className="w-4 h-4" />
             {stats.totalPartners}+ Employer Partners
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Hired by Industry Leaders
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-700 max-w-3xl mx-auto">
             Our graduates work at top companies across healthcare, technology, trades, and more.
           </p>
         </div>
@@ -253,19 +253,19 @@ export default function EmployerPartners({
           <div className="grid md:grid-cols-4 gap-6 mb-16">
             <div className="bg-white rounded-xl p-6 shadow-lg text-center">
               <div className="text-4xl font-bold text-brand-blue-600 mb-2">{stats.totalPartners}+</div>
-              <div className="text-gray-700 font-semibold">Employer Partners</div>
+              <div className="text-slate-900 font-semibold">Employer Partners</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg text-center">
               <div className="text-4xl font-bold text-brand-green-600 mb-2">{stats.placementRate}%</div>
-              <div className="text-gray-700 font-semibold">Placement Rate</div>
+              <div className="text-slate-900 font-semibold">Placement Rate</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg text-center">
               <div className="text-4xl font-bold text-purple-600 mb-2">{stats.graduatesHired.toLocaleString('en-US')}+</div>
-              <div className="text-gray-700 font-semibold">Graduates Hired</div>
+              <div className="text-slate-900 font-semibold">Graduates Hired</div>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg text-center">
               <div className="text-4xl font-bold text-brand-orange-600 mb-2">${(stats.avgSalary / 1000).toFixed(0)}K</div>
-              <div className="text-gray-700 font-semibold">Avg. Starting Salary</div>
+              <div className="text-slate-900 font-semibold">Avg. Starting Salary</div>
             </div>
           </div>
         )}
@@ -286,14 +286,14 @@ export default function EmployerPartners({
                       <Building2 className="w-6 h-6 text-white" />
                     )}
                   </div>
-                  <span className={`text-xs px-2 py-1 rounded-full ${industryColors[partner.industry] || 'bg-gray-100 text-gray-700'}`}>
+                  <span className={`text-xs px-2 py-1 rounded-full ${industryColors[partner.industry] || 'bg-gray-100 text-slate-900'}`}>
                     {partner.industry}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{partner.name}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{partner.name}</h3>
                 {partner.hiring_rate && (
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600">Hiring Rate:</span>
+                    <span className="text-slate-700">Hiring Rate:</span>
                     <span className="font-bold text-brand-green-600">{partner.hiring_rate}%</span>
                   </div>
                 )}
@@ -318,14 +318,14 @@ export default function EmployerPartners({
                       <Briefcase className="w-6 h-6 text-white" />
                     )}
                   </div>
-                  <span className={`text-xs px-2 py-1 rounded-full ${industryColors[partner.industry] || 'bg-gray-100 text-gray-700'}`}>
+                  <span className={`text-xs px-2 py-1 rounded-full ${industryColors[partner.industry] || 'bg-gray-100 text-slate-900'}`}>
                     {partner.industry}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{partner.name}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{partner.name}</h3>
                 {partner.hiring_rate && (
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600">Hiring Rate:</span>
+                    <span className="text-slate-700">Hiring Rate:</span>
                     <span className="font-bold text-brand-green-600">{partner.hiring_rate}%</span>
                   </div>
                 )}
@@ -336,7 +336,7 @@ export default function EmployerPartners({
 
         {/* Industries */}
         <div className="bg-white rounded-2xl p-8 shadow-xl mb-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">
             Industries We Serve
           </h3>
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">

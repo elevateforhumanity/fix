@@ -71,7 +71,7 @@ export function HiringTrendsChart() {
                 title={`${item.applications} applications`}
               ></div>
             </div>
-            <span className="text-xs text-gray-500 mt-1">{item.month}</span>
+            <span className="text-xs text-slate-700 mt-1">{item.month}</span>
           </div>
         ))}
       </div>
@@ -120,7 +120,7 @@ export function RetentionByRoleChart() {
         <div key={idx}>
           <div className="flex justify-between text-sm mb-1">
             <span className="font-medium">{item.role}</span>
-            <span className="text-gray-500">{item.count} employees</span>
+            <span className="text-slate-700">{item.count} employees</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-4">
             <div

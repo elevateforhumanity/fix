@@ -54,8 +54,8 @@ export default function AIStudioPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Studio</h1>
-        <p className="text-gray-600 mb-8">All AI-powered tools in one place.</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">AI Studio</h1>
+        <p className="text-slate-700 mb-8">All AI-powered tools in one place.</p>
 
         {/* Tool Grid */}
         {!activeTool && (
@@ -66,8 +66,8 @@ export default function AIStudioPage() {
                 onClick={() => setActiveTool(tool.id)}
                 className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow text-left"
               >
-                <h3 className="font-semibold text-gray-900 mb-1">{tool.label}</h3>
-                <p className="text-sm text-gray-600">{tool.desc}</p>
+                <h3 className="font-semibold text-slate-900 mb-1">{tool.label}</h3>
+                <p className="text-sm text-slate-700">{tool.desc}</p>
               </button>
             ))}
           </div>

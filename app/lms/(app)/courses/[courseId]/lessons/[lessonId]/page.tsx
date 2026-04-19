@@ -553,8 +553,8 @@ export default function LessonPage() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50 p-8">
           <div className="max-w-md text-center space-y-4">
             <div className="text-4xl">🔒</div>
-            <h2 className="text-xl font-semibold text-gray-900">Module Not Yet Available</h2>
-            <p className="text-gray-600">
+            <h2 className="text-xl font-semibold text-slate-900">Module Not Yet Available</h2>
+            <p className="text-slate-700">
               This module is still being prepared. Check back soon — your instructor will notify you when it opens.
             </p>
             <a href={`/lms/courses/${courseId}`} className="inline-block mt-4 text-sm text-blue-600 underline">

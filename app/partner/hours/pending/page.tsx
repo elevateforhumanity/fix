@@ -155,8 +155,8 @@ export default function PartnerHoursPendingPage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <Clock className="w-12 h-12 text-gray-400 mx-auto mb-4 animate-pulse" />
-          <p className="text-gray-600">Loading pending hours...</p>
+          <Clock className="w-12 h-12 text-slate-700 mx-auto mb-4 animate-pulse" />
+          <p className="text-slate-700">Loading pending hours...</p>
         </div>
       </div>
     );
@@ -182,12 +182,12 @@ export default function PartnerHoursPendingPage() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <Link href="/partner/hours" className="text-gray-600 hover:text-gray-900">
+            <Link href="/partner/hours" className="text-slate-700 hover:text-slate-900">
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Pending Hours Review</h1>
-              <p className="text-gray-600 mt-1">
+              <h1 className="text-3xl font-bold text-slate-900">Pending Hours Review</h1>
+              <p className="text-slate-700 mt-1">
                 {pendingHours.length} {pendingHours.length === 1 ? 'entry' : 'entries'} awaiting approval
               </p>
             </div>
@@ -221,11 +221,11 @@ export default function PartnerHoursPendingPage() {
         {pendingHours.length === 0 ? (
           <div className="bg-white rounded-xl border p-12 text-center">
             <span className="text-slate-500 flex-shrink-0">•</span>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">All caught up!</h2>
-            <p className="text-gray-600 mb-6">No pending hours to review.</p>
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">All caught up!</h2>
+            <p className="text-slate-700 mb-6">No pending hours to review.</p>
             <Link
               href="/partner/hours"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-200"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white text-slate-900 rounded-lg hover:bg-gray-200"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Hours
@@ -242,15 +242,15 @@ export default function PartnerHoursPendingPage() {
                         <User className="w-5 h-5 text-brand-blue-600" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900">{hour.student_name}</h3>
-                        <p className="text-sm text-gray-500">{hour.student_email}</p>
+                        <h3 className="font-semibold text-slate-900">{hour.student_name}</h3>
+                        <p className="text-sm text-slate-700">{hour.student_email}</p>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm text-gray-700">
+                        <Calendar className="w-4 h-4 text-slate-700" />
+                        <span className="text-sm text-slate-900">
                           {new Date(hour.work_date).toLocaleDateString('en-US', { timeZone: 'UTC',
                             weekday: 'short',
                             month: 'short',
@@ -260,8 +260,8 @@ export default function PartnerHoursPendingPage() {
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm font-medium text-gray-900">{hour.hours_claimed} hours</span>
+                        <Clock className="w-4 h-4 text-slate-700" />
+                        <span className="text-sm font-medium text-slate-900">{hour.hours_claimed} hours</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -274,15 +274,15 @@ export default function PartnerHoursPendingPage() {
                       </div>
                       {hour.category && (
                         <div className="flex items-center gap-2">
-                          <Building className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-700">{hour.category}</span>
+                          <Building className="w-4 h-4 text-slate-700" />
+                          <span className="text-sm text-slate-900">{hour.category}</span>
                         </div>
                       )}
                     </div>
 
                     {hour.notes && (
                       <div className="bg-white rounded-lg p-3 mb-4">
-                        <p className="text-sm text-gray-700">{hour.notes}</p>
+                        <p className="text-sm text-slate-900">{hour.notes}</p>
                       </div>
                     )}
                   </div>

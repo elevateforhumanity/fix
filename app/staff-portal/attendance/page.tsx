@@ -73,14 +73,14 @@ export default async function StaffPortalAttendancePage() {
               {activeCohorts.map((cohort) => (
                 <div key={cohort.id} className="border rounded-lg p-4">
                   <h3 className="font-medium">{cohort.name}</h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-700">
                     {new Date(cohort.start_date).toLocaleDateString()} - {new Date(cohort.end_date).toLocaleDateString()}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-500">No active cohorts found.</p>
+            <p className="text-slate-700">No active cohorts found.</p>
           )}
         </section>
 
@@ -102,14 +102,14 @@ export default async function StaffPortalAttendancePage() {
                   {records.map((record: any) => (
                     <tr key={record.id} className="border-b">
                       <td className="py-3">{record.apprentices?.profiles?.full_name || 'Unknown'}</td>
-                      <td className="py-3 text-gray-600">{new Date(record.date).toLocaleDateString()}</td>
+                      <td className="py-3 text-slate-700">{new Date(record.date).toLocaleDateString()}</td>
                       <td className="py-3 text-center">{record.hours_worked || 0}</td>
                       <td className="py-3 text-center">
                         <span className={`px-2 py-1 rounded text-sm ${
                           record.status === 'present' ? 'bg-brand-green-100 text-brand-green-800' :
                           record.status === 'absent' ? 'bg-brand-red-100 text-brand-red-800' :
                           record.status === 'late' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-white text-gray-800'
+                          'bg-white text-slate-900'
                         }`}>
                           {record.status || 'N/A'}
                         </span>
@@ -120,9 +120,9 @@ export default async function StaffPortalAttendancePage() {
               </table>
             </div>
           ) : (
-            <p className="text-gray-500">No attendance records found. Records will appear here once attendance is taken.</p>
+            <p className="text-slate-700">No attendance records found. Records will appear here once attendance is taken.</p>
           )}
-          <div className="mt-4 flex items-center gap-6 text-sm text-gray-600">
+          <div className="mt-4 flex items-center gap-6 text-sm text-slate-700">
             <span><span className="text-brand-green-600">●</span> Present</span>
             <span><span className="text-brand-red-600">✗</span> Absent</span>
             <span><span className="text-yellow-600">L</span> Late</span>

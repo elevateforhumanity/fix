@@ -35,8 +35,8 @@ export default function ContentAutomationPage() {
         <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Content Automation' }]} />
       </div>
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Content Automation</h1>
-        <p className="text-gray-600 mb-6">Automated content refresh, optimization, and publishing pipeline.</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Content Automation</h1>
+        <p className="text-slate-700 mb-6">Automated content refresh, optimization, and publishing pipeline.</p>
 
         <div className="flex items-center gap-4 mb-8">
           <select
@@ -67,7 +67,7 @@ export default function ContentAutomationPage() {
         {results && (
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <h2 className="text-lg font-semibold mb-4">Results</h2>
-            <pre className="text-sm text-gray-700 whitespace-pre-wrap">{JSON.stringify(results, null, 2)}</pre>
+            <pre className="text-sm text-slate-900 whitespace-pre-wrap">{JSON.stringify(results, null, 2)}</pre>
           </div>
         )}
       </div>

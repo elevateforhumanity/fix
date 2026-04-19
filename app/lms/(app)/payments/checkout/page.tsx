@@ -148,7 +148,7 @@ function CheckoutContent() {
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-lg mx-auto px-4 py-12">
-          <Link href="/lms/certification" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8">
+          <Link href="/lms/certification" className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-8">
             <ArrowLeft className="w-4 h-4" />
             Back to My Credentials
           </Link>
@@ -158,7 +158,7 @@ function CheckoutContent() {
                 <CreditCard className="w-8 h-8 text-brand-blue-600" />
               </div>
               <h1 className="text-2xl font-bold">Exam Fee Payment</h1>
-              <p className="text-gray-600 mt-2">Pay your credential exam fee to schedule your exam</p>
+              <p className="text-slate-700 mt-2">Pay your credential exam fee to schedule your exam</p>
             </div>
             {error && (
               <div className="flex items-start gap-3 bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
@@ -187,7 +187,7 @@ function CheckoutContent() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-lg mx-auto px-4 py-12">
-        <Link href={`/programs/${program}-certification/enroll`} className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8">
+        <Link href={`/programs/${program}-certification/enroll`} className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-8">
           <ArrowLeft className="w-4 h-4" />
           Back to Enrollment
         </Link>
@@ -197,7 +197,7 @@ function CheckoutContent() {
               <CreditCard className="w-8 h-8 text-brand-blue-600" />
             </div>
             <h1 className="text-2xl font-bold">Complete Payment</h1>
-            <p className="text-gray-600 mt-2">
+            <p className="text-slate-700 mt-2">
               {programNames[program] || program} — {type === 'down-payment' ? 'Down Payment' : 'Full Payment'}
             </p>
           </div>
@@ -215,32 +215,32 @@ function CheckoutContent() {
           </div>
           <form onSubmit={handleLegacySubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Name on card</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Name on card</label>
               <input type="text" value={name} onChange={e => setName(e.target.value)} required
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
                 placeholder="Full name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Card number</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Card number</label>
               <input type="text" value={cardNumber} onChange={e => setCardNumber(e.target.value)} required maxLength={19}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
                 placeholder="1234 5678 9012 3456" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Expiry</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Expiry</label>
                 <input type="text" value={expiry} onChange={e => setExpiry(e.target.value)} required maxLength={5}
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
                   placeholder="MM/YY" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">CVC</label>
                 <input type="text" value={cvc} onChange={e => setCvc(e.target.value)} required maxLength={4}
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
                   placeholder="123" />
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs text-gray-500">
+            <div className="flex items-center gap-2 text-xs text-slate-700">
               <Lock className="w-3 h-3" />
               <span>Secured by Stripe. Your card details are never stored on our servers.</span>
             </div>

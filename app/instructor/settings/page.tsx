@@ -49,10 +49,10 @@ export default async function InstructorSettingsPage() {
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Account Settings</h1>
-              <p className="text-gray-600">Manage your profile and preferences</p>
+              <h1 className="text-2xl font-bold text-slate-900">Account Settings</h1>
+              <p className="text-slate-700">Manage your profile and preferences</p>
             </div>
-            <Link href="/instructor/dashboard" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+            <Link href="/instructor/dashboard" className="px-4 py-2 text-slate-700 hover:text-slate-900">
               ← Dashboard
             </Link>
           </div>
@@ -70,7 +70,7 @@ export default async function InstructorSettingsPage() {
           <form action={updateInstructorProfile} className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Full Name</label>
                 <input
                   name="full_name"
                   type="text"
@@ -79,7 +79,7 @@ export default async function InstructorSettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Title</label>
                 <input
                   name="title"
                   type="text"
@@ -92,9 +92,9 @@ export default async function InstructorSettingsPage() {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                   <input
                     name="email"
                     type="email"
@@ -104,9 +104,9 @@ export default async function InstructorSettingsPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Phone</label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                   <input
                     name="phone"
                     type="tel"
@@ -118,7 +118,7 @@ export default async function InstructorSettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Bio</label>
               <textarea
                 name="bio"
                 rows={3}
@@ -145,7 +145,7 @@ export default async function InstructorSettingsPage() {
             <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
               <div>
                 <div className="font-medium">New Enrollments</div>
-                <div className="text-sm text-gray-600">Get notified when students enroll in your courses</div>
+                <div className="text-sm text-slate-700">Get notified when students enroll in your courses</div>
               </div>
               <input type="checkbox" defaultChecked className="w-5 h-5 text-brand-blue-600 rounded" />
             </label>
@@ -153,7 +153,7 @@ export default async function InstructorSettingsPage() {
             <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
               <div>
                 <div className="font-medium">Student Messages</div>
-                <div className="text-sm text-gray-600">Get notified when students send you messages</div>
+                <div className="text-sm text-slate-700">Get notified when students send you messages</div>
               </div>
               <input type="checkbox" defaultChecked className="w-5 h-5 text-brand-blue-600 rounded" />
             </label>
@@ -161,7 +161,7 @@ export default async function InstructorSettingsPage() {
             <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
               <div>
                 <div className="font-medium">Course Completions</div>
-                <div className="text-sm text-gray-600">Get notified when students complete your courses</div>
+                <div className="text-sm text-slate-700">Get notified when students complete your courses</div>
               </div>
               <input type="checkbox" defaultChecked className="w-5 h-5 text-brand-blue-600 rounded" />
             </label>

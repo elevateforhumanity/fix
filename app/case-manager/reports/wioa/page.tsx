@@ -118,13 +118,13 @@ export default async function WIOAReportPage() {
     if (status === 'eligible')    return 'bg-green-100 text-green-800';
     if (status === 'pending')     return 'bg-yellow-100 text-yellow-800';
     if (status === 'ineligible')  return 'bg-red-100 text-red-800';
-    return 'bg-gray-100 text-gray-700';
+    return 'bg-gray-100 text-slate-900';
   };
 
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <nav className="text-xs text-gray-500 mb-4">
+        <nav className="text-xs text-slate-700 mb-4">
           <Link href="/case-manager/dashboard" className="hover:underline">Dashboard</Link>
           <span className="mx-1">/</span>
           <span>WIOA Outcomes Report</span>
@@ -132,8 +132,8 @@ export default async function WIOAReportPage() {
 
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">WIOA Outcomes Report</h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <h1 className="text-2xl font-bold text-slate-900">WIOA Outcomes Report</h1>
+            <p className="text-sm text-slate-700 mt-1">
               {total} participant{total !== 1 ? 's' : ''} · Performance period outcomes
             </p>
           </div>
@@ -150,34 +150,34 @@ export default async function WIOAReportPage() {
             { label: 'Skill Gains',       value: skillGain },
           ].map(({ label, value }) => (
             <div key={label} className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{label}</p>
-              <p className="mt-1 text-2xl font-bold text-gray-900">{value}</p>
+              <p className="text-xs font-medium text-slate-700 uppercase tracking-wide">{label}</p>
+              <p className="mt-1 text-2xl font-bold text-slate-900">{value}</p>
             </div>
           ))}
         </div>
 
         {wioaRows.length === 0 ? (
           <div className="rounded-xl border border-gray-200 p-12 text-center">
-            <p className="text-sm text-gray-500">No WIOA participants found for your assigned caseload.</p>
+            <p className="text-sm text-slate-700">No WIOA participants found for your assigned caseload.</p>
           </div>
         ) : (
           <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
             <table className="min-w-full divide-y divide-gray-100 text-sm">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Participant</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Program</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Eligibility</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Entry Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Barriers</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Entry Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Exit Date</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Q2 Emp.</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Q4 Emp.</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Credential</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Skill Gain</th>
-                  <th className="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Q2 Earnings</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Placement</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Participant</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Program</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Eligibility</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Entry Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Barriers</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Entry Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Exit Date</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Q2 Emp.</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Q4 Emp.</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Credential</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Skill Gain</th>
+                  <th className="px-4 py-3 text-right text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Q2 Earnings</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase whitespace-nowrap">Placement</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -195,7 +195,7 @@ export default async function WIOAReportPage() {
 
                   return (
                     <tr key={w.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                      <td className="px-4 py-3 font-medium text-slate-900 whitespace-nowrap">
                         <Link
                           href={`/case-manager/participants`}
                           className="hover:underline text-brand-blue-600"
@@ -203,28 +203,28 @@ export default async function WIOAReportPage() {
                           {w.first_name} {w.last_name}
                         </Link>
                       </td>
-                      <td className="px-4 py-3 text-gray-700 whitespace-nowrap">{w.wioa_program ?? '—'}</td>
+                      <td className="px-4 py-3 text-slate-900 whitespace-nowrap">{w.wioa_program ?? '—'}</td>
                       <td className="px-4 py-3 whitespace-nowrap">
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${eligBadge(w.eligibility_status ?? '')}`}>
                           {w.eligibility_status ?? 'unknown'}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{w.employment_status_at_entry ?? '—'}</td>
-                      <td className="px-4 py-3 text-gray-600 text-xs max-w-[160px] truncate" title={barriers}>{barriers}</td>
-                      <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
+                      <td className="px-4 py-3 text-slate-700 whitespace-nowrap">{w.employment_status_at_entry ?? '—'}</td>
+                      <td className="px-4 py-3 text-slate-700 text-xs max-w-[160px] truncate" title={barriers}>{barriers}</td>
+                      <td className="px-4 py-3 text-slate-700 whitespace-nowrap">
                         {outcome?.program_entry_date ? new Date(outcome.program_entry_date).toLocaleDateString() : '—'}
                       </td>
-                      <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
+                      <td className="px-4 py-3 text-slate-700 whitespace-nowrap">
                         {outcome?.program_exit_date ? new Date(outcome.program_exit_date).toLocaleDateString() : '—'}
                       </td>
                       <td className="px-4 py-3 text-center">{outcome ? (outcome.employed_q2_after_exit ? '✅' : '❌') : '—'}</td>
                       <td className="px-4 py-3 text-center">{outcome ? (outcome.employed_q4_after_exit ? '✅' : '❌') : '—'}</td>
                       <td className="px-4 py-3 text-center">{outcome ? (outcome.credential_attained ? '✅' : '❌') : '—'}</td>
                       <td className="px-4 py-3 text-center">{outcome ? (outcome.measurable_skill_gain ? '✅' : '❌') : '—'}</td>
-                      <td className="px-4 py-3 text-right text-gray-700 whitespace-nowrap">
+                      <td className="px-4 py-3 text-right text-slate-900 whitespace-nowrap">
                         {outcome?.median_earnings_q2 ? `$${Number(outcome.median_earnings_q2).toLocaleString()}` : '—'}
                       </td>
-                      <td className="px-4 py-3 text-gray-600 whitespace-nowrap text-xs">
+                      <td className="px-4 py-3 text-slate-700 whitespace-nowrap text-xs">
                         {placement ? `${placement.employer_name ?? ''}${placement.hourly_wage ? ` · $${placement.hourly_wage}/hr` : ''}` : '—'}
                       </td>
                     </tr>

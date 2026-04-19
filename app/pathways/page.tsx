@@ -199,10 +199,10 @@ export default function PathwaysPage() {
       {/* ── Who We Are / What This Is ── */}
       <section className="py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">
             Career Pathways &amp; Workforce Infrastructure
           </h1>
-          <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
+          <div className="prose prose-lg max-w-none text-slate-900 space-y-4">
             <p>
               Elevate for Humanity Career &amp; Technical Institute is a centralized apprenticeship sponsor and workforce training provider based in Indianapolis, Indiana, operating under 2Exclusive LLC-S.
               The institute coordinates related technical instruction, apprenticeship sponsorship, and licensed employer training sites under a unified governance structure.
@@ -235,7 +235,7 @@ export default function PathwaysPage() {
       {/* ── The 5 Stages (photo + deep description each) ── */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">How the Pathway Works</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-3">How the Pathway Works</h2>
           <p className="text-black mb-10 max-w-3xl">
             Every participant moves through these five stages in order. You do not skip stages.
             Each stage has a clear purpose, a defined timeline, and a specific outcome.
@@ -252,22 +252,22 @@ export default function PathwaysPage() {
                     </div>
                   </div>
                   <div className="p-6 lg:p-8 flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Stage {s.num}: {s.title}</h3>
-                    <div className="space-y-4 text-sm text-gray-700">
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">Stage {s.num}: {s.title}</h3>
+                    <div className="space-y-4 text-sm text-slate-900">
                       <div>
-                        <span className="font-bold text-gray-900 block mb-1">What happens:</span>
+                        <span className="font-bold text-slate-900 block mb-1">What happens:</span>
                         {s.what}
                       </div>
                       <div>
-                        <span className="font-bold text-gray-900 block mb-1">Who this is for:</span>
+                        <span className="font-bold text-slate-900 block mb-1">Who this is for:</span>
                         {s.who}
                       </div>
                       <div>
-                        <span className="font-bold text-gray-900 block mb-1">Funding:</span>
+                        <span className="font-bold text-slate-900 block mb-1">Funding:</span>
                         {s.funding}
                       </div>
                       <div>
-                        <span className="font-bold text-gray-900 block mb-1">Timeline:</span>
+                        <span className="font-bold text-slate-900 block mb-1">Timeline:</span>
                         {s.timeline}
                       </div>
                     </div>
@@ -285,7 +285,7 @@ export default function PathwaysPage() {
       {/* ── Every Program (individual cards with full detail) ── */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">Training Programs</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-3">Training Programs</h2>
           <p className="text-black mb-10 max-w-3xl">
             Each program follows the 5-stage pathway above. Click any program to see the full
             curriculum, schedule, and enrollment details.
@@ -300,17 +300,17 @@ export default function PathwaysPage() {
                   </div>
                   <div className="p-6 flex-1">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-xl font-bold text-gray-900">{p.name}</h3>
+                      <h3 className="text-xl font-bold text-slate-900">{p.name}</h3>
                       <span className="text-sm bg-brand-green-50 text-brand-green-700 px-3 py-1 rounded-full font-semibold whitespace-nowrap ml-3">{p.funding}</span>
                     </div>
-                    <p className="text-sm text-gray-700 mb-4">{p.desc}</p>
+                    <p className="text-sm text-slate-900 mb-4">{p.desc}</p>
 
                     <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm mb-4">
-                      <div><span className="font-bold text-gray-900">Duration:</span> <span className="text-black">{p.duration}</span></div>
-                      <div><span className="font-bold text-gray-900">Credential:</span> <span className="text-black">{p.credential}</span></div>
-                      <div><span className="font-bold text-gray-900">Issued by:</span> <span className="text-black">{p.issuer}</span></div>
-                      <div><span className="font-bold text-gray-900">Salary range:</span> <span className="text-black">{p.salary}</span></div>
-                      <div className="sm:col-span-2"><span className="font-bold text-gray-900">Who hires you:</span> <span className="text-black">{p.jobs}</span></div>
+                      <div><span className="font-bold text-slate-900">Duration:</span> <span className="text-black">{p.duration}</span></div>
+                      <div><span className="font-bold text-slate-900">Credential:</span> <span className="text-black">{p.credential}</span></div>
+                      <div><span className="font-bold text-slate-900">Issued by:</span> <span className="text-black">{p.issuer}</span></div>
+                      <div><span className="font-bold text-slate-900">Salary range:</span> <span className="text-black">{p.salary}</span></div>
+                      <div className="sm:col-span-2"><span className="font-bold text-slate-900">Who hires you:</span> <span className="text-black">{p.jobs}</span></div>
                     </div>
 
                     <div className="flex flex-wrap gap-3">
@@ -332,8 +332,8 @@ export default function PathwaysPage() {
       {/* ── How Programs Are Delivered ── */}
       <section className="py-10 border-t border-gray-200">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">How Programs Are Delivered</h2>
-          <div className="text-sm text-gray-700 space-y-3">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">How Programs Are Delivered</h2>
+          <div className="text-sm text-slate-900 space-y-3">
             <p>
               Elevate for Humanity operates as a Hybrid Workforce Training Provider and
               Registered Apprenticeship Sponsor. Training is delivered through licensed credential
@@ -362,7 +362,7 @@ export default function PathwaysPage() {
       {/* ── Who Is This For ── */}
       <section className="py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Who Is This For?</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-8">Who Is This For?</h2>
           <div className="grid sm:grid-cols-2 gap-6">
             {[
               { title: 'Career changers', desc: 'You are working a job that does not pay enough or does not have a future. You want a credential that leads to a real career with benefits and growth.' },
@@ -373,7 +373,7 @@ export default function PathwaysPage() {
               { title: 'Employers and workforce partners', desc: 'You need trained, credentialed workers. We run custom training cohorts for your hiring needs and handle all the funding paperwork.' },
             ].map((item) => (
               <div key={item.title} className="bg-white rounded-lg border border-gray-200 p-6">
-                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
+                <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-black">{item.desc}</p>
               </div>
             ))}
@@ -384,14 +384,14 @@ export default function PathwaysPage() {
       {/* ── What Makes This Different ── */}
       <section className="py-14">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">What Makes This Different</h2>
-          <div className="space-y-4 text-gray-700">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">What Makes This Different</h2>
+          <div className="space-y-4 text-slate-900">
             <div className="flex gap-4 items-start">
               <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                 <Image src="/images/pages/funding.jpg" alt="Funding navigation" fill sizes="80px" className="object-cover" />
               </div>
               <div>
-                <h3 className="font-bold text-gray-900 mb-1">We navigate funding for you</h3>
+                <h3 className="font-bold text-slate-900 mb-1">We navigate funding for you</h3>
                 <p className="text-sm">Most people do not know they qualify for free training. We walk you through federal and state workforce funding eligibility and handle the paperwork with your local WorkOne career center.</p>
               </div>
             </div>
@@ -400,7 +400,7 @@ export default function PathwaysPage() {
                 <Image src="/images/pages/certifications.jpg" alt="Credentials" fill sizes="80px" className="object-cover" />
               </div>
               <div>
-                <h3 className="font-bold text-gray-900 mb-1">Your credential is issued by a recognized authority — not by us</h3>
+                <h3 className="font-bold text-slate-900 mb-1">Your credential is issued by a recognized authority — not by us</h3>
                 <p className="text-sm">CNA from Indiana ISDH. CDL from Indiana BMV. EPA 608 from the EPA. IT Specialist from Certiport. Barber license from Indiana PLA. These credentials are recognized nationwide.</p>
               </div>
             </div>
@@ -409,7 +409,7 @@ export default function PathwaysPage() {
                 <Image src="/images/pages/employer-handshake.jpg" alt="Employer connections" fill sizes="80px" className="object-cover" />
               </div>
               <div>
-                <h3 className="font-bold text-gray-900 mb-1">We connect you to employers who are actually hiring</h3>
+                <h3 className="font-bold text-slate-900 mb-1">We connect you to employers who are actually hiring</h3>
                 <p className="text-sm">Not job boards. Direct introductions to hiring managers at companies like Schneider National, FedEx Freight, local HVAC contractors, hospitals, and barbershops across Central Indiana.</p>
               </div>
             </div>
@@ -418,7 +418,7 @@ export default function PathwaysPage() {
                 <Image src="/images/pages/mentorship-page-3.jpg" alt="Ongoing support" fill sizes="80px" className="object-cover" />
               </div>
               <div>
-                <h3 className="font-bold text-gray-900 mb-1">Support does not end when you graduate</h3>
+                <h3 className="font-bold text-slate-900 mb-1">Support does not end when you graduate</h3>
                 <p className="text-sm">We track your employment at 6 and 12 months. You keep access to the learning platform. Career services — resume help, interview coaching, job leads — are available as long as you need them.</p>
               </div>
             </div>
@@ -429,18 +429,18 @@ export default function PathwaysPage() {
       {/* ── Explore More ── */}
       <section className="py-10">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Explore the Pathway System</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Explore the Pathway System</h2>
           <div className="grid sm:grid-cols-3 gap-4">
             <Link href="/pathways/outcomes" className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition">
-              <h3 className="font-bold text-gray-900 mb-1">Outcomes &amp; Metrics</h3>
+              <h3 className="font-bold text-slate-900 mb-1">Outcomes &amp; Metrics</h3>
               <p className="text-sm text-black">What each credential means, what jobs pay, and how we measure success.</p>
             </Link>
             <Link href="/pathways/partners" className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition">
-              <h3 className="font-bold text-gray-900 mb-1">Partners &amp; Cohorts</h3>
+              <h3 className="font-bold text-slate-900 mb-1">Partners &amp; Cohorts</h3>
               <p className="text-sm text-black">How workforce boards, employers, and community organizations work with us.</p>
             </Link>
             <Link href="/pathways/training-model" className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition">
-              <h3 className="font-bold text-gray-900 mb-1">Training Delivery</h3>
+              <h3 className="font-bold text-slate-900 mb-1">Training Delivery</h3>
               <p className="text-sm text-black">What a student day looks like, how classes work, and how we track progress.</p>
             </Link>
           </div>

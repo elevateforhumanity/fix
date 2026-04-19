@@ -101,7 +101,7 @@ export default function GlobalError({
                 >
                   Email Support
                 </a>
-                <span className="hidden sm:inline text-gray-400">•</span>
+                <span className="hidden sm:inline text-slate-700">•</span>
                 <a 
                   href="/support" 
                   className="text-brand-orange-600 hover:text-brand-orange-700 font-semibold hover:underline"
@@ -113,7 +113,7 @@ export default function GlobalError({
 
             {error.digest && (
               <div className="mt-6 pt-6 border-t border-gray-200">
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-slate-700">
                   Reference this error ID when contacting support: <span className="font-mono font-semibold">{error.digest}</span>
                 </p>
               </div>

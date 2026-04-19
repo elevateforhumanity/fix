@@ -58,8 +58,8 @@ export default async function EmployeePortalPage() {
           {links.map((link) => (
             <Link key={link.href} href={link.href} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition">
               <link.icon className="w-8 h-8 text-indigo-600 mb-3" />
-              <h3 className="font-semibold text-gray-900">{link.label}</h3>
-              <p className="text-sm text-gray-600">{link.desc}</p>
+              <h3 className="font-semibold text-slate-900">{link.label}</h3>
+              <p className="text-sm text-slate-700">{link.desc}</p>
             </Link>
           ))}
         </div>

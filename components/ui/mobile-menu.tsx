@@ -63,7 +63,7 @@ export function MobileMenu() {
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-gray-600 hover:text-gray-900 transition"
+        className="p-2 text-slate-700 hover:text-slate-900 transition"
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
       >
@@ -80,7 +80,7 @@ export function MobileMenu() {
             </Link>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 text-gray-600 hover:text-gray-900"
+              className="p-2 text-slate-700 hover:text-slate-900"
               aria-label="Close menu"
             >
               <X className="w-6 h-6" />
@@ -96,13 +96,13 @@ export function MobileMenu() {
                     <div>
                       <button
                         onClick={() => toggleExpanded(item.label)}
-                        className="flex items-center justify-between w-full p-3 text-left text-gray-900 hover:bg-gray-50 rounded-lg"
+                        className="flex items-center justify-between w-full p-3 text-left text-slate-900 hover:bg-gray-50 rounded-lg"
                       >
                         <span className="font-medium">{item.label}</span>
                         {expandedItems.includes(item.label) ? (
-                          <ChevronDown className="w-5 h-5 text-gray-400" />
+                          <ChevronDown className="w-5 h-5 text-slate-700" />
                         ) : (
-                          <ChevronRight className="w-5 h-5 text-gray-400" />
+                          <ChevronRight className="w-5 h-5 text-slate-700" />
                         )}
                       </button>
                       {expandedItems.includes(item.label) && (
@@ -114,7 +114,7 @@ export function MobileMenu() {
                                 className={`block p-3 rounded-lg transition ${
                                   pathname === child.href
                                     ? 'bg-brand-orange-50 text-brand-orange-600'
-                                    : 'text-gray-600 hover:bg-gray-50'
+                                    : 'text-slate-700 hover:bg-gray-50'
                                 }`}
                               >
                                 {child.label}
@@ -130,7 +130,7 @@ export function MobileMenu() {
                       className={`block p-3 rounded-lg font-medium transition ${
                         pathname === item.href
                           ? 'bg-brand-orange-50 text-brand-orange-600'
-                          : 'text-gray-900 hover:bg-gray-50'
+                          : 'text-slate-900 hover:bg-gray-50'
                       }`}
                     >
                       {item.label}
@@ -144,7 +144,7 @@ export function MobileMenu() {
             <div className="mt-6 pt-6 border-t space-y-3">
               <Link
                 href="/login"
-                className="block w-full p-3 text-center text-gray-900 border rounded-lg hover:bg-gray-50 transition"
+                className="block w-full p-3 text-center text-slate-900 border rounded-lg hover:bg-gray-50 transition"
               >
                 Log In
               </Link>

@@ -39,16 +39,16 @@ export default async function TaxSelfPrepStartPage() {
   return (
     <div className="min-h-screen bg-white py-8">
       <div className="max-w-5xl mx-auto px-4">
-        <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
+        <nav className="flex items-center gap-2 text-sm text-slate-700 mb-6">
           <Link href="/" className="hover:text-brand-orange-600">Home</Link>
           <ChevronRight className="w-4 h-4" />
           <Link href="/tax-self-prep" className="hover:text-brand-orange-600">Self-Prep</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900">Start Filing</span>
+          <span className="text-slate-900">Start Filing</span>
         </nav>
 
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Self-Prep Tax Filing</h1>
-        <p className="text-gray-600 mb-8">Complete each section to file your taxes</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Self-Prep Tax Filing</h1>
+        <p className="text-slate-700 mb-8">Complete each section to file your taxes</p>
 
         <TaxPrepForm 
           userId={user.id}

@@ -79,7 +79,7 @@ export default async function AiTutorLogsPage() {
             <span className="text-xs font-medium uppercase">Last 24h</span>
           </div>
           <p className="text-2xl font-bold">{total24h ?? 0}</p>
-          <p className="text-xs text-gray-500">total requests</p>
+          <p className="text-xs text-slate-700">total requests</p>
         </div>
         <div className="bg-white border rounded-xl p-4">
           <div className="flex items-center gap-2 text-amber-600 mb-1">
@@ -87,7 +87,7 @@ export default async function AiTutorLogsPage() {
             <span className="text-xs font-medium uppercase">Blocked 24h</span>
           </div>
           <p className="text-2xl font-bold">{blocked24h ?? 0}</p>
-          <p className="text-xs text-gray-500">rate limit / PII / origin</p>
+          <p className="text-xs text-slate-700">rate limit / PII / origin</p>
         </div>
         <div className="bg-white border rounded-xl p-4">
           <div className="flex items-center gap-2 text-brand-green-600 mb-1">
@@ -95,7 +95,7 @@ export default async function AiTutorLogsPage() {
             <span className="text-xs font-medium uppercase">Last 7 days</span>
           </div>
           <p className="text-2xl font-bold">{total7d ?? 0}</p>
-          <p className="text-xs text-gray-500">total requests</p>
+          <p className="text-xs text-slate-700">total requests</p>
         </div>
         <div className="bg-white border rounded-xl p-4">
           <div className="flex items-center gap-2 text-slate-600 mb-1">
@@ -103,7 +103,7 @@ export default async function AiTutorLogsPage() {
             <span className="text-xs font-medium uppercase">Unique IPs 24h</span>
           </div>
           <p className="text-2xl font-bold">{Object.keys(ipCounts).length}</p>
-          <p className="text-xs text-gray-500">distinct visitors</p>
+          <p className="text-xs text-slate-700">distinct visitors</p>
         </div>
       </div>
 
@@ -113,7 +113,7 @@ export default async function AiTutorLogsPage() {
           <h2 className="font-semibold mb-3">Top IPs (Last 24h)</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
             {topIpList.map(([hash, count]) => (
-              <div key={hash} className={`text-xs font-mono px-2 py-1 rounded ${count > 20 ? 'bg-brand-red-50 text-brand-red-700' : count > 10 ? 'bg-amber-50 text-amber-700' : 'bg-gray-50 text-gray-600'}`}>
+              <div key={hash} className={`text-xs font-mono px-2 py-1 rounded ${count > 20 ? 'bg-brand-red-50 text-brand-red-700' : count > 10 ? 'bg-amber-50 text-amber-700' : 'bg-gray-50 text-slate-700'}`}>
                 {hash.slice(0, 8)}... <span className="font-bold">{count}</span>
               </div>
             ))}
@@ -130,22 +130,22 @@ export default async function AiTutorLogsPage() {
           <table className="w-full text-sm">
             <thead className="bg-gray-50 text-left">
               <tr>
-                <th className="px-4 py-2 font-medium text-gray-600">Time</th>
-                <th className="px-4 py-2 font-medium text-gray-600">IP Hash</th>
-                <th className="px-4 py-2 font-medium text-gray-600">Q Length</th>
-                <th className="px-4 py-2 font-medium text-gray-600">R Length</th>
-                <th className="px-4 py-2 font-medium text-gray-600">Blocked</th>
+                <th className="px-4 py-2 font-medium text-slate-700">Time</th>
+                <th className="px-4 py-2 font-medium text-slate-700">IP Hash</th>
+                <th className="px-4 py-2 font-medium text-slate-700">Q Length</th>
+                <th className="px-4 py-2 font-medium text-slate-700">R Length</th>
+                <th className="px-4 py-2 font-medium text-slate-700">Blocked</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {recentLogs?.map((log: any) => (
                 <tr key={log.id} className={log.blocked_reason ? 'bg-brand-red-50' : ''}>
-                  <td className="px-4 py-2 text-gray-600 whitespace-nowrap">
+                  <td className="px-4 py-2 text-slate-700 whitespace-nowrap">
                     {new Date(log.created_at).toLocaleString('en-US', {
                       month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
                     })}
                   </td>
-                  <td className="px-4 py-2 font-mono text-xs text-gray-500">
+                  <td className="px-4 py-2 font-mono text-xs text-slate-700">
                     {log.ip_hash?.slice(0, 8)}...
                   </td>
                   <td className="px-4 py-2">{log.question_length}</td>
@@ -163,7 +163,7 @@ export default async function AiTutorLogsPage() {
               ))}
               {(!recentLogs || recentLogs.length === 0) && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-gray-400">
+                  <td colSpan={5} className="px-4 py-8 text-center text-slate-700">
                     No logs yet. The public AI tutor hasn&apos;t received any requests.
                   </td>
                 </tr>

@@ -112,16 +112,16 @@ export default async function FerpaRecordsPage() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Student Records</span>
+            <span className="text-slate-900 font-medium">Student Records</span>
           </nav>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Student Records</h1>
-              <p className="text-gray-600 mt-1">
+              <h1 className="text-2xl font-bold text-slate-900">Student Records</h1>
+              <p className="text-slate-700 mt-1">
                 View and manage student education records
               </p>
             </div>
@@ -147,8 +147,8 @@ export default async function FerpaRecordsPage() {
                 <User className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{totalStudents || 0}</p>
-                <p className="text-sm text-gray-500">Total Students</p>
+                <p className="text-2xl font-bold text-slate-900">{totalStudents || 0}</p>
+                <p className="text-sm text-slate-700">Total Students</p>
               </div>
             </div>
           </div>
@@ -158,8 +158,8 @@ export default async function FerpaRecordsPage() {
                 <FileText className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{activeEnrollments || 0}</p>
-                <p className="text-sm text-gray-500">Active Enrollments</p>
+                <p className="text-2xl font-bold text-slate-900">{activeEnrollments || 0}</p>
+                <p className="text-sm text-slate-700">Active Enrollments</p>
               </div>
             </div>
           </div>
@@ -170,7 +170,7 @@ export default async function FerpaRecordsPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-brand-green-600">Compliant</p>
-                <p className="text-sm text-gray-500">FERPA Status</p>
+                <p className="text-sm text-slate-700">FERPA Status</p>
               </div>
             </div>
           </div>
@@ -179,13 +179,13 @@ export default async function FerpaRecordsPage() {
         {/* Records Table */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Recent Student Records</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Recent Student Records</h2>
             <div className="flex items-center gap-2">
-              <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-white">
+              <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-slate-700 hover:text-slate-900 border border-gray-300 rounded-lg hover:bg-white">
                 <Filter className="w-4 h-4" />
                 Filter
               </button>
-              <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-white">
+              <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-slate-700 hover:text-slate-900 border border-gray-300 rounded-lg hover:bg-white">
                 <Download className="w-4 h-4" />
                 Export
               </button>
@@ -197,19 +197,19 @@ export default async function FerpaRecordsPage() {
               <table className="w-full">
                 <thead className="bg-white">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Student
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Enrollments
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Created
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-right text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -220,17 +220,17 @@ export default async function FerpaRecordsPage() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                            <User className="w-4 h-4 text-gray-500" />
+                            <User className="w-4 h-4 text-slate-700" />
                           </div>
                           <div>
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-slate-900">
                               {student.full_name || 'No name'}
                             </p>
-                            <p className="text-xs text-gray-500">ID: {student.id.slice(0, 8)}...</p>
+                            <p className="text-xs text-slate-700">ID: {student.id.slice(0, 8)}...</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
                         {student.email}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -238,7 +238,7 @@ export default async function FerpaRecordsPage() {
                           {student.enrollments?.length || 0} enrollments
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
                         {formatDate(student.created_at)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
@@ -257,8 +257,8 @@ export default async function FerpaRecordsPage() {
             </div>
           ) : (
             <div className="px-6 py-12 text-center">
-              <User className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">No student records found</p>
+              <User className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-700">No student records found</p>
             </div>
           )}
         </div>

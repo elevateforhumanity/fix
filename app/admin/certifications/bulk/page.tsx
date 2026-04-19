@@ -48,16 +48,16 @@ export default async function BulkCertificationsPage() {
         {/* Header */}
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
               <li><Link href="/admin/certifications" className="hover:text-primary">Certifications</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Bulk Management</li>
+              <li className="text-slate-900 font-medium">Bulk Management</li>
             </ol>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">Bulk Certification Management</h1>
-          <p className="text-gray-600 mt-2">Approve, update, or manage certifications in bulk</p>
+          <h1 className="text-3xl font-bold text-slate-900">Bulk Certification Management</h1>
+          <p className="text-slate-700 mt-2">Approve, update, or manage certifications in bulk</p>
         </div>
 
         {/* Actions Bar */}
@@ -116,12 +116,12 @@ export default async function BulkCertificationsPage() {
           <div className="p-4 border-b flex justify-between items-center">
             <div>
               <h2 className="text-lg font-semibold">Pending Certifications</h2>
-              <p className="text-sm text-gray-500">Review and approve certification records</p>
+              <p className="text-sm text-slate-700">Review and approve certification records</p>
             </div>
             <div className="flex gap-2">
               <button className="text-sm text-brand-blue-600 hover:text-brand-blue-800">Select All</button>
-              <span className="text-gray-300">|</span>
-              <button className="text-sm text-gray-600 hover:text-gray-800">Clear</button>
+              <span className="text-slate-700">|</span>
+              <button className="text-sm text-slate-700 hover:text-slate-900">Clear</button>
             </div>
           </div>
           
@@ -129,14 +129,14 @@ export default async function BulkCertificationsPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">
                     <input type="checkbox" className="w-4 h-4 rounded" />
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Participant</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Certification</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Earned Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Participant</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Certification</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Earned Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -148,7 +148,7 @@ export default async function BulkCertificationsPage() {
                       </td>
                       <td className="px-4 py-3">
                         <p className="font-medium">{cert.profiles?.full_name || 'Unknown'}</p>
-                        <p className="text-sm text-gray-500">{cert.profiles?.email}</p>
+                        <p className="text-sm text-slate-700">{cert.profiles?.email}</p>
                       </td>
                       <td className="px-4 py-3">
                         <p className="text-sm">{cert.certification_type_id}</p>
@@ -171,7 +171,7 @@ export default async function BulkCertificationsPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="px-4 py-8 text-center text-gray-500">
+                    <td colSpan={6} className="px-4 py-8 text-center text-slate-700">
                       No pending certifications found
                     </td>
                   </tr>

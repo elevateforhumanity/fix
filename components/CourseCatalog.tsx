@@ -264,7 +264,7 @@ export function CourseCatalog() {
         {filteredCourses.length === 0 && (
           <Card className="p-12 text-center">
             <p className="text-xl text-black mb-2">No courses found</p>
-            <p className="text-gray-500">Try adjusting your filters or search query</p>
+            <p className="text-slate-700">Try adjusting your filters or search query</p>
           </Card>
         )}
       </div>

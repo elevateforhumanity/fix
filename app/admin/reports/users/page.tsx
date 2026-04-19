@@ -43,7 +43,7 @@ export default async function UsersReportPage() {
     admin: { bg: 'bg-brand-blue-100', text: 'text-brand-blue-700', icon: Shield },
     instructor: { bg: 'bg-brand-blue-100', text: 'text-brand-blue-700', icon: GraduationCap },
     student: { bg: 'bg-brand-green-100', text: 'text-brand-green-700', icon: Users },
-    user: { bg: 'bg-gray-100', text: 'text-gray-700', icon: Users },
+    user: { bg: 'bg-gray-100', text: 'text-slate-900', icon: Users },
   };
 
   const roleLabels: Record<string, string> = {
@@ -62,13 +62,13 @@ export default async function UsersReportPage() {
         <div className="mb-8">
           <Link 
             href="/admin/reports"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Reports
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">User Activity Report</h1>
-          <p className="text-gray-600">User registrations, roles, and platform engagement</p>
+          <h1 className="text-2xl font-bold text-slate-900">User Activity Report</h1>
+          <p className="text-slate-700">User registrations, roles, and platform engagement</p>
         </div>
 
         <div className="grid md:grid-cols-4 gap-6 mb-8">
@@ -77,9 +77,9 @@ export default async function UsersReportPage() {
               <div className="p-2 bg-brand-blue-100 rounded-lg">
                 <Users className="w-5 h-5 text-brand-blue-600" />
               </div>
-              <span className="text-sm text-gray-600">Total Users</span>
+              <span className="text-sm text-slate-700">Total Users</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{totalUsers || 0}</p>
+            <p className="text-3xl font-bold text-slate-900">{totalUsers || 0}</p>
           </div>
           
           <div className="bg-white rounded-xl shadow-sm p-6">
@@ -87,9 +87,9 @@ export default async function UsersReportPage() {
               <div className="p-2 bg-brand-green-100 rounded-lg">
                 <UserPlus className="w-5 h-5 text-brand-green-600" />
               </div>
-              <span className="text-sm text-gray-600">New This Month</span>
+              <span className="text-sm text-slate-700">New This Month</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{recentUsers.length}</p>
+            <p className="text-3xl font-bold text-slate-900">{recentUsers.length}</p>
           </div>
           
           <div className="bg-white rounded-xl shadow-sm p-6">
@@ -97,9 +97,9 @@ export default async function UsersReportPage() {
               <div className="p-2 bg-brand-blue-100 rounded-lg">
                 <Shield className="w-5 h-5 text-brand-blue-600" />
               </div>
-              <span className="text-sm text-gray-600">Admins</span>
+              <span className="text-sm text-slate-700">Admins</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold text-slate-900">
               {(usersByRole['admin'] || 0) + (usersByRole['super_admin'] || 0)}
             </p>
           </div>
@@ -109,16 +109,16 @@ export default async function UsersReportPage() {
               <div className="p-2 bg-brand-orange-100 rounded-lg">
                 <GraduationCap className="w-5 h-5 text-brand-orange-600" />
               </div>
-              <span className="text-sm text-gray-600">Students</span>
+              <span className="text-sm text-slate-700">Students</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{usersByRole['student'] || 0}</p>
+            <p className="text-3xl font-bold text-slate-900">{usersByRole['student'] || 0}</p>
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Users</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Recent Users</h2>
               <Link href="/admin/users" className="text-sm text-brand-blue-600 hover:text-brand-blue-700">
                 View All
               </Link>
@@ -128,9 +128,9 @@ export default async function UsersReportPage() {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">User</th>
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">Role</th>
-                      <th className="text-left py-3 px-2 text-sm font-medium text-gray-600">Joined</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">User</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">Role</th>
+                      <th className="text-left py-3 px-2 text-sm font-medium text-slate-700">Joined</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -140,17 +140,17 @@ export default async function UsersReportPage() {
                       return (
                         <tr key={user.id} className="border-b last:border-0">
                           <td className="py-3 px-2">
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-slate-900">
                               {user.first_name || 'Unknown'} {user.last_name || ''}
                             </p>
-                            <p className="text-sm text-gray-500">{user.email}</p>
+                            <p className="text-sm text-slate-700">{user.email}</p>
                           </td>
                           <td className="py-3 px-2">
                             <span className={`px-2 py-1 text-xs rounded-full ${roleStyle.bg} ${roleStyle.text}`}>
                               {roleLabels[role] || role}
                             </span>
                           </td>
-                          <td className="py-3 px-2 text-sm text-gray-600">
+                          <td className="py-3 px-2 text-sm text-slate-700">
                             {new Date(user.created_at).toLocaleDateString()}
                           </td>
                         </tr>
@@ -160,12 +160,12 @@ export default async function UsersReportPage() {
                 </table>
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No users found</p>
+              <p className="text-slate-700 text-center py-8">No users found</p>
             )}
           </div>
 
           <div className="bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Users by Role</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Users by Role</h2>
             {Object.keys(usersByRole).length > 0 ? (
               <div className="space-y-4">
                 {Object.entries(usersByRole)
@@ -180,8 +180,8 @@ export default async function UsersReportPage() {
                         </div>
                         <div className="flex-1">
                           <div className="flex justify-between text-sm mb-1">
-                            <span className="text-gray-700">{roleLabels[role] || role}</span>
-                            <span className="font-medium text-gray-900">{count}</span>
+                            <span className="text-slate-900">{roleLabels[role] || role}</span>
+                            <span className="font-medium text-slate-900">{count}</span>
                           </div>
                           <div className="w-full bg-gray-100 rounded-full h-2">
                             <div 
@@ -195,7 +195,7 @@ export default async function UsersReportPage() {
                   })}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No data available</p>
+              <p className="text-slate-700 text-center py-8">No data available</p>
             )}
           </div>
         </div>

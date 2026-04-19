@@ -179,7 +179,7 @@ export function CareerCoursesClient({ courses, bundle }: CareerCoursesClientProp
 
         {/* Individual Courses */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Individual Courses</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-8">Individual Courses</h2>
           
           {courses.length === 0 ? (
             <div className="bg-white rounded-xl p-12 text-center">
@@ -208,7 +208,7 @@ export function CareerCoursesClient({ courses, bundle }: CareerCoursesClientProp
                   </div>
 
                   <div className="p-6 flex-1 flex flex-col">
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">{course.title}</h3>
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">{course.title}</h3>
                     <p className="text-sm text-brand-blue-600 font-medium mb-3">{course.subtitle}</p>
                     <p className="text-black text-sm mb-4 flex-1">{course.description}</p>
 
@@ -226,7 +226,7 @@ export function CareerCoursesClient({ courses, bundle }: CareerCoursesClientProp
                     <div className="border-t pt-4">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-2xl font-bold text-gray-900">${Number(course.price).toFixed(0)}</span>
+                          <span className="text-2xl font-bold text-slate-900">${Number(course.price).toFixed(0)}</span>
                           {course.original_price && (
                             <span className="text-black line-through">${Number(course.original_price).toFixed(0)}</span>
                           )}
@@ -236,7 +236,7 @@ export function CareerCoursesClient({ courses, bundle }: CareerCoursesClientProp
                       <div className="flex gap-2">
                         <Link
                           href={`/career-services/courses/${course.slug}`}
-                          className="flex-1 text-center border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-white"
+                          className="flex-1 text-center border border-gray-300 text-slate-900 px-4 py-2 rounded-lg font-medium hover:bg-white"
                         >
                           Details
                         </Link>

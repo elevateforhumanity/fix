@@ -377,7 +377,7 @@ export default function AIStudioPage() {
 
               {generatedAssets.length === 0 ? (
                 <div className="text-center py-12">
-                  <Palette className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <Palette className="w-16 h-16 text-slate-700 mx-auto mb-4" />
                   <p className="text-black">
                     Your generated assets will appear here
                   </p>

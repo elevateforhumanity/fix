@@ -150,7 +150,7 @@ export default function CommunityHubPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Everything You Need</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-700 max-w-2xl mx-auto">
               A complete community platform that integrates seamlessly with your existing LMS
             </p>
           </div>
@@ -170,7 +170,7 @@ export default function CommunityHubPage() {
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                  <p className="text-slate-700 text-sm">{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -188,7 +188,7 @@ export default function CommunityHubPage() {
             {useCases.map((useCase) => (
               <div key={useCase.title} className="bg-white p-6 rounded-xl shadow-sm">
                 <h3 className="font-bold text-lg mb-2">{useCase.title}</h3>
-                <p className="text-gray-600 text-sm">{useCase.description}</p>
+                <p className="text-slate-700 text-sm">{useCase.description}</p>
               </div>
             ))}
           </div>
@@ -200,7 +200,7 @@ export default function CommunityHubPage() {
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Pricing Options</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-700 max-w-2xl mx-auto">
               Choose the payment option that works for your organization. Both include lifetime access and all features.
             </p>
           </div>

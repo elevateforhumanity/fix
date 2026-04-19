@@ -64,9 +64,9 @@ export default function ProductRecommendations({ productId, showAvatar = true }:
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-brand-orange-600" />
           <span className="font-bold text-black">Recommended For You</span>
-          <span className="text-sm text-gray-500">({recommendations.length} suggestions)</span>
+          <span className="text-sm text-slate-700">({recommendations.length} suggestions)</span>
         </div>
-        <ChevronUp className={`w-5 h-5 text-gray-400 transition-transform ${isExpanded ? '' : 'rotate-180'}`} />
+        <ChevronUp className={`w-5 h-5 text-slate-700 transition-transform ${isExpanded ? '' : 'rotate-180'}`} />
       </button>
 
       {isExpanded && (
@@ -86,8 +86,8 @@ export default function ProductRecommendations({ productId, showAvatar = true }:
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-700 mb-2">{avatarMessage.valueHighlight}</p>
-                <p className="text-xs text-gray-500 italic">{avatarMessage.objectionHandler}</p>
+                <p className="text-sm text-slate-900 mb-2">{avatarMessage.valueHighlight}</p>
+                <p className="text-xs text-slate-700 italic">{avatarMessage.objectionHandler}</p>
               </div>
             </div>
           )}
@@ -123,7 +123,7 @@ export default function ProductRecommendations({ productId, showAvatar = true }:
           {/* Cross-sells (less prominent) */}
           {crossSells.length > 0 && (
             <div>
-              <p className="text-sm font-medium text-gray-500 mb-2">You might also need:</p>
+              <p className="text-sm font-medium text-slate-700 mb-2">You might also need:</p>
               <div className="grid sm:grid-cols-2 gap-3">
                 {crossSells.map((rec) => (
                   <SmallRecommendationCard 
@@ -162,7 +162,7 @@ function RecommendationCard({
         className="absolute top-2 right-2 p-1 bg-gray-100 hover:bg-gray-200 rounded-full opacity-0 group-hover:opacity-100 transition z-10"
         aria-label="Dismiss"
       >
-        <X className="w-4 h-4 text-gray-500" />
+        <X className="w-4 h-4 text-slate-700" />
       </button>
 
       <div className="flex">
@@ -183,7 +183,7 @@ function RecommendationCard({
         {/* Content */}
         <div className="flex-1 p-4">
           <h4 className="font-bold text-black mb-1">{recommendation.product.name}</h4>
-          <p className="text-sm text-gray-600 mb-2 line-clamp-2">{recommendation.reason}</p>
+          <p className="text-sm text-slate-700 mb-2 line-clamp-2">{recommendation.reason}</p>
           
           <div className="flex items-center justify-between">
             <div>
@@ -229,9 +229,9 @@ function SmallRecommendationCard({
       </div>
       <div className="flex-1 min-w-0">
         <p className="font-medium text-black text-sm truncate">{recommendation.product.shortName}</p>
-        <p className="text-xs text-gray-500">{recommendation.product.priceDisplay}</p>
+        <p className="text-xs text-slate-700">{recommendation.product.priceDisplay}</p>
       </div>
-      <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-brand-orange-600 transition" />
+      <ArrowRight className="w-4 h-4 text-slate-700 group-hover:text-brand-orange-600 transition" />
     </Link>
   );
 }

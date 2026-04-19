@@ -42,16 +42,16 @@ export default async function IssueCertificatePage() {
         {/* Header */}
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
               <li><Link href="/admin/certificates" className="hover:text-primary">Certificates</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Issue</li>
+              <li className="text-slate-900 font-medium">Issue</li>
             </ol>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">Issue Certificate</h1>
-          <p className="text-gray-600 mt-2">Create and issue a certificate to a participant</p>
+          <h1 className="text-3xl font-bold text-slate-900">Issue Certificate</h1>
+          <p className="text-slate-700 mt-2">Create and issue a certificate to a participant</p>
         </div>
 
         {/* Form */}
@@ -62,7 +62,7 @@ export default async function IssueCertificatePage() {
               <h2 className="text-lg font-semibold mb-4">Recipient Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Recipient Name *
                   </label>
                   <input 
@@ -74,7 +74,7 @@ export default async function IssueCertificatePage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Email Address *
                   </label>
                   <input 
@@ -93,7 +93,7 @@ export default async function IssueCertificatePage() {
               <h2 className="text-lg font-semibold mb-4">Certificate Details</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Certificate Template *
                   </label>
                   <select 
@@ -114,7 +114,7 @@ export default async function IssueCertificatePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Course / Program
                   </label>
                   <select name="courseId" className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500">
@@ -129,7 +129,7 @@ export default async function IssueCertificatePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-slate-900 mb-2">
                       Issue Date *
                     </label>
                     <input 
@@ -141,7 +141,7 @@ export default async function IssueCertificatePage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-slate-900 mb-2">
                       Expiration Date
                     </label>
                     <input 
@@ -153,7 +153,7 @@ export default async function IssueCertificatePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Signed By
                   </label>
                   <input 
@@ -165,7 +165,7 @@ export default async function IssueCertificatePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Additional Notes
                   </label>
                   <textarea 
@@ -184,11 +184,11 @@ export default async function IssueCertificatePage() {
               <div className="space-y-2">
                 <label className="flex items-center gap-2">
                   <input name="sendEmail" type="checkbox" className="w-4 h-4 text-brand-blue-600 rounded" defaultChecked />
-                  <span className="text-sm text-gray-700">Send email notification to recipient</span>
+                  <span className="text-sm text-slate-900">Send email notification to recipient</span>
                 </label>
                 <label className="flex items-center gap-2">
                   <input type="checkbox" className="w-4 h-4 text-brand-blue-600 rounded" />
-                  <span className="text-sm text-gray-700">Include PDF attachment</span>
+                  <span className="text-sm text-slate-900">Include PDF attachment</span>
                 </label>
               </div>
             </div>

@@ -26,7 +26,7 @@ export function FormButton({
         px-6 py-3 rounded-lg font-semibold
         transition-all duration-200
         ${loading || disabled
-          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          ? 'bg-gray-300 text-slate-700 cursor-not-allowed'
           : 'bg-brand-orange-600 text-white hover:bg-brand-orange-700 active:scale-95'
         }
         ${className}

@@ -250,7 +250,7 @@ export async function loadLearnerDashboard() {
     (sum: number, a: any) => sum + (a.hours_logged ?? 0), 0
   );
   const trainingHours = (hoursData ?? []).reduce(
-    (sum: number, h: any) => sum + (Number(h.hours_claimed) ?? 0), 0
+    (sum: number, h: any) => sum + (Number(h.hours_claimed) || 0), 0
   );
   const totalHours = attendanceHours || trainingHours;
 

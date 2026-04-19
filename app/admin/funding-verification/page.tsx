@@ -39,8 +39,8 @@ export default async function FundingVerificationPage() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Funding Verification Queue</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-slate-900">Funding Verification Queue</h1>
+        <p className="mt-1 text-sm text-slate-700">
           Students enrolled via the instant-access flow awaiting funding confirmation.
           SLA: 14 days. Reject requires a documented reason.
         </p>
@@ -48,19 +48,19 @@ export default async function FundingVerificationPage() {
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-8">
         <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <p className="text-sm font-medium text-gray-500">In Queue</p>
-          <p className="mt-1 text-3xl font-semibold text-gray-900">{queue?.length ?? 0}</p>
+          <p className="text-sm font-medium text-slate-700">In Queue</p>
+          <p className="mt-1 text-3xl font-semibold text-slate-900">{queue?.length ?? 0}</p>
         </div>
         <div className="bg-white rounded-lg border border-red-200 p-5">
-          <p className="text-sm font-medium text-gray-500">Critical (7d+ overdue)</p>
+          <p className="text-sm font-medium text-slate-700">Critical (7d+ overdue)</p>
           <p className="mt-1 text-3xl font-semibold text-red-700">{criticalCount}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <p className="text-sm font-medium text-gray-500">Open Integrity Flags</p>
+          <p className="text-sm font-medium text-slate-700">Open Integrity Flags</p>
           <p className="mt-1 text-3xl font-semibold text-amber-600">{openFlags}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <p className="text-sm font-medium text-gray-500">Resolved Flags</p>
+          <p className="text-sm font-medium text-slate-700">Resolved Flags</p>
           <p className="mt-1 text-3xl font-semibold text-green-600">{resolvedFlags}</p>
         </div>
       </div>

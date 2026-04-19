@@ -126,7 +126,7 @@ function Field({ label, value }: { label: string; value: string | string[] }) {
   return (
     <div className="mb-6">
       <div className="flex items-center justify-between mb-1">
-        <label className="text-sm font-semibold text-gray-700">{label}</label>
+        <label className="text-sm font-semibold text-slate-900">{label}</label>
         <button
           onClick={copy}
           className="text-xs text-brand-blue-600 hover:underline flex items-center gap-1"
@@ -134,7 +134,7 @@ function Field({ label, value }: { label: string; value: string | string[] }) {
           {copied ? <><CheckCircle className="w-3 h-3 text-green-500" /> Copied</> : 'Copy'}
         </button>
       </div>
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm text-gray-800 whitespace-pre-wrap font-mono">
+      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm text-slate-900 whitespace-pre-wrap font-mono">
         {text}
       </div>
     </div>
@@ -149,8 +149,8 @@ function Section({ label, children, defaultOpen = false }: { label: string; chil
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-5 py-4 bg-white hover:bg-gray-50 text-left"
       >
-        <span className="font-semibold text-gray-900">{label}</span>
-        {open ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
+        <span className="font-semibold text-slate-900">{label}</span>
+        {open ? <ChevronUp className="w-5 h-5 text-slate-700" /> : <ChevronDown className="w-5 h-5 text-slate-700" />}
       </button>
       {open && <div className="px-5 py-4 border-t border-gray-100 bg-white">{children}</div>}
     </div>
@@ -172,8 +172,8 @@ export default function SAEFApplicationPage() {
                 <span className="bg-brand-green-100 text-brand-green-700 text-xs font-bold px-2 py-1 rounded-full">SAEF 3 — ROUND 2</span>
                 <span className="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded-full">DEADLINE: APR 10, 2025</span>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Education & Advanced Manufacturing/Logistics</h1>
-              <p className="text-gray-500 text-sm mt-1">Indiana DWD — Apprenticeship Grant Opportunity · Up to $400,000</p>
+              <h1 className="text-2xl font-bold text-slate-900">Education & Advanced Manufacturing/Logistics</h1>
+              <p className="text-slate-700 text-sm mt-1">Indiana DWD — Apprenticeship Grant Opportunity · Up to $400,000</p>
             </div>
             <button
               onClick={openForm}
@@ -209,9 +209,9 @@ export default function SAEFApplicationPage() {
             { label: 'Pre-Apprenticeship', amount: '$21,562', min: '25 enrollments' },
           ].map((cat) => (
             <div key={cat.label} className="bg-white rounded-xl border border-gray-200 p-4 text-center">
-              <p className="text-xs text-gray-500 mb-1">{cat.label}</p>
+              <p className="text-xs text-slate-700 mb-1">{cat.label}</p>
               <p className="text-xl font-bold text-brand-green-600">{cat.amount}</p>
-              <p className="text-xs text-gray-400">{cat.min}</p>
+              <p className="text-xs text-slate-700">{cat.min}</p>
             </div>
           ))}
         </div>
@@ -267,8 +267,8 @@ export default function SAEFApplicationPage() {
 
         {/* Submit CTA */}
         <div className="bg-white rounded-2xl shadow-sm p-6 mt-6 text-center">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">Ready to Submit?</h2>
-          <p className="text-gray-500 text-sm mb-4">Open the Google Form, paste all answers, and submit before April 10, 2025 at 5:00 PM ET.</p>
+          <h2 className="text-lg font-bold text-slate-900 mb-2">Ready to Submit?</h2>
+          <p className="text-slate-700 text-sm mb-4">Open the Google Form, paste all answers, and submit before April 10, 2025 at 5:00 PM ET.</p>
           <button
             onClick={openForm}
             className="inline-flex items-center gap-2 bg-brand-green-600 hover:bg-brand-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors"

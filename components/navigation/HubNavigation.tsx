@@ -211,7 +211,7 @@ export function HubNavigation({ initialCategories }: Props) {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
             {loading ? (
-              <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+              <Loader2 className="w-5 h-5 animate-spin text-slate-700" />
             ) : (
               categories.map((category) => (
                 <NavDropdown key={category.id} title={category.name} items={category.items} />
@@ -229,7 +229,7 @@ export function HubNavigation({ initialCategories }: Props) {
               ) : (
                 <Link 
                   href="/login" 
-                  className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium"
+                  className="px-4 py-2 text-slate-700 hover:bg-gray-50 rounded-lg font-medium"
                 >
                   Sign In
                 </Link>
@@ -262,7 +262,7 @@ export function HubNavigation({ initialCategories }: Props) {
           <div className="px-4 py-4 space-y-4 max-h-[80vh] overflow-y-auto">
             {loading ? (
               <div className="flex justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+                <Loader2 className="w-6 h-6 animate-spin text-slate-700" />
               </div>
             ) : (
               categories.map((category) => (
@@ -287,7 +287,7 @@ export function HubNavigation({ initialCategories }: Props) {
               ) : (
                 <Link
                   href="/login"
-                  className="block w-full px-4 py-3 text-center text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="block w-full px-4 py-3 text-center text-slate-700 border border-gray-300 rounded-lg hover:bg-gray-50"
                   onClick={closeMobileMenu}
                 >
                   Sign In
@@ -317,7 +317,7 @@ function NavDropdown({ title, items }: { title: string; items: NavItem[] }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="flex items-center gap-1 text-gray-700 hover:text-brand-blue-600 font-medium py-2">
+      <button className="flex items-center gap-1 text-slate-900 hover:text-brand-blue-600 font-medium py-2">
         {title}
         <ChevronDown className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -330,8 +330,8 @@ function NavDropdown({ title, items }: { title: string; items: NavItem[] }) {
               href={item.href}
               className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
             >
-              <div className="font-medium text-gray-900">{item.name}</div>
-              <div className="text-sm text-gray-500">{item.description}</div>
+              <div className="font-medium text-slate-900">{item.name}</div>
+              <div className="text-sm text-slate-700">{item.description}</div>
             </Link>
           ))}
         </div>
@@ -355,7 +355,7 @@ function MobileSection({
     <div className="border-b pb-4">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full text-left font-medium text-gray-900 py-2"
+        className="flex items-center justify-between w-full text-left font-medium text-slate-900 py-2"
       >
         {title}
         <ChevronDown className={`w-5 h-5 transition-transform ${open ? 'rotate-180' : ''}`} />
@@ -367,11 +367,11 @@ function MobileSection({
             <Link
               key={item.id}
               href={item.href}
-              className="block py-2 text-gray-600 hover:text-brand-blue-600"
+              className="block py-2 text-slate-700 hover:text-brand-blue-600"
               onClick={onItemClick}
             >
               <div className="font-medium">{item.name}</div>
-              <div className="text-sm text-gray-500">{item.description}</div>
+              <div className="text-sm text-slate-700">{item.description}</div>
             </Link>
           ))}
         </div>

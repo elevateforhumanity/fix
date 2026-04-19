@@ -59,7 +59,7 @@ export default function AcceptInviteClient({ token, invite, isLoggedIn, userEmai
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <p className="text-sm font-medium text-gray-800">
+        <p className="text-sm font-medium text-slate-900">
           You've joined <strong>{invite.organization_name}</strong>. Redirecting…
         </p>
       </div>
@@ -71,27 +71,27 @@ export default function AcceptInviteClient({ token, invite, isLoggedIn, userEmai
       {/* Invite summary */}
       <div className="rounded-lg bg-gray-50 border border-gray-200 p-4 mb-6 space-y-2 text-sm">
         <div className="flex justify-between">
-          <span className="text-gray-500">Organization</span>
-          <span className="font-medium text-gray-900">{invite.organization_name}</span>
+          <span className="text-slate-700">Organization</span>
+          <span className="font-medium text-slate-900">{invite.organization_name}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-500">Invited email</span>
-          <span className="font-medium text-gray-900">{invite.email}</span>
+          <span className="text-slate-700">Invited email</span>
+          <span className="font-medium text-slate-900">{invite.email}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-500">Role</span>
-          <span className="font-medium text-gray-900 capitalize">{invite.role}</span>
+          <span className="text-slate-700">Role</span>
+          <span className="font-medium text-slate-900 capitalize">{invite.role}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-500">Expires</span>
-          <span className="text-gray-700">{expiresDate}</span>
+          <span className="text-slate-700">Expires</span>
+          <span className="text-slate-900">{expiresDate}</span>
         </div>
       </div>
 
       {!isLoggedIn ? (
         /* Not logged in — send to login with return URL */
         <div className="space-y-3">
-          <p className="text-sm text-gray-600 text-center">
+          <p className="text-sm text-slate-700 text-center">
             Sign in to accept this invitation.
           </p>
           <a
@@ -102,7 +102,7 @@ export default function AcceptInviteClient({ token, invite, isLoggedIn, userEmai
           </a>
           <a
             href={`/signup?redirect=${encodeURIComponent(`/accept-invite?token=${token}`)}`}
-            className="block w-full rounded-md border border-gray-300 px-4 py-2 text-center text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="block w-full rounded-md border border-gray-300 px-4 py-2 text-center text-sm font-medium text-slate-900 hover:bg-gray-50"
           >
             Create account
           </a>
@@ -130,7 +130,7 @@ export default function AcceptInviteClient({ token, invite, isLoggedIn, userEmai
           >
             {state === 'loading' ? 'Accepting…' : `Join ${invite.organization_name}`}
           </button>
-          <a href="/" className="block text-center text-xs text-gray-400 hover:text-gray-600">
+          <a href="/" className="block text-center text-xs text-slate-700 hover:text-slate-700">
             Decline
           </a>
         </div>

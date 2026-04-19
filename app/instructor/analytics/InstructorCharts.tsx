@@ -71,7 +71,7 @@ export function StudentEngagementChart() {
                 title={`${item.completions} completions`}
               ></div>
             </div>
-            <span className="text-xs text-gray-500 mt-1">{item.day}</span>
+            <span className="text-xs text-slate-700 mt-1">{item.day}</span>
           </div>
         ))}
       </div>
@@ -113,7 +113,7 @@ export function CoursePerformanceChart() {
         <div key={idx}>
           <div className="flex justify-between text-sm mb-1">
             <span className="font-medium truncate" title={course.name}>{course.name}</span>
-            <span className="text-gray-500">{course.students} students</span>
+            <span className="text-slate-700">{course.students} students</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-4">
             <div

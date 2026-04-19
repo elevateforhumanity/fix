@@ -133,7 +133,7 @@ export function CoursePrerequisiteManagement() {
                     <Button size="sm">Start Course</Button>
                   )}
                   {course.status === 'locked' && (
-                    <div className="text-gray-400 text-3xl">🔒</div>
+                    <div className="text-slate-700 text-3xl">🔒</div>
                   )}
                 </div>
               </div>

@@ -66,7 +66,7 @@ export function ActivityFeed() {
                   {activity.title}
                 </p>
                 <p className="text-sm text-black">{activity.course}</p>
-                <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
+                <p className="text-xs text-slate-700 mt-1">{activity.time}</p>
               </div>
             </div>
           );

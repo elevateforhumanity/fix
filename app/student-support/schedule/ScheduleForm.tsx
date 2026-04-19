@@ -94,14 +94,14 @@ export default function ScheduleForm({ userId, userProfile, advisors, existingAp
               <div key={apt.id} className="flex items-center justify-between bg-white rounded-lg p-3">
                 <div>
                   <p className="font-medium">{apt.advisor?.full_name || 'Advisor'}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-slate-700">
                     {new Date(apt.appointment_date).toLocaleDateString()} at {apt.appointment_time}
                   </p>
                 </div>
                 <span className={`px-2 py-1 rounded text-xs ${
                   apt.status === 'scheduled' ? 'bg-brand-green-100 text-brand-green-700' :
                   apt.status === 'completed' ? 'bg-brand-blue-100 text-brand-blue-700' :
-                  'bg-white text-gray-700'
+                  'bg-white text-slate-900'
                 }`}>
                   {apt.status}
                 </span>
@@ -133,16 +133,16 @@ export default function ScheduleForm({ userId, userProfile, advisors, existingAp
                   {advisor.avatar_url ? (
                     <Image src={advisor.avatar_url} alt={advisor.full_name || 'Advisor'} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                   ) : (
-                    <User className="w-6 h-6 text-gray-500" />
+                    <User className="w-6 h-6 text-slate-700" />
                   )}
                 </div>
                 <p className="font-medium">{advisor.full_name}</p>
-                <p className="text-sm text-gray-500 capitalize">{advisor.role}</p>
+                <p className="text-sm text-slate-700 capitalize">{advisor.role}</p>
               </button>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">No advisors available at this time.</p>
+          <p className="text-slate-700">No advisors available at this time.</p>
         )}
       </div>
 
@@ -151,13 +151,13 @@ export default function ScheduleForm({ userId, userProfile, advisors, existingAp
         <h2 className="text-lg font-semibold mb-4">2. Select Date & Time</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Date</label>
             <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)}
               min={minDate}
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-orange-500" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Available Times</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Available Times</label>
             <div className="grid grid-cols-4 gap-2">
               {timeSlots.map(time => (
                 <button key={time} onClick={() => setSelectedTime(time)}
@@ -206,13 +206,13 @@ export default function ScheduleForm({ userId, userProfile, advisors, existingAp
         <div className="bg-white rounded-lg p-4 mb-4">
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-gray-500">Advisor</p>
+              <p className="text-slate-700">Advisor</p>
               <p className="font-medium">
                 {advisors.find(a => a.id === selectedAdvisor)?.full_name || 'Not selected'}
               </p>
             </div>
             <div>
-              <p className="text-gray-500">Date & Time</p>
+              <p className="text-slate-700">Date & Time</p>
               <p className="font-medium">
                 {selectedDate && selectedTime 
                   ? `${new Date(selectedDate).toLocaleDateString()} at ${selectedTime}` 
@@ -220,7 +220,7 @@ export default function ScheduleForm({ userId, userProfile, advisors, existingAp
               </p>
             </div>
             <div>
-              <p className="text-gray-500">Meeting Type</p>
+              <p className="text-slate-700">Meeting Type</p>
               <p className="font-medium capitalize">{meetingType === 'inperson' ? 'In Person' : meetingType}</p>
             </div>
           </div>

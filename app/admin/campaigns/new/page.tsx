@@ -23,18 +23,18 @@ export default async function NewCampaignPage() {
         <div className="mb-8">
           <Link 
             href="/admin/campaigns"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Campaigns
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Create New Campaign</h1>
-          <p className="text-gray-600 mt-1">Set up a new marketing campaign</p>
+          <h1 className="text-3xl font-bold text-slate-900">Create New Campaign</h1>
+          <p className="text-slate-700 mt-1">Set up a new marketing campaign</p>
         </div>
 
         <form action={createCampaignAction} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Campaign Name *
             </label>
             <input
@@ -47,7 +47,7 @@ export default async function NewCampaignPage() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Campaign Type *
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -60,7 +60,7 @@ export default async function NewCampaignPage() {
                 <label key={type.id} className="relative cursor-pointer">
                   <input type="radio" name="campaign_type" value={type.id} className="peer sr-only" defaultChecked={type.id === 'email'} />
                   <div className="flex flex-col items-center gap-2 p-4 border border-gray-200 rounded-lg peer-checked:border-brand-blue-500 peer-checked:bg-brand-blue-50">
-                    <type.icon className="w-6 h-6 text-gray-600 peer-checked:text-brand-blue-600" />
+                    <type.icon className="w-6 h-6 text-slate-700 peer-checked:text-brand-blue-600" />
                     <span className="text-sm font-medium">{type.label}</span>
                   </div>
                 </label>
@@ -69,7 +69,7 @@ export default async function NewCampaignPage() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Subject Line *
             </label>
             <input
@@ -82,7 +82,7 @@ export default async function NewCampaignPage() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Content
             </label>
             <textarea
@@ -94,7 +94,7 @@ export default async function NewCampaignPage() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 mb-1">
               Schedule (Optional)
             </label>
             <input
@@ -102,11 +102,11 @@ export default async function NewCampaignPage() {
               name="scheduled_at"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
             />
-            <p className="text-sm text-gray-500 mt-1">Leave empty to save as draft</p>
+            <p className="text-sm text-slate-700 mt-1">Leave empty to save as draft</p>
           </div>
 
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200">
-            <Link href="/admin/campaigns" className="px-4 py-2 text-gray-700 hover:text-gray-900">
+            <Link href="/admin/campaigns" className="px-4 py-2 text-slate-900 hover:text-slate-900">
               Cancel
             </Link>
             <button

@@ -452,7 +452,7 @@ export default function ProgramFinder() {
             disabled={currentQuestion === 0}
             className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${
               currentQuestion === 0
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                ? 'bg-gray-100 text-slate-700 cursor-not-allowed'
                 : 'bg-white text-black hover:bg-gray-50 shadow-md'
             }`}
           >

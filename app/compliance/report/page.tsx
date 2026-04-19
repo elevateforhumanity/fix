@@ -31,8 +31,8 @@ export default function ComplianceReportPage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center">
           <span className="text-slate-500 flex-shrink-0">•</span>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Report Submitted</h1>
-          <p className="text-gray-600 mb-6">Thank you for your report. Our compliance team will review it promptly.</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Report Submitted</h1>
+          <p className="text-slate-700 mb-6">Thank you for your report. Our compliance team will review it promptly.</p>
           <Link href="/" className="text-brand-blue-600 font-medium">Return to Home</Link>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function ComplianceReportPage() {
         <div className="bg-white rounded-xl shadow-lg p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Report Type *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Report Type *</label>
               <select required value={formData.type} onChange={(e) => setFormData({...formData, type: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-red-500">
                 <option value="">Select type</option>
@@ -71,7 +71,7 @@ export default function ComplianceReportPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Description *</label>
               <textarea required rows={6} value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})}
                 placeholder="Please provide details about your concern..."
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-red-500 resize-none" />
@@ -79,7 +79,7 @@ export default function ComplianceReportPage() {
             <label className="flex items-center">
               <input type="checkbox" checked={formData.anonymous} onChange={(e) => setFormData({...formData, anonymous: e.target.checked})}
                 className="w-4 h-4 text-brand-red-600 border-gray-300 rounded" />
-              <span className="ml-2 text-gray-700">Submit anonymously</span>
+              <span className="ml-2 text-slate-900">Submit anonymously</span>
             </label>
             <button type="submit" className="w-full bg-brand-red-600 hover:bg-brand-red-700 text-white py-4 rounded-lg font-bold transition flex items-center justify-center">
               <Send className="w-5 h-5 mr-2" />Submit Report

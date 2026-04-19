@@ -113,7 +113,7 @@ export default async function CommunityPage() {
           </span>
           
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Community Hub
           </h1>
           <p className="text-black text-lg max-w-2xl mx-auto mb-8">
@@ -131,7 +131,7 @@ export default async function CommunityPage() {
             </Link>
             <Link
               href="/community/discussions"
-              className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
             >
               <MessageSquare className="w-5 h-5" />
               Browse Discussions
@@ -150,7 +150,7 @@ export default async function CommunityPage() {
               { value: "50+", label: "Monthly Events" }
             ].map((stat, index) => (
               <div key={index} className="bg-white rounded-xl p-6 text-center shadow-sm">
-                <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+                <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
                 <div className="text-sm text-black">{stat.label}</div>
               </div>
             ))}
@@ -161,7 +161,7 @@ export default async function CommunityPage() {
       {/* What is the Community Hub */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">What is the Community Hub?</h2>
+          <h2 className="text-3xl font-bold text-center text-slate-900 mb-4">What is the Community Hub?</h2>
           <p className="text-center text-black mb-12 max-w-3xl mx-auto">
             The Community Hub is your space to connect with fellow students, alumni, instructors, and industry professionals. Whether you&apos;re looking for study partners, career advice, job leads, or just want to share your success story, this is the place.
           </p>
@@ -174,7 +174,7 @@ export default async function CommunityPage() {
                 className="bg-white rounded-xl p-6 hover:shadow-md transition-shadow"
               >
                 <feature.icon className="w-10 h-10 text-brand-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
                 <p className="text-black mb-4">{feature.description}</p>
                 <span className="inline-flex items-center gap-2 text-brand-blue-600 font-medium">
                   Explore <ArrowRight className="w-4 h-4" />
@@ -189,7 +189,7 @@ export default async function CommunityPage() {
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">Popular Discussions</h2>
+            <h2 className="text-3xl font-bold text-slate-900">Popular Discussions</h2>
             <Link
               href="/community/discussions"
               className="text-brand-blue-600 font-medium hover:underline flex items-center gap-1"
@@ -206,7 +206,7 @@ export default async function CommunityPage() {
                 className="flex items-center justify-between p-4 bg-white rounded-xl hover:shadow-md transition-shadow"
               >
                 <div>
-                  <h3 className="font-semibold text-gray-900">{category.name}</h3>
+                  <h3 className="font-semibold text-slate-900">{category.name}</h3>
                   <p className="text-sm text-black">{category.posts} posts</p>
                 </div>
                 <ArrowRight className="w-5 h-5 text-black" />
@@ -220,7 +220,7 @@ export default async function CommunityPage() {
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">Upcoming Events</h2>
+            <h2 className="text-3xl font-bold text-slate-900">Upcoming Events</h2>
             <Link
               href="/community/events"
               className="text-brand-blue-600 font-medium hover:underline flex items-center gap-1"
@@ -249,7 +249,7 @@ export default async function CommunityPage() {
                     <Calendar className="w-4 h-4" />
                     {event.frequency}
                   </div>
-                  <h3 className="font-semibold text-gray-900">{event.title}</h3>
+                  <h3 className="font-semibold text-slate-900">{event.title}</h3>
                 </div>
               </div>
             ))}
@@ -260,7 +260,7 @@ export default async function CommunityPage() {
       {/* Why Join */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Why Join the Community?</h2>
+          <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">Why Join the Community?</h2>
           
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
@@ -274,7 +274,7 @@ export default async function CommunityPage() {
               ].map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <Circle className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
-                  <span className="text-gray-700">{benefit}</span>
+                  <span className="text-slate-900">{benefit}</span>
                 </div>
               ))}
             </div>
@@ -293,7 +293,7 @@ export default async function CommunityPage() {
       {/* Join Form */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">Get Started</h2>
+          <h2 className="text-3xl font-bold text-center text-slate-900 mb-4">Get Started</h2>
           <p className="text-center text-black mb-12">Join the community or ask us a question</p>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -303,7 +303,7 @@ export default async function CommunityPage() {
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
                   <GraduationCap className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Join Community</h3>
+                <h3 className="text-xl font-semibold text-slate-900">Join Community</h3>
               </div>
               <form className="space-y-4" action="/api/community/join" method="POST">
                 <input type="text" name="name" placeholder="Full Name *" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500" />
@@ -327,7 +327,7 @@ export default async function CommunityPage() {
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
                   <HelpCircle className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Have Questions?</h3>
+                <h3 className="text-xl font-semibold text-slate-900">Have Questions?</h3>
               </div>
               <form className="space-y-4" action="/api/community/inquiry" method="POST">
                 <input type="text" name="name" placeholder="Your Name *" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-500 focus:border-gray-500" />

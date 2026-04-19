@@ -78,7 +78,7 @@ export default function TransitionButtons({
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-medium text-gray-700">Actions</h3>
+      <h3 className="text-sm font-medium text-slate-900">Actions</h3>
       <div className="flex flex-wrap gap-2">
         {availableTransitions.map((state) => (
           <button

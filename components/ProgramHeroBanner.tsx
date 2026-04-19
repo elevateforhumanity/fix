@@ -17,7 +17,6 @@ export default function ProgramHeroBanner({ videoSrc, posterImage = '/images/og-
         poster={posterImage}
         className="absolute inset-0 w-full h-full object-cover"
         autoPlayOnMount
-        preloadFull
         playThrough
       />
     </div>

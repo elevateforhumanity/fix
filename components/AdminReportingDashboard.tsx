@@ -245,7 +245,7 @@ export function AdminReportingDashboard() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">Reporting Dashboard</h1>
-          <p className="text-gray-600">Analytics and insights</p>
+          <p className="text-slate-700">Analytics and insights</p>
         </div>
         <div className="flex gap-3">
           <select
@@ -285,7 +285,7 @@ export function AdminReportingDashboard() {
                   </span>
                 </div>
                 <div className="text-2xl font-bold mb-1">{metric.value}</div>
-                <div className="text-sm text-gray-600">{metric.title}</div>
+                <div className="text-sm text-slate-700">{metric.title}</div>
               </CardContent>
             </Card>
           );
@@ -298,7 +298,7 @@ export function AdminReportingDashboard() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Enrollment Trends</CardTitle>
-              <LineChart className="text-gray-400" size={20} />
+              <LineChart className="text-slate-700" size={20} />
             </div>
           </CardHeader>
           <CardContent>
@@ -309,7 +309,7 @@ export function AdminReportingDashboard() {
                     className="w-full bg-white rounded-t transition-all hover:bg-brand-blue-600"
                     style={{ height: `${(value / 115) * 100}%` }}
                   />
-                  <div className="text-xs text-gray-500 mt-2">
+                  <div className="text-xs text-slate-700 mt-2">
                     {['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'][index]}
                   </div>
                 </div>
@@ -322,7 +322,7 @@ export function AdminReportingDashboard() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Revenue by Program</CardTitle>
-              <PieChart className="text-gray-400" size={20} />
+              <PieChart className="text-slate-700" size={20} />
             </div>
           </CardHeader>
           <CardContent>
@@ -335,7 +335,7 @@ export function AdminReportingDashboard() {
                   <div key={program.id}>
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-sm font-medium">{program.name}</span>
-                      <span className="text-sm text-gray-600">${program.revenue.toLocaleString('en-US')}</span>
+                      <span className="text-sm text-slate-700">${program.revenue.toLocaleString('en-US')}</span>
                     </div>
                     <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
@@ -420,7 +420,7 @@ export function AdminReportingDashboard() {
                     {activity.type === 'completion' && `${activity.student} completed ${activity.program}`}
                     {activity.type === 'payment' && `${activity.student} made a payment of $${activity.amount}`}
                   </div>
-                  <div className="text-sm text-gray-500">{activity.time}</div>
+                  <div className="text-sm text-slate-700">{activity.time}</div>
                 </div>
               </div>
             ))}

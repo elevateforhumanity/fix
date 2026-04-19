@@ -29,7 +29,7 @@ export function ProgramProgressCard({
       className="bg-white rounded-xl border hover:border-brand-blue-300 hover:shadow-md transition p-6 group block"
     >
       <div className="flex items-start justify-between mb-2">
-        <h4 className="font-semibold text-gray-900 group-hover:text-brand-blue-600 transition">
+        <h4 className="font-semibold text-slate-900 group-hover:text-brand-blue-600 transition">
           {programTitle}
         </h4>
         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -48,7 +48,7 @@ export function ProgramProgressCard({
           style={{ width: `${progressPercent}%` }}
         />
       </div>
-      <p className="text-xs text-gray-500">{progressPercent}% complete</p>
+      <p className="text-xs text-slate-700">{progressPercent}% complete</p>
     </Link>
   );
 }

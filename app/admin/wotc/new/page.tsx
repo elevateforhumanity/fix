@@ -23,13 +23,13 @@ export default function NewWOTCPage() {
         <div className="mb-8">
           <Link 
             href="/admin/wotc"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to WOTC Applications
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">New WOTC Application</h1>
-          <p className="text-gray-600 mt-1">Submit a Work Opportunity Tax Credit application</p>
+          <h1 className="text-3xl font-bold text-slate-900">New WOTC Application</h1>
+          <p className="text-slate-700 mt-1">Submit a Work Opportunity Tax Credit application</p>
         </div>
 
         {/* Info Banner */}
@@ -45,13 +45,13 @@ export default function NewWOTCPage() {
         <form action={createWOTCApplication} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           {/* Employee Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <User className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <User className="w-5 h-5 text-slate-700" />
               Employee Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   First Name *
                 </label>
                 <input
@@ -62,7 +62,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Last Name *
                 </label>
                 <input
@@ -73,7 +73,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Social Security Number *
                 </label>
                 <input
@@ -85,7 +85,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Date of Birth *
                 </label>
                 <input
@@ -100,13 +100,13 @@ export default function NewWOTCPage() {
 
           {/* Employer Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Building className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Building className="w-5 h-5 text-slate-700" />
               Employer Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Employer Name *
                 </label>
                 <input
@@ -117,7 +117,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   EIN (Employer ID Number) *
                 </label>
                 <input
@@ -129,7 +129,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Contact Phone
                 </label>
                 <input
@@ -144,13 +144,13 @@ export default function NewWOTCPage() {
 
           {/* Employment Details */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-slate-700" />
               Employment Details
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Job Offer Date *
                 </label>
                 <input
@@ -161,7 +161,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Start Date *
                 </label>
                 <input
@@ -172,7 +172,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Starting Wage ($/hour) *
                 </label>
                 <input
@@ -185,7 +185,7 @@ export default function NewWOTCPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Position/Job Title *
                 </label>
                 <input
@@ -200,11 +200,11 @@ export default function NewWOTCPage() {
 
           {/* Target Group */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-slate-700" />
               WOTC Target Group
             </h2>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-slate-700 mb-4">
               Select all target groups that apply to this employee:
             </p>
             <div className="space-y-3">
@@ -226,7 +226,7 @@ export default function NewWOTCPage() {
                     value={group.id}
                     className="mt-1 rounded border-gray-300" 
                   />
-                  <span className="text-sm text-gray-700">{group.label}</span>
+                  <span className="text-sm text-slate-900">{group.label}</span>
                 </label>
               ))}
             </div>
@@ -234,11 +234,11 @@ export default function NewWOTCPage() {
 
           {/* Documentation */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Supporting Documentation</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Supporting Documentation</h2>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
               <input type="file" name="documents" multiple className="hidden" id="file-upload" />
               <label htmlFor="file-upload" className="cursor-pointer">
-                <div className="text-gray-500">
+                <div className="text-slate-700">
                   <p className="font-medium">Click to upload or drag and drop</p>
                   <p className="text-sm mt-1">PDF, DOC, or image files (max 10MB each)</p>
                 </div>
@@ -255,7 +255,7 @@ export default function NewWOTCPage() {
                 required
                 className="mt-1 rounded border-gray-300" 
               />
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-slate-900">
                 I certify that the information provided is accurate and complete to the best of my knowledge. 
                 I understand that providing false information may result in denial of the tax credit and 
                 potential penalties.
@@ -267,7 +267,7 @@ export default function NewWOTCPage() {
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200">
             <Link
               href="/admin/wotc"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-slate-900 hover:text-slate-900"
             >
               Cancel
             </Link>

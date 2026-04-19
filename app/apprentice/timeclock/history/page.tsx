@@ -94,7 +94,7 @@ export default async function TimeclockHistoryPage() {
     return (
       <div className="min-h-screen bg-white py-8">
         <div className="max-w-2xl mx-auto px-4">
-          <Link href="/apprentice/timeclock" className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6">
+          <Link href="/apprentice/timeclock" className="inline-flex items-center text-slate-700 hover:text-slate-900 mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Timeclock
           </Link>
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
@@ -122,7 +122,7 @@ export default async function TimeclockHistoryPage() {
     return (
       <div className="min-h-screen bg-white py-8">
         <div className="max-w-2xl mx-auto px-4">
-          <Link href="/apprentice/timeclock" className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6">
+          <Link href="/apprentice/timeclock" className="inline-flex items-center text-slate-700 hover:text-slate-900 mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Timeclock
           </Link>
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center">
@@ -191,15 +191,15 @@ export default async function TimeclockHistoryPage() {
 
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/apprentice/timeclock" className="text-gray-400 hover:text-gray-600">
+          <Link href="/apprentice/timeclock" className="text-slate-700 hover:text-slate-700">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
               <History className="w-6 h-6 text-brand-blue-600" />
               Shift History
             </h1>
-            <p className="text-sm text-gray-500 mt-0.5">All recorded OJT shifts</p>
+            <p className="text-sm text-slate-700 mt-0.5">All recorded OJT shifts</p>
           </div>
         </div>
 
@@ -233,9 +233,9 @@ export default async function TimeclockHistoryPage() {
         </div>
 
         {rows.length === 0 ? (
-          <div className="text-center py-16 text-gray-400">
+          <div className="text-center py-16 text-slate-700">
             <Clock className="w-10 h-10 mx-auto mb-3 opacity-30" />
-            <p className="font-medium text-gray-500">No shifts recorded yet</p>
+            <p className="font-medium text-slate-700">No shifts recorded yet</p>
             <p className="text-sm mt-1">Clock in at your work site to start tracking hours.</p>
             <Link href="/apprentice/timeclock" className="mt-4 inline-block text-brand-blue-600 text-sm hover:underline">
               Go to Timeclock →
@@ -249,8 +249,8 @@ export default async function TimeclockHistoryPage() {
               return (
                 <div key={monthKey}>
                   <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">{monthLabel}</h2>
-                    <span className="text-sm font-semibold text-gray-700">{monthHours.toFixed(1)}h</span>
+                    <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">{monthLabel}</h2>
+                    <span className="text-sm font-semibold text-slate-900">{monthHours.toFixed(1)}h</span>
                   </div>
                   <div className="space-y-2">
                     {monthShifts.map((s) => (
@@ -264,11 +264,11 @@ export default async function TimeclockHistoryPage() {
                                 : <CheckCircle2 className="w-4 h-4 text-green-500" />}
                             </div>
                             <div>
-                              <p className="font-semibold text-gray-900 text-sm">
+                              <p className="font-semibold text-slate-900 text-sm">
                                 {formatDate(s.work_date)}
                                 {s.isOvernight && <span className="ml-2 text-xs text-amber-600 font-normal">(overnight — capped 16h)</span>}
                               </p>
-                              <p className="text-xs text-gray-500 mt-0.5">
+                              <p className="text-xs text-slate-700 mt-0.5">
                                 {formatTime(s.clock_in_at)}
                                 {' → '}
                                 {s.isOpen
@@ -279,20 +279,20 @@ export default async function TimeclockHistoryPage() {
                               </p>
                               {s.auto_clock_out_reason && <p className="text-xs text-amber-600 mt-0.5">{s.auto_clock_out_reason}</p>}
                               {s.hasBadData && <p className="text-xs text-red-600 mt-0.5">Clock-out before clock-in — contact coordinator</p>}
-                              {s.notes && <p className="text-xs text-gray-400 mt-1 italic">{s.notes}</p>}
+                              {s.notes && <p className="text-xs text-slate-700 mt-1 italic">{s.notes}</p>}
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0">
-                            <p className="font-bold text-gray-900">{s.isOpen ? '—' : `${s.netHours.toFixed(1)}h`}</p>
+                            <p className="font-bold text-slate-900">{s.isOpen ? '—' : `${s.netHours.toFixed(1)}h`}</p>
                             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                               s.status === 'approved' ? 'bg-green-100 text-green-700' :
                               s.status === 'rejected' ? 'bg-red-100 text-red-700' :
-                              'bg-gray-100 text-gray-500'
+                              'bg-gray-100 text-slate-700'
                             }`}>{s.status ?? 'pending'}</span>
                           </div>
                         </div>
                         {s.lunch_start_at && (
-                          <div className="mt-2 pt-2 border-t border-gray-50 text-xs text-gray-400">
+                          <div className="mt-2 pt-2 border-t border-gray-50 text-xs text-slate-700">
                             Lunch: {formatTime(s.lunch_start_at)} → {formatTime(s.lunch_end_at)}
                             {!s.lunch_end_at && <span className="text-amber-600 ml-1">(no end recorded)</span>}
                           </div>

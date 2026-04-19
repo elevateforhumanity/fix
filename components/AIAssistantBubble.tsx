@@ -131,14 +131,14 @@ export function AIAssistantBubble() {
           <div className="bg-white rounded-lg shadow-2xl p-4 max-w-xs border border-gray-200 relative">
             <button
               onClick={() => setShowWelcome(false)}
-              className="absolute top-2 right-2 text-gray-400 hover:text-black"
+              className="absolute top-2 right-2 text-slate-700 hover:text-black"
             >
               <X className="h-4 w-4" />
             </button>
             <p className="text-sm text-black font-medium mb-2">
               Need help finding the right program?
             </p>
-            <p className="text-xs text-gray-600 mb-3">
+            <p className="text-xs text-slate-700 mb-3">
               I can help you explore training options and check your eligibility!
             </p>
             <button
@@ -191,7 +191,7 @@ export function AIAssistantBubble() {
                 <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
                     ? 'bg-brand-orange-600 text-white'
-                    : 'bg-white text-gray-800 shadow-sm border border-gray-200'
+                    : 'bg-white text-slate-900 shadow-sm border border-gray-200'
                 }`}>
                   <div className="text-sm whitespace-pre-line">{renderMessage(message.content ?? '')}</div>
                 </div>
@@ -213,7 +213,7 @@ export function AIAssistantBubble() {
                 <button
                   key={action}
                   onClick={() => { setInput(action); }}
-                  className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full hover:bg-gray-200 whitespace-nowrap"
+                  className="text-xs bg-gray-100 text-slate-900 px-3 py-1.5 rounded-full hover:bg-gray-200 whitespace-nowrap"
                 >
                   {action}
                 </button>
@@ -240,7 +240,7 @@ export function AIAssistantBubble() {
                 {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
               </button>
             </div>
-            <p className="text-xs text-gray-500 mt-2 text-center">
+            <p className="text-xs text-slate-700 mt-2 text-center">
               Call <a href="/support" className="text-brand-orange-600 hover:underline">support center</a> for immediate help
             </p>
           </div>

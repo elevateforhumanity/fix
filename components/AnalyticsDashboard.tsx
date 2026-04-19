@@ -132,7 +132,7 @@ export function AnalyticsDashboard({ data, timeframe = 'month' }: AnalyticsDashb
                     </div>
                     <div className="text-right">
                       <div className="font-semibold text-brand-green-600">{course.completion}%</div>
-                      <div className="text-xs text-gray-500">completion</div>
+                      <div className="text-xs text-slate-700">completion</div>
                     </div>
                   </div>
                   <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -160,7 +160,7 @@ export function AnalyticsDashboard({ data, timeframe = 'month' }: AnalyticsDashb
                   <div className="flex-1">
                     <div className="font-semibold text-sm">{activity.user}</div>
                     <div className="text-sm text-black">{activity.action}</div>
-                    <div className="text-xs text-gray-500">{activity.time}</div>
+                    <div className="text-xs text-slate-700">{activity.time}</div>
                   </div>
                 </div>
               ))}

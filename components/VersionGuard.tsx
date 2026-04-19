@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect } from 'react';
-import { checkVersionMismatch, clearVersionAndReload } from '@/lib/version-check';
+import { checkVersionMismatch } from '@/lib/version-check';
 
 export function VersionGuard() {
   useEffect(() => {
-    if (checkVersionMismatch()) {
-      clearVersionAndReload();
-    }
+    // Record the current version so future loads can detect a change.
+    // Do NOT hard-reload — the SW handles cache invalidation on deploy.
+    // A forced reload here caused a double page load on every new deploy.
+    checkVersionMismatch();
   }, []);
 
   return null;

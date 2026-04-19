@@ -46,7 +46,7 @@ export default function EnterpriseCapitalReadinessPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
             Advanced Capital Readiness
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-700 max-w-3xl mx-auto">
             Enterprise-grade deployment strategies for large organizations, government agencies, 
             and state-level implementations. Includes compliance frameworks, procurement guidance, 
             and multi-stakeholder coordination.
@@ -76,7 +76,7 @@ export default function EnterpriseCapitalReadinessPage() {
                     "Multi-county collaborative initiatives",
                     "Federal program administrators"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-gray-300">
+                    <li key={i} className="flex items-start gap-3 text-slate-700">
                       <span className="text-slate-400 flex-shrink-0">•</span>
                       {item}
                     </li>
@@ -94,7 +94,7 @@ export default function EnterpriseCapitalReadinessPage() {
                     "SLA-backed uptime guarantees",
                     "Data residency compliance"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-gray-300">
+                    <li key={i} className="flex items-start gap-3 text-slate-700">
                       <Shield className="w-5 h-5 text-brand-blue-400 flex-shrink-0 mt-0.5" />
                       {item}
                     </li>
@@ -163,11 +163,11 @@ export default function EnterpriseCapitalReadinessPage() {
                     {pathway.threshold}
                   </span>
                 </div>
-                <p className="text-gray-500 text-sm mb-4">{pathway.description}</p>
+                <p className="text-slate-700 text-sm mb-4">{pathway.description}</p>
                 <h4 className="text-sm font-medium text-slate-900 mb-2">Key Steps:</h4>
                 <ul className="space-y-2">
                   {pathway.steps.map((step, j) => (
-                    <li key={j} className="text-sm text-gray-300 flex items-start gap-2">
+                    <li key={j} className="text-sm text-slate-700 flex items-start gap-2">
                       <span className="text-brand-blue-400 font-medium">{j + 1}.</span>
                       {step}
                     </li>
@@ -216,7 +216,7 @@ export default function EnterpriseCapitalReadinessPage() {
                         {item.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-gray-300">{item.applicability}</td>
+                    <td className="px-6 py-4 text-slate-700">{item.applicability}</td>
                   </tr>
                 ))}
               </tbody>
@@ -292,7 +292,7 @@ export default function EnterpriseCapitalReadinessPage() {
                     </div>
                     <ul className="grid md:grid-cols-2 gap-2">
                       {phase.tasks.map((task, j) => (
-                        <li key={j} className="flex items-center gap-2 text-gray-300 text-sm">
+                        <li key={j} className="flex items-center gap-2 text-slate-700 text-sm">
                           <span className="text-slate-400 flex-shrink-0">•</span>
                           {task}
                         </li>
@@ -359,7 +359,7 @@ export default function EnterpriseCapitalReadinessPage() {
                 <h3 className="text-lg font-semibold text-slate-900 mb-4">{stakeholder.role}</h3>
                 <ul className="space-y-2 mb-4">
                   {stakeholder.responsibilities.map((resp, j) => (
-                    <li key={j} className="flex items-start gap-2 text-gray-300 text-sm">
+                    <li key={j} className="flex items-start gap-2 text-slate-700 text-sm">
                       <span className="text-slate-400 flex-shrink-0">•</span>
                       {resp}
                     </li>
@@ -416,7 +416,7 @@ export default function EnterpriseCapitalReadinessPage() {
                   </div>
                   <div>
                     <h3 className="text-slate-900 font-medium mb-1">{item.risk}</h3>
-                    <p className="text-gray-500 text-sm">{item.mitigation}</p>
+                    <p className="text-slate-700 text-sm">{item.mitigation}</p>
                   </div>
                 </div>
               ))}
@@ -470,11 +470,11 @@ export default function EnterpriseCapitalReadinessPage() {
               <div key={i} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6">
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">{pricing.model}</h3>
                 <p className="text-2xl font-bold text-emerald-400 mb-2">{pricing.price}</p>
-                <p className="text-sm text-gray-500 mb-4">Best for: {pricing.best}</p>
+                <p className="text-sm text-slate-700 mb-4">Best for: {pricing.best}</p>
                 <h4 className="text-sm font-medium text-slate-900 mb-2">Includes:</h4>
                 <ul className="space-y-2">
                   {pricing.includes.map((item, j) => (
-                    <li key={j} className="flex items-center gap-2 text-gray-300 text-sm">
+                    <li key={j} className="flex items-center gap-2 text-slate-700 text-sm">
                       <span className="text-slate-400 flex-shrink-0">•</span>
                       {item}
                     </li>
@@ -491,7 +491,7 @@ export default function EnterpriseCapitalReadinessPage() {
             <h2 className="text-3xl font-bold text-slate-900 mb-4">
               Ready for Enterprise Deployment?
             </h2>
-            <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-slate-700 mb-8 max-w-2xl mx-auto">
               Our enterprise team is ready to discuss your organization's specific needs, 
               compliance requirements, and implementation timeline.
             </p>

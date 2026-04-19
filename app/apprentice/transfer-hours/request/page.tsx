@@ -55,7 +55,7 @@ export default async function TransferRequestPage() {
             ← Back to Transfer Hours
           </a>
           <h1 className="text-2xl font-bold">Request Hour Transfer</h1>
-          <p className="text-gray-600">
+          <p className="text-slate-700">
             Submit documentation to request transfer of hours from previous training
           </p>
         </div>

@@ -77,8 +77,8 @@ export function ComponentLabeling({ title, description, diagramSrc, zones, onCom
     <div className="rounded-2xl border border-gray-200 bg-white p-6">
       <div className="mb-4">
         <span className="text-xs font-bold uppercase tracking-wider text-brand-blue-600 bg-brand-blue-50 px-2 py-0.5 rounded">Activity</span>
-        <h3 className="text-xl font-bold text-gray-900 mt-2">{title}</h3>
-        {description && <p className="text-gray-500 text-sm mt-1">{description}</p>}
+        <h3 className="text-xl font-bold text-slate-900 mt-2">{title}</h3>
+        {description && <p className="text-slate-700 text-sm mt-1">{description}</p>}
         {!submitted && (
           <p className="text-sm text-brand-blue-600 font-medium mt-2">
             {selectedLabel
@@ -109,7 +109,7 @@ export function ComponentLabeling({ title, description, diagramSrc, zones, onCom
                 <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 text-sm font-bold shadow-md whitespace-nowrap ${
                   isCorrect ? 'bg-green-100 border-green-500 text-green-800' :
                   isWrong ? 'bg-red-100 border-red-400 text-red-700' :
-                  'bg-white border-brand-blue-400 text-gray-800 hover:bg-brand-blue-50'
+                  'bg-white border-brand-blue-400 text-slate-900 hover:bg-brand-blue-50'
                 }`}>
                   {isCorrect && <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />}
                   {isWrong && <XCircle className="w-4 h-4 text-red-500 flex-shrink-0" />}
@@ -119,7 +119,7 @@ export function ComponentLabeling({ title, description, diagramSrc, zones, onCom
                 <div className={`w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center text-lg font-bold ${
                   selectedLabel
                     ? 'border-brand-blue-400 bg-brand-blue-50 text-brand-blue-600 animate-pulse'
-                    : 'border-gray-300 bg-white/90 text-gray-400'
+                    : 'border-gray-300 bg-white/90 text-slate-700'
                 }`}>
                   ?
                 </div>
@@ -132,7 +132,7 @@ export function ComponentLabeling({ title, description, diagramSrc, zones, onCom
       {/* Label bank */}
       {!submitted && (
         <div className="mb-4">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Tap a label to select it</p>
+          <p className="text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Tap a label to select it</p>
           <div className="flex flex-wrap gap-2">
             {availableLabels.map(label => (
               <button
@@ -141,14 +141,14 @@ export function ComponentLabeling({ title, description, diagramSrc, zones, onCom
                 className={`px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
                   selectedLabel === label
                     ? 'bg-brand-blue-600 text-white shadow-lg scale-105'
-                    : 'bg-gray-100 text-gray-700 hover:bg-brand-blue-50 hover:text-brand-blue-700 border border-gray-200'
+                    : 'bg-gray-100 text-slate-900 hover:bg-brand-blue-50 hover:text-brand-blue-700 border border-gray-200'
                 }`}
               >
                 {label}
               </button>
             ))}
             {availableLabels.length === 0 && !submitted && (
-              <p className="text-sm text-gray-400 italic">All placed. Tap a label on the diagram to remove it.</p>
+              <p className="text-sm text-slate-700 italic">All placed. Tap a label on the diagram to remove it.</p>
             )}
           </div>
         </div>
@@ -173,7 +173,7 @@ export function ComponentLabeling({ title, description, diagramSrc, zones, onCom
               </p>
             </div>
             {score < 100 && (
-              <button onClick={handleRetry} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50">
+              <button onClick={handleRetry} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white border border-gray-200 text-slate-900 text-sm font-semibold hover:bg-gray-50">
                 <RotateCcw className="w-4 h-4" /> Retry
               </button>
             )}

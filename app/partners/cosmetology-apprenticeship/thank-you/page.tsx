@@ -24,14 +24,14 @@ export default function CosmetologyThankYouPage() {
           <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-purple-600 text-3xl font-bold">✓</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Application Received!</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">Application Received!</h1>
           <p className="text-lg text-black mb-8">
             Thank you for applying to become a host salon for the Indiana Cosmetology
             Apprenticeship program. We&apos;ve received your application and will be in touch soon.
           </p>
 
           <div className="bg-white p-8 rounded-xl shadow-sm border text-left mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">What Happens Next</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">What Happens Next</h2>
             <div className="space-y-4">
               {[
                 { n: '1', title: 'Verification (1–3 business days)', desc: "We'll verify your salon license and supervisor credentials with the Indiana Professional Licensing Agency (IPLA)." },
@@ -44,7 +44,7 @@ export default function CosmetologyThankYouPage() {
                     <span className="text-purple-600 font-bold text-sm">{item.n}</span>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                    <h3 className="font-semibold text-slate-900">{item.title}</h3>
                     <p className="text-black text-sm">{item.desc}</p>
                   </div>
                 </div>
@@ -53,7 +53,7 @@ export default function CosmetologyThankYouPage() {
           </div>
 
           <div className="bg-purple-50 border border-purple-200 p-8 rounded-xl mb-8 text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Schedule Your Site Visit</h3>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">Schedule Your Site Visit</h3>
             <p className="text-black mb-4">
               Ready to move forward? Book your 15-minute Zoom site visit now. We&apos;ll walk through
               your salon and answer any questions.
@@ -71,7 +71,7 @@ export default function CosmetologyThankYouPage() {
           <div className="bg-brand-blue-50 p-6 rounded-xl mb-8">
             <div className="flex items-center gap-3 mb-3">
               <Clock className="w-5 h-5 text-brand-blue-600" />
-              <span className="font-semibold text-gray-900">Confirmation Email Sent</span>
+              <span className="font-semibold text-slate-900">Confirmation Email Sent</span>
             </div>
             <p className="text-black text-sm">
               Check your inbox for a confirmation email with your application details and program info.
@@ -79,12 +79,12 @@ export default function CosmetologyThankYouPage() {
           </div>
 
           <div className="bg-white p-6 rounded-xl mb-8">
-            <h3 className="font-semibold text-gray-900 mb-3">Questions?</h3>
+            <h3 className="font-semibold text-slate-900 mb-3">Questions?</h3>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:+13173143757" className="inline-flex items-center justify-center gap-2 text-gray-700 hover:text-brand-blue-600">
+              <a href="tel:+13173143757" className="inline-flex items-center justify-center gap-2 text-slate-900 hover:text-brand-blue-600">
                 <Phone className="w-4 h-4" /> (317) 314-3757
               </a>
-              <a href="/contact" className="inline-flex items-center justify-center gap-2 text-gray-700 hover:text-brand-blue-600">
+              <a href="/contact" className="inline-flex items-center justify-center gap-2 text-slate-900 hover:text-brand-blue-600">
                 <Mail className="w-4 h-4" /> Contact Us
               </a>
             </div>

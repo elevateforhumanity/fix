@@ -61,8 +61,8 @@ export default function SezzlePaymentCard({
           <span className="text-white text-xs font-bold">Sezzle</span>
         </div>
         <div>
-          <h3 className="font-semibold text-gray-900">Pay in 4 interest-free payments</h3>
-          <p className="text-sm text-gray-500">Split your purchase, no credit impact</p>
+          <h3 className="font-semibold text-slate-900">Pay in 4 interest-free payments</h3>
+          <p className="text-sm text-slate-700">Split your purchase, no credit impact</p>
         </div>
       </div>
 
@@ -71,10 +71,10 @@ export default function SezzlePaymentCard({
         <div className="grid grid-cols-4 gap-2 text-center">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className="flex flex-col">
-              <span className="text-xs text-gray-500 mb-1">
+              <span className="text-xs text-slate-700 mb-1">
                 {i === 0 ? 'Today' : `+${i * 2} wks`}
               </span>
-              <span className={`font-bold ${i === 0 ? 'text-purple-600' : 'text-gray-700'}`}>
+              <span className={`font-bold ${i === 0 ? 'text-purple-600' : 'text-slate-900'}`}>
                 ${installmentAmount}
               </span>
               {i === 0 && (
@@ -86,7 +86,7 @@ export default function SezzlePaymentCard({
       </div>
 
       {/* Features */}
-      <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+      <div className="flex flex-wrap gap-4 text-sm text-slate-700">
         <div className="flex items-center gap-1.5">
           <CreditCard className="w-4 h-4 text-purple-500" />
           <span>0% interest</span>
@@ -103,8 +103,8 @@ export default function SezzlePaymentCard({
 
       {/* Total */}
       <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
-        <span className="text-gray-600">Total</span>
-        <span className="text-lg font-bold text-gray-900">${price.toFixed(2)}</span>
+        <span className="text-slate-700">Total</span>
+        <span className="text-lg font-bold text-slate-900">${price.toFixed(2)}</span>
       </div>
     </div>
   );
@@ -150,8 +150,8 @@ export function SezzleInfoTooltip() {
       
       {isOpen && (
         <div className="absolute bottom-full left-0 mb-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-50">
-          <h4 className="font-semibold text-gray-900 mb-2">Buy Now, Pay Later</h4>
-          <ul className="text-sm text-gray-600 space-y-1">
+          <h4 className="font-semibold text-slate-900 mb-2">Buy Now, Pay Later</h4>
+          <ul className="text-sm text-slate-700 space-y-1">
             <li>• Split into 4 payments over 6 weeks</li>
             <li>• 0% interest, no hidden fees</li>
             <li>• No impact on your credit score</li>

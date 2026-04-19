@@ -34,18 +34,18 @@ export default function KingdomKonnectPage() {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <Users className="w-12 h-12 text-brand-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Church Partnerships</h3>
-              <p className="text-gray-600">Partner with local churches to provide workforce training to congregation members.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Church Partnerships</h3>
+              <p className="text-slate-700">Partner with local churches to provide workforce training to congregation members.</p>
             </div>
             <div className="text-center">
               <Globe className="w-12 h-12 text-brand-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Community Outreach</h3>
-              <p className="text-gray-600">Extend training opportunities to underserved communities through faith networks.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Community Outreach</h3>
+              <p className="text-slate-700">Extend training opportunities to underserved communities through faith networks.</p>
             </div>
             <div className="text-center">
               <Heart className="w-12 h-12 text-brand-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Holistic Support</h3>
-              <p className="text-gray-600">Combine career training with spiritual and emotional support services.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Holistic Support</h3>
+              <p className="text-slate-700">Combine career training with spiritual and emotional support services.</p>
             </div>
           </div>
         </div>

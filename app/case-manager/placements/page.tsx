@@ -40,14 +40,14 @@ export default async function CaseManagerPlacementsPage() {
     if (status === 'verified') return 'bg-green-100 text-green-800';
     if (status === 'pending')  return 'bg-yellow-100 text-yellow-800';
     if (status === 'rejected') return 'bg-red-100 text-red-800';
-    if (status === 'lost')     return 'bg-gray-100 text-gray-600';
-    return 'bg-gray-100 text-gray-700';
+    if (status === 'lost')     return 'bg-gray-100 text-slate-700';
+    return 'bg-gray-100 text-slate-900';
   };
 
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-6xl mx-auto px-6 py-8">
-        <nav className="text-xs text-gray-500 mb-4">
+        <nav className="text-xs text-slate-700 mb-4">
           <Link href="/case-manager/dashboard" className="hover:underline">Dashboard</Link>
           <span className="mx-1">/</span>
           <span>Placements</span>
@@ -55,8 +55,8 @@ export default async function CaseManagerPlacementsPage() {
 
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Employment Placements</h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <h1 className="text-2xl font-bold text-slate-900">Employment Placements</h1>
+            <p className="text-sm text-slate-700 mt-1">
               {pending.length} pending verification · {verified.length} verified
             </p>
           </div>
@@ -90,7 +90,7 @@ export default async function CaseManagerPlacementsPage() {
         {/* Other (rejected / lost) */}
         {other.length > 0 && (
           <div>
-            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+            <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">
               Other ({other.length})
             </h2>
             <PlacementTable rows={other} statusBadge={statusBadge} />
@@ -99,7 +99,7 @@ export default async function CaseManagerPlacementsPage() {
 
         {!placements?.length && (
           <div className="rounded-xl border border-gray-200 p-12 text-center">
-            <p className="text-sm text-gray-500">No placements recorded yet.</p>
+            <p className="text-sm text-slate-700">No placements recorded yet.</p>
           </div>
         )}
       </div>
@@ -123,31 +123,31 @@ function PlacementTable({
       <table className="min-w-full divide-y divide-gray-100 text-sm">
         <thead className="bg-gray-50">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Participant</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Employer</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Title</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Wage</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Start</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Verification</th>
-            <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Participant</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Employer</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Title</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Type</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Wage</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Start</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Verification</th>
+            <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
             {showVerifyAction && <th className="px-4 py-3" />}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
           {rows.map((p: any) => (
             <tr key={p.id} className="hover:bg-gray-50">
-              <td className="px-4 py-3 font-medium text-gray-900">
+              <td className="px-4 py-3 font-medium text-slate-900">
                 {(p.profiles as any)?.full_name ?? (p.profiles as any)?.email ?? '—'}
               </td>
-              <td className="px-4 py-3 text-gray-700">{p.employer_name ?? '—'}</td>
-              <td className="px-4 py-3 text-gray-700">{p.job_title ?? '—'}</td>
-              <td className="px-4 py-3 text-gray-600">{p.employment_type?.replace('_', ' ') ?? '—'}</td>
-              <td className="px-4 py-3 text-gray-600">{p.hourly_wage ? `$${p.hourly_wage}/hr` : '—'}</td>
-              <td className="px-4 py-3 text-gray-500">
+              <td className="px-4 py-3 text-slate-900">{p.employer_name ?? '—'}</td>
+              <td className="px-4 py-3 text-slate-900">{p.job_title ?? '—'}</td>
+              <td className="px-4 py-3 text-slate-700">{p.employment_type?.replace('_', ' ') ?? '—'}</td>
+              <td className="px-4 py-3 text-slate-700">{p.hourly_wage ? `$${p.hourly_wage}/hr` : '—'}</td>
+              <td className="px-4 py-3 text-slate-700">
                 {p.start_date ? new Date(p.start_date).toLocaleDateString() : '—'}
               </td>
-              <td className="px-4 py-3 text-gray-500">{p.verification_method?.replace('_', ' ') ?? '—'}</td>
+              <td className="px-4 py-3 text-slate-700">{p.verification_method?.replace('_', ' ') ?? '—'}</td>
               <td className="px-4 py-3">
                 <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${statusBadge(p.status)}`}>
                   {p.status}

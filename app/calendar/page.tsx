@@ -107,7 +107,7 @@ export default async function CalendarPage() {
                           </div>
                           <div className="flex-1 p-4">
                             <h3 className="font-semibold">{enrollment.course?.title}</h3>
-                            <div className="flex gap-4 mt-2 text-sm text-gray-500">
+                            <div className="flex gap-4 mt-2 text-sm text-slate-700">
                               <span className="flex items-center gap-1">
                                 <Clock className="w-4 h-4" />
                                 {enrollment.course?.schedule || 'See course details'}
@@ -126,7 +126,7 @@ export default async function CalendarPage() {
                         <div className="relative h-32 overflow-hidden">
                           <Image src="/images/pages/programs-catalog-hero.jpg" alt="Browse programs" fill sizes="100vw" className="object-cover" />
                         </div>
-                        <div className="p-6 text-center text-gray-500">
+                        <div className="p-6 text-center text-slate-700">
                           <p>No enrolled classes</p>
                           <Link href="/programs" className="text-brand-blue-600 font-medium hover:underline">Browse Programs</Link>
                         </div>
@@ -143,18 +143,18 @@ export default async function CalendarPage() {
                         <div className="flex items-center justify-between">
                           <div>
                             <h3 className="font-medium">{assignment.title}</h3>
-                            <p className="text-sm text-gray-500">{assignment.course_title}</p>
+                            <p className="text-sm text-slate-700">{assignment.course_title}</p>
                           </div>
                           <div className="text-right">
                             <div className="text-sm font-medium text-brand-orange-600">
                               {new Date(assignment.due_date).toLocaleDateString()}
                             </div>
-                            <div className="text-xs text-gray-500">Due</div>
+                            <div className="text-xs text-slate-700">Due</div>
                           </div>
                         </div>
                       </div>
                     )) : (
-                      <div className="bg-white rounded-lg shadow-sm border p-6 text-center text-gray-500">
+                      <div className="bg-white rounded-lg shadow-sm border p-6 text-center text-slate-700">
                         No upcoming deadlines
                       </div>
                     )}
@@ -169,8 +169,8 @@ export default async function CalendarPage() {
             <div className="space-y-3">
               {programs && programs.length > 0 ? programs.map((program: any) => (
                 <Link key={program.id} href={`/programs/${program.id}`} className="block bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition">
-                  <h3 className="font-semibold text-gray-900">{program.title || program?.title || program?.name}</h3>
-                  {program.schedule && <p className="text-sm text-gray-600 mt-1">{program.schedule}</p>}
+                  <h3 className="font-semibold text-slate-900">{program.title || program?.title || program?.name}</h3>
+                  {program.schedule && <p className="text-sm text-slate-700 mt-1">{program.schedule}</p>}
                   {program.start_date && (
                     <p className="text-xs text-brand-blue-600 mt-2">
                       Starts: {new Date(program.start_date).toLocaleDateString()}
@@ -178,7 +178,7 @@ export default async function CalendarPage() {
                   )}
                 </Link>
               )) : (
-                <div className="bg-white rounded-lg shadow-sm border p-4 text-center text-gray-500">
+                <div className="bg-white rounded-lg shadow-sm border p-4 text-center text-slate-700">
                   No active programs
                 </div>
               )}

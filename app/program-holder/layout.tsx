@@ -41,8 +41,8 @@ export default async function ProgramHolderLayout({
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Service Unavailable</h1>
-          <p className="text-gray-600">Please try again later.</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Service Unavailable</h1>
+          <p className="text-slate-700">Please try again later.</p>
         </div>
       </div>
     );
@@ -88,11 +88,11 @@ export default async function ProgramHolderLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h1 className="text-xl font-bold text-gray-900 mb-2">Thank You for Your Submission</h1>
-            <p className="text-gray-600 text-sm mb-4">
+            <h1 className="text-xl font-bold text-slate-900 mb-2">Thank You for Your Submission</h1>
+            <p className="text-slate-700 text-sm mb-4">
               We have received your application and our team is currently reviewing your information. Once your account has been approved, you will receive an email with your next steps and access to your program holder portal.
             </p>
-            <p className="text-gray-500 text-xs mb-6">
+            <p className="text-slate-700 text-xs mb-6">
               Questions? Contact us at{' '}
               <a href="mailto:elevate4humanityedu@gmail.com" className="text-blue-600 underline">
                 elevate4humanityedu@gmail.com
@@ -100,7 +100,7 @@ export default async function ProgramHolderLayout({
             </p>
             <a
               href="/logout"
-              className="inline-block text-sm text-gray-500 hover:text-gray-700 underline"
+              className="inline-block text-sm text-slate-700 hover:text-slate-900 underline"
             >
               Sign out
             </a>

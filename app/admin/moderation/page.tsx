@@ -36,7 +36,7 @@ export default async function ModerationPage() {
 
         <div className="space-y-4">
           {posts.length === 0 ? (
-            <p className="text-gray-500 py-4">No flagged posts to review.</p>
+            <p className="text-slate-700 py-4">No flagged posts to review.</p>
           ) : (
             posts.map((post) => (
               <div key={post.id} className="border rounded p-4">

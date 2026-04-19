@@ -60,12 +60,16 @@ type Props = {
 
 export default function CanonicalVideo({ src, poster, className, threshold = 0.1, playThrough = true, autoPlayOnMount = false, preloadFull = false, loop = false }: Props) {
   const ref = useRef<HTMLVideoElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [failed, setFailed] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   // True once the video is actually playing — drives the poster → video cross-fade
   const [playing, setPlaying] = useState(false);
   // True once the video has played through once — fades poster back in, stays there
   const [ended, setEnded] = useState(false);
+  // Deferred src — only set once the container enters the viewport.
+  // Prevents the browser making any network request until the hero is visible.
+  const [activeSrc, setActiveSrc] = useState<string | null>(autoPlayOnMount ? src : null);
 
   // Memoize event handlers to prevent re-registrations on each render
   const handlePlaying = useCallback(() => setPlaying(true), []);
@@ -93,11 +97,31 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
     return () => mq.removeEventListener('change', handler);
   }, []);
 
+  // For non-autoPlayOnMount videos: observe the container and set activeSrc
+  // only once it enters the viewport. This prevents any network request until
+  // the video is actually about to be seen.
+  useEffect(() => {
+    if (autoPlayOnMount || reducedMotion) return;
+    const container = containerRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActiveSrc(src);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.05, rootMargin: '200px' }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [autoPlayOnMount, reducedMotion, src]);
+
   // Immediate autoplay for above-the-fold hero videos.
   // Fires on mount and whenever src changes (e.g. desktop→mobile swap after hydration).
   // Only one play path runs — autoPlayOnMount OR observer, never both.
   useEffect(() => {
-    if (!autoPlayOnMount || reducedMotion || failed) return;
+    if (!autoPlayOnMount || reducedMotion || failed || !activeSrc) return;
     const video = ref.current;
     if (!video) return;
     // Reset playing/ended state when src changes so the fade-in triggers again
@@ -111,15 +135,14 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
       video.addEventListener('canplay', onReady, { once: true });
       return () => video.removeEventListener('canplay', onReady);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlayOnMount, reducedMotion, failed, src]);
+  }, [autoPlayOnMount, reducedMotion, failed, activeSrc]);
 
   // Visibility-gated playback — starts when video enters view.
   // If playThrough=true (default for hero videos), keeps playing after scrolling away.
   // If playThrough=false, pauses when scrolled out of view.
   // Skipped entirely when autoPlayOnMount=true.
   useEffect(() => {
-    if (autoPlayOnMount || reducedMotion || failed) return;
+    if (autoPlayOnMount || reducedMotion || failed || !activeSrc) return;
     const video = ref.current;
     if (!video) return;
 
@@ -131,7 +154,6 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           started = true;
           video.play().catch(() => {});
           if (playThrough) {
-            // Once started, disconnect — let it play through the page
             observer.disconnect();
           }
         } else if (!entry.isIntersecting && !playThrough) {
@@ -144,7 +166,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
 
     observer.observe(video);
     return () => observer.disconnect();
-  }, [autoPlayOnMount, reducedMotion, failed, threshold, playThrough]);
+  }, [autoPlayOnMount, reducedMotion, failed, activeSrc, threshold, playThrough]);
 
   // Reduced-motion or error: render poster only (or transparent placeholder so layout doesn't collapse)
   if (reducedMotion || failed) {
@@ -168,11 +190,8 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   // so they stack correctly inside the relative parent container.
   if (poster) {
     return (
-      <>
-        {/* Poster — z-0, always visible until video plays.
-            Explicit z-index prevents the video element (even at opacity-0)
-            from blocking the poster on Safari/iOS where stacking context
-            behaves differently from Chrome. */}
+      <div ref={containerRef} className={className} style={{ position: 'inherit' }}>
+        {/* Poster — always visible until video plays */}
         <img
           src={poster}
           alt=""
@@ -183,42 +202,43 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
           style={{ objectFit: 'cover', zIndex: 0 }}
         />
-        {/* Video — z-10, fades in once onPlaying fires (first real frame on screen).
-            When loop=true (hero videos), onEnded never fires so the poster stays
-            hidden and the video plays seamlessly in perpetuity.
-            src set directly on <video> (not only via <source>) so canplay fires
-            reliably on Safari/iOS and Firefox without waiting for a child parse. */}
-        <video
-          ref={ref}
-          src={src}
-          className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
-          muted
-          playsInline
-          loop={loop}
-          preload={preloadFull ? 'auto' : 'metadata'}
-          aria-hidden="true"
-          onPlaying={handlePlaying}
-          onEnded={handleEnded}
-          onError={handleError}
-          style={{ zIndex: 10 }}
-        />
-      </>
+        {/* Video — src only set once in viewport; fades in once playing */}
+        {activeSrc && (
+          <video
+            ref={ref}
+            src={activeSrc}
+            className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-100' : 'opacity-0'}`}
+            muted
+            playsInline
+            loop={loop}
+            preload={preloadFull ? 'auto' : 'metadata'}
+            aria-hidden="true"
+            onPlaying={handlePlaying}
+            onEnded={handleEnded}
+            onError={handleError}
+            style={{ zIndex: 10 }}
+          />
+        )}
+      </div>
     );
   }
 
   // No poster — single video element, hide it after playback ends (unless looping)
   return (
-    <video
-      ref={ref}
-      src={src}
-      className={`${className} transition-opacity duration-700 ${ended ? 'opacity-0' : ''}`}
-      muted
-      playsInline
-      loop={loop}
-      preload={preloadFull ? 'auto' : 'metadata'}
-      aria-hidden="true"
-      onEnded={handleEnded}
-      onError={handleError}
-    />
+    <div ref={containerRef} className={className}>
+      <video
+        ref={ref}
+        src={activeSrc ?? undefined}
+        className={`w-full h-full transition-opacity duration-700 ${ended ? 'opacity-0' : ''}`}
+        style={{ objectFit: 'cover' }}
+        muted
+        playsInline
+        loop={loop}
+        preload={activeSrc ? (preloadFull ? 'auto' : 'metadata') : 'none'}
+        aria-hidden="true"
+        onEnded={handleEnded}
+        onError={handleError}
+      />
+    </div>
   );
 }

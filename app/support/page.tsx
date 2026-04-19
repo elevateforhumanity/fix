@@ -68,8 +68,8 @@ export default async function SupportPage() {
             <Link key={option.title} href={option.href} className="bg-white rounded-xl shadow-sm border p-6 hover:shadow-md transition text-center">
               <option.icon className="w-10 h-10 text-brand-blue-600 mx-auto mb-4" />
               <h3 className="font-semibold text-lg mb-2">{option.title}</h3>
-              <p className="text-gray-600 text-sm mb-3">{option.desc}</p>
-              <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
+              <p className="text-slate-700 text-sm mb-3">{option.desc}</p>
+              <div className="flex items-center justify-center gap-1 text-xs text-slate-700">
                 <Clock className="w-3 h-3" />
                 {option.available}
               </div>
@@ -92,25 +92,25 @@ export default async function SupportPage() {
                         <span className={`text-xs px-2 py-1 rounded-full ${
                           ticket.status === 'open' ? 'bg-brand-green-100 text-brand-green-700' :
                           ticket.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-white text-gray-700'
+                          'bg-white text-slate-900'
                         }`}>
                           {ticket.status}
                         </span>
                       </div>
-                      <p className="text-gray-600 text-sm">{new Date(ticket.created_at).toLocaleDateString()}</p>
+                      <p className="text-slate-700 text-sm">{new Date(ticket.created_at).toLocaleDateString()}</p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="bg-white rounded-lg shadow-sm border p-8 text-center text-gray-500">
-                  <LifeBuoy className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <div className="bg-white rounded-lg shadow-sm border p-8 text-center text-slate-700">
+                  <LifeBuoy className="w-12 h-12 mx-auto mb-4 text-slate-700" />
                   <p>No support tickets yet</p>
                 </div>
               )
             ) : (
               <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
-                <LifeBuoy className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                <p className="text-gray-600 mb-4">Sign in to view your support tickets</p>
+                <LifeBuoy className="w-12 h-12 mx-auto mb-4 text-slate-700" />
+                <p className="text-slate-700 mb-4">Sign in to view your support tickets</p>
                 <Link href="/login?redirect=/support" className="text-brand-blue-600 font-medium hover:underline">
                   Sign In
                 </Link>
@@ -126,11 +126,11 @@ export default async function SupportPage() {
             <details className="bg-white rounded-xl shadow-sm border overflow-hidden group">
               <summary className="p-5 cursor-pointer font-semibold text-slate-900 flex justify-between items-center">
                 How do I reset my password?
-                <svg className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-slate-700 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-gray-600">
+              <div className="px-5 pb-5 text-slate-700">
                 Click &quot;Forgot Password&quot; on the login page. Enter your email and we&apos;ll send you a reset link. Check your spam folder if you don&apos;t see it within 5 minutes.
               </div>
             </details>
@@ -138,11 +138,11 @@ export default async function SupportPage() {
             <details className="bg-white rounded-xl shadow-sm border overflow-hidden group">
               <summary className="p-5 cursor-pointer font-semibold text-slate-900 flex justify-between items-center">
                 How do I check my enrollment status?
-                <svg className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-slate-700 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-gray-600">
+              <div className="px-5 pb-5 text-slate-700">
                 Log into your student dashboard and check the &quot;My Programs&quot; section. Your enrollment status will show as Pending, Approved, or Active. Contact us if you have questions.
               </div>
             </details>
@@ -150,11 +150,11 @@ export default async function SupportPage() {
             <details className="bg-white rounded-xl shadow-sm border overflow-hidden group">
               <summary className="p-5 cursor-pointer font-semibold text-slate-900 flex justify-between items-center">
                 How do I access my course materials?
-                <svg className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-slate-700 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-gray-600">
+              <div className="px-5 pb-5 text-slate-700">
                 Once enrolled, log into your student dashboard. Click on your program to access course materials, videos, and assignments. Some programs use external platforms like Elevate LMS - check your email for access instructions.
               </div>
             </details>
@@ -162,11 +162,11 @@ export default async function SupportPage() {
             <details className="bg-white rounded-xl shadow-sm border overflow-hidden group">
               <summary className="p-5 cursor-pointer font-semibold text-slate-900 flex justify-between items-center">
                 How do I log my training hours?
-                <svg className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-slate-700 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-gray-600">
+              <div className="px-5 pb-5 text-slate-700">
                 For apprenticeship programs, use the &quot;Log Hours&quot; feature in your student dashboard. Enter your date, hours worked, and activities. Your supervisor will verify the hours.
               </div>
             </details>
@@ -174,11 +174,11 @@ export default async function SupportPage() {
             <details className="bg-white rounded-xl shadow-sm border overflow-hidden group">
               <summary className="p-5 cursor-pointer font-semibold text-slate-900 flex justify-between items-center">
                 Who do I contact about funding/WIOA?
-                <svg className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-slate-700 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-gray-600">
+              <div className="px-5 pb-5 text-slate-700">
                 For WIOA funding questions, contact your WorkOne case manager directly. For general funding questions, email us at our contact form or call (317) 314-3757.
               </div>
             </details>
@@ -186,11 +186,11 @@ export default async function SupportPage() {
             <details className="bg-white rounded-xl shadow-sm border overflow-hidden group">
               <summary className="p-5 cursor-pointer font-semibold text-slate-900 flex justify-between items-center">
                 What if I need to miss class?
-                <svg className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-slate-700 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-gray-600">
+              <div className="px-5 pb-5 text-slate-700">
                 Contact your instructor as soon as possible. Most programs have attendance requirements for funding. We can work with you on makeup options if you communicate early.
               </div>
             </details>

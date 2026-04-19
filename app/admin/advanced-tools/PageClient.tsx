@@ -132,7 +132,7 @@ function ToolCard({
         className={`absolute top-3 right-3 p-1 rounded-md transition-colors ${
           isPinned 
             ? "text-yellow-500 hover:text-yellow-600" 
-            : "text-gray-300 hover:text-gray-400"
+            : "text-slate-700 hover:text-slate-700"
         }`}
         title={isPinned ? "Unpin from favorites" : "Pin to favorites"}
       >
@@ -141,9 +141,9 @@ function ToolCard({
       <Link href={item.href} className="block">
         <div className="flex items-start justify-between gap-3 pr-6">
           <div className="space-y-1">
-            <div className="text-base font-semibold text-gray-900">{item.title}</div>
-            {item.desc && <div className="text-sm text-gray-600">{item.desc}</div>}
-            <div className="text-xs text-gray-500">{item.href}</div>
+            <div className="text-base font-semibold text-slate-900">{item.title}</div>
+            {item.desc && <div className="text-sm text-slate-700">{item.desc}</div>}
+            <div className="text-xs text-slate-700">{item.href}</div>
           </div>
           {item.badge && <Badge kind={item.badge} />}
         </div>
@@ -229,15 +229,15 @@ export default function AdvancedToolsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold text-gray-900">Advanced Tools</h1>
-        <p className="text-base text-gray-600">
+        <h1 className="text-2xl font-semibold text-slate-900">Advanced Tools</h1>
+        <p className="text-base text-slate-700">
           Non-routine admin surfaces. Everything here is active. Use intentionally.
         </p>
       </div>
 
       {/* Search */}
       <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
         <input
           type="text"
           placeholder="Search tools..."
@@ -248,7 +248,7 @@ export default function AdvancedToolsPage() {
         {search && (
           <button
             onClick={() => setSearch("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-700 hover:text-slate-700"
           >
             <X className="w-4 h-4" />
           </button>
@@ -256,7 +256,7 @@ export default function AdvancedToolsPage() {
       </div>
 
       {/* Stats */}
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-slate-700">
         {search ? `${visibleTools} of ${totalTools} tools` : `${totalTools} tools`}
         {pinnedItems.length > 0 && ` · ${pinnedItems.length} pinned`}
       </div>
@@ -266,7 +266,7 @@ export default function AdvancedToolsPage() {
         <section className="space-y-3">
           <div className="flex items-center gap-2">
             <Star className="w-4 h-4 text-yellow-500 fill-current" />
-            <h2 className="text-lg font-semibold text-gray-900">Pinned</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Pinned</h2>
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
             {pinnedItems.map((item) => (
@@ -286,8 +286,8 @@ export default function AdvancedToolsPage() {
         {filteredCategories.map((cat) => (
           <section key={cat.title} className="space-y-3">
             <div className="space-y-1">
-              <h2 className="text-lg font-semibold text-gray-900">{cat.title}</h2>
-              <p className="text-sm text-gray-600">{cat.desc}</p>
+              <h2 className="text-lg font-semibold text-slate-900">{cat.title}</h2>
+              <p className="text-sm text-slate-700">{cat.desc}</p>
             </div>
 
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -306,7 +306,7 @@ export default function AdvancedToolsPage() {
 
       {/* No results */}
       {filteredCategories.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-slate-700">
           No tools match "{search}"
         </div>
       )}

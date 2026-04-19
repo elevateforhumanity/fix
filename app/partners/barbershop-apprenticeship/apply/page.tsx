@@ -215,7 +215,7 @@ export default function BarbershopPartnerApplyPage() {
         <div className="max-w-5xl mx-auto px-4">
           {/* Before You Apply checklist */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
-            <h2 className="text-lg font-bold text-gray-900 mb-1">Before You Apply</h2>
+            <h2 className="text-lg font-bold text-slate-900 mb-1">Before You Apply</h2>
             <p className="text-sm text-black mb-5">Complete these steps first so you&apos;re ready to submit.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {partnerSteps.map((step) => (
@@ -228,7 +228,7 @@ export default function BarbershopPartnerApplyPage() {
                     <step.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-sm font-semibold text-gray-900 group-hover:text-brand-blue-700 transition-colors flex items-center gap-1">
+                    <span className="text-sm font-semibold text-slate-900 group-hover:text-brand-blue-700 transition-colors flex items-center gap-1">
                       {step.label}
                       <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                     </span>
@@ -249,22 +249,22 @@ export default function BarbershopPartnerApplyPage() {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Shop Information */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Shop Information</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Shop Information</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Shop Legal Name *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Shop Legal Name *</label>
                   <input type="text" required value={formData.shopLegalName} onChange={e => updateField('shopLegalName', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">DBA Name (if different)</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">DBA Name (if different)</label>
                   <input type="text" value={formData.shopDbaName} onChange={e => updateField('shopDbaName', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Owner Name *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Owner Name *</label>
                   <input type="text" required value={formData.ownerName} onChange={e => updateField('ownerName', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Indiana Shop License # *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Indiana Shop License # *</label>
                   <input type="text" required value={formData.indianaShopLicenseNumber} onChange={e => updateField('indianaShopLicenseNumber', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
               </div>
@@ -272,18 +272,18 @@ export default function BarbershopPartnerApplyPage() {
 
             {/* Contact Information */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Contact Information</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Contact Information</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Primary Contact Name *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Primary Contact Name *</label>
                   <input type="text" required value={formData.contactName} onChange={e => updateField('contactName', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Email *</label>
                   <input type="email" required value={formData.contactEmail} onChange={e => updateField('contactEmail', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Phone *</label>
                   <input type="tel" required value={formData.contactPhone} onChange={e => updateField('contactPhone', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
               </div>
@@ -291,27 +291,27 @@ export default function BarbershopPartnerApplyPage() {
 
             {/* Address */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Shop Address</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Shop Address</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Address Line 1 *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Address Line 1 *</label>
                   <input type="text" required value={formData.shopAddressLine1} onChange={e => updateField('shopAddressLine1', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Address Line 2</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Address Line 2</label>
                   <input type="text" value={formData.shopAddressLine2} onChange={e => updateField('shopAddressLine2', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">City *</label>
+                    <label className="block text-sm font-medium text-slate-900 mb-1">City *</label>
                     <input type="text" required value={formData.shopCity} onChange={e => updateField('shopCity', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                    <label className="block text-sm font-medium text-slate-900 mb-1">State</label>
                     <input type="text" value="Indiana" disabled className="w-full px-4 py-2 border border-gray-200 rounded-lg bg-white text-black" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">ZIP *</label>
+                    <label className="block text-sm font-medium text-slate-900 mb-1">ZIP *</label>
                     <input type="text" required value={formData.shopZip} onChange={e => updateField('shopZip', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                   </div>
                 </div>
@@ -320,18 +320,18 @@ export default function BarbershopPartnerApplyPage() {
 
             {/* Supervising Barber */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Supervising Barber</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Supervising Barber</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Supervisor Name *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Supervisor Name *</label>
                   <input type="text" required value={formData.supervisorName} onChange={e => updateField('supervisorName', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Supervisor License # *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Supervisor License # *</label>
                   <input type="text" required value={formData.supervisorLicenseNumber} onChange={e => updateField('supervisorLicenseNumber', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Years Licensed</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Years Licensed</label>
                   <input type="number" min="0" value={formData.supervisorYearsLicensed} onChange={e => updateField('supervisorYearsLicensed', e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
                 </div>
               </div>
@@ -339,7 +339,7 @@ export default function BarbershopPartnerApplyPage() {
 
             {/* Employment & Compliance */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Employment & Compliance</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Employment & Compliance</h2>
               <p className="text-sm text-black mb-6">
                 As a DOL Registered Apprenticeship, apprentices must be employed by the host shop.
                 Elevate (as the registered sponsor) will register approved apprentices and employer
@@ -348,7 +348,7 @@ export default function BarbershopPartnerApplyPage() {
               <div className="space-y-6">
                 {/* Payroll confirmation */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Will apprentices be added to your payroll as employees? *
                   </label>
                   <p className="text-xs text-black mb-2">
@@ -358,7 +358,7 @@ export default function BarbershopPartnerApplyPage() {
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2 p-3 border rounded-lg cursor-pointer hover:bg-white">
                       <input type="radio" name="apprenticesOnPayroll" value="yes" checked={formData.apprenticesOnPayroll === 'yes'} onChange={e => updateField('apprenticesOnPayroll', e.target.value)} required className="text-brand-blue-600" />
-                      <span className="text-gray-700">Yes — apprentices will be on our payroll</span>
+                      <span className="text-slate-900">Yes — apprentices will be on our payroll</span>
                     </label>
                   </div>
                   <p className="text-xs text-amber-700 mt-2">
@@ -368,12 +368,12 @@ export default function BarbershopPartnerApplyPage() {
 
                 {/* Compensation model */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Compensation Model *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Compensation Model *</label>
                   <div className="grid md:grid-cols-3 gap-2">
                     {compensationModels.map(model => (
                       <label key={model.value} className="flex items-center gap-2 p-3 border rounded-lg cursor-pointer hover:bg-white">
                         <input type="radio" name="compensationModel" value={model.value} checked={formData.compensationModel === model.value} onChange={e => updateField('compensationModel', e.target.value)} required className="text-brand-blue-600" />
-                        <span className="text-gray-700">{model.label}</span>
+                        <span className="text-slate-900">{model.label}</span>
                       </label>
                     ))}
                   </div>
@@ -381,13 +381,13 @@ export default function BarbershopPartnerApplyPage() {
 
                 {/* Number of employees */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Total Number of Employees (including owner) *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Total Number of Employees (including owner) *</label>
                   <input type="number" min="1" value={formData.numberOfEmployees} onChange={e => updateField('numberOfEmployees', e.target.value)} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" placeholder="e.g. 3" />
                 </div>
 
                 {/* General Liability */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Do you carry General Liability insurance? *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Do you carry General Liability insurance? *</label>
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2">
                       <input type="radio" name="hasGeneralLiability" value="yes" checked={formData.hasGeneralLiability === 'yes'} onChange={e => updateField('hasGeneralLiability', e.target.value)} required />
@@ -408,12 +408,12 @@ export default function BarbershopPartnerApplyPage() {
 
                 {/* Workers' Compensation */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Workers&apos; Compensation Status *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Workers&apos; Compensation Status *</label>
                   <div className="space-y-2">
                     {workersCompOptions.map(opt => (
                       <label key={opt.value} className="flex items-start gap-2 p-3 border rounded-lg cursor-pointer hover:bg-white">
                         <input type="radio" name="workersCompStatus" value={opt.value} checked={formData.workersCompStatus === opt.value} onChange={e => updateField('workersCompStatus', e.target.value)} required className="mt-0.5 text-brand-blue-600" />
-                        <span className="text-gray-700 text-sm">{opt.label}</span>
+                        <span className="text-slate-900 text-sm">{opt.label}</span>
                       </label>
                     ))}
                   </div>
@@ -433,7 +433,7 @@ export default function BarbershopPartnerApplyPage() {
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Can you commit to supervising apprentices and verifying hours/competencies? *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Can you commit to supervising apprentices and verifying hours/competencies? *</label>
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2">
                       <input type="radio" name="canSuperviseAndVerify" value="yes" checked={formData.canSuperviseAndVerify === 'yes'} onChange={e => updateField('canSuperviseAndVerify', e.target.value)} required />
@@ -450,18 +450,18 @@ export default function BarbershopPartnerApplyPage() {
 
             {/* Notes */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Additional Information</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Additional Information</h2>
               <textarea rows={4} value={formData.notes} onChange={e => updateField('notes', e.target.value)} placeholder="Any additional information you'd like to share..." className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500" />
             </div>
 
             {/* Acknowledgments */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Acknowledgments</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-6">Acknowledgments</h2>
               <div className="space-y-4">
                 <div className="p-4 bg-brand-blue-50 border border-brand-blue-200 rounded-lg">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" checked={formData.mouAcknowledged} onChange={e => updateField('mouAcknowledged', e.target.checked)} className="mt-1" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-slate-900">
                       I acknowledge that I have reviewed the <Link href="/docs/Indiana-Barbershop-Apprenticeship-MOU" className="text-brand-blue-600 underline" target="_blank">Memorandum of Understanding (MOU)</Link> and understand that signing it is required to participate as a partner. *
                     </span>
                   </label>
@@ -469,7 +469,7 @@ export default function BarbershopPartnerApplyPage() {
                 <div className="p-4 bg-white border border-gray-200 rounded-lg">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" checked={formData.consentAcknowledged} onChange={e => updateField('consentAcknowledged', e.target.checked)} className="mt-1" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-sm text-slate-900">
                       I consent to be contacted regarding this application and acknowledge that my information will be handled according to the <Link href="/privacy-policy" className="text-brand-blue-600 underline">Privacy Policy</Link>. *
                     </span>
                   </label>
@@ -479,7 +479,7 @@ export default function BarbershopPartnerApplyPage() {
 
             {/* Signature */}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Applicant Signature *</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Applicant Signature *</h2>
               <p className="text-sm text-black mb-4">Sign below to confirm that the information provided is accurate and complete.</p>
               <div className="border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-white">
                 <canvas
@@ -500,7 +500,7 @@ export default function BarbershopPartnerApplyPage() {
                 ) : (
                   <p className="text-sm text-black">Draw your signature above</p>
                 )}
-                <button type="button" onClick={clearSignature} className="text-sm text-black hover:text-gray-700 underline">
+                <button type="button" onClick={clearSignature} className="text-sm text-black hover:text-slate-900 underline">
                   Clear
                 </button>
               </div>

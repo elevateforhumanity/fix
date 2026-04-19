@@ -110,7 +110,7 @@ export function StudentFeedbackRating({ courseId }: { courseId?: string }) {
                       <button
                         key={star}
                         onClick={() => setRating(star)}
-                        className={`text-3xl ${star <= rating ? 'text-yellow-500' : 'text-gray-300'}`}
+                        className={`text-3xl ${star <= rating ? 'text-yellow-500' : 'text-slate-700'}`}
                       >
                         ★
                       </button>
@@ -143,12 +143,12 @@ export function StudentFeedbackRating({ courseId }: { courseId?: string }) {
                         <div className="flex items-center gap-2">
                           <div className="flex">
                             {[...Array(5)].map((_, i) => (
-                              <span key={i} className={`text-sm ${i < review.rating ? 'text-yellow-500' : 'text-gray-300'}`}>
+                              <span key={i} className={`text-sm ${i < review.rating ? 'text-yellow-500' : 'text-slate-700'}`}>
                                 ★
                               </span>
                             ))}
                           </div>
-                          <span className="text-xs text-gray-500">{review.date}</span>
+                          <span className="text-xs text-slate-700">{review.date}</span>
                         </div>
                       </div>
                     </div>
@@ -169,7 +169,7 @@ export function StudentFeedbackRating({ courseId }: { courseId?: string }) {
                 <p className="text-5xl font-bold text-brand-orange-600 text-3xl md:text-4xl lg:text-5xl">{avgRating.toFixed(1)}</p>
                 <div className="flex justify-center my-2">
                   {[...Array(5)].map((_, i) => (
-                    <span key={i} className={`text-2xl ${i < Math.round(avgRating) ? 'text-yellow-500' : 'text-gray-300'}`}>
+                    <span key={i} className={`text-2xl ${i < Math.round(avgRating) ? 'text-yellow-500' : 'text-slate-700'}`}>
                       ★
                     </span>
                   ))}

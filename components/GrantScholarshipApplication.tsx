@@ -128,7 +128,7 @@ export default function GrantScholarshipApplication() {
                 </form>
               </Card>
             ) : (
-              <Card className="p-6 text-center text-gray-500">
+              <Card className="p-6 text-center text-slate-700">
                 Select a grant or scholarship to begin your application
               </Card>
             )}

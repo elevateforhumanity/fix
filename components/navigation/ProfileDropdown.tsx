@@ -191,7 +191,7 @@ export function ProfileDropdown({ className }: Props) {
     return (
       <Link
         href="/login"
-        className={`px-4 py-2 text-sm font-medium text-gray-700 hover:text-brand-blue-600 ${className || ''}`}
+        className={`px-4 py-2 text-sm font-medium text-slate-900 hover:text-brand-blue-600 ${className || ''}`}
       >
         Sign In
       </Link>
@@ -245,8 +245,8 @@ export function ProfileDropdown({ className }: Props) {
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-semibold text-gray-900 truncate">{profile.full_name}</div>
-                <div className="text-sm text-gray-500 truncate">{profile.email}</div>
+                <div className="font-semibold text-slate-900 truncate">{profile.full_name}</div>
+                <div className="text-sm text-slate-700 truncate">{profile.email}</div>
                 {profile.role && (
                   <span className="inline-block mt-1 text-xs bg-brand-blue-100 text-brand-blue-700 px-2 py-0.5 rounded capitalize">
                     {profile.role}
@@ -259,13 +259,13 @@ export function ProfileDropdown({ className }: Props) {
           {/* Quick Stats */}
           <div className="px-4 py-3 border-b bg-gray-50 flex items-center justify-between text-sm">
             <Link href="/lms/courses" className="text-center hover:text-brand-blue-600" onClick={() => setIsOpen(false)}>
-              <div className="font-semibold text-gray-900">My Courses</div>
+              <div className="font-semibold text-slate-900">My Courses</div>
             </Link>
             <Link href="/lms/certificates" className="text-center hover:text-brand-blue-600" onClick={() => setIsOpen(false)}>
-              <div className="font-semibold text-gray-900">Certificates</div>
+              <div className="font-semibold text-slate-900">Certificates</div>
             </Link>
             <Link href="/notifications" className="text-center hover:text-brand-blue-600 relative" onClick={() => setIsOpen(false)}>
-              <div className="font-semibold text-gray-900">
+              <div className="font-semibold text-slate-900">
                 Notifications
                 {notifications.unread > 0 && (
                   <span className="ml-1 text-xs text-brand-red-500">({notifications.unread})</span>
@@ -278,47 +278,47 @@ export function ProfileDropdown({ className }: Props) {
           <div className="py-2">
             <Link
               href="/lms/profile"
-              className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-900 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
               <span className="flex items-center gap-3">
-                <User className="h-4 w-4 text-gray-400" />
+                <User className="h-4 w-4 text-slate-700" />
                 My Profile
               </span>
-              <ChevronRight className="h-4 w-4 text-gray-300" />
+              <ChevronRight className="h-4 w-4 text-slate-700" />
             </Link>
             
             <Link
               href="/lms/courses"
-              className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-900 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
               <span className="flex items-center gap-3">
-                <BookOpen className="h-4 w-4 text-gray-400" />
+                <BookOpen className="h-4 w-4 text-slate-700" />
                 My Courses
               </span>
-              <ChevronRight className="h-4 w-4 text-gray-300" />
+              <ChevronRight className="h-4 w-4 text-slate-700" />
             </Link>
             
             <Link
               href="/lms/certificates"
-              className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-900 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
               <span className="flex items-center gap-3">
-                <Award className="h-4 w-4 text-gray-400" />
+                <Award className="h-4 w-4 text-slate-700" />
                 Certificates
               </span>
-              <ChevronRight className="h-4 w-4 text-gray-300" />
+              <ChevronRight className="h-4 w-4 text-slate-700" />
             </Link>
 
             <Link
               href="/notifications"
-              className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-900 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
               <span className="flex items-center gap-3">
-                <Bell className="h-4 w-4 text-gray-400" />
+                <Bell className="h-4 w-4 text-slate-700" />
                 Notifications
                 {notifications.unread > 0 && (
                   <span className="bg-brand-red-100 text-brand-red-600 text-xs px-2 py-0.5 rounded-full">
@@ -326,31 +326,31 @@ export function ProfileDropdown({ className }: Props) {
                   </span>
                 )}
               </span>
-              <ChevronRight className="h-4 w-4 text-gray-300" />
+              <ChevronRight className="h-4 w-4 text-slate-700" />
             </Link>
 
             <Link
               href="/lms/settings"
-              className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-900 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
               <span className="flex items-center gap-3">
-                <Settings className="h-4 w-4 text-gray-400" />
+                <Settings className="h-4 w-4 text-slate-700" />
                 Settings
               </span>
-              <ChevronRight className="h-4 w-4 text-gray-300" />
+              <ChevronRight className="h-4 w-4 text-slate-700" />
             </Link>
 
             <Link
               href="/store"
-              className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-900 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
               <span className="flex items-center gap-3">
-                <CreditCard className="h-4 w-4 text-gray-400" />
+                <CreditCard className="h-4 w-4 text-slate-700" />
                 Billing
               </span>
-              <ChevronRight className="h-4 w-4 text-gray-300" />
+              <ChevronRight className="h-4 w-4 text-slate-700" />
             </Link>
           </div>
 
@@ -375,10 +375,10 @@ export function ProfileDropdown({ className }: Props) {
           <div className="border-t border-gray-100 py-2">
             <Link
               href="/support"
-              className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-900 hover:bg-gray-50"
               onClick={() => setIsOpen(false)}
             >
-              <HelpCircle className="h-4 w-4 text-gray-400" />
+              <HelpCircle className="h-4 w-4 text-slate-700" />
               Help & Support
             </Link>
             

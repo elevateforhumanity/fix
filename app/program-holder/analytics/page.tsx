@@ -25,7 +25,7 @@ export default async function ProgramHolderAnalyticsPage() {
 
   if (!programHolder) {
     // Should not happen since requireProgramHolder validates, but guard anyway
-    return <div className="p-8 text-center text-gray-500">Program holder record not found.</div>;
+    return <div className="p-8 text-center text-slate-700">Program holder record not found.</div>;
   }
 
   // Date ranges
@@ -197,18 +197,18 @@ export default async function ProgramHolderAnalyticsPage() {
         <Breadcrumbs items={[{ label: "Program Holder", href: "/program-holder" }, { label: "Analytics" }]} />
       </div>
       <div className="max-w-7xl mx-auto px-4">
-        <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
+        <nav className="flex items-center gap-2 text-sm text-slate-700 mb-6">
           <Link href="/" className="hover:text-brand-orange-600">Home</Link>
           <ChevronRight className="w-4 h-4" />
           <Link href="/program-holder" className="hover:text-brand-orange-600">Program Holder</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900">Analytics</span>
+          <span className="text-slate-900">Analytics</span>
         </nav>
 
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
-            <p className="text-gray-600">{programHolder.name}</p>
+            <h1 className="text-3xl font-bold text-slate-900">Analytics Dashboard</h1>
+            <p className="text-slate-700">{programHolder.name}</p>
           </div>
           <div className="flex items-center gap-3">
             <select className="px-3 py-2 border rounded-lg bg-white">
@@ -235,8 +235,8 @@ export default async function ProgramHolderAnalyticsPage() {
                   {metric.change}
                 </span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">{metric.value}</p>
-              <p className="text-sm text-gray-500">{metric.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{metric.value}</p>
+              <p className="text-sm text-slate-700">{metric.label}</p>
             </div>
           ))}
         </div>
@@ -266,27 +266,27 @@ export default async function ProgramHolderAnalyticsPage() {
             <h2 className="font-semibold mb-4">Quick Stats</h2>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Programs</span>
+                <span className="text-slate-700">Programs</span>
                 <span className="font-semibold">{programs?.length || 0}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Payout Share</span>
+                <span className="text-slate-700">Payout Share</span>
                 <span className="font-semibold">{programHolder.payout_share}%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Completion Rate</span>
+                <span className="text-slate-700">Completion Rate</span>
                 <span className="font-semibold">{completionRate}%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Active Students</span>
+                <span className="text-slate-700">Active Students</span>
                 <span className="font-semibold">{activeEnrollments || 0}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Completed</span>
+                <span className="text-slate-700">Completed</span>
                 <span className="font-semibold">{completedEnrollments || 0}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">This Month</span>
+                <span className="text-slate-700">This Month</span>
                 <span className="font-semibold">{currentEnrollments || 0} new</span>
               </div>
             </div>
@@ -301,9 +301,9 @@ export default async function ProgramHolderAnalyticsPage() {
           <table className="w-full">
             <thead className="bg-white">
               <tr>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Program</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Enrollments</th>
-                <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Completion Rate</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Program</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Enrollments</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Completion Rate</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -325,7 +325,7 @@ export default async function ProgramHolderAnalyticsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={3} className="px-4 py-8 text-center text-gray-500">
+                  <td colSpan={3} className="px-4 py-8 text-center text-slate-700">
                     No programs found
                   </td>
                 </tr>

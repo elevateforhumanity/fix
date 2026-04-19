@@ -15,7 +15,7 @@ const STATUS_BADGE: Record<string, string> = {
   active:    'bg-green-100 text-green-800',
   expired:   'bg-red-100 text-red-800',
   pending:   'bg-yellow-100 text-yellow-800',
-  cancelled: 'bg-gray-100 text-gray-600',
+  cancelled: 'bg-gray-100 text-slate-700',
 };
 
 export default async function FinancialAssurancePage() {
@@ -40,8 +40,8 @@ export default async function FinancialAssurancePage() {
 
         <div className="flex items-center justify-between mt-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Financial Assurance</h1>
-            <p className="text-gray-500 text-sm mt-1">Live records — bonds, insurance, letters of credit</p>
+            <h1 className="text-3xl font-bold text-slate-900">Financial Assurance</h1>
+            <p className="text-slate-700 text-sm mt-1">Live records — bonds, insurance, letters of credit</p>
           </div>
           <Link href="/admin/compliance/financial-assurance/new"
             className="bg-brand-orange-600 hover:bg-brand-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
@@ -58,8 +58,8 @@ export default async function FinancialAssurancePage() {
             { label: 'Expiring in 30 Days', value: s?.expiring_soon_records ?? 0 },
           ].map((kpi) => (
             <div key={kpi.label} className="bg-white rounded-lg border p-4 shadow-sm">
-              <p className="text-xs text-gray-500 uppercase tracking-wide">{kpi.label}</p>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{kpi.value}</p>
+              <p className="text-xs text-slate-700 uppercase tracking-wide">{kpi.label}</p>
+              <p className="text-2xl font-bold text-slate-900 mt-1">{kpi.value}</p>
             </div>
           ))}
         </div>
@@ -95,7 +95,7 @@ export default async function FinancialAssurancePage() {
                     <td className="px-4 py-3 text-slate-600">{r.effective_date ?? '—'}</td>
                     <td className="px-4 py-3 text-slate-600">{r.expiration_date ?? '—'}</td>
                     <td className="px-4 py-3">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_BADGE[r.status] ?? 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_BADGE[r.status] ?? 'bg-gray-100 text-slate-700'}`}>
                         {r.status}
                       </span>
                     </td>

@@ -66,15 +66,15 @@ export default async function HelpArticlePage({ params }: { params: Promise<{ id
         <div className="bg-white rounded-xl shadow-sm p-8">
           <div className="mb-6">
             <span className="text-sm text-brand-blue-600 font-medium">{article.category}</span>
-            <h1 className="text-3xl font-bold text-gray-900 mt-2">{article.title}</h1>
-            <div className="flex items-center gap-4 text-sm text-gray-500 mt-4">
+            <h1 className="text-3xl font-bold text-slate-900 mt-2">{article.title}</h1>
+            <div className="flex items-center gap-4 text-sm text-slate-700 mt-4">
               <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {article.readTime} read</span>
               <span>Last updated: {article.updated}</span>
             </div>
           </div>
           <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }} />
           <div className="mt-8 pt-8 border-t">
-            <p className="text-gray-700 mb-4">Was this article helpful?</p>
+            <p className="text-slate-900 mb-4">Was this article helpful?</p>
             <div className="flex items-center gap-4">
               <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-white">
                 <ThumbsUp className="w-5 h-5" /> Yes
@@ -83,13 +83,13 @@ export default async function HelpArticlePage({ params }: { params: Promise<{ id
                 <ThumbsDown className="w-5 h-5" /> No
               </button>
               <div className="flex-1"></div>
-              <button className="p-2 text-gray-600 hover:text-brand-blue-600"><Share2 className="w-5 h-5" /></button>
-              <button className="p-2 text-gray-600 hover:text-brand-blue-600"><Printer className="w-5 h-5" /></button>
+              <button className="p-2 text-slate-700 hover:text-brand-blue-600"><Share2 className="w-5 h-5" /></button>
+              <button className="p-2 text-slate-700 hover:text-brand-blue-600"><Printer className="w-5 h-5" /></button>
             </div>
           </div>
         </div>
         <div className="mt-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Related Articles</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">Related Articles</h2>
           <div className="bg-white rounded-xl shadow-sm divide-y">
             {relatedArticles.map((related) => (
               <Link key={related.id} href={`/help/articles/article/${related.id}`} className="block p-4 hover:bg-white">

@@ -35,25 +35,25 @@ export default function PartnerRequirementsPage() {
 
           <div className="not-prose space-y-4 my-6">
             <div className="border border-gray-200 rounded-lg p-5">
-              <h4 className="font-semibold text-gray-900">General Liability Insurance</h4>
+              <h4 className="font-semibold text-slate-900">General Liability Insurance</h4>
               <p className="text-sm text-black mt-1">Minimum: $1,000,000 per occurrence / $2,000,000 aggregate</p>
-              <p className="text-sm text-gray-700 mt-2">
+              <p className="text-sm text-slate-900 mt-2">
                 Must cover client injury, property damage, and incidents occurring at the shop location.
               </p>
             </div>
 
             <div className="border border-gray-200 rounded-lg p-5">
-              <h4 className="font-semibold text-gray-900">Professional / Barber Services Liability</h4>
-              <p className="text-sm text-gray-700 mt-2">
+              <h4 className="font-semibold text-slate-900">Professional / Barber Services Liability</h4>
+              <p className="text-sm text-slate-900 mt-2">
                 Must explicitly cover barbering services performed by staff, trainees, or apprentices
                 under supervision in a live service setting.
               </p>
             </div>
 
             <div className="border border-gray-200 rounded-lg p-5">
-              <h4 className="font-semibold text-gray-900">Workers&apos; Compensation Insurance</h4>
+              <h4 className="font-semibold text-slate-900">Workers&apos; Compensation Insurance</h4>
               <p className="text-sm text-black mt-1">Required if the shop employs W-2 staff</p>
-              <p className="text-sm text-gray-700 mt-2">
+              <p className="text-sm text-slate-900 mt-2">
                 Independent contractor-only shops must confirm classification with their insurer.
               </p>
             </div>

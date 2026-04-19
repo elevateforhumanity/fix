@@ -104,8 +104,8 @@ export default function SezzleVirtualCard({
         <div className="w-16 h-16 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <Check className="w-8 h-8 text-brand-green-600" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900">Your Virtual Card is Ready!</h2>
-        <p className="text-gray-600 mt-2">
+        <h2 className="text-2xl font-bold text-slate-900">Your Virtual Card is Ready!</h2>
+        <p className="text-slate-700 mt-2">
           Use this card to complete your ${amount.toFixed(2)} purchase
         </p>
       </div>
@@ -236,29 +236,29 @@ export default function SezzleVirtualCard({
 
       {/* Security Notice */}
       <div className="flex items-start gap-3 mt-6 p-4 bg-gray-50 rounded-lg">
-        <Shield className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
-        <div className="text-sm text-gray-600">
-          <p className="font-medium text-gray-900">Secure Virtual Card</p>
+        <Shield className="w-5 h-5 text-slate-700 flex-shrink-0 mt-0.5" />
+        <div className="text-sm text-slate-700">
+          <p className="font-medium text-slate-900">Secure Virtual Card</p>
           <p>This card is valid for one-time use only. It will expire after your purchase or within 24 hours.</p>
         </div>
       </div>
 
       {/* Payment Schedule */}
       <div className="mt-6 p-4 border border-gray-200 rounded-lg">
-        <h3 className="font-medium text-gray-900 mb-3">Your Payment Schedule</h3>
+        <h3 className="font-medium text-slate-900 mb-3">Your Payment Schedule</h3>
         <div className="grid grid-cols-4 gap-2 text-center text-sm">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className="p-2 bg-gray-50 rounded">
-              <p className="text-gray-500 text-xs">
+              <p className="text-slate-700 text-xs">
                 {i === 0 ? 'Today' : `+${i * 2} weeks`}
               </p>
-              <p className="font-semibold text-gray-900">
+              <p className="font-semibold text-slate-900">
                 ${(amount / 4).toFixed(2)}
               </p>
             </div>
           ))}
         </div>
-        <p className="text-xs text-gray-500 mt-3 text-center">
+        <p className="text-xs text-slate-700 mt-3 text-center">
           0% interest • No hidden fees
         </p>
       </div>

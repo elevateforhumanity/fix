@@ -109,7 +109,7 @@ export default function FAQPage() {
             <Link href="/how-it-works" className="px-4 py-2 bg-brand-orange-100 text-brand-orange-800 rounded-full text-sm font-medium hover:bg-brand-orange-200 transition-colors">
               How It Works
             </Link>
-            <Link href="/contact" className="px-4 py-2 bg-white text-gray-800 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
+            <Link href="/contact" className="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
               Contact Us
             </Link>
           </div>
@@ -124,7 +124,7 @@ export default function FAQPage() {
               <a 
                 key={cat} 
                 href={`#${cat}`} 
-                className="px-4 py-2 bg-white border rounded-full text-sm font-medium text-gray-700 hover:bg-white capitalize"
+                className="px-4 py-2 bg-white border rounded-full text-sm font-medium text-slate-900 hover:bg-white capitalize"
               >
                 {cat}
               </a>
@@ -139,7 +139,7 @@ export default function FAQPage() {
         <div className="mt-12 bg-brand-orange-50 rounded-xl p-8 text-center">
           <MessageSquare className="w-12 h-12 text-brand-orange-500 mx-auto mb-4" />
           <h2 className="text-xl font-bold mb-2">Still have questions?</h2>
-          <p className="text-gray-600 mb-4">Our team is here to help you find the answers you need.</p>
+          <p className="text-slate-700 mb-4">Our team is here to help you find the answers you need.</p>
           <Link href="/contact" className="inline-flex items-center gap-2 bg-brand-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-orange-600">
             Contact Us
           </Link>

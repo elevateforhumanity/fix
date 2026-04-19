@@ -72,7 +72,7 @@ export function LoadingTimeout({
         </div>
 
         <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-700">
             Still having issues?{' '}
             <a href="/contact" className="text-brand-blue-600 hover:underline">
               Contact Support

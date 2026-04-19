@@ -67,19 +67,19 @@ export default async function ClassroomPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <p className="text-3xl font-bold text-gray-900">{totalCourses}</p>
+              <p className="text-3xl font-bold text-slate-900">{totalCourses}</p>
               <p className="text-black">Courses</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-900">{totalCourses * 8}+</p>
+              <p className="text-3xl font-bold text-slate-900">{totalCourses * 8}+</p>
               <p className="text-black">Video Lessons</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-900">{totalStudents || 0}</p>
+              <p className="text-3xl font-bold text-slate-900">{totalStudents || 0}</p>
               <p className="text-black">Students</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-900">4.8</p>
+              <p className="text-3xl font-bold text-slate-900">4.8</p>
               <p className="text-black">Avg Rating</p>
             </div>
           </div>
@@ -91,15 +91,15 @@ export default async function ClassroomPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Available Courses</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-2">Available Courses</h2>
               <p className="text-black">Start learning with our courses</p>
             </div>
           </div>
 
           {courseList.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-2xl border">
-              <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">No Courses Available</h3>
+              <BookOpen className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-slate-900 mb-2">No Courses Available</h3>
               <p className="text-black mb-6">No courses are published yet. Contact us to learn about upcoming programs.</p>
               <Link
                 href="/community"
@@ -145,7 +145,7 @@ export default async function ClassroomPage() {
                       </button>
                     </div>
                     <div className="p-6">
-                      <h3 className="font-bold text-gray-900 mb-2">{course.course_name}</h3>
+                      <h3 className="font-bold text-slate-900 mb-2">{course.course_name}</h3>
                       <p className="text-black text-sm mb-4 line-clamp-2">{course.description}</p>
 
                       <div className="flex items-center gap-4 text-sm text-black mb-4">
@@ -162,7 +162,7 @@ export default async function ClassroomPage() {
                       <div className="flex items-center gap-2 mb-4">
                         <div className="flex items-center gap-1">
                           <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                          <span className="font-medium text-gray-900">4.8</span>
+                          <span className="font-medium text-slate-900">4.8</span>
                         </div>
                       </div>
 

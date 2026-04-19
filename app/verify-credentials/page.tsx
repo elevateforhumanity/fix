@@ -148,8 +148,8 @@ function CredentialCard({ credential }: { credential: VerifiableCredential }) {
             <Image src={credential.image} alt={credential.name} fill sizes="48px" className="object-cover" />
           </div>
           <div>
-            <h3 className="font-bold text-gray-900">{credential.name}</h3>
-            <p className="text-sm text-gray-600">{credential.issuer}</p>
+            <h3 className="font-bold text-slate-900">{credential.name}</h3>
+            <p className="text-sm text-slate-700">{credential.issuer}</p>
           </div>
         </div>
         <StatusBadge status={credential.status} />
@@ -157,19 +157,19 @@ function CredentialCard({ credential }: { credential: VerifiableCredential }) {
       
       {credential.idNumber && (
         <div className="mb-4 p-3 bg-white rounded-lg">
-          <p className="text-sm text-gray-500 mb-1">Credential ID</p>
-          <p className="font-mono text-sm font-medium text-gray-900">{credential.idNumber}</p>
+          <p className="text-sm text-slate-700 mb-1">Credential ID</p>
+          <p className="font-mono text-sm font-medium text-slate-900">{credential.idNumber}</p>
         </div>
       )}
       
       {credential.validThrough && (
-        <p className="text-sm text-gray-600 mb-4">
+        <p className="text-sm text-slate-700 mb-4">
           <strong>Valid Through:</strong> {credential.validThrough}
         </p>
       )}
       
       <div className="border-t pt-4">
-        <p className="text-sm text-gray-600 mb-3">
+        <p className="text-sm text-slate-700 mb-3">
           <strong>How to Verify:</strong> {credential.verificationInstructions}
         </p>
         {credential.verificationUrl && (
@@ -267,7 +267,7 @@ export default function VerifyCredentialsPage() {
       {/* Federal Credentials */}
       <section className="py-8">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
             <Shield className="w-6 h-6 text-brand-blue-600" />
             Federal Credentials
           </h2>
@@ -282,7 +282,7 @@ export default function VerifyCredentialsPage() {
       {/* State Credentials */}
       <section className="py-8">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
             <Building2 className="w-6 h-6 text-brand-blue-600" />
             State Credentials (Indiana)
           </h2>
@@ -297,7 +297,7 @@ export default function VerifyCredentialsPage() {
       {/* Funding Eligibility */}
       <section className="py-8">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
             <FileCheck className="w-6 h-6 text-brand-blue-600" />
             Funding Eligibility
           </h2>
@@ -314,10 +314,10 @@ export default function VerifyCredentialsPage() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">
                 Need Additional Verification?
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-slate-700 mb-6">
                 If you need official documentation, verification letters, or have questions 
                 about our credentials, contact our compliance team directly.
               </p>
@@ -327,8 +327,8 @@ export default function VerifyCredentialsPage() {
                     <Phone className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Phone</p>
-                    <a href="/support" className="font-medium text-gray-900 hover:text-brand-blue-600">
+                    <p className="text-sm text-slate-700">Phone</p>
+                    <a href="/support" className="font-medium text-slate-900 hover:text-brand-blue-600">
                       (317) 314-3757
                     </a>
                   </div>
@@ -338,8 +338,8 @@ export default function VerifyCredentialsPage() {
                     <Mail className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Email</p>
-                    <a href="/contact" className="font-medium text-gray-900 hover:text-brand-blue-600">
+                    <p className="text-sm text-slate-700">Email</p>
+                    <a href="/contact" className="font-medium text-slate-900 hover:text-brand-blue-600">
                       our contact form
                     </a>
                   </div>
@@ -349,42 +349,42 @@ export default function VerifyCredentialsPage() {
                     <MapPin className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Address</p>
-                    <p className="font-medium text-gray-900">Indianapolis, IN</p>
+                    <p className="text-sm text-slate-700">Address</p>
+                    <p className="font-medium text-slate-900">Indianapolis, IN</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="bg-white rounded-xl p-6">
-              <h3 className="font-bold text-gray-900 mb-4">Related Compliance Pages</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Related Compliance Pages</h3>
               <div className="space-y-3">
                 <Link
                   href="/accreditation"
                   className="flex items-center justify-between p-3 bg-white rounded-lg border hover:border-brand-blue-300 transition"
                 >
                   <span className="font-medium">Accreditation & Approvals</span>
-                  <ExternalLink className="w-4 h-4 text-gray-400" />
+                  <ExternalLink className="w-4 h-4 text-slate-700" />
                 </Link>
                 <Link
                   href="/federal-compliance"
                   className="flex items-center justify-between p-3 bg-white rounded-lg border hover:border-brand-blue-300 transition"
                 >
                   <span className="font-medium">Federal Compliance</span>
-                  <ExternalLink className="w-4 h-4 text-gray-400" />
+                  <ExternalLink className="w-4 h-4 text-slate-700" />
                 </Link>
                 <Link
                   href="/disclosures"
                   className="flex items-center justify-between p-3 bg-white rounded-lg border hover:border-brand-blue-300 transition"
                 >
                   <span className="font-medium">Disclosures</span>
-                  <ExternalLink className="w-4 h-4 text-gray-400" />
+                  <ExternalLink className="w-4 h-4 text-slate-700" />
                 </Link>
                 <Link
                   href="/compliance"
                   className="flex items-center justify-between p-3 bg-white rounded-lg border hover:border-brand-blue-300 transition"
                 >
                   <span className="font-medium">Compliance Center</span>
-                  <ExternalLink className="w-4 h-4 text-gray-400" />
+                  <ExternalLink className="w-4 h-4 text-slate-700" />
                 </Link>
               </div>
             </div>
@@ -396,8 +396,8 @@ export default function VerifyCredentialsPage() {
       <section className="py-8">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-gray-500 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-gray-600">
+            <AlertCircle className="w-5 h-5 text-slate-700 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-slate-700">
               <strong>Note:</strong> Credential status is current as of the last update. 
               For the most up-to-date verification, please use the official verification 
               links provided above. Some credentials may be in renewal status during 

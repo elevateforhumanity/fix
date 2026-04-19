@@ -138,7 +138,7 @@ export function NotificationCenter() {
                   </div>
                   <p className="text-sm text-black mb-2">{notification.message}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500">{notification.timestamp}</span>
+                    <span className="text-xs text-slate-700">{notification.timestamp}</span>
                     {notification.actionUrl && (
                       <Button size="sm" variant="secondary">View</Button>
                     )}
@@ -152,7 +152,7 @@ export function NotificationCenter() {
         {filteredNotifications.length === 0 && (
           <Card className="p-12 text-center">
             <p className="text-xl text-black mb-2">No notifications</p>
-            <p className="text-gray-500">You're all caught up!</p>
+            <p className="text-slate-700">You're all caught up!</p>
           </Card>
         )}
       </div>

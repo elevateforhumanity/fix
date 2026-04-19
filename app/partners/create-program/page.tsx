@@ -53,13 +53,13 @@ export default function CreateProgramPage() {
       {/* Steps */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">How It Works</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">How It Works</h2>
           <div className="space-y-8">
             {STEPS.map((s) => (
               <div key={s.step} className="flex gap-4">
                 <div className="w-10 h-10 bg-brand-blue-600 text-white rounded-full flex items-center justify-center text-lg font-bold flex-shrink-0">{s.step}</div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">{s.title}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 mb-1">{s.title}</h3>
                   <p className="text-black">{s.desc}</p>
                 </div>
               </div>
@@ -71,14 +71,14 @@ export default function CreateProgramPage() {
       {/* Benefits */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Partner Benefits</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Partner Benefits</h2>
           <div className="grid sm:grid-cols-2 gap-6">
             {BENEFITS.map((b) => {
               const Icon = b.icon;
               return (
                 <div key={b.title} className="bg-white border border-gray-200 rounded-xl p-6">
                   <Icon className="w-7 h-7 text-brand-blue-600 mb-3" />
-                  <h3 className="font-bold text-gray-900 mb-2">{b.title}</h3>
+                  <h3 className="font-bold text-slate-900 mb-2">{b.title}</h3>
                   <p className="text-black text-sm">{b.desc}</p>
                 </div>
               );

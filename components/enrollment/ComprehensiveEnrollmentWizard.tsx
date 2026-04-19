@@ -395,7 +395,7 @@ export default function ComprehensiveEnrollmentWizard({
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
                       currentStep > step.id ? 'bg-brand-green-600 text-white' :
                       currentStep === step.id ? 'bg-brand-blue-600 text-white' :
-                      'bg-gray-200 text-gray-500'
+                      'bg-gray-200 text-slate-700'
                     }`}>
                       {currentStep > step.id ? (
                         <span className="text-slate-500 flex-shrink-0">•</span>
@@ -497,10 +497,10 @@ export default function ComprehensiveEnrollmentWizard({
                       onClick={() => setShowSSN(!showSSN)}
                       className="absolute right-3 top-1/2 -translate-y-1/2"
                     >
-                      {showSSN ? <EyeOff className="w-5 h-5 text-gray-400" /> : <Eye className="w-5 h-5 text-gray-400" />}
+                      {showSSN ? <EyeOff className="w-5 h-5 text-slate-700" /> : <Eye className="w-5 h-5 text-slate-700" />}
                     </button>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-slate-700 mt-1">
                     Required for WIOA eligibility and background check
                   </p>
                 </div>

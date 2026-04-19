@@ -68,7 +68,7 @@ export default function ActivityFeed() {
       case 'event':
         return <Calendar className="w-5 h-5 text-brand-orange-500" />;
       default:
-        return <MessageSquare className="w-5 h-5 text-gray-500" />;
+        return <MessageSquare className="w-5 h-5 text-slate-700" />;
     }
   };
 
@@ -91,7 +91,7 @@ export default function ActivityFeed() {
     return (
       <div className="bg-white rounded-xl shadow-sm border p-6">
         <div className="flex items-center justify-center py-8">
-          <Loader2 className="w-6 h-6 text-gray-400 animate-spin" />
+          <Loader2 className="w-6 h-6 text-slate-700 animate-spin" />
         </div>
       </div>
     );
@@ -100,10 +100,10 @@ export default function ActivityFeed() {
   return (
     <div className="bg-white rounded-xl shadow-sm border">
       <div className="flex items-center justify-between p-4 border-b">
-        <h2 className="font-semibold text-gray-900">Activity Feed</h2>
+        <h2 className="font-semibold text-slate-900">Activity Feed</h2>
         <button
           onClick={fetchActivities}
-          className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+          className="p-2 text-slate-700 hover:text-slate-700 hover:bg-gray-100 rounded-lg"
         >
           <RefreshCw className="w-4 h-4" />
         </button>
@@ -111,8 +111,8 @@ export default function ActivityFeed() {
 
       {activities.length === 0 ? (
         <div className="p-8 text-center">
-          <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500">No recent activity</p>
+          <MessageSquare className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+          <p className="text-slate-700">No recent activity</p>
         </div>
       ) : (
         <div className="divide-y">
@@ -123,16 +123,16 @@ export default function ActivityFeed() {
                   {getActivityIcon(activity.type)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-900">
+                  <p className="text-sm text-slate-900">
                     <span className="font-medium">{activity.user_name}</span>{' '}
                     {activity.title}
                   </p>
                   {activity.description && (
-                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                    <p className="text-sm text-slate-700 mt-1 line-clamp-2">
                       {activity.description}
                     </p>
                   )}
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-slate-700 mt-1">
                     {formatTime(activity.created_at)}
                   </p>
                 </div>

@@ -135,7 +135,7 @@ export default function ProgramPaymentOptions({
                 <p className="text-2xl font-bold text-brand-blue-600">
                   ${stripeMonthly}/month
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-slate-700 mt-1">
                   12 monthly payments • Low interest rates
                 </p>
               </div>
@@ -166,7 +166,7 @@ export default function ProgramPaymentOptions({
                 <p className="text-2xl font-bold text-purple-600">
                   ${bnplPayment}/payment
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-slate-700 mt-1">
                   4 payments • 0% interest • Instant approval
                 </p>
               </div>

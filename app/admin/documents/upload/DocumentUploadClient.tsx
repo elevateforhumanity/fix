@@ -26,7 +26,7 @@ const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 function fileIcon(type: string) {
   if (type === 'application/pdf') return <FileText className="w-5 h-5 text-red-500" />;
   if (type.startsWith('image/')) return <FileImage className="w-5 h-5 text-blue-500" />;
-  return <File className="w-5 h-5 text-gray-500" />;
+  return <File className="w-5 h-5 text-slate-700" />;
 }
 
 function formatSize(bytes: number) {
@@ -125,18 +125,18 @@ export function DocumentUploadClient() {
     <div className="max-w-3xl mx-auto px-4 py-8">
       {/* Breadcrumb */}
       <nav className="text-sm mb-6">
-        <ol className="flex items-center gap-2 text-gray-500">
-          <li><Link href="/admin" className="hover:text-gray-900">Admin</Link></li>
+        <ol className="flex items-center gap-2 text-slate-700">
+          <li><Link href="/admin" className="hover:text-slate-900">Admin</Link></li>
           <li>/</li>
-          <li><Link href="/admin/documents" className="hover:text-gray-900">Documents</Link></li>
+          <li><Link href="/admin/documents" className="hover:text-slate-900">Documents</Link></li>
           <li>/</li>
-          <li className="text-gray-900 font-medium">Upload</li>
+          <li className="text-slate-900 font-medium">Upload</li>
         </ol>
       </nav>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Upload Documents</h1>
-        <p className="text-gray-500 mt-1 text-sm">PDF, DOC, DOCX, JPG, PNG — max 10MB per file</p>
+        <h1 className="text-2xl font-bold text-slate-900">Upload Documents</h1>
+        <p className="text-slate-700 mt-1 text-sm">PDF, DOC, DOCX, JPG, PNG — max 10MB per file</p>
       </div>
 
       {/* Drop zone */}
@@ -151,11 +151,11 @@ export function DocumentUploadClient() {
             : 'border-gray-300 hover:border-gray-400 bg-gray-50 hover:bg-gray-100'
         }`}
       >
-        <Upload className={`w-10 h-10 mx-auto mb-3 ${dragging ? 'text-red-500' : 'text-gray-400'}`} />
-        <p className="font-medium text-gray-700">
+        <Upload className={`w-10 h-10 mx-auto mb-3 ${dragging ? 'text-red-500' : 'text-slate-700'}`} />
+        <p className="font-medium text-slate-900">
           {dragging ? 'Drop files here' : 'Drag & drop files here'}
         </p>
-        <p className="text-sm text-gray-400 mt-1">or click to browse</p>
+        <p className="text-sm text-slate-700 mt-1">or click to browse</p>
         <input
           ref={inputRef}
           type="file"
@@ -170,7 +170,7 @@ export function DocumentUploadClient() {
       {files.length > 0 && (
         <div className="mt-6 space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-gray-700">
+            <h2 className="text-sm font-semibold text-slate-900">
               {files.length} file{files.length !== 1 ? 's' : ''} selected
               {doneCount > 0 && <span className="text-green-600 ml-2">· {doneCount} uploaded</span>}
             </h2>
@@ -199,8 +199,8 @@ export function DocumentUploadClient() {
 
               {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{item.file.name}</p>
-                <p className="text-xs text-gray-400">{formatSize(item.file.size)}</p>
+                <p className="text-sm font-medium text-slate-900 truncate">{item.file.name}</p>
+                <p className="text-xs text-slate-700">{formatSize(item.file.size)}</p>
 
                 {/* Progress bar */}
                 {item.status === 'uploading' && (
@@ -238,13 +238,13 @@ export function DocumentUploadClient() {
                     >
                       Upload
                     </button>
-                    <button onClick={() => removeFile(item.id)} className="text-gray-400 hover:text-gray-600">
+                    <button onClick={() => removeFile(item.id)} className="text-slate-700 hover:text-slate-700">
                       <X className="w-4 h-4" />
                     </button>
                   </>
                 )}
                 {item.status === 'uploading' && (
-                  <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
+                  <Loader2 className="w-4 h-4 text-slate-700 animate-spin" />
                 )}
                 {item.status === 'done' && (
                   <CheckCircle className="w-5 h-5 text-green-500" />
@@ -270,7 +270,7 @@ export function DocumentUploadClient() {
       <div className="mt-8 pt-6 border-t border-gray-100">
         <Link
           href="/admin/document-center"
-          className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700"
+          className="flex items-center gap-2 text-sm text-slate-700 hover:text-slate-900"
         >
           <FolderOpen className="w-4 h-4" />
           View all documents in Document Center

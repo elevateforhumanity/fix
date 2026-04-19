@@ -293,20 +293,20 @@ export default function UnifiedChatAssistant({
                       {message.role === 'user' ? (
                         <User className="w-4 h-4 text-white" />
                       ) : (
-                        <Bot className="w-4 h-4 text-gray-600" />
+                        <Bot className="w-4 h-4 text-slate-700" />
                       )}
                     </div>
                     <div
                       className={`max-w-[75%] rounded-2xl px-4 py-2.5 ${
                         message.role === 'user'
                           ? 'bg-brand-blue-600 text-white rounded-br-md'
-                          : 'bg-white text-gray-800 shadow-sm rounded-bl-md'
+                          : 'bg-white text-slate-900 shadow-sm rounded-bl-md'
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                       <p
                         className={`text-xs mt-1 ${
-                          message.role === 'user' ? 'text-white' : 'text-gray-400'
+                          message.role === 'user' ? 'text-white' : 'text-slate-700'
                         }`}
                       >
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -318,7 +318,7 @@ export default function UnifiedChatAssistant({
                 {isLoading && (
                   <div className="flex gap-3">
                     <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                      <Bot className="w-4 h-4 text-gray-600" />
+                      <Bot className="w-4 h-4 text-slate-700" />
                     </div>
                     <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
                       <Loader2 className="w-5 h-5 animate-spin text-brand-blue-600" />
@@ -332,13 +332,13 @@ export default function UnifiedChatAssistant({
               {/* Quick Actions */}
               {messages.length <= 1 && script.quick_actions.length > 0 && (
                 <div className="px-4 py-2 border-t bg-white">
-                  <p className="text-xs text-gray-500 mb-2">Quick actions:</p>
+                  <p className="text-xs text-slate-700 mb-2">Quick actions:</p>
                   <div className="flex flex-wrap gap-2">
                     {script.quick_actions.map((action, index) => (
                       <button
                         key={index}
                         onClick={() => handleQuickAction(action)}
-                        className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full transition-colors"
+                        className="text-xs bg-gray-100 hover:bg-gray-200 text-slate-900 px-3 py-1.5 rounded-full transition-colors"
                       >
                         {action.label}
                       </button>

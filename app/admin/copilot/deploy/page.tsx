@@ -28,16 +28,16 @@ export default async function DeployCopilotPage() {
         {/* Header */}
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
+            <ol className="flex items-center space-x-2 text-slate-700">
               <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
               <li>/</li>
               <li><Link href="/admin/copilot" className="hover:text-primary">Copilot</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Deploy</li>
+              <li className="text-slate-900 font-medium">Deploy</li>
             </ol>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">Deploy AI Copilot</h1>
-          <p className="text-gray-600 mt-2">Choose and configure AI features for your platform</p>
+          <h1 className="text-3xl font-bold text-slate-900">Deploy AI Copilot</h1>
+          <p className="text-slate-700 mt-2">Choose and configure AI features for your platform</p>
         </div>
 
         {/* Client Component handles all interactive deployment */}

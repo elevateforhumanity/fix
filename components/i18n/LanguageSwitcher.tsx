@@ -29,7 +29,7 @@ export function LanguageSwitcher() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+        className="flex items-center gap-2 px-3 py-2 text-sm text-slate-900 hover:bg-gray-100 rounded-lg transition-colors"
         aria-label="Select language"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
@@ -51,7 +51,7 @@ export function LanguageSwitcher() {
               key={loc}
               onClick={() => handleLocaleChange(loc)}
               className={`w-full flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                loc === locale ? 'text-brand-blue-600 bg-brand-blue-50' : 'text-gray-700'
+                loc === locale ? 'text-brand-blue-600 bg-brand-blue-50' : 'text-slate-900'
               }`}
               role="option"
               aria-selected={loc === locale}

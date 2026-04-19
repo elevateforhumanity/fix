@@ -40,7 +40,7 @@ export function AssignmentSubmitForm({ assignmentId, assignmentTitle }: Assignme
 
   return (
     <div className="bg-white rounded-xl border p-6">
-      <h3 className="text-lg font-bold text-gray-900 mb-4">Submit: {assignmentTitle}</h3>
+      <h3 className="text-lg font-bold text-slate-900 mb-4">Submit: {assignmentTitle}</h3>
 
       <form id="assignment-form" action={handleSubmit} className="space-y-4">
         {message && (
@@ -50,7 +50,7 @@ export function AssignmentSubmitForm({ assignmentId, assignmentTitle }: Assignme
         )}
 
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="content" className="block text-sm font-medium text-slate-900 mb-2">
             Your Response
           </label>
           <textarea
@@ -63,11 +63,11 @@ export function AssignmentSubmitForm({ assignmentId, assignmentTitle }: Assignme
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Attach File (optional)
           </label>
           <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg cursor-pointer hover:bg-gray-200">
+            <label className="flex items-center gap-2 px-4 py-2 bg-white text-slate-900 rounded-lg cursor-pointer hover:bg-gray-200">
               <Upload className="w-4 h-4" />
               Choose File
               <input
@@ -79,13 +79,13 @@ export function AssignmentSubmitForm({ assignmentId, assignmentTitle }: Assignme
               />
             </label>
             {fileName && (
-              <span className="flex items-center gap-2 text-sm text-gray-600">
+              <span className="flex items-center gap-2 text-sm text-slate-700">
                 <FileText className="w-4 h-4" />
                 {fileName}
               </span>
             )}
           </div>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-slate-700 mt-1">
             Accepted: PDF, DOC, DOCX, TXT, JPG, PNG (max 10MB)
           </p>
         </div>

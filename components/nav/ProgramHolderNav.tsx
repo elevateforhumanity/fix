@@ -88,7 +88,7 @@ export default function ProgramHolderNav() {
           </div>
           <div className="flex flex-col">
             <div className="text-lg font-bold">Elevate</div>
-            <div className="text-xs text-gray-400 -mt-1">Program Holder</div>
+            <div className="text-xs text-slate-700 -mt-1">Program Holder</div>
           </div>
         </Link>
       </div>
@@ -104,7 +104,7 @@ export default function ProgramHolderNav() {
               className={`flex items-center gap-2 px-3 py-2 text-sm font-semibold rounded-lg transition ${
                 active
                   ? 'bg-brand-blue-600 text-white'
-                  : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                  : 'text-slate-700 hover:bg-gray-800 hover:text-white'
               }`}
             >
               <item.icon className="w-4 h-4" />
@@ -118,7 +118,7 @@ export default function ProgramHolderNav() {
       <div className="mt-8 pt-8 border-t border-gray-800">
         <Link
           href="/support"
-          className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white transition"
+          className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 hover:text-white transition"
         >
           <AlertCircle className="w-4 h-4" />
           Help & Support

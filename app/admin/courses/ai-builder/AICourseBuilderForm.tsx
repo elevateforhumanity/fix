@@ -132,7 +132,7 @@ export default function AICourseBuilderForm() {
             <Sparkles className="h-8 w-8 text-brand-blue-600" />
             AI Course Builder
           </h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-slate-700 mt-1">
             Enter a prompt or paste a syllabus — the AI generates a complete course draft saved directly to the LMS.
           </p>
         </div>
@@ -147,11 +147,11 @@ export default function AICourseBuilderForm() {
 
             <div className="grid grid-cols-2 gap-4 mb-5">
               <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Course Title</p>
+                <p className="text-xs text-slate-700 uppercase tracking-wide mb-1">Course Title</p>
                 <p className="font-semibold text-slate-900">{result.courseTitle}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Lessons Created</p>
+                <p className="text-xs text-slate-700 uppercase tracking-wide mb-1">Lessons Created</p>
                 <p className="font-semibold text-slate-900">{result.lessonCount}</p>
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function AICourseBuilderForm() {
             {/* Learning objectives */}
             {result.learningObjectives?.length > 0 && (
               <div className="mb-5">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Learning Objectives</p>
+                <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">Learning Objectives</p>
                 <ul className="space-y-1">
                   {result.learningObjectives.map((obj, i) => (
                     <li key={i} className="text-sm text-slate-700 flex items-start gap-2">
@@ -173,7 +173,7 @@ export default function AICourseBuilderForm() {
 
             {/* Lesson list */}
             <div className="mb-5">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Lessons</p>
+              <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">Lessons</p>
               <ol className="space-y-1">
                 {result.lessons.map(l => (
                   <li key={l.id} className="text-sm text-slate-700 flex items-center gap-2">
@@ -236,7 +236,7 @@ export default function AICourseBuilderForm() {
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     form.mode === 'prompt'
                       ? 'bg-brand-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      : 'bg-gray-100 text-slate-700 hover:bg-gray-200'
                   }`}
                 >
                   Prompt Mode
@@ -247,7 +247,7 @@ export default function AICourseBuilderForm() {
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     form.mode === 'syllabus'
                       ? 'bg-brand-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      : 'bg-gray-100 text-slate-700 hover:bg-gray-200'
                   }`}
                 >
                   Paste Syllabus / Script
@@ -292,7 +292,7 @@ export default function AICourseBuilderForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                    Course Title <span className="font-normal text-gray-400">(optional)</span>
+                    Course Title <span className="font-normal text-slate-700">(optional)</span>
                   </label>
                   <input
                     type="text"
@@ -306,7 +306,7 @@ export default function AICourseBuilderForm() {
 
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                    Target Audience <span className="font-normal text-gray-400">(optional)</span>
+                    Target Audience <span className="font-normal text-slate-700">(optional)</span>
                   </label>
                   <input
                     type="text"
@@ -403,7 +403,7 @@ export default function AICourseBuilderForm() {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                      Tone / Style <span className="font-normal text-gray-400">(optional)</span>
+                      Tone / Style <span className="font-normal text-slate-700">(optional)</span>
                     </label>
                     <input
                       type="text"
@@ -450,7 +450,7 @@ export default function AICourseBuilderForm() {
               </button>
 
               {isGenerating && (
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-700">
                   This takes 20–60 seconds. The AI is writing {form.lessonCount} lessons.
                 </p>
               )}

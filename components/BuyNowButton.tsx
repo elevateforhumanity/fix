@@ -88,7 +88,7 @@ export function BuyNowButton({
 
             <button
               onClick={() => setShowOptions(false)}
-              className="w-full text-center text-xs text-gray-500 hover:text-black"
+              className="w-full text-center text-xs text-slate-700 hover:text-black"
             >
               Cancel
             </button>

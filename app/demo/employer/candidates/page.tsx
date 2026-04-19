@@ -24,8 +24,8 @@ export default function DemoCandidatesPage() {
           <div key={i} className="bg-white rounded-xl border p-5 hover:shadow-sm transition">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <div className="font-semibold text-gray-900">{c.name}</div>
-                <div className="text-sm text-gray-500">{c.program} · {c.completion} complete</div>
+                <div className="font-semibold text-slate-900">{c.name}</div>
+                <div className="text-sm text-slate-700">{c.program} · {c.completion} complete</div>
               </div>
               <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2.5 py-1 rounded-full text-xs font-semibold">
                 <Star className="w-3 h-3" /> {c.match}% match
@@ -33,11 +33,11 @@ export default function DemoCandidatesPage() {
             </div>
             <div className="flex flex-wrap gap-2 mb-3">
               {(c.credentials ?? []).map((cr: string) => (
-                <span key={cr} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">{cr}</span>
+                <span key={cr} className="bg-gray-100 text-slate-900 px-2 py-1 rounded text-xs">{cr}</span>
               ))}
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-xs text-gray-500">Available: {c.available}</span>
+              <span className="text-xs text-slate-700">Available: {c.available}</span>
               <button className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-blue-700">Request Interview</button>
             </div>
           </div>

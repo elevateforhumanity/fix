@@ -108,7 +108,7 @@ export default function FeedbackWidget({ userId }: FeedbackWidgetProps) {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-black transition-colors"
+                className="text-slate-700 hover:text-black transition-colors"
                 disabled={isSubmitting}
               >
                 <X className="w-6 h-6" />

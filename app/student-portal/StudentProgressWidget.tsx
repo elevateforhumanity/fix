@@ -111,7 +111,7 @@ export default function StudentProgressWidget() {
 
   return (
     <section className="rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+      <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
         <TrendingUp className="w-6 h-6 text-brand-green-600" />
         My Progress
       </h2>
@@ -167,9 +167,9 @@ export default function StudentProgressWidget() {
         return (
           <div key={enrollment.id} className="border-t border-gray-100 pt-4 mt-4">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-semibold text-gray-900">{program.name}</h3>
+              <h3 className="font-semibold text-slate-900">{program.name}</h3>
               {program.required_hours && (
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-slate-700">
                   {enrollment.hours.verified} / {program.required_hours} hours
                 </span>
               )}
@@ -185,7 +185,7 @@ export default function StudentProgressWidget() {
             )}
 
             {enrollment.tasks.length > 0 && (
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-slate-700">
                 {enrollment.tasks.filter(t => t.status === 'approved').length} of {enrollment.tasks.length} tasks completed
               </div>
             )}

@@ -54,7 +54,6 @@ export default function HeroBanner({
             poster={posterSrc as `/${string}`}
             className="absolute inset-0 w-full h-full object-cover"
             autoPlayOnMount
-            preloadFull
           />
         ) : (
           <Image src={heroImageSrc} alt={heroImageAlt} fill priority sizes="100vw" className="object-cover" />

@@ -207,8 +207,8 @@ export default async function OrientationPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
         <Breadcrumbs items={[{ label: 'Onboarding', href: '/onboarding/learner' }, { label: 'Orientation' }]} />
         <Link href="/onboarding/learner" className="text-sm text-brand-blue-600 flex items-center gap-1 mt-4 mb-4"><ArrowLeft className="w-4 h-4" /> Back to Onboarding</Link>
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Student Orientation</h1>
-        <p className="text-sm text-gray-500 mb-6">Review the following information before starting your program. You must acknowledge each section to complete orientation.</p>
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">Student Orientation</h1>
+        <p className="text-sm text-slate-700 mb-6">Review the following information before starting your program. You must acknowledge each section to complete orientation.</p>
 
         <OrientationAvatar />
 
@@ -217,11 +217,11 @@ export default async function OrientationPage() {
             <div key={i} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="px-5 py-3 bg-white border-b border-gray-100 flex items-center gap-2">
                 <s.icon className="w-4 h-4 text-brand-blue-600" />
-                <h2 className="text-sm font-semibold text-gray-900">{s.title}</h2>
+                <h2 className="text-sm font-semibold text-slate-900">{s.title}</h2>
               </div>
               <ul className="p-5 space-y-2">
                 {s.items.map((item, j) => (
-                  <li key={j} className="flex items-start gap-2 text-xs text-gray-700">
+                  <li key={j} className="flex items-start gap-2 text-xs text-slate-900">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0 mt-0.5" />
                     {item}
                   </li>
@@ -234,7 +234,7 @@ export default async function OrientationPage() {
         <form action={completeOrientation} className="bg-white rounded-xl border border-gray-200 p-6">
           <label className="flex items-start gap-3 cursor-pointer">
             <input type="checkbox" required className="mt-1" />
-            <span className="text-sm text-gray-700">
+            <span className="text-sm text-slate-900">
               I have read and understand the orientation materials above. I agree to follow all program policies, attendance requirements, and safety protocols.
             </span>
           </label>

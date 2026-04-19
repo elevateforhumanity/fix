@@ -75,15 +75,15 @@ export default async function PartnerProgramsPage() {
 
       <div className="max-w-4xl">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Programs</h1>
-          <p className="text-gray-600 mt-1">View apprentice progress and manage attendance by program.</p>
+          <h1 className="text-2xl font-bold text-slate-900">Programs</h1>
+          <p className="text-slate-700 mt-1">View apprentice progress and manage attendance by program.</p>
         </div>
 
         {programs.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-            <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No programs assigned</h3>
-            <p className="text-gray-500 text-sm">Contact your Elevate coordinator to get programs linked to your account.</p>
+            <BookOpen className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">No programs assigned</h3>
+            <p className="text-slate-700 text-sm">Contact your Elevate coordinator to get programs linked to your account.</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -98,15 +98,15 @@ export default async function PartnerProgramsPage() {
                     <BookOpen className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 group-hover:text-brand-blue-600 transition-colors">
+                    <p className="font-semibold text-slate-900 group-hover:text-brand-blue-600 transition-colors">
                       {program.title}
                     </p>
                     {program.description && (
-                      <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">{program.description}</p>
+                      <p className="text-sm text-slate-700 mt-0.5 line-clamp-1">{program.description}</p>
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-brand-blue-600 transition-colors" />
+                <ChevronRight className="w-5 h-5 text-slate-700 group-hover:text-brand-blue-600 transition-colors" />
               </Link>
             ))}
           </div>

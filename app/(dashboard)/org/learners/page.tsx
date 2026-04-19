@@ -35,8 +35,8 @@ export default async function OrgLearnersPage() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Learners</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-2xl font-semibold text-slate-900">Learners</h1>
+          <p className="mt-1 text-sm text-slate-700">
             {ctx.organization.name} &middot; {learners.length} learner{learners.length !== 1 ? 's' : ''}
           </p>
         </div>
@@ -44,7 +44,7 @@ export default async function OrgLearnersPage() {
 
       {learners.length === 0 ? (
         <div className="mt-12 text-center">
-          <p className="text-sm text-gray-500">No learners enrolled yet.</p>
+          <p className="text-sm text-slate-700">No learners enrolled yet.</p>
           <Link href="/org/invites" className="mt-3 inline-block text-sm text-brand-blue-600 hover:underline">
             Send invitations →
           </Link>
@@ -54,29 +54,29 @@ export default async function OrgLearnersPage() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Email</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Cohort</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Enrolled</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Name</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Email</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Cohort</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Enrolled</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {learners.map((learner) => (
                 <tr key={`${learner.userId}-${learner.cohortId}`} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{learner.fullName ?? '—'}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{learner.email}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">
+                  <td className="px-4 py-3 text-sm font-medium text-slate-900">{learner.fullName ?? '—'}</td>
+                  <td className="px-4 py-3 text-sm text-slate-700">{learner.email}</td>
+                  <td className="px-4 py-3 text-sm text-slate-700">
                     <Link href={`/org/cohorts/${learner.cohortId}`} className="hover:underline text-brand-blue-600">
                       {learner.cohortName}
                     </Link>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[learner.enrollmentStatus] ?? 'bg-gray-100 text-gray-700'}`}>
+                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[learner.enrollmentStatus] ?? 'bg-gray-100 text-slate-900'}`}>
                       {learner.enrollmentStatus}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">
+                  <td className="px-4 py-3 text-sm text-slate-700">
                     {new Date(learner.enrolledAt).toLocaleDateString()}
                   </td>
                 </tr>

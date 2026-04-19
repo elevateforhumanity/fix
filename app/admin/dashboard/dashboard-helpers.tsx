@@ -44,9 +44,9 @@ export function EmptyState({ icon: Icon, title, subtitle, href, linkText }: {
 }) {
   return (
     <div className="px-6 py-10 text-center">
-      <Icon className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-      <p className="text-sm text-gray-500">{title}</p>
-      <p className="text-xs text-gray-400 mt-1">{subtitle}</p>
+      <Icon className="w-8 h-8 text-slate-700 mx-auto mb-2" />
+      <p className="text-sm text-slate-700">{title}</p>
+      <p className="text-xs text-slate-700 mt-1">{subtitle}</p>
       {href && linkText && (
         <a href={href} className="inline-block mt-3 text-xs text-brand-blue-600 hover:text-brand-blue-700 font-medium">{linkText}</a>
       )}

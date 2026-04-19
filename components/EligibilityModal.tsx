@@ -27,7 +27,7 @@ export function EligibilityModal({ isOpen, onClose, onContinue }: EligibilityMod
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
+          className="absolute top-4 right-4 text-slate-700 hover:text-slate-700 transition"
           aria-label="Close"
         >
           <X className="w-6 h-6" />
@@ -39,15 +39,15 @@ export function EligibilityModal({ isOpen, onClose, onContinue }: EligibilityMod
             <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
               <AlertCircle className="w-6 h-6 text-amber-600" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Eligibility Required</h2>
+            <h2 className="text-xl font-bold text-slate-900">Eligibility Required</h2>
           </div>
 
           {/* Content */}
-          <p className="text-gray-600 mb-4">
+          <p className="text-slate-700 mb-4">
             Most programs require approval through <strong>WorkOne / Indiana Career Connect</strong>.
           </p>
 
-          <p className="text-gray-700 font-medium mb-3">Before applying, confirm you:</p>
+          <p className="text-slate-900 font-medium mb-3">Before applying, confirm you:</p>
           
           <ul className="space-y-2 mb-4">
             {[
@@ -56,14 +56,14 @@ export function EligibilityModal({ isOpen, onClose, onContinue }: EligibilityMod
               'Are authorized to work in the U.S.',
               'Are seeking employment or higher wages',
             ].map((item, i) => (
-              <li key={i} className="flex items-center gap-2 text-gray-700">
+              <li key={i} className="flex items-center gap-2 text-slate-900">
                 <span className="text-slate-400 flex-shrink-0">•</span>
                 {item}
               </li>
             ))}
           </ul>
 
-          <p className="text-sm text-gray-500 mb-6 bg-gray-50 p-3 rounded-lg">
+          <p className="text-sm text-slate-700 mb-6 bg-gray-50 p-3 rounded-lg">
             Final eligibility is determined by WorkOne / Indiana Career Connect.
           </p>
 
@@ -77,7 +77,7 @@ export function EligibilityModal({ isOpen, onClose, onContinue }: EligibilityMod
             </button>
             <Link
               href="/check-eligibility"
-              className="w-full text-center border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-50 transition"
+              className="w-full text-center border border-gray-300 text-slate-900 py-3 px-4 rounded-lg font-medium hover:bg-gray-50 transition"
               onClick={onClose}
             >
               Check Full Eligibility Info

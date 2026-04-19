@@ -98,7 +98,7 @@ export function PeerTutoringMarketplace() {
                   <div className="flex items-center gap-1 text-sm">
                     <span className="text-yellow-500">★</span>
                     <span className="font-semibold">{tutor.rating}</span>
-                    <span className="text-gray-500">({tutor.reviews} reviews)</span>
+                    <span className="text-slate-700">({tutor.reviews} reviews)</span>
                   </div>
                 </div>
               </div>

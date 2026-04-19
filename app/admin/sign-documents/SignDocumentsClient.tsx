@@ -59,8 +59,8 @@ export function SignDocumentsClient() {
     <div className="max-w-2xl mx-auto px-4 py-10">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Sign Documents</h1>
-        <p className="text-gray-500 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-slate-900">Sign Documents</h1>
+        <p className="text-slate-700 mt-1 text-sm">
           Draw your signature below. It will be embedded into the selected documents and emailed to you.
         </p>
       </div>
@@ -70,7 +70,7 @@ export function SignDocumentsClient() {
         <div className="space-y-8">
           {/* Signature pad */}
           <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">
+            <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wide mb-4">
               Your Signature
             </h2>
             {step === 'draw' ? (
@@ -88,7 +88,7 @@ export function SignDocumentsClient() {
                 </div>
                 <button
                   onClick={() => { setSignatureDataUrl(null); setStep('draw'); }}
-                  className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700"
+                  className="flex items-center gap-2 text-sm text-slate-700 hover:text-slate-900"
                 >
                   <RotateCcw className="w-4 h-4" /> Redraw signature
                 </button>
@@ -99,7 +99,7 @@ export function SignDocumentsClient() {
           {/* Document selection */}
           {step === 'preview' && (
             <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">
+              <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wide mb-4">
                 Select Documents to Sign
               </h2>
               <div className="space-y-3">
@@ -121,16 +121,16 @@ export function SignDocumentsClient() {
                     <div>
                       <div className="flex items-center gap-2">
                         <FileText className="w-4 h-4 text-red-600" />
-                        <span className="font-medium text-gray-900 text-sm">{doc.label}</span>
+                        <span className="font-medium text-slate-900 text-sm">{doc.label}</span>
                       </div>
-                      <p className="text-xs text-gray-500 mt-0.5">{doc.description}</p>
+                      <p className="text-xs text-slate-700 mt-0.5">{doc.description}</p>
                     </div>
                   </label>
                 ))}
               </div>
 
               <div className="mt-6 pt-4 border-t border-gray-100">
-                <p className="text-xs text-gray-400 mb-4">
+                <p className="text-xs text-slate-700 mb-4">
                   Signed PDFs will be emailed to <strong>Elevate4humanityedu@gmail.com</strong>
                 </p>
                 <button
@@ -151,7 +151,7 @@ export function SignDocumentsClient() {
       {step === 'sending' && (
         <div className="flex flex-col items-center justify-center py-20 gap-4">
           <Loader2 className="w-10 h-10 text-red-600 animate-spin" />
-          <p className="text-gray-600 font-medium">Embedding signature and sending PDFs…</p>
+          <p className="text-slate-700 font-medium">Embedding signature and sending PDFs…</p>
         </div>
       )}
 
@@ -159,8 +159,8 @@ export function SignDocumentsClient() {
       {step === 'done' && (
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-center">
           <CheckCircle className="w-14 h-14 text-green-500" />
-          <h2 className="text-xl font-bold text-gray-900">Documents Sent</h2>
-          <p className="text-gray-500 text-sm max-w-sm">{resultMsg}</p>
+          <h2 className="text-xl font-bold text-slate-900">Documents Sent</h2>
+          <p className="text-slate-700 text-sm max-w-sm">{resultMsg}</p>
           <button
             onClick={() => { setStep('draw'); setSignatureDataUrl(null); setSelected(['w9', 'ach']); }}
             className="mt-4 text-sm text-red-600 hover:underline"
@@ -176,7 +176,7 @@ export function SignDocumentsClient() {
           <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center">
             <span className="text-2xl">✗</span>
           </div>
-          <h2 className="text-xl font-bold text-gray-900">Send Failed</h2>
+          <h2 className="text-xl font-bold text-slate-900">Send Failed</h2>
           <p className="text-red-500 text-sm max-w-sm">{resultMsg}</p>
           <button
             onClick={() => setStep('preview')}

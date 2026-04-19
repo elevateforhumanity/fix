@@ -44,10 +44,10 @@ export default async function CreateGroupPage() {
           <ChevronRight className="w-4 h-4" />
           <Link href="/community/discussions/study-groups" className="hover:text-brand-orange-600">Study Groups</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900">Create</span>
+          <span className="text-slate-900">Create</span>
         </nav>
 
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Study Group</h1>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Create Study Group</h1>
         <p className="text-black mb-8">Start a study group to connect with other learners</p>
 
         <CreateGroupForm 

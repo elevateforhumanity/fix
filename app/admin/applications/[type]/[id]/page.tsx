@@ -29,7 +29,7 @@ const stateLabels: Record<string, string> = {
 };
 
 const stateColors: Record<string, string> = {
-  started: 'bg-gray-100 text-gray-800 border-gray-300',
+  started: 'bg-gray-100 text-slate-900 border-gray-300',
   pending: 'bg-yellow-100 text-yellow-800 border-yellow-300',
   submitted: 'bg-brand-blue-100 text-brand-blue-800 border-brand-blue-300',
   approved: 'bg-brand-green-100 text-brand-green-800 border-brand-green-300',
@@ -113,22 +113,22 @@ export default async function ApplicationDetailPage({
         <div className="flex justify-between items-start mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900">{displayName}</h1>
-              <span className="inline-flex px-2 py-1 text-xs font-medium rounded bg-gray-100 text-gray-700">
+              <h1 className="text-3xl font-bold text-slate-900">{displayName}</h1>
+              <span className="inline-flex px-2 py-1 text-xs font-medium rounded bg-gray-100 text-slate-900">
                 {typeLabels[type] || type}
               </span>
             </div>
-            <p className="text-gray-600">{email}</p>
+            <p className="text-slate-700">{email}</p>
           </div>
           <div className="flex gap-3">
             <span
-              className={`inline-flex px-3 py-1 text-sm font-medium rounded-full border ${stateColors[application.state] || 'bg-gray-100 text-gray-800 border-gray-300'}`}
+              className={`inline-flex px-3 py-1 text-sm font-medium rounded-full border ${stateColors[application.state] || 'bg-gray-100 text-slate-900 border-gray-300'}`}
             >
               {stateLabels[application.state] || application.state}
             </span>
             <Link
               href="/admin/applications"
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+              className="px-4 py-2 bg-gray-100 text-slate-900 rounded-lg hover:bg-gray-200 transition-colors text-sm"
             >
               Back to List
             </Link>
@@ -150,26 +150,26 @@ export default async function ApplicationDetailPage({
           <div className="lg:col-span-2 space-y-6">
             {/* Contact Information */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Contact Information</h2>
               <dl className="grid grid-cols-2 gap-4">
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Full Name</dt>
-                  <dd className="text-sm text-gray-900">{displayName}</dd>
+                  <dt className="text-sm font-medium text-slate-700">Full Name</dt>
+                  <dd className="text-sm text-slate-900">{displayName}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Email</dt>
-                  <dd className="text-sm text-gray-900">{email || 'Not provided'}</dd>
+                  <dt className="text-sm font-medium text-slate-700">Email</dt>
+                  <dd className="text-sm text-slate-900">{email || 'Not provided'}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Phone</dt>
-                  <dd className="text-sm text-gray-900">{phone || 'Not provided'}</dd>
+                  <dt className="text-sm font-medium text-slate-700">Phone</dt>
+                  <dd className="text-sm text-slate-900">{phone || 'Not provided'}</dd>
                 </div>
               </dl>
             </div>
 
             {/* All Intake Data */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Application Data</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Application Data</h2>
               <dl className="grid grid-cols-2 gap-4">
                 {Object.entries(intake).map(([key, value]) => {
                   if (key === 'first_name' || key === 'last_name' || key === 'email' || key === 'phone') {
@@ -177,10 +177,10 @@ export default async function ApplicationDetailPage({
                   }
                   return (
                     <div key={key}>
-                      <dt className="text-sm font-medium text-gray-500 capitalize">
+                      <dt className="text-sm font-medium text-slate-700 capitalize">
                         {key.replace(/_/g, ' ')}
                       </dt>
-                      <dd className="text-sm text-gray-900">
+                      <dd className="text-sm text-slate-900">
                         {typeof value === 'object' ? JSON.stringify(value) : String(value || 'Not provided')}
                       </dd>
                     </div>
@@ -194,7 +194,7 @@ export default async function ApplicationDetailPage({
           <div className="space-y-6">
             {/* Actions Card */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Actions</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Actions</h2>
               <TransitionButtons
                 applicationType={type}
                 applicationId={id}
@@ -204,31 +204,31 @@ export default async function ApplicationDetailPage({
 
             {/* Status Card */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Application Status</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Application Status</h2>
               <dl className="space-y-3">
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Type</dt>
-                  <dd className="text-sm text-gray-900">{typeLabels[type] || type}</dd>
+                  <dt className="text-sm font-medium text-slate-700">Type</dt>
+                  <dd className="text-sm text-slate-900">{typeLabels[type] || type}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Current State</dt>
+                  <dt className="text-sm font-medium text-slate-700">Current State</dt>
                   <dd className="mt-1">
                     <span
-                      className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${stateColors[application.state] || 'bg-gray-100 text-gray-800'}`}
+                      className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${stateColors[application.state] || 'bg-gray-100 text-slate-900'}`}
                     >
                       {stateLabels[application.state] || application.state}
                     </span>
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Created</dt>
-                  <dd className="text-sm text-gray-900">
+                  <dt className="text-sm font-medium text-slate-700">Created</dt>
+                  <dd className="text-sm text-slate-900">
                     {new Date(application.created_at).toLocaleString()}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Last Updated</dt>
-                  <dd className="text-sm text-gray-900">
+                  <dt className="text-sm font-medium text-slate-700">Last Updated</dt>
+                  <dd className="text-sm text-slate-900">
                     {application.state_updated_at ? new Date(application.state_updated_at).toLocaleString() : '-'}
                   </dd>
                 </div>
@@ -237,7 +237,7 @@ export default async function ApplicationDetailPage({
 
             {/* State History */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">State History</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">State History</h2>
               {stateEvents && stateEvents.length > 0 ? (
                 <div className="space-y-4">
                   {stateEvents.map((event, index) => (
@@ -254,29 +254,29 @@ export default async function ApplicationDetailPage({
                       />
                       <div className="text-sm">
                         <span
-                          className={`inline-flex px-2 py-0.5 text-xs font-medium rounded ${stateColors[event.to_state] || 'bg-gray-100 text-gray-800'}`}
+                          className={`inline-flex px-2 py-0.5 text-xs font-medium rounded ${stateColors[event.to_state] || 'bg-gray-100 text-slate-900'}`}
                         >
                           {stateLabels[event.to_state] || event.to_state}
                         </span>
-                        <p className="text-gray-500 mt-1 text-xs">
+                        <p className="text-slate-700 mt-1 text-xs">
                           {event.reason || 'State changed'} - {new Date(event.created_at).toLocaleString()}
                         </p>
                         {event.actor_role && (
-                          <p className="text-gray-400 text-xs">by {event.actor_role}</p>
+                          <p className="text-slate-700 text-xs">by {event.actor_role}</p>
                         )}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-500">No state history available.</p>
+                <p className="text-sm text-slate-700">No state history available.</p>
               )}
             </div>
 
             {/* Application ID */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-2">Application ID</h2>
-              <p className="text-xs font-mono text-gray-600 break-all">{id}</p>
+              <h2 className="text-lg font-semibold text-slate-900 mb-2">Application ID</h2>
+              <p className="text-xs font-mono text-slate-700 break-all">{id}</p>
             </div>
           </div>
         </div>

@@ -78,8 +78,8 @@ export default async function LicenseeOnboardingPage() {
     <div className="min-h-screen bg-white">
       <div className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold text-gray-900">Welcome to Elevate For Humanity</h1>
-          <p className="text-gray-600">Complete these steps to start using your license</p>
+          <h1 className="text-2xl font-bold text-slate-900">Welcome to Elevate For Humanity</h1>
+          <p className="text-slate-700">Complete these steps to start using your license</p>
         </div>
       </div>
 
@@ -95,7 +95,7 @@ export default async function LicenseeOnboardingPage() {
                       ? 'bg-brand-green-100 text-brand-green-600' 
                       : index === currentStep 
                         ? 'bg-brand-blue-100 text-brand-blue-600' 
-                        : 'bg-white text-gray-400'
+                        : 'bg-white text-slate-700'
                   }`}>
                     {step.completed ? (
                       <span className="text-slate-400 flex-shrink-0">•</span>
@@ -104,10 +104,10 @@ export default async function LicenseeOnboardingPage() {
                     )}
                   </div>
                   <div className="ml-3">
-                    <p className={`font-medium ${step.completed ? 'text-brand-green-600' : index === currentStep ? 'text-brand-blue-600' : 'text-gray-500'}`}>
+                    <p className={`font-medium ${step.completed ? 'text-brand-green-600' : index === currentStep ? 'text-brand-blue-600' : 'text-slate-700'}`}>
                       {step.title}
                     </p>
-                    <p className="text-sm text-gray-500">{step.description}</p>
+                    <p className="text-sm text-slate-700">{step.description}</p>
                   </div>
                 </div>
                 {index < steps.length - 1 && (
@@ -121,8 +121,8 @@ export default async function LicenseeOnboardingPage() {
         {/* Current Step Content */}
         {currentStep === 0 && !allAgreementsAccepted && (
           <div className="bg-white rounded-xl shadow-sm p-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Accept Required Agreements</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Accept Required Agreements</h2>
+            <p className="text-slate-700 mb-6">
               Please review and accept the following agreements to continue. These agreements govern your use of the platform.
             </p>
             
@@ -150,9 +150,9 @@ export default async function LicenseeOnboardingPage() {
                       {accepted ? (
                         <span className="text-slate-400 flex-shrink-0">•</span>
                       ) : (
-                        <Circle className="w-5 h-5 text-gray-400" />
+                        <Circle className="w-5 h-5 text-slate-700" />
                       )}
-                      <span className="font-medium text-gray-900">{labels[type]}</span>
+                      <span className="font-medium text-slate-900">{labels[type]}</span>
                     </div>
                     <Link 
                       href={urls[type]} 
@@ -179,11 +179,11 @@ export default async function LicenseeOnboardingPage() {
 
         {(currentStep === 1 || (currentStep === 0 && allAgreementsAccepted)) && (
           <div className="bg-white rounded-xl shadow-sm p-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Organization Profile</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Organization Profile</h2>
+            <p className="text-slate-700 mb-6">
               Complete your organization details to finish setup.
             </p>
-            <p className="text-gray-500">Please contact support to complete your organization profile setup.</p>
+            <p className="text-slate-700">Please contact support to complete your organization profile setup.</p>
           </div>
         )}
       </div>

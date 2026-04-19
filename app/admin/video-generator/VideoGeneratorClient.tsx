@@ -120,20 +120,20 @@ export default function VideoGeneratorPage() {
           {status && (
             <div className="grid grid-cols-4 gap-4 mb-6">
               <div className="bg-gray-50 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-gray-900">{status.total}</div>
-                <div className="text-sm text-gray-500">Total Lessons</div>
+                <div className="text-3xl font-bold text-slate-900">{status.total}</div>
+                <div className="text-sm text-slate-700">Total Lessons</div>
               </div>
               <div className="bg-brand-green-50 rounded-lg p-4 text-center">
                 <div className="text-3xl font-bold text-brand-green-600">{status.withVideos}</div>
-                <div className="text-sm text-gray-500">With Videos</div>
+                <div className="text-sm text-slate-700">With Videos</div>
               </div>
               <div className="bg-brand-orange-50 rounded-lg p-4 text-center">
                 <div className="text-3xl font-bold text-brand-orange-600">{status.withoutVideos}</div>
-                <div className="text-sm text-gray-500">Need Videos</div>
+                <div className="text-sm text-slate-700">Need Videos</div>
               </div>
               <div className="bg-brand-blue-50 rounded-lg p-4 text-center">
                 <div className="text-3xl font-bold text-brand-blue-600">{status.percentComplete}%</div>
-                <div className="text-sm text-gray-500">Complete</div>
+                <div className="text-sm text-slate-700">Complete</div>
               </div>
             </div>
           )}
@@ -224,7 +224,7 @@ export default function VideoGeneratorPage() {
                     ) : (
                       <XCircle className="w-5 h-5 text-brand-red-500" />
                     )}
-                    <span className="font-mono text-sm text-gray-600">
+                    <span className="font-mono text-sm text-slate-700">
                       {result.lessonId.substring(0, 8)}...
                     </span>
                     {result.success ? (
@@ -249,7 +249,7 @@ export default function VideoGeneratorPage() {
         {/* Instructions */}
         <div className="bg-white rounded-xl shadow-sm border p-6">
           <h2 className="text-lg font-bold mb-4">How It Works</h2>
-          <ol className="list-decimal list-inside space-y-2 text-gray-600">
+          <ol className="list-decimal list-inside space-y-2 text-slate-700">
             <li>Each lesson has content, topics, and duration defined in the database</li>
             <li>The generator creates a script from the lesson content</li>
             <li>AI generates a video with an instructor avatar speaking the script</li>

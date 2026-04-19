@@ -86,8 +86,8 @@ export default async function CohortTrackerPage() {
                 <span className="text-xs font-semibold text-brand-blue-600 bg-brand-blue-50 px-2 py-0.5 rounded-full">{c.id}</span>
                 <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">Active</span>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">{c.name}</h1>
-              <p className="text-sm text-gray-500 mt-1">Partner: {c.partner} | Program: {c.program}</p>
+              <h1 className="text-2xl font-bold text-slate-900">{c.name}</h1>
+              <p className="text-sm text-slate-700 mt-1">Partner: {c.partner} | Program: {c.program}</p>
             </div>
           </div>
 
@@ -103,9 +103,9 @@ export default async function CohortTrackerPage() {
               { label: 'Credentials', value: c.credentials.filter(cr => cr.required).length, icon: Award },
             ].map((s) => (
               <div key={s.label} className="bg-gray-50 rounded-lg p-3 text-center">
-                <s.icon className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                <div className="text-lg font-bold text-gray-900">{s.value}</div>
-                <div className="text-[10px] text-gray-500">{s.label}</div>
+                <s.icon className="w-4 h-4 text-slate-700 mx-auto mb-1" />
+                <div className="text-lg font-bold text-slate-900">{s.value}</div>
+                <div className="text-[10px] text-slate-700">{s.label}</div>
               </div>
             ))}
           </div>
@@ -116,19 +116,19 @@ export default async function CohortTrackerPage() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
               <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                <h2 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <Users className="w-4 h-4 text-gray-400" /> Student Roster
+                <h2 className="font-semibold text-slate-900 flex items-center gap-2">
+                  <Users className="w-4 h-4 text-slate-700" /> Student Roster
                 </h2>
                 <Link href="/admin/students" className="text-xs text-brand-blue-600 font-medium">Manage Students</Link>
               </div>
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Student</th>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Enrolled</th>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Attendance</th>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Credentials</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Student</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Status</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Enrolled</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Attendance</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Credentials</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
@@ -138,8 +138,8 @@ export default async function CohortTrackerPage() {
                   ]).map((s: any) => (
                     <tr key={s.id} className="hover:bg-gray-50">
                       <td className="px-6 py-3">
-                        <div className="text-sm font-medium text-gray-900">{s.full_name || 'Unknown'}</div>
-                        <div className="text-[10px] text-gray-400">{s.email}</div>
+                        <div className="text-sm font-medium text-slate-900">{s.full_name || 'Unknown'}</div>
+                        <div className="text-[10px] text-slate-700">{s.email}</div>
                       </td>
                       <td className="px-6 py-3">
                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
@@ -148,11 +148,11 @@ export default async function CohortTrackerPage() {
                           'bg-amber-100 text-amber-700'
                         }`}>{s.enrollment_status || 'pending'}</span>
                       </td>
-                      <td className="px-6 py-3 text-xs text-gray-500">
+                      <td className="px-6 py-3 text-xs text-slate-700">
                         {s.created_at ? new Date(s.created_at).toLocaleDateString('en-US') : '—'}
                       </td>
-                      <td className="px-6 py-3 text-xs text-gray-500">—</td>
-                      <td className="px-6 py-3 text-xs text-gray-500">0 / {c.credentials.filter(cr => cr.required).length}</td>
+                      <td className="px-6 py-3 text-xs text-slate-700">—</td>
+                      <td className="px-6 py-3 text-xs text-slate-700">0 / {c.credentials.filter(cr => cr.required).length}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -162,28 +162,28 @@ export default async function CohortTrackerPage() {
             {/* Program Schedule */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-100">
-                <h2 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-400" /> Program Schedule
+                <h2 className="font-semibold text-slate-900 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-slate-700" /> Program Schedule
                 </h2>
               </div>
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Weeks</th>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Module</th>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Hours</th>
-                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Status</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Weeks</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Module</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Hours</th>
+                    <th className="px-6 py-2 text-left text-[10px] font-semibold text-slate-700 uppercase">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {c.schedule.map((m, i) => (
                     <tr key={i} className="hover:bg-gray-50">
-                      <td className="px-6 py-3 text-xs font-medium text-gray-900">{m.weeks}</td>
-                      <td className="px-6 py-3 text-xs text-gray-700">{m.title}</td>
-                      <td className="px-6 py-3 text-xs text-gray-500">{m.hours}h</td>
+                      <td className="px-6 py-3 text-xs font-medium text-slate-900">{m.weeks}</td>
+                      <td className="px-6 py-3 text-xs text-slate-900">{m.title}</td>
+                      <td className="px-6 py-3 text-xs text-slate-700">{m.hours}h</td>
                       <td className="px-6 py-3">
                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                          i === 0 ? 'bg-brand-blue-100 text-brand-blue-700' : 'bg-gray-100 text-gray-500'
+                          i === 0 ? 'bg-brand-blue-100 text-brand-blue-700' : 'bg-gray-100 text-slate-700'
                         }`}>{i === 0 ? 'Starting Monday' : 'Upcoming'}</span>
                       </td>
                     </tr>
@@ -198,8 +198,8 @@ export default async function CohortTrackerPage() {
             {/* Credential Tracker */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="px-5 py-4 border-b border-gray-100">
-                <h2 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <Award className="w-4 h-4 text-gray-400" /> Credential Tracker
+                <h2 className="font-semibold text-slate-900 flex items-center gap-2">
+                  <Award className="w-4 h-4 text-slate-700" /> Credential Tracker
                 </h2>
               </div>
               <div className="p-4 space-y-3">
@@ -208,12 +208,12 @@ export default async function CohortTrackerPage() {
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
                       cr.required ? 'bg-brand-blue-100' : 'bg-gray-200'
                     }`}>
-                      <Award className={`w-3 h-3 ${cr.required ? 'text-brand-blue-600' : 'text-gray-400'}`} />
+                      <Award className={`w-3 h-3 ${cr.required ? 'text-brand-blue-600' : 'text-slate-700'}`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-xs font-semibold text-gray-900">{cr.name}</div>
-                      <div className="text-[10px] text-gray-500">{cr.issuer}</div>
-                      <div className="text-[10px] text-gray-400 mt-0.5">Exam: {cr.examWeek}</div>
+                      <div className="text-xs font-semibold text-slate-900">{cr.name}</div>
+                      <div className="text-[10px] text-slate-700">{cr.issuer}</div>
+                      <div className="text-[10px] text-slate-700 mt-0.5">Exam: {cr.examWeek}</div>
                     </div>
                     <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium flex-shrink-0">
                       Scheduled
@@ -225,8 +225,8 @@ export default async function CohortTrackerPage() {
 
             {/* Reporting Status */}
             <div className="bg-white rounded-xl border border-gray-200 p-5">
-              <h2 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-gray-400" /> Reporting
+              <h2 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-slate-700" /> Reporting
               </h2>
               <div className="space-y-2.5">
                 {[
@@ -237,8 +237,8 @@ export default async function CohortTrackerPage() {
                   { label: 'LOC Contact', value: 'Workforce Partner Contact' },
                 ].map((r) => (
                   <div key={r.label} className="flex items-start justify-between">
-                    <span className="text-xs text-gray-600">{r.label}</span>
-                    <span className="text-xs text-gray-900 font-medium text-right max-w-[55%]">{r.value}</span>
+                    <span className="text-xs text-slate-700">{r.label}</span>
+                    <span className="text-xs text-slate-900 font-medium text-right max-w-[55%]">{r.value}</span>
                   </div>
                 ))}
               </div>
@@ -246,8 +246,8 @@ export default async function CohortTrackerPage() {
 
             {/* Institutional Authority */}
             <div className="bg-white rounded-xl border border-gray-200 p-5">
-              <h2 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <Shield className="w-4 h-4 text-gray-400" /> Institutional Status
+              <h2 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                <Shield className="w-4 h-4 text-slate-700" /> Institutional Status
               </h2>
               <div className="space-y-2">
                 {[
@@ -258,7 +258,7 @@ export default async function CohortTrackerPage() {
                   { label: 'Employer Externship MOU', ok: false, note: 'Pending — secure by Week 10' },
                 ].map((s) => (
                   <div key={s.label} className="flex items-center justify-between">
-                    <span className="text-xs text-gray-600">{s.label}</span>
+                    <span className="text-xs text-slate-700">{s.label}</span>
                     {s.ok ? (
                       <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-medium">
                         <CheckCircle2 className="w-2.5 h-2.5" /> Confirmed

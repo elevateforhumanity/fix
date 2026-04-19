@@ -123,7 +123,7 @@ export default function MessagesClient({ userId, initialConversations, participa
       <div className="max-w-6xl mx-auto">
         <div className="bg-white shadow-sm border-b">
           <div className="px-4 py-4">
-            <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
+            <h1 className="text-2xl font-bold text-slate-900">Messages</h1>
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export default function MessagesClient({ userId, initialConversations, participa
           <div className={`w-full md:w-80 border-r bg-white ${selectedConversation ? 'hidden md:block' : ''}`}>
             <div className="p-4 border-b">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                 <input
                   type="text"
                   placeholder="Search messages..."
@@ -144,9 +144,9 @@ export default function MessagesClient({ userId, initialConversations, participa
             <div className="overflow-y-auto h-full">
               {conversations.length === 0 ? (
                 <div className="p-8 text-center">
-                  <User className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="font-medium text-gray-700 mb-1">No conversations yet</p>
-                  <p className="text-sm text-gray-500 mb-4">
+                  <User className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+                  <p className="font-medium text-slate-900 mb-1">No conversations yet</p>
+                  <p className="text-sm text-slate-700 mb-4">
                     Threads are opened by staff when needed.
                   </p>
                   <a
@@ -171,12 +171,12 @@ export default function MessagesClient({ userId, initialConversations, participa
                         {other.avatar_url ? (
                           <Image src={other.avatar_url} alt={other.full_name || 'Contact'} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                         ) : (
-                          <User className="w-6 h-6 text-gray-400" />
+                          <User className="w-6 h-6 text-slate-700" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0 text-left">
-                        <p className="font-medium text-gray-900 truncate">{other.full_name}</p>
-                        <p className="text-sm text-gray-500 truncate">{conv.last_message_preview || 'No messages'}</p>
+                        <p className="font-medium text-slate-900 truncate">{other.full_name}</p>
+                        <p className="text-sm text-slate-700 truncate">{conv.last_message_preview || 'No messages'}</p>
                       </div>
                       <span className="text-xs text-slate-500">
                         {conv.last_message_at ? formatTime(conv.last_message_at) : ''}
@@ -196,7 +196,7 @@ export default function MessagesClient({ userId, initialConversations, participa
                 <div className="bg-white border-b px-4 py-3 flex items-center gap-3">
                   <button
                     onClick={() => setSelectedConversation(null)}
-                    className="md:hidden p-2 -ml-2 text-gray-600"
+                    className="md:hidden p-2 -ml-2 text-slate-700"
                   >
                     <ArrowLeft className="w-5 h-5" />
                   </button>
@@ -209,10 +209,10 @@ export default function MessagesClient({ userId, initialConversations, participa
                           {other.avatar_url ? (
                             <Image src={other.avatar_url} alt={other.full_name || 'Contact'} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                           ) : (
-                            <User className="w-5 h-5 text-gray-400" />
+                            <User className="w-5 h-5 text-slate-700" />
                           )}
                         </div>
-                        <span className="font-medium text-gray-900">{other.full_name}</span>
+                        <span className="font-medium text-slate-900">{other.full_name}</span>
                       </>
                     );
                   })()}
@@ -222,11 +222,11 @@ export default function MessagesClient({ userId, initialConversations, participa
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                   {loading ? (
                     <div className="flex justify-center py-8">
-                      <Loader2 className="w-6 h-6 text-gray-400 animate-spin" />
+                      <Loader2 className="w-6 h-6 text-slate-700 animate-spin" />
                     </div>
                   ) : messages.length === 0 ? (
                     <div className="text-center py-8">
-                      <p className="text-gray-500">No messages yet. Start the conversation!</p>
+                      <p className="text-slate-700">No messages yet. Start the conversation!</p>
                     </div>
                   ) : (
                     messages.map((msg) => (
@@ -238,12 +238,12 @@ export default function MessagesClient({ userId, initialConversations, participa
                           className={`max-w-[70%] px-4 py-2 rounded-2xl ${
                             msg.sender_id === userId
                               ? 'bg-brand-blue-600 text-white'
-                              : 'bg-white border text-gray-900'
+                              : 'bg-white border text-slate-900'
                           }`}
                         >
                           <p>{msg.content}</p>
                           <p className={`text-xs mt-1 ${
-                            msg.sender_id === userId ? 'text-white' : 'text-gray-400'
+                            msg.sender_id === userId ? 'text-white' : 'text-slate-700'
                           }`}>
                             {formatTime(msg.created_at)}
                           </p>
@@ -281,9 +281,9 @@ export default function MessagesClient({ userId, initialConversations, participa
             ) : (
               <div className="flex-1 flex items-center justify-center">
                 <div className="text-center">
-                  <User className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <p className="font-medium text-gray-700 mb-1">Select a conversation</p>
-                  <p className="text-sm text-gray-500">Choose a thread from the list to read and reply.</p>
+                  <User className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                  <p className="font-medium text-slate-900 mb-1">Select a conversation</p>
+                  <p className="text-sm text-slate-700">Choose a thread from the list to read and reply.</p>
                 </div>
               </div>
             )}

@@ -104,10 +104,10 @@ export default function GrantsAppPage() {
       {/* Grant Sources */}
       <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <p className="text-center text-gray-600 mb-6">Search grants from multiple sources</p>
+          <p className="text-center text-slate-700 mb-6">Search grants from multiple sources</p>
           <div className="flex flex-wrap justify-center gap-4">
             {grantSources.map((source, i) => (
-              <span key={i} className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 border border-gray-200">
+              <span key={i} className="bg-white px-4 py-2 rounded-full text-sm font-medium text-slate-900 border border-gray-200">
                 {source}
               </span>
             ))}
@@ -126,7 +126,7 @@ export default function GrantsAppPage() {
                   <f.icon className="w-7 h-7 text-brand-green-600" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-                <p className="text-gray-600">{f.desc}</p>
+                <p className="text-slate-700">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function GrantsAppPage() {
       <section className="py-16 px-4 bg-brand-green-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">See How It Works</h2>
-          <p className="text-gray-600 mb-8">Watch a complete walkthrough of the grants discovery and management process</p>
+          <p className="text-slate-700 mb-8">Watch a complete walkthrough of the grants discovery and management process</p>
           <div className="aspect-video bg-white rounded-2xl overflow-hidden relative">
             <CanonicalVideo
               src="/videos/training-providers-video-with-narration.mp4"
@@ -152,21 +152,21 @@ export default function GrantsAppPage() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Pricing Plans</h2>
-          <p className="text-gray-600 text-center mb-12">Flexible plans for organizations of all sizes</p>
+          <p className="text-slate-700 text-center mb-12">Flexible plans for organizations of all sizes</p>
           <div className="grid md:grid-cols-3 gap-8">
             {pricing.map((plan, i) => (
               <div key={i} className={`rounded-2xl p-8 ${plan.popular ? 'bg-brand-green-600 text-white ring-4 ring-brand-green-300' : 'bg-white border border-gray-200'}`}>
                 {plan.popular && <span className="bg-brand-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>}
-                <h3 className={`text-2xl font-bold mt-4 ${plan.popular ? 'text-slate-900' : 'text-gray-900'}`}>{plan.name}</h3>
+                <h3 className={`text-2xl font-bold mt-4 ${plan.popular ? 'text-slate-900' : 'text-slate-900'}`}>{plan.name}</h3>
                 <div className="mt-4 mb-6">
                   <span className="text-4xl font-bold">${plan.price}</span>
-                  <span className={plan.popular ? 'text-white' : 'text-gray-500'}>{plan.period}</span>
+                  <span className={plan.popular ? 'text-white' : 'text-slate-700'}>{plan.period}</span>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
                     <li key={j} className="flex items-center gap-2">
                       <Check className={`w-5 h-5 ${plan.popular ? 'text-white' : 'text-brand-green-500'}`} />
-                      <span className={plan.popular ? 'text-white' : 'text-gray-600'}>{f}</span>
+                      <span className={plan.popular ? 'text-white' : 'text-slate-700'}>{f}</span>
                     </li>
                   ))}
                 </ul>
@@ -191,7 +191,7 @@ export default function GrantsAppPage() {
       <section className="py-16 px-4 text-slate-900">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Start Finding Grants Today</h2>
-          <p className="text-gray-300 mb-8">14-day free trial. Card required, not charged until trial ends.</p>
+          <p className="text-slate-700 mb-8">14-day free trial. Card required, not charged until trial ends.</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/store/cart?add=grants-org" className="bg-brand-red-600 hover:bg-brand-red-700 text-white px-8 py-4 rounded-lg font-bold">
               Start Free Trial

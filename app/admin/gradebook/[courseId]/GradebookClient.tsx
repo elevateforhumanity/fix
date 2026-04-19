@@ -8,7 +8,7 @@ import { Users, FileText, ClipboardList, Download } from 'lucide-react';
 
 const SpeedGrader = dynamic(() => import('@/components/gradebook/SpeedGrader'), {
   ssr: false,
-  loading: () => <div className="p-8 text-center text-gray-500">Loading grader...</div>,
+  loading: () => <div className="p-8 text-center text-slate-700">Loading grader...</div>,
 });
 
 interface Enrollment {
@@ -135,7 +135,7 @@ export function GradebookClient({
           </div>
           <div>
             <p className="text-2xl font-bold">{enrollments.length}</p>
-            <p className="text-sm text-gray-500">Students</p>
+            <p className="text-sm text-slate-700">Students</p>
           </div>
         </div>
         <div className="bg-white rounded-xl shadow-sm p-5 flex items-center gap-4">
@@ -144,7 +144,7 @@ export function GradebookClient({
           </div>
           <div>
             <p className="text-2xl font-bold">{submissions.length}</p>
-            <p className="text-sm text-gray-500">Submissions</p>
+            <p className="text-sm text-slate-700">Submissions</p>
           </div>
         </div>
         <div className="bg-white rounded-xl shadow-sm p-5 flex items-center gap-4">
@@ -153,7 +153,7 @@ export function GradebookClient({
           </div>
           <div>
             <p className="text-2xl font-bold">{quizAttempts.length}</p>
-            <p className="text-sm text-gray-500">Quiz Attempts</p>
+            <p className="text-sm text-slate-700">Quiz Attempts</p>
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@ export function GradebookClient({
           <button
             onClick={() => setTab('overview')}
             className={`px-4 py-2 rounded-lg text-sm font-medium ${
-              tab === 'overview' ? 'bg-brand-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'
+              tab === 'overview' ? 'bg-brand-blue-600 text-white' : 'bg-white text-slate-900 hover:bg-gray-50'
             }`}
           >
             Grade Overview
@@ -172,7 +172,7 @@ export function GradebookClient({
           <button
             onClick={() => setTab('speedgrader')}
             className={`px-4 py-2 rounded-lg text-sm font-medium ${
-              tab === 'speedgrader' ? 'bg-brand-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'
+              tab === 'speedgrader' ? 'bg-brand-blue-600 text-white' : 'bg-white text-slate-900 hover:bg-gray-50'
             }`}
           >
             SpeedGrader
@@ -193,22 +193,22 @@ export function GradebookClient({
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">
                   Student
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">
                   Progress
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">
                   Assignments
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">
                   Quizzes
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">
                   Overall
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">
                   Grade
                 </th>
               </tr>
@@ -218,8 +218,8 @@ export function GradebookClient({
                 studentGrades.map((s) => (
                   <tr key={s.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{s.profile.full_name}</p>
-                      <p className="text-sm text-gray-500">{s.profile.email}</p>
+                      <p className="font-medium text-slate-900">{s.profile.full_name}</p>
+                      <p className="text-sm text-slate-700">{s.profile.email}</p>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
@@ -229,16 +229,16 @@ export function GradebookClient({
                             style={{ width: `${s.progress || 0}%` }}
                           />
                         </div>
-                        <span className="text-sm text-gray-600">{s.progress || 0}%</span>
+                        <span className="text-sm text-slate-700">{s.progress || 0}%</span>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-sm">
                       {s.assignmentAvg !== null ? `${s.assignmentAvg.toFixed(1)}%` : '-'}
-                      <span className="text-gray-400 ml-1">({s.submissionCount})</span>
+                      <span className="text-slate-700 ml-1">({s.submissionCount})</span>
                     </td>
                     <td className="px-4 py-3 text-sm">
                       {s.quizAvg !== null ? `${s.quizAvg.toFixed(1)}%` : '-'}
-                      <span className="text-gray-400 ml-1">({s.quizCount})</span>
+                      <span className="text-slate-700 ml-1">({s.quizCount})</span>
                     </td>
                     <td className="px-4 py-3 text-sm font-medium">{s.overall}%</td>
                     <td className="px-4 py-3">
@@ -260,7 +260,7 @@ export function GradebookClient({
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500">
+                  <td colSpan={6} className="px-4 py-8 text-center text-slate-700">
                     No students enrolled
                   </td>
                 </tr>
@@ -276,7 +276,7 @@ export function GradebookClient({
           {assignmentIds.length > 0 ? (
             <>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Select Assignment
                 </label>
                 <select
@@ -325,7 +325,7 @@ export function GradebookClient({
               )}
             </>
           ) : (
-            <p className="text-gray-500 text-center py-8">
+            <p className="text-slate-700 text-center py-8">
               No assignment submissions to grade yet.
             </p>
           )}

@@ -147,7 +147,7 @@ export default function LiveChatPage() {
                 {message.role === 'user' ? (
                   <User className="w-4 h-4 text-white" />
                 ) : (
-                  <Bot className="w-4 h-4 text-gray-600" />
+                  <Bot className="w-4 h-4 text-slate-700" />
                 )}
               </div>
               <div
@@ -160,7 +160,7 @@ export default function LiveChatPage() {
                 <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                 <p
                   className={`text-xs mt-1 ${
-                    message.role === 'user' ? 'text-white' : 'text-gray-400'
+                    message.role === 'user' ? 'text-white' : 'text-slate-700'
                   }`}
                 >
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -172,7 +172,7 @@ export default function LiveChatPage() {
           {isTyping && (
             <div className="flex gap-3">
               <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                <Bot className="w-4 h-4 text-gray-600" />
+                <Bot className="w-4 h-4 text-slate-700" />
               </div>
               <div className="bg-white border border-gray-200 rounded-2xl rounded-tl-sm px-4 py-3">
                 <div className="flex gap-1">
@@ -192,7 +192,7 @@ export default function LiveChatPage() {
       {messages.length <= 2 && (
         <div className="px-4 pb-2">
           <div className="max-w-3xl mx-auto">
-            <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
+            <p className="text-xs text-slate-700 mb-2">Quick questions:</p>
             <div className="flex flex-wrap gap-2">
               {quickReplies.map((reply) => (
                 <button

@@ -30,7 +30,7 @@ export function AssistantField({
 
   return (
     <div className="mb-6">
-      <label className="block text-sm font-semibold text-gray-800 mb-1">
+      <label className="block text-sm font-semibold text-slate-900 mb-1">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>

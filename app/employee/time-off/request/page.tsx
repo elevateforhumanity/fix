@@ -56,7 +56,7 @@ export default function TimeOffRequestPage() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <Link href="/employee/time-off" className="inline-flex items-center text-gray-600 hover:text-brand-blue-600 mb-6">
+        <Link href="/employee/time-off" className="inline-flex items-center text-slate-700 hover:text-brand-blue-600 mb-6">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Time Off
         </Link>
@@ -67,8 +67,8 @@ export default function TimeOffRequestPage() {
               <Calendar className="w-6 h-6 text-brand-blue-600" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Request Time Off</h1>
-              <p className="text-gray-600">Submit a new leave request</p>
+              <h1 className="text-2xl font-bold text-slate-900">Request Time Off</h1>
+              <p className="text-slate-700">Submit a new leave request</p>
             </div>
           </div>
 
@@ -81,7 +81,7 @@ export default function TimeOffRequestPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-900 mb-2">
                 Leave Type *
               </label>
               <select
@@ -100,7 +100,7 @@ export default function TimeOffRequestPage() {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Start Date *
                 </label>
                 <input
@@ -111,7 +111,7 @@ export default function TimeOffRequestPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   End Date *
                 </label>
                 <input
@@ -124,7 +124,7 @@ export default function TimeOffRequestPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-900 mb-2">
                 Total Hours
               </label>
               <input
@@ -137,7 +137,7 @@ export default function TimeOffRequestPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-900 mb-2">
                 Reason / Notes
               </label>
               <textarea
@@ -150,25 +150,25 @@ export default function TimeOffRequestPage() {
             </div>
 
             <div className="bg-brand-blue-50 rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-2">Your Balances</h3>
+              <h3 className="font-semibold text-slate-900 mb-2">Your Balances</h3>
               <div className="grid grid-cols-3 gap-4 text-sm">
                 <div>
-                  <p className="text-gray-600">Vacation</p>
-                  <p className="font-bold text-gray-900">80 hrs</p>
+                  <p className="text-slate-700">Vacation</p>
+                  <p className="font-bold text-slate-900">80 hrs</p>
                 </div>
                 <div>
-                  <p className="text-gray-600">Sick Leave</p>
-                  <p className="font-bold text-gray-900">40 hrs</p>
+                  <p className="text-slate-700">Sick Leave</p>
+                  <p className="font-bold text-slate-900">40 hrs</p>
                 </div>
                 <div>
-                  <p className="text-gray-600">Personal</p>
-                  <p className="font-bold text-gray-900">16 hrs</p>
+                  <p className="text-slate-700">Personal</p>
+                  <p className="font-bold text-slate-900">16 hrs</p>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center justify-end gap-4 pt-4">
-              <Link href="/employee/time-off" className="px-6 py-3 text-gray-700 hover:text-gray-900">
+              <Link href="/employee/time-off" className="px-6 py-3 text-slate-900 hover:text-slate-900">
                 Cancel
               </Link>
               <button

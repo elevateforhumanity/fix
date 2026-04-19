@@ -60,19 +60,19 @@ export default async function ChartsPage() {
       {/* Hero Image */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/admin" className="hover:text-primary">Admin</Link></li><li>/</li><li><Link href="/admin/reports" className="hover:text-primary">Reports</Link></li><li>/</li><li className="text-gray-900 font-medium">Charts</li></ol></nav>
-          <h1 className="text-3xl font-bold text-gray-900">Charts & Visualizations</h1>
-          <p className="text-gray-600 mt-2">Real-time analytics from platform data</p>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/admin" className="hover:text-primary">Admin</Link></li><li>/</li><li><Link href="/admin/reports" className="hover:text-primary">Reports</Link></li><li>/</li><li className="text-slate-900 font-medium">Charts</li></ol></nav>
+          <h1 className="text-3xl font-bold text-slate-900">Charts & Visualizations</h1>
+          <p className="text-slate-700 mt-2">Real-time analytics from platform data</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {stats.map((s) => (
             <div key={s.label} className="bg-white rounded-lg shadow-sm border p-5">
               <div className="flex items-center gap-3 mb-2">
-                <s.icon className="w-5 h-5 text-gray-500" />
-                <span className="text-sm text-gray-600">{s.label}</span>
+                <s.icon className="w-5 h-5 text-slate-700" />
+                <span className="text-sm text-slate-700">{s.label}</span>
               </div>
-              <div className="text-3xl font-bold text-gray-900">{s.value.toLocaleString()}</div>
+              <div className="text-3xl font-bold text-slate-900">{s.value.toLocaleString()}</div>
             </div>
           ))}
         </div>
@@ -93,8 +93,8 @@ export default async function ChartsPage() {
                     return (
                       <div key={status}>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="capitalize text-gray-700">{status.replace(/_/g, ' ')}</span>
-                          <span className="text-gray-500">{count} ({pct}%)</span>
+                          <span className="capitalize text-slate-900">{status.replace(/_/g, ' ')}</span>
+                          <span className="text-slate-700">{count} ({pct}%)</span>
                         </div>
                         <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
                           <div className="h-full bg-brand-blue-500 rounded-full" style={{ width: `${pct}%` }} />
@@ -104,7 +104,7 @@ export default async function ChartsPage() {
                   })}
               </div>
             ) : (
-              <p className="text-gray-500 text-sm">No enrollment data yet</p>
+              <p className="text-slate-700 text-sm">No enrollment data yet</p>
             )}
           </div>
 
@@ -122,8 +122,8 @@ export default async function ChartsPage() {
                   return (
                     <div key={name}>
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-700 truncate mr-2">{name}</span>
-                        <span className="text-gray-500 shrink-0">{count as number}</span>
+                        <span className="text-slate-900 truncate mr-2">{name}</span>
+                        <span className="text-slate-700 shrink-0">{count as number}</span>
                       </div>
                       <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
                         <div className={`h-full ${colors[i % colors.length]} rounded-full`} style={{ width: `${pct}%` }} />
@@ -133,7 +133,7 @@ export default async function ChartsPage() {
                 })}
               </div>
             ) : (
-              <p className="text-gray-500 text-sm">No program enrollment data yet</p>
+              <p className="text-slate-700 text-sm">No program enrollment data yet</p>
             )}
           </div>
 
@@ -154,7 +154,7 @@ export default async function ChartsPage() {
             </div>
             {(enrollments.count ?? 0) > 0 && (
               <div className="mt-4 text-center">
-                <div className="text-lg font-semibold text-gray-900">
+                <div className="text-lg font-semibold text-slate-900">
                   {Math.round(((completions.count ?? 0) / (enrollments.count ?? 1)) * 100)}% Completion Rate
                 </div>
               </div>
@@ -168,15 +168,15 @@ export default async function ChartsPage() {
             </h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-700">Total Applications</span>
+                <span className="text-sm text-slate-900">Total Applications</span>
                 <span className="font-semibold">{applications.count ?? 0}</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-700">Active Programs</span>
+                <span className="text-sm text-slate-900">Active Programs</span>
                 <span className="font-semibold">{programs.count ?? 0}</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-700">Partner Completions</span>
+                <span className="text-sm text-slate-900">Partner Completions</span>
                 <span className="font-semibold">{completions.count ?? 0}</span>
               </div>
             </div>

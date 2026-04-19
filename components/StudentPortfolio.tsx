@@ -336,7 +336,7 @@ className="text-white hover:text-white transition-colors">
                 className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab
                     ? 'border-brand-red-600 text-brand-orange-600'
-                    : 'border-transparent text-gray-500 hover:text-black hover:border-gray-300'
+                    : 'border-transparent text-slate-700 hover:text-black hover:border-gray-300'
                 }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -440,7 +440,7 @@ className="text-white hover:text-white transition-colors">
                       )}
                     </div>
 
-                    <p className="text-xs text-gray-500 mt-3">
+                    <p className="text-xs text-slate-700 mt-3">
                       Completed: {new Date(project.completedDate).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' })}
                     </p>
                   </div>
@@ -504,7 +504,7 @@ className="text-white hover:text-white transition-colors">
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-black mb-1">{cert.title}</h3>
                       <p className="text-sm text-black mb-2">{cert.issuer}</p>
-                      <p className="text-xs text-gray-500 mb-3">
+                      <p className="text-xs text-slate-700 mb-3">
                         Issued: {new Date(cert.date).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' })}
                       </p>
                       <a

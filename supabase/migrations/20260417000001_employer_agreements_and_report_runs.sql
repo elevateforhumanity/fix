@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS public.employer_agreements (
   wage_year2           text,
   wage_year3           text,
   ojl_hours_year       text DEFAULT '2000',
-  status               text NOT NULL DEFAULT 'pending'
+  status               text NOT NULL DEFAULT 'pending',
                          CHECK (status IN ('pending','active','expired','terminated')),
   signed_at            timestamptz DEFAULT now(),
   created_at           timestamptz NOT NULL DEFAULT now(),
@@ -53,12 +53,12 @@ CREATE POLICY "admin_read" ON public.employer_agreements
 -- wioa_report_runs: tracks generated WIOA reports for the admin/wioa/reports page
 CREATE TABLE IF NOT EXISTS public.wioa_report_runs (
   id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  report_type    text NOT NULL
+  report_type    text NOT NULL,
                    CHECK (report_type IN ('quarterly','enrollment','outcomes','expenditure','compliance')),
   period         text,                    -- e.g. 'Q1 2026'
   generated_at   timestamptz NOT NULL DEFAULT now(),
   generated_by   text,                   -- admin email or 'system'
-  status         text NOT NULL DEFAULT 'complete'
+  status         text NOT NULL DEFAULT 'complete',
                    CHECK (status IN ('pending','complete','failed')),
   file_url       text,                   -- Supabase storage URL for the PDF/CSV
   row_count      integer,

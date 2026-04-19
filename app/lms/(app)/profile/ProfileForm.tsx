@@ -42,7 +42,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="first_name" className="block text-sm font-medium text-slate-900 mb-2">
             First Name
           </label>
           <input
@@ -56,7 +56,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
         </div>
 
         <div>
-          <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="last_name" className="block text-sm font-medium text-slate-900 mb-2">
             Last Name
           </label>
           <input
@@ -71,7 +71,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
       </div>
 
       <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="phone" className="block text-sm font-medium text-slate-900 mb-2">
           Phone Number
         </label>
         <input
@@ -85,7 +85,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
       </div>
 
       <div>
-        <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="bio" className="block text-sm font-medium text-slate-900 mb-2">
           Bio
         </label>
         <textarea

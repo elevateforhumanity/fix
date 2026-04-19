@@ -53,7 +53,7 @@ export default async function HSISuccessPage({
           <div className="w-20 h-20 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-black flex-shrink-0">•</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Enrollment Confirmed!
           </h1>
           {enrollment?.course?.course_name && (
@@ -75,7 +75,7 @@ export default async function HSISuccessPage({
       {enrollment?.course?.hsi_enrollment_link && (
         <section className="py-12 border-b">
           <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Access Your Course Now</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">Access Your Course Now</h2>
             <p className="text-black mb-6">
               Click below to start your HSI training immediately. You'll also receive an email with this link.
             </p>
@@ -102,7 +102,7 @@ export default async function HSISuccessPage({
                 <Mail className="w-7 h-7 text-brand-blue-600" />
               </div>
               <div className="text-sm text-brand-blue-600 font-semibold mb-2">Step 1</div>
-              <h3 className="font-bold text-gray-900 mb-2">Check Your Email</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Check Your Email</h3>
               <p className="text-black text-sm">
                 You'll receive an email from HSI with your login credentials within 24 hours.
               </p>
@@ -113,7 +113,7 @@ export default async function HSISuccessPage({
                 <Shield className="w-7 h-7 text-brand-orange-600" />
               </div>
               <div className="text-sm text-brand-orange-600 font-semibold mb-2">Step 2</div>
-              <h3 className="font-bold text-gray-900 mb-2">Complete Online Training</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Complete Online Training</h3>
               <p className="text-black text-sm">
                 Log in to the HSI platform and complete your online coursework at your own pace.
               </p>
@@ -124,7 +124,7 @@ export default async function HSISuccessPage({
                 <Award className="w-7 h-7 text-brand-green-600" />
               </div>
               <div className="text-sm text-brand-green-600 font-semibold mb-2">Step 3</div>
-              <h3 className="font-bold text-gray-900 mb-2">Get Certified</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Get Certified</h3>
               <p className="text-black text-sm">
                 Pass the skills assessment and receive your official HSI certification card.
               </p>
@@ -137,32 +137,32 @@ export default async function HSISuccessPage({
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-brand-blue-50 rounded-2xl p-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <Calendar className="w-6 h-6 text-brand-blue-600" />
               Important Information
             </h2>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <span className="text-black flex-shrink-0">•</span>
-                <span className="text-gray-700">
+                <span className="text-slate-900">
                   <strong>Course Access:</strong> Your HSI course access is valid for 1 year from enrollment date.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-black flex-shrink-0">•</span>
-                <span className="text-gray-700">
+                <span className="text-slate-900">
                   <strong>Certification Valid:</strong> CPR/First Aid certifications are valid for 2 years.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-black flex-shrink-0">•</span>
-                <span className="text-gray-700">
+                <span className="text-slate-900">
                   <strong>Skills Session:</strong> For CPR certification, you'll need to complete an in-person or remote skills verification session.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-black flex-shrink-0">•</span>
-                <span className="text-gray-700">
+                <span className="text-slate-900">
                   <strong>Certificate Download:</strong> Your digital certificate will be available immediately after passing.
                 </span>
               </li>
@@ -177,7 +177,7 @@ export default async function HSISuccessPage({
           <h2 className="text-2xl font-bold text-center mb-8">Need Help?</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white rounded-xl p-6 shadow-sm border">
-              <h3 className="font-bold text-gray-900 mb-4">Elevate for Humanity Support</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Elevate for Humanity Support</h3>
               <p className="text-black text-sm mb-4">
                 Questions about your enrollment or funding?
               </p>
@@ -194,7 +194,7 @@ export default async function HSISuccessPage({
             </div>
 
             <div className="bg-white rounded-xl p-6 shadow-sm border">
-              <h3 className="font-bold text-gray-900 mb-4">HSI Technical Support</h3>
+              <h3 className="font-bold text-slate-900 mb-4">HSI Technical Support</h3>
               <p className="text-black text-sm mb-4">
                 Issues with the HSI learning platform?
               </p>
@@ -227,7 +227,7 @@ export default async function HSISuccessPage({
             </Link>
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 bg-white hover:bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold transition-colors"
+              className="inline-flex items-center gap-2 bg-white hover:bg-white text-slate-900 px-8 py-4 rounded-lg font-semibold transition-colors"
             >
               Go to Dashboard
             </Link>

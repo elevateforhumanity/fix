@@ -112,7 +112,7 @@ export default function UploadDocumentsClient({ userEmail, existingDocuments }: 
 
         {/* Required checklist */}
         <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-          <h2 className="font-bold text-gray-900 mb-3">Required Documents</h2>
+          <h2 className="font-bold text-slate-900 mb-3">Required Documents</h2>
           <div className="grid grid-cols-2 gap-2">
             {[
               { type: 'w2',       label: 'W-2 or 1099' },
@@ -131,11 +131,11 @@ export default function UploadDocumentsClient({ userEmail, existingDocuments }: 
 
         {/* Upload form */}
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
-          <h2 className="font-bold text-gray-900">Add a Document</h2>
+          <h2 className="font-bold text-slate-900">Add a Document</h2>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Document Type</label>
+              <label className="block text-sm font-semibold text-slate-900 mb-1">Document Type</label>
               <select
                 value={docType}
                 onChange={e => setDocType(e.target.value)}
@@ -147,7 +147,7 @@ export default function UploadDocumentsClient({ userEmail, existingDocuments }: 
               </select>
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Tax Year</label>
+              <label className="block text-sm font-semibold text-slate-900 mb-1">Tax Year</label>
               <select
                 value={taxYear}
                 onChange={e => setTaxYear(e.target.value)}
@@ -177,7 +177,7 @@ export default function UploadDocumentsClient({ userEmail, existingDocuments }: 
             ) : (
               <div className="flex flex-col items-center gap-2">
                 <Upload className="w-8 h-8 text-black" />
-                <p className="text-sm font-semibold text-gray-700">Drop file here or click to browse</p>
+                <p className="text-sm font-semibold text-slate-900">Drop file here or click to browse</p>
                 <p className="text-xs text-black">PDF, JPG, PNG · Max 25MB</p>
               </div>
             )}
@@ -200,7 +200,7 @@ export default function UploadDocumentsClient({ userEmail, existingDocuments }: 
         {docs.length > 0 && (
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
             <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="font-bold text-gray-900">Uploaded ({docs.length})</h2>
+              <h2 className="font-bold text-slate-900">Uploaded ({docs.length})</h2>
               {allRequired && (
                 <span className="text-xs text-green-600 font-semibold flex items-center gap-1">
                   <CheckCircle className="w-3 h-3" /> Required docs complete
@@ -212,13 +212,13 @@ export default function UploadDocumentsClient({ userEmail, existingDocuments }: 
                 <li key={doc.id} className="flex items-center gap-3 px-5 py-3">
                   <FileText className="w-5 h-5 text-orange-400 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{doc.file_name}</p>
+                    <p className="text-sm font-medium text-slate-900 truncate">{doc.file_name}</p>
                     <p className="text-xs text-black">{docTypeLabel(doc.document_type)} · {formatBytes(doc.file_size)}</p>
                   </div>
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${doc.status === 'pending_review' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}`}>
                     {doc.status === 'pending_review' ? 'Pending review' : doc.status}
                   </span>
-                  <button onClick={() => removeDoc(doc.id)} className="text-gray-300 hover:text-red-400 transition-colors ml-1">
+                  <button onClick={() => removeDoc(doc.id)} className="text-slate-700 hover:text-red-400 transition-colors ml-1">
                     <X className="w-4 h-4" />
                   </button>
                 </li>

@@ -86,7 +86,7 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
             {/* Search */}
             <div className="flex gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                 <input
                   type="text"
                   value={searchQuery}
@@ -106,19 +106,19 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
             {/* Stats */}
             <div className="grid md:grid-cols-4 gap-4">
               <div className="bg-white rounded-lg p-4 border">
-                <p className="text-gray-500 text-sm">Available Grants</p>
+                <p className="text-slate-700 text-sm">Available Grants</p>
                 <p className="text-2xl font-bold text-brand-green-600">{opportunities.length}</p>
               </div>
               <div className="bg-white rounded-lg p-4 border">
-                <p className="text-gray-500 text-sm">Saved</p>
+                <p className="text-slate-700 text-sm">Saved</p>
                 <p className="text-2xl font-bold text-brand-blue-600">{savedGrants.length}</p>
               </div>
               <div className="bg-white rounded-lg p-4 border">
-                <p className="text-gray-500 text-sm">Applications</p>
+                <p className="text-slate-700 text-sm">Applications</p>
                 <p className="text-2xl font-bold text-brand-blue-600">{applications.length}</p>
               </div>
               <div className="bg-white rounded-lg p-4 border">
-                <p className="text-gray-500 text-sm">Closing Soon</p>
+                <p className="text-slate-700 text-sm">Closing Soon</p>
                 <p className="text-2xl font-bold text-brand-orange-600">
                   {opportunities.filter(o => {
                     const deadline = new Date(o.deadline);
@@ -133,9 +133,9 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
             <div className="space-y-4">
               {filteredOpportunities.length === 0 ? (
                 <div className="bg-white rounded-xl border p-12 text-center">
-                  <DollarSign className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                  <DollarSign className="w-12 h-12 text-slate-700 mx-auto mb-4" />
                   <h3 className="font-bold mb-2">No grants found</h3>
-                  <p className="text-gray-500">Try adjusting your search or sync from Grants.gov</p>
+                  <p className="text-slate-700">Try adjusting your search or sync from Grants.gov</p>
                 </div>
               ) : (
                 filteredOpportunities.map(grant => (
@@ -143,10 +143,10 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-sm text-gray-500">{grant.category}</span>
+                          <span className="text-sm text-slate-700">{grant.category}</span>
                         </div>
                         <h3 className="text-lg font-semibold mb-1">{grant.title}</h3>
-                        <p className="text-gray-600 mb-3">{grant.agency}</p>
+                        <p className="text-slate-700 mb-3">{grant.agency}</p>
                         <div className="flex items-center gap-6 text-sm">
                           <span className="text-brand-green-600 font-medium">
                             {grant.amount_min && grant.amount_max 
@@ -154,7 +154,7 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
                               : 'Amount varies'}
                           </span>
                           {grant.deadline && (
-                            <span className="text-gray-500">
+                            <span className="text-slate-700">
                               Deadline: {new Date(grant.deadline).toLocaleDateString()}
                             </span>
                           )}
@@ -165,7 +165,7 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
                           onClick={() => saveGrant(grant.id)}
                           className="p-2 rounded-lg hover:bg-white"
                         >
-                          <Bookmark className="w-5 h-5 text-gray-400" />
+                          <Bookmark className="w-5 h-5 text-slate-700" />
                         </button>
                         <Link 
                           href={`/apps/grants/opportunity/${grant.id}`}
@@ -186,13 +186,13 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
           <div className="bg-white rounded-xl border p-6">
             <h2 className="text-xl font-bold mb-4">Saved Grants</h2>
             {savedGrants.length === 0 ? (
-              <p className="text-gray-500">No saved grants yet. Browse and save grants you're interested in.</p>
+              <p className="text-slate-700">No saved grants yet. Browse and save grants you're interested in.</p>
             ) : (
               <div className="space-y-4">
                 {savedGrants.map(saved => (
                   <div key={saved.id} className="p-4 border rounded-lg">
                     <h3 className="font-bold">{saved.grant?.title || 'Grant'}</h3>
-                    <p className="text-sm text-gray-500">{saved.grant?.agency}</p>
+                    <p className="text-sm text-slate-700">{saved.grant?.agency}</p>
                   </div>
                 ))}
               </div>
@@ -209,7 +209,7 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
               </button>
             </div>
             {applications.length === 0 ? (
-              <p className="text-gray-500">No applications yet. Start by applying to a grant.</p>
+              <p className="text-slate-700">No applications yet. Start by applying to a grant.</p>
             ) : (
               <div className="space-y-4">
                 {applications.map(app => (
@@ -217,18 +217,18 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-bold">{app.grant_title}</h3>
-                        <p className="text-sm text-gray-500">{app.agency} • {formatCurrency(app.requested_amount || 0)}</p>
+                        <p className="text-sm text-slate-700">{app.agency} • {formatCurrency(app.requested_amount || 0)}</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                           app.status === 'awarded' ? 'bg-brand-green-100 text-brand-green-800' :
                           app.status === 'submitted' ? 'bg-brand-blue-100 text-brand-blue-800' :
-                          app.status === 'draft' ? 'bg-white text-gray-800' :
+                          app.status === 'draft' ? 'bg-white text-slate-900' :
                           'bg-yellow-100 text-yellow-800'
                         }`}>
                           {app.status}
                         </span>
-                        <ChevronRight className="w-5 h-5 text-gray-400" />
+                        <ChevronRight className="w-5 h-5 text-slate-700" />
                       </div>
                     </div>
                     {app.status === 'draft' && (
@@ -236,7 +236,7 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
                         <div className="h-2 bg-gray-200 rounded-full">
                           <div className="h-2 bg-white rounded-full" style={{ width: `${app.progress || 0}%` }} />
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">{app.progress || 0}% complete</p>
+                        <p className="text-xs text-slate-700 mt-1">{app.progress || 0}% complete</p>
                       </div>
                     )}
                   </Link>
@@ -268,7 +268,7 @@ export function GrantsApp({ user, subscription, opportunities, savedGrants, appl
                       </div>
                       <div className="flex-1">
                         <p className="font-medium">{grant.title}</p>
-                        <p className="text-sm text-gray-500">{deadline.toLocaleDateString()}</p>
+                        <p className="text-sm text-slate-700">{deadline.toLocaleDateString()}</p>
                       </div>
                       <div className="text-right">
                         <p className={`font-bold ${daysUntil <= 7 ? 'text-brand-red-600' : daysUntil <= 30 ? 'text-brand-orange-600' : 'text-brand-green-600'}`}>

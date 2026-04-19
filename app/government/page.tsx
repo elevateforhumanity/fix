@@ -74,7 +74,7 @@ export default async function GovernmentPage() {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Government Agencies We Serve
             </h2>
             <p className="text-lg text-black max-w-3xl mx-auto">
@@ -99,7 +99,7 @@ export default async function GovernmentPage() {
                 <div className="w-14 h-14 bg-brand-blue-100 rounded-xl flex items-center justify-center mb-6 -mt-14 relative z-10 border-4 border-white">
                   <Building2 className="w-7 h-7 text-brand-blue-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Workforce Development Boards</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Workforce Development Boards</h3>
                 <p className="text-black mb-4">
                   Local and regional workforce boards seeking ETPL-approved training providers 
                   for WIOA-funded participants. We handle enrollment, training delivery, and 
@@ -135,7 +135,7 @@ export default async function GovernmentPage() {
                 <div className="w-14 h-14 bg-brand-green-100 rounded-xl flex items-center justify-center mb-6 -mt-14 relative z-10 border-4 border-white">
                   <Users className="w-7 h-7 text-brand-green-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">State Agencies</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">State Agencies</h3>
                 <p className="text-black mb-4">
                   State departments of labor, workforce development, and education seeking 
                   scalable training solutions that meet state and federal compliance requirements 
@@ -171,7 +171,7 @@ export default async function GovernmentPage() {
                 <div className="w-14 h-14 bg-brand-blue-100 rounded-xl flex items-center justify-center mb-6 -mt-14 relative z-10 border-4 border-white">
                   <Shield className="w-7 h-7 text-brand-blue-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Federal Programs</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Federal Programs</h3>
                 <p className="text-black mb-4">
                   Federal agencies and grant recipients seeking compliant training providers 
                   for workforce development initiatives and special population programs 
@@ -202,7 +202,7 @@ export default async function GovernmentPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
                 Comprehensive Workforce Development Services
               </h2>
               <p className="text-lg text-black mb-4">
@@ -228,7 +228,7 @@ export default async function GovernmentPage() {
                      sizes="100vw" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2">ETPL-Approved Training Programs</h3>
+                    <h3 className="font-bold text-slate-900 mb-2">ETPL-Approved Training Programs</h3>
                     <p className="text-black">
                       Industry-recognized certifications in healthcare, IT, skilled trades, 
                       and business. All programs meet WIOA performance requirements and lead 
@@ -247,7 +247,7 @@ export default async function GovernmentPage() {
                      sizes="100vw" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2">Registered Apprenticeships</h3>
+                    <h3 className="font-bold text-slate-900 mb-2">Registered Apprenticeships</h3>
                     <p className="text-black">
                       DOL-registered apprenticeship programs with employer partners. 
                       Earn-and-learn model with structured OJT and related instruction 
@@ -266,7 +266,7 @@ export default async function GovernmentPage() {
                      sizes="100vw" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2">Career Services & Job Placement</h3>
+                    <h3 className="font-bold text-slate-900 mb-2">Career Services & Job Placement</h3>
                     <p className="text-black">
                       Comprehensive career services including resume building, interview prep, 
                       and direct job placement with employer partners. We maintain relationships 
@@ -285,7 +285,7 @@ export default async function GovernmentPage() {
                      sizes="100vw" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2">Compliance & Reporting</h3>
+                    <h3 className="font-bold text-slate-900 mb-2">Compliance & Reporting</h3>
                     <p className="text-black">
                       Full compliance with WIOA, FERPA, ADA, and EEO requirements. 
                       Automated outcome tracking and reporting for funding agencies with 
@@ -306,11 +306,11 @@ export default async function GovernmentPage() {
                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
               </div>
               <div className="bg-white rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Program Outcomes</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-6">Program Outcomes</h3>
                 <div className="space-y-6">
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="font-medium text-gray-700">Program Completion Rate</span>
+                      <span className="font-medium text-slate-900">Program Completion Rate</span>
                       <span className="font-bold text-brand-blue-600">87%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
@@ -319,7 +319,7 @@ export default async function GovernmentPage() {
                   </div>
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="font-medium text-gray-700">Credential Attainment</span>
+                      <span className="font-medium text-slate-900">Credential Attainment</span>
                       <span className="font-bold text-brand-green-600">92%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
@@ -328,7 +328,7 @@ export default async function GovernmentPage() {
                   </div>
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="font-medium text-gray-700">Employment Rate (Q2)</span>
+                      <span className="font-medium text-slate-900">Employment Rate (Q2)</span>
                       <span className="font-bold text-brand-blue-600">78%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
@@ -337,7 +337,7 @@ export default async function GovernmentPage() {
                   </div>
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="font-medium text-gray-700">Median Wage Increase</span>
+                      <span className="font-medium text-slate-900">Median Wage Increase</span>
                       <span className="font-bold text-brand-orange-600">34%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
@@ -358,7 +358,7 @@ export default async function GovernmentPage() {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Why Partner With Elevate for Humanity
             </h2>
             <p className="text-lg text-black max-w-3xl mx-auto">
@@ -382,7 +382,7 @@ export default async function GovernmentPage() {
                 <div className="w-14 h-14 bg-brand-blue-100 rounded-full flex items-center justify-center mx-auto -mt-12 mb-3 border-4 border-white relative z-10">
                   <TrendingUp className="w-7 h-7 text-brand-blue-600" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">Proven Results</h3>
+                <h3 className="font-bold text-slate-900 mb-2">Proven Results</h3>
                 <p className="text-sm text-black">
                   Consistent track record of exceeding WIOA performance measures across 
                   all primary indicators of performance.
@@ -403,7 +403,7 @@ export default async function GovernmentPage() {
                 <div className="w-14 h-14 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto -mt-12 mb-3 border-4 border-white relative z-10">
                   <Target className="w-7 h-7 text-brand-green-600" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">Priority Populations</h3>
+                <h3 className="font-bold text-slate-900 mb-2">Priority Populations</h3>
                 <p className="text-sm text-black">
                   Specialized experience serving veterans, justice-involved individuals, 
                   and other priority populations with wraparound support.
@@ -424,7 +424,7 @@ export default async function GovernmentPage() {
                 <div className="w-14 h-14 bg-brand-blue-100 rounded-full flex items-center justify-center mx-auto -mt-12 mb-3 border-4 border-white relative z-10">
                   <Handshake className="w-7 h-7 text-brand-blue-600" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">Employer Network</h3>
+                <h3 className="font-bold text-slate-900 mb-2">Employer Network</h3>
                 <p className="text-sm text-black">
                   Strong relationships with 100+ employers actively hiring our graduates 
                   in healthcare, IT, and skilled trades.
@@ -445,7 +445,7 @@ export default async function GovernmentPage() {
                 <div className="w-14 h-14 bg-brand-orange-100 rounded-full flex items-center justify-center mx-auto -mt-12 mb-3 border-4 border-white relative z-10">
                   <BarChart3 className="w-7 h-7 text-brand-orange-600" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">Transparent Reporting</h3>
+                <h3 className="font-bold text-slate-900 mb-2">Transparent Reporting</h3>
                 <p className="text-sm text-black">
                   Real-time dashboards and automated reporting that meets all federal 
                   and state compliance requirements.
@@ -460,7 +460,7 @@ export default async function GovernmentPage() {
       <section className="py-16 bg-brand-blue-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Eligible Funding Streams
             </h2>
             <p className="text-lg text-black max-w-3xl mx-auto">
@@ -486,7 +486,7 @@ export default async function GovernmentPage() {
                   <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <IconComponent className="w-6 h-6 text-brand-blue-600" />
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{item.name}</h3>
+                  <h3 className="font-bold text-slate-900 mb-2">{item.name}</h3>
                   <p className="text-sm text-black">{item.desc}</p>
                 </div>
               );

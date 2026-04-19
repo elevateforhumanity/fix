@@ -276,16 +276,16 @@ export default function ReferralDashboard({ userId }: ReferralDashboardProps) {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                     User
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                     Reward
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                     Date
                   </th>
                 </tr>
@@ -297,7 +297,7 @@ export default function ReferralDashboard({ userId }: ReferralDashboardProps) {
                       <div className="text-sm font-medium text-black">
                         {referral.referred_user?.first_name} {referral.referred_user?.last_name}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-slate-700">
                         {referral.referred_user?.email}
                       </div>
                     </td>
@@ -315,7 +315,7 @@ export default function ReferralDashboard({ userId }: ReferralDashboardProps) {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                       {referral.reward_amount ? `$${referral.reward_amount.toFixed(2)}` : '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
                       {new Date(referral.created_at).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
                     </td>
                   </tr>
@@ -325,7 +325,7 @@ export default function ReferralDashboard({ userId }: ReferralDashboardProps) {
           </div>
         ) : (
           <div className="p-12 text-center">
-            <Award className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <Award className="w-16 h-16 text-slate-700 mx-auto mb-4" />
             <p className="text-black">No referrals yet. Start sharing your code!</p>
           </div>
         )}

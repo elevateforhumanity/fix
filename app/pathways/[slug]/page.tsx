@@ -77,7 +77,7 @@ export default async function PathwayDetailPage({ params }: { params: Promise<{ 
             />
           </div>
 
-          <div className="text-gray-800">
+          <div className="text-slate-900">
             <div className="text-sm text-black">Industry</div>
             <div className="text-xl font-semibold">{pathway.industry}</div>
 
@@ -92,7 +92,7 @@ export default async function PathwayDetailPage({ params }: { params: Promise<{ 
 
             <div className="mt-8 rounded-md border border-gray-200 p-5 bg-white">
               <div className="font-semibold">What happens next</div>
-              <ol className="mt-3 list-decimal pl-5 text-gray-700">
+              <ol className="mt-3 list-decimal pl-5 text-slate-900">
                 <li>Start your application (or partner intake).</li>
                 <li>Complete eligibility screening and document upload if required.</li>
                 <li>Get routed to the correct funding/workforce process.</li>

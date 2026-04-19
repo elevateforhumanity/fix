@@ -135,7 +135,7 @@ export default function DocumentUploadPage() {
               <h1 className="text-2xl font-bold text-slate-900">Upload Required Documents</h1>
             </div>
           </div>
-          <p className="text-gray-600 mb-8">
+          <p className="text-slate-700 mb-8">
             Upload each document below. Required items must be submitted before your enrollment can be finalized.
             Documents are stored securely and only accessible to authorized Elevate staff.
           </p>
@@ -158,11 +158,11 @@ export default function DocumentUploadPage() {
                     }`}
                   >
                     <FileText className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                      isUploaded ? 'text-brand-green-600' : doc.required ? 'text-yellow-600' : 'text-gray-400'
+                      isUploaded ? 'text-brand-green-600' : doc.required ? 'text-yellow-600' : 'text-slate-700'
                     }`} />
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-medium text-gray-900">{doc.label}</span>
+                        <span className="font-medium text-slate-900">{doc.label}</span>
                         {doc.required && !isUploaded && (
                           <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full">Required</span>
                         )}
@@ -170,10 +170,10 @@ export default function DocumentUploadPage() {
                           <span className="text-xs bg-brand-green-100 text-brand-green-800 px-2 py-0.5 rounded-full">Uploaded</span>
                         )}
                         {!doc.required && !isUploaded && (
-                          <span className="text-xs bg-white text-gray-600 px-2 py-0.5 rounded-full">Optional</span>
+                          <span className="text-xs bg-white text-slate-700 px-2 py-0.5 rounded-full">Optional</span>
                         )}
                       </div>
-                      <p className="text-sm text-gray-600">{doc.description}</p>
+                      <p className="text-sm text-slate-700">{doc.description}</p>
                     </div>
                   </div>
                 );
@@ -190,10 +190,10 @@ export default function DocumentUploadPage() {
           {/* Social Security Number */}
           <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
             <h2 className="text-lg font-semibold mb-1">Social Security Number</h2>
-            <p className="text-sm text-gray-500 mb-4">Enter your SSN. It is stored securely and never displayed after submission.</p>
+            <p className="text-sm text-slate-700 mb-4">Enter your SSN. It is stored securely and never displayed after submission.</p>
             <div className="flex gap-3 items-end">
               <div className="flex-1">
-                <label htmlFor="ssn" className="block text-sm font-medium text-gray-700 mb-1">SSN *</label>
+                <label htmlFor="ssn" className="block text-sm font-medium text-slate-900 mb-1">SSN *</label>
                 <input
                   id="ssn"
                   type="text"
@@ -239,7 +239,7 @@ export default function DocumentUploadPage() {
 
             <form onSubmit={handleUpload} className="space-y-5">
               <div>
-                <label htmlFor="docType" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="docType" className="block text-sm font-medium text-slate-900 mb-1">
                   Document Type *
                 </label>
                 <select
@@ -259,7 +259,7 @@ export default function DocumentUploadPage() {
               </div>
 
               <div>
-                <label htmlFor="desc" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="desc" className="block text-sm font-medium text-slate-900 mb-1">
                   Description
                 </label>
                 <input
@@ -273,7 +273,7 @@ export default function DocumentUploadPage() {
               </div>
 
               <div>
-                <label htmlFor="file" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="file" className="block text-sm font-medium text-slate-900 mb-1">
                   File *
                 </label>
                 <input
@@ -284,7 +284,7 @@ export default function DocumentUploadPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange-500"
                   accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
                 />
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-slate-700 mt-1">
                   PDF, JPG, PNG, DOC, or DOCX — max 10 MB
                 </p>
               </div>

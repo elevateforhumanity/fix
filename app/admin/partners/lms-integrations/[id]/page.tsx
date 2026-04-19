@@ -76,7 +76,7 @@ export default async function LMSIntegrationDetailPage({ params }: Props) {
 
   const statusColors: Record<string, string> = {
     active: 'bg-brand-green-100 text-brand-green-800',
-    inactive: 'bg-gray-100 text-gray-800',
+    inactive: 'bg-gray-100 text-slate-900',
     error: 'bg-brand-red-100 text-brand-red-800',
     pending: 'bg-yellow-100 text-yellow-800',
   };
@@ -109,7 +109,7 @@ export default async function LMSIntegrationDetailPage({ params }: Props) {
               <p className="text-slate-600">{provider.provider_type || 'LMS Provider'}</p>
               <div className="flex items-center gap-2 mt-1">
                 <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
-                  statusColors[provider.status] || 'bg-gray-100 text-gray-800'
+                  statusColors[provider.status] || 'bg-gray-100 text-slate-900'
                 }`}>
                   {provider.status === 'active' ? (
                     <span className="text-slate-400 flex-shrink-0">•</span>
@@ -218,7 +218,7 @@ export default async function LMSIntegrationDetailPage({ params }: Props) {
                     </div>
                     <div className="flex items-center gap-2">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        course.active ? 'bg-brand-green-100 text-brand-green-800' : 'bg-gray-100 text-gray-800'
+                        course.active ? 'bg-brand-green-100 text-brand-green-800' : 'bg-gray-100 text-slate-900'
                       }`}>
                         {course.active ? 'Active' : 'Inactive'}
                       </span>

@@ -54,16 +54,16 @@ export default async function RevenueAnalyticsPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <nav className="text-sm mb-6">
-          <ol className="flex items-center space-x-2 text-gray-500">
+          <ol className="flex items-center space-x-2 text-slate-700">
             <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
             <li>/</li>
             <li><Link href="/admin/analytics" className="hover:text-primary">Analytics</Link></li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">Revenue</li>
+            <li className="text-slate-900 font-medium">Revenue</li>
           </ol>
         </nav>
         <h1 className="text-3xl font-bold mb-2">Revenue Analytics</h1>
-        <p className="text-gray-500 mb-8">Payment transactions — current year</p>
+        <p className="text-slate-700 mb-8">Payment transactions — current year</p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {[
@@ -72,7 +72,7 @@ export default async function RevenueAnalyticsPage() {
             ['Last Month', fmtUsd(lastMonth), null],
           ].map(([label, value, sub]) => (
             <div key={label as string} className="bg-white rounded-lg shadow-sm border p-6">
-              <p className="text-sm text-gray-500">{label}</p>
+              <p className="text-sm text-slate-700">{label}</p>
               <p className="text-3xl font-bold mt-1">{value}</p>
               {sub && <p className={`text-xs mt-1 ${momChange >= 0 ? 'text-green-600' : 'text-red-500'}`}>{sub}</p>}
             </div>
@@ -84,14 +84,14 @@ export default async function RevenueAnalyticsPage() {
             <h2 className="font-semibold mb-4">Revenue by Program</h2>
             {programRevenue.length > 0 ? (
               <table className="w-full text-sm">
-                <thead><tr className="text-left text-gray-500 border-b"><th className="pb-2">Program</th><th className="pb-2 text-right">Revenue</th><th className="pb-2 text-right">Txns</th></tr></thead>
+                <thead><tr className="text-left text-slate-700 border-b"><th className="pb-2">Program</th><th className="pb-2 text-right">Revenue</th><th className="pb-2 text-right">Txns</th></tr></thead>
                 <tbody className="divide-y">
                   {programRevenue.map((p) => (
-                    <tr key={p.title}><td className="py-2">{p.title}</td><td className="py-2 text-right font-medium">{fmtUsd(p.total)}</td><td className="py-2 text-right text-gray-500">{p.count}</td></tr>
+                    <tr key={p.title}><td className="py-2">{p.title}</td><td className="py-2 text-right font-medium">{fmtUsd(p.total)}</td><td className="py-2 text-right text-slate-700">{p.count}</td></tr>
                   ))}
                 </tbody>
               </table>
-            ) : <p className="text-gray-500 text-sm">No payment data yet.</p>}
+            ) : <p className="text-slate-700 text-sm">No payment data yet.</p>}
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -99,7 +99,7 @@ export default async function RevenueAnalyticsPage() {
             <div className="space-y-2">
               {monthlyTotals.map(({ month, total }) => (
                 <div key={month} className="flex items-center gap-3">
-                  <span className="text-sm text-gray-500 w-8">{month}</span>
+                  <span className="text-sm text-slate-700 w-8">{month}</span>
                   <div className="flex-1 bg-gray-100 rounded-full h-2">
                     <div className="bg-brand-blue-500 h-2 rounded-full" style={{ width: totalYTD > 0 ? `${Math.round((total / totalYTD) * 100 * 12)}%` : '0%', maxWidth: '100%' }} />
                   </div>

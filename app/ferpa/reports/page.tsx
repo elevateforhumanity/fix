@@ -106,15 +106,15 @@ export default async function FerpaReportsPage() {
       </section>
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Reports</span>
+            <span className="text-slate-900 font-medium">Reports</span>
           </nav>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
-              <p className="text-gray-600 mt-1">Generate compliance and audit reports</p>
+              <h1 className="text-2xl font-bold text-slate-900">Reports & Analytics</h1>
+              <p className="text-slate-700 mt-1">Generate compliance and audit reports</p>
             </div>
             <Link
               href="/ferpa/reports/generate"
@@ -131,23 +131,23 @@ export default async function FerpaReportsPage() {
         {/* Quick Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-            <p className="text-sm text-gray-500">Total Requests</p>
-            <p className="text-3xl font-bold text-gray-900">{totalRequests || 0}</p>
+            <p className="text-sm text-slate-700">Total Requests</p>
+            <p className="text-3xl font-bold text-slate-900">{totalRequests || 0}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-            <p className="text-sm text-gray-500">Completed</p>
+            <p className="text-sm text-slate-700">Completed</p>
             <p className="text-3xl font-bold text-brand-green-600">{completedRequests || 0}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-            <p className="text-sm text-gray-500">Audit Log Entries</p>
-            <p className="text-3xl font-bold text-gray-900">{auditLogEntries || 0}</p>
+            <p className="text-sm text-slate-700">Audit Log Entries</p>
+            <p className="text-3xl font-bold text-slate-900">{auditLogEntries || 0}</p>
           </div>
         </div>
 
         {/* Report Types */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Available Reports</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Available Reports</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
             {reportTypes.map((report) => {
@@ -169,8 +169,8 @@ export default async function FerpaReportsPage() {
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${colorClasses[report.color]}`}>
                     <Icon className="w-5 h-5" />
                   </div>
-                  <h3 className="font-semibold text-gray-900">{report.name}</h3>
-                  <p className="text-sm text-gray-500 mt-1 mb-4">{report.description}</p>
+                  <h3 className="font-semibold text-slate-900">{report.name}</h3>
+                  <p className="text-sm text-slate-700 mt-1 mb-4">{report.description}</p>
                   <div className="flex items-center gap-2">
                     <Link
                       href={`/ferpa/reports/generate?type=${report.id}`}
@@ -179,7 +179,7 @@ export default async function FerpaReportsPage() {
                       Generate
                     </Link>
                     <span className="text-slate-600">|</span>
-                    <button className="text-sm text-gray-600 hover:text-gray-900 font-medium inline-flex items-center gap-1">
+                    <button className="text-sm text-slate-700 hover:text-slate-900 font-medium inline-flex items-center gap-1">
                       <Download className="w-3 h-3" />
                       Export
                     </button>
@@ -193,10 +193,10 @@ export default async function FerpaReportsPage() {
         {/* Recent Reports */}
         <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Recently Generated</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Recently Generated</h2>
           </div>
-          <div className="p-6 text-center text-gray-500">
-            <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+          <div className="p-6 text-center text-slate-700">
+            <FileText className="w-12 h-12 text-slate-700 mx-auto mb-4" />
             <p>No reports generated yet</p>
             <p className="text-sm mt-1">Generated reports will appear here</p>
           </div>

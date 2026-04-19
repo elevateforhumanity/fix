@@ -101,19 +101,19 @@ export function FundingPathwayCard({
           <Icon className={`w-5 h-5 ${config.textColor}`} />
         </div>
         <div>
-          <p className="text-xs text-gray-500">Funding Pathway</p>
+          <p className="text-xs text-slate-700">Funding Pathway</p>
           <p className={`font-semibold ${config.textColor}`}>{config.label}</p>
         </div>
       </div>
       
       {pathway === 'workforce_funded' && (
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-slate-700">
           Your training is funded through a workforce program. No payment required.
         </p>
       )}
       
       {pathway === 'employer_sponsored' && (
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-slate-700">
           Your employer is sponsoring your training through post-hire reimbursement.
         </p>
       )}
@@ -121,29 +121,29 @@ export function FundingPathwayCard({
       {pathway === 'structured_tuition' && paymentStatus && (
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Down Payment</span>
+            <span className="text-slate-700">Down Payment</span>
             <span className={paymentStatus.downPaymentPaid ? 'text-brand-green-600' : 'text-amber-600'}>
               {paymentStatus.downPaymentPaid ? 'Paid' : 'Due'}
             </span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Monthly Payments</span>
-            <span className="text-gray-900">
+            <span className="text-slate-700">Monthly Payments</span>
+            <span className="text-slate-900">
               {paymentStatus.monthsPaid || 0} / {paymentStatus.maxMonths || 3}
             </span>
           </div>
           {paymentStatus.balanceRemaining !== undefined && paymentStatus.balanceRemaining > 0 && (
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Balance</span>
-              <span className="font-medium text-gray-900">
+              <span className="text-slate-700">Balance</span>
+              <span className="font-medium text-slate-900">
                 ${paymentStatus.balanceRemaining.toFixed(2)}
               </span>
             </div>
           )}
           {paymentStatus.nextPaymentDue && (
             <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Next Payment</span>
-              <span className="text-gray-900">
+              <span className="text-slate-700">Next Payment</span>
+              <span className="text-slate-900">
                 {new Date(paymentStatus.nextPaymentDue).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
             </div>
@@ -166,7 +166,7 @@ export function EnrollmentStatusBadge({ status, pathway }: EnrollmentStatusBadge
     active: { bg: 'bg-brand-green-100', text: 'text-brand-green-700' },
     paused: { bg: 'bg-brand-orange-100', text: 'text-brand-orange-700' },
     completed: { bg: 'bg-brand-blue-100', text: 'text-brand-blue-700' },
-    cancelled: { bg: 'bg-gray-100', text: 'text-gray-600' },
+    cancelled: { bg: 'bg-gray-100', text: 'text-slate-700' },
     withdrawn: { bg: 'bg-brand-red-100', text: 'text-brand-red-700' },
   };
 

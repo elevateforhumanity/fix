@@ -110,18 +110,18 @@ export default async function FerpaDocumentationPage() {
       </section>
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Documentation</span>
+            <span className="text-slate-900 font-medium">Documentation</span>
           </nav>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Documentation</h1>
-              <p className="text-gray-600 mt-1">FERPA policies, forms, and resources</p>
+              <h1 className="text-2xl font-bold text-slate-900">Documentation</h1>
+              <p className="text-slate-700 mt-1">FERPA policies, forms, and resources</p>
             </div>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search documents..."
@@ -140,24 +140,24 @@ export default async function FerpaDocumentationPage() {
               <div key={type} className="bg-white rounded-xl shadow-sm border border-gray-200">
                 <div className="px-6 py-4 border-b border-gray-200 flex items-center gap-3">
                   <FolderOpen className="w-5 h-5 text-brand-blue-600" />
-                  <h2 className="text-lg font-semibold text-gray-900">
+                  <h2 className="text-lg font-semibold text-slate-900">
                     {DOCUMENT_TYPE_LABELS[type] || type}
                   </h2>
-                  <span className="text-sm text-gray-500">({docs.length})</span>
+                  <span className="text-sm text-slate-700">({docs.length})</span>
                 </div>
                 <div className="divide-y divide-gray-200">
                   {docs.map((doc) => (
                     <div key={doc.id} className="px-6 py-4 flex items-center justify-between hover:bg-white">
                       <div className="flex items-center gap-4">
                         <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-gray-500" />
+                          <FileText className="w-5 h-5 text-slate-700" />
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900">{doc.title}</h3>
+                          <h3 className="font-medium text-slate-900">{doc.title}</h3>
                           {doc.description && (
-                            <p className="text-sm text-gray-500">{doc.description}</p>
+                            <p className="text-sm text-slate-700">{doc.description}</p>
                           )}
-                          <p className="text-xs text-gray-400 mt-1">Version {doc.version}</p>
+                          <p className="text-xs text-slate-700 mt-1">Version {doc.version}</p>
                         </div>
                       </div>
                       {doc.file_url ? (
@@ -171,7 +171,7 @@ export default async function FerpaDocumentationPage() {
                           Download
                         </a>
                       ) : (
-                        <span className="text-sm text-gray-500">No file</span>
+                        <span className="text-sm text-slate-700">No file</span>
                       )}
                     </div>
                   ))}
@@ -181,15 +181,15 @@ export default async function FerpaDocumentationPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-            <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No documents available</p>
+            <FileText className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            <p className="text-slate-700">No documents available</p>
           </div>
         )}
 
         {/* External Resources */}
         <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">External Resources</h2>
+            <h2 className="text-lg font-semibold text-slate-900">External Resources</h2>
           </div>
           <div className="divide-y divide-gray-200">
             {externalResources.map((resource, index) => (
@@ -201,10 +201,10 @@ export default async function FerpaDocumentationPage() {
                 className="px-6 py-4 flex items-center justify-between hover:bg-white block"
               >
                 <div>
-                  <h3 className="font-medium text-gray-900">{resource.title}</h3>
-                  <p className="text-sm text-gray-500">{resource.description}</p>
+                  <h3 className="font-medium text-slate-900">{resource.title}</h3>
+                  <p className="text-sm text-slate-700">{resource.description}</p>
                 </div>
-                <ExternalLink className="w-4 h-4 text-gray-400" />
+                <ExternalLink className="w-4 h-4 text-slate-700" />
               </a>
             ))}
           </div>

@@ -333,7 +333,7 @@ export default function AILiveChat({
                         </p>
                       )}
                     </div>
-                    <p className="text-xs text-gray-500 mt-1 px-2">
+                    <p className="text-xs text-slate-700 mt-1 px-2">
                       {message.timestamp.toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
@@ -383,7 +383,7 @@ export default function AILiveChat({
                 )}
               </button>
             </div>
-            <p className="text-xs text-gray-500 mt-2 text-center">
+            <p className="text-xs text-slate-700 mt-2 text-center">
               Powered by AI • Available 24/7
             </p>
           </div>

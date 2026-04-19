@@ -166,17 +166,17 @@ export default async function ReviewDetailPage({
       <div className="mb-6">
         <Link
           href="/admin/review-queue"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+          className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Queue
         </Link>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-slate-900">
               {queueTypeLabels[item.queue_type] || item.queue_type}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-slate-700">
               {item.subject_type}: {item.subject_id.slice(0, 8)}...
             </p>
           </div>
@@ -207,7 +207,7 @@ export default async function ReviewDetailPage({
           {/* Document Preview */}
           {document && (
             <div className="bg-white border rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <FileText className="w-4 h-4" />
                 Document
               </h3>
@@ -233,10 +233,10 @@ export default async function ReviewDetailPage({
           {/* Extraction Results */}
           {extraction && (
             <div className="bg-white border rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-3">Extraction Results</h3>
+              <h3 className="font-semibold text-slate-900 mb-3">Extraction Results</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-4 text-sm">
-                  <span className="text-gray-600">Confidence:</span>
+                  <span className="text-slate-700">Confidence:</span>
                   <div className="flex items-center gap-2">
                     <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div
@@ -248,7 +248,7 @@ export default async function ReviewDetailPage({
                   </div>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
-                  <span className="text-gray-600">Status:</span>
+                  <span className="text-slate-700">Status:</span>
                   <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                     extraction.status === 'passed' ? 'bg-brand-green-100 text-brand-green-700' :
                     extraction.status === 'failed' ? 'bg-brand-red-100 text-brand-red-700' :
@@ -259,7 +259,7 @@ export default async function ReviewDetailPage({
                 </div>
                 {extraction.validation_errors?.length > 0 && (
                   <div>
-                    <span className="text-gray-600 text-sm">Validation Errors:</span>
+                    <span className="text-slate-700 text-sm">Validation Errors:</span>
                     <ul className="mt-1 space-y-1">
                       {extraction.validation_errors.map((err: string, i: number) => (
                         <li key={i} className="text-brand-red-600 text-xs">• {err}</li>
@@ -268,7 +268,7 @@ export default async function ReviewDetailPage({
                   </div>
                 )}
                 <div>
-                  <span className="text-gray-600 text-sm">Extracted Fields:</span>
+                  <span className="text-slate-700 text-sm">Extracted Fields:</span>
                   <pre className="mt-1 p-3 bg-gray-50 rounded text-xs overflow-auto max-h-48">
                     {JSON.stringify(extraction.extracted, null, 2)}
                   </pre>
@@ -280,22 +280,22 @@ export default async function ReviewDetailPage({
           {/* Transfer Hours */}
           {transferHours && (
             <div className="bg-white border rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-3">Transfer Hours</h3>
+              <h3 className="font-semibold text-slate-900 mb-3">Transfer Hours</h3>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-gray-600">Institution:</span>
+                  <span className="text-slate-700">Institution:</span>
                   <p className="font-medium">{transferHours.source_institution}</p>
                 </div>
                 <div>
-                  <span className="text-gray-600">State:</span>
+                  <span className="text-slate-700">State:</span>
                   <p className="font-medium">{transferHours.source_state}</p>
                 </div>
                 <div>
-                  <span className="text-gray-600">Total Hours:</span>
+                  <span className="text-slate-700">Total Hours:</span>
                   <p className="font-medium">{transferHours.total_hours}</p>
                 </div>
                 <div>
-                  <span className="text-gray-600">Approved Hours:</span>
+                  <span className="text-slate-700">Approved Hours:</span>
                   <p className="font-medium">{transferHours.approved_hours || 'Pending'}</p>
                 </div>
               </div>
@@ -305,7 +305,7 @@ export default async function ReviewDetailPage({
           {/* Routing Recommendations */}
           {routingScores.length > 0 && (
             <div className="bg-white border rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
                 Routing Recommendations
               </h3>
@@ -314,11 +314,11 @@ export default async function ReviewDetailPage({
                   <div key={score.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
                       <p className="font-medium">{score.shops?.name || 'Unknown Shop'}</p>
-                      <p className="text-sm text-gray-600">{score.shops?.address}, {score.shops?.city}</p>
+                      <p className="text-sm text-slate-700">{score.shops?.address}, {score.shops?.city}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-lg">{(score.total_score * 100).toFixed(0)}%</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-slate-700">
                         {score.distance_miles ? `${score.distance_miles} mi` : 'No distance'}
                       </p>
                     </div>
@@ -331,7 +331,7 @@ export default async function ReviewDetailPage({
           {/* Decision History */}
           {decisions.length > 0 && (
             <div className="bg-white border rounded-lg p-4">
-              <h3 className="font-semibold text-gray-900 mb-3">Decision History</h3>
+              <h3 className="font-semibold text-slate-900 mb-3">Decision History</h3>
               <div className="space-y-3">
                 {decisions.map((decision: any) => (
                   <div key={decision.id} className="border-l-2 border-gray-200 pl-4 py-2">
@@ -343,12 +343,12 @@ export default async function ReviewDetailPage({
                       }`}>
                         {decision.decision}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-slate-700">
                         by {decision.actor} • {new Date(decision.created_at).toLocaleString()}
                       </span>
                     </div>
                     {decision.reason_codes?.length > 0 && (
-                      <p className="text-xs text-gray-600 mt-1">
+                      <p className="text-xs text-slate-700 mt-1">
                         Reasons: {decision.reason_codes.join(', ')}
                       </p>
                     )}
@@ -371,19 +371,19 @@ export default async function ReviewDetailPage({
 
           {/* Meta Info */}
           <div className="bg-gray-50 border rounded-lg p-4">
-            <h3 className="font-semibold text-gray-900 mb-3">Queue Info</h3>
+            <h3 className="font-semibold text-slate-900 mb-3">Queue Info</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Priority:</span>
+                <span className="text-slate-700">Priority:</span>
                 <span className="font-medium">{item.priority}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Created:</span>
+                <span className="text-slate-700">Created:</span>
                 <span className="font-medium">{new Date(item.created_at).toLocaleDateString()}</span>
               </div>
               {item.assigned_to && (
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Assigned:</span>
+                  <span className="text-slate-700">Assigned:</span>
                   <span className="font-medium">{item.assigned_to.slice(0, 8)}...</span>
                 </div>
               )}

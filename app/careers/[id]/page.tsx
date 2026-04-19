@@ -109,8 +109,8 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
             <div className="w-20 h-20 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-slate-500 flex-shrink-0">•</span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Application Submitted!</h1>
-            <p className="text-gray-600 mb-8">
+            <h1 className="text-3xl font-bold text-slate-900 mb-4">Application Submitted!</h1>
+            <p className="text-slate-700 mb-8">
               Thank you for your interest in joining Elevate for Humanity. 
               We&apos;ll review your application and get back to you within 5-7 business days.
             </p>
@@ -121,7 +121,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
               >
                 View More Positions
               </Link>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate-700">
                 Questions? Email us at <a href="/contact" className="text-brand-blue-600">Contact Us</a>
               </p>
             </div>
@@ -145,8 +145,8 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
 
         {/* Job Header */}
         <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Apply for Position</h1>
-          <div className="flex flex-wrap gap-4 text-gray-600">
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">Apply for Position</h1>
+          <div className="flex flex-wrap gap-4 text-slate-700">
             <span className="flex items-center gap-2">
               <Briefcase className="w-5 h-5" />
               Full-time
@@ -164,12 +164,12 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
 
         {/* Application Form */}
         <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Information</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Your Information</h2>
           
           {/* Personal Info */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">First Name *</label>
               <input
                 type="text"
                 required
@@ -180,7 +180,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Last Name *</label>
               <input
                 type="text"
                 required
@@ -191,7 +191,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Email *</label>
               <input
                 type="email"
                 required
@@ -202,7 +202,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Phone *</label>
               <input
                 type="tel"
                 required
@@ -217,7 +217,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
           {/* Links */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">LinkedIn Profile</label>
               <input
                 type="url"
                 value={formData.linkedIn}
@@ -227,7 +227,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Portfolio/Website</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Portfolio/Website</label>
               <input
                 type="url"
                 value={formData.portfolio}
@@ -240,7 +240,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
 
           {/* Resume Upload */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Resume/CV *</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Resume/CV *</label>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-brand-blue-500 transition cursor-pointer">
               <input
                 type="file"
@@ -251,13 +251,13 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
                 required
               />
               <label htmlFor="resume-upload" className="cursor-pointer">
-                <Upload className="w-10 h-10 text-gray-400 mx-auto mb-3" />
+                <Upload className="w-10 h-10 text-slate-700 mx-auto mb-3" />
                 {resume ? (
                   <p className="text-brand-green-600 font-medium">{resume.name}</p>
                 ) : (
                   <>
-                    <p className="text-gray-600 font-medium">Click to upload your resume</p>
-                    <p className="text-sm text-gray-500 mt-1">PDF, DOC, or DOCX (max 5MB)</p>
+                    <p className="text-slate-700 font-medium">Click to upload your resume</p>
+                    <p className="text-sm text-slate-700 mt-1">PDF, DOC, or DOCX (max 5MB)</p>
                   </>
                 )}
               </label>
@@ -266,7 +266,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
 
           {/* Cover Letter */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Cover Letter</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Cover Letter</label>
             <textarea
               value={formData.coverLetter}
               onChange={(e) => setFormData({...formData, coverLetter: e.target.value})}
@@ -278,7 +278,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
 
           {/* Experience */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Relevant Experience *</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">Relevant Experience *</label>
             <textarea
               required
               value={formData.experience}
@@ -292,7 +292,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
           {/* Additional Questions */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Availability *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Availability *</label>
               <select
                 required
                 value={formData.availability}
@@ -307,7 +307,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Salary Expectations</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Salary Expectations</label>
               <input
                 type="text"
                 value={formData.salary}
@@ -319,7 +319,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
           </div>
 
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">How did you hear about us?</label>
+            <label className="block text-sm font-medium text-slate-900 mb-2">How did you hear about us?</label>
             <select
               value={formData.heardAbout}
               onChange={(e) => setFormData({...formData, heardAbout: e.target.value})}
@@ -337,7 +337,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
 
           {/* Submit */}
           <div className="flex items-center justify-between pt-6 border-t">
-            <p className="text-sm text-gray-500">* Required fields</p>
+            <p className="text-sm text-slate-700">* Required fields</p>
             <button
               type="submit"
               disabled={submitting}
@@ -349,7 +349,7 @@ export default function CareerApplicationPage({ params }: { params: Promise<{ id
         </form>
 
         {/* Contact Info */}
-        <div className="mt-8 text-center text-gray-600">
+        <div className="mt-8 text-center text-slate-700">
           <p>Questions about this position? Contact us at{' '}
             <a href="/contact" className="text-brand-blue-600 hover:underline">
               our contact form

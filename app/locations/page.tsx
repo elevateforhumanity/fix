@@ -47,9 +47,9 @@ export default async function LocationsPage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <MapPin className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Locations</h1>
-          <p className="text-gray-600 mb-6">Location information is being updated.</p>
+          <MapPin className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Locations</h1>
+          <p className="text-slate-700 mb-6">Location information is being updated.</p>
           <Link href="/contact" className="text-brand-blue-600 hover:underline">
             Contact us for location details
           </Link>
@@ -96,21 +96,21 @@ export default async function LocationsPage() {
         {/* Main Office */}
         {mainOffice && (
           <section className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Main Campus</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-8">Main Campus</h2>
             <div className="bg-white border-2 border-gray-200 rounded-2xl p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{mainOffice.name}</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{mainOffice.name}</h3>
                   
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <MapPin className="w-5 h-5 text-brand-blue-600 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="text-gray-900">{mainOffice.address_line1}</p>
+                        <p className="text-slate-900">{mainOffice.address_line1}</p>
                         {mainOffice.address_line2 && (
-                          <p className="text-gray-900">{mainOffice.address_line2}</p>
+                          <p className="text-slate-900">{mainOffice.address_line2}</p>
                         )}
-                        <p className="text-gray-900">
+                        <p className="text-slate-900">
                           {mainOffice.city}, {mainOffice.state} {mainOffice.zip_code}
                         </p>
                       </div>
@@ -151,11 +151,11 @@ export default async function LocationsPage() {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h4 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
                     <Clock className="w-5 h-5 text-brand-blue-600" />
                     Hours of Operation
                   </h4>
-                  <div className="space-y-2 text-gray-600">
+                  <div className="space-y-2 text-slate-700">
                     <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
                     <p>Saturday: 9:00 AM - 1:00 PM</p>
                     <p>Sunday: Closed</p>
@@ -169,15 +169,15 @@ export default async function LocationsPage() {
         {/* Other Locations */}
         {otherLocations.length > 0 && (
           <section className="mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Training Centers</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-8">Training Centers</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {otherLocations.map((location: Location) => (
                 <div key={location.id} className="bg-white border rounded-xl p-6 hover:shadow-md transition">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">{location.name}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 mb-3">{location.name}</h3>
                   
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-slate-700">
                     <div className="flex items-start gap-2">
-                      <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                      <MapPin className="w-4 h-4 text-slate-700 mt-0.5 flex-shrink-0" />
                       <div>
                         <p>{location.address_line1}</p>
                         <p>{location.city}, {location.state} {location.zip_code}</p>
@@ -186,7 +186,7 @@ export default async function LocationsPage() {
 
                     {location.phone && (
                       <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <Phone className="w-4 h-4 text-slate-700 flex-shrink-0" />
                         <a href={`tel:${location.phone.replace(/\D/g, '')}`} className="text-brand-blue-600 hover:underline">
                           {location.phone}
                         </a>
@@ -195,7 +195,7 @@ export default async function LocationsPage() {
 
                     {location.email && (
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <Mail className="w-4 h-4 text-slate-700 flex-shrink-0" />
                         <a href={`mailto:${location.email}`} className="text-brand-blue-600 hover:underline">
                           {location.email}
                         </a>
@@ -223,7 +223,7 @@ export default async function LocationsPage() {
 
         {/* FAQ */}
         <section className="rounded-2xl p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Locations FAQ</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">Locations FAQ</h2>
           <div className="space-y-4 max-w-2xl mx-auto">
             {[
               { q: 'Do I need to visit in person to enroll?', a: 'No, you can complete the enrollment process online or by phone. However, we welcome campus visits to tour facilities and meet staff.' },

@@ -55,7 +55,7 @@ export function UpcomingCalendar() {
                 {event.type}
               </span>
             </div>
-            <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+            <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
               <div className="flex items-center gap-1">
                 <Calendar className="h-3 w-3" />
                 {event.date}

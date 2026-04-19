@@ -59,36 +59,36 @@ export default async function CatalogSanityPage() {
       {/* Hero Image */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <nav className="text-sm mb-4">
-          <ol className="flex items-center space-x-2 text-gray-500">
+          <ol className="flex items-center space-x-2 text-slate-700">
             <li><Link href="/admin" className="hover:text-brand-blue-600">Admin</Link></li>
             <li>/</li>
             <li><Link href="/admin/store" className="hover:text-brand-blue-600">Store</Link></li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">Catalog Sanity Check</li>
+            <li className="text-slate-900 font-medium">Catalog Sanity Check</li>
           </ol>
         </nav>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Catalog Sanity Check</h1>
-        <p className="text-gray-600 mb-6">
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">Catalog Sanity Check</h1>
+        <p className="text-slate-700 mb-6">
           Compares the <code className="bg-gray-100 px-1 rounded text-sm">products</code> table against the hardcoded catalog in <code className="bg-gray-100 px-1 rounded text-sm">store-products.ts</code>.
         </p>
 
         {/* Summary */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-lg border p-4">
-            <div className="text-sm text-gray-500">DB Products</div>
+            <div className="text-sm text-slate-700">DB Products</div>
             <div className="text-2xl font-bold">{dbProducts.length}</div>
           </div>
           <div className="bg-white rounded-lg border p-4">
-            <div className="text-sm text-gray-500">Hardcoded Products</div>
+            <div className="text-sm text-slate-700">Hardcoded Products</div>
             <div className="text-2xl font-bold">{hardcoded.length}</div>
           </div>
           <div className="bg-white rounded-lg border p-4">
-            <div className="text-sm text-gray-500">DB-Only</div>
-            <div className={`text-2xl font-bold ${dbOnly.length > 0 ? 'text-yellow-600' : 'text-gray-900'}`}>{dbOnly.length}</div>
+            <div className="text-sm text-slate-700">DB-Only</div>
+            <div className={`text-2xl font-bold ${dbOnly.length > 0 ? 'text-yellow-600' : 'text-slate-900'}`}>{dbOnly.length}</div>
           </div>
           <div className={`rounded-lg border p-4 ${allMatch ? 'bg-brand-green-50 border-brand-green-200' : 'bg-brand-red-50 border-brand-red-200'}`}>
-            <div className="text-sm text-gray-500">Status</div>
+            <div className="text-sm text-slate-700">Status</div>
             <div className={`text-2xl font-bold ${allMatch ? 'text-brand-green-700' : 'text-brand-red-700'}`}>
               {allMatch ? 'All Match' : 'Mismatches Found'}
             </div>
@@ -111,14 +111,14 @@ export default async function CatalogSanityPage() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Slug</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">DB Price</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">HC Price</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Group</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">In DB</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Slug</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Name</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">DB Price</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">HC Price</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Price</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Name</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Group</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">In DB</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -129,10 +129,10 @@ export default async function CatalogSanityPage() {
                   <td className="px-4 py-3 text-sm">{r.db ? fmt(r.db.price) : '—'}</td>
                   <td className="px-4 py-3 text-sm">{r.hc ? fmt(r.hc.price) : '—'}</td>
                   <td className="px-4 py-3 text-sm">
-                    {r.inDb && r.inHardcoded ? <StatusBadge ok={r.priceMatch} /> : <span className="text-gray-400">—</span>}
+                    {r.inDb && r.inHardcoded ? <StatusBadge ok={r.priceMatch} /> : <span className="text-slate-700">—</span>}
                   </td>
                   <td className="px-4 py-3 text-sm">
-                    {r.inDb && r.inHardcoded ? <StatusBadge ok={r.nameMatch} /> : <span className="text-gray-400">—</span>}
+                    {r.inDb && r.inHardcoded ? <StatusBadge ok={r.nameMatch} /> : <span className="text-slate-700">—</span>}
                   </td>
                   <td className="px-4 py-3 text-sm">{r.db?.catalogGroup || '—'}</td>
                   <td className="px-4 py-3 text-sm">
@@ -148,7 +148,7 @@ export default async function CatalogSanityPage() {
           </table>
         </div>
 
-        <p className="text-xs text-gray-400 mt-4">
+        <p className="text-xs text-slate-700 mt-4">
           Once the migration is run and all rows show &quot;Match&quot;, the hardcoded fallback in API routes can be removed.
         </p>
       </div>

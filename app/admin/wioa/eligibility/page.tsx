@@ -39,15 +39,15 @@ export default async function WIOAEligibilityPage() {
         <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Eligibility" }]} />
       </div>
 <div className="max-w-7xl mx-auto">
-        <Link href="/admin/wioa" className="flex items-center gap-2 text-gray-600 hover:text-brand-blue-600 mb-6">
+        <Link href="/admin/wioa" className="flex items-center gap-2 text-slate-700 hover:text-brand-blue-600 mb-6">
           <ArrowLeft className="w-4 h-4" />
           Back to WIOA Management
         </Link>
 
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Eligibility Determinations</h1>
-            <p className="text-gray-600">Review and process WIOA eligibility applications</p>
+            <h1 className="text-2xl font-bold text-slate-900">Eligibility Determinations</h1>
+            <p className="text-slate-700">Review and process WIOA eligibility applications</p>
           </div>
         </div>
 
@@ -55,8 +55,8 @@ export default async function WIOAEligibilityPage() {
           {stats.map((stat, index) => (
             <div key={index} className="bg-white rounded-xl shadow-sm p-6">
               <div className={`w-3 h-3 rounded-full bg-${stat.color}-500 mb-3`} />
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-sm text-gray-600">{stat.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-sm text-slate-700">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -64,7 +64,7 @@ export default async function WIOAEligibilityPage() {
         <div className="bg-white rounded-xl shadow-sm">
           <div className="p-4 border-b flex items-center gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search applications..."
@@ -87,9 +87,9 @@ export default async function WIOAEligibilityPage() {
 
           {allApps.length === 0 ? (
             <div className="p-12 text-center">
-              <FileCheck className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Eligibility Applications</h3>
-              <p className="text-gray-600 mb-6">WIOA eligibility applications will appear here once submitted.</p>
+              <FileCheck className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">No Eligibility Applications</h3>
+              <p className="text-slate-700 mb-6">WIOA eligibility applications will appear here once submitted.</p>
               <Link
                 href="/wioa-eligibility"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition"
@@ -102,12 +102,12 @@ export default async function WIOAEligibilityPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applicant</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Submitted</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Documents</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Applicant</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Category</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Submitted</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Documents</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -121,10 +121,10 @@ export default async function WIOAEligibilityPage() {
                             <User className="w-5 h-5 text-brand-blue-600" />
                           </div>
                           <div>
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-slate-900">
                               {profile?.first_name || 'Unknown'} {profile?.last_name || ''}
                             </p>
-                            <p className="text-sm text-gray-500">{profile?.email || ''}</p>
+                            <p className="text-sm text-slate-700">{profile?.email || ''}</p>
                           </div>
                         </div>
                       </td>
@@ -133,13 +133,13 @@ export default async function WIOAEligibilityPage() {
                           {app.eligibility_category || 'Adult'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-gray-600">
+                      <td className="px-6 py-4 text-slate-700">
                         {new Date(app.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-1">
-                          <FileCheck className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600">{app.documents_count || 0}</span>
+                          <FileCheck className="w-4 h-4 text-slate-700" />
+                          <span className="text-slate-700">{app.documents_count || 0}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -147,7 +147,7 @@ export default async function WIOAEligibilityPage() {
                           app.status === 'approved' ? 'bg-brand-green-100 text-brand-green-700' :
                           app.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
                           app.status === 'denied' ? 'bg-brand-red-100 text-brand-red-700' :
-                          'bg-gray-100 text-gray-700'
+                          'bg-gray-100 text-slate-900'
                         }`}>
                           {app.status === 'approved' && <span className="text-slate-400 flex-shrink-0">•</span>}
                           {app.status === 'pending' && <Clock className="w-4 h-4" />}

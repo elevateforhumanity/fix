@@ -205,10 +205,10 @@ export function SponsorshipAcknowledgment({
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <h3 className="text-lg font-semibold text-slate-900 mb-2">
           Required Acknowledgments
         </h3>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-slate-700">
           Please read and acknowledge each statement below. All acknowledgments
           are required before program activation.
         </p>
@@ -235,17 +235,17 @@ export function SponsorshipAcknowledgment({
               )}
               <div className="flex-1 min-w-0">
                 <div className={`font-medium mb-1 flex items-center gap-2 ${
-                  acknowledgments[item.key] ? 'text-brand-green-900' : 'text-gray-900'
+                  acknowledgments[item.key] ? 'text-brand-green-900' : 'text-slate-900'
                 }`}>
                   {item.label}
                   {item.required && (
                     <span className="text-xs text-brand-red-500">*</span>
                   )}
                 </div>
-                <div className="text-sm text-gray-600">{item.description}</div>
+                <div className="text-sm text-slate-700">{item.description}</div>
               </div>
               {saving && (
-                <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
+                <Loader2 className="w-4 h-4 animate-spin text-slate-700" />
               )}
             </div>
           </button>
@@ -275,7 +275,7 @@ export function SponsorshipAcknowledgment({
 
       {/* Legal Notice */}
       <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-        <p className="text-xs text-gray-600">
+        <p className="text-xs text-slate-700">
           <strong>Legal Notice:</strong> These acknowledgments are legally
           binding. By checking each box and signing, you agree to operate under
           Elevate for Humanity sponsorship and comply with all requirements

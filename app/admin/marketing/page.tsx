@@ -82,8 +82,8 @@ export default async function AdminMarketingPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Marketing Dashboard</h1>
-            <p className="text-gray-600 mt-1">Track campaigns and engagement metrics</p>
+            <h1 className="text-3xl font-bold text-slate-900">Marketing Dashboard</h1>
+            <p className="text-slate-700 mt-1">Track campaigns and engagement metrics</p>
           </div>
           <Link 
             href="/admin/campaigns"
@@ -99,8 +99,8 @@ export default async function AdminMarketingPage() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Total Leads</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{totalLeads || 0}</p>
+                <p className="text-sm text-slate-700">Total Leads</p>
+                <p className="text-3xl font-bold text-slate-900 mt-1">{totalLeads || 0}</p>
                 <p className="text-sm text-brand-green-600 mt-1">+{newLeadsThisMonth || 0} this month</p>
               </div>
               <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center">
@@ -111,9 +111,9 @@ export default async function AdminMarketingPage() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Total Campaigns</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{totalCampaigns}</p>
-                <p className="text-sm text-gray-500 mt-1">{activeCampaigns} active</p>
+                <p className="text-sm text-slate-700">Total Campaigns</p>
+                <p className="text-3xl font-bold text-slate-900 mt-1">{totalCampaigns}</p>
+                <p className="text-sm text-slate-700 mt-1">{activeCampaigns} active</p>
               </div>
               <div className="w-12 h-12 bg-brand-green-100 rounded-lg flex items-center justify-center">
                 <Mail className="w-6 h-6 text-brand-green-600" />
@@ -123,9 +123,9 @@ export default async function AdminMarketingPage() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">New This Month</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{newLeadsThisMonth || 0}</p>
-                <p className="text-sm text-gray-500 mt-1">leads</p>
+                <p className="text-sm text-slate-700">New This Month</p>
+                <p className="text-3xl font-bold text-slate-900 mt-1">{newLeadsThisMonth || 0}</p>
+                <p className="text-sm text-slate-700 mt-1">leads</p>
               </div>
               <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                 <Target className="w-6 h-6 text-brand-blue-600" />
@@ -135,9 +135,9 @@ export default async function AdminMarketingPage() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500">Active Campaigns</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{activeCampaigns}</p>
-                <p className="text-sm text-gray-500 mt-1">running now</p>
+                <p className="text-sm text-slate-700">Active Campaigns</p>
+                <p className="text-3xl font-bold text-slate-900 mt-1">{activeCampaigns}</p>
+                <p className="text-sm text-slate-700 mt-1">running now</p>
               </div>
               <div className="w-12 h-12 bg-brand-orange-100 rounded-lg flex items-center justify-center">
                 <TrendingUp className="w-6 h-6 text-brand-orange-600" />
@@ -151,13 +151,13 @@ export default async function AdminMarketingPage() {
           {/* Recent Campaigns */}
           <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Campaigns</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Recent Campaigns</h2>
               <Link href="/admin/campaigns" className="text-sm text-brand-blue-600 hover:text-brand-blue-700">
                 View all
               </Link>
             </div>
             {!campaigns || campaigns.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-slate-700">
                 No campaigns yet. Create your first campaign to get started.
               </div>
             ) : (
@@ -167,8 +167,8 @@ export default async function AdminMarketingPage() {
                     <div key={campaign.id} className="px-6 py-4 hover:bg-gray-50">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="font-medium text-gray-900">{campaign.name}</h3>
-                          <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                          <h3 className="font-medium text-slate-900">{campaign.name}</h3>
+                          <div className="flex items-center gap-4 mt-1 text-sm text-slate-700">
                             <span>Type: {campaign.campaign_type}</span>
                             {campaign.subject && <span>Subject: {campaign.subject}</span>}
                           </div>
@@ -177,7 +177,7 @@ export default async function AdminMarketingPage() {
                           campaign.status === 'active' 
                             ? 'bg-brand-green-100 text-brand-green-800'
                             : campaign.status === 'completed'
-                            ? 'bg-gray-100 text-gray-800'
+                            ? 'bg-gray-100 text-slate-900'
                             : 'bg-yellow-100 text-yellow-800'
                         }`}>
                           {campaign.status}
@@ -193,7 +193,7 @@ export default async function AdminMarketingPage() {
           {/* Quick Actions */}
           <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h2>
               <div className="space-y-3">
                 <Link 
                   href="/admin/campaigns/new"
@@ -203,8 +203,8 @@ export default async function AdminMarketingPage() {
                     <Send className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Create Campaign</p>
-                    <p className="text-sm text-gray-500">Send email or SMS</p>
+                    <p className="font-medium text-slate-900">Create Campaign</p>
+                    <p className="text-sm text-slate-700">Send email or SMS</p>
                   </div>
                 </Link>
                 <Link 
@@ -215,8 +215,8 @@ export default async function AdminMarketingPage() {
                     <Users className="w-5 h-5 text-brand-green-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">View Leads</p>
-                    <p className="text-sm text-gray-500">Manage prospects</p>
+                    <p className="font-medium text-slate-900">View Leads</p>
+                    <p className="text-sm text-slate-700">Manage prospects</p>
                   </div>
                 </Link>
                 <Link 
@@ -227,8 +227,8 @@ export default async function AdminMarketingPage() {
                     <BarChart3 className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Analytics</p>
-                    <p className="text-sm text-gray-500">View detailed reports</p>
+                    <p className="font-medium text-slate-900">Analytics</p>
+                    <p className="text-sm text-slate-700">View detailed reports</p>
                   </div>
                 </Link>
               </div>
@@ -238,9 +238,9 @@ export default async function AdminMarketingPage() {
 
         {/* Lead Sources */}
         <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Lead Sources</h2>
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Lead Sources</h2>
           {sourceData.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">No lead data available yet.</p>
+            <p className="text-slate-700 text-center py-4">No lead data available yet.</p>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {sourceData.map((item, index) => (
@@ -251,8 +251,8 @@ export default async function AdminMarketingPage() {
                       style={{ width: `${item.percent}%` }}
                     />
                   </div>
-                  <p className="text-2xl font-bold text-gray-900">{item.count}</p>
-                  <p className="text-sm text-gray-500 capitalize">{item.source}</p>
+                  <p className="text-2xl font-bold text-slate-900">{item.count}</p>
+                  <p className="text-sm text-slate-700 capitalize">{item.source}</p>
                 </div>
               ))}
             </div>

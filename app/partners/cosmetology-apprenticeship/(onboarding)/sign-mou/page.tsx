@@ -310,7 +310,7 @@ export default function CosmetologySignMOUPage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-xl shadow-sm border p-8 text-center">
           <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">MOU Signed Successfully</h1>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">MOU Signed Successfully</h1>
           <p className="text-slate-600 mb-6">
             Your Memorandum of Understanding has been submitted. Our team will countersign
             and send you a fully executed copy within 2 business days.
@@ -324,7 +324,7 @@ export default function CosmetologySignMOUPage() {
             </Link>
             <Link
               href="/partners/cosmetology-apprenticeship"
-              className="block w-full px-6 py-3 text-gray-700 border border-gray-300 rounded-lg font-semibold hover:bg-slate-50"
+              className="block w-full px-6 py-3 text-slate-900 border border-gray-300 rounded-lg font-semibold hover:bg-slate-50"
             >
               Back to Partner Page
             </Link>

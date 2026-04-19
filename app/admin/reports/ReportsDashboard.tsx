@@ -220,9 +220,9 @@ export default function ReportsDashboard({
       {/* Charts Row 1 */}
       {/* Date range selector */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Trends</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Trends</h2>
         <div className="flex items-center gap-2">
-          <label htmlFor="date-range" className="text-sm text-gray-600">Period:</label>
+          <label htmlFor="date-range" className="text-sm text-slate-700">Period:</label>
           <select
             id="date-range"
             value={dateRange}

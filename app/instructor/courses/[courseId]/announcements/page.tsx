@@ -129,8 +129,8 @@ export default function InstructorAnnouncementsPage() {
           </Link>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Announcements</h1>
-              <p className="text-gray-600 mt-1">{course?.title}</p>
+              <h1 className="text-3xl font-bold text-slate-900">Announcements</h1>
+              <p className="text-slate-700 mt-1">{course?.title}</p>
             </div>
             <button
               onClick={() => setShowForm(true)}
@@ -150,8 +150,8 @@ export default function InstructorAnnouncementsPage() {
                 <Bell className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{announcements.length}</p>
-                <p className="text-sm text-gray-500">Announcements</p>
+                <p className="text-2xl font-bold text-slate-900">{announcements.length}</p>
+                <p className="text-sm text-slate-700">Announcements</p>
               </div>
             </div>
           </div>
@@ -161,8 +161,8 @@ export default function InstructorAnnouncementsPage() {
                 <Users className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{enrolledCount}</p>
-                <p className="text-sm text-gray-500">Will be notified</p>
+                <p className="text-2xl font-bold text-slate-900">{enrolledCount}</p>
+                <p className="text-sm text-slate-700">Will be notified</p>
               </div>
             </div>
           </div>
@@ -171,10 +171,10 @@ export default function InstructorAnnouncementsPage() {
         {/* New Announcement Form */}
         {showForm && (
           <div className="bg-white rounded-xl border p-6 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Post New Announcement</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Post New Announcement</h2>
             <form onSubmit={postAnnouncement} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Title
                 </label>
                 <input
@@ -187,7 +187,7 @@ export default function InstructorAnnouncementsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-900 mb-2">
                   Message
                 </label>
                 <textarea
@@ -211,12 +211,12 @@ export default function InstructorAnnouncementsPage() {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+                  className="px-6 py-2 bg-gray-200 text-slate-900 rounded-lg hover:bg-gray-300 transition"
                 >
                   Cancel
                 </button>
               </div>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate-700">
                 This will notify all {enrolledCount} enrolled students.
               </p>
             </form>
@@ -230,8 +230,8 @@ export default function InstructorAnnouncementsPage() {
               <div key={announcement.id} className="bg-white rounded-xl border p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900">{announcement.title}</h3>
-                    <p className="text-gray-600 mt-2 whitespace-pre-wrap">{announcement.body}</p>
+                    <h3 className="text-lg font-semibold text-slate-900">{announcement.title}</h3>
+                    <p className="text-slate-700 mt-2 whitespace-pre-wrap">{announcement.body}</p>
                     <p className="text-sm text-slate-500 mt-4">
                       Posted {new Date(announcement.created_at).toLocaleDateString('en-US', { timeZone: 'UTC',
                         year: 'numeric',
@@ -247,9 +247,9 @@ export default function InstructorAnnouncementsPage() {
             ))
           ) : (
             <div className="bg-white rounded-xl border p-12 text-center">
-              <Bell className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No announcements yet</h3>
-              <p className="text-gray-500 mb-6">
+              <Bell className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No announcements yet</h3>
+              <p className="text-slate-700 mb-6">
                 Keep your students informed with course announcements.
               </p>
               <button

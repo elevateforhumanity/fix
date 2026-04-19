@@ -66,8 +66,8 @@ export function NotAdviceDisclaimer({ className = '' }: DisclaimerProps) {
   return (
     <div className={`bg-gray-50 border border-gray-200 rounded-lg p-4 ${className}`}>
       <div className="flex items-start gap-3">
-        <Shield className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
-        <div className="text-sm text-gray-700">
+        <Shield className="w-5 h-5 text-slate-700 flex-shrink-0 mt-0.5" />
+        <div className="text-sm text-slate-900">
           <p className="font-semibold mb-1">Not Professional Advice</p>
           <p>
             Information provided is for general educational purposes only and does not 
@@ -93,7 +93,7 @@ export function VerificationDate({
   className?: string;
 }) {
   return (
-    <div className={`inline-flex items-center gap-2 text-xs text-gray-500 ${className}`}>
+    <div className={`inline-flex items-center gap-2 text-xs text-slate-700 ${className}`}>
       <Calendar className="w-3 h-3" />
       <span>{label}: {date}</span>
     </div>
@@ -111,7 +111,7 @@ export function AccreditationNotice({
   className?: string;
 }) {
   return (
-    <div className={`text-sm text-gray-600 ${className}`}>
+    <div className={`text-sm text-slate-700 ${className}`}>
       {accreditingBody ? (
         <p>
           This program is accredited by <strong>{accreditingBody}</strong>. 
@@ -132,7 +132,7 @@ export function AccreditationNotice({
  */
 export function TestimonialDisclaimer({ className = '' }: DisclaimerProps) {
   return (
-    <p className={`text-xs text-gray-500 italic ${className}`}>
+    <p className={`text-xs text-slate-700 italic ${className}`}>
       * Individual results vary. Testimonials represent individual experiences and 
       are not guarantees of future performance. Your results may differ based on 
       effort, market conditions, and other factors.
@@ -153,7 +153,7 @@ export function SalaryDisclaimer({
   className?: string;
 }) {
   return (
-    <p className={`text-xs text-gray-500 ${className}`}>
+    <p className={`text-xs text-slate-700 ${className}`}>
       Salary data {source ? `from ${source}` : 'shown'} is for informational purposes only 
       and represents averages or ranges. Actual earnings depend on location, experience, 
       employer, and market conditions.
@@ -183,7 +183,7 @@ export function ApplicationConsent({
         className="mt-1 h-4 w-4 rounded border-gray-300 text-brand-blue-600 focus:ring-brand-blue-500"
         required
       />
-      <span className="text-sm text-gray-700">
+      <span className="text-sm text-slate-900">
         I understand that submitting this application does not guarantee eligibility, 
         funding approval, or enrollment. I acknowledge that I have read and agree to the{' '}
         <Link href="/terms-of-service" className="text-brand-blue-600 hover:underline">
@@ -203,7 +203,7 @@ export function ApplicationConsent({
  */
 export function ComplianceFooterLinks({ className = '' }: DisclaimerProps) {
   return (
-    <div className={`text-xs text-gray-500 ${className}`}>
+    <div className={`text-xs text-slate-700 ${className}`}>
       <div className="flex flex-wrap gap-x-4 gap-y-1">
         <Link href="/legal/disclosures" className="hover:underline">Disclosures</Link>
         <Link href="/terms-of-service" className="hover:underline">Terms of Service</Link>

@@ -113,7 +113,7 @@ export default function AvatarCourseGuide({
         {/* Avatar info */}
         <div className="absolute bottom-2 left-2 bg-black/50 px-3 py-1 rounded-full">
           <span className="text-white text-sm font-medium">{avatarName}</span>
-          <span className="text-gray-300 text-xs ml-2">{avatarRole}</span>
+          <span className="text-slate-700 text-xs ml-2">{avatarRole}</span>
         </div>
       </div>
 
@@ -127,14 +127,14 @@ export default function AvatarCourseGuide({
               style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
             />
           </div>
-          <span className="text-xs text-gray-500">{currentStep + 1}/{steps.length}</span>
+          <span className="text-xs text-slate-700">{currentStep + 1}/{steps.length}</span>
         </div>
 
         {/* Step Title */}
-        <h3 className="font-bold text-gray-900 mb-2">{step.title}</h3>
+        <h3 className="font-bold text-slate-900 mb-2">{step.title}</h3>
 
         {/* Script/Content */}
-        <p className="text-gray-600 text-sm mb-4 leading-relaxed">{step.script}</p>
+        <p className="text-slate-700 text-sm mb-4 leading-relaxed">{step.script}</p>
 
         {/* Action Button */}
         {step.action && (
@@ -152,7 +152,7 @@ export default function AvatarCourseGuide({
           <button
             onClick={prevStep}
             disabled={isFirstStep}
-            className="flex items-center gap-1 text-gray-500 hover:text-gray-700 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="flex items-center gap-1 text-slate-700 hover:text-slate-900 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="w-4 h-4" />
             <span className="text-sm">Back</span>
@@ -161,7 +161,7 @@ export default function AvatarCourseGuide({
           {isLastStep ? (
             <button
               onClick={restart}
-              className="flex items-center gap-1 text-gray-500 hover:text-gray-700"
+              className="flex items-center gap-1 text-slate-700 hover:text-slate-900"
             >
               <RotateCcw className="w-4 h-4" />
               <span className="text-sm">Restart</span>

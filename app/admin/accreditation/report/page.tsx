@@ -79,44 +79,44 @@ export default async function AccreditationReportPage() {
             <Link href="/admin/accreditation" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 flex items-center gap-1 mb-2">
               <ArrowLeft className="w-4 h-4" /> Back to Accreditation
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Accreditation Compliance Report</h1>
-            <p className="text-sm text-gray-500 mt-1">Generated {now} from live platform data</p>
+            <h1 className="text-2xl font-bold text-slate-900">Accreditation Compliance Report</h1>
+            <p className="text-sm text-slate-700 mt-1">Generated {now} from live platform data</p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
           {metrics.map((m) => (
             <div key={m.label} className="bg-white rounded-xl border border-gray-200 p-4">
-              <m.icon className="w-5 h-5 text-gray-400 mb-2" />
-              <div className="text-2xl font-bold text-gray-900">{m.value}</div>
-              <div className="text-xs text-gray-500 mt-1">{m.label}</div>
+              <m.icon className="w-5 h-5 text-slate-700 mb-2" />
+              <div className="text-2xl font-bold text-slate-900">{m.value}</div>
+              <div className="text-xs text-slate-700 mt-1">{m.label}</div>
             </div>
           ))}
         </div>
 
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
           <div className="px-6 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Active Programs</h2>
+            <h2 className="font-semibold text-slate-900">Active Programs</h2>
           </div>
           {data.programs.length === 0 ? (
-            <div className="px-6 py-8 text-center text-sm text-gray-500">No active programs found.</div>
+            <div className="px-6 py-8 text-center text-sm text-slate-700">No active programs found.</div>
           ) : (
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Program</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Created</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Program</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {data.programs.map((p: any) => (
                   <tr key={p.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-3 text-sm font-medium text-gray-900">{p.title || p.name || 'Unnamed'}</td>
+                    <td className="px-6 py-3 text-sm font-medium text-slate-900">{p.title || p.name || 'Unnamed'}</td>
                     <td className="px-6 py-3">
                       <span className="text-xs px-2 py-0.5 rounded-full bg-brand-green-100 text-brand-green-700 font-medium">{p.status}</span>
                     </td>
-                    <td className="px-6 py-3 text-sm text-gray-500">{p.created_at ? new Date(p.created_at).toLocaleDateString() : '—'}</td>
+                    <td className="px-6 py-3 text-sm text-slate-700">{p.created_at ? new Date(p.created_at).toLocaleDateString() : '—'}</td>
                   </tr>
                 ))}
               </tbody>

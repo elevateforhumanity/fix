@@ -31,15 +31,15 @@ export default function DemoApprenticeshipsPage() {
             <div key={i} className="bg-white rounded-xl border p-5">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <div className="font-semibold text-gray-900">{a.name}</div>
-                  <div className="text-sm text-gray-500">{a.program} · Started {a.startDate}</div>
+                  <div className="font-semibold text-slate-900">{a.name}</div>
+                  <div className="text-sm text-slate-700">{a.program} · Started {a.startDate}</div>
                 </div>
                 <span className="text-xs bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full font-semibold">{pct}%</span>
               </div>
               <div className="grid sm:grid-cols-3 gap-4 mb-3 text-sm">
-                <div><div className="text-xs text-gray-500">Hours</div><div className="font-medium text-gray-900">{a.hoursLogged.toLocaleString()} / {a.hoursRequired.toLocaleString()}</div></div>
-                <div><div className="text-xs text-gray-500">Current → Target Wage</div><div className="font-medium text-gray-900">{a.wage} → {a.wageTarget}</div></div>
-                <div><div className="text-xs text-gray-500">Mentor</div><div className="font-medium text-gray-900">{a.mentor}</div></div>
+                <div><div className="text-xs text-slate-700">Hours</div><div className="font-medium text-slate-900">{a.hoursLogged.toLocaleString()} / {a.hoursRequired.toLocaleString()}</div></div>
+                <div><div className="text-xs text-slate-700">Current → Target Wage</div><div className="font-medium text-slate-900">{a.wage} → {a.wageTarget}</div></div>
+                <div><div className="text-xs text-slate-700">Mentor</div><div className="font-medium text-slate-900">{a.mentor}</div></div>
               </div>
               <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${pct}%` }} />

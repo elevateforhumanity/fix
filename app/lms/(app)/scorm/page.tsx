@@ -38,9 +38,9 @@ export default async function ScormPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/lms/dashboard" className="hover:text-brand-blue-600">LMS</Link></li><li>/</li><li className="text-gray-900 font-medium">SCORM Content</li></ol></nav>
-          <h1 className="text-3xl font-bold text-gray-900">SCORM Content</h1>
-          <p className="text-gray-600 mt-2">Interactive learning modules with embedded progress tracking</p>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/lms/dashboard" className="hover:text-brand-blue-600">LMS</Link></li><li>/</li><li className="text-slate-900 font-medium">SCORM Content</li></ol></nav>
+          <h1 className="text-3xl font-bold text-slate-900">SCORM Content</h1>
+          <p className="text-slate-700 mt-2">Interactive learning modules with embedded progress tracking</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {packages && packages.length > 0 ? packages.map((pkg: any) => {

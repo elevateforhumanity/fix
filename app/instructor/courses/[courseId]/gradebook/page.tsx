@@ -36,9 +36,9 @@ export default async function GradebookPage({ params }: { params: { courseId: st
       </section>
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/instructor" className="hover:text-primary">Instructor</Link></li><li>/</li><li><Link href="/instructor/courses" className="hover:text-primary">Courses</Link></li><li>/</li><li className="text-gray-900 font-medium">Gradebook</li></ol></nav>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/instructor" className="hover:text-primary">Instructor</Link></li><li>/</li><li><Link href="/instructor/courses" className="hover:text-primary">Courses</Link></li><li>/</li><li className="text-slate-900 font-medium">Gradebook</li></ol></nav>
           <div className="flex justify-between items-center">
-            <div><h1 className="text-3xl font-bold text-gray-900">{course?.title} - Gradebook</h1><p className="text-gray-600 mt-2">Manage student grades</p></div>
+            <div><h1 className="text-3xl font-bold text-slate-900">{course?.title} - Gradebook</h1><p className="text-slate-700 mt-2">Manage student grades</p></div>
             <div className="flex gap-3">
               <Link href={`/instructor/courses/${params.courseId}/assignments`} className="bg-brand-orange-600 text-white px-4 py-2 rounded-lg hover:bg-brand-orange-700 text-sm font-medium">SpeedGrader</Link>
               <button className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">Export Grades</button>
@@ -49,25 +49,25 @@ export default async function GradebookPage({ params }: { params: { courseId: st
           <table className="w-full">
             <thead className="bg-white">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Progress</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quiz Avg</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Assignments</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Final Grade</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Student</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Progress</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Quiz Avg</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Assignments</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Final Grade</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {enrollments && enrollments.length > 0 ? enrollments.map((e: any) => (
                 <tr key={e.id} className="hover:bg-white">
-                  <td className="px-4 py-3"><p className="font-medium">{e.profiles?.full_name || 'Student'}</p><p className="text-sm text-gray-500">{e.profiles?.email}</p></td>
-                  <td className="px-4 py-3"><div className="w-24 bg-gray-200 rounded-full h-2"><div className="bg-white h-2 rounded-full" style={{ width: `${e.progress_percent || 0}%` }}></div></div><span className="text-sm text-gray-500">{e.progress_percent || 0}%</span></td>
+                  <td className="px-4 py-3"><p className="font-medium">{e.profiles?.full_name || 'Student'}</p><p className="text-sm text-slate-700">{e.profiles?.email}</p></td>
+                  <td className="px-4 py-3"><div className="w-24 bg-gray-200 rounded-full h-2"><div className="bg-white h-2 rounded-full" style={{ width: `${e.progress_percent || 0}%` }}></div></div><span className="text-sm text-slate-700">{e.progress_percent || 0}%</span></td>
                   <td className="px-4 py-3">{e.quiz_average || '-'}%</td>
                   <td className="px-4 py-3">{e.assignment_score || '-'}%</td>
                   <td className="px-4 py-3 font-medium">{e.final_grade || '-'}</td>
                   <td className="px-4 py-3"><button className="text-brand-blue-600 hover:text-brand-blue-800 text-sm">Edit</button></td>
                 </tr>
-              )) : <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-500">No students enrolled</td></tr>}
+              )) : <tr><td colSpan={6} className="px-4 py-8 text-center text-slate-700">No students enrolled</td></tr>}
             </tbody>
           </table>
         </div>

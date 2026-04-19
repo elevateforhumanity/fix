@@ -45,12 +45,12 @@ export default async function GroupsPage() {
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
             <Users className="w-8 h-8 text-brand-blue-600" /> Study Groups
           </h1>
           <div className="flex gap-3">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input type="text" placeholder="Search groups..." className="pl-10 pr-4 py-2 border rounded-lg" />
             </div>
             <button className="flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
@@ -68,9 +68,9 @@ export default async function GroupsPage() {
 
         {!error && (!groups || groups.length === 0) ? (
           <div className="text-center py-16 bg-white rounded-xl border">
-            <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-700 mb-2">No Study Groups Yet</h2>
-            <p className="text-gray-500 mb-6">Be the first to create a study group for your program!</p>
+            <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">No Study Groups Yet</h2>
+            <p className="text-slate-700 mb-6">Be the first to create a study group for your program!</p>
             <button className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
               <Plus className="w-5 h-5" /> Create First Group
             </button>
@@ -81,12 +81,12 @@ export default async function GroupsPage() {
               <div key={group.id} className="bg-white rounded-xl p-6 shadow-sm border hover:shadow-md transition-all">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="font-bold text-gray-900">{group.name}</h3>
-                    <p className="text-gray-500 text-sm">{group.category}</p>
+                    <h3 className="font-bold text-slate-900">{group.name}</h3>
+                    <p className="text-slate-700 text-sm">{group.category}</p>
                   </div>
                   {group.is_active && <span className="px-2 py-1 bg-brand-green-100 text-brand-green-700 text-xs rounded-full">Active</span>}
                 </div>
-                <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                <div className="flex items-center gap-4 text-sm text-slate-700 mb-4">
                   <span className="flex items-center gap-1"><Users className="w-4 h-4" /> {group.member_count} members</span>
                   <span className="flex items-center gap-1"><MessageSquare className="w-4 h-4" /> Chat</span>
                 </div>

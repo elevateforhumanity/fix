@@ -52,7 +52,7 @@ export default function Page() {
               <p className="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">Master Microsoft Office and run any office. Administrative professionals earn $47,000+/year in Indiana.</p>
               <p className="text-lg mb-8 text-brand-blue-200 font-semibold">DWD Top Jobs: 3-Star Occupation | WorkOne Eligible | SOC 43-3031</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/apply?program=office-administration" className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-blue-600 font-bold rounded-xl hover:bg-gray-100 transition text-lg shadow-lg">Apply Now</Link>
+                <Link href="/apply?program=office-administration" className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-blue-600 font-bold rounded-xl hover:bg-slate-100 transition text-lg shadow-lg">Apply Now</Link>
                 <a href="https://www.indianacareerconnect.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-bold rounded-xl hover:bg-white/10 transition text-lg border-2 border-white">Schedule at WorkOne</a>
               </div>
             </div>
@@ -120,14 +120,14 @@ export default function Page() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Program Details</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-gray-50 rounded-xl p-6 text-center"><Clock className="w-8 h-8 text-brand-blue-600 mx-auto mb-3" /><h3 className="font-bold text-lg mb-1">Duration</h3><p className="text-slate-600">6 weeks</p></div>
-            <div className="bg-gray-50 rounded-xl p-6 text-center"><DollarSign className="w-8 h-8 text-brand-green-600 mx-auto mb-3" /><h3 className="font-bold text-lg mb-1">Tuition</h3><p className="text-slate-600">$3,950 (WorkOne funding available)</p></div>
-            <div className="bg-gray-50 rounded-xl p-6 text-center"><Users className="w-8 h-8 text-purple-600 mx-auto mb-3" /><h3 className="font-bold text-lg mb-1">Format</h3><p className="text-slate-600">In-person at Indianapolis Training Center</p></div>
+            <div className="bg-slate-50 rounded-xl p-6 text-center"><Clock className="w-8 h-8 text-brand-blue-600 mx-auto mb-3" /><h3 className="font-bold text-lg mb-1">Duration</h3><p className="text-slate-600">6 weeks</p></div>
+            <div className="bg-slate-50 rounded-xl p-6 text-center"><DollarSign className="w-8 h-8 text-brand-green-600 mx-auto mb-3" /><h3 className="font-bold text-lg mb-1">Tuition</h3><p className="text-slate-600">$3,950 (WorkOne funding available)</p></div>
+            <div className="bg-slate-50 rounded-xl p-6 text-center"><Users className="w-8 h-8 text-purple-600 mx-auto mb-3" /><h3 className="font-bold text-lg mb-1">Format</h3><p className="text-slate-600">In-person at Indianapolis Training Center</p></div>
           </div>
         </div>
       </section>
       
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-6">
           <CredentialsOutcomes programName="Office Administration" partnerCertifications={['Microsoft Office Specialist — Word (issued by Certiport/Microsoft)', 'Microsoft Office Specialist — Excel (issued by Certiport/Microsoft)', 'Microsoft Office Specialist — PowerPoint (issued by Certiport/Microsoft)', 'Certificate of Completion (issued by Elevate for Humanity)']} employmentOutcomes={['Administrative Assistant (SOC 43-6014)', 'Office Clerk (SOC 43-9061)', 'Bookkeeping Clerk (SOC 43-3031)', 'Receptionist', 'Data Entry Specialist']} />
         </div>

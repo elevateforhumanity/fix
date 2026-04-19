@@ -177,17 +177,17 @@ export default async function FeaturesPage() {
             <div className="bg-white rounded-xl p-6 shadow-sm text-center">
               <Zap className="w-12 h-12 text-brand-orange-600 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Fast Implementation</h3>
-              <p className="text-gray-600">Get up and running in weeks, not months</p>
+              <p className="text-slate-700">Get up and running in weeks, not months</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm text-center">
               <Shield className="w-12 h-12 text-brand-orange-600 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Compliance Ready</h3>
-              <p className="text-gray-600">Built-in WIOA, FERPA, and DOL compliance</p>
+              <p className="text-slate-700">Built-in WIOA, FERPA, and DOL compliance</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm text-center">
               <Users className="w-12 h-12 text-brand-orange-600 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Dedicated Support</h3>
-              <p className="text-gray-600">Training and support included with every license</p>
+              <p className="text-slate-700">Training and support included with every license</p>
             </div>
           </div>
         </div>
@@ -197,12 +197,12 @@ export default async function FeaturesPage() {
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Integrations</h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-slate-700 mb-8">
             Connect with the tools you already use
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             {['Salesforce', 'Workday', 'ADP', 'Zoom', 'Google Workspace', 'Microsoft 365'].map((integration) => (
-              <span key={integration} className="bg-white px-4 py-2 rounded-lg text-gray-700">
+              <span key={integration} className="bg-white px-4 py-2 rounded-lg text-slate-900">
                 {integration}
               </span>
             ))}

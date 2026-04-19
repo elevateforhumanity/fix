@@ -111,7 +111,7 @@ export default async function ForEmployersPage() {
           <div className="text-center mb-12">
             <p className="text-green-600 font-bold text-xs uppercase tracking-widest mb-2">Three Employer Paths</p>
             <h2 className="text-3xl font-bold mb-4">Hire graduates. Sponsor apprentices. Co-design cohorts.</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-700 max-w-2xl mx-auto">
               We train candidates to your specifications and deliver them job-ready. You hire with confidence.
             </p>
           </div>
@@ -199,7 +199,7 @@ export default async function ForEmployersPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold mb-1">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
+                  <p className="text-slate-700">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -230,7 +230,7 @@ export default async function ForEmployersPage() {
                 </div>
                 <div>
                   <h3 className="font-bold mb-1">{item.title}</h3>
-                  <p className="text-gray-500 text-sm">{item.description}</p>
+                  <p className="text-slate-700 text-sm">{item.description}</p>
                 </div>
               </Link>
             ))}

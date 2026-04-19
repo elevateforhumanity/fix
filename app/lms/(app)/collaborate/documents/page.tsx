@@ -87,10 +87,10 @@ export default function SharedDocumentsPage() {
 
         <div className="mt-6">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">Shared Documents</h1>
+            <h1 className="text-2xl font-bold text-slate-900">Shared Documents</h1>
             <Link
               href="/lms/collaborate"
-              className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+              className="inline-flex items-center gap-2 text-sm text-slate-700 hover:text-slate-900"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Collaborate
@@ -105,13 +105,13 @@ export default function SharedDocumentsPage() {
                   <span className="font-medium">Document</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
+                  <div className="flex items-center gap-1 text-sm text-slate-700">
                     <Users className="w-4 h-4" />
                     <span>{collaborators.length} online</span>
                   </div>
                   <button
                     onClick={() => { providerRef.current?.destroy(); setActiveDoc(null); }}
-                    className="text-sm text-gray-500 hover:text-gray-700"
+                    className="text-sm text-slate-700 hover:text-slate-900"
                   >
                     Close
                   </button>
@@ -135,7 +135,7 @@ export default function SharedDocumentsPage() {
               </div>
               {collaborators.length > 0 && (
                 <div className="px-6 pb-4">
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-slate-700">
                     Collaborating with: {collaborators.join(', ')}
                   </p>
                 </div>
@@ -150,16 +150,16 @@ export default function SharedDocumentsPage() {
                   className="bg-white rounded-xl p-6 border shadow-sm hover:shadow-md transition text-left"
                 >
                   <FileText className="w-8 h-8 text-brand-blue-600 mb-3" />
-                  <h3 className="font-semibold text-gray-900 mb-1">{doc.title || 'Untitled'}</h3>
-                  <p className="text-sm text-gray-500">
+                  <h3 className="font-semibold text-slate-900 mb-1">{doc.title || 'Untitled'}</h3>
+                  <p className="text-sm text-slate-700">
                     Last edited {new Date(doc.updated_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                   </p>
                 </button>
               )) : (
                 <div className="col-span-full bg-white rounded-xl p-12 text-center border">
-                  <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2">No shared documents yet</h2>
-                  <p className="text-gray-600">Documents shared with you will appear here.</p>
+                  <FileText className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                  <h2 className="text-xl font-semibold text-slate-900 mb-2">No shared documents yet</h2>
+                  <p className="text-slate-700">Documents shared with you will appear here.</p>
                 </div>
               )}
             </div>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 const statusColors: Record<string, string> = {
-  draft: 'bg-gray-100 text-gray-800',
+  draft: 'bg-gray-100 text-slate-900',
   scheduled: 'bg-yellow-100 text-yellow-800',
   active: 'bg-brand-green-100 text-brand-green-800',
   paused: 'bg-brand-orange-100 text-brand-orange-800',
@@ -97,8 +97,8 @@ export default async function AdminCampaignsPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Campaigns</h1>
-            <p className="text-gray-600 mt-1">Manage marketing campaigns and outreach</p>
+            <h1 className="text-3xl font-bold text-slate-900">Campaigns</h1>
+            <p className="text-slate-700 mt-1">Manage marketing campaigns and outreach</p>
           </div>
           <Link
             href="/admin/campaigns/new"
@@ -117,8 +117,8 @@ export default async function AdminCampaignsPage() {
                 <Mail className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{totalCampaigns || 0}</p>
-                <p className="text-sm text-gray-600">Total Campaigns</p>
+                <p className="text-2xl font-bold text-slate-900">{totalCampaigns || 0}</p>
+                <p className="text-sm text-slate-700">Total Campaigns</p>
               </div>
             </div>
           </div>
@@ -128,8 +128,8 @@ export default async function AdminCampaignsPage() {
                 <Send className="w-6 h-6 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{activeCampaigns || 0}</p>
-                <p className="text-sm text-gray-600">Active</p>
+                <p className="text-2xl font-bold text-slate-900">{activeCampaigns || 0}</p>
+                <p className="text-sm text-slate-700">Active</p>
               </div>
             </div>
           </div>
@@ -139,8 +139,8 @@ export default async function AdminCampaignsPage() {
                 <Eye className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{openRate}%</p>
-                <p className="text-sm text-gray-600">Avg Open Rate</p>
+                <p className="text-2xl font-bold text-slate-900">{openRate}%</p>
+                <p className="text-sm text-slate-700">Avg Open Rate</p>
               </div>
             </div>
           </div>
@@ -150,8 +150,8 @@ export default async function AdminCampaignsPage() {
                 <MousePointer className="w-6 h-6 text-brand-orange-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{clickRate}%</p>
-                <p className="text-sm text-gray-600">Avg Click Rate</p>
+                <p className="text-2xl font-bold text-slate-900">{clickRate}%</p>
+                <p className="text-sm text-slate-700">Avg Click Rate</p>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ export default async function AdminCampaignsPage() {
           {error ? (
             <div className="p-8 text-center">
               <div className="text-brand-red-600 mb-4">Database table not found</div>
-              <p className="text-gray-600 mb-4">
+              <p className="text-slate-700 mb-4">
                 Run the migration in Supabase Dashboard SQL Editor:
               </p>
               <code className="text-sm bg-gray-100 px-2 py-1 rounded">
@@ -171,9 +171,9 @@ export default async function AdminCampaignsPage() {
             </div>
           ) : !campaigns || campaigns.length === 0 ? (
             <div className="p-8 text-center">
-              <Mail className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No campaigns yet</h3>
-              <p className="text-gray-500 mb-4">Create your first marketing campaign</p>
+              <Mail className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">No campaigns yet</h3>
+              <p className="text-slate-700 mb-4">Create your first marketing campaign</p>
               <Link
                 href="/admin/campaigns/new"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"
@@ -186,13 +186,13 @@ export default async function AdminCampaignsPage() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Campaign</th>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Type</th>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Status</th>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Sent</th>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Opened</th>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Clicked</th>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Created</th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Campaign</th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Type</th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Status</th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Sent</th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Opened</th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Clicked</th>
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -202,34 +202,34 @@ export default async function AdminCampaignsPage() {
                   return (
                     <tr key={campaign.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
-                        <Link href={`/admin/campaigns/${campaign.id}`} className="font-medium text-gray-900 hover:text-brand-blue-600">
+                        <Link href={`/admin/campaigns/${campaign.id}`} className="font-medium text-slate-900 hover:text-brand-blue-600">
                           {campaign.name}
                         </Link>
                         {campaign.subject && (
-                          <p className="text-sm text-gray-500 truncate max-w-xs">{campaign.subject}</p>
+                          <p className="text-sm text-slate-700 truncate max-w-xs">{campaign.subject}</p>
                         )}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <TypeIcon className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-600 capitalize">{campaign.campaign_type}</span>
+                          <TypeIcon className="w-4 h-4 text-slate-700" />
+                          <span className="text-sm text-slate-700 capitalize">{campaign.campaign_type}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${statusColors[campaign.status] || 'bg-gray-100 text-gray-800'}`}>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${statusColors[campaign.status] || 'bg-gray-100 text-slate-900'}`}>
                           {campaign.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {campaign.sent_at ? 'Sent' : '-'}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         -
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         -
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {new Date(campaign.created_at).toLocaleDateString()}
                       </td>
                     </tr>

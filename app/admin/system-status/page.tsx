@@ -321,9 +321,9 @@ export default async function SystemStatusPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">System Status</h1>
-          <p className="text-gray-600 mt-1">Activation Inventory & Health Check</p>
-          <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+          <h1 className="text-3xl font-bold text-slate-900">System Status</h1>
+          <p className="text-slate-700 mt-1">Activation Inventory & Health Check</p>
+          <div className="flex items-center gap-2 mt-2 text-sm text-slate-700">
             <RefreshCw className="w-4 h-4" />
             <span>Last checked: {timestamp}</span>
           </div>
@@ -337,7 +337,7 @@ export default async function SystemStatusPage() {
                 <Database className={`w-5 h-5 ${dbConnected ? 'text-brand-green-600' : 'text-brand-red-600'}`} />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Database</p>
+                <p className="text-sm text-slate-700">Database</p>
                 <p className={`font-bold ${dbConnected ? 'text-brand-green-600' : 'text-brand-red-600'}`}>
                   {dbConnected ? 'Connected' : 'Disconnected'}
                 </p>
@@ -351,7 +351,7 @@ export default async function SystemStatusPage() {
                 <Globe className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Routes Active</p>
+                <p className="text-sm text-slate-700">Routes Active</p>
                 <p className="font-bold text-brand-blue-600">{activeCount} / {coreRoutes.length}</p>
               </div>
             </div>
@@ -363,7 +363,7 @@ export default async function SystemStatusPage() {
                 <Lock className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Env Configured</p>
+                <p className="text-sm text-slate-700">Env Configured</p>
                 <p className="font-bold text-brand-blue-600">{envConfigured} / {envTotal}</p>
               </div>
             </div>
@@ -375,7 +375,7 @@ export default async function SystemStatusPage() {
                 <Zap className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Tables Verified</p>
+                <p className="text-sm text-slate-700">Tables Verified</p>
                 <p className="font-bold text-brand-green-600">{dbStatus.tables.length} / 5</p>
               </div>
             </div>
@@ -385,19 +385,19 @@ export default async function SystemStatusPage() {
         {/* Canonical Domain Configuration */}
         <div className="bg-white rounded-xl border border-gray-200 mb-8">
           <div className="p-5 border-b border-gray-200">
-            <h2 className="font-bold text-gray-900">Canonical Domain Configuration</h2>
+            <h2 className="font-bold text-slate-900">Canonical Domain Configuration</h2>
           </div>
           <div className="p-5">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Primary Canonical Domain</h3>
+                <h3 className="text-sm font-medium text-slate-700 mb-2">Primary Canonical Domain</h3>
                 <div className="flex items-center gap-2 p-3 bg-brand-green-50 rounded-lg">
                   <span className="text-slate-400 flex-shrink-0">•</span>
                   <span className="font-mono text-brand-green-700">{canonicalConfig.primaryDomain}</span>
                 </div>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Sitemap URL</h3>
+                <h3 className="text-sm font-medium text-slate-700 mb-2">Sitemap URL</h3>
                 <div className="flex items-center gap-2 p-3 bg-brand-blue-50 rounded-lg">
                   <Globe className="w-5 h-5 text-brand-blue-600" />
                   <span className="font-mono text-brand-blue-700 text-sm">{canonicalConfig.sitemapUrl}</span>
@@ -405,7 +405,7 @@ export default async function SystemStatusPage() {
               </div>
             </div>
             <div className="mt-4">
-              <h3 className="text-sm font-medium text-gray-500 mb-2">Redirect Domains (301 → .org)</h3>
+              <h3 className="text-sm font-medium text-slate-700 mb-2">Redirect Domains (301 → .org)</h3>
               <div className="flex flex-wrap gap-2">
                 {canonicalConfig.redirectDomains.map(domain => (
                   <span key={domain} className="px-3 py-1 bg-brand-orange-50 text-brand-orange-700 rounded-full text-sm">
@@ -414,7 +414,7 @@ export default async function SystemStatusPage() {
                 ))}
               </div>
             </div>
-            <div className="mt-4 text-sm text-gray-500">
+            <div className="mt-4 text-sm text-slate-700">
               Verified at: {canonicalConfig.verifiedAt}
             </div>
           </div>
@@ -425,8 +425,8 @@ export default async function SystemStatusPage() {
           <div className="p-5 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-bold text-gray-900">Creator Platform Status</h2>
-                <p className="text-sm text-gray-500 mt-1">Community learning system capabilities</p>
+                <h2 className="font-bold text-slate-900">Creator Platform Status</h2>
+                <p className="text-sm text-slate-700 mt-1">Community learning system capabilities</p>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xs bg-brand-green-100 text-brand-green-700 px-2 py-1 rounded">
@@ -445,11 +445,11 @@ export default async function SystemStatusPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Capability</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Route</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">DB Table</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Live URL</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Capability</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Route</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">DB Table</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Live URL</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -457,8 +457,8 @@ export default async function SystemStatusPage() {
                   <tr key={idx} className="hover:bg-gray-50">
                     <td className="px-5 py-4">
                       <div>
-                        <p className="font-medium text-gray-900">{cap.name}</p>
-                        <p className="text-xs text-gray-500 mt-1">{cap.description}</p>
+                        <p className="font-medium text-slate-900">{cap.name}</p>
+                        <p className="text-xs text-slate-700 mt-1">{cap.description}</p>
                       </div>
                     </td>
                     <td className="px-5 py-4">
@@ -493,23 +493,23 @@ export default async function SystemStatusPage() {
             <div className="grid md:grid-cols-5 gap-4 text-center">
               <div className="flex items-center gap-2 justify-center">
                 <Users className="w-4 h-4 text-brand-blue-600" />
-                <span className="text-sm text-gray-600">Creator Spaces</span>
+                <span className="text-sm text-slate-700">Creator Spaces</span>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <MessageSquare className="w-4 h-4 text-brand-green-600" />
-                <span className="text-sm text-gray-600">Community Threads</span>
+                <span className="text-sm text-slate-700">Community Threads</span>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <Upload className="w-4 h-4 text-brand-blue-600" />
-                <span className="text-sm text-gray-600">Media Uploads</span>
+                <span className="text-sm text-slate-700">Media Uploads</span>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <Shield className="w-4 h-4 text-brand-orange-600" />
-                <span className="text-sm text-gray-600">Access Control</span>
+                <span className="text-sm text-slate-700">Access Control</span>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <Eye className="w-4 h-4 text-indigo-600" />
-                <span className="text-sm text-gray-600">Discoverability</span>
+                <span className="text-sm text-slate-700">Discoverability</span>
               </div>
             </div>
           </div>
@@ -518,7 +518,7 @@ export default async function SystemStatusPage() {
         {/* Database Tables */}
         <div className="bg-white rounded-xl border border-gray-200 mb-8">
           <div className="p-5 border-b border-gray-200">
-            <h2 className="font-bold text-gray-900">Database Tables</h2>
+            <h2 className="font-bold text-slate-900">Database Tables</h2>
           </div>
           <div className="p-5">
             <div className="grid md:grid-cols-5 gap-3">
@@ -543,7 +543,7 @@ export default async function SystemStatusPage() {
         {/* Environment Variables */}
         <div className="bg-white rounded-xl border border-gray-200 mb-8">
           <div className="p-5 border-b border-gray-200">
-            <h2 className="font-bold text-gray-900">Environment Configuration</h2>
+            <h2 className="font-bold text-slate-900">Environment Configuration</h2>
           </div>
           <div className="p-5">
             <div className="grid md:grid-cols-4 gap-3">
@@ -568,17 +568,17 @@ export default async function SystemStatusPage() {
         {/* Route Inventory */}
         <div className="bg-white rounded-xl border border-gray-200">
           <div className="p-5 border-b border-gray-200">
-            <h2 className="font-bold text-gray-900">Route Activation Inventory</h2>
+            <h2 className="font-bold text-slate-900">Route Activation Inventory</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Route</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase">Data Source</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Route</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Name</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Category</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-slate-700 uppercase">Data Source</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -593,10 +593,10 @@ export default async function SystemStatusPage() {
                     <td className="px-5 py-4">
                       <a href={route.path} className="text-brand-blue-600 hover:underline font-mono text-sm">{route.path}</a>
                     </td>
-                    <td className="px-5 py-4 text-sm text-gray-900">{route.name}</td>
+                    <td className="px-5 py-4 text-sm text-slate-900">{route.name}</td>
                     <td className="px-5 py-4">
                       <span className={`text-xs font-medium px-2 py-1 rounded ${
-                        route.category === 'Public' ? 'bg-gray-100 text-gray-700' :
+                        route.category === 'Public' ? 'bg-gray-100 text-slate-900' :
                         route.category === 'Admin' ? 'bg-brand-red-100 text-brand-red-700' :
                         route.category === 'Student' ? 'bg-brand-blue-100 text-brand-blue-700' :
                         route.category === 'Partner' ? 'bg-brand-blue-100 text-brand-blue-700' :
@@ -607,7 +607,7 @@ export default async function SystemStatusPage() {
                       <span className={`text-xs font-medium px-2 py-1 rounded ${
                         route.dataSource === 'supabase' ? 'bg-emerald-100 text-emerald-700' :
                         route.dataSource === 'api' ? 'bg-brand-blue-100 text-brand-blue-700' :
-                        'bg-gray-100 text-gray-700'
+                        'bg-gray-100 text-slate-900'
                       }`}>{route.dataSource}</span>
                     </td>
                   </tr>
@@ -618,7 +618,7 @@ export default async function SystemStatusPage() {
         </div>
 
         {/* Build Info */}
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-slate-700">
           <p>Build: {process.env.COMMIT_REF?.substring(0, 7) || 'local'}</p>
           <p>Environment: {process.env.NODE_ENV}</p>
           <p>Timestamp: {timestamp}</p>

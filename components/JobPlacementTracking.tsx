@@ -187,7 +187,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
       case 'placed': return 'bg-brand-green-100 text-brand-green-700';
       case 'offer_pending': return 'bg-yellow-100 text-yellow-700';
       case 'interviewing': return 'bg-brand-blue-100 text-brand-blue-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100 text-slate-900';
     }
   };
 
@@ -209,7 +209,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`py-4 px-2 border-b-2 font-medium capitalize ${
-                activeTab === tab ? 'border-brand-blue-600 text-brand-blue-600' : 'border-transparent text-gray-500'
+                activeTab === tab ? 'border-brand-blue-600 text-brand-blue-600' : 'border-transparent text-slate-700'
               }`}
             >
               {tab}
@@ -228,9 +228,9 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                 <div className="p-2 bg-brand-blue-100 rounded-lg">
                   <Users className="w-5 h-5 text-brand-blue-600" />
                 </div>
-                <h3 className="text-sm text-gray-500">Total Placements</h3>
+                <h3 className="text-sm text-slate-700">Total Placements</h3>
               </div>
-              <p className="text-3xl font-bold text-gray-900">{metrics.totalPlacements}</p>
+              <p className="text-3xl font-bold text-slate-900">{metrics.totalPlacements}</p>
               <p className="text-sm text-brand-green-600 mt-1">↑ 12% from last quarter</p>
             </Card>
 
@@ -239,10 +239,10 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                 <div className="p-2 bg-brand-green-100 rounded-lg">
                   <TrendingUp className="w-5 h-5 text-brand-green-600" />
                 </div>
-                <h3 className="text-sm text-gray-500">Placement Rate</h3>
+                <h3 className="text-sm text-slate-700">Placement Rate</h3>
               </div>
               <p className="text-3xl font-bold text-brand-green-600">{metrics.placementRate}%</p>
-              <p className="text-sm text-gray-500 mt-1">Within 90 days</p>
+              <p className="text-sm text-slate-700 mt-1">Within 90 days</p>
             </Card>
 
             <Card className="p-6">
@@ -250,7 +250,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                 <div className="p-2 bg-brand-orange-100 rounded-lg">
                   <DollarSign className="w-5 h-5 text-brand-orange-600" />
                 </div>
-                <h3 className="text-sm text-gray-500">Avg Starting Salary</h3>
+                <h3 className="text-sm text-slate-700">Avg Starting Salary</h3>
               </div>
               <p className="text-3xl font-bold text-brand-orange-600">${(metrics.avgSalary / 1000).toFixed(0)}k</p>
               <p className="text-sm text-brand-green-600 mt-1">↑ 8% from last year</p>
@@ -261,7 +261,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                 <div className="p-2 bg-purple-100 rounded-lg">
                   <Clock className="w-5 h-5 text-purple-600" />
                 </div>
-                <h3 className="text-sm text-gray-500">Avg Time to Placement</h3>
+                <h3 className="text-sm text-slate-700">Avg Time to Placement</h3>
               </div>
               <p className="text-3xl font-bold text-purple-600">{metrics.avgTimeToPlacement} days</p>
               <p className="text-sm text-brand-green-600 mt-1">↓ 15% improvement</p>
@@ -277,7 +277,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                   <div key={item.program}>
                     <div className="flex justify-between text-sm mb-1">
                       <span className="font-medium">{item.program}</span>
-                      <span className="text-gray-500">{item.count} placements</span>
+                      <span className="text-slate-700">{item.count} placements</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
@@ -296,7 +296,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                 {metrics.topEmployers.map((partner) => (
                   <div key={partner.name} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <Building2 className="w-5 h-5 text-gray-400" />
+                      <Building2 className="w-5 h-5 text-slate-700" />
                       <span className="font-medium">{partner.name}</span>
                     </div>
                     <span className="px-3 py-1 bg-brand-blue-100 text-brand-blue-700 text-sm rounded-full">
@@ -342,24 +342,24 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                         {placement.status.replace('_', ' ').toUpperCase()}
                       </span>
                     </div>
-                    <p className="text-gray-600 mb-3">{placement.program_name}</p>
+                    <p className="text-slate-700 mb-3">{placement.program_name}</p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-500">Employer</p>
+                        <p className="text-slate-700">Employer</p>
                         <p className="font-semibold">{placement.employer_name}</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Position</p>
+                        <p className="text-slate-700">Position</p>
                         <p className="font-semibold">{placement.position}</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Salary</p>
+                        <p className="text-slate-700">Salary</p>
                         <p className="font-semibold text-brand-green-600">
                           ${placement.salary.toLocaleString('en-US')}/year
                         </p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Start Date</p>
+                        <p className="text-slate-700">Start Date</p>
                         <p className="font-semibold">{placement.start_date}</p>
                       </div>
                     </div>
@@ -367,7 +367,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                   {placement.match_score && (
                     <div className="text-right ml-6">
                       <div className="text-3xl font-bold text-brand-blue-600">{placement.match_score}%</div>
-                      <p className="text-sm text-gray-500">Match Score</p>
+                      <p className="text-sm text-slate-700">Match Score</p>
                     </div>
                   )}
                 </div>
@@ -398,7 +398,7 @@ export function JobPlacementTracking({ programId, showPipeline = true }: Props) 
                   <p className={`text-4xl font-bold text-${stage.color}-600 mb-1`}>
                     {stage.count}
                   </p>
-                  <p className="text-sm text-gray-500">students</p>
+                  <p className="text-sm text-slate-700">students</p>
                   <Button size="sm" variant="secondary" className="w-full mt-4">
                     View Details
                   </Button>

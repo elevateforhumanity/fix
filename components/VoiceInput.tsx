@@ -262,7 +262,7 @@ export function VoiceInput({ onCommand, className = '' }: VoiceInputProps) {
           "{transcript}"
         </div>
       )}
-      {isListening && <div className="text-xs text-gray-500">Listening...</div>}
+      {isListening && <div className="text-xs text-slate-700">Listening...</div>}
     </div>
   );
 }

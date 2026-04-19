@@ -49,8 +49,8 @@ export function Pretest({ title, questions, onComplete }: PretestProps) {
     return (
       <div className="rounded-2xl border-2 border-brand-blue-200 bg-brand-blue-50 p-8 text-center">
         <Brain className="w-12 h-12 text-brand-blue-500 mx-auto mb-3" />
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Ready to Learn!</h3>
-        <p className="text-gray-600 mb-4">
+        <h3 className="text-xl font-bold text-slate-900 mb-2">Ready to Learn!</h3>
+        <p className="text-slate-700 mb-4">
           You've activated your prior knowledge. Now watch the lesson — pay attention to the topics you weren't sure about.
         </p>
         <button onClick={onComplete}
@@ -66,13 +66,13 @@ export function Pretest({ title, questions, onComplete }: PretestProps) {
       <div className="flex items-center justify-between mb-4">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2 py-0.5 rounded">Pretest</span>
-          <h3 className="text-lg font-bold text-gray-900 mt-1">{title}</h3>
-          <p className="text-sm text-gray-500">Not graded — just see what you already know.</p>
+          <h3 className="text-lg font-bold text-slate-900 mt-1">{title}</h3>
+          <p className="text-sm text-slate-700">Not graded — just see what you already know.</p>
         </div>
-        <span className="text-sm font-semibold text-gray-400">{current + 1}/{questions.length}</span>
+        <span className="text-sm font-semibold text-slate-700">{current + 1}/{questions.length}</span>
       </div>
 
-      <p className="text-base font-semibold text-gray-900 mb-4">{q.question}</p>
+      <p className="text-base font-semibold text-slate-900 mb-4">{q.question}</p>
 
       <div className="space-y-2 mb-4">
         {q.options.map((opt, i) => {
@@ -89,9 +89,9 @@ export function Pretest({ title, questions, onComplete }: PretestProps) {
                 'bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50'
               }`}>
               <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
-                isRight ? 'bg-green-500 text-white' : isWrong ? 'bg-red-400 text-white' : 'bg-gray-100 text-gray-500'
+                isRight ? 'bg-green-500 text-white' : isWrong ? 'bg-red-400 text-white' : 'bg-gray-100 text-slate-700'
               }`}>{letter}</span>
-              <span className="font-medium text-gray-700 text-sm">{opt}</span>
+              <span className="font-medium text-slate-900 text-sm">{opt}</span>
             </button>
           );
         })}

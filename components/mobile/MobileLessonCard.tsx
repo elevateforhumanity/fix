@@ -22,11 +22,11 @@ export default function MobileLessonCard({
   onClick,
 }: MobileLessonCardProps) {
   const getIcon = () => {
-    if (locked) return <Lock size={20} className="text-gray-400" />;
+    if (locked) return <Lock size={20} className="text-slate-700" />;
     if (completed) return <span className="text-slate-400 flex-shrink-0">•</span>;
     if (type === 'video')
       return <PlayCircle size={20} className="text-brand-blue-500" />;
-    return <Circle size={20} className="text-gray-400" />;
+    return <Circle size={20} className="text-slate-700" />;
   };
 
   const getTypeLabel = () => {
@@ -61,7 +61,7 @@ export default function MobileLessonCard({
         <h4
           className={`font-medium text-sm mb-1 ${
             locked
-              ? 'text-gray-400'
+              ? 'text-slate-700'
               : completed
                 ? 'text-black'
                 : 'text-black'
@@ -69,7 +69,7 @@ export default function MobileLessonCard({
         >
           {title}
         </h4>
-        <div className="flex items-center gap-2 text-xs text-gray-500">
+        <div className="flex items-center gap-2 text-xs text-slate-700">
           <span>{getTypeLabel()}</span>
           <span>•</span>
           <span>{duration}</span>
@@ -82,7 +82,7 @@ export default function MobileLessonCard({
         </div>
       )}
       {locked && (
-        <div className="flex-shrink-0 px-2 py-2 bg-gray-100 text-gray-500 text-xs font-medium rounded-full">
+        <div className="flex-shrink-0 px-2 py-2 bg-gray-100 text-slate-700 text-xs font-medium rounded-full">
           Locked
         </div>
       )}

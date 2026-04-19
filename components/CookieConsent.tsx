@@ -140,10 +140,10 @@ export default function CookieConsent() {
                   <span className="text-xl text-brand-blue-600" aria-hidden="true">&#x1F36A;</span>
                 </div>
                 <div>
-                  <h3 id="cookie-consent-title" className="font-semibold text-gray-900 mb-1">
+                  <h3 id="cookie-consent-title" className="font-semibold text-slate-900 mb-1">
                     We Value Your Privacy
                   </h3>
-                  <p className="text-sm text-gray-700 leading-relaxed">
+                  <p className="text-sm text-slate-900 leading-relaxed">
                     We use cookies to enhance your experience, analyze site
                     traffic, and provide personalized content. By clicking
                     &ldquo;Accept&rdquo;, you consent to our use of cookies.{' '}
@@ -162,7 +162,7 @@ export default function CookieConsent() {
               <button
                 ref={firstFocusRef}
                 onClick={handleReject}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-brand-blue-500 focus:ring-offset-2"
+                className="px-4 py-2 text-sm font-medium text-slate-900 bg-gray-100 hover:bg-gray-200 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-brand-blue-500 focus:ring-offset-2"
                 aria-label="Reject all cookies"
               >
                 Reject
@@ -176,7 +176,7 @@ export default function CookieConsent() {
               </button>
               <button
                 onClick={handleClose}
-                className="p-2 text-gray-400 hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-blue-500 focus:ring-offset-2 rounded"
+                className="p-2 text-slate-700 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-blue-500 focus:ring-offset-2 rounded"
                 aria-label="Close cookie consent banner"
               >
                 <span className="text-xl leading-none" aria-hidden="true">&times;</span>

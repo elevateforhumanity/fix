@@ -89,8 +89,8 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
                 <FileText className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{assignment.title}</h1>
-                {courseName && <p className="text-sm text-gray-500 mt-0.5">{courseName}</p>}
+                <h1 className="text-2xl font-bold text-slate-900">{assignment.title}</h1>
+                {courseName && <p className="text-sm text-slate-700 mt-0.5">{courseName}</p>}
               </div>
             </div>
             <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold flex-shrink-0 ${statusConfig.color}`}>
@@ -99,17 +99,17 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-4 text-sm text-gray-600 border-t border-gray-100 pt-4">
+          <div className="flex flex-wrap gap-4 text-sm text-slate-700 border-t border-gray-100 pt-4">
             {assignment.due_date && (
               <div className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-gray-400" />
+                <Calendar className="w-4 h-4 text-slate-700" />
                 <span>Due: {new Date(assignment.due_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 {isOverdue && <span className="text-red-600 font-medium ml-1">(Overdue)</span>}
               </div>
             )}
             {assignment.max_points && (
               <div className="flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-gray-400" />
+                <Award className="w-4 h-4 text-slate-700" />
                 <span>{assignment.max_points} points</span>
               </div>
             )}
@@ -124,14 +124,14 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
           <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-3">
             {assignment.description && (
               <div>
-                <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Description</h2>
-                <p className="text-gray-700 whitespace-pre-wrap text-sm leading-relaxed">{assignment.description}</p>
+                <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wide mb-2">Description</h2>
+                <p className="text-slate-900 whitespace-pre-wrap text-sm leading-relaxed">{assignment.description}</p>
               </div>
             )}
             {assignment.instructions && (
               <div className={assignment.description ? 'border-t border-gray-100 pt-3' : ''}>
-                <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Instructions</h2>
-                <p className="text-gray-700 whitespace-pre-wrap text-sm leading-relaxed">{assignment.instructions}</p>
+                <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wide mb-2">Instructions</h2>
+                <p className="text-slate-900 whitespace-pre-wrap text-sm leading-relaxed">{assignment.instructions}</p>
               </div>
             )}
           </div>
@@ -150,20 +150,20 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
                 : submission.status === 'rejected' ? 'text-red-600'
                 : 'text-brand-blue-600'
               }`} />
-              <h2 className="font-semibold text-gray-900">Your Submission</h2>
-              <span className="text-xs text-gray-500 ml-auto">
+              <h2 className="font-semibold text-slate-900">Your Submission</h2>
+              <span className="text-xs text-slate-700 ml-auto">
                 {new Date(submission.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                 {isLate && <span className="text-amber-600 ml-1">(late)</span>}
               </span>
             </div>
 
             {submission.submission_text && (
-              <p className="text-sm text-gray-700 whitespace-pre-wrap bg-white/60 rounded-lg p-3">{submission.submission_text}</p>
+              <p className="text-sm text-slate-900 whitespace-pre-wrap bg-white/60 rounded-lg p-3">{submission.submission_text}</p>
             )}
 
             {submission.file_urls && submission.file_urls.length > 0 && (
               <div>
-                <p className="text-xs font-medium text-gray-600 mb-2">Attached files:</p>
+                <p className="text-xs font-medium text-slate-700 mb-2">Attached files:</p>
                 <ul className="space-y-1">
                   {submission.file_urls.map((url: string, i: number) => (
                     <li key={i}>
@@ -179,10 +179,10 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
 
             {submission.instructor_note && (
               <div className="border-t border-gray-200 pt-3">
-                <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">Instructor Feedback</p>
-                <p className="text-sm text-gray-700">{submission.instructor_note}</p>
+                <p className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">Instructor Feedback</p>
+                <p className="text-sm text-slate-900">{submission.instructor_note}</p>
                 {submission.reviewed_at && (
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-slate-700 mt-1">
                     Reviewed {new Date(submission.reviewed_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </p>
                 )}
@@ -208,8 +208,8 @@ export default async function StudentAssignmentDetailPage({ params }: Props) {
         {/* Submission form */}
         {!submission && (
           <div className="bg-white rounded-2xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-1">Submit Your Work</h2>
-            <p className="text-sm text-gray-500 mb-5">
+            <h2 className="text-lg font-semibold text-slate-900 mb-1">Submit Your Work</h2>
+            <p className="text-sm text-slate-700 mb-5">
               {assignment.submission_type === 'file' ? 'Upload your completed work as a file.'
                 : assignment.submission_type === 'text' ? 'Write your response in the text box below.'
                 : 'Write a response and/or attach files.'}

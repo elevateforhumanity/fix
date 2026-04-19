@@ -88,7 +88,7 @@ export default async function RetentionPage() {
     at_risk: 'bg-yellow-100 text-yellow-700',
     completed: 'bg-brand-blue-100 text-brand-blue-700',
     dropped: 'bg-red-100 text-red-700',
-    pending: 'bg-gray-100 text-gray-600',
+    pending: 'bg-gray-100 text-slate-700',
   };
 
   return (
@@ -98,8 +98,8 @@ export default async function RetentionPage() {
           <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Retention' }]} />
           <div className="flex justify-between items-center mt-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Retention Analytics</h1>
-              <p className="text-gray-600 mt-1">Participant retention and engagement</p>
+              <h1 className="text-3xl font-bold text-slate-900">Retention Analytics</h1>
+              <p className="text-slate-700 mt-1">Participant retention and engagement</p>
             </div>
             <Link href="/admin/at-risk" className="flex items-center gap-2 text-brand-orange-600 hover:text-brand-orange-800 text-sm font-medium">
               View At-Risk Students <ArrowRight size={16} />
@@ -113,40 +113,40 @@ export default async function RetentionPage() {
             <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mb-3">
               <CheckCircle className="w-5 h-5 text-green-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{retention30}%</p>
-            <p className="text-sm text-gray-500 mt-1">30-Day Retention</p>
-            <p className="text-xs text-gray-400 mt-1">{activeIn30.length} of {enrolledLast30.length} enrolled</p>
+            <p className="text-2xl font-bold text-slate-900">{retention30}%</p>
+            <p className="text-sm text-slate-700 mt-1">30-Day Retention</p>
+            <p className="text-xs text-slate-700 mt-1">{activeIn30.length} of {enrolledLast30.length} enrolled</p>
           </div>
           <div className="bg-white rounded-xl shadow-sm border p-5">
             <div className="w-10 h-10 bg-brand-blue-50 rounded-lg flex items-center justify-center mb-3">
               <Users className="w-5 h-5 text-brand-blue-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{retention90}%</p>
-            <p className="text-sm text-gray-500 mt-1">90-Day Retention</p>
-            <p className="text-xs text-gray-400 mt-1">{activeIn90.length} of {enrolledLast90.length} enrolled</p>
+            <p className="text-2xl font-bold text-slate-900">{retention90}%</p>
+            <p className="text-sm text-slate-700 mt-1">90-Day Retention</p>
+            <p className="text-xs text-slate-700 mt-1">{activeIn90.length} of {enrolledLast90.length} enrolled</p>
           </div>
           <div className="bg-white rounded-xl shadow-sm border p-5">
             <div className="w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center mb-3">
               <AlertTriangle className="w-5 h-5 text-yellow-600" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{atRiskCount || 0}</p>
-            <p className="text-sm text-gray-500 mt-1">At Risk</p>
-            <p className="text-xs text-gray-400 mt-1">Needs intervention</p>
+            <p className="text-2xl font-bold text-slate-900">{atRiskCount || 0}</p>
+            <p className="text-sm text-slate-700 mt-1">At Risk</p>
+            <p className="text-xs text-slate-700 mt-1">Needs intervention</p>
           </div>
           <div className="bg-white rounded-xl shadow-sm border p-5">
             <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center mb-3">
               <TrendingDown className="w-5 h-5 text-red-500" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{churnedRecent}</p>
-            <p className="text-sm text-gray-500 mt-1">Dropped (30d)</p>
-            <p className="text-xs text-gray-400 mt-1">Recent withdrawals</p>
+            <p className="text-2xl font-bold text-slate-900">{churnedRecent}</p>
+            <p className="text-sm text-slate-700 mt-1">Dropped (30d)</p>
+            <p className="text-xs text-slate-700 mt-1">Recent withdrawals</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Status Distribution */}
           <div className="bg-white rounded-xl shadow-sm border p-5">
-            <h2 className="text-base font-semibold text-gray-900 mb-4">Student Status Distribution</h2>
+            <h2 className="text-base font-semibold text-slate-900 mb-4">Student Status Distribution</h2>
             {totalStudents > 0 ? (
               <div className="space-y-3">
                 {Object.entries(statusCounts).sort(([, a], [, b]) => b - a).map(([status, count]) => {
@@ -154,8 +154,8 @@ export default async function RetentionPage() {
                   return (
                     <div key={status}>
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="capitalize text-gray-700">{status.replace('_', ' ')}</span>
-                        <span className="font-medium text-gray-900">{count} <span className="text-gray-400 font-normal">({pct}%)</span></span>
+                        <span className="capitalize text-slate-900">{status.replace('_', ' ')}</span>
+                        <span className="font-medium text-slate-900">{count} <span className="text-slate-700 font-normal">({pct}%)</span></span>
                       </div>
                       <div className="w-full bg-gray-100 rounded-full h-2">
                         <div
@@ -168,17 +168,17 @@ export default async function RetentionPage() {
                 })}
               </div>
             ) : (
-              <p className="text-gray-500 text-sm text-center py-4">No student data yet</p>
+              <p className="text-slate-700 text-sm text-center py-4">No student data yet</p>
             )}
             <div className="mt-4 pt-4 border-t">
-              <p className="text-xs text-gray-500">Active learners (lesson activity, 30d): <span className="font-semibold text-gray-700">{activeLearnersSet.size}</span></p>
+              <p className="text-xs text-slate-700">Active learners (lesson activity, 30d): <span className="font-semibold text-slate-900">{activeLearnersSet.size}</span></p>
             </div>
           </div>
 
           {/* Recent Dropouts */}
           <div className="bg-white rounded-xl shadow-sm border">
             <div className="p-5 border-b flex justify-between items-center">
-              <h2 className="text-base font-semibold text-gray-900">Recent Withdrawals</h2>
+              <h2 className="text-base font-semibold text-slate-900">Recent Withdrawals</h2>
               <Link href="/admin/enrollments" className="text-sm text-brand-blue-600 hover:text-brand-blue-800">All enrollments</Link>
             </div>
             <div className="divide-y">
@@ -189,14 +189,14 @@ export default async function RetentionPage() {
                       <User className="w-4 h-4 text-red-500" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{(e.profiles as any)?.full_name || 'Student'}</p>
-                      <p className="text-xs text-gray-500">{(e.profiles as any)?.email || '—'}</p>
+                      <p className="text-sm font-medium text-slate-900">{(e.profiles as any)?.full_name || 'Student'}</p>
+                      <p className="text-xs text-slate-700">{(e.profiles as any)?.email || '—'}</p>
                     </div>
                   </div>
                   <span className={`text-xs px-2 py-1 rounded-full ${statusBadge.dropped}`}>Dropped</span>
                 </div>
               )) : (
-                <div className="p-8 text-center text-gray-500 text-sm">No recent withdrawals</div>
+                <div className="p-8 text-center text-slate-700 text-sm">No recent withdrawals</div>
               )}
             </div>
           </div>

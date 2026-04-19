@@ -50,7 +50,7 @@ export default async function ContactsPage() {
       case 'Hot': return 'bg-brand-red-100 text-brand-red-700';
       case 'Warm': return 'bg-brand-orange-100 text-brand-orange-700';
       case 'Active': return 'bg-brand-green-100 text-brand-green-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100 text-slate-900';
     }
   };
 
@@ -59,7 +59,7 @@ export default async function ContactsPage() {
       case 'Lead': return 'bg-brand-blue-100 text-brand-blue-700';
       case 'Customer': return 'bg-brand-green-100 text-brand-green-700';
       case 'Partner': return 'bg-brand-blue-100 text-brand-blue-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100 text-slate-900';
     }
   };
 
@@ -74,9 +74,9 @@ export default async function ContactsPage() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <Users className="w-8 h-8 text-brand-blue-600" />
-                <h1 className="text-3xl font-bold text-gray-900">Contacts</h1>
+                <h1 className="text-3xl font-bold text-slate-900">Contacts</h1>
               </div>
-              <p className="text-gray-600">Manage your contacts and relationships</p>
+              <p className="text-slate-700">Manage your contacts and relationships</p>
             </div>
             <Link
               href="/admin/crm/contacts/new"
@@ -94,7 +94,7 @@ export default async function ContactsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search contacts..."
@@ -137,25 +137,25 @@ export default async function ContactsPage() {
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{contact.name}</h3>
-                      <div className="flex items-center gap-1 text-gray-500 text-sm">
+                      <h3 className="font-semibold text-slate-900">{contact.name}</h3>
+                      <div className="flex items-center gap-1 text-slate-700 text-sm">
                         <Building2 className="w-3 h-3" />
                         {contact.company}
                       </div>
                     </div>
                   </div>
                   <button className="p-1 hover:bg-gray-100 rounded">
-                    <MoreVertical className="w-5 h-5 text-gray-400" />
+                    <MoreVertical className="w-5 h-5 text-slate-700" />
                   </button>
                 </div>
 
                 <div className="space-y-2 mb-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Mail className="w-4 h-4 text-gray-400" />
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
+                    <Mail className="w-4 h-4 text-slate-700" />
                     {contact.email}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Phone className="w-4 h-4 text-gray-400" />
+                  <div className="flex items-center gap-2 text-sm text-slate-700">
+                    <Phone className="w-4 h-4 text-slate-700" />
                     {contact.phone}
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export default async function ContactsPage() {
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <span className="text-sm text-gray-500">Last contact: {contact.lastContact}</span>
+                  <span className="text-sm text-slate-700">Last contact: {contact.lastContact}</span>
                   <Link
                     href={`/admin/crm/contacts/${contact.id}`}
                     className="text-brand-blue-600 text-sm font-medium hover:text-brand-blue-700"

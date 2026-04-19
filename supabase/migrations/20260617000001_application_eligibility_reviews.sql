@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS public.application_eligibility_reviews (
   agrees_verification_policy  BOOLEAN DEFAULT FALSE,
 
   -- Decision (set by system, confirmed/overridden by staff)
-  eligibility_status          TEXT NOT NULL DEFAULT 'incomplete'
+  eligibility_status          TEXT NOT NULL DEFAULT 'incomplete',
                               CHECK (eligibility_status IN ('eligible','conditional_review','ineligible','incomplete')),
   eligibility_reason_codes    TEXT[] DEFAULT '{}',
 

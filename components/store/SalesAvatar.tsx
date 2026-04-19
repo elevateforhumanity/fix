@@ -247,7 +247,7 @@ export default function SalesAvatar({
             </div>
           )}
           
-          <p className="text-gray-800 leading-relaxed min-h-[60px]">
+          <p className="text-slate-900 leading-relaxed min-h-[60px]">
             {displayedText}
             {isTyping && <span className="inline-block w-2 h-4 bg-brand-orange-500 ml-1 animate-pulse" />}
           </p>

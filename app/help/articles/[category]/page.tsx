@@ -32,8 +32,8 @@ export default async function HelpCategoryPage({ params }: Props) {
         ]}
       />
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{categoryName}</h1>
-        <p className="text-gray-600 mb-8">{articles.length} articles in this category</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">{categoryName}</h1>
+        <p className="text-slate-700 mb-8">{articles.length} articles in this category</p>
         <div className="bg-white rounded-xl shadow-sm divide-y">
           {articles.map((article) => (
             <Link key={article.id} href={`/help/articles/article/${article.id}`} className="flex items-center justify-between p-6 hover:bg-white">
@@ -42,14 +42,14 @@ export default async function HelpCategoryPage({ params }: Props) {
                   <FileText className="w-5 h-5 text-brand-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900">{article.title}</h3>
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
+                  <h3 className="font-medium text-slate-900">{article.title}</h3>
+                  <div className="flex items-center gap-4 text-sm text-slate-700 mt-1">
                     <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {article.readTime} read</span>
                     <span>Updated {article.updated}</span>
                   </div>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </Link>
           ))}
         </div>

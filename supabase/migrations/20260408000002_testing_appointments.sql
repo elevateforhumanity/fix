@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS public.testing_appointments (
   exam_type             text,
   start_time            timestamptz NOT NULL,
   end_time              timestamptz,
-  status                text NOT NULL DEFAULT 'confirmed'
+  status                text NOT NULL DEFAULT 'confirmed',
                           CHECK (status IN ('confirmed', 'canceled', 'completed', 'no_show')),
   cancel_url            text,
   reschedule_url        text,

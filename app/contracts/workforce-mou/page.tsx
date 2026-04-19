@@ -20,7 +20,7 @@ export default function WorkforceMOUPage() {
         confidential
       >
         <div className="flex items-center justify-between mb-6 -mt-4">
-          <Link href="/contracts" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm">
+          <Link href="/contracts" className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 text-sm">
             <ArrowLeft className="w-4 h-4" /> Back to Contracts
           </Link>
           <div className="flex gap-2">

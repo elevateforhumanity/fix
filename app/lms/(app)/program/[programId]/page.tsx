@@ -130,7 +130,7 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
     active: { text: 'Active', color: 'bg-brand-green-100 text-brand-green-700' },
     confirmed: { text: 'Active', color: 'bg-brand-green-100 text-brand-green-700' },
     completed: { text: 'Completed', color: 'bg-brand-blue-100 text-brand-blue-700' },
-    withdrawn: { text: 'Withdrawn', color: 'bg-white text-gray-600' },
+    withdrawn: { text: 'Withdrawn', color: 'bg-white text-slate-700' },
     pending: { text: 'Pending', color: 'bg-amber-100 text-amber-700' },
     paid: { text: 'Pending', color: 'bg-amber-100 text-amber-700' },
   };
@@ -193,13 +193,13 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
         </div>
 
         {/* Courses Grid */}
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Your Courses</h2>
+        <h2 className="text-xl font-bold text-slate-900 mb-4">Your Courses</h2>
 
         {courseStats.length === 0 ? (
           <div className="bg-white rounded-xl border p-8 text-center">
-            <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No courses yet</h3>
-            <p className="text-gray-500">Courses for this program have not been published yet. Check back soon.</p>
+            <BookOpen className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-slate-900 mb-2">No courses yet</h3>
+            <p className="text-slate-700">Courses for this program have not been published yet. Check back soon.</p>
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
@@ -210,17 +210,17 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
                 className="bg-white rounded-xl border hover:border-brand-blue-300 hover:shadow-md transition p-6 group"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold text-gray-900 group-hover:text-brand-blue-600 transition">
+                  <h3 className="font-semibold text-slate-900 group-hover:text-brand-blue-600 transition">
                     {course.title}
                   </h3>
-                  <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-brand-blue-600 transition flex-shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-slate-700 group-hover:text-brand-blue-600 transition flex-shrink-0" />
                 </div>
 
                 {course.description && (
-                  <p className="text-sm text-gray-500 mb-4 line-clamp-2">{course.description}</p>
+                  <p className="text-sm text-slate-700 mb-4 line-clamp-2">{course.description}</p>
                 )}
 
-                <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
+                <div className="flex items-center gap-3 text-xs text-slate-700 mb-3">
                   <span className="flex items-center gap-1">
                     <BookOpen className="w-3.5 h-3.5" /> {course.lessonCount} lessons
                   </span>
@@ -241,7 +241,7 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
                   />
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-500">
+                  <span className="text-slate-700">
                     {course.completedCount}/{course.lessonCount} lessons
                   </span>
                   {course.percent === 100 ? (
@@ -253,7 +253,7 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
                       <Play className="w-3.5 h-3.5" /> Continue
                     </span>
                   ) : (
-                    <span className="text-gray-400">Not started</span>
+                    <span className="text-slate-700">Not started</span>
                   )}
                 </div>
               </Link>
@@ -264,7 +264,7 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
         {/* Certificates Section */}
         {(certificates?.length || 0) > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Certificates Earned</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Certificates Earned</h2>
             <div className="grid gap-4 md:grid-cols-2">
               {certificates!.map((cert: any) => (
                 <div key={cert.id} className="bg-white rounded-xl border p-6 flex items-center gap-4">
@@ -272,9 +272,9 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
                     <Award className="w-6 h-6 text-amber-600" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900">{cert.title}</h3>
+                    <h3 className="font-medium text-slate-900">{cert.title}</h3>
                     {cert.issued_at && (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-slate-700">
                         Issued {new Date(cert.issued_at).toLocaleDateString()}
                       </p>
                     )}
@@ -288,7 +288,7 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
         {/* Completion Requirements */}
         {completionStatus && completionStatus.ruleResults.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Completion Requirements</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Completion Requirements</h2>
             <div className="bg-white rounded-xl border p-6">
               <div className="space-y-3">
                 {completionStatus.ruleResults.map((r, i) => (
@@ -296,9 +296,9 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
                     {r.passed ? (
                       <CheckCircle className="w-5 h-5 text-brand-green-500 flex-shrink-0" />
                     ) : (
-                      <Circle className="w-5 h-5 text-gray-300 flex-shrink-0" />
+                      <Circle className="w-5 h-5 text-slate-700 flex-shrink-0" />
                     )}
-                    <span className={`text-sm ${r.passed ? 'text-gray-900' : 'text-gray-500'}`}>
+                    <span className={`text-sm ${r.passed ? 'text-slate-900' : 'text-slate-700'}`}>
                       {r.detail}
                     </span>
                   </div>
@@ -321,19 +321,19 @@ export default async function ProgramDashboardPage({ params }: { params: Params 
             href="/lms/courses"
             className="bg-white rounded-xl border p-4 hover:border-brand-blue-300 transition text-center"
           >
-            <span className="text-sm font-medium text-gray-700">Back to Dashboard</span>
+            <span className="text-sm font-medium text-slate-900">Back to Dashboard</span>
           </Link>
           <Link
             href="/lms/certificates"
             className="bg-white rounded-xl border p-4 hover:border-brand-blue-300 transition text-center"
           >
-            <span className="text-sm font-medium text-gray-700">All Certificates</span>
+            <span className="text-sm font-medium text-slate-900">All Certificates</span>
           </Link>
           <Link
             href="/support"
             className="bg-white rounded-xl border p-4 hover:border-brand-blue-300 transition text-center"
           >
-            <span className="text-sm font-medium text-gray-700">Get Help</span>
+            <span className="text-sm font-medium text-slate-900">Get Help</span>
           </Link>
         </div>
       </div>

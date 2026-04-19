@@ -204,7 +204,7 @@ export default function DocumentUpload({
             Choose Files
           </button>
 
-          <div className="mt-6 text-sm text-gray-500 space-y-1">
+          <div className="mt-6 text-sm text-slate-700 space-y-1">
             <p>Accepted formats: {acceptedTypes.join(', ')}</p>
             <p>Maximum file size: {maxSize}MB</p>
             <p>Maximum files: {maxFiles}</p>
@@ -284,7 +284,7 @@ export default function DocumentUpload({
                         <h5 className="font-semibold text-black truncate">
                           {file.name}
                         </h5>
-                        <span className="text-sm text-gray-500 ml-2">
+                        <span className="text-sm text-slate-700 ml-2">
                           {formatFileSize(file.size)}
                         </span>
                       </div>

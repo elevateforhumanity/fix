@@ -22,19 +22,19 @@ export default async function NewLeadPage() {
         <div className="mb-8">
           <Link 
             href="/admin/leads"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Leads
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Add New Lead</h1>
-          <p className="text-gray-600 mt-1">Enter prospective student information</p>
+          <h1 className="text-3xl font-bold text-slate-900">Add New Lead</h1>
+          <p className="text-slate-700 mt-1">Enter prospective student information</p>
         </div>
 
         <form action="/api/admin/leads" method="POST" className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">First Name *</label>
               <input
                 type="text"
                 name="first_name"
@@ -43,7 +43,7 @@ export default async function NewLeadPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Last Name *</label>
               <input
                 type="text"
                 name="last_name"
@@ -55,7 +55,7 @@ export default async function NewLeadPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Email *</label>
               <input
                 type="email"
                 name="email"
@@ -64,7 +64,7 @@ export default async function NewLeadPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Phone</label>
               <input
                 type="tel"
                 name="phone"
@@ -76,7 +76,7 @@ export default async function NewLeadPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Program Interest</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Program Interest</label>
               <select name="program_interest" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500">
                 <option value="">Select a program...</option>
                 <option value="CNA">CNA</option>
@@ -89,7 +89,7 @@ export default async function NewLeadPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Source</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">Source</label>
               <select name="source" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500">
                 <option value="website">Website</option>
                 <option value="referral">Referral</option>
@@ -104,7 +104,7 @@ export default async function NewLeadPage() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Notes</label>
             <textarea
               name="notes"
               rows={4}
@@ -114,7 +114,7 @@ export default async function NewLeadPage() {
           </div>
 
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200">
-            <Link href="/admin/leads" className="px-4 py-2 text-gray-700 hover:text-gray-900">
+            <Link href="/admin/leads" className="px-4 py-2 text-slate-900 hover:text-slate-900">
               Cancel
             </Link>
             <button

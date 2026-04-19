@@ -31,7 +31,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
   awaiting_outcome:     { label: 'Awaiting Outcome',    color: 'bg-yellow-100 text-yellow-800' },
   needs_result_recorded:{ label: 'Record Result',       color: 'bg-green-100 text-green-800' },
   eligible_for_reauth:  { label: 'Re-authorize',        color: 'bg-purple-100 text-purple-800' },
-  no_action_needed:     { label: 'No Action',           color: 'bg-gray-100 text-gray-500' },
+  no_action_needed:     { label: 'No Action',           color: 'bg-gray-100 text-slate-700' },
 };
 
 const STATUS_COLORS: Record<string, string> = {
@@ -39,7 +39,7 @@ const STATUS_COLORS: Record<string, string> = {
   scheduled:  'bg-yellow-100 text-yellow-700',
   passed:     'bg-green-100 text-green-700',
   failed:     'bg-red-100 text-red-700',
-  expired:    'bg-gray-100 text-gray-500',
+  expired:    'bg-gray-100 text-slate-700',
   no_show:    'bg-orange-100 text-orange-700',
 };
 
@@ -147,7 +147,7 @@ export default function ExamAuthWorkQueue({
             className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
               filter === f.key
                 ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 text-slate-700 hover:bg-gray-200'
             }`}
           >
             {f.label}
@@ -156,20 +156,20 @@ export default function ExamAuthWorkQueue({
       </div>
 
       {filtered.length === 0 ? (
-        <div className="px-6 py-12 text-center text-gray-500 text-sm">
+        <div className="px-6 py-12 text-center text-slate-700 text-sm">
           No items in this view.
         </div>
       ) : (
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Learner</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Authorized</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expires</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Next Action</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Learner</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Program</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Status</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Authorized</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Expires</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Next Action</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -187,18 +187,18 @@ export default function ExamAuthWorkQueue({
                   >
                     {/* Learner */}
                     <td className="px-4 py-3">
-                      <div className="font-medium text-gray-900">{row.learner_name}</div>
-                      <div className="text-xs text-gray-400">{row.learner_email}</div>
+                      <div className="font-medium text-slate-900">{row.learner_name}</div>
+                      <div className="text-xs text-slate-700">{row.learner_email}</div>
                     </td>
 
                     {/* Program */}
                     <td className="px-4 py-3">
-                      <div className="text-gray-700">{row.program_title}</div>
+                      <div className="text-slate-900">{row.program_title}</div>
                     </td>
 
                     {/* Status */}
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[row.status] ?? 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[row.status] ?? 'bg-gray-100 text-slate-700'}`}>
                         {row.status}
                       </span>
                       {stuck && (
@@ -210,17 +210,17 @@ export default function ExamAuthWorkQueue({
                     </td>
 
                     {/* Authorized */}
-                    <td className="px-4 py-3 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-slate-700 text-xs">
                       {row.authorized_at ? new Date(row.authorized_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) : '—'}
                     </td>
 
                     {/* Expires */}
                     <td className="px-4 py-3 text-xs">
                       {row.expires_at ? (
-                        <span className={row.expiring_soon ? 'text-orange-600 font-medium' : 'text-gray-500'}>
+                        <span className={row.expiring_soon ? 'text-orange-600 font-medium' : 'text-slate-700'}>
                           {new Date(row.expires_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                           {row.days_until_expiry !== null && (
-                            <span className="ml-1 text-gray-400">({row.days_until_expiry}d)</span>
+                            <span className="ml-1 text-slate-700">({row.days_until_expiry}d)</span>
                           )}
                         </span>
                       ) : '—'}
@@ -237,7 +237,7 @@ export default function ExamAuthWorkQueue({
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
                         {state === 'loading' && (
-                          <span className="text-xs text-gray-400">Saving…</span>
+                          <span className="text-xs text-slate-700">Saving…</span>
                         )}
                         {state?.startsWith('error') && (
                           <span className="text-xs text-red-500">{state}</span>
@@ -292,7 +292,7 @@ export default function ExamAuthWorkQueue({
                             {['authorized', 'scheduled'].includes(row.status) && (
                               <button
                                 onClick={() => handleAction(row.authorization_id, 'expire')}
-                                className="px-2 py-1 bg-gray-200 text-gray-600 text-xs rounded hover:bg-gray-300"
+                                className="px-2 py-1 bg-gray-200 text-slate-700 text-xs rounded hover:bg-gray-300"
                               >
                                 Expire
                               </button>
@@ -356,26 +356,26 @@ function ScheduleForm({
 
   return (
     <div className="max-w-lg">
-      <h4 className="text-sm font-medium text-gray-900 mb-3">Schedule Exam</h4>
+      <h4 className="text-sm font-medium text-slate-900 mb-3">Schedule Exam</h4>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Exam Date *</label>
+          <label className="block text-xs text-slate-700 mb-1">Exam Date *</label>
           <input type="date" value={date} onChange={e => setDate(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" required />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Time</label>
+          <label className="block text-xs text-slate-700 mb-1">Time</label>
           <input type="time" value={time} onChange={e => setTime(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Testing Center</label>
+          <label className="block text-xs text-slate-700 mb-1">Testing Center</label>
           <input type="text" value={center} onChange={e => setCenter(e.target.value)}
             placeholder="Location or proctor name"
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Confirmation #</label>
+          <label className="block text-xs text-slate-700 mb-1">Confirmation #</label>
           <input type="text" value={confirmation} onChange={e => setConfirmation(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
         </div>
@@ -388,7 +388,7 @@ function ScheduleForm({
         >
           Save Schedule
         </button>
-        <button onClick={onCancel} className="px-3 py-1.5 bg-gray-200 text-gray-600 text-xs rounded hover:bg-gray-300">
+        <button onClick={onCancel} className="px-3 py-1.5 bg-gray-200 text-slate-700 text-xs rounded hover:bg-gray-300">
           Cancel
         </button>
       </div>
@@ -412,10 +412,10 @@ function RecordResultForm({
 
   return (
     <div className="max-w-lg">
-      <h4 className="text-sm font-medium text-gray-900 mb-3">Record Exam Result</h4>
+      <h4 className="text-sm font-medium text-slate-900 mb-3">Record Exam Result</h4>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Result *</label>
+          <label className="block text-xs text-slate-700 mb-1">Result *</label>
           <select value={passed} onChange={e => setPassed(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm">
             <option value="">Select…</option>
@@ -424,17 +424,17 @@ function RecordResultForm({
           </select>
         </div>
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Score (%)</label>
+          <label className="block text-xs text-slate-700 mb-1">Score (%)</label>
           <input type="number" min="0" max="100" value={score} onChange={e => setScore(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Exam Date *</label>
+          <label className="block text-xs text-slate-700 mb-1">Exam Date *</label>
           <input type="date" value={examDate} onChange={e => setExamDate(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" required />
         </div>
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Certificate # (if passed)</label>
+          <label className="block text-xs text-slate-700 mb-1">Certificate # (if passed)</label>
           <input type="text" value={certNumber} onChange={e => setCertNumber(e.target.value)}
             className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm" />
         </div>
@@ -447,7 +447,7 @@ function RecordResultForm({
         >
           Save Result
         </button>
-        <button onClick={onCancel} className="px-3 py-1.5 bg-gray-200 text-gray-600 text-xs rounded hover:bg-gray-300">
+        <button onClick={onCancel} className="px-3 py-1.5 bg-gray-200 text-slate-700 text-xs rounded hover:bg-gray-300">
           Cancel
         </button>
       </div>

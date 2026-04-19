@@ -45,7 +45,7 @@ export function CredentialBadges({
         {credentials.map((cred) => (
           <span
             key={cred.shortName}
-            className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded"
+            className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-slate-900 text-xs font-medium rounded"
           >
             <cred.icon className="w-3 h-3" />
             {cred.shortName}
@@ -74,7 +74,7 @@ export function CredentialBadges({
                 className="flex items-center gap-2 px-3 py-1.5 bg-white border rounded-full text-sm"
               >
                 <cred.icon className={`w-4 h-4 text-${cred.color}-600`} />
-                <span className="font-medium text-gray-900">{cred.shortName}</span>
+                <span className="font-medium text-slate-900">{cred.shortName}</span>
                 <span className="text-slate-400 flex-shrink-0">•</span>
               </div>
             ))}
@@ -96,7 +96,7 @@ export function CredentialBadges({
   return (
     <div className={`bg-white border-2 border-gray-200 rounded-xl p-6 ${className}`}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-bold text-gray-900">Verified Credentials</h3>
+        <h3 className="font-bold text-slate-900">Verified Credentials</h3>
         {showVerifyLink && (
           <Link
             href="/verify-credentials"
@@ -118,10 +118,10 @@ export function CredentialBadges({
                 <Icon className={`w-5 h-5 text-${cred.color}-600`} />
               </div>
               <div>
-                <p className="font-semibold text-gray-900 text-sm">{cred.name}</p>
-                <p className="text-xs text-gray-600">{cred.description}</p>
+                <p className="font-semibold text-slate-900 text-sm">{cred.name}</p>
+                <p className="text-xs text-slate-700">{cred.description}</p>
                 {cred.id && (
-                  <p className="text-xs text-gray-500 font-mono mt-1">{cred.id}</p>
+                  <p className="text-xs text-slate-700 font-mono mt-1">{cred.id}</p>
                 )}
               </div>
             </div>
@@ -136,19 +136,19 @@ export function CredentialBadges({
 export function CredentialBadgeStrip({ className = '' }: { className?: string }) {
   return (
     <div className={`flex items-center gap-4 text-sm ${className}`}>
-      <span className="text-gray-500">Verified:</span>
+      <span className="text-slate-700">Verified:</span>
       <div className="flex items-center gap-2">
-        <span className="inline-flex items-center gap-1 text-gray-700">
+        <span className="inline-flex items-center gap-1 text-slate-900">
           <Shield className="w-4 h-4 text-brand-blue-600" />
           DOL
         </span>
-        <span className="text-gray-300">|</span>
-        <span className="inline-flex items-center gap-1 text-gray-700">
+        <span className="text-slate-700">|</span>
+        <span className="inline-flex items-center gap-1 text-slate-900">
           <Award className="w-4 h-4 text-brand-green-600" />
           ETPL
         </span>
-        <span className="text-gray-300">|</span>
-        <span className="inline-flex items-center gap-1 text-gray-700">
+        <span className="text-slate-700">|</span>
+        <span className="inline-flex items-center gap-1 text-slate-900">
           <span className="text-slate-400 flex-shrink-0">•</span>
           WIOA
         </span>

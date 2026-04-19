@@ -36,12 +36,12 @@ export default async function NewJRIParticipantPage() {
             { label: 'Participants', href: '/admin/jri/participants' },
             { label: 'New' },
           ]} />
-          <h1 className="text-3xl font-bold text-gray-900 mt-4">Add Job Ready Indy Participant</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mt-4">Add Job Ready Indy Participant</h1>
         </div>
 
         <form action="/api/admin/jri/participants" method="POST" className="bg-white rounded-xl shadow-sm border p-6 space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Student</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Student</label>
             <select name="user_id" required className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500">
               <option value="">Select a student…</option>
               {(students || []).map((s: any) => (
@@ -51,7 +51,7 @@ export default async function NewJRIParticipantPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Program</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Program</label>
             <select name="program" required className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500">
               <option value="">Select a program…</option>
               <option value="HVAC Technician">HVAC Technician</option>
@@ -68,7 +68,7 @@ export default async function NewJRIParticipantPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Status</label>
             <select name="status" className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500">
               <option value="pending">Pending</option>
               <option value="active">Active</option>
@@ -78,12 +78,12 @@ export default async function NewJRIParticipantPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Enrollment Date</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Enrollment Date</label>
             <input type="date" name="enrolled_at" className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500" />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Employment Status</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Employment Status</label>
             <select name="employment_status" className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500">
               <option value="unemployed">Unemployed</option>
               <option value="employed">Employed</option>
@@ -95,7 +95,7 @@ export default async function NewJRIParticipantPage() {
             <button type="submit" className="bg-brand-blue-600 text-white px-5 py-2 rounded-lg hover:bg-brand-blue-700 text-sm font-medium">
               Add Participant
             </button>
-            <Link href="/admin/jri/participants" className="border border-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-50 text-sm">
+            <Link href="/admin/jri/participants" className="border border-gray-300 text-slate-900 px-5 py-2 rounded-lg hover:bg-gray-50 text-sm">
               Cancel
             </Link>
           </div>

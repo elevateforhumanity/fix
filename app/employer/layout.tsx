@@ -109,9 +109,9 @@ export default async function EmployerLayout({
         <div className="max-w-screen-xl mx-auto px-4 flex items-center gap-6 h-14 overflow-x-auto">
           <a href="/employer/dashboard" className="font-black text-brand-blue-700 whitespace-nowrap shrink-0">Employer Portal</a>
           {navLinks.map(l => (
-            <a key={l.href} href={l.href} className="text-sm text-gray-600 hover:text-brand-blue-700 whitespace-nowrap transition-colors">{l.label}</a>
+            <a key={l.href} href={l.href} className="text-sm text-slate-700 hover:text-brand-blue-700 whitespace-nowrap transition-colors">{l.label}</a>
           ))}
-          <a href="/api/auth/signout" className="ml-auto text-sm text-gray-500 hover:text-gray-700 whitespace-nowrap shrink-0">Sign out</a>
+          <a href="/api/auth/signout" className="ml-auto text-sm text-slate-700 hover:text-slate-900 whitespace-nowrap shrink-0">Sign out</a>
         </div>
       </nav>
       <main>{content}</main>

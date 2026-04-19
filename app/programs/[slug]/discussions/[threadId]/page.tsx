@@ -205,7 +205,7 @@ export default function ThreadDetailPage() {
                 {thread.pinned && (
                   <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Pinned</span>
                 )}
-                <h1 className="text-2xl font-bold text-gray-900">{thread.title}</h1>
+                <h1 className="text-2xl font-bold text-slate-900">{thread.title}</h1>
               </div>
               <div className="flex items-center gap-4 text-sm text-black mb-4">
                 <span>{thread.author?.full_name || 'Anonymous'}</span>
@@ -218,7 +218,7 @@ export default function ThreadDetailPage() {
                   })}
                 </span>
               </div>
-              <p className="text-gray-700 whitespace-pre-wrap">{thread.content}</p>
+              <p className="text-slate-800 whitespace-pre-wrap">{thread.content}</p>
               <div className="flex items-center gap-4 mt-4 pt-4 border-t">
                 <button
                   onClick={likeThread}
@@ -239,7 +239,7 @@ export default function ThreadDetailPage() {
 
         {/* Replies */}
         <div className="space-y-4 mb-8">
-          <h2 className="text-lg font-semibold text-gray-900">Replies ({replies.length})</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Replies ({replies.length})</h2>
           
           {replies.map((reply) => (
             <div key={reply.id} className="bg-white rounded-xl border p-6">
@@ -249,10 +249,10 @@ export default function ThreadDetailPage() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-4 text-sm text-black mb-2">
-                    <span className="font-medium text-gray-900">{reply.author?.full_name || 'Anonymous'}</span>
+                    <span className="font-medium text-slate-900">{reply.author?.full_name || 'Anonymous'}</span>
                     <span>{new Date(reply.created_at).toLocaleDateString()}</span>
                   </div>
-                  <p className="text-gray-700 whitespace-pre-wrap">{reply.content}</p>
+                  <p className="text-slate-800 whitespace-pre-wrap">{reply.content}</p>
                   <button
                     onClick={() => likeReply(reply.id, reply.likes || 0)}
                     disabled={!user}
@@ -276,7 +276,7 @@ export default function ThreadDetailPage() {
         {/* Reply Form */}
         {user && isEnrolled ? (
           <div className="bg-white rounded-xl border p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Add a Reply</h3>
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">Add a Reply</h3>
             <form onSubmit={postReply} className="space-y-4">
               <textarea
                 value={replyContent}

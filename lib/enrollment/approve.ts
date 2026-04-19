@@ -10,6 +10,7 @@
  * 5. Update profile enrollment_status to 'active'
  */
 
+import { randomBytes } from 'crypto';
 import { logger } from '@/lib/logger';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { attachPartnerRouting } from '@/lib/enrollment/partner-routing';
@@ -140,7 +141,6 @@ export async function approveApplication(
     } else {
       // Create new auth user with a cryptographically random temp password.
       // Math.random() is predictable — use randomBytes instead.
-      const { randomBytes } = require('crypto') as typeof import('crypto');
       const tempPassword = `EFH-${randomBytes(8).toString('hex')}-Temp!`;
       const { data: newUser, error: createError } = await db.auth.admin.createUser({
         email,

@@ -128,7 +128,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
         <div className="text-center max-w-md">
           <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
           <h2 className="text-xl font-bold mb-2">Onboarding Required</h2>
-          <p className="text-gray-600 mb-4">Complete your partner onboarding before managing apprentices.</p>
+          <p className="text-slate-700 mb-4">Complete your partner onboarding before managing apprentices.</p>
           <Link href="/partner/onboarding" className="px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
             Complete Onboarding
           </Link>
@@ -156,8 +156,8 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{programName}</h1>
-              <p className="text-gray-500 text-sm">{apprentices.length} active apprentice{apprentices.length !== 1 ? 's' : ''}</p>
+              <h1 className="text-2xl font-bold text-slate-900">{programName}</h1>
+              <p className="text-slate-700 text-sm">{apprentices.length} active apprentice{apprentices.length !== 1 ? 's' : ''}</p>
             </div>
           </div>
           <button
@@ -186,7 +186,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
             <form onSubmit={handleSubmitProgress} className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Apprentice</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Apprentice</label>
                   <select
                     value={entryForm.apprenticeId}
                     onChange={(e) => setEntryForm({ ...entryForm, apprenticeId: e.target.value })}
@@ -200,7 +200,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Week Ending</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Week Ending</label>
                   <input
                     type="date"
                     value={entryForm.weekEnding}
@@ -210,7 +210,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Hours Worked</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Hours Worked</label>
                   <input
                     type="number"
                     min="0"
@@ -223,7 +223,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Notes (optional)</label>
                   <input
                     type="text"
                     value={entryForm.notes}
@@ -259,17 +259,17 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
                   <div key={a.id} className="flex items-center justify-between py-2 border-b last:border-0">
                     <div>
                       <p className="font-medium text-sm">{a.full_name}</p>
-                      <p className="text-xs text-gray-500">{a.email}</p>
+                      <p className="text-xs text-slate-700">{a.email}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-medium">{a.total_hours}h</p>
-                      <p className="text-xs text-gray-500">total hours</p>
+                      <p className="text-xs text-slate-700">total hours</p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8 text-sm">No apprentices enrolled yet</p>
+              <p className="text-slate-700 text-center py-8 text-sm">No apprentices enrolled yet</p>
             )}
           </div>
 
@@ -284,7 +284,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
                   <div key={entry.id} className="flex items-center justify-between py-2 border-b last:border-0">
                     <div>
                       <p className="font-medium text-sm">{entry.apprentice_name || 'Unknown'}</p>
-                      <p className="text-xs text-gray-500 flex items-center gap-1">
+                      <p className="text-xs text-slate-700 flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         Week ending {new Date(entry.week_ending).toLocaleDateString()}
                       </p>
@@ -307,7 +307,7 @@ export default function PartnerProgramClient({ slug, programName }: Props) {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8 text-sm">No hours logged yet</p>
+              <p className="text-slate-700 text-center py-8 text-sm">No hours logged yet</p>
             )}
           </div>
         </div>

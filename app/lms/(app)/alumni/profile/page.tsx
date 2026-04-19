@@ -147,15 +147,15 @@ export default function AlumniProfilePage() {
       </div>
 <div className="bg-white border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/lms/dashboard" className="hover:text-gray-700">LMS</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/lms/dashboard" className="hover:text-slate-900">LMS</Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href="/lms/alumni" className="hover:text-gray-700">Alumni</Link>
+            <Link href="/lms/alumni" className="hover:text-slate-900">Alumni</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">My Profile</span>
+            <span className="text-slate-900 font-medium">My Profile</span>
           </nav>
-          <h1 className="text-2xl font-bold text-gray-900">Alumni Profile</h1>
-          <p className="text-gray-600 mt-1">Manage your alumni directory profile</p>
+          <h1 className="text-2xl font-bold text-slate-900">Alumni Profile</h1>
+          <p className="text-slate-700 mt-1">Manage your alumni directory profile</p>
         </div>
       </div>
 
@@ -174,7 +174,7 @@ export default function AlumniProfilePage() {
             <div className="flex items-center gap-6">
               <div className="relative">
                 <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-                  <User className="w-12 h-12 text-gray-400" />
+                  <User className="w-12 h-12 text-slate-700" />
                 </div>
                 <button
                   type="button"
@@ -184,21 +184,21 @@ export default function AlumniProfilePage() {
                 </button>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Profile Photo</h3>
-                <p className="text-sm text-gray-500">Upload a professional photo for your alumni profile</p>
+                <h3 className="font-semibold text-slate-900">Profile Photo</h3>
+                <p className="text-sm text-slate-700">Upload a professional photo for your alumni profile</p>
               </div>
             </div>
           </div>
 
           {/* Basic Info */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <User className="w-5 h-5" />
               Basic Information
             </h2>
             <div className="grid gap-4">
               <div>
-                <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="full_name" className="block text-sm font-medium text-slate-900 mb-1">
                   Full Name
                 </label>
                 <input
@@ -211,26 +211,26 @@ export default function AlumniProfilePage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-900 mb-1">
                     Email
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                     <input
                       type="email"
                       id="email"
                       value={profile.email}
                       disabled
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-500"
+                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white text-slate-700"
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="phone" className="block text-sm font-medium text-slate-900 mb-1">
                     Phone
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                     <input
                       type="tel"
                       id="phone"
@@ -243,7 +243,7 @@ export default function AlumniProfilePage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="city" className="block text-sm font-medium text-slate-900 mb-1">
                     City
                   </label>
                   <input
@@ -255,7 +255,7 @@ export default function AlumniProfilePage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="state" className="block text-sm font-medium text-slate-900 mb-1">
                     State
                   </label>
                   <input
@@ -272,14 +272,14 @@ export default function AlumniProfilePage() {
 
           {/* Professional Info */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <Briefcase className="w-5 h-5" />
               Professional Information
             </h2>
             <div className="grid gap-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="job_title" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="job_title" className="block text-sm font-medium text-slate-900 mb-1">
                     Job Title
                   </label>
                   <input
@@ -291,7 +291,7 @@ export default function AlumniProfilePage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="company" className="block text-sm font-medium text-slate-900 mb-1">
                     Company
                   </label>
                   <input
@@ -304,11 +304,11 @@ export default function AlumniProfilePage() {
                 </div>
               </div>
               <div>
-                <label htmlFor="linkedin_url" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="linkedin_url" className="block text-sm font-medium text-slate-900 mb-1">
                   LinkedIn Profile
                 </label>
                 <div className="relative">
-                  <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                   <input
                     type="url"
                     id="linkedin_url"
@@ -320,7 +320,7 @@ export default function AlumniProfilePage() {
                 </div>
               </div>
               <div>
-                <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="bio" className="block text-sm font-medium text-slate-900 mb-1">
                   Bio
                 </label>
                 <textarea
@@ -337,7 +337,7 @@ export default function AlumniProfilePage() {
 
           {/* Directory Settings */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <GraduationCap className="w-5 h-5" />
               Directory Settings
             </h2>
@@ -350,8 +350,8 @@ export default function AlumniProfilePage() {
                   className="mt-1 rounded"
                 />
                 <div>
-                  <p className="font-medium text-gray-900">Show in Alumni Directory</p>
-                  <p className="text-sm text-gray-500">Allow other alumni to find and connect with you</p>
+                  <p className="font-medium text-slate-900">Show in Alumni Directory</p>
+                  <p className="text-sm text-slate-700">Allow other alumni to find and connect with you</p>
                 </div>
               </label>
               <label className="flex items-start gap-3">
@@ -362,8 +362,8 @@ export default function AlumniProfilePage() {
                   className="mt-1 rounded"
                 />
                 <div>
-                  <p className="font-medium text-gray-900">Available as Mentor</p>
-                  <p className="text-sm text-gray-500">Offer to mentor current students and recent graduates</p>
+                  <p className="font-medium text-slate-900">Available as Mentor</p>
+                  <p className="text-sm text-slate-700">Offer to mentor current students and recent graduates</p>
                 </div>
               </label>
             </div>
@@ -371,7 +371,7 @@ export default function AlumniProfilePage() {
 
           {/* Submit */}
           <div className="flex items-center justify-end gap-4">
-            <Link href="/lms/alumni" className="px-4 py-2 text-gray-700 hover:text-gray-900">
+            <Link href="/lms/alumni" className="px-4 py-2 text-slate-900 hover:text-slate-900">
               Cancel
             </Link>
             <button
