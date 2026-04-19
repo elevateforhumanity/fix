@@ -12,7 +12,7 @@ import {
   getAvailableServices,
 } from '@/lib/video/generate';
 import { getInstructorForCourse } from '@/lib/ai-instructors';
-import { writeFile, mkdir } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import path from 'path';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -65,7 +65,7 @@ let soraSkip = false;
 async function generateForLesson(
   lesson: any,
   courseName: string,
-  db: any
+  supabase: any
 ): Promise<{ success: boolean; videoUrl?: string; method?: string; error?: string }> {
   const script = buildScript(lesson, courseName);
   const instructor = getInstructorForCourse(courseName);
@@ -243,7 +243,7 @@ async function _POST(request: NextRequest) {
     const results: any[] = [];
     for (const lesson of lessons) {
       const courseName = lesson.training_courses?.course_name || 'Course';
-      const result = await generateForLesson(lesson, courseName, db);
+      const result = await generateForLesson(lesson, courseName, supabase);
       results.push({ lessonId: lesson.id, title: lesson.title, course: courseName, ...result });
       await new Promise(resolve => setTimeout(resolve, 1500));
     }

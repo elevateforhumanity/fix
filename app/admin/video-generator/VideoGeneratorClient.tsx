@@ -7,7 +7,10 @@ import { Video, Play, Loader2, XCircle, RefreshCw } from 'lucide-react';
 interface GenerationStatus {
   total: number;
   withVideos: number;
-  withoutVideos: number;
+  withoutVideos?: number;
+  withoutMedia?: number;
+  withMp3Only?: number;
+  needsGeneration?: number;
   percentComplete: number;
 }
 
@@ -26,6 +29,10 @@ export default function VideoGeneratorPage() {
   const [results, setResults] = useState<GenerationResult[]>([]);
   const [batchSize, setBatchSize] = useState(5);
   const [error, setError] = useState<string | null>(null);
+  const pendingLessons =
+    status?.needsGeneration ??
+    status?.withoutVideos ??
+    ((status?.withoutMedia ?? 0) + (status?.withMp3Only ?? 0));
 
   const fetchStatus = async () => {
     try {
@@ -128,7 +135,7 @@ export default function VideoGeneratorPage() {
                 <div className="text-sm text-slate-700">With Videos</div>
               </div>
               <div className="bg-brand-orange-50 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-brand-orange-600">{status.withoutVideos}</div>
+                <div className="text-3xl font-bold text-brand-orange-600">{pendingLessons}</div>
                 <div className="text-sm text-slate-700">Need Videos</div>
               </div>
               <div className="bg-brand-blue-50 rounded-lg p-4 text-center">
@@ -169,7 +176,7 @@ export default function VideoGeneratorPage() {
 
             <button
               onClick={generateVideos}
-              disabled={generating || (status?.withoutVideos === 0)}
+              disabled={generating || pendingLessons === 0}
               className="flex items-center gap-2 bg-brand-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {generating ? (
@@ -182,7 +189,7 @@ export default function VideoGeneratorPage() {
 
             <button
               onClick={generateAll}
-              disabled={generating || (status?.withoutVideos === 0)}
+              disabled={generating || pendingLessons === 0}
               className="flex items-center gap-2 bg-brand-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {generating ? (

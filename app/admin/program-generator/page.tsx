@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { createClient } from '@/lib/supabase/server';
 import Image from 'next/image';
-import AutoProgramGenerator from '@/components/admin/AutoProgramGenerator';
+import Link from 'next/link';
+import { AutoProgramGenerator } from '@/components/admin/AutoProgramGenerator';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,10 +15,6 @@ export const metadata: Metadata = {
 
 export default async function ProgramGeneratorPage() {
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
-
-
-
 
   return (
     <div className="min-h-screen bg-white">
@@ -43,62 +39,7 @@ export default async function ProgramGeneratorPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Total Items
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {totalItems || 0}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Active
-                </h3>
-                <p className="text-3xl font-bold text-brand-green-600">
-                  {activeItems || 0}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Recent
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {items?.filter((i) => {
-                    const created = new Date(i.created_at);
-                    const weekAgo = new Date();
-                    weekAgo.setDate(weekAgo.getDate() - 7);
-                    return created > weekAgo;
-                  }).length || 0}
-                </p>
-              </div>
-            </div>
-
-            {/* Data Display */}
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-2xl font-bold mb-4">Items</h2>
-              {items && items.length > 0 ? (
-                <div className="space-y-4">
-                  {items.map((item: any) => (
-                    <div
-                      key={item.id}
-                      className="p-4 border rounded-lg hover:bg-gray-50"
-                    >
-                      <p className="font-semibold">
-                        {item.title || item.name || item.id}
-                      </p>
-                      <p className="text-sm text-black">
-                        {new Date(item.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-black text-center py-8">No items found</p>
-              )}
-            </div>
+            <AutoProgramGenerator />
           </div>
         </div>
       </section>
