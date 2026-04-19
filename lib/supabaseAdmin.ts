@@ -9,7 +9,7 @@ export async function getDeprecatedSupabaseAdminClient(): Promise<SupabaseClient
 
 /** @deprecated Use await getAdminClient() from '@/lib/supabase/admin' instead. */
 export const supabaseAdmin: SupabaseClient<any> = new Proxy({} as SupabaseClient<any>, {
-  get() {
+  get(_target, _prop) {
     throw new Error(
       "Deprecated sync 'supabaseAdmin' was accessed. Use 'await getAdminClient()' from '@/lib/supabase/admin'."
     );
