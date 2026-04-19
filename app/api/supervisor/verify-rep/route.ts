@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     let authorized       = false;
     let authPath         = '';
-    let verifiedShopId: string | null = null;
+    let verifiedShopId: string | null = null; // stored in verified_shop_id when a shop supervisor authorizes
     let supervisorRowId: string | null = null;
 
     if (supervisorRow) {

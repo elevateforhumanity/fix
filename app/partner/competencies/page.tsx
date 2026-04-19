@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { AlertCircle, BadgeCheck, Clock, RefreshCcw, Scissors, User } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { logger } from '@/lib/logger';
 
 type PendingRep = {
   id: string;
@@ -41,7 +42,12 @@ export default function PartnerCompetenciesPage() {
       if (!res.ok) throw new Error('Failed to load pending reps');
       const data = await res.json();
       setEntries(data.entries ?? []);
-    } catch {
+    } catch (err: unknown) {
+      logger.error(
+        'Failed to load pending competency reps',
+        { route: '/api/competency/pending-reps' },
+        err instanceof Error ? err : undefined,
+      );
       setError('Failed to load pending reps. Please try again.');
     } finally {
       setLoading(false);
@@ -67,6 +73,11 @@ export default function PartnerCompetenciesPage() {
       setEntries(prev => prev.filter(item => item.id !== entry.id));
       setSuccess(`Verified ${entry.serviceCount} rep${entry.serviceCount !== 1 ? 's' : ''} for ${entry.apprenticeName}.`);
     } catch (err: unknown) {
+      logger.error(
+        'Failed to verify competency rep',
+        { route: '/api/competency/verify-rep', competencyLogId: entry.id },
+        err instanceof Error ? err : undefined,
+      );
       const message = err instanceof Error ? err.message : 'Failed to verify rep.';
       setError(message);
     } finally {
