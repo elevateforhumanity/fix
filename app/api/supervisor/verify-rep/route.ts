@@ -59,7 +59,8 @@ export async function POST(request: NextRequest) {
 
     let authorized       = false;
     let authPath         = '';
-    let verifiedShopId: string | null = null; // stored in verified_shop_id for shop supervisors; null for partner verifications
+    // verified_shop_id is only populated for shop supervisor approvals; partner approvals leave it null.
+    let verifiedShopId: string | null = null;
     let supervisorRowId: string | null = null;
 
     if (supervisorRow) {
