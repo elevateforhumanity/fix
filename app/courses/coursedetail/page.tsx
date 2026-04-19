@@ -47,7 +47,7 @@ export default async function CoursedetailPage() {
 {/* Hero Section */}
       <section className="relative h-48 md:h-64 overflow-hidden">
         <Image
-          src="/images/efh/sections/classroom.jpg"
+          src="/images/pages/admin-apprenticeships-classroom.jpg"
           alt="Coursedetail"
           fill
           className="object-cover"
