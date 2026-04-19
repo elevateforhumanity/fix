@@ -124,6 +124,10 @@ const FORCE         = args.includes('--force');
 const DRY_RUN       = args.includes('--dry-run');
 const CHAPTER_MODE  = args.includes('--chapter');
 const UPLOAD        = args.includes('--upload');  // upload to Supabase after generating
+const TTS_TIMEOUT_MS = parseInt(getArg('--tts-timeout-ms') ?? '120000', 10);
+const FFMPEG_TIMEOUT_MS = parseInt(getArg('--ffmpeg-timeout-ms') ?? '240000', 10);
+const TTS_MAX_RETRIES = parseInt(getArg('--tts-retries') ?? '3', 10);
+const REUSE_PREVIOUS_ON_FAIL = !args.includes('--no-reuse-previous');
 
 // ─── B-roll library ───────────────────────────────────────────────────────────
 
@@ -260,24 +264,41 @@ function splitIntoScenes(title: string, moduleName: string, content: string): Sc
  * Sounds like a master barber teaching on the shop floor, not reading a textbook.
  */
 async function generateTTS(text: string, outPath: string): Promise<void> {
-  const res = await fetch('https://api.openai.com/v1/audio/speech', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini-tts',
-      input: text,
-      voice: 'onyx',
-      instructions: `You are Brandon Williams, a master barber with 12 years of experience teaching at a DOL-registered barbering apprenticeship program in Indianapolis, Indiana.
+  let lastError: Error | null = null;
+  for (let attempt = 1; attempt <= TTS_MAX_RETRIES; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TTS_TIMEOUT_MS);
+    try {
+      const res = await fetch('https://api.openai.com/v1/audio/speech', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+        signal: controller.signal,
+        body: JSON.stringify({
+          model: 'gpt-4o-mini-tts',
+          input: text,
+          voice: 'onyx',
+          instructions: `You are Brandon Williams, a master barber with 12 years of experience teaching at a DOL-registered barbering apprenticeship program in Indianapolis, Indiana.
 Speak directly to your apprentices — confident, clear, and practical.
 Steady professional pace. Emphasize key terms when you say them.
 Natural pauses between paragraphs. Sound like you are in the shop teaching, not reading from a textbook.
 Never rush. Never sound robotic.`,
-      response_format: 'mp3',
-      speed: 1.0,
-    }),
-  });
-  if (!res.ok) throw new Error(`TTS failed (${res.status}): ${await res.text()}`);
-  fs.writeFileSync(outPath, Buffer.from(await res.arrayBuffer()));
+          response_format: 'mp3',
+          speed: 1.0,
+        }),
+      });
+      if (!res.ok) throw new Error(`TTS failed (${res.status}): ${await res.text()}`);
+      fs.writeFileSync(outPath, Buffer.from(await res.arrayBuffer()));
+      clearTimeout(timeout);
+      return;
+    } catch (err: any) {
+      clearTimeout(timeout);
+      lastError = err instanceof Error ? err : new Error(String(err));
+      if (attempt < TTS_MAX_RETRIES) {
+        await new Promise((resolve) => setTimeout(resolve, 1500 * attempt));
+      }
+    }
+  }
+  throw new Error(`TTS failed after ${TTS_MAX_RETRIES} attempts: ${lastError?.message ?? 'unknown error'}`);
 }
 
 // ─── Video assembly ───────────────────────────────────────────────────────────
@@ -286,9 +307,16 @@ Never rush. Never sound robotic.`,
 const clipOffsets = new Map<string, number>();
 
 function getFileDur(f: string): number {
-  return parseFloat(
-    execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${f}"`, { encoding: 'utf8' }).trim()
-  );
+  try {
+    return parseFloat(
+      execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${f}"`, {
+        encoding: 'utf8',
+        timeout: FFMPEG_TIMEOUT_MS,
+      }).trim()
+    );
+  } catch {
+    return 0;
+  }
 }
 
 /**
@@ -306,7 +334,7 @@ function buildScene(clipPath: string, audioPath: string, outPath: string): void 
     `-map 0:v -map 1:a -t ${audioDur.toFixed(3)} ` +
     `-vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=24" ` +
     `-c:v libx264 -preset fast -crf 20 -c:a aac -b:a 192k -movflags +faststart "${outPath}"`,
-    { stdio: 'pipe', maxBuffer: 200 * 1024 * 1024 }
+    { stdio: 'pipe', maxBuffer: 200 * 1024 * 1024, timeout: FFMPEG_TIMEOUT_MS }
   );
   clipOffsets.set(clipPath, startAt + audioDur);
 }
@@ -316,7 +344,7 @@ function concatScenes(scenePaths: string[], outPath: string, tmpDir: string): vo
   fs.writeFileSync(list, scenePaths.map(p => `file '${p}'`).join('\n'));
   execSync(
     `ffmpeg -y -f concat -safe 0 -i "${list}" -c copy -movflags +faststart "${outPath}"`,
-    { stdio: 'pipe', maxBuffer: 500 * 1024 * 1024 }
+    { stdio: 'pipe', maxBuffer: 500 * 1024 * 1024, timeout: FFMPEG_TIMEOUT_MS }
   );
 }
 
@@ -359,6 +387,8 @@ async function main() {
   console.log(`\n═══ ${course.label} — ${targets.length} lesson(s) ═══\n`);
 
   let ok = 0, skipped = 0, failed = 0;
+  let fallbackReused = 0;
+  let previousVideoPath: string | null = null;
 
   for (let i = 0; i < targets.length; i++) {
     const lesson = targets[i];
@@ -367,7 +397,7 @@ async function main() {
     const prefix  = `[${i + 1}/${targets.length}] ${lesson.slug}`;
 
     if (!FORCE && fs.existsSync(outPath) && getFileDur(outPath) > 60) {
-      console.log(`  SKIP  ${prefix}`); skipped++; continue;
+      console.log(`  SKIP  ${prefix}`); skipped++; previousVideoPath = outPath; continue;
     }
 
     if (!lesson.content || lesson.content.length < 50) {
@@ -423,15 +453,35 @@ async function main() {
       else       process.stdout.write(`        DB ✅\n`);
 
       ok++;
+      previousVideoPath = outPath;
     } catch (err: any) {
-      console.error(`  ❌    ${prefix} — ${err.message}`);
+      if (REUSE_PREVIOUS_ON_FAIL && previousVideoPath && fs.existsSync(previousVideoPath)) {
+        try {
+          fs.copyFileSync(previousVideoPath, outPath);
+          const videoUrl = `/videos/${path.basename(course.outDir)}/${lesson.slug}.mp4`;
+          const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
+          if (upErr) {
+            throw new Error(`fallback copy succeeded but DB update failed: ${upErr.message}`);
+          }
+          console.warn(`  ⚠️    ${prefix} — generation failed (${err.message}); reused previous video`);
+          ok++;
+          fallbackReused++;
+          previousVideoPath = outPath;
+          fs.rmSync(tmpDir, { recursive: true, force: true });
+          continue;
+        } catch (fallbackErr: any) {
+          console.error(`  ❌    ${prefix} — ${err.message}; fallback failed: ${fallbackErr.message}`);
+        }
+      } else {
+        console.error(`  ❌    ${prefix} — ${err.message}`);
+      }
       try { fs.unlinkSync(outPath); } catch {}
       fs.rmSync(tmpDir, { recursive: true, force: true });
       failed++;
     }
   }
 
-  console.log(`\n═══ Done: ${ok} generated, ${skipped} skipped, ${failed} failed ═══\n`);
+  console.log(`\n═══ Done: ${ok} generated, ${skipped} skipped, ${failed} failed, ${fallbackReused} reused previous ═══\n`);
 
   // Chapter mode — concat all module lessons into one file
   if (CHAPTER_MODE && MODULE_FILTER) {
@@ -441,8 +491,16 @@ async function main() {
       const tmpList = path.join(os.tmpdir(), `chapter-${MODULE_FILTER}.txt`);
       const rawPath = path.join(os.tmpdir(), `chapter-${MODULE_FILTER}-raw.mp4`);
       fs.writeFileSync(tmpList, files.map(f => `file '${f}'`).join('\n'));
-      execSync(`ffmpeg -y -f concat -safe 0 -i "${tmpList}" -c copy "${rawPath}"`, { stdio: 'pipe', maxBuffer: 2000 * 1024 * 1024 });
-      execSync(`ffmpeg -y -i "${rawPath}" -c copy -movflags +faststart "${chapterPath}"`, { stdio: 'pipe', maxBuffer: 2000 * 1024 * 1024 });
+      execSync(`ffmpeg -y -f concat -safe 0 -i "${tmpList}" -c copy "${rawPath}"`, {
+        stdio: 'pipe',
+        maxBuffer: 2000 * 1024 * 1024,
+        timeout: FFMPEG_TIMEOUT_MS,
+      });
+      execSync(`ffmpeg -y -i "${rawPath}" -c copy -movflags +faststart "${chapterPath}"`, {
+        stdio: 'pipe',
+        maxBuffer: 2000 * 1024 * 1024,
+        timeout: FFMPEG_TIMEOUT_MS,
+      });
       try { fs.unlinkSync(rawPath); fs.unlinkSync(tmpList); } catch {}
       const dur = getFileDur(chapterPath);
       console.log(`Chapter: ${Math.floor(dur / 60)}m ${Math.round(dur % 60)}s → ${chapterPath}\n`);
