@@ -80,8 +80,8 @@ const nextConfig = {
   generateBuildId: async () => {
     return `build-${Date.now()}-production`;
   },
-  // Required for @netlify/plugin-nextjs v5 — plugin reads .next/standalone
-  output: 'standalone',
+  // Netlify uses .next directly — standalone mode causes prune complexity and runtime crashes
+  // output: 'standalone',
   reactStrictMode: true,
   trailingSlash: false,
   poweredByHeader: false,

@@ -5,9 +5,8 @@
 [build]
   # libxml2-utils provides xmllint, required for IRS MeF XSD validation.
   # Without it, schema-validator.ts returns XMLLINT_NOT_AVAILABLE and blocks all submissions.
-  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && pnpm run build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
-  # publish is intentionally omitted — @netlify/plugin-nextjs manages the output directory.
-  # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
+  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && pnpm run build"
+  publish = ".next"
   functions = "netlify/functions"
 
 [build.processing]
@@ -27,7 +26,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_OPTIONS = "--max-old-space-size=4096"
+  NODE_OPTIONS = "--max-old-space-size=8192"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   # TURBOPACK=0 is the correct env var for Next.js 16.x to disable Turbopack.
   # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are no longer
