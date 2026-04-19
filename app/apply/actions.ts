@@ -4,6 +4,7 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
 import { sendEmail } from '@/lib/email';
 import { logger } from '@/lib/logger';
+import { randomBytes } from 'crypto';
 
 import { sendWorkOneHoldEmail } from '@/lib/email/workone-hold';
 
@@ -855,7 +856,7 @@ async function ensureProgramHolderAccount(
   }
 
   if (!userId) {
-    const tempPassword = `Elevate-${Date.now().toString(36)}!`;
+    const tempPassword = randomBytes(18).toString('base64url');
     const { data: newUser, error: createError } = await adminDb.auth.admin.createUser({
       email: normalizedEmail,
       password: tempPassword,
@@ -877,7 +878,7 @@ async function ensureProgramHolderAccount(
       });
 
       let page = 1;
-      while (page <= 6 && !userId) {
+      while (!userId) {
         const { data: batch } = await adminDb.auth.admin.listUsers({
           page,
           perPage: 100,
@@ -962,7 +963,8 @@ async function sendProgramHolderWelcomeEmail(
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org';
 
-  // Generate a password setup link — forces password creation at /auth/set-password.
+  // Generate a password setup link — recovery links work for both new and existing accounts
+  // without requiring an invite-specific flow, while still forcing a password reset.
   // The full welcome email fires separately after all onboarding steps are complete.
   let setupLink = `${siteUrl}/login`;
   const redirectTo = `${siteUrl}/auth/confirm?next=/auth/set-password`;
