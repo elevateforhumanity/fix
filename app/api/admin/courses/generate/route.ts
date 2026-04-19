@@ -12,7 +12,8 @@ import { getCurrentUser } from '@/lib/auth';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logger } from '@/lib/logger';
 import { getAdminClient } from '@/lib/supabase/admin';
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 
 import { withRuntime } from '@/lib/api/withRuntime';
 
@@ -144,7 +145,7 @@ async function _POST(req: NextRequest) {
       return NextResponse.json({ error: 'raw_text is required' }, { status: 400 });
     }
 
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const openai = new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY });
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [

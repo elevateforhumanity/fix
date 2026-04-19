@@ -1,6 +1,7 @@
 import { logger } from '@/lib/logger';
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { requireAuth } from '@/lib/api/requireAuth';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -11,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 function getOpenAIClient() {
-  return new OpenAI({
+  return new (_requireOpenAI())({
     apiKey: process.env.OPENAI_API_KEY,
   });
 }

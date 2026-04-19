@@ -1,6 +1,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 import { logger } from '@/lib/logger';
 import { toErrorMessage } from '@/lib/safe';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
@@ -36,7 +37,7 @@ async function _POST(req: NextRequest) {
       );
     }
 
-    const client = new OpenAI({
+    const client = new (_requireOpenAI())({
       apiKey: process.env.OPENAI_API_KEY,
     });
 

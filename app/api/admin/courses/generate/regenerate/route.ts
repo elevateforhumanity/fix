@@ -9,7 +9,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 import type { GeneratedLesson } from '../route';
 
 import { hydrateProcessEnv } from '@/lib/secrets';
@@ -41,7 +42,7 @@ export async function POST(req: NextRequest) {
       : { lesson_number: number; lesson_title: string; module_title: string;
           course_title: string; instruction?: string } = body;
 
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const openai = new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY });
 
     const prompt = `Regenerate lesson ${lesson_number} "${lesson_title}" from module "${module_title}" in course "${course_title}".
 ${instruction ? `Additional instruction: ${instruction}` : ''}

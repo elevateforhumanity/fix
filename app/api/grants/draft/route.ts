@@ -4,7 +4,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 import { auditMutation } from '@/lib/api/withAudit';
@@ -23,7 +24,7 @@ function getOpenAI() {
   if (!apiKey || apiKey === 'Content-key') {
     return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
   }
-  return new OpenAI({ apiKey });
+  return new (_requireOpenAI())({ apiKey });
 }
 
 async function _POST(req: NextRequest) {

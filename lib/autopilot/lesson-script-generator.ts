@@ -20,7 +20,8 @@
  *   5. Wrap-up (20s, ~50 words) — summary + preview next lesson
  */
 
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 
 export interface LessonSlide {
   title: string;
@@ -84,7 +85,7 @@ export async function generateLessonScript(input: LessonInput): Promise<LessonSc
   // If content is thin, use GPT to generate everything
   const needsEnrichment = plainContent.length < MIN_CONTENT_LENGTH;
 
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const openai = new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY });
 
   const prompt = needsEnrichment
     ? buildFullGenerationPrompt(input)

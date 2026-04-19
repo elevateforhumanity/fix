@@ -62,7 +62,7 @@ export function chunkText(text: string, maxChars = CHUNK_SIZE): string[] {
 }
 
 /** Summarize a single chunk via gpt-4o-mini */
-async function summarizeChunk(openai: ReturnType<typeof getOpenAIClient>, chunk: string): Promise<string> {
+async function summarizeChunk(openai: import('openai').default, chunk: string): Promise<string> {
   const res = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [{
@@ -82,7 +82,7 @@ async function summarizeChunk(openai: ReturnType<typeof getOpenAIClient>, chunk:
  */
 export async function summarizeForExtraction(
   text: string,
-  openai: ReturnType<typeof getOpenAIClient>
+  openai: import('openai').default
 ): Promise<{ summarizedText: string; chunkCount: number; wasChunked: boolean }> {
   if (text.length <= SAFE_CHARS) {
     return { summarizedText: text, chunkCount: 1, wasChunked: false };

@@ -8,14 +8,15 @@
  * Cost per lesson: ~$0.20 (4 DALL-E images × $0.04 + GPT-4o ~$0.04)
  */
 
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 import fs from 'fs/promises';
 import path from 'path';
 import type { VideoScene } from '../../server/video-generator-v2';
 
-let _openai: OpenAI | null = null;
-function getOpenAI(): OpenAI {
-  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let _openai: import('openai').default | null = null;
+function getOpenAI(): import('openai').default {
+  if (!_openai) _openai = new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY });
   return _openai;
 }
 

@@ -18,7 +18,8 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { logger } from '@/lib/logger';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 
 import { hydrateProcessEnv } from '@/lib/secrets';
 
@@ -30,13 +31,13 @@ export const maxDuration = 300;
 
 // ── OpenAI helpers ────────────────────────────────────────────────────────────
 
-function getOpenAI(): OpenAI {
+function getOpenAI(): import('openai').default {
   if (!process.env.OPENAI_API_KEY) return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
-  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  return new (_requireOpenAI())({ apiKey: process.env.OPENAI_API_KEY });
 }
 
 async function generateOutline(
-  openai: OpenAI,
+  openai: import('openai').default,
   courseTitle: string,
   prompt: string,
 ): Promise<Array<{ title: string; sort_order: number; description: string }>> {
@@ -72,7 +73,7 @@ Rules: 6-12 lessons total. Titles are specific and action-oriented.`,
 }
 
 async function generateLessonContent(
-  openai: OpenAI,
+  openai: import('openai').default,
   courseTitle: string,
   lessonTitle: string,
   lessonDescription: string,

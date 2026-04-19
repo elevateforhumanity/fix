@@ -9,7 +9,8 @@ import { logger } from '@/lib/logger';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import OpenAI from 'openai';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+function _requireOpenAI() { return require('openai').default ?? require('openai'); }
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { withRuntime } from '@/lib/api/withRuntime';
@@ -20,7 +21,7 @@ export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 const openai = process.env.OPENAI_API_KEY
-  ? new OpenAI({
+  ? new (_requireOpenAI())({
       apiKey: process.env.OPENAI_API_KEY,
     })
   : null;

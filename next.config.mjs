@@ -34,6 +34,7 @@ const nextConfig = {
     '@aws-sdk/s3-request-presigner',
     'pg',
     'openai',
+    // googleapis removed — lib/google/calendar-integration.ts deleted (dead code, 194 MB)
     'stripe',
     'ioredis',
     'redis',
@@ -262,8 +263,8 @@ const nextConfig = {
       '**/node_modules/@napi-rs/canvas/**',
       '**/node_modules/.pnpm/@napi-rs+canvas*/**',
       // Other heavy packages
-      '**/node_modules/googleapis/**',
-      '**/node_modules/.pnpm/googleapis*/**',
+      // googleapis removed — dead code deleted, no longer traced
+      // '**/node_modules/googleapis/**',
       '**/node_modules/monaco-editor/**',
       '**/node_modules/.pnpm/monaco-editor*/**',
       '**/node_modules/node-pty/**',
