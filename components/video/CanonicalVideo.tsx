@@ -111,7 +111,6 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
       video.addEventListener('canplay', onReady, { once: true });
       return () => video.removeEventListener('canplay', onReady);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoPlayOnMount, reducedMotion, failed, src]);
 
   // Visibility-gated playback — starts when video enters view.

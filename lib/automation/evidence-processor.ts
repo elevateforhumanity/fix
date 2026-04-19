@@ -351,7 +351,6 @@ export async function processDocument(
  * This function is retained for reference but is no longer called.
  * @deprecated Use routeToReview instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function autoApprove(
   supabase: ReturnType<typeof createAdminClient>,
   documentId: string,

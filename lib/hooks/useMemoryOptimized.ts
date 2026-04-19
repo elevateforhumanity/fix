@@ -92,7 +92,6 @@ export function useIntersectionObserver(
       observerRef.current.observe(node);
     },
     // threshold/rootMargin/root are primitive or stable refs — safe in dep array
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [threshold, rootMargin, root]
   );
 

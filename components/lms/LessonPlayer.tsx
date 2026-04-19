@@ -157,7 +157,6 @@ export default function LessonPlayer({
       v.removeEventListener("stalled", onStalled);
       v.removeEventListener("error", onError);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onComplete, onProgress, getMedia, videoUrl, mediaKind]);
 
   // Fullscreen listener

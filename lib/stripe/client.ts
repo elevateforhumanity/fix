@@ -19,7 +19,6 @@ export function getStripe(): StripeInstance | null {
   const key = process.env.STRIPE_SECRET_KEY || process.env.STRIPE_RESTRICTED_KEY;
   if (!key) return null;
   if (!_StripeClass) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     _StripeClass = require('stripe').default ?? require('stripe');
   }
   return new _StripeClass!(key, {
