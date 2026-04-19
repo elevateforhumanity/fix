@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -50,7 +50,7 @@ async function _POST(req: Request) {
       try {
         const { createClient } = await import('@/lib/supabase/server');
         const supabase = await createClient();
-  const _admin = createAdminClient(); const db = _admin || supabase;
+  const db = (await getAdminClient()) || supabase;
 
         const { data: blogPosts } = await db
           .from('blog_posts')

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { getCourseBySlug } from '@/lib/courses/definitions';
 import { getCurrentUser } from '@/lib/auth';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import HvacCourseHome from './HvacCourseHome';
 import { HVAC_COURSE_ID, HVAC_PROGRAM_ID } from '@/lib/courses/hvac-uuids';
 
@@ -30,7 +30,7 @@ export default async function HvacCoursePage() {
   const user = await getCurrentUser();
   if (user) {
     try {
-      const db = createAdminClient();
+      const db = await getAdminClient();
       const { data: progress } = await db
         .from('lesson_progress')
         .select('lesson_id, completed, completed_at, time_spent_seconds')

@@ -3,7 +3,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 
 export const metadata: Metadata = {
   title: 'Analytics | Elevate for Humanity',
@@ -18,7 +18,7 @@ export default async function CreatorAnalyticsPage() {
 
   try {
     const supabase = await createClient();
-  const _admin = createAdminClient(); const db = _admin || supabase;
+  const db = (await getAdminClient()) || supabase;
 
   if (!supabase) {
     return (
