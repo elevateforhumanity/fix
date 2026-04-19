@@ -126,30 +126,10 @@ export default async function ProgramDetailPage({
     return notFound();
   }
 
-  // Slugs that have dedicated page.tsx files (real content, not redirects).
-  // The catch-all must skip these to avoid shadowing them.
-  // Redirect-only pages (cdl, cna, hvac, beauty, etc.) are NOT listed here
-  // because Next.js serves the redirect page first, not the catch-all.
-  // Every directory under app/programs/ that has its own page.tsx.
-  // The catch-all must not render these — Next.js should serve the static page.
+  // Only skip slugs that have a real dedicated page.tsx still present.
+  // All other program pages were consolidated into this catch-all route.
   const DEDICATED_PAGES = [
-    // Individual program pages
-    'barber-apprenticeship', 'bookkeeping', 'business',
-    'cad-drafting', 'cdl', 'cdl-training', 'cna', 'cna-certification',
-    'cosmetology-apprenticeship', 'cpr-first-aid', 'culinary-apprenticeship',
-    'cybersecurity-analyst', 'diesel-mechanic', 'electrical',
-    'entrepreneurship', 'finance-bookkeeping-accounting',
-    'forklift', 'construction-trades-certification',
-    'graphic-design', 'hvac-technician', 'it-help-desk',
-    'medical-assistant', 'nail-technician-apprenticeship',
-    'network-administration', 'network-support-technician',
-    'office-administration', 'peer-recovery-specialist',
-    'pharmacy-technician', 'plumbing', 'project-management',
-    'sanitation-infection-control', 'software-development',
-    'tax-preparation', 'web-development', 'welding',
-    // Category landing pages
-    'healthcare', 'skilled-trades', 'technology',
-    'micro-programs', 'federal-funded', 'apprenticeships',
+    'cdl', // app/programs/cdl/page.tsx exists
   ];
   if (DEDICATED_PAGES.includes(slug)) {
     return notFound();
