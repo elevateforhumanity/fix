@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     let authorized       = false;
     let authPath         = '';
-    let verifiedShopId: string | null = null;
+    let verifiedShopId: string | null = null; // stored in verified_shop_id for shop supervisors; null for partner verifications
     let supervisorRowId: string | null = null;
 
     if (supervisorRow) {
@@ -107,6 +107,30 @@ export async function POST(request: NextRequest) {
           authorized     = true;
           authPath       = 'email_fallback';
           verifiedShopId = null; // shop_placements has no shop_id FK
+        }
+      }
+    }
+
+    // --- Auth path 3: partner users (partner portal approvals) ---
+    if (!authorized) {
+      const { data: partnerUser } = await db
+        .from('partner_users')
+        .select('partner_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (partnerUser?.partner_id) {
+        const { data: apprenticeship } = await db
+          .from('apprenticeships')
+          .select('id')
+          .eq('apprentice_id', logEntry.apprentice_id)
+          .eq('partner_id', partnerUser.partner_id)
+          .maybeSingle();
+
+        if (apprenticeship) {
+          authorized = true;
+          authPath = 'partner_users';
+          verifiedShopId = null;
         }
       }
     }
