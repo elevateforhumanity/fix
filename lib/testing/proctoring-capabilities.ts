@@ -368,7 +368,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     key: 'nha',
     name: 'NHA — National Healthcareer Association',
     capability: 'IN_PERSON_ONLY',
-    description: 'NHA Authorized Testing Center (account #412957). NHA is one of the largest allied health certification bodies in the United States. Credentials are nationally recognized by hospitals, clinics, physician offices, and long-term care facilities. All exams are computer-based and proctored in person.',
+    description: 'NHA Authorized Testing Center. NHA is one of the largest allied health certification bodies in the United States. Credentials are nationally recognized by hospitals, clinics, physician offices, and long-term care facilities. All exams are computer-based and proctored in person.',
     exams: [
       {
         name: 'Certified Phlebotomy Technician (CPT)',
@@ -409,7 +409,7 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
     ],
     verifyUrl: 'https://www.nhanow.com/',
     examPortalUrl: 'https://www.nhanow.com/testing-centers',
-    examPortalNote: 'Log in to the NHA Testing Center portal (account #412957). Search candidate by last name or confirmation code, verify eligibility, then launch the exam session.',
+    examPortalNote: 'Log in to the NHA Testing Center portal. Search candidate by last name or confirmation code, verify eligibility, then launch the exam session.',
     status: 'active',
     // All NHA exams: $149 exam voucher (pass-through) + $94 testing & administration = $243 total.
     // Pricing locked per owner decision — do not modify without approval.

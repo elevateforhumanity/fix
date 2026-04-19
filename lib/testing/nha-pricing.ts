@@ -1,7 +1,7 @@
 /**
  * NHA training partner pricing — study materials, prep packages, and bundled programs.
  *
- * Requires: NHA Training Partner Agreement (separate from Testing Center account #412957).
+ * Requires: NHA Training Partner Agreement (separate from Testing Center ).
  * Do not expose on public pages until that agreement is confirmed active.
  *
  * TWO SEPARATE NHA REVENUE STREAMS:

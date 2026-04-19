@@ -392,7 +392,7 @@ export default function WorkOnePartnerPacketPage() {
             </a>
           </div>
           <p className="text-slate-500 text-sm mt-8">
-            Elevate for Humanity | 501(c)(3) Nonprofit | EIN: 93-3915599
+            Elevate for Humanity | 501(c)(3) Nonprofit
           </p>
         </div>
       </section>

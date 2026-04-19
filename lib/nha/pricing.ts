@@ -1,6 +1,5 @@
 /**
  * NHA (National Healthcareer Association) product pricing for Elevate for Humanity.
- * Account number: 412957
  *
  * Source: NHA proposals received April 2026.
  * All prices are per-learner. Discounted prices reflect the negotiated rate.
