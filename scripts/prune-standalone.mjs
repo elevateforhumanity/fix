@@ -111,6 +111,38 @@ const PRUNE_PACKAGES = [
   'fast-xml-parser',
   'marked',
   'cheerio',
+  // Heavy SDKs — externalized, loaded from node_modules at runtime not bundled
+  'openai',
+  'stripe',
+  '@aws-sdk',
+  '@smithy',
+  'ioredis',
+  '@upstash',
+  '@sendgrid',
+  'nodemailer',
+  'zod',
+  'date-fns',
+  'lodash',
+  'axios',
+  // Sentry (large)
+  '@sentry',
+  // OpenTelemetry
+  '@opentelemetry',
+  // Socket.io
+  'socket.io',
+  'socket.io-client',
+  'engine.io',
+  // React PDF
+  '@react-pdf',
+  // Build tools
+  'esbuild',
+  'rollup',
+  'turbopack',
+  // Test tools
+  'jest',
+  '@jest',
+  '@storybook',
+  'vitest',
 ];
 
 async function pruneDir(nodeModulesDir) {

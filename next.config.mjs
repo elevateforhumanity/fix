@@ -230,7 +230,8 @@ const nextConfig = {
   // See: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
   outputFileTracingExcludes: {
     '/api/accreditation/report': ['**/*'],
-    // Exclude heavy/dev files from ALL routes to reduce Netlify handler size
+    // Aggressively exclude everything not needed at Lambda runtime.
+    // Target: keep handler under 45MB (Netlify hard limit is 50MB).
     '*': [
       // Generated media — served by CDN, not the server function
       'public/generated/**',
@@ -344,6 +345,51 @@ const nextConfig = {
       'public/images/**',
       'public/audio/**',
       'public/hvac/**',
+      // Sentry CLI binaries (large native binaries, not needed at runtime)
+      '**/node_modules/@sentry/cli/**',
+      '**/node_modules/.pnpm/@sentry+cli*/**',
+      '**/node_modules/@sentry/nextjs/**',
+      '**/node_modules/.pnpm/@sentry+nextjs*/**',
+      '**/node_modules/@sentry/node/**',
+      '**/node_modules/.pnpm/@sentry+node*/**',
+      '**/node_modules/@sentry/core/**',
+      '**/node_modules/.pnpm/@sentry+core*/**',
+      // OpenTelemetry — not needed in Lambda
+      '**/node_modules/@opentelemetry/**',
+      '**/node_modules/.pnpm/@opentelemetry*/**',
+      // Socket.io — not used in Lambda context
+      '**/node_modules/socket.io/**',
+      '**/node_modules/.pnpm/socket.io*/**',
+      '**/node_modules/socket.io-client/**',
+      '**/node_modules/.pnpm/socket.io-client*/**',
+      '**/node_modules/engine.io/**',
+      '**/node_modules/.pnpm/engine.io*/**',
+      // React PDF
+      '**/node_modules/@react-pdf/**',
+      '**/node_modules/.pnpm/@react-pdf*/**',
+      // pnpm virtual store — massive, contains all packages
+      '**/.pnpm-store/**',
+      // Test / storybook
+      '**/node_modules/@storybook/**',
+      '**/node_modules/.pnpm/@storybook*/**',
+      '**/node_modules/jest/**',
+      '**/node_modules/.pnpm/jest*/**',
+      '**/node_modules/@jest/**',
+      '**/node_modules/.pnpm/@jest*/**',
+      // Build tools not needed at runtime
+      '**/node_modules/turbopack/**',
+      '**/node_modules/.pnpm/turbopack*/**',
+      '**/node_modules/esbuild/**',
+      '**/node_modules/.pnpm/esbuild*/**',
+      '**/node_modules/rollup/**',
+      '**/node_modules/.pnpm/rollup*/**',
+      '**/node_modules/vite/**',
+      '**/node_modules/.pnpm/vite*/**',
+      // Scripts and migrations — not needed at runtime
+      'scripts/**',
+      'supabase/**',
+      'docs/**',
+      '.git/**',
     ],
   },
 
