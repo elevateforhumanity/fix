@@ -208,7 +208,6 @@ export default function PendingAccessPanel({ enrollments }: Props) {
                             </div>
                             {isImage && doc.signed_url && (
                               <div className="border-t border-gray-100 p-3 bg-gray-50">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={doc.signed_url} alt={doc.title || doc.document_type}
                                   className="max-h-64 rounded object-contain mx-auto" />
                               </div>

@@ -51,7 +51,7 @@ export function CopyrightProtection() {
       const heightThreshold =
         window.outerHeight - window.innerHeight > threshold;
       if (widthThreshold || heightThreshold) {
-        console.clear();
+        window.console?.clear?.();
       }
     };
     // 5. Add invisible watermark to page

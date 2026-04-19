@@ -897,7 +897,7 @@ async function sendProgramHolderWelcomeEmail(
         options: { redirectTo: `${siteUrl}/auth/set-password` },
       });
       if (linkData?.properties?.action_link) setupLink = linkData.properties.action_link;
-    } catch {}
+    } catch { /* ignore magic-link fallback generation errors */ }
   }
 
   const logoUrl = `${siteUrl}/images/Elevate_for_Humanity_logo_81bf0fab.jpg`;

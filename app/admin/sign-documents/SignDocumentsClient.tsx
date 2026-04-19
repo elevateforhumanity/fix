@@ -79,7 +79,6 @@ export function SignDocumentsClient() {
               <div className="space-y-4">
                 {/* Preview */}
                 <div className="border-2 border-green-200 rounded-lg bg-green-50 p-4 flex items-center justify-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={signatureDataUrl!}
                     alt="Your signature"

@@ -9,20 +9,10 @@ import PublicLayout from '@/components/layout/PublicLayout';
 import ToasterClient from '@/components/ui/ToasterClient';
 import { SkipToContent } from '@/components/ui/SkipToContent';
 import { DMCATrackingPixel } from '@/components/InvisibleWatermark';
-import { Inter } from 'next/font/google';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import RootWidgets from './RootWidgets';
 import AdminPWAInit from '@/components/admin/AdminPWAInit';
 import PWAManager from '@/app/components/PWAManager';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-  preload: true,
-  fallback: ['system-ui', '-apple-system', 'sans-serif'],
-  adjustFontFallback: true,
-});
 
 // Viewport configuration (separate from metadata in Next.js 14+)
 export const viewport: Viewport = {
@@ -153,7 +143,7 @@ export default function RootLayout({
   const isProduction = process.env.NODE_ENV === 'production';
 
   return (
-    <html lang="en" className={`light ${inter.variable}`}>
+    <html lang="en" className="light">
       <head>
         {!isProduction && <meta name="robots" content="noindex,nofollow" />}
 
