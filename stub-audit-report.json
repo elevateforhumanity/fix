@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-04-07T08:22:06.529Z",
+  "timestamp": "2026-04-19T16:36:08.966Z",
   "summary": {
-    "critical": 1377,
-    "warnings": 79,
-    "info": 145,
-    "total": 1601
+    "critical": 1426,
+    "warnings": 77,
+    "info": 140,
+    "total": 1643
   },
   "findings": [
     {
@@ -93,63 +93,63 @@
     },
     {
       "file": "/app/admin/activity/page.tsx",
-      "line": 125,
+      "line": 118,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search activity...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/advanced-tools/page.tsx",
-      "line": 238,
+      "file": "/app/admin/advanced-tools/PageClient.tsx",
+      "line": 243,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search tools...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/affiliates/new/page.tsx",
-      "line": 40,
+      "line": 43,
       "pattern": "Placeholder text",
       "content": "<input name=\"name\" required className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-sm fo",
       "severity": "critical"
     },
     {
       "file": "/app/admin/affiliates/new/page.tsx",
-      "line": 48,
+      "line": 51,
       "pattern": "Placeholder text",
       "content": "<input name=\"email\" type=\"email\" required className=\"w-full px-3 py-2 border border-gray-200 rounded",
       "severity": "critical"
     },
     {
       "file": "/app/admin/affiliates/new/page.tsx",
-      "line": 54,
+      "line": 57,
       "pattern": "Placeholder text",
       "content": "<input name=\"phone\" type=\"tel\" className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-sm",
       "severity": "critical"
     },
     {
       "file": "/app/admin/affiliates/new/page.tsx",
-      "line": 63,
+      "line": 66,
       "pattern": "Placeholder text",
       "content": "<input name=\"website\" type=\"url\" className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-",
       "severity": "critical"
     },
     {
       "file": "/app/admin/affiliates/new/page.tsx",
-      "line": 69,
+      "line": 72,
       "pattern": "Placeholder text",
       "content": "<input name=\"commission\" type=\"number\" step=\"0.1\" min=\"0\" max=\"100\" className=\"w-full px-3 py-2 bord",
       "severity": "critical"
     },
     {
       "file": "/app/admin/affiliates/new/page.tsx",
-      "line": 75,
+      "line": 78,
       "pattern": "Placeholder text",
       "content": "<textarea name=\"notes\" rows={3} className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-s",
       "severity": "critical"
     },
     {
       "file": "/app/admin/affiliates/page.tsx",
-      "line": 113,
+      "line": 108,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search affiliates...\"",
       "severity": "critical"
@@ -163,13 +163,13 @@
     },
     {
       "file": "/app/admin/applications/page.tsx",
-      "line": 107,
+      "line": 110,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" name=\"search\" defaultValue={search || ''} placeholder=\"Name or email…\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/audit-logs/page.tsx",
+      "file": "/app/admin/audit-logs/PageClient.tsx",
       "line": 155,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search by user, action, or resource\"",
@@ -177,34 +177,34 @@
     },
     {
       "file": "/app/admin/campaigns/new/page.tsx",
-      "line": 50,
+      "line": 45,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Spring 2025 Enrollment Drive\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/campaigns/new/page.tsx",
-      "line": 85,
+      "line": 80,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Start Your New Career Today!\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/campaigns/new/page.tsx",
-      "line": 97,
+      "line": 92,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Write your campaign message...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/career-courses/create/page.tsx",
+      "file": "/app/admin/career-courses/create/PageClient.tsx",
       "line": 321,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Write or generate your video script here...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/career-courses/create/page.tsx",
+      "file": "/app/admin/career-courses/create/PageClient.tsx",
       "line": 407,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Generating Video...",
@@ -219,28 +219,28 @@
     },
     {
       "file": "/app/admin/certificates/issue/page.tsx",
-      "line": 87,
+      "line": 72,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Full name as it appears on certificate\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/certificates/issue/page.tsx",
-      "line": 99,
+      "line": 84,
       "pattern": "Placeholder text",
       "content": "placeholder=\"recipient@email.com\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/certificates/issue/page.tsx",
-      "line": 178,
+      "line": 163,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Director or authorized signer name\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/certificates/issue/page.tsx",
-      "line": 190,
+      "line": 175,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Any additional information to include\"",
       "severity": "critical"
@@ -590,7 +590,7 @@
     },
     {
       "file": "/app/admin/courses/manage/page.tsx",
-      "line": 59,
+      "line": 56,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" placeholder=\"Search courses...\" className=\"flex-1 border rounded-lg px-3 py-2\" />",
       "severity": "critical"
@@ -694,56 +694,56 @@
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/appointments/new/page.tsx",
-      "line": 95,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"e.g., Enrollment Consultation\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/admin/crm/appointments/new/page.tsx",
-      "line": 161,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Enter location or paste meeting link\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/admin/crm/appointments/new/page.tsx",
-      "line": 172,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Add any notes or agenda items...\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/admin/crm/appointments/page.tsx",
+      "file": "/app/admin/crm/appointments/PageClient.tsx",
       "line": 78,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search appointments...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/campaigns/new/page.tsx",
+      "file": "/app/admin/crm/appointments/new/PageClient.tsx",
+      "line": 95,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g., Enrollment Consultation\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/crm/appointments/new/PageClient.tsx",
+      "line": 161,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Enter location or paste meeting link\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/crm/appointments/new/PageClient.tsx",
+      "line": 172,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Add any notes or agenda items...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/crm/campaigns/new/PageClient.tsx",
       "line": 134,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Weekly Check-in - March 2025\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/campaigns/new/page.tsx",
+      "file": "/app/admin/crm/campaigns/new/PageClient.tsx",
       "line": 180,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Your Weekly Progress Update\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/campaigns/new/page.tsx",
+      "file": "/app/admin/crm/campaigns/new/PageClient.tsx",
       "line": 227,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Paste HTML content or select a template...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/campaigns/new/page.tsx",
+      "file": "/app/admin/crm/campaigns/new/PageClient.tsx",
       "line": 250,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Sending...",
@@ -751,111 +751,111 @@
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 59,
+      "line": 54,
       "pattern": "Placeholder text",
       "content": "placeholder=\"John\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 71,
+      "line": 66,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Doe\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 93,
+      "line": 88,
       "pattern": "Placeholder text",
       "content": "placeholder=\"john@elevateforhumanity.org\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 104,
+      "line": 99,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 314-3757\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 125,
+      "line": 120,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Acme Inc.\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 136,
+      "line": 131,
       "pattern": "Placeholder text",
       "content": "placeholder=\"HR Manager\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 157,
+      "line": 152,
       "pattern": "Placeholder text",
       "content": "placeholder=\"123 Main St\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 169,
+      "line": 164,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Indianapolis\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 180,
+      "line": 175,
       "pattern": "Placeholder text",
       "content": "placeholder=\"IN\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 191,
+      "line": 186,
       "pattern": "Placeholder text",
       "content": "placeholder=\"46204\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/new/page.tsx",
-      "line": 225,
+      "line": 220,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Add any additional notes about this contact...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/contacts/page.tsx",
-      "line": 107,
+      "line": 100,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search contacts...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/deals/new/page.tsx",
+      "file": "/app/admin/crm/deals/new/PageClient.tsx",
       "line": 87,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., ABC Corp - Apprenticeship Program\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/deals/new/page.tsx",
+      "file": "/app/admin/crm/deals/new/PageClient.tsx",
       "line": 99,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Company name\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/deals/new/page.tsx",
+      "file": "/app/admin/crm/deals/new/PageClient.tsx",
       "line": 113,
       "pattern": "Placeholder text",
       "content": "placeholder=\"0.00\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/crm/deals/new/page.tsx",
+      "file": "/app/admin/crm/deals/new/PageClient.tsx",
       "line": 164,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Add any relevant notes about this deal...\"",
@@ -863,69 +863,97 @@
     },
     {
       "file": "/app/admin/crm/leads/new/page.tsx",
-      "line": 59,
+      "line": 54,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Jane\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/leads/new/page.tsx",
-      "line": 71,
+      "line": 66,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Smith\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/leads/new/page.tsx",
-      "line": 93,
+      "line": 88,
       "pattern": "Placeholder text",
       "content": "placeholder=\"jane@elevateforhumanity.org\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/leads/new/page.tsx",
-      "line": 105,
+      "line": 100,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 314-3757\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/leads/new/page.tsx",
-      "line": 246,
+      "line": 241,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Add any additional notes about this lead...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/crm/leads/page.tsx",
-      "line": 124,
+      "line": 118,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search leads...\"",
       "severity": "critical"
     },
     {
+      "file": "/app/admin/dev-studio/PageClient.tsx",
+      "line": 482,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Tell me what to do — &quot;generate a CNA course&quot;, &quot;show today's applications",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/dev-studio/PageClient.tsx",
+      "line": 484,
+      "pattern": "Placeholder text",
+      "content": "className=\"flex-1 bg-transparent text-[#c9d1d9] font-mono text-sm outline-none placeholder:text-[#6e",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/dev-studio/page.tsx",
+      "line": 442,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Tell me what to do — &quot;generate a CNA course&quot;, &quot;show today's applications",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/dev-studio/page.tsx",
+      "line": 444,
+      "pattern": "Placeholder text",
+      "content": "className=\"flex-1 bg-transparent text-[#c9d1d9] font-mono text-sm outline-none placeholder:text-[#6e",
+      "severity": "critical"
+    },
+    {
       "file": "/app/admin/document-center/[category]/page.tsx",
-      "line": 122,
+      "line": 112,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search documents...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/documents/templates/page.tsx",
+      "file": "/app/admin/documents/templates/PageClient.tsx",
       "line": 466,
       "pattern": "Placeholder text",
       "content": "{selected.placeholders.length > 0 && (",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/documents/templates/page.tsx",
+      "file": "/app/admin/documents/templates/PageClient.tsx",
       "line": 468,
       "pattern": "Placeholder text",
       "content": "<p className=\"text-xs font-semibold text-amber-800 mb-1\">Replace these placeholders:</p>",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/documents/templates/page.tsx",
+      "file": "/app/admin/documents/templates/PageClient.tsx",
       "line": 470,
       "pattern": "Placeholder text",
       "content": "{selected.placeholders.map(p => (",
@@ -933,56 +961,56 @@
     },
     {
       "file": "/app/admin/email-marketing/automation/new/NewAutomationClient.tsx",
-      "line": 195,
+      "line": 192,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Welcome Series\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/email-marketing/automation/new/NewAutomationClient.tsx",
-      "line": 398,
+      "line": 395,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Email subject\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/email-marketing/campaigns/new/NewCampaignClient.tsx",
-      "line": 236,
+      "line": 233,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Welcome Series - January 2025\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/email-marketing/campaigns/new/NewCampaignClient.tsx",
-      "line": 257,
+      "line": 254,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Welcome to Elevate for Humanity!\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/email-marketing/campaigns/new/NewCampaignClient.tsx",
-      "line": 387,
+      "line": 384,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Edit HTML or use template...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/employers/[id]/proposal/page.tsx",
-      "line": 36,
+      "line": 33,
       "pattern": "Placeholder text",
       "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Proposed Terms</label><textarea",
       "severity": "critical"
     },
     {
       "file": "/app/admin/employers/[id]/proposal/page.tsx",
-      "line": 37,
+      "line": 34,
       "pattern": "Placeholder text",
       "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Expected Outcomes</label><texta",
       "severity": "critical"
     },
     {
       "file": "/app/admin/enrollments/EnrollmentManagementClient.tsx",
-      "line": 341,
+      "line": 263,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search by student or course...\"",
       "severity": "critical"
@@ -1017,7 +1045,7 @@
     },
     {
       "file": "/app/admin/ferpa/page.tsx",
-      "line": 203,
+      "line": 190,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search...\"",
       "severity": "critical"
@@ -1031,7 +1059,7 @@
     },
     {
       "file": "/app/admin/governance/operational-controls/page.tsx",
-      "line": 18,
+      "line": 21,
       "pattern": "Placeholder text",
       "content": "'Placeholder or mock content is not permitted in production-facing pages',",
       "severity": "critical"
@@ -1044,7 +1072,7 @@
       "severity": "info"
     },
     {
-      "file": "/app/admin/grants/apply/page.tsx",
+      "file": "/app/admin/grants/apply/PageClient.tsx",
       "line": 93,
       "pattern": "Placeholder text",
       "content": "// entry.1384283019 is the only confirmed ID — others use fieldName as placeholder",
@@ -1052,98 +1080,98 @@
     },
     {
       "file": "/app/admin/grants/intake/page.tsx",
-      "line": 67,
+      "line": 54,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., WIOA Youth Program Grant 2024\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/intake/page.tsx",
-      "line": 78,
+      "line": 65,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Indiana Department of Workforce Development\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/intake/page.tsx",
-      "line": 92,
+      "line": 79,
       "pattern": "Placeholder text",
       "content": "placeholder=\"0.00\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/intake/page.tsx",
-      "line": 145,
+      "line": 133,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Describe the grant purpose, requirements, and goals...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/intake/page.tsx",
-      "line": 156,
+      "line": 144,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Who will this grant serve? (e.g., Youth ages 16-24, Justice-involved individuals)\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 46,
+      "line": 49,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Workforce Innovation Grant\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 59,
+      "line": 62,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., US Department of Labor\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 71,
+      "line": 74,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Brief description of the grant opportunity...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 94,
+      "line": 97,
       "pattern": "Placeholder text",
       "content": "placeholder=\"50000\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 107,
+      "line": 110,
       "pattern": "Placeholder text",
       "content": "placeholder=\"250000\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 160,
+      "line": 163,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., workforce, healthcare, technology, education\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 181,
+      "line": 184,
       "pattern": "Placeholder text",
       "content": "placeholder=\"https://grants.gov/...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/grants/new/page.tsx",
-      "line": 192,
+      "line": 195,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Enter each requirement on a new line:&#10;- Must be a 501(c)(3) organization&#10;- Mini",
       "severity": "critical"
     },
     {
       "file": "/app/admin/hr/employees/page.tsx",
-      "line": 36,
+      "line": 33,
       "pattern": "Placeholder text",
       "content": "<div className=\"p-4 border-b\"><input type=\"text\" placeholder=\"Search employees...\" className=\"w-full",
       "severity": "critical"
@@ -1163,7 +1191,7 @@
       "severity": "critical"
     },
     {
-      "file": "/app/admin/import/page.tsx",
+      "file": "/app/admin/import/PageClient.tsx",
       "line": 442,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Importing...",
@@ -1171,90 +1199,104 @@
     },
     {
       "file": "/app/admin/incentives/create/page.tsx",
-      "line": 40,
+      "line": 43,
       "pattern": "Placeholder text",
       "content": "<input name=\"name\" required className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-sm fo",
       "severity": "critical"
     },
     {
       "file": "/app/admin/incentives/create/page.tsx",
-      "line": 58,
+      "line": 61,
       "pattern": "Placeholder text",
       "content": "<input name=\"amount\" type=\"number\" step=\"0.01\" min=\"0\" className=\"w-full px-3 py-2 border border-gra",
       "severity": "critical"
     },
     {
       "file": "/app/admin/incentives/create/page.tsx",
-      "line": 66,
+      "line": 69,
       "pattern": "Placeholder text",
       "content": "<input name=\"employer\" className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:o",
       "severity": "critical"
     },
     {
       "file": "/app/admin/incentives/create/page.tsx",
-      "line": 86,
+      "line": 89,
       "pattern": "Placeholder text",
       "content": "<textarea name=\"description\" rows={3} className=\"w-full px-3 py-2 border border-gray-200 rounded-lg ",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/intake/page.tsx",
+      "file": "/app/admin/intake/PageClient.tsx",
       "line": 243,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search by name or email...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/intake/page.tsx",
+      "file": "/app/admin/intake/PageClient.tsx",
       "line": 283,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Loading intakes...",
       "severity": "info"
     },
     {
-      "file": "/app/admin/intake/page.tsx",
+      "file": "/app/admin/intake/PageClient.tsx",
       "line": 543,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Describe any script deviation...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/integrations/salesforce/page.tsx",
+      "file": "/app/admin/integrations/env-manager/EnvManagerClient.tsx",
+      "line": 408,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Search settings…\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/integrations/env-manager/EnvManagerClient.tsx",
+      "line": 471,
+      "pattern": "Placeholder text",
+      "content": "placeholder={displayVal || `Enter ${key}`}",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/integrations/salesforce/PageClient.tsx",
       "line": 56,
       "pattern": "Placeholder text",
       "content": "{ label: 'Salesforce Instance URL', placeholder: 'https://yourorg.my.salesforce.com', type: 'url' },",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/integrations/salesforce/page.tsx",
+      "file": "/app/admin/integrations/salesforce/PageClient.tsx",
       "line": 57,
       "pattern": "Placeholder text",
       "content": "{ label: 'Client ID', placeholder: 'Connected App Consumer Key', type: 'text' },",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/integrations/salesforce/page.tsx",
+      "file": "/app/admin/integrations/salesforce/PageClient.tsx",
       "line": 58,
       "pattern": "Placeholder text",
       "content": "{ label: 'Client Secret', placeholder: '••••••••', type: 'password' },",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/integrations/salesforce/page.tsx",
+      "file": "/app/admin/integrations/salesforce/PageClient.tsx",
       "line": 59,
       "pattern": "Placeholder text",
       "content": "{ label: 'Callback URL', placeholder: '/api/integrations/salesforce/callback', type: 'text' },",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/integrations/salesforce/page.tsx",
+      "file": "/app/admin/integrations/salesforce/PageClient.tsx",
       "line": 96,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "<RefreshCw className=\"w-4 h-4 animate-spin\" /> Checking connection...",
       "severity": "info"
     },
     {
-      "file": "/app/admin/integrations/salesforce/page.tsx",
+      "file": "/app/admin/integrations/salesforce/PageClient.tsx",
       "line": 149,
       "pattern": "Placeholder text",
       "content": "placeholder={field.placeholder}",
@@ -1262,84 +1304,77 @@
     },
     {
       "file": "/app/admin/jobs/new/page.tsx",
-      "line": 40,
+      "line": 43,
       "pattern": "Placeholder text",
       "content": "<input name=\"title\" required className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-sm f",
       "severity": "critical"
     },
     {
       "file": "/app/admin/jobs/new/page.tsx",
-      "line": 48,
+      "line": 51,
       "pattern": "Placeholder text",
       "content": "<input name=\"company\" required className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-sm",
       "severity": "critical"
     },
     {
       "file": "/app/admin/jobs/new/page.tsx",
-      "line": 54,
+      "line": 57,
       "pattern": "Placeholder text",
       "content": "<input name=\"location\" required className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-s",
       "severity": "critical"
     },
     {
       "file": "/app/admin/jobs/new/page.tsx",
-      "line": 73,
+      "line": 76,
       "pattern": "Placeholder text",
       "content": "<input name=\"salary_min\" type=\"number\" step=\"1000\" min=\"0\" className=\"w-full px-3 py-2 border border",
       "severity": "critical"
     },
     {
       "file": "/app/admin/jobs/new/page.tsx",
-      "line": 79,
+      "line": 82,
       "pattern": "Placeholder text",
       "content": "<input name=\"salary_max\" type=\"number\" step=\"1000\" min=\"0\" className=\"w-full px-3 py-2 border border",
       "severity": "critical"
     },
     {
       "file": "/app/admin/jobs/new/page.tsx",
-      "line": 85,
+      "line": 88,
       "pattern": "Placeholder text",
       "content": "<textarea name=\"description\" required rows={4} className=\"w-full px-3 py-2 border border-gray-200 ro",
       "severity": "critical"
     },
     {
       "file": "/app/admin/jobs/new/page.tsx",
-      "line": 90,
+      "line": 93,
       "pattern": "Placeholder text",
       "content": "<textarea name=\"requirements\" rows={3} className=\"w-full px-3 py-2 border border-gray-200 rounded-lg",
       "severity": "critical"
     },
     {
       "file": "/app/admin/jobs/page.tsx",
-      "line": 121,
+      "line": 116,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search jobs...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/leads/new/page.tsx",
-      "line": 77,
+      "line": 71,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 314-3757\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/leads/new/page.tsx",
-      "line": 118,
+      "line": 112,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Additional notes about this lead...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/leads/page.tsx",
-      "line": 173,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Search leads...\"",
-      "severity": "critical"
-    },
-    {
       "file": "/app/admin/license/page.tsx",
-      "line": 46,
+      "line": 43,
       "pattern": "XXX placeholder",
       "content": "<input type=\"text\" className=\"flex-1 border rounded-lg px-3 py-2 font-mono text-sm\" value=\"XXXX-XXXX",
       "severity": "warning"
@@ -1394,6 +1429,41 @@
       "severity": "critical"
     },
     {
+      "file": "/app/admin/next-steps/PageClient.tsx",
+      "line": 110,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Name, email, program…\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/next-steps/PageClient.tsx",
+      "line": 390,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"YYYY-MM-DD\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/next-steps/PageClient.tsx",
+      "line": 402,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"10:30 AM\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/next-steps/PageClient.tsx",
+      "line": 414,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"EmployIndy / WorkOne…\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/next-steps/PageClient.tsx",
+      "line": 446,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"What they told you, blockers, next call date…\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/admin/next-steps/page.tsx",
       "line": 110,
       "pattern": "Placeholder text",
@@ -1423,14 +1493,21 @@
     },
     {
       "file": "/app/admin/next-steps/page.tsx",
-      "line": 445,
+      "line": 446,
       "pattern": "Placeholder text",
       "content": "placeholder=\"What they told you, blockers, next call date…\"",
       "severity": "critical"
     },
     {
+      "file": "/app/admin/portal-map/PageClient.tsx",
+      "line": 770,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Search features, routes, or descriptions...\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/admin/portal-map/page.tsx",
-      "line": 751,
+      "line": 770,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search features, routes, or descriptions...\"",
       "severity": "critical"
@@ -1499,15 +1576,15 @@
       "severity": "critical"
     },
     {
-      "file": "/app/admin/proctor-portal/page.tsx",
-      "line": 157,
+      "file": "/app/admin/proctor-portal/PageClient.tsx",
+      "line": 164,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search by student name or email...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/program-holder-documents/page.tsx",
-      "line": 296,
+      "file": "/app/admin/program-holder-documents/PageClient.tsx",
+      "line": 323,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Add notes about your decision...\"",
       "severity": "critical"
@@ -1653,21 +1730,21 @@
       "severity": "critical"
     },
     {
-      "file": "/app/admin/promo-codes/page.tsx",
+      "file": "/app/admin/promo-codes/PageClient.tsx",
       "line": 241,
       "pattern": "Placeholder text",
       "content": "placeholder=\"SAVE20\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/promo-codes/page.tsx",
+      "file": "/app/admin/promo-codes/PageClient.tsx",
       "line": 253,
       "pattern": "Placeholder text",
       "content": "placeholder=\"20% off all courses\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/promo-codes/page.tsx",
+      "file": "/app/admin/promo-codes/PageClient.tsx",
       "line": 293,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Unlimited\"",
@@ -1688,7 +1765,7 @@
       "severity": "critical"
     },
     {
-      "file": "/app/admin/rapids/apprentices/page.tsx",
+      "file": "/app/admin/rapids/apprentices/PageClient.tsx",
       "line": 305,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search apprentices...\"",
@@ -1710,21 +1787,21 @@
     },
     {
       "file": "/app/admin/review-queue/[id]/page.tsx",
-      "line": 183,
+      "line": 180,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "{item.subject_type}: {item.subject_id.slice(0, 8)}...",
       "severity": "info"
     },
     {
       "file": "/app/admin/review-queue/page.tsx",
-      "line": 178,
+      "line": 237,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "{item.subject_type}: {item.subject_id.slice(0, 8)}...",
       "severity": "info"
     },
     {
       "file": "/app/admin/sap/page.tsx",
-      "line": 362,
+      "line": 352,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search students...\"",
       "severity": "critical"
@@ -1737,14 +1814,14 @@
       "severity": "info"
     },
     {
-      "file": "/app/admin/signatures/new/page.tsx",
+      "file": "/app/admin/signatures/new/PageClient.tsx",
       "line": 90,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g. Enrollment Agreement — Spring 2025\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/signatures/new/page.tsx",
+      "file": "/app/admin/signatures/new/PageClient.tsx",
       "line": 121,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Paste or type the full document text here. HTML is supported.\"",
@@ -1752,7 +1829,7 @@
     },
     {
       "file": "/app/admin/social-media/campaigns/new/NewSocialCampaignClient.tsx",
-      "line": 194,
+      "line": 192,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Barber Program Promotion\"",
       "severity": "critical"
@@ -1786,42 +1863,42 @@
       "severity": "critical"
     },
     {
-      "file": "/app/admin/store/clones/page.tsx",
+      "file": "/app/admin/store/clones/PageClient.tsx",
       "line": 218,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Feature description\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/submissions/opportunities/[id]/page.tsx",
-      "line": 210,
-      "pattern": "Placeholder text",
-      "content": "<input value={opp.submission_method ?? ''} onChange={field('submission_method')} placeholder=\"e.g. G",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/admin/submissions/opportunities/[id]/page.tsx",
-      "line": 303,
-      "pattern": "Placeholder text",
-      "content": "<input value={newReq.requirement_category} onChange={e => setNewReq(p => ({ ...p, requirement_catego",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/admin/submissions/opportunities/[id]/page.tsx",
-      "line": 307,
-      "pattern": "Placeholder text",
-      "content": "<input value={newReq.requirement_name} onChange={e => setNewReq(p => ({ ...p, requirement_name: e.ta",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/admin/submissions/opportunities/page.tsx",
+      "file": "/app/admin/submissions/opportunities/PageClient.tsx",
       "line": 145,
       "pattern": "Placeholder text",
       "content": "placeholder=\"https://grants.gov/...\"",
       "severity": "critical"
     },
     {
-      "file": "/app/admin/support/page.tsx",
+      "file": "/app/admin/submissions/opportunities/[id]/PageClient.tsx",
+      "line": 210,
+      "pattern": "Placeholder text",
+      "content": "<input value={opp.submission_method ?? ''} onChange={field('submission_method')} placeholder=\"e.g. G",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/submissions/opportunities/[id]/PageClient.tsx",
+      "line": 303,
+      "pattern": "Placeholder text",
+      "content": "<input value={newReq.requirement_category} onChange={e => setNewReq(p => ({ ...p, requirement_catego",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/submissions/opportunities/[id]/PageClient.tsx",
+      "line": 307,
+      "pattern": "Placeholder text",
+      "content": "<input value={newReq.requirement_name} onChange={e => setNewReq(p => ({ ...p, requirement_name: e.ta",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/support/PageClient.tsx",
       "line": 164,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search tickets...\"",
@@ -1836,56 +1913,56 @@
     },
     {
       "file": "/app/admin/tax-filing/applications/new/page.tsx",
-      "line": 41,
+      "line": 44,
       "pattern": "Placeholder text",
       "content": "<input name=\"client_name\" required className=\"w-full px-3 py-2 border border-gray-200 rounded-lg tex",
       "severity": "critical"
     },
     {
       "file": "/app/admin/tax-filing/applications/new/page.tsx",
-      "line": 49,
+      "line": 52,
       "pattern": "Placeholder text",
       "content": "<input name=\"client_email\" type=\"email\" required className=\"w-full px-3 py-2 border border-gray-200 ",
       "severity": "critical"
     },
     {
       "file": "/app/admin/tax-filing/applications/new/page.tsx",
-      "line": 55,
+      "line": 58,
       "pattern": "Placeholder text",
       "content": "<input name=\"client_phone\" type=\"tel\" className=\"w-full px-3 py-2 border border-gray-200 rounded-lg ",
       "severity": "critical"
     },
     {
       "file": "/app/admin/tax-filing/applications/new/page.tsx",
-      "line": 86,
+      "line": 89,
       "pattern": "Placeholder text",
       "content": "<textarea name=\"notes\" rows={3} className=\"w-full px-3 py-2 border border-gray-200 rounded-lg text-s",
       "severity": "critical"
     },
     {
       "file": "/app/admin/tax-filing/applications/page.tsx",
-      "line": 107,
+      "line": 94,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search by name or email...\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/testing/TestingAdminClient.tsx",
-      "line": 254,
+      "line": 256,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" value={slotForm.notes} placeholder=\"e.g. Room 2, bring ID\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/testing/TestingAdminClient.tsx",
-      "line": 326,
+      "line": 328,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search by name, email, exam, or code…\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/testing/TestingAdminClient.tsx",
-      "line": 447,
+      "line": 449,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g. 10:00 AM\"",
       "severity": "critical"
@@ -1948,42 +2025,42 @@
     },
     {
       "file": "/app/admin/users/new/page.tsx",
-      "line": 68,
+      "line": 55,
       "pattern": "Placeholder text",
       "content": "placeholder=\"First name\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/users/new/page.tsx",
-      "line": 79,
+      "line": 66,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Doe\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/users/new/page.tsx",
-      "line": 92,
+      "line": 79,
       "pattern": "Placeholder text",
       "content": "placeholder=\"user@organization.org\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/users/new/page.tsx",
-      "line": 107,
+      "line": 94,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 314-3757\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/users/new/page.tsx",
-      "line": 152,
+      "line": 139,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Enter temporary password\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/users/new/page.tsx",
-      "line": 216,
+      "line": 203,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Add any notes about this user...\"",
       "severity": "critical"
@@ -2017,6 +2094,20 @@
       "severity": "critical"
     },
     {
+      "file": "/app/admin/workflows/new/PageClient.tsx",
+      "line": 77,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Leave blank to apply to all programs\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/admin/workflows/new/PageClient.tsx",
+      "line": 100,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Config / template name\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/admin/workone-queue/WorkOneApproveButton.tsx",
       "line": 71,
       "pattern": "Placeholder text",
@@ -2032,35 +2123,35 @@
     },
     {
       "file": "/app/admin/wotc/new/page.tsx",
-      "line": 80,
+      "line": 83,
       "pattern": "Placeholder text",
       "content": "placeholder=\"XXX-XX-XXXX\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/wotc/new/page.tsx",
-      "line": 80,
+      "line": 83,
       "pattern": "XXX placeholder",
       "content": "placeholder=\"XXX-XX-XXXX\"",
       "severity": "warning"
     },
     {
       "file": "/app/admin/wotc/new/page.tsx",
-      "line": 124,
+      "line": 127,
       "pattern": "Placeholder text",
       "content": "placeholder=\"XX-XXXXXXX\"",
       "severity": "critical"
     },
     {
       "file": "/app/admin/wotc/new/page.tsx",
-      "line": 124,
+      "line": 127,
       "pattern": "XXX placeholder",
       "content": "placeholder=\"XX-XXXXXXX\"",
       "severity": "warning"
     },
     {
       "file": "/app/admin/wotc/new/page.tsx",
-      "line": 136,
+      "line": 139,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 314-3757\"",
       "severity": "critical"
@@ -2116,7 +2207,7 @@
     },
     {
       "file": "/app/ai-chat/page.tsx",
-      "line": 162,
+      "line": 165,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Type your question...\"",
       "severity": "critical"
@@ -2136,15 +2227,15 @@
       "severity": "info"
     },
     {
-      "file": "/app/api/admin/courses/[courseId]/generate/route.ts",
-      "line": 84,
-      "pattern": "Placeholder text",
-      "content": "Write 300-600 words of real instructional content. No placeholders. No meta-commentary.",
-      "severity": "critical"
+      "file": "/app/api/admin/applications/eligibility-review/route.ts",
+      "line": 10,
+      "pattern": "XXX placeholder",
+      "content": "// GET /api/admin/applications/eligibility-review?application_id=xxx",
+      "severity": "warning"
     },
     {
       "file": "/app/api/admin/courses/generate/route.ts",
-      "line": 114,
+      "line": 116,
       "pattern": "Placeholder text",
       "content": "- content must be real instructional text, not placeholder",
       "severity": "critical"
@@ -2249,7 +2340,7 @@
     },
     {
       "file": "/app/api/announcements/route.ts",
-      "line": 11,
+      "line": 12,
       "pattern": "Fake content",
       "content": "* Returns empty array if no announcements (strict - no fake data).",
       "severity": "critical"
@@ -2277,21 +2368,21 @@
     },
     {
       "file": "/app/api/courses/[courseId]/lessons/public/route.ts",
-      "line": 8,
+      "line": 7,
       "pattern": "Placeholder text",
       "content": "import { buildLessonContent, isPlaceholderContent } from '@/lib/courses/hvac-content-builder';",
       "severity": "critical"
     },
     {
       "file": "/app/api/courses/[courseId]/lessons/public/route.ts",
-      "line": 197,
+      "line": 202,
       "pattern": "Placeholder text",
       "content": "// Enrich DB lessons that have placeholder content with generated rich HTML",
       "severity": "critical"
     },
     {
       "file": "/app/api/courses/[courseId]/lessons/public/route.ts",
-      "line": 200,
+      "line": 205,
       "pattern": "Placeholder text",
       "content": "if (slug === 'hvac-technician' && isPlaceholderContent(lesson.content)) {",
       "severity": "critical"
@@ -2305,70 +2396,63 @@
     },
     {
       "file": "/app/api/demo/reset/route.ts",
-      "line": 27,
+      "line": 28,
       "pattern": "Demo content",
       "content": "// Check if demo mode is enabled",
       "severity": "critical"
     },
     {
       "file": "/app/api/demo/reset/route.ts",
-      "line": 30,
+      "line": 31,
       "pattern": "Demo content",
       "content": "{ error: 'Demo mode is not enabled' },",
       "severity": "critical"
     },
     {
       "file": "/app/api/demo/reset/route.ts",
-      "line": 107,
+      "line": 108,
       "pattern": "Demo content",
       "content": "message: 'Demo data reset successfully',",
       "severity": "critical"
     },
     {
       "file": "/app/api/demo/reset/route.ts",
-      "line": 115,
+      "line": 116,
       "pattern": "Demo content",
       "content": "{ error: 'Failed to reset demo data', details: String(error) },",
       "severity": "critical"
     },
     {
       "file": "/app/api/funnel/lead/route.ts",
-      "line": 125,
+      "line": 129,
       "pattern": "TBD marker",
       "content": "subject: `[NEW LEAD] ${name.trim()} — ${program || 'Program TBD'} (${sourceLabel})`,",
       "severity": "warning"
     },
     {
       "file": "/app/api/health/route.ts",
-      "line": 175,
+      "line": 178,
       "pattern": "Placeholder text",
       "content": "content_quality: '✅ No placeholders, humanized',",
       "severity": "critical"
     },
     {
       "file": "/app/api/health/route.ts",
-      "line": 191,
+      "line": 194,
       "pattern": "Placeholder text",
       "content": "no_placeholder_content: true,",
       "severity": "critical"
     },
     {
       "file": "/app/api/instructor/course-performance/route.ts",
-      "line": 53,
+      "line": 49,
       "pattern": "Placeholder text",
       "content": "// If no data, return placeholder",
       "severity": "critical"
     },
     {
-      "file": "/app/api/program-holder/enroll-participant/route.ts",
-      "line": 70,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "// Your enrollment logic here...",
-      "severity": "info"
-    },
-    {
       "file": "/app/api/provisioning/tenant/route.ts",
-      "line": 253,
+      "line": 256,
       "pattern": "XXX placeholder",
       "content": "* GET /api/provisioning/tenant?subdomain=xxx",
       "severity": "warning"
@@ -2388,43 +2472,64 @@
       "severity": "info"
     },
     {
+      "file": "/app/api/supersonic-fast-cash/ocr-extract/route.ts",
+      "line": 31,
+      "pattern": "XXX placeholder",
+      "content": "// Extract employer EIN (XX-XXXXXXX pattern)",
+      "severity": "warning"
+    },
+    {
+      "file": "/app/api/supersonic-fast-cash/ocr-extract/route.ts",
+      "line": 35,
+      "pattern": "XXX placeholder",
+      "content": "// Extract SSN (XXX-XX-XXXX pattern)",
+      "severity": "warning"
+    },
+    {
       "file": "/app/api/testimonials/route.ts",
-      "line": 15,
+      "line": 16,
       "pattern": "Fake content",
       "content": "* Strict: Returns empty array if no data (never fake data).",
       "severity": "critical"
     },
     {
+      "file": "/app/api/testing/calendly-webhook/route.ts",
+      "line": 246,
+      "pattern": "TBD marker",
+      "content": "subject: `New Testing Appointment: ${inviteeName} — ${examAnswer || 'Exam TBD'}`,",
+      "severity": "warning"
+    },
+    {
       "file": "/app/api/testing/enforcement/route.ts",
-      "line": 2,
+      "line": 3,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "* GET /api/testing/enforcement?email=...",
       "severity": "info"
     },
     {
       "file": "/app/api/trap/route.ts",
-      "line": 41,
+      "line": 42,
       "pattern": "Fake content",
       "content": "// Return fake data to waste bot's time",
       "severity": "critical"
     },
     {
       "file": "/app/api/trap/route.ts",
-      "line": 45,
+      "line": 46,
       "pattern": "Fake content",
       "content": "description: 'This is fake data designed to waste scraper resources',",
       "severity": "critical"
     },
     {
       "file": "/app/api/video/generate/route.ts",
-      "line": 162,
+      "line": 164,
       "pattern": "Placeholder text",
       "content": "// Select placeholder video based on content",
       "severity": "critical"
     },
     {
       "file": "/app/api/video/generate/route.ts",
-      "line": 170,
+      "line": 172,
       "pattern": "Placeholder text",
       "content": "let selectedVideo = placeholderVideos[0];",
       "severity": "critical"
@@ -2438,35 +2543,35 @@
     },
     {
       "file": "/app/apply/employer/EmployerApplicationForm.tsx",
-      "line": 155,
+      "line": 149,
       "pattern": "Placeholder text",
       "content": "placeholder=\"https://\"",
       "severity": "critical"
     },
     {
       "file": "/app/apply/employer/EmployerApplicationForm.tsx",
-      "line": 249,
+      "line": 243,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Minimum 8 characters\"",
       "severity": "critical"
     },
     {
       "file": "/app/apply/employer/EmployerApplicationForm.tsx",
-      "line": 278,
+      "line": 272,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Re-enter your password\"",
       "severity": "critical"
     },
     {
       "file": "/app/apply/employer/EmployerApplicationForm.tsx",
-      "line": 301,
+      "line": 295,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Tell us about the positions you're looking to fill...\"",
       "severity": "critical"
     },
     {
       "file": "/app/apply/employer/EmployerApplicationForm.tsx",
-      "line": 317,
+      "line": 311,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., 5-10 positions\"",
       "severity": "critical"
@@ -2578,14 +2683,49 @@
     },
     {
       "file": "/app/apply/student/StudentApplicationForm.tsx",
-      "line": 268,
+      "line": 408,
+      "pattern": "Placeholder text",
+      "content": "<input type=\"text\" value={eligibility.referralSource} onChange={e => setElig('referralSource', e.tar",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/apply/student/StudentApplicationForm.tsx",
+      "line": 423,
+      "pattern": "Placeholder text",
+      "content": "<input type=\"text\" value={eligibility.otherFundingSource} onChange={e => setElig('otherFundingSource",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/apply/student/StudentApplicationForm.tsx",
+      "line": 493,
+      "pattern": "Placeholder text",
+      "content": "<textarea value={eligibility.legalNotes} onChange={e => setElig('legalNotes', e.target.value)} rows=",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/apply/student/StudentApplicationForm.tsx",
+      "line": 508,
+      "pattern": "Placeholder text",
+      "content": "<input type=\"text\" value={eligibility.unavailableTimes} onChange={e => setElig('unavailableTimes', e",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/apply/student/StudentApplicationForm.tsx",
+      "line": 524,
+      "pattern": "Placeholder text",
+      "content": "<textarea value={eligibility.motivation} onChange={e => setElig('motivation', e.target.value)} rows=",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/apply/student/StudentApplicationForm.tsx",
+      "line": 654,
       "pattern": "Placeholder text",
       "content": "placeholder=\"At least 8 characters\"",
       "severity": "critical"
     },
     {
       "file": "/app/apply/student/StudentApplicationForm.tsx",
-      "line": 470,
+      "line": 860,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Tell us about your career aspirations...\"",
       "severity": "critical"
@@ -2641,7 +2781,7 @@
     },
     {
       "file": "/app/apply/waitlist/[program]/page.tsx",
-      "line": 216,
+      "line": 217,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g. preferred start date, questions about the program...\"",
       "severity": "critical"
@@ -2676,7 +2816,7 @@
     },
     {
       "file": "/app/apprentice/handbook/page.tsx",
-      "line": 113,
+      "line": 112,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search handbook...\"",
       "severity": "critical"
@@ -2759,27 +2899,6 @@
       "severity": "info"
     },
     {
-      "file": "/app/apprenticeships/ipla-exam/page.tsx",
-      "line": 170,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Your full name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/apprenticeships/ipla-exam/page.tsx",
-      "line": 182,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"you@example.com\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/apprenticeships/ipla-exam/page.tsx",
-      "line": 194,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"(317) 314-3757\"",
-      "severity": "critical"
-    },
-    {
       "file": "/app/apps/grants/GrantsApp.tsx",
       "line": 94,
       "pattern": "Placeholder text",
@@ -2802,21 +2921,35 @@
     },
     {
       "file": "/app/auth/reset-password/page.tsx",
-      "line": 169,
+      "line": 197,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Minimum 8 characters\"",
       "severity": "critical"
     },
     {
       "file": "/app/auth/reset-password/page.tsx",
-      "line": 194,
+      "line": 222,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Re-enter your password\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/auth/set-password/page.tsx",
+      "line": 200,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Minimum 8 characters\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/auth/set-password/page.tsx",
+      "line": 224,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Re-enter your password\"",
       "severity": "critical"
     },
     {
       "file": "/app/blog/search/page.tsx",
-      "line": 69,
+      "line": 68,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search articles...\"",
       "severity": "critical"
@@ -2991,7 +3124,7 @@
     },
     {
       "file": "/app/certificates/page.tsx",
-      "line": 57,
+      "line": 60,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Enter Certificate ID (e.g., EFH-2024-12345)\"",
       "severity": "critical"
@@ -3081,41 +3214,6 @@
       "severity": "critical"
     },
     {
-      "file": "/app/cna-waitlist/page.tsx",
-      "line": 88,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Your full name\" />",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/cna-waitlist/page.tsx",
-      "line": 97,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"you@email.com\" />",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/cna-waitlist/page.tsx",
-      "line": 106,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"(317) 555-0000\" />",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/cna-waitlist/page.tsx",
-      "line": 123,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"e.g. October 2025, As soon as possible\" />",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/cna-waitlist/page.tsx",
-      "line": 132,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Indianapolis, IN\" />",
-      "severity": "critical"
-    },
-    {
       "file": "/app/community/discussions/new/page.tsx",
       "line": 111,
       "pattern": "Placeholder text",
@@ -3166,42 +3264,42 @@
     },
     {
       "file": "/app/community/marketplace/page.tsx",
-      "line": 214,
+      "line": 207,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search courses, products, tools...\"",
       "severity": "critical"
     },
     {
       "file": "/app/community/page.tsx",
-      "line": 310,
+      "line": 309,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" name=\"name\" placeholder=\"Full Name *\" required className=\"w-full px-4 py-3 rounde",
       "severity": "critical"
     },
     {
       "file": "/app/community/page.tsx",
-      "line": 311,
+      "line": 310,
       "pattern": "Placeholder text",
       "content": "<input type=\"email\" name=\"email\" placeholder=\"Email *\" required className=\"w-full px-4 py-3 rounded-",
       "severity": "critical"
     },
     {
       "file": "/app/community/page.tsx",
-      "line": 334,
+      "line": 333,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" name=\"name\" placeholder=\"Your Name *\" required className=\"w-full px-4 py-3 rounde",
       "severity": "critical"
     },
     {
       "file": "/app/community/page.tsx",
-      "line": 335,
+      "line": 334,
       "pattern": "Placeholder text",
       "content": "<input type=\"email\" name=\"email\" placeholder=\"Email *\" required className=\"w-full px-4 py-3 rounded-",
       "severity": "critical"
     },
     {
       "file": "/app/community/page.tsx",
-      "line": 336,
+      "line": 335,
       "pattern": "Placeholder text",
       "content": "<textarea name=\"message\" placeholder=\"Your question...\" rows={3} className=\"w-full px-4 py-3 rounded",
       "severity": "critical"
@@ -3235,24 +3333,17 @@
       "severity": "info"
     },
     {
-      "file": "/app/contact/page.tsx",
-      "line": 225,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"How can we help you?\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/contact/page.tsx",
-      "line": 244,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Sending...",
-      "severity": "info"
-    },
-    {
       "file": "/app/courses/CoursesCatalog.tsx",
       "line": 131,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search courses...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/courses/[courseId]/discussion/page.tsx",
+      "line": 34,
+      "pattern": "Placeholder text",
+      "content": "<textarea className=\"w-full border rounded-lg px-3 py-2 mb-3\" rows={3} placeholder=\"Share your thoug",
       "severity": "critical"
     },
     {
@@ -3278,14 +3369,14 @@
     },
     {
       "file": "/app/courses/[courseId]/discussions/page.tsx",
-      "line": 252,
+      "line": 249,
       "pattern": "Placeholder text",
       "content": "placeholder=\"What would you like to discuss?\"",
       "severity": "critical"
     },
     {
       "file": "/app/courses/[courseId]/discussions/page.tsx",
-      "line": 269,
+      "line": 266,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Share your thoughts...\"",
       "severity": "critical"
@@ -3296,6 +3387,13 @@
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Processing...",
       "severity": "info"
+    },
+    {
+      "file": "/app/courses/catalog/page.tsx",
+      "line": 429,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Search courses...\"",
+      "severity": "critical"
     },
     {
       "file": "/app/courses/partners/CourseSearch.tsx",
@@ -3337,48 +3435,6 @@
       "line": 119,
       "pattern": "Placeholder text",
       "content": "placeholder=\"299.00\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/curvature-body-sculpting/apply/page.tsx",
-      "line": 248,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Why are you interested in this position? What makes you a great fit?\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/curvature-body-sculpting/apply/page.tsx",
-      "line": 253,
-      "pattern": "Placeholder text",
-      "content": "{/* Resume Upload Placeholder */}",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/curvature-body-sculpting/book-appointment/page.tsx",
-      "line": 419,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Any special requests or concerns...\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/curvature-body-sculpting/book-appointment/page.tsx",
-      "line": 441,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Booking...",
-      "severity": "info"
-    },
-    {
-      "file": "/app/curvature-body-sculpting/shop/page.tsx",
-      "line": 396,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Processing...",
-      "severity": "info"
-    },
-    {
-      "file": "/app/curvature-body-sculpting/shop/page.tsx",
-      "line": 546,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Search products...\"",
       "severity": "critical"
     },
     {
@@ -3452,6 +3508,13 @@
       "severity": "critical"
     },
     {
+      "file": "/app/demo/admin/AdminDemoClient.tsx",
+      "line": 86,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Search students...\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/demo/admin/applications/page.tsx",
       "line": 71,
       "pattern": "Placeholder text",
@@ -3466,31 +3529,17 @@
       "severity": "critical"
     },
     {
-      "file": "/app/docs/Indiana-Barbershop-Apprenticeship-MOU/page.tsx",
-      "line": 295,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"text\" value={shopName} onChange={e => setShopName(e.target.value)} placeholder=\"Your ba",
+      "file": "/app/demo/admin/layout.tsx",
+      "line": 6,
+      "pattern": "Sample content",
+      "content": "description: 'Public demo of the Elevate admin dashboard using sample data.',",
       "severity": "critical"
     },
     {
-      "file": "/app/docs/Indiana-Barbershop-Apprenticeship-MOU/page.tsx",
-      "line": 299,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"text\" value={partnerName} onChange={e => setPartnerName(e.target.value)} placeholder=\"F",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/docs/Indiana-Barbershop-Apprenticeship-MOU/page.tsx",
-      "line": 309,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"text\" value={supervisorName} onChange={e => setSupervisorName(e.target.value)} placehol",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/docs/Indiana-Barbershop-Apprenticeship-MOU/page.tsx",
-      "line": 313,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"text\" value={supervisorLicense} onChange={e => setSupervisorLicense(e.target.value)} pl",
+      "file": "/app/demo/employer/layout.tsx",
+      "line": 6,
+      "pattern": "Sample content",
+      "content": "description: 'Public demo of the Elevate employer portal using sample data.',",
       "severity": "critical"
     },
     {
@@ -3512,13 +3561,6 @@
       "line": 271,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Optional — e.g. Indiana driver's license\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/donations/page.tsx",
-      "line": 75,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"number\" placeholder=\"Enter amount\" className=\"w-full pl-10 pr-4 py-3 border border-gray",
       "severity": "critical"
     },
     {
@@ -3579,37 +3621,37 @@
     },
     {
       "file": "/app/employer/post-job/page.tsx",
-      "line": 29,
-      "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Job Title *</label><input type=",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employer/post-job/page.tsx",
-      "line": 30,
-      "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Description *</label><textarea ",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employer/post-job/page.tsx",
-      "line": 33,
-      "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Location</label><input type=\"te",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employer/post-job/page.tsx",
-      "line": 36,
-      "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Salary Range</label><input type",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employer/post-job/page.tsx",
       "line": 39,
       "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Requirements</label><textarea c",
+      "content": "<input name=\"title\" type=\"text\" required className=\"w-full border rounded-lg px-3 py-2 focus:ring-2 ",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/employer/post-job/page.tsx",
+      "line": 43,
+      "pattern": "Placeholder text",
+      "content": "<textarea name=\"description\" rows={5} required className=\"w-full border rounded-lg px-3 py-2 focus:r",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/employer/post-job/page.tsx",
+      "line": 57,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"location\" type=\"text\" className=\"w-full border rounded-lg px-3 py-2 focus:ring-2 focus:",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/employer/post-job/page.tsx",
+      "line": 63,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"salary_range\" type=\"text\" className=\"w-full border rounded-lg px-3 py-2 focus:ring-2 fo",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/employer/post-job/page.tsx",
+      "line": 72,
+      "pattern": "Placeholder text",
+      "content": "<textarea name=\"requirements\" rows={3} className=\"w-full border rounded-lg px-3 py-2 focus:ring-2 fo",
       "severity": "critical"
     },
     {
@@ -3823,6 +3865,13 @@
       "severity": "critical"
     },
     {
+      "file": "/app/employer-portal/jobs/page.tsx",
+      "line": 94,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Search jobs...\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/employer-portal/messages/MessagesClient.tsx",
       "line": 157,
       "pattern": "Placeholder text",
@@ -3837,38 +3886,10 @@
       "severity": "critical"
     },
     {
-      "file": "/app/employer-portal/programs/page.tsx",
-      "line": 70,
+      "file": "/app/employer-portal/settings/page.tsx",
+      "line": 104,
       "pattern": "Placeholder text",
-      "content": "src={program.image_url ?? '/images/placeholder.jpg'}",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employers/post-job/page.tsx",
-      "line": 137,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"City, State\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employers/post-job/page.tsx",
-      "line": 167,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"$40,000 - $60,000\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employers/post-job/page.tsx",
-      "line": 195,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Describe the role, responsibilities, and what makes this opportunity great...\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/employers/post-job/page.tsx",
-      "line": 209,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"List required skills, certifications, experience...\"",
+      "content": "placeholder={`Enter ${field.label.toLowerCase()}`}",
       "severity": "critical"
     },
     {
@@ -4068,6 +4089,20 @@
       "severity": "critical"
     },
     {
+      "file": "/app/franchise/office/commissions/page.tsx",
+      "line": 235,
+      "pattern": "Placeholder text",
+      "content": "<SelectValue placeholder=\"Year\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/franchise/office/commissions/page.tsx",
+      "line": 246,
+      "pattern": "Placeholder text",
+      "content": "<SelectValue placeholder=\"Month\" />",
+      "severity": "critical"
+    },
+    {
       "file": "/app/franchise/office/ero-queue/page.tsx",
       "line": 258,
       "pattern": "Trailing ellipsis (possible incomplete)",
@@ -4208,56 +4243,56 @@
       "severity": "warning"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 217,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Full name\"",
       "severity": "critical"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 233,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Indiana FSSA, WorkOne, etc.\"",
       "severity": "critical"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 248,
       "pattern": "Placeholder text",
       "content": "placeholder=\"SNAP E&T Coordinator\"",
       "severity": "critical"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 264,
       "pattern": "Placeholder text",
       "content": "placeholder=\"john.smith@fssa.in.gov\"",
       "severity": "critical"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 279,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 314-3757\"",
       "severity": "critical"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 322,
       "pattern": "Placeholder text",
       "content": "placeholder=\"CNA, HVAC, Barber, CDL, etc.\"",
       "severity": "critical"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 337,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Tell us about your SNAP E&T needs, number of participants, timeline, etc.\"",
       "severity": "critical"
     },
     {
-      "file": "/app/fssa-partnership-request/page.tsx",
+      "file": "/app/fssa/partnership-request/page.tsx",
       "line": 366,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Submitting...",
@@ -4475,73 +4510,59 @@
     },
     {
       "file": "/app/instructor/settings/page.tsx",
-      "line": 83,
+      "line": 87,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Senior Instructor\"",
       "severity": "critical"
     },
     {
       "file": "/app/instructor/settings/page.tsx",
-      "line": 119,
+      "line": 127,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Brief bio for your instructor profile...\"",
       "severity": "critical"
     },
     {
       "file": "/app/instructor/students/new/page.tsx",
-      "line": 47,
+      "line": 41,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"student@example.com\"",
+      "content": "<input name=\"full_name\" type=\"text\" required className=\"w-full px-4 py-2 border rounded-lg focus:rin",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/instructor/students/new/page.tsx",
+      "line": 45,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"email\" type=\"email\" required className=\"w-full px-4 py-2 border rounded-lg focus:ring-2",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/instructor/students/new/page.tsx",
+      "line": 49,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"phone\" type=\"tel\" className=\"w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/instructor/students/new/page.tsx",
+      "line": 62,
+      "pattern": "Placeholder text",
+      "content": "<textarea name=\"notes\" rows={2} className=\"w-full px-4 py-2 border rounded-lg focus:ring-2 focus:rin",
       "severity": "critical"
     },
     {
       "file": "/app/instructor/students/page.tsx",
-      "line": 124,
+      "line": 122,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search students...\"",
       "severity": "critical"
     },
     {
       "file": "/app/instructor/submissions/[submissionId]/page.tsx",
-      "line": 232,
+      "line": 280,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"Feedback, corrections, or encouragement…\"",
+      "content": "placeholder=\"Feedback, corrections, or what needs to be redone…\"",
       "severity": "critical"
-    },
-    {
-      "file": "/app/legal/agreements/page.tsx",
-      "line": 425,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Enter your full legal name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/legal/agreements/page.tsx",
-      "line": 473,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Type your full name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/legal/agreements/page.tsx",
-      "line": 526,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Signing...",
-      "severity": "info"
-    },
-    {
-      "file": "/app/legal/governance/lms-standards/page.tsx",
-      "line": 171,
-      "pattern": "Sample content",
-      "content": "<li>Application with credentials and sample content</li>",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/legal/governance/tax-operations/page.tsx",
-      "line": 241,
-      "pattern": "XXX placeholder",
-      "content": "<li><strong>SSN:</strong> Encrypted at rest and in transit, masked in UI (XXX-XX-1234)</li>",
-      "severity": "warning"
     },
     {
       "file": "/app/license/checkout/page.tsx",
@@ -4608,28 +4629,28 @@
     },
     {
       "file": "/app/lms/(app)/alumni/profile/page.tsx",
-      "line": 314,
+      "line": 317,
       "pattern": "Placeholder text",
       "content": "placeholder=\"https://linkedin.com/in/yourprofile\"",
       "severity": "critical"
     },
     {
       "file": "/app/lms/(app)/alumni/profile/page.tsx",
-      "line": 328,
+      "line": 331,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Tell us about yourself and your career journey...\"",
       "severity": "critical"
     },
     {
       "file": "/app/lms/(app)/alumni/profile/page.tsx",
-      "line": 382,
+      "line": 385,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Saving...",
       "severity": "info"
     },
     {
       "file": "/app/lms/(app)/apply/page.tsx",
-      "line": 340,
+      "line": 344,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Tell us about your career aspirations...\"",
       "severity": "critical"
@@ -4664,7 +4685,7 @@
     },
     {
       "file": "/app/lms/(app)/collaborate/documents/page.tsx",
-      "line": 129,
+      "line": 132,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Start typing... Changes sync in real-time with collaborators.\"",
       "severity": "critical"
@@ -4699,23 +4720,37 @@
     },
     {
       "file": "/app/lms/(app)/courses/[courseId]/lessons/[lessonId]/page.tsx",
-      "line": 280,
+      "line": 334,
       "pattern": "Placeholder text",
       "content": "// Enrich placeholder content with generated rich HTML.",
       "severity": "critical"
     },
     {
       "file": "/app/lms/(app)/courses/new/page.tsx",
-      "line": 32,
+      "line": 33,
       "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Course Title *</label><input ty",
+      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Course Title *</label><input na",
       "severity": "critical"
     },
     {
       "file": "/app/lms/(app)/courses/new/page.tsx",
-      "line": 33,
+      "line": 34,
       "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Description</label><textarea cl",
+      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Description</label><textarea na",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/lms/(app)/courses/new/page.tsx",
+      "line": 49,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"duration_hours\" type=\"number\" min=\"1\" className=\"w-full border rounded-lg px-3 py-2 foc",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/lms/(app)/courses/new/page.tsx",
+      "line": 54,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"price\" type=\"number\" min=\"0\" step=\"0.01\" className=\"w-full border rounded-lg px-3 py-2 ",
       "severity": "critical"
     },
     {
@@ -4741,7 +4776,7 @@
     },
     {
       "file": "/app/lms/(app)/library/page.tsx",
-      "line": 146,
+      "line": 144,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search library...\"",
       "severity": "critical"
@@ -4818,9 +4853,9 @@
     },
     {
       "file": "/app/lms/(app)/profile/page.tsx",
-      "line": 45,
+      "line": 65,
       "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Bio</label><textarea className=",
+      "content": "<textarea name=\"bio\" className=\"w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-blu",
       "severity": "critical"
     },
     {
@@ -4832,14 +4867,14 @@
     },
     {
       "file": "/app/lms/(app)/settings/data/page.tsx",
-      "line": 104,
+      "line": 107,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Preparing Export...",
       "severity": "info"
     },
     {
       "file": "/app/lms/(app)/settings/data/page.tsx",
-      "line": 253,
+      "line": 256,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Type DELETE\"",
       "severity": "critical"
@@ -4881,7 +4916,7 @@
     },
     {
       "file": "/app/lms/(app)/study-groups/page.tsx",
-      "line": 174,
+      "line": 187,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search study groups...\"",
       "severity": "critical"
@@ -4915,6 +4950,27 @@
       "severity": "critical"
     },
     {
+      "file": "/app/login/LoginClient.tsx",
+      "line": 118,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"you@example.com\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/login/LoginClient.tsx",
+      "line": 133,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"••••••••\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/login/LoginClient.tsx",
+      "line": 215,
+      "pattern": "Trailing ellipsis (possible incomplete)",
+      "content": "Loading...",
+      "severity": "info"
+    },
+    {
       "file": "/app/login/LoginForm.tsx",
       "line": 134,
       "pattern": "Placeholder text",
@@ -4930,21 +4986,21 @@
     },
     {
       "file": "/app/login/page.tsx",
-      "line": 132,
+      "line": 152,
       "pattern": "Placeholder text",
       "content": "placeholder=\"you@example.com\"",
       "severity": "critical"
     },
     {
       "file": "/app/login/page.tsx",
-      "line": 150,
+      "line": 170,
       "pattern": "Placeholder text",
       "content": "placeholder=\"••••••••\"",
       "severity": "critical"
     },
     {
       "file": "/app/login/page.tsx",
-      "line": 240,
+      "line": 260,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Loading...",
       "severity": "info"
@@ -4968,6 +5024,34 @@
       "line": 72,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" placeholder=\"Search mentees...\" className=\"pl-10 pr-4 py-2 border border-gray-300",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/mentor/sessions/new/page.tsx",
+      "line": 47,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"mentee@email.com\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/mentor/sessions/new/page.tsx",
+      "line": 53,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. Career planning, resume review, skill development\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/mentor/sessions/new/page.tsx",
+      "line": 96,
+      "pattern": "Placeholder text",
+      "content": "placeholder={form.location_type === 'video' ? 'https://meet.google.com/...' : '8888 Keystone Crossin",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/mentor/sessions/new/page.tsx",
+      "line": 102,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Agenda, preparation notes, or anything the mentee should know\"",
       "severity": "critical"
     },
     {
@@ -5119,28 +5203,28 @@
     },
     {
       "file": "/app/onboarding/employer/hiring-needs/page.tsx",
-      "line": 266,
+      "line": 300,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Indianapolis, IN; Remote; Multiple locations\"",
       "severity": "critical"
     },
     {
       "file": "/app/onboarding/employer/hiring-needs/page.tsx",
-      "line": 299,
+      "line": 333,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Tell us more about your ideal candidates, specific skills needed, or any other requirem",
       "severity": "critical"
     },
     {
       "file": "/app/onboarding/learner/documents/page.tsx",
-      "line": 222,
+      "line": 225,
       "pattern": "Placeholder text",
       "content": "placeholder=\"123-45-6789\"",
       "severity": "critical"
     },
     {
       "file": "/app/onboarding/learner/documents/page.tsx",
-      "line": 330,
+      "line": 333,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Uploading...",
       "severity": "info"
@@ -5216,6 +5300,62 @@
       "severity": "critical"
     },
     {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 148,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Legal business name\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 157,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Full name\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 164,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"email@business.com\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 173,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"(317) 555-1234\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 181,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"123 Main St\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 189,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Indianapolis\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 210,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"46204\" pattern=\"[0-9]{5}\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/apply/page.tsx",
+      "line": 219,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Number of apprentice stations, hours of operation, relevant licenses...\" />",
+      "severity": "critical"
+    },
+    {
       "file": "/app/partner/courses/create/page.tsx",
       "line": 224,
       "pattern": "Placeholder text",
@@ -5238,70 +5378,63 @@
     },
     {
       "file": "/app/partner/documents/page.tsx",
-      "line": 241,
+      "line": 237,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Uploading...",
       "severity": "info"
     },
     {
       "file": "/app/partner/login/page.tsx",
-      "line": 166,
+      "line": 168,
       "pattern": "Placeholder text",
       "content": "placeholder=\"partner@company.com\"",
       "severity": "critical"
     },
     {
       "file": "/app/partner/login/page.tsx",
-      "line": 181,
+      "line": 183,
       "pattern": "Placeholder text",
       "content": "placeholder=\"••••••••\"",
       "severity": "critical"
     },
     {
       "file": "/app/partner/onboarding/page.tsx",
-      "line": 231,
+      "line": 247,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
       "severity": "critical"
     },
     {
       "file": "/app/partner/onboarding/page.tsx",
-      "line": 236,
+      "line": 252,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/partner/onboarding/page.tsx",
-      "line": 242,
-      "pattern": "Placeholder text",
-      "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/partner/onboarding/page.tsx",
-      "line": 242,
-      "pattern": "XXX placeholder",
-      "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/partner/onboarding/page.tsx",
-      "line": 250,
-      "pattern": "Placeholder text",
-      "content": "className=\"w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-b",
       "severity": "critical"
     },
     {
       "file": "/app/partner/onboarding/page.tsx",
       "line": 258,
       "pattern": "Placeholder text",
+      "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/onboarding/page.tsx",
+      "line": 258,
+      "pattern": "XXX placeholder",
+      "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
+      "severity": "warning"
+    },
+    {
+      "file": "/app/partner/onboarding/page.tsx",
+      "line": 266,
+      "pattern": "Placeholder text",
       "content": "className=\"w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-b",
       "severity": "critical"
     },
     {
       "file": "/app/partner/onboarding/page.tsx",
-      "line": 267,
+      "line": 274,
       "pattern": "Placeholder text",
       "content": "className=\"w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-b",
       "severity": "critical"
@@ -5310,21 +5443,42 @@
       "file": "/app/partner/onboarding/page.tsx",
       "line": 283,
       "pattern": "Placeholder text",
-      "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
+      "content": "className=\"w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-b",
       "severity": "critical"
     },
     {
       "file": "/app/partner/onboarding/page.tsx",
-      "line": 289,
+      "line": 299,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
       "severity": "critical"
     },
     {
       "file": "/app/partner/onboarding/page.tsx",
-      "line": 301,
+      "line": 305,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/onboarding/page.tsx",
+      "line": 317,
+      "pattern": "Placeholder text",
+      "content": "className=\"w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-50",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/programs/barber/page.tsx",
+      "line": 401,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g., 40\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partner/programs/barber/page.tsx",
+      "line": 413,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Any notes about this week...\"",
       "severity": "critical"
     },
     {
@@ -5490,49 +5644,49 @@
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/(onboarding)/sign-mou/page.tsx",
-      "line": 408,
+      "line": 489,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Your Barbershop Name\"",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/(onboarding)/sign-mou/page.tsx",
-      "line": 419,
+      "line": 500,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Full legal name\"",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/(onboarding)/sign-mou/page.tsx",
-      "line": 430,
+      "line": 511,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Owner, Manager, etc.\"",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/(onboarding)/sign-mou/page.tsx",
-      "line": 441,
+      "line": 522,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Licensed barber who will supervise\"",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/(onboarding)/sign-mou/page.tsx",
-      "line": 452,
+      "line": 533,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Indiana barber license number\"",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/(onboarding)/sign-mou/page.tsx",
-      "line": 476,
+      "line": 557,
       "pattern": "Placeholder text",
       "content": "placeholder={",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/(onboarding)/sign-mou/page.tsx",
-      "line": 596,
+      "line": 677,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "<Loader2 className=\"w-5 h-5 animate-spin\" /> Submitting...",
       "severity": "info"
@@ -5553,44 +5707,170 @@
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/onboarding/page.tsx",
-      "line": 37,
+      "line": 38,
       "pattern": "Placeholder text",
       "content": "const field = (label: string, key: keyof typeof form, type = 'text', required = true, placeholder = ",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/onboarding/page.tsx",
-      "line": 41,
+      "line": 42,
       "pattern": "Placeholder text",
       "content": "placeholder={placeholder}",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/onboarding/page.tsx",
-      "line": 58,
+      "line": 59,
       "pattern": "XXX placeholder",
       "content": "{field('Federal EIN', 'ein', 'text', true, 'XX-XXXXXXX')}",
       "severity": "warning"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/onboarding/page.tsx",
-      "line": 180,
+      "line": 181,
       "pattern": "Placeholder text",
       "content": "placeholder={profileData.owner_name || 'Your full legal name'}",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/onboarding/page.tsx",
-      "line": 252,
+      "line": 253,
       "pattern": "Placeholder text",
       "content": "const field = (label: string, key: string, type = 'text', placeholder = '') => (",
       "severity": "critical"
     },
     {
       "file": "/app/partners/barbershop-apprenticeship/onboarding/page.tsx",
-      "line": 256,
+      "line": 257,
       "pattern": "Placeholder text",
       "content": "onChange={e => set(key, e.target.value)} placeholder={placeholder}",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/policy-acknowledgment/page.tsx",
+      "line": 292,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Your Barbershop Name\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/policy-acknowledgment/page.tsx",
+      "line": 303,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Full legal name\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/sign-mou/page.tsx",
+      "line": 326,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Your Barbershop Name\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/sign-mou/page.tsx",
+      "line": 337,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Full legal name\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/sign-mou/page.tsx",
+      "line": 348,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Owner, Manager, etc.\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/sign-mou/page.tsx",
+      "line": 359,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Licensed barber who will supervise\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/sign-mou/page.tsx",
+      "line": 370,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Indiana barber license number\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/sign-mou/page.tsx",
+      "line": 395,
+      "pattern": "Placeholder text",
+      "content": "placeholder={",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/barbershop-apprenticeship/sign-mou/page.tsx",
+      "line": 484,
+      "pattern": "Trailing ellipsis (possible incomplete)",
+      "content": "<Loader2 className=\"w-5 h-5 animate-spin\" /> Submitting...",
+      "severity": "info"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/(onboarding)/policy-acknowledgment/page.tsx",
+      "line": 280,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Your Salon Name\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/(onboarding)/policy-acknowledgment/page.tsx",
+      "line": 291,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Full legal name\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/(onboarding)/sign-mou/page.tsx",
+      "line": 381,
+      "pattern": "Placeholder text",
+      "content": "<input required className={inputCls} value={salonName} onChange={e => setSalonName(e.target.value)} ",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/(onboarding)/sign-mou/page.tsx",
+      "line": 404,
+      "pattern": "Placeholder text",
+      "content": "<input required className={inputCls} value={supervisorLicense} onChange={e => setSupervisorLicense(e",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/(onboarding)/sign-mou/page.tsx",
+      "line": 422,
+      "pattern": "Placeholder text",
+      "content": "<input required className={inputCls} value={compensationRate} onChange={e => setCompensationRate(e.t",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/apply/page.tsx",
+      "line": 155,
+      "pattern": "Placeholder text",
+      "content": "<input required className={inputCls} value={formData.salonLegalName} onChange={e => set('salonLegalN",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/apply/page.tsx",
+      "line": 159,
+      "pattern": "Placeholder text",
+      "content": "<input className={inputCls} value={formData.salonDbaName} onChange={e => set('salonDbaName', e.targe",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/apply/page.tsx",
+      "line": 167,
+      "pattern": "Placeholder text",
+      "content": "<input required className={inputCls} value={formData.indianaSalonLicenseNumber} onChange={e => set('",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/cosmetology-apprenticeship/apply/page.tsx",
+      "line": 278,
+      "pattern": "Placeholder text",
+      "content": "<textarea rows={3} className={inputCls} value={formData.notes} onChange={e => set('notes', e.target.",
       "severity": "critical"
     },
     {
@@ -5616,14 +5896,21 @@
     },
     {
       "file": "/app/partners/training-sites/page.tsx",
-      "line": 162,
+      "line": 131,
+      "pattern": "Placeholder text",
+      "content": "// use empty fallback — placeholder UI handles this",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/partners/training-sites/page.tsx",
+      "line": 188,
       "pattern": "Placeholder text",
       "content": "{/* Partner Listings or Placeholder */}",
       "severity": "critical"
     },
     {
       "file": "/app/partners/training-sites/page.tsx",
-      "line": 177,
+      "line": 207,
       "pattern": "Placeholder text",
       "content": "/* Placeholder until partners are populated */",
       "severity": "critical"
@@ -5700,7 +5987,7 @@
     },
     {
       "file": "/app/profile/edit/page.tsx",
-      "line": 63,
+      "line": 70,
       "pattern": "Placeholder text",
       "content": "<input name=\"phone\" type=\"tel\" defaultValue={profile?.phone || ''} className=\"w-full px-3 py-2 borde",
       "severity": "critical"
@@ -5728,23 +6015,30 @@
     },
     {
       "file": "/app/program-holder/courses/create/page.tsx",
-      "line": 29,
-      "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Course Title *</label><input ty",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/program-holder/courses/create/page.tsx",
       "line": 30,
       "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Description</label><textarea cl",
+      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Course Title *</label><input na",
       "severity": "critical"
     },
     {
       "file": "/app/program-holder/courses/create/page.tsx",
-      "line": 32,
+      "line": 31,
       "pattern": "Placeholder text",
-      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Duration</label><input type=\"te",
+      "content": "<div><label className=\"block text-sm font-medium text-gray-700 mb-2\">Description</label><textarea na",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/program-holder/courses/create/page.tsx",
+      "line": 35,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"duration_hours\" type=\"number\" min=\"1\" className=\"w-full border rounded-lg px-3 py-2 foc",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/program-holder/courses/create/page.tsx",
+      "line": 51,
+      "pattern": "Placeholder text",
+      "content": "<input name=\"price\" type=\"number\" min=\"0\" step=\"0.01\" className=\"w-full border rounded-lg px-3 py-2 ",
       "severity": "critical"
     },
     {
@@ -5770,35 +6064,35 @@
     },
     {
       "file": "/app/program-holder/onboarding/setup/page.tsx",
-      "line": 131,
+      "line": 148,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., ABC Training Institute\"",
       "severity": "critical"
     },
     {
       "file": "/app/program-holder/onboarding/setup/page.tsx",
-      "line": 141,
+      "line": 158,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., Advanced Welding Certification\"",
       "severity": "critical"
     },
     {
       "file": "/app/program-holder/onboarding/setup/page.tsx",
-      "line": 187,
+      "line": 204,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., 8 weeks, 120 hours, 6 months\"",
       "severity": "critical"
     },
     {
       "file": "/app/program-holder/onboarding/setup/page.tsx",
-      "line": 197,
+      "line": 214,
       "pattern": "Placeholder text",
       "content": "placeholder=\"e.g., AWS Certified Welder, State CNA License\"",
       "severity": "critical"
     },
     {
       "file": "/app/program-holder/onboarding/setup/page.tsx",
-      "line": 283,
+      "line": 300,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Add any special instructions, requirements, or notes for students enrolled in your prog",
       "severity": "critical"
@@ -5924,21 +6218,21 @@
     },
     {
       "file": "/app/programs/[slug]/discussions/[threadId]/page.tsx",
-      "line": 281,
+      "line": 284,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Share your thoughts...\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/[slug]/discussions/page.tsx",
-      "line": 219,
+      "line": 222,
       "pattern": "Placeholder text",
       "content": "placeholder=\"What would you like to discuss?\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/[slug]/discussions/page.tsx",
-      "line": 231,
+      "line": 234,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Share your thoughts, questions, or experiences...\"",
       "severity": "critical"
@@ -6001,14 +6295,14 @@
     },
     {
       "file": "/app/programs/[slug]/request-info/RequestInfoForm.tsx",
-      "line": 171,
+      "line": 172,
       "pattern": "Placeholder text",
       "content": "placeholder={`What would you like to know about the ${programTitle} program?`}",
       "severity": "critical"
     },
     {
       "file": "/app/programs/[slug]/request-info/RequestInfoForm.tsx",
-      "line": 172,
+      "line": 173,
       "pattern": "Placeholder text",
       "content": "className=\"w-full border border-slate-300 rounded-lg px-4 py-2.5 text-slate-900 placeholder-slate-40",
       "severity": "critical"
@@ -6036,56 +6330,56 @@
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 369,
+      "line": 400,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-whi",
       "severity": "critical"
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 370,
+      "line": 401,
       "pattern": "Placeholder text",
       "content": "placeholder=\"0\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 482,
+      "line": 513,
       "pattern": "Placeholder text",
       "content": "placeholder=\"First name\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 495,
+      "line": 526,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Last name\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 511,
+      "line": 542,
       "pattern": "Placeholder text",
       "content": "placeholder=\"your@email.com\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 525,
+      "line": 556,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 314-3757\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 618,
+      "line": 649,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Name of the barbershop\"",
       "severity": "critical"
     },
     {
       "file": "/app/programs/barber-apprenticeship/apply/ApprenticeForm.tsx",
-      "line": 913,
+      "line": 987,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Processing...",
       "severity": "info"
@@ -6154,53 +6448,39 @@
       "severity": "critical"
     },
     {
-      "file": "/app/programs/cdl/waitlist/page.tsx",
-      "line": 217,
+      "file": "/app/programs/cna/apply/page.tsx",
+      "line": 102,
       "pattern": "Placeholder text",
-      "content": "<textarea id=\"notes\" name=\"notes\" value={formData.notes} onChange={handleChange} className={inputCla",
+      "content": "onChange={(e) => setFirstName(e.target.value)} placeholder=\"Jane\" />",
       "severity": "critical"
     },
     {
-      "file": "/app/programs/cna/enroll/page.tsx",
-      "line": 87,
-      "pattern": "XXX placeholder",
-      "content": "// A timestamp-format ID (CNA-XXXXXXX) means the DB write did not happen.",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/programs/hvac-technician/apply/page.tsx",
-      "line": 386,
+      "file": "/app/programs/cna/apply/page.tsx",
+      "line": 107,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"First name\"",
+      "content": "onChange={(e) => setLastName(e.target.value)} placeholder=\"Smith\" />",
       "severity": "critical"
     },
     {
-      "file": "/app/programs/hvac-technician/apply/page.tsx",
-      "line": 397,
+      "file": "/app/programs/cna/apply/page.tsx",
+      "line": 113,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"Last name\"",
+      "content": "onChange={(e) => setPhone(e.target.value)} placeholder=\"317-555-0100\" />",
       "severity": "critical"
     },
     {
-      "file": "/app/programs/hvac-technician/apply/page.tsx",
-      "line": 411,
+      "file": "/app/programs/cna/apply/page.tsx",
+      "line": 118,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"your@email.com\"",
+      "content": "onChange={(e) => setEmail(e.target.value)} placeholder=\"jane@email.com\" />",
       "severity": "critical"
     },
     {
-      "file": "/app/programs/hvac-technician/apply/page.tsx",
-      "line": 423,
+      "file": "/app/programs/cna/apply/page.tsx",
+      "line": 123,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"(317) 314-3757\"",
+      "content": "onChange={(e) => setZip(e.target.value)} placeholder=\"46201\" maxLength={10} />",
       "severity": "critical"
-    },
-    {
-      "file": "/app/programs/hvac-technician/apply/page.tsx",
-      "line": 706,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Processing...",
-      "severity": "info"
     },
     {
       "file": "/app/provider/compliance/ComplianceUpload.tsx",
@@ -6539,6 +6819,13 @@
       "severity": "critical"
     },
     {
+      "file": "/app/pwa/shop-owner/approve-hours/page.tsx",
+      "line": 49,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. Hours exceed scheduled shift, please resubmit with correct total.\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/pwa/shop-owner/log-hours/page.tsx",
       "line": 206,
       "pattern": "Placeholder text",
@@ -6714,13 +7001,6 @@
       "severity": "critical"
     },
     {
-      "file": "/app/rise-foundation/donate/page.tsx",
-      "line": 142,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Custom amount\"",
-      "severity": "critical"
-    },
-    {
       "file": "/app/schedule/meeting/page.tsx",
       "line": 389,
       "pattern": "Placeholder text",
@@ -6784,6 +7064,55 @@
       "severity": "critical"
     },
     {
+      "file": "/app/schools/mesmerized-by-beauty/MesmerizedApplyForm.tsx",
+      "line": 155,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Jane\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/schools/mesmerized-by-beauty/MesmerizedApplyForm.tsx",
+      "line": 166,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Smith\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/schools/mesmerized-by-beauty/MesmerizedApplyForm.tsx",
+      "line": 181,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"jane@email.com\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/schools/mesmerized-by-beauty/MesmerizedApplyForm.tsx",
+      "line": 192,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"(317) 555-0100\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/schools/mesmerized-by-beauty/MesmerizedApplyForm.tsx",
+      "line": 204,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Indianapolis\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/schools/mesmerized-by-beauty/MesmerizedApplyForm.tsx",
+      "line": 232,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. 2 years as a salon assistant\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/schools/mesmerized-by-beauty/MesmerizedApplyForm.tsx",
+      "line": 245,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Questions, scheduling preferences, etc.\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/search/ProgramSearch.tsx",
       "line": 47,
       "pattern": "Placeholder text",
@@ -6819,38 +7148,17 @@
       "severity": "critical"
     },
     {
-      "file": "/app/settings/page.tsx",
-      "line": 94,
-      "pattern": "Placeholder text",
-      "content": "<textarea rows={3} className=\"w-full px-3 py-2 border rounded-lg\" placeholder=\"Tell us about yoursel",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/settings/page.tsx",
-      "line": 119,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"password\" placeholder=\"Current password\" className=\"w-full px-3 py-2 border rounded-lg\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/settings/page.tsx",
-      "line": 120,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"password\" placeholder=\"New password\" className=\"w-full px-3 py-2 border rounded-lg\" />",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/settings/page.tsx",
-      "line": 121,
-      "pattern": "Placeholder text",
-      "content": "<input type=\"password\" placeholder=\"Confirm new password\" className=\"w-full px-3 py-2 border rounded",
-      "severity": "critical"
-    },
-    {
       "file": "/app/shop/ShopClient.tsx",
       "line": 73,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search products...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/shop/dashboard/page.tsx",
+      "line": 15,
+      "pattern": "Fake content",
+      "content": "// Empty defaults - no fake data",
       "severity": "critical"
     },
     {
@@ -6911,7 +7219,7 @@
     },
     {
       "file": "/app/shop/products/page.tsx",
-      "line": 87,
+      "line": 86,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search products...\"",
       "severity": "critical"
@@ -7212,7 +7520,7 @@
     },
     {
       "file": "/app/store/page.tsx",
-      "line": 111,
+      "line": 114,
       "pattern": "Sample content",
       "content": "<p className=\"text-slate-500 text-xs text-center\">Demo uses sample data. Nothing affects real system",
       "severity": "critical"
@@ -7267,15 +7575,29 @@
       "severity": "critical"
     },
     {
+      "file": "/app/student-portal/assignments/[id]/SubmitAssignmentForm.tsx",
+      "line": 133,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Describe your work, approach, or findings...\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/student-portal/handbook/acknowledge/page.tsx",
-      "line": 459,
+      "line": 504,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Submitting...",
       "severity": "info"
     },
     {
+      "file": "/app/student-portal/onboarding/documents/page.tsx",
+      "line": 399,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"000-00-0000\"",
+      "severity": "critical"
+    },
+    {
       "file": "/app/student-portal/page.tsx",
-      "line": 296,
+      "line": 283,
       "pattern": "Fake content",
       "content": "{/* Announcements - Database-backed, no fake data */}",
       "severity": "critical"
@@ -7519,382 +7841,25 @@
       "severity": "critical"
     },
     {
-      "file": "/app/supersonic-fast-cash/admin/client-intake/page.tsx",
-      "line": 186,
+      "file": "/app/supersonic-fast-cash/calculator/RefundCalculatorClient.tsx",
+      "line": 140,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"Search by file name or user ID…\"",
+      "content": "placeholder=\"55,000\"",
       "severity": "critical"
     },
     {
-      "file": "/app/supersonic-fast-cash/admin/client-intake/page.tsx",
-      "line": 316,
+      "file": "/app/supersonic-fast-cash/calculator/RefundCalculatorClient.tsx",
+      "line": 160,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"Search clients...\"",
+      "content": "placeholder=\"8,000\"",
       "severity": "critical"
     },
     {
-      "file": "/app/supersonic-fast-cash/apply/page.tsx",
-      "line": 175,
+      "file": "/app/supersonic-fast-cash/calculator/RefundCalculatorClient.tsx",
+      "line": 203,
       "pattern": "Placeholder text",
-      "content": "placeholder=\"(555) 555-5555\"",
+      "content": "placeholder=\"1099 income amount\"",
       "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/book-appointment/page.tsx",
-      "line": 519,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"John\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/book-appointment/page.tsx",
-      "line": 536,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Doe\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/book-appointment/page.tsx",
-      "line": 553,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"your.email@gmail.com\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/book-appointment/page.tsx",
-      "line": 576,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"(317) 314-3757\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/book-appointment/page.tsx",
-      "line": 594,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"e.g., W-2 employee, need help with deductions, etc.\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 227,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"50,000\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 251,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 275,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 299,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 323,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 383,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"15,000\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 409,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 445,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"6,000\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/calculator/page.tsx",
-      "line": 466,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/careers/training/page.tsx",
-      "line": 698,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"you@example.com\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/careers/training/page.tsx",
-      "line": 711,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"XXXX-XXXX-XXXX-XXXX\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/careers/training/page.tsx",
-      "line": 711,
-      "pattern": "XXX placeholder",
-      "content": "placeholder=\"XXXX-XXXX-XXXX-XXXX\"",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/careers/training/page.tsx",
-      "line": 715,
-      "pattern": "XXX placeholder",
-      "content": "Format: XXXX-XXXX-XXXX-XXXX (check your email)",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/consent/page.tsx",
-      "line": 255,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"As it appears on your tax documents\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/consent/page.tsx",
-      "line": 270,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"XXXX\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/consent/page.tsx",
-      "line": 270,
-      "pattern": "XXX placeholder",
-      "content": "placeholder=\"XXXX\"",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/consent/page.tsx",
-      "line": 287,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Type your name as your signature\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/contact/page.tsx",
-      "line": 262,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Tell us how we can help you...\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/contact/page.tsx",
-      "line": 280,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Sending...",
-      "severity": "info"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy/interview/page.tsx",
-      "line": 84,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"XXX-XX-XXXX\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy/interview/page.tsx",
-      "line": 84,
-      "pattern": "XXX placeholder",
-      "content": "placeholder=\"XXX-XX-XXXX\"",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 377,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"XXX-XX-XXXX\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 377,
-      "pattern": "XXX placeholder",
-      "content": "placeholder=\"XXX-XX-XXXX\"",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 612,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"XXX-XX-XXXX\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 612,
-      "pattern": "XXX placeholder",
-      "content": "placeholder=\"XXX-XX-XXXX\"",
-      "severity": "warning"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 660,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"First Name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 674,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Last Name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 688,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"SSN\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 702,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Date of Birth\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 716,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Relationship (Son, Daughter, etc.)\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 770,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Employer Name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 782,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Wages (Box 1)\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 797,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Federal Withholding (Box 2)\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 812,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"State Withholding (Box 17)\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 956,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"$0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 977,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"$0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 1002,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"$0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 1025,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"$0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/diy-taxes/page.tsx",
-      "line": 1048,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"$0\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/governance/operational-controls/page.tsx",
-      "line": 22,
-      "pattern": "Placeholder text",
-      "content": "'Placeholder or mock content is not permitted in production-facing pages',",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/governance/operational-controls/page.tsx",
-      "line": 52,
-      "pattern": "Placeholder text",
-      "content": "'Content integrity controls prevent broken links and placeholder content',",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/multi-site/apply/page.tsx",
-      "line": 274,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"City, State or specific area\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/multi-site/apply/page.tsx",
-      "line": 366,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Tell us about your goals and why you want to partner with Supersonic Fast Cash...\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/multi-site/apply/page.tsx",
-      "line": 411,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Submitting...",
-      "severity": "info"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/tools/refund-tracker/page.tsx",
-      "line": 142,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"SFC-1234567890-ABCD\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/supersonic-fast-cash/tools/refund-tracker/page.tsx",
-      "line": 168,
-      "pattern": "Trailing ellipsis (possible incomplete)",
-      "content": "Checking Status...",
-      "severity": "info"
     },
     {
       "file": "/app/support/chat/page.tsx",
@@ -7953,122 +7918,94 @@
       "severity": "info"
     },
     {
-      "file": "/app/tax/book-appointment/page.tsx",
-      "line": 218,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Your full name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/tax/book-appointment/page.tsx",
-      "line": 234,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"(317) 314-3757\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/tax/book-appointment/page.tsx",
-      "line": 251,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"you@example.com\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/tax/book-appointment/page.tsx",
-      "line": 316,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Any specific questions or concerns?\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/tax/supersonicfastcash/documents/page.tsx",
-      "line": 144,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"Your full name\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/tax/supersonicfastcash/documents/page.tsx",
-      "line": 159,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"you@example.com\"",
-      "severity": "critical"
-    },
-    {
-      "file": "/app/tax/supersonicfastcash/documents/page.tsx",
-      "line": 174,
-      "pattern": "Placeholder text",
-      "content": "placeholder=\"(317) 314-3757\"",
-      "severity": "critical"
-    },
-    {
       "file": "/app/tax-self-prep/start/TaxPrepForm.tsx",
-      "line": 232,
+      "line": 257,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-3 py-2 border rounded-lg\" placeholder=\"XXX-XX-XXXX\" />",
       "severity": "critical"
     },
     {
       "file": "/app/tax-self-prep/start/TaxPrepForm.tsx",
-      "line": 232,
+      "line": 257,
       "pattern": "XXX placeholder",
       "content": "className=\"w-full px-3 py-2 border rounded-lg\" placeholder=\"XXX-XX-XXXX\" />",
       "severity": "warning"
     },
     {
       "file": "/app/tax-self-prep/start/TaxPrepForm.tsx",
-      "line": 271,
+      "line": 296,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-3 py-2 border rounded-lg\" placeholder=\"0.00\" />",
       "severity": "critical"
     },
     {
       "file": "/app/tax-self-prep/start/TaxPrepForm.tsx",
-      "line": 277,
+      "line": 302,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-3 py-2 border rounded-lg\" placeholder=\"0.00\" />",
       "severity": "critical"
     },
     {
       "file": "/app/tax-self-prep/start/TaxPrepForm.tsx",
-      "line": 287,
+      "line": 312,
       "pattern": "Placeholder text",
       "content": "className=\"w-full px-3 py-2 border rounded-lg\" placeholder=\"0.00\" />",
       "severity": "critical"
     },
     {
       "file": "/app/testing/book/page.tsx",
-      "line": 472,
+      "line": 572,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Full name\" />",
       "severity": "critical"
     },
     {
       "file": "/app/testing/book/page.tsx",
-      "line": 478,
+      "line": 578,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Company or program name\" />",
       "severity": "critical"
     },
     {
       "file": "/app/testing/book/page.tsx",
-      "line": 486,
+      "line": 586,
       "pattern": "Placeholder text",
       "content": "placeholder=\"you@example.com\" />",
       "severity": "critical"
     },
     {
       "file": "/app/testing/book/page.tsx",
-      "line": 492,
+      "line": 592,
       "pattern": "Placeholder text",
       "content": "placeholder=\"(317) 000-0000\" />",
       "severity": "critical"
     },
     {
       "file": "/app/testing/book/page.tsx",
-      "line": 575,
+      "line": 675,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Specific exam types, accessibility needs, or other details\" />",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/update-password/page.tsx",
+      "line": 65,
+      "pattern": "Trailing ellipsis (possible incomplete)",
+      "content": "Your password has been updated. Redirecting you to login...",
+      "severity": "info"
+    },
+    {
+      "file": "/app/update-password/page.tsx",
+      "line": 110,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"At least 8 characters\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/app/update-password/page.tsx",
+      "line": 135,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Re-enter your password\"",
       "severity": "critical"
     },
     {
@@ -8129,7 +8066,7 @@
     },
     {
       "file": "/components/AIAssistantBubble.tsx",
-      "line": 224,
+      "line": 231,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Type your message...\"",
       "severity": "critical"
@@ -8181,6 +8118,13 @@
       "line": 145,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Search courses, programs, skills...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/AnalyticsDashboard.tsx",
+      "line": 91,
+      "pattern": "Placeholder text",
+      "content": "// Hardcoded placeholder data has been removed — render empty state when not provided.",
       "severity": "critical"
     },
     {
@@ -8433,6 +8377,111 @@
       "line": 317,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Type your question...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 24,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 32,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 40,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 48,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-96\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 56,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 64,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-96\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 72,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-screen\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 80,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-screen\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 96,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-screen\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 104,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-screen\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 112,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-96\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 120,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-96\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 128,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-screen\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 136,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-screen\" />,",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/LazyComponents.tsx",
+      "line": 144,
+      "pattern": "Placeholder text",
+      "content": "loading: () => <LoadingPlaceholder height=\"h-screen\" />,",
       "severity": "critical"
     },
     {
@@ -8717,30 +8766,30 @@
     },
     {
       "file": "/components/admin/AdminNav.tsx",
-      "line": 342,
+      "line": 463,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" value={search} onChange={e => setSearch(e.target.value)} placeholder=\"Search stud",
       "severity": "critical"
     },
     {
       "file": "/components/admin/AdminNav.tsx",
-      "line": 343,
+      "line": 464,
       "pattern": "Placeholder text",
-      "content": "className=\"w-28 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400\" />",
+      "content": "className=\"w-28 bg-transparent text-sm text-slate-200 outline-none placeholder:text-slate-500\" />",
       "severity": "critical"
     },
     {
       "file": "/components/admin/AdminNav.tsx",
-      "line": 401,
+      "line": 527,
       "pattern": "Placeholder text",
       "content": "<input type=\"text\" value={search} onChange={e => setSearch(e.target.value)} placeholder=\"Search stud",
       "severity": "critical"
     },
     {
       "file": "/components/admin/AdminNav.tsx",
-      "line": 402,
+      "line": 528,
       "pattern": "Placeholder text",
-      "content": "className=\"flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400\" />",
+      "content": "className=\"flex-1 bg-transparent text-sm text-slate-200 outline-none placeholder:text-slate-500\" />",
       "severity": "critical"
     },
     {
@@ -8748,6 +8797,13 @@
       "line": 269,
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "Enhancing video quality, adding voiceover and music...",
+      "severity": "info"
+    },
+    {
+      "file": "/components/admin/AutoAttritionTracker.tsx",
+      "line": 450,
+      "pattern": "Trailing ellipsis (possible incomplete)",
+      "content": "Loading attrition tracking data...",
       "severity": "info"
     },
     {
@@ -8856,6 +8912,27 @@
       "severity": "critical"
     },
     {
+      "file": "/components/admin/EligibilityReviewPanel.tsx",
+      "line": 296,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. Must provide SNAP verification within 7 days of enrollment...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/EligibilityReviewPanel.tsx",
+      "line": 310,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. Must confirm transportation plan before start date\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/EnrollmentVoucherPanel.tsx",
+      "line": 258,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Reference numbers, WorkOne case IDs, confirmation details...\"",
+      "severity": "critical"
+    },
+    {
       "file": "/components/admin/ExcelChartGenerator.tsx",
       "line": 574,
       "pattern": "Trailing ellipsis (possible incomplete)",
@@ -8919,6 +8996,111 @@
       "severity": "critical"
     },
     {
+      "file": "/components/admin/lesson-editor/LessonAssessmentEditor.tsx",
+      "line": 142,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Enter the question...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonAssessmentEditor.tsx",
+      "line": 168,
+      "pattern": "Placeholder text",
+      "content": "placeholder={`Option ${String.fromCharCode(65 + oi)}`}",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonAssessmentEditor.tsx",
+      "line": 189,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Explain why the correct answer is correct...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonBasicsEditor.tsx",
+      "line": 44,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Enter lesson title\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonEvidenceEditor.tsx",
+      "line": 122,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Describe exactly what the learner must submit, what format, and what quality standard i",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonObjectivesEditor.tsx",
+      "line": 89,
+      "pattern": "Placeholder text",
+      "content": "placeholder={`Objective ${i + 1} — e.g. \"Identify the three phases of...\"`}",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonPracticalEditor.tsx",
+      "line": 117,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Step-by-step instructions for the learner. What to do, how to do it, what to submit as ",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonPracticalEditor.tsx",
+      "line": 129,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Any safety precautions, PPE requirements, or hazard warnings...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonPracticalEditor.tsx",
+      "line": 157,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. Stethoscope, gloves, patient chart...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonRubricEditor.tsx",
+      "line": 85,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. Safety Protocol\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonRubricEditor.tsx",
+      "line": 123,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Describe what the evaluator should look for to award full points...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonVideoEditor.tsx",
+      "line": 40,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"/videos/module-1-intro.mp4 or https://...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonVideoEditor.tsx",
+      "line": 53,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"/images/video-poster.jpg\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonVideoEditor.tsx",
+      "line": 65,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"/captions/module-1-intro.vtt\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/admin/lesson-editor/LessonVideoEditor.tsx",
+      "line": 112,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Full transcript of the video narration. Required for accessibility compliance and publi",
+      "severity": "critical"
+    },
+    {
       "file": "/components/admin/push-notification-sender.tsx",
       "line": 180,
       "pattern": "Placeholder text",
@@ -8955,7 +9137,7 @@
     },
     {
       "file": "/components/admin/safeguards/TypedConfirmDialog.tsx",
-      "line": 91,
+      "line": 90,
       "pattern": "Placeholder text",
       "content": "placeholder={confirmWord}",
       "severity": "critical"
@@ -8965,6 +9147,13 @@
       "line": 163,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Ask a question...\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/auth/ResendMagicLinkForm.tsx",
+      "line": 84,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"you@example.com\"",
       "severity": "critical"
     },
     {
@@ -9277,14 +9466,14 @@
     },
     {
       "file": "/components/documents/DocumentSignatureBlock.tsx",
-      "line": 171,
+      "line": 172,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Enter your full legal name\"",
       "severity": "critical"
     },
     {
       "file": "/components/documents/DocumentSignatureBlock.tsx",
-      "line": 211,
+      "line": 212,
       "pattern": "Placeholder text",
       "content": "placeholder=\"Type your full name\"",
       "severity": "critical"
@@ -9815,6 +10004,20 @@
       "severity": "critical"
     },
     {
+      "file": "/components/lms/GroupDiscussions.tsx",
+      "line": 114,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Share something with the group…\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/lms/GroupDiscussions.tsx",
+      "line": 116,
+      "pattern": "Placeholder text",
+      "content": "className=\"w-full resize-none text-sm text-slate-900 placeholder-slate-400 border-0 outline-none foc",
+      "severity": "critical"
+    },
+    {
       "file": "/components/lms/InteractiveVideoPlayer.tsx",
       "line": 639,
       "pattern": "Placeholder text",
@@ -9871,6 +10074,20 @@
       "severity": "critical"
     },
     {
+      "file": "/components/lms/LessonContentRenderer.tsx",
+      "line": 60,
+      "pattern": "Placeholder text",
+      "content": "// In prod: return null (lesson is skipped, not decorated with a placeholder).",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/lms/LessonContentRenderer.tsx",
+      "line": 65,
+      "pattern": "Placeholder text",
+      "content": "//          then return null (lesson is skipped, not decorated with a placeholder).",
+      "severity": "critical"
+    },
+    {
       "file": "/components/lms/MarcusInstructor.tsx",
       "line": 186,
       "pattern": "Trailing ellipsis (possible incomplete)",
@@ -9899,6 +10116,20 @@
       "severity": "info"
     },
     {
+      "file": "/components/lms/OjtCompletionPanel.tsx",
+      "line": 196,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"e.g. Marcus Johnson\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/lms/OjtCompletionPanel.tsx",
+      "line": 209,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"What did you work on? Any feedback from your supervisor?\"",
+      "severity": "critical"
+    },
+    {
       "file": "/components/lms/PTChartDrill.tsx",
       "line": 226,
       "pattern": "Placeholder text",
@@ -9906,15 +10137,22 @@
       "severity": "critical"
     },
     {
+      "file": "/components/lms/PracticalLessonShell.tsx",
+      "line": 258,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Describe what you did, what you observed, and what you learned...\"",
+      "severity": "critical"
+    },
+    {
       "file": "/components/lms/StepSubmissionForm.tsx",
-      "line": 139,
+      "line": 147,
       "pattern": "Placeholder text",
       "content": "placeholder={",
       "severity": "critical"
     },
     {
       "file": "/components/lms/StepSubmissionForm.tsx",
-      "line": 144,
+      "line": 152,
       "pattern": "Placeholder text",
       "content": "className=\"mt-1 block w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 pla",
       "severity": "critical"
@@ -10123,6 +10361,13 @@
       "severity": "critical"
     },
     {
+      "file": "/components/signatures/SignatureCapture.tsx",
+      "line": 189,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Type your full name\"",
+      "severity": "critical"
+    },
+    {
       "file": "/components/start/StartForm.tsx",
       "line": 143,
       "pattern": "Placeholder text",
@@ -10183,6 +10428,34 @@
       "line": 274,
       "pattern": "Placeholder text",
       "content": "placeholder=\"What did you learn today? Any challenges or achievements?\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/supersonic/SfcLeadCaptureForm.tsx",
+      "line": 123,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Jane\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/supersonic/SfcLeadCaptureForm.tsx",
+      "line": 138,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"Smith\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/supersonic/SfcLeadCaptureForm.tsx",
+      "line": 155,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"jane@example.com\"",
+      "severity": "critical"
+    },
+    {
+      "file": "/components/supersonic/SfcLeadCaptureForm.tsx",
+      "line": 170,
+      "pattern": "Placeholder text",
+      "content": "placeholder=\"(317) 555-0100\"",
       "severity": "critical"
     },
     {
@@ -10298,6 +10571,13 @@
       "severity": "critical"
     },
     {
+      "file": "/components/video/CanonicalVideo.tsx",
+      "line": 149,
+      "pattern": "Placeholder text",
+      "content": "// Reduced-motion or error: render poster only (or transparent placeholder so layout doesn't collaps",
+      "severity": "critical"
+    },
+    {
       "file": "/components/video/MeetingRoom.jsx",
       "line": 181,
       "pattern": "Trailing ellipsis (possible incomplete)",
@@ -10376,14 +10656,14 @@
     },
     {
       "file": "/lib/ai/providers/openai.ts",
-      "line": 15,
+      "line": 14,
       "pattern": "Placeholder text",
       "content": "if (!apiKey || apiKey === 'placeholder-build-key') {",
       "severity": "critical"
     },
     {
       "file": "/lib/ai/providers/openai.ts",
-      "line": 24,
+      "line": 23,
       "pattern": "Placeholder text",
       "content": "return !!(key && key !== 'placeholder-build-key' && key !== 'sk-Content-key');",
       "severity": "critical"
@@ -10527,6 +10807,13 @@
       "pattern": "Trailing ellipsis (possible incomplete)",
       "content": "*     // User is authorized, continue...",
       "severity": "info"
+    },
+    {
+      "file": "/lib/auth/two-factor.ts",
+      "line": 172,
+      "pattern": "XXX placeholder",
+      "content": "// 6 random bytes → 12 hex chars, uppercased and split XXXX-XXXX for readability",
+      "severity": "warning"
     },
     {
       "file": "/lib/avatar-scripts.ts",
@@ -10681,6 +10968,13 @@
       "pattern": "Fake content",
       "content": "* No hardcoded fake data",
       "severity": "critical"
+    },
+    {
+      "file": "/lib/curriculum/blueprints/_template.ts",
+      "line": 146,
+      "pattern": "XXX placeholder",
+      "content": "//   certificationBodyId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',",
+      "severity": "warning"
     },
     {
       "file": "/lib/demo/context.ts",
@@ -10936,49 +11230,49 @@
     },
     {
       "file": "/lib/store/digital-products.ts",
-      "line": 666,
+      "line": 667,
       "pattern": "XXX placeholder",
       "content": "- Format: XX-XXXXXXX",
       "severity": "warning"
     },
     {
       "file": "/lib/stripe/price-map.ts",
-      "line": 300,
+      "line": 325,
       "pattern": "Placeholder text",
       "content": "// Helper to check if price IDs are configured (not placeholders)",
       "severity": "critical"
     },
     {
       "file": "/lib/stripe/price-map.ts",
-      "line": 305,
+      "line": 330,
       "pattern": "Placeholder text",
       "content": "!priceId.includes('PLACEHOLDER');",
       "severity": "critical"
     },
     {
       "file": "/lib/stripe/price-map.ts",
-      "line": 323,
+      "line": 348,
       "pattern": "Placeholder text",
       "content": "missingOrPlaceholder.push(productId);",
       "severity": "critical"
     },
     {
       "file": "/lib/stripe/price-map.ts",
-      "line": 327,
+      "line": 352,
       "pattern": "Placeholder text",
       "content": "if (missingOrPlaceholder.length > 0) {",
       "severity": "critical"
     },
     {
       "file": "/lib/stripe/price-map.ts",
-      "line": 329,
+      "line": 354,
       "pattern": "Placeholder text",
       "content": "`Missing or placeholder Stripe Price IDs for: ${missingOrPlaceholder.join(', ')}. ` +",
       "severity": "critical"
     },
     {
       "file": "/lib/stripe/price-map.ts",
-      "line": 330,
+      "line": 355,
       "pattern": "Placeholder text",
       "content": "`Set the following env vars: ${missingOrPlaceholder.map(p => `STRIPE_PRICE_${p.toUpperCase().replace",
       "severity": "critical"

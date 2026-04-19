@@ -73,7 +73,21 @@ jobs:
           node scripts/check-dashboard-schema.mjs
 
       # -----------------------------------------------------------------------
-      # 2. Static broken-link audit
+      # 2. Redirect conflict scan (Netlify + Next.js redirects)
+      # -----------------------------------------------------------------------
+      - name: Redirect conflict scan (check-redirect-conflicts.mjs)
+        continue-on-error: true
+        run: node scripts/check-redirect-conflicts.mjs
+
+      # -----------------------------------------------------------------------
+      # 3. Page stubs / placeholder content scan
+      # -----------------------------------------------------------------------
+      - name: Page stub audit (audit-stubs.ts)
+        continue-on-error: true
+        run: tsx scripts/audit-stubs.ts
+
+      # -----------------------------------------------------------------------
+      # 4. Static broken-link audit
       # -----------------------------------------------------------------------
       - name: Broken link audit (audit-broken-links.ts)
         # Non-blocking: broken links should be reviewed but must not block CI
@@ -81,13 +95,13 @@ jobs:
         run: tsx scripts/audit-broken-links.ts
 
       # -----------------------------------------------------------------------
-      # 3. Image reference normalization
+      # 5. Image reference normalization
       # -----------------------------------------------------------------------
       - name: Fix broken image references (fix-broken-images.sh)
         run: bash scripts/fix-broken-images.sh
 
       # -----------------------------------------------------------------------
-      # 4. Production readiness validation
+      # 6. Production readiness validation
       # validate-production.sh starts a local simple-server on port 5005.
       # It exits 0 regardless of individual endpoint results, so we run it
       # non-blocking to capture its PASS/FAIL output in the log.
@@ -106,8 +120,10 @@ jobs:
           name: dashboard-diagnostics-${{ github.run_number }}
           path: |
             broken-links-report.json
+            stub-audit-report.json
             /tmp/link-check-results.json
           # broken-links-report.json is written by scripts/audit-broken-links.ts
+          # stub-audit-report.json is written by scripts/audit-stubs.ts
           # /tmp/link-check-results.json is written by scripts/check-links.sh (if run externally)
           if-no-files-found: ignore
           retention-days: 14

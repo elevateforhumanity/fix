@@ -2,11 +2,13 @@
 # =============================================================================
 # CI-safe dashboard health check wrapper for Elevate LMS
 #
-# Runs the four core diagnostic checks without hanging on interactive prompts:
-#   1. scripts/check-dashboard-schema.mjs  — Supabase schema validation
-#   2. scripts/audit-broken-links.ts       — static broken-link audit
-#   3. scripts/fix-broken-images.sh        — image reference normalization
-#   4. scripts/validate-production.sh      — production readiness check
+# Runs comprehensive dashboard diagnostics without hanging on interactive prompts:
+#   1. scripts/check-dashboard-schema.mjs   — DB schema validation
+#   2. scripts/check-redirect-conflicts.mjs — static redirect conflict scan
+#   3. scripts/audit-stubs.ts               — page stub / placeholder scan
+#   4. scripts/audit-broken-links.ts        — static broken-link audit
+#   5. scripts/fix-broken-images.sh         — image reference normalization
+#   6. scripts/validate-production.sh       — production readiness check
 #
 # Environment variables (required for schema check):
 #   NEXT_PUBLIC_SUPABASE_URL       — Supabase project URL
@@ -52,9 +54,9 @@ echo "  Working directory: $ROOT_DIR"
 echo "  Timestamp: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 
 # ---------------------------------------------------------------------------
-# 1. Supabase schema validation
+# 1. Supabase DB schema validation
 # ---------------------------------------------------------------------------
-log_section "1/4  Schema Validation (check-dashboard-schema.mjs)"
+log_section "1/6  DB Schema Validation (check-dashboard-schema.mjs)"
 
 if [[ -z "${NEXT_PUBLIC_SUPABASE_URL:-}" || -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]]; then
   log_warn "NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY not set — skipping live schema check"
@@ -73,9 +75,20 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 2. Static broken-link audit
+# 2. Redirect conflict scan
 # ---------------------------------------------------------------------------
-log_section "2/4  Broken Link Audit (audit-broken-links.ts)"
+log_section "2/6  Redirect Conflict Scan (check-redirect-conflicts.mjs)"
+
+if node scripts/check-redirect-conflicts.mjs; then
+  log_pass "Redirect conflict scan"
+else
+  log_fail "Redirect conflict scan — fix redirect conflicts before deploying"
+fi
+
+# ---------------------------------------------------------------------------
+# 3. Page stub / placeholder scan
+# ---------------------------------------------------------------------------
+log_section "3/6  Page Stub Audit (audit-stubs.ts)"
 
 # Ensure tsx is available; fall back to npx tsx if not on PATH
 TSX_CMD="tsx"
@@ -90,6 +103,21 @@ if ! command -v tsx &>/dev/null; then
 fi
 
 if [[ "$TSX_AVAILABLE" == "true" ]]; then
+  if $TSX_CMD scripts/audit-stubs.ts; then
+    log_pass "Page stub audit"
+  else
+    log_fail "Page stub audit — see stub-audit-report.json for details"
+  fi
+else
+  log_skip "Page stub audit (tsx/npx not available)"
+fi
+
+# ---------------------------------------------------------------------------
+# 4. Static broken-link audit
+# ---------------------------------------------------------------------------
+log_section "4/6  Broken Link Audit (audit-broken-links.ts)"
+
+if [[ "$TSX_AVAILABLE" == "true" ]]; then
   if $TSX_CMD scripts/audit-broken-links.ts; then
     log_pass "Broken link audit"
   else
@@ -100,10 +128,10 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 3. Image reference fixes
+# 5. Image reference fixes
 # The script runs many find+sed passes over 3000+ files; cap at 3 minutes in CI.
 # ---------------------------------------------------------------------------
-log_section "3/4  Image Reference Fix (fix-broken-images.sh)"
+log_section "5/6  Image Reference Fix (fix-broken-images.sh)"
 
 if timeout "$IMAGE_FIX_TIMEOUT" bash scripts/fix-broken-images.sh; then
   log_pass "Image reference normalization"
@@ -118,9 +146,9 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 4. Production readiness validation
+# 6. Production readiness validation
 # ---------------------------------------------------------------------------
-log_section "4/4  Production Readiness (validate-production.sh)"
+log_section "6/6  Production Readiness (validate-production.sh)"
 
 # validate-production.sh starts a local server on port 5005.
 # In CI without simple-server.cjs the endpoint checks will fail but the
