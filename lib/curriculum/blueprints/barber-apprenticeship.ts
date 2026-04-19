@@ -38,8 +38,8 @@
  *
  * Lesson counts (current):
  *   42 content lessons + 7 checkpoints + 1 final exam = 50 concrete lesson slugs
- *   expectedLessonCount is set to 64 — the 14-lesson delta is tracked in Step 3
- *   of the barber course readiness plan and will be resolved before launch.
+ *   expectedLessonCount is intentionally set to 50 and must match these concrete
+ *   lesson entries exactly for blueprint validation and seeding integrity.
  */
 import type { CredentialBlueprint, BlueprintVideoConfig } from './types';
 
@@ -81,7 +81,7 @@ export const barberApprenticeshipBlueprint: CredentialBlueprint = {
   },
 
   expectedModuleCount: 8,
-  expectedLessonCount: 64,
+  expectedLessonCount: 50,
 
   modules: [
     // ── Module 1 ─────────────────────────────────────────────────────────────
