@@ -35,7 +35,9 @@ async function _GET(request: Request) {
       }, { status: 403 });
     }
 
-    // Get pending progress entries
+    // Get pending progress entries — timeclock uses 'submitted', manual uses 'pending'.
+    // Only include closed shifts (clock_out_at IS NOT NULL) so open shifts are not
+    // presented for partner approval before the apprentice has clocked out.
     const { data: pendingEntries } = await supabase
       .from('progress_entries')
       .select(`
@@ -51,7 +53,8 @@ async function _GET(request: Request) {
         )
       `)
       .eq('partner_id', partnerUser.partner_id)
-      .eq('status', 'pending')
+      .in('status', ['submitted', 'pending'])
+      .not('clock_out_at', 'is', null)
       .order('created_at', { ascending: false });
 
     const entries = (pendingEntries || []).map(entry => ({
