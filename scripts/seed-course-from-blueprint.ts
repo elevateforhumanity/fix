@@ -72,7 +72,8 @@ async function main() {
     process.exit(0);
   }
 
-  const blueprint = await getBlueprintById(blueprintArg!) ?? await getBlueprintByProgramSlug(blueprintArg!);
+  const byId = await getBlueprintById(blueprintArg!);
+  const blueprint = byId ?? await getBlueprintByProgramSlug(blueprintArg!);
 
   if (!blueprint) {
     console.error(`\nNo blueprint found for "${blueprintArg}"`);

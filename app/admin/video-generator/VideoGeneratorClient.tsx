@@ -29,6 +29,8 @@ export default function VideoGeneratorPage() {
   const [results, setResults] = useState<GenerationResult[]>([]);
   const [batchSize, setBatchSize] = useState(5);
   const [error, setError] = useState<string | null>(null);
+  // API compatibility: canonical field is `needsGeneration`; older payloads may
+  // expose `withoutVideos` or split counts via `withoutMedia` + `withMp3Only`.
   const pendingLessons =
     status?.needsGeneration ??
     status?.withoutVideos ??
