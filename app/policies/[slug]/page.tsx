@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 import { notFound } from 'next/navigation';
 import { policies } from '@/content/policies';
 import { findBySlug, staticParamsFromSlugs } from '@/lib/content-helpers';
