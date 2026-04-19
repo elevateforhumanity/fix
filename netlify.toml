@@ -10,6 +10,7 @@
 [build.environment]
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=8192"
+  NEXT_DISABLE_SOURCEMAP = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning - NEXT_PUBLIC_* vars are intentionally public
   SECRETS_SCAN_ENABLED = "false"

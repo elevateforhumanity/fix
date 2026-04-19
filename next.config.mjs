@@ -132,11 +132,12 @@ const nextConfig = {
       '@hookform/resolvers',
       'swr',
     ],
-    webpackBuildWorker: true,
+    // Disabled: each of these spawns a separate child process.
+    // With 1,486 pages the combined memory exceeds Netlify's build RAM → SIGKILL.
+    webpackBuildWorker: false,
     optimizeCss: true,
-    // Parallel routes for faster builds
-    parallelServerCompiles: true,
-    parallelServerBuildTraces: true,
+    parallelServerCompiles: false,
+    parallelServerBuildTraces: false,
   },
   
   // Suppress middleware deprecation warning (middleware.ts is still correct for our use case)
