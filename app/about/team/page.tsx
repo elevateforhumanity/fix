@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 import Link from 'next/link';
 import { teamMembers } from '@/content/team';
 import { buildMetadata } from '@/lib/seo';

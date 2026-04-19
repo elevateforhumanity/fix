@@ -1,3 +1,6 @@
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 import { buildMetadata } from '@/lib/seo';
 import { siteConfig } from '@/content/site';
 export const metadata = buildMetadata({ title: 'Drug Testing', description: 'Employer drug testing programs including DOT, hair, urine, and instant tests.', path: '/drug-testing' });
