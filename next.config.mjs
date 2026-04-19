@@ -154,8 +154,6 @@ const nextConfig = {
         tls: false,
       };
     }
-<<<<<<< HEAD
-=======
 
     // Filesystem cache: serialises the module graph to disk between builds.
     // On Netlify this persists across deploys via the build cache, cutting
@@ -171,7 +169,6 @@ const nextConfig = {
       },
     };
 
->>>>>>> preview/branch-consolidation-20260418
     config.optimization = {
       ...config.optimization,
       moduleIds: 'deterministic',

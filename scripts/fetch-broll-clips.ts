@@ -11,11 +11,20 @@ config({ path: path.resolve(process.cwd(), '.env.local') });
 
 import fs from 'fs';
 import { execSync } from 'child_process';
+import ffmpegInstaller from '@ffmpeg-installer/ffmpeg';
+import ffprobeInstaller from '@ffprobe-installer/ffprobe';
 
-const PEXELS_KEY  = process.env.PEXELS_API_KEY!;
+const PEXELS_KEY  = process.env.PEXELS_API_KEY;
 const PIXABAY_KEY = process.env.PIXABAY_API_KEY!;
 const OUT_DIR     = path.join(process.cwd(), 'public/videos/broll');
 const TMP_DIR     = path.join(OUT_DIR, 'tmp');
+const LOCAL_VIDEO_ROOT = path.join(process.cwd(), 'public/videos');
+const FFMPEG_BIN = ffmpegInstaller.path || 'ffmpeg';
+const FFPROBE_BIN = ffprobeInstaller.path || 'ffprobe';
+
+for (const bin of [FFMPEG_BIN, FFPROBE_BIN]) {
+  try { fs.chmodSync(bin, 0o755); } catch {}
+}
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 fs.mkdirSync(TMP_DIR, { recursive: true });
@@ -196,7 +205,7 @@ async function searchPexels(query: string, count: number, mustMatch?: RegExp): P
     try {
       res = await fetch(
         `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&page=${page}`,
-        { headers: { Authorization: PEXELS_KEY } }
+        { headers: PEXELS_KEY ? { Authorization: PEXELS_KEY } : {} }
       );
     } catch {
       break;
@@ -252,6 +261,96 @@ async function searchPixabay(query: string, count: number, mustMatch?: RegExp): 
   return urls;
 }
 
+function listLocalVideoFiles(dir: string): string[] {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const files: string[] = [];
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (full === OUT_DIR || full.startsWith(path.join(OUT_DIR, path.sep))) continue;
+      files.push(...listLocalVideoFiles(full));
+      continue;
+    }
+    if (entry.isFile() && full.toLowerCase().endsWith('.mp4')) {
+      const rel = full.replace(`${LOCAL_VIDEO_ROOT}${path.sep}`, '').toLowerCase();
+      if (rel.startsWith('broll/') || rel.startsWith('barber-lessons/')) continue;
+      files.push(full);
+    }
+  }
+  return files;
+}
+
+const STOP_WORDS = new Set(['and', 'for', 'the', 'with', 'from', 'into', 'that', 'this', 'your', 'barber']);
+
+function topicTokens(topic: { key: string; queries: string[] }): string[] {
+  return Array.from(
+    new Set(
+      [topic.key, ...topic.queries]
+        .join(' ')
+        .toLowerCase()
+        .split(/[^a-z0-9]+/g)
+        .filter((t) => t.length >= 4 && !STOP_WORDS.has(t))
+    )
+  );
+}
+
+function selectLocalFallbackFiles(
+  localFiles: string[],
+  topic: { key: string; queries: string[] },
+  count: number
+): string[] {
+  const tokens = topicTokens(topic);
+  const ranked = localFiles
+    .map((file) => {
+      const rel = file.replace(`${LOCAL_VIDEO_ROOT}${path.sep}`, '').toLowerCase();
+      const score = tokens.reduce((acc, token) => (rel.includes(token) ? acc + 1 : acc), 0);
+      return { file, score, rel };
+    })
+    .sort((a, b) => b.score - a.score || a.rel.localeCompare(b.rel));
+
+  const matched = ranked.filter((r) => r.score > 0).map((r) => r.file);
+  if (matched.length >= count) return matched.slice(0, count);
+
+  const strongBarber = ranked
+    .filter((r) => /barber|salon|cosmetolog|fade|lineup|beard|razor|clipper|scissor|shampoo/.test(r.rel))
+    .map((r) => r.file);
+
+  const seen = new Set<string>();
+  const output: string[] = [];
+  for (const f of [...matched, ...strongBarber, ...ranked.map((r) => r.file)]) {
+    if (seen.has(f)) continue;
+    seen.add(f);
+    output.push(f);
+    if (output.length >= count) break;
+  }
+  return output;
+}
+
+function probeDurationSeconds(file: string): number {
+  try {
+    return parseFloat(execSync(`"${FFPROBE_BIN}" -v quiet -show_entries format=duration -of csv=p=0 "${file}"`, { encoding: 'utf8' }).trim());
+  } catch {
+    return 0;
+  }
+}
+
+function cutLocalSegment(input: string, outPath: string, segmentIndex: number): boolean {
+  const total = probeDurationSeconds(input);
+  if (!Number.isFinite(total) || total <= 4) return false;
+  const targetDuration = Math.max(8, Math.min(18, Math.floor(total / 3)));
+  const maxStart = Math.max(0, Math.floor(total - targetDuration - 1));
+  const start = maxStart > 0 ? (segmentIndex * 11) % maxStart : 0;
+  try {
+    execSync(
+      `"${FFMPEG_BIN}" -y -ss ${start} -t ${targetDuration} -i "${input}" -an -c:v libx264 -preset veryfast -crf 23 "${outPath}"`,
+      { stdio: 'pipe', maxBuffer: 100 * 1024 * 1024, timeout: 120000 }
+    );
+    return fs.existsSync(outPath) && fs.statSync(outPath).size > 100000;
+  } catch {
+    return false;
+  }
+}
+
 async function downloadClip(url: string, outPath: string): Promise<boolean> {
   try {
     execSync(`curl -L -s -o "${outPath}" "${url}"`,
@@ -266,7 +365,7 @@ function normalizeAndConcat(inputs: string[], outPath: string): number {
     const norm = path.join(TMP_DIR, `norm_${i}_${path.basename(outPath)}`);
     try {
       execSync(
-        `ffmpeg -y -i "${inputs[i]}" ` +
+        `"${FFMPEG_BIN}" -y -i "${inputs[i]}" ` +
         `-vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=24" ` +
         `-c:v libx264 -preset fast -crf 22 -an "${norm}"`,
         { stdio: 'pipe', maxBuffer: 100 * 1024 * 1024 }
@@ -278,23 +377,24 @@ function normalizeAndConcat(inputs: string[], outPath: string): number {
 
   const listFile = path.join(TMP_DIR, `list_${path.basename(outPath)}.txt`);
   fs.writeFileSync(listFile, normalized.map(f => `file '${f}'`).join('\n'));
-  execSync(`ffmpeg -y -f concat -safe 0 -i "${listFile}" -c copy "${outPath}"`,
+  execSync(`"${FFMPEG_BIN}" -y -f concat -safe 0 -i "${listFile}" -c copy "${outPath}"`,
     { stdio: 'pipe', maxBuffer: 300 * 1024 * 1024 });
 
   normalized.forEach(f => { try { fs.unlinkSync(f); } catch {} });
   try { fs.unlinkSync(listFile); } catch {}
 
-  return parseFloat(execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${outPath}"`, { encoding: 'utf8' }).trim());
+  return parseFloat(execSync(`"${FFPROBE_BIN}" -v quiet -show_entries format=duration -of csv=p=0 "${outPath}"`, { encoding: 'utf8' }).trim());
 }
 
 async function main() {
   console.log(`\n═══ Building ${TOPICS.length} precise b-roll clips ═══\n`);
+  const localFiles = fs.existsSync(LOCAL_VIDEO_ROOT) ? listLocalVideoFiles(LOCAL_VIDEO_ROOT) : [];
 
   for (const topic of TOPICS) {
     const outPath = path.join(OUT_DIR, `${topic.key}.mp4`);
 
-    if (fs.existsSync(outPath)) {
-      const dur = parseFloat(execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${outPath}"`, { encoding: 'utf8' }).trim());
+      if (fs.existsSync(outPath)) {
+      const dur = parseFloat(execSync(`"${FFPROBE_BIN}" -v quiet -show_entries format=duration -of csv=p=0 "${outPath}"`, { encoding: 'utf8' }).trim());
       if (dur > 30) { console.log(`  SKIP  ${topic.key} — ${Math.round(dur)}s`); continue; }
     }
 
@@ -338,6 +438,17 @@ async function main() {
           }
           if (downloaded.length >= 8) break;
         }
+        if (downloaded.length >= 8) break;
+      }
+    }
+
+    // Round 4 — Local free clips from repository when providers are unreachable/empty
+    if (downloaded.length < 3 && localFiles.length > 0) {
+      const localFallback = selectLocalFallbackFiles(localFiles, topic, 8);
+      for (let idx = 0; idx < localFallback.length; idx++) {
+        const source = localFallback[idx];
+        const tmp = path.join(TMP_DIR, `dl_${topic.key}_local${downloaded.length}.mp4`);
+        if (cutLocalSegment(source, tmp, idx)) downloaded.push(tmp);
         if (downloaded.length >= 8) break;
       }
     }

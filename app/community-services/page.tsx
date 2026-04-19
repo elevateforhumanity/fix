@@ -1,17 +1,7 @@
-<<<<<<< HEAD
-export const dynamic = 'force-static';
-export const revalidate = 86400;
-
-import Link from 'next/link';
-import { communityServices } from '@/content/community-services';
-import { buildMetadata } from '@/lib/seo';
-
-=======
 import Link from 'next/link';
 import { communityServices } from '@/content/cf-community-services';
 import { buildMetadata } from '@/lib/cf-seo';
 
->>>>>>> preview/branch-consolidation-20260418
 export const metadata = buildMetadata({
   title: 'Community Services',
   description: 'Free VITA tax preparation, mental wellness support, WIOA-funded job training, and employment services for qualifying Indiana residents.',
@@ -22,27 +12,16 @@ export default function CommunityServicesPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-3xl font-bold">Community Services</h1>
-<<<<<<< HEAD
-      <p className="mt-4 text-gray-600">
-=======
       <p className="mt-4 text-slate-700">
->>>>>>> preview/branch-consolidation-20260418
         Free and low-cost services for qualifying Indiana residents. One place to access
         tax help, mental wellness support, funded job training, and employment services.
       </p>
       <div className="mt-8 grid gap-6 md:grid-cols-2">
         {communityServices.map((service) => (
-<<<<<<< HEAD
-          <article key={service.slug} className="rounded border p-6 hover:bg-gray-50">
-            <h2 className="text-xl font-semibold">{service.title}</h2>
-            <p className="mt-2 text-sm text-gray-600">{service.summary}</p>
-            <p className="mt-2 text-xs text-gray-500">Eligibility: {service.eligibility}</p>
-=======
           <article key={service.slug} className="rounded border p-6 hover:bg-slate-50">
             <h2 className="text-xl font-semibold">{service.title}</h2>
             <p className="mt-2 text-sm text-slate-700">{service.summary}</p>
             <p className="mt-2 text-xs text-slate-600">Eligibility: {service.eligibility}</p>
->>>>>>> preview/branch-consolidation-20260418
             <Link
               href={`/community-services/${service.slug}`}
               className="mt-4 inline-block text-sm underline"
