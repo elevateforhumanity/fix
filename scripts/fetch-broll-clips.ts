@@ -192,10 +192,15 @@ const TOPICS: { key: string; queries: string[]; mustMatch?: RegExp }[] = [
 async function searchPexels(query: string, count: number, mustMatch?: RegExp): Promise<string[]> {
   const urls: string[] = [];
   for (let page = 1; page <= 5 && urls.length < count; page++) {
-    const res = await fetch(
-      `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&page=${page}`,
-      { headers: { Authorization: PEXELS_KEY } }
-    );
+    let res: Response;
+    try {
+      res = await fetch(
+        `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&page=${page}`,
+        { headers: { Authorization: PEXELS_KEY } }
+      );
+    } catch {
+      break;
+    }
     if (!res.ok) break;
     const d = await res.json() as any;
     for (const v of (d.videos || [])) {
@@ -223,9 +228,14 @@ async function searchPexels(query: string, count: number, mustMatch?: RegExp): P
 async function searchPixabay(query: string, count: number, mustMatch?: RegExp): Promise<string[]> {
   const urls: string[] = [];
   for (let page = 1; page <= 3 && urls.length < count; page++) {
-    const res = await fetch(
-      `https://pixabay.com/api/videos/?key=${PIXABAY_KEY}&q=${encodeURIComponent(query)}&video_type=film&orientation=horizontal&per_page=15&page=${page}`,
-    );
+    let res: Response;
+    try {
+      res = await fetch(
+        `https://pixabay.com/api/videos/?key=${PIXABAY_KEY}&q=${encodeURIComponent(query)}&video_type=film&orientation=horizontal&per_page=15&page=${page}`,
+      );
+    } catch {
+      break;
+    }
     if (!res.ok) break;
     const d = await res.json() as any;
     for (const v of (d.hits || [])) {
