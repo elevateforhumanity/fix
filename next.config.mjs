@@ -132,7 +132,7 @@ const nextConfig = {
     // Disabled: each of these spawns a separate child process.
     // With 1,486 pages the combined memory exceeds Netlify's build RAM → SIGKILL.
     webpackBuildWorker: false,
-    optimizeCss: true,
+    optimizeCss: false,
     parallelServerCompiles: false,
     parallelServerBuildTraces: false,
   },
