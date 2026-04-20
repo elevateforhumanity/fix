@@ -16,6 +16,7 @@ import {
   TUITION_DOLLARS,
   PAYMENT_TERM_WEEKS,
   BARBER_PROGRAM_ID,
+  BARBER_COURSE_ID,
   clampSetupFeeCents,
   remainingHoursDisplay,
 } from '@/lib/barber/pricing';
@@ -28,7 +29,7 @@ import { withApiAudit } from '@/lib/audit/withApiAudit';
  * Public checkout for Barber Apprenticeship - no authentication required.
  * 
  * Payment Model (NOT a subscription):
- * 1. Setup fee ($1,743) - collected immediately via Checkout
+ * 1. Down payment (minimum $600, chosen by student) - collected immediately via Checkout
  * 2. Weekly invoices - scheduled for each Friday, sent automatically
  * 
  * This allows:
@@ -214,8 +215,6 @@ async function _POST(request: NextRequest) {
         submit: {
           message: payment_type === 'bnpl'
             ? 'Select Klarna or Afterpay below to split into installments.'
-            : payment_type === 'payment_plan'
-            ? `By completing this payment you authorize Elevate for Humanity to automatically charge the card above $${(weeklyPaymentCentsValue / 100).toFixed(2)} every Friday for ${weeksRemaining} weeks until your $${TUITION_DOLLARS.toLocaleString()} balance is paid in full.`
             : `Total program tuition: $${TUITION_DOLLARS.toLocaleString()}.`,
         },
       },
@@ -298,8 +297,8 @@ async function _GET(request: NextRequest) {
     return NextResponse.json({
       pricing: {
         fullPrice: BARBER_PRICING.fullPrice,
-        setupFee: BARBER_PRICING.setupFee,
-        setupFeeRate: '35%',
+        minDownPayment: BARBER_PRICING.minDownPayment,
+        defaultDownPayment: BARBER_PRICING.defaultDownPayment,
         remainingBalance: BARBER_PRICING.remainingBalance,
         totalHoursRequired: BARBER_PRICING.totalHoursRequired,
       },

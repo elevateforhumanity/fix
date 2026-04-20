@@ -27,13 +27,14 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_OPTIONS = "--max-old-space-size=4096"
+  NODE_OPTIONS = "--max-old-space-size=8192"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   NEXT_CLI_TURBOPACK = "0"
   # NEXT_CLI_TURBOPACK=0 forces webpack for `next build` in CI.
   # TURBOPACK=0 is kept for compatibility with prior Netlify settings.
   # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are legacy flags.
   TURBOPACK = "0"
+  NEXT_SKIP_TURBOPACK = "1"
   NEXT_DISABLE_MANAGED_TURBOPACK = "1"
   NEXT_DISABLE_TURBOPACK = "1"
   NETLIFY_USE_PNPM = "true"
@@ -563,6 +564,12 @@
 [[redirects]]
   from = "/store/licenses/managed/*"
   to = "/admin/licenses"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/Indiana-Barbershop-Apprenticeship-MOU"
+  to = "https://www.elevateforhumanity.org/docs/Indiana-Barbershop-Apprenticeship-MOU"
   status = 301
   force = true
 

@@ -32,14 +32,55 @@ export default async function ApprenticePortalPage() {
     .eq('id', user.id)
     .maybeSingle();
 
-  // Get active enrollment with program info
-  const { data: enrollment } = await supabase
+  // Get active enrollment — prefer training_enrollments (legacy), fall back to
+  // program_enrollments (canonical path for barber/cosmetology students enrolled
+  // via the Stripe webhook).
+  let enrollment: {
+    id: string | null;
+    status: string;
+    orientation_completed_at: string | null;
+    documents_submitted_at: string | null;
+    progress?: number;
+    course_id?: string | null;
+    programs?: { slug: string; name?: string; title?: string } | null;
+  } | null = null;
+
+  const { data: trainingEnrollment } = await supabase
     .from('training_enrollments')
     .select('*, programs(slug, name, title)')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(1)
     .maybeSingle();
+
+  if (trainingEnrollment) {
+    enrollment = trainingEnrollment;
+  } else {
+    // Barber/cosmetology students are written to program_enrollments by the webhook.
+    const { data: progEnrollment } = await supabase
+      .from('program_enrollments')
+      .select('id, status, created_at, programs:program_id(slug, title)')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (progEnrollment) {
+      // Normalize to the same shape the rest of the page uses.
+      // program_enrollments doesn't track orientation/documents — treat as incomplete
+      // so the gate below sends them through the correct onboarding steps.
+      enrollment = {
+        id: progEnrollment.id,
+        status: progEnrollment.status,
+        orientation_completed_at: null,
+        documents_submitted_at: null,
+        course_id: null,
+        programs: Array.isArray(progEnrollment.programs)
+          ? progEnrollment.programs[0] ?? null
+          : (progEnrollment.programs as { slug: string; title?: string } | null),
+      };
+    }
+  }
 
   // Gate: Redirect if orientation or documents not complete
   if (enrollment) {
@@ -61,19 +102,56 @@ export default async function ApprenticePortalPage() {
     program_slug: enrollment.programs?.slug,
   }) : { label: 'Apply to a Program', href: '/programs', description: 'Start your journey' };
 
-  const { data: enrollments } = await supabase
+  // Active programs list — pull from both tables and merge
+  const { data: trainingEnrollments } = await supabase
     .from('training_enrollments')
     .select('id, status, progress, course_id')
     .eq('user_id', user.id)
     .limit(5);
 
-  // Get real hours from attendance_hours table
-  const { data: hoursData } = await supabase
+  const { data: programEnrollments } = await supabase
+    .from('program_enrollments')
+    .select('id, status, programs:program_id(slug, title)')
+    .eq('user_id', user.id)
+    .limit(5);
+
+  const enrollments = [
+    ...(trainingEnrollments || []),
+    // Only include program_enrollments rows that don't already have a training_enrollments record
+    ...(trainingEnrollments && trainingEnrollments.length > 0 ? [] : (programEnrollments || []).map((pe) => ({
+      id: pe.id,
+      status: pe.status,
+      progress: 0,
+      course_id: null,
+    }))),
+  ];
+
+  // Hours source — barber/cosmetology students use hour_entries (approved).
+  // Legacy students use attendance_hours linked to their training_enrollments row.
+  const { data: attendanceHoursData } = await supabase
     .from('attendance_hours')
     .select('hours_logged')
-    .eq('enrollment_id', enrollment?.id);
-  
-  const totalHours = hoursData?.reduce((sum, h) => sum + (h.hours_logged || 0), 0) || 0;
+    .eq('enrollment_id', enrollment?.id ?? '');
+
+  const attendanceHours = attendanceHoursData?.reduce((sum, h) => sum + (h.hours_logged || 0), 0) || 0;
+
+  let totalHours = attendanceHours;
+
+  // Fallback: if no attendance hours (e.g. barber students who log via hour_entries),
+  // sum approved hour_entries for this user instead.
+  if (totalHours === 0) {
+    const { data: hourEntries } = await supabase
+      .from('hour_entries')
+      .select('hours_claimed, accepted_hours')
+      .eq('user_id', user.id)
+      .eq('status', 'approved');
+
+    const entryHours = (hourEntries || []).reduce(
+      (sum, h) => sum + (Number(h.accepted_hours) || Number(h.hours_claimed) || 0),
+      0,
+    );
+    if (entryHours > 0) totalHours = entryHours;
+  }
 
   const PROGRAM_REQUIRED_HOURS: Record<string, number> = {
     'barber-apprenticeship':            2000,
