@@ -808,8 +808,10 @@ const sentryWebpackPluginOptions = {
   authToken: process.env.SENTRY_AUTH_TOKEN,
   disableServerWebpackPlugin: process.env.NETLIFY === 'true',
   disableClientWebpackPlugin: process.env.NETLIFY === 'true',
-  autoInstrumentServerFunctions: process.env.NETLIFY !== 'true',
-  autoInstrumentMiddleware: process.env.NETLIFY !== 'true',
+  webpack: {
+    autoInstrumentServerFunctions: process.env.NETLIFY !== 'true',
+    autoInstrumentMiddleware: process.env.NETLIFY !== 'true',
+  },
 };
 
 export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
