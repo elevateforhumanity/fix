@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import CosmetologyPartnerPageClient from './PartnerPageClient';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {

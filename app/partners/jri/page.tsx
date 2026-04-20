@@ -13,7 +13,7 @@ import {
   Mail,
 CheckCircle, } from 'lucide-react';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ShoppingBag, Users, DollarSign } from 'lucide-react';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {

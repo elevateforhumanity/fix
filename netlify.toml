@@ -26,7 +26,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_OPTIONS = "--max-old-space-size=6144"
+  NODE_OPTIONS = "--max-old-space-size=7168"
   NEXT_PRIVATE_MAX_WORKERS = "1"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   NEXT_PRIVATE_WORKER_POOL_SIZE = "1"

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import PublicLandingPage from '@/components/marketing/PublicLandingPage';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {

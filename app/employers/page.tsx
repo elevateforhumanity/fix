@@ -19,7 +19,7 @@ import WOTCSection from '@/components/employers/WOTCSection';
 import GrantsSection from '@/components/employers/GrantsSection';
 import HeroVideo from '@/components/marketing/HeroVideo';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Shield, Lock, Eye, Server, FileCheck, AlertTriangle, Mail, Key, CheckCircle } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export const dynamic = 'force-static';
+
 
 export const metadata: Metadata = {
   title: 'Security & Data Protection Statement | Elevate For Humanity',

@@ -1,4 +1,4 @@
-export const dynamic = 'force-static';
+
 export const revalidate = 3600;
 
 import { VIDEO_HEROES } from '@/lib/hero-config';

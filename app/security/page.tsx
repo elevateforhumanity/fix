@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     'Your information is protected. Your trust matters. Learn about our security measures and data protection practices.',
 };
 
-export const dynamic = 'force-static';
+
 
 export default function SecurityPage() {
   const certifications = null;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import Image from 'next/image';
 
-export const dynamic = 'force-static';
+
 export const revalidate = 86400; // 24 hours
 
 export const metadata: Metadata = {
