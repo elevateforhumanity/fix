@@ -50,9 +50,10 @@ const nextConfig = {
     buildActivityPosition: 'bottom-right',
   },
   
-  // Force cache bust - build timestamp + deployment marker
+  // Use commit SHA as build ID so webpack filesystem cache is reused across
+  // retries of the same commit. Date.now() would bust the cache every build.
   generateBuildId: async () => {
-    return `build-${Date.now()}-production`;
+    return process.env.COMMIT_REF || process.env.GITHUB_SHA || `build-${Date.now()}`;
   },
   // Netlify uses 'export' or default, not 'standalone'
   // output: 'standalone', // Commented out for Netlify compatibility
@@ -164,7 +165,7 @@ const nextConfig = {
     // cache key — prevents stale partial caches from OOM'd builds being reused.
     config.cache = {
       type: 'filesystem',
-      version: process.env.COMMIT_REF || process.env.GITHUB_SHA || String(Date.now()),
+      version: process.env.COMMIT_REF || process.env.GITHUB_SHA || 'local',
       buildDependencies: {
         config: [new URL(import.meta.url).pathname],
       },
