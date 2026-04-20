@@ -47,7 +47,7 @@ export default function ProctorPortalPage() {
       if (!session) { router.replace('/login?redirect=/admin/proctor-portal'); return; }
       fetchSessions();
     });
-  }, [fetchSessions]);
+  }, [fetchSessions, router, supabase]);
 
   const handleSaved = () => {
     setShowForm(false);
