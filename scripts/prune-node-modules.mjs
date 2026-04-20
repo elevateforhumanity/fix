@@ -12,7 +12,7 @@
  * IMPORTANT: This only runs on Netlify (CI=true). Never runs locally.
  */
 
-import { rm, readdir } from 'fs/promises';
+import { rm, readdir, mkdir } from 'fs/promises';
 import { join, resolve } from 'path';
 import { existsSync } from 'fs';
 
@@ -51,7 +51,6 @@ const PRUNE_PACKAGES = [
   // PDF
   'pdf-lib',
   'pdf-parse',
-  'pdfkit',
   'pdfjs-dist',
   'jspdf',
   '@react-pdf',
@@ -132,7 +131,19 @@ async function main() {
     });
     if (matches) {
       try {
-        await rm(join(PNPM_DIR, entry), { recursive: true, force: true });
+        const pkgDir = join(PNPM_DIR, entry);
+        const nodeModulesDir = join(pkgDir, 'node_modules');
+        // Delete contents of the package dir but preserve the node_modules
+        // subdir (even empty) so @netlify/plugin-nextjs recreateNodeModuleSymlinks
+        // can readdir it without throwing ENOENT.
+        const pkgContents = await readdir(pkgDir);
+        for (const item of pkgContents) {
+          if (item !== 'node_modules') {
+            await rm(join(pkgDir, item), { recursive: true, force: true });
+          }
+        }
+        // Ensure node_modules dir exists (may not if package has no deps)
+        await mkdir(nodeModulesDir, { recursive: true });
         console.log(`  removed .pnpm/${entry}`);
         removed++;
       } catch (err) {
