@@ -101,16 +101,18 @@ const nextConfig = {
     '**.gitpod.dev',
   ],
 
+  // serverActions is stable in Next 16 — moved out of experimental
+  serverActions: {
+    allowedOrigins: [
+      'localhost:3000',
+      '**.gitpod.dev',
+      'www.elevateforhumanity.org',
+      'elevateforhumanity.org',
+    ],
+  },
+
   // Experimental features for better performance
   experimental: {
-    serverActions: {
-      allowedOrigins: [
-        'localhost:3000',
-        '**.gitpod.dev',
-        'www.elevateforhumanity.org',
-        'elevateforhumanity.org',
-      ],
-    },
     // optimizePackageImports disabled on Netlify — adds memory overhead during
     // webpack compilation with 1,300+ pages. Re-enable when moving to Railway.
     ...(process.env.NETLIFY !== 'true' ? {
