@@ -72,11 +72,7 @@ const footerLinks = {
   getStarted: [
     { name: 'Check My Eligibility', href: '/start' },
     { name: 'Apply for Training', href: '/apply/student' },
-    { name: 'How Funding Works', href: '/funding/how-it-works' },
     { name: 'WIOA Funding', href: '/wioa-eligibility' },
-    { name: 'Workforce Ready Grant', href: '/funding/wrg' },
-    { name: 'JRI / Job Ready Indy', href: '/funding/jri' },
-    { name: 'DOL Apprenticeship', href: '/funding/dol' },
     { name: 'Tuition & Fees', href: '/tuition' },
     { name: 'Schedule Orientation', href: '/orientation' },
     { name: 'Consumer Education', href: '/consumer-education' },
@@ -104,8 +100,6 @@ const footerLinks = {
     { name: 'My Courses', href: '/lms/dashboard', category: 'Learners' },
     // Education staff
     { name: 'Instructor Portal', href: '/instructor/dashboard', category: 'Education Staff' },
-    { name: 'Mentor Portal', href: '/mentor/dashboard', category: 'Education Staff' },
-    { name: 'Creator Studio', href: '/creator/dashboard', category: 'Education Staff' },
     // Employers & partners
     { name: 'Employer Portal', href: '/employer/dashboard', category: 'Employers & Partners' },
     { name: 'Partner Portal', href: '/partner/dashboard', category: 'Employers & Partners' },
@@ -125,8 +119,7 @@ const footerLinks = {
     { name: 'Outcomes', href: '/outcomes/indiana' },
     { name: 'Accreditation', href: '/accreditation' },
     { name: 'Compliance', href: '/compliance' },
-    { name: 'Platform Licensing', href: '/store/licensing' },
-    { name: 'Rise Foundation', href: '/rise-foundation' },
+
     { name: 'Donate', href: '/donate' },
     { name: 'Careers', href: '/careers' },
     { name: 'Contact Us', href: '/contact' },

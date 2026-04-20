@@ -26,18 +26,14 @@ export function SiteFooter() {
             <ul className="mt-3 space-y-2 text-sm text-gray-600">
               <li><Link href="/about" className="hover:text-gray-900">About</Link></li>
               <li><Link href="/contact" className="hover:text-gray-900">Contact</Link></li>
-              <li><Link href="/funding" className="hover:text-gray-900">Funding</Link></li>
-              <li><Link href="/supersonic-fast-cash" className="hover:text-gray-900">Supersonic Fast Cash</Link></li>
+
             </ul>
           </div>
 
           <div>
             <p className="text-sm font-semibold">Legal</p>
             <ul className="mt-3 space-y-2 text-sm text-gray-600">
-              <li><Link href="/policies" className="hover:text-gray-900">Policies</Link></li>
-              <li><Link href="/legal" className="hover:text-gray-900">Legal</Link></li>
-              <li><Link href="/legal/privacy" className="hover:text-gray-900">Privacy Policy</Link></li>
-              <li><Link href="/legal/enrollment-agreement" className="hover:text-gray-900">Enrollment Agreement</Link></li>
+
             </ul>
           </div>
         </div>

@@ -142,7 +142,7 @@ export const NAV_ITEMS = [
       { name: '— More —', href: '/about', isHeader: true },
       { name: 'Careers', href: '/careers' },
       { name: 'Contact Us', href: '/contact' },
-      { name: 'Rise Foundation', href: '/rise-foundation' },
+
     ],
   },
   {
@@ -156,8 +156,7 @@ export const NAV_ITEMS = [
       { name: 'My Courses', href: '/lms/courses' },
       { name: '— Education Staff —', href: '/instructor/dashboard', isHeader: true },
       { name: 'Instructor Portal', href: '/instructor/dashboard' },
-      { name: 'Mentor Portal', href: '/mentor/dashboard' },
-      { name: 'Creator Studio', href: '/creator/dashboard' },
+
       { name: '— Employers & Partners —', href: '/employer/dashboard', isHeader: true },
       { name: 'Employer Portal', href: '/employer/dashboard' },
       { name: 'Partner Portal', href: '/partner/dashboard' },
@@ -165,7 +164,7 @@ export const NAV_ITEMS = [
       { name: 'Program Holder Portal', href: '/program-holder/dashboard' },
       { name: 'Training Provider Portal', href: '/provider/dashboard' },
       { name: 'Case Manager Portal', href: '/case-manager/dashboard' },
-      { name: 'Workforce Board', href: '/workforce-board/dashboard' },
+
       { name: '— Internal Staff —', href: '/staff-portal/dashboard', isHeader: true },
       { name: 'Staff Portal', href: '/staff-portal/dashboard' },
       { name: 'Admin Dashboard', href: '/admin/dashboard' },
