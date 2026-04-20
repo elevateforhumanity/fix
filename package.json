@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.975.0",
+    "edge-tts": "^1.0.1",
     "@aws-sdk/s3-request-presigner": "^3.975.0",
     "@dnd-kit/core": "6.3.1",
     "@dnd-kit/sortable": "10.0.0",
