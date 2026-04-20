@@ -1,14 +1,9 @@
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getProgramConfig, getAllProgramSlugs } from '@/lib/partners/program-config';
+import { getProgramConfig } from '@/lib/partners/program-config';
 import UniversalPartnerLanding from './UniversalPartnerLanding';
-
-export async function generateStaticParams() {
-  return getAllProgramSlugs().map(slug => ({ program: slug }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ program: string }> }): Promise<Metadata> {
   const { program } = await params;

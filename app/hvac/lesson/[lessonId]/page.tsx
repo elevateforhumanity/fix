@@ -23,11 +23,7 @@ import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
 import { HVAC_QUIZ_MAP } from '@/lib/courses/hvac-quizzes';
 import { EPA_608_LESSON_TAGS } from '@/lib/courses/hvac-epa-tags';
 
-// ── Static params — pre-render all 95 lesson pages ───────────────────────────
-export async function generateStaticParams() {
-  const lessons = getAllHvacLessons();
-  return lessons.map(l => ({ lessonId: l.lessonId }));
-}
+export const dynamic = 'force-dynamic';
 
 // ── Metadata ─────────────────────────────────────────────────────────────────
 export async function generateMetadata(

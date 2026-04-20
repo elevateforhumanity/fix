@@ -1,14 +1,12 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getStateConfig, STATE_SLUGS } from '@/config/states';
+import { getStateConfig } from '@/config/states';
 import { StateTaxPreparationPage } from '@/components/templates';
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ state: string }>;
-}
-
-export function generateStaticParams() {
-  return STATE_SLUGS.map((state) => ({ state }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

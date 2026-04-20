@@ -9,14 +9,9 @@ import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react';
 import { sanitizeRichHtml } from '@/lib/security/sanitize-html';
 import { STATIC_POSTS, type BlogPost } from '@/content/blog/posts';
 
-export const revalidate = 600;
+export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ slug: string }>;
-
-// Pre-render static post slugs at build time
-export async function generateStaticParams() {
-  return STATIC_POSTS.map((post) => ({ slug: post.slug }));
-}
 
 async function getBlogPost(slug: string): Promise<BlogPost | null> {
   // Check static posts first — no DB call needed

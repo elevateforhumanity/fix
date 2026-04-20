@@ -3,9 +3,7 @@ import { supersonicServices } from '@/content/cf-supersonic-fast-cash';
 import { findBySlug, staticParamsFromSlugs } from '@/lib/cf-content-helpers';
 import { buildMetadata } from '@/lib/cf-seo';
 
-export function generateStaticParams() {
-  return staticParamsFromSlugs(supersonicServices);
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

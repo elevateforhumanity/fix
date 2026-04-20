@@ -1,18 +1,13 @@
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowRight, Clock, Phone, Mail } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { getProgramConfig, getAllProgramSlugs } from '@/lib/partners/program-config';
+import { getProgramConfig } from '@/lib/partners/program-config';
 
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_30MIN || 'https://calendly.com/elevate4humanityedu/30min';
-
-export async function generateStaticParams() {
-  return getAllProgramSlugs().map(slug => ({ program: slug }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ program: string }> }): Promise<Metadata> {
   const { program } = await params;

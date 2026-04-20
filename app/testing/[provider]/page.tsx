@@ -5,10 +5,7 @@ import Link from 'next/link';
 import { CheckCircle, Clock, MapPin, Monitor, DollarSign, ExternalLink, CalendarDays, Briefcase } from 'lucide-react';
 import { CERT_PROVIDERS, type ExamDefinition } from '@/lib/testing/proctoring-capabilities';
 
-// Pre-render all known providers at build time.
-// Unknown slugs return 404 — no SSR fallback.
-export const dynamic = 'force-static';
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
 import { getAdminClient } from '@/lib/supabase/admin';
 
 const LEVEL_COLORS: Record<string, string> = {
@@ -47,10 +44,6 @@ const CAPABILITY_LABEL: Record<string, { label: string; icon: typeof MapPin }> =
 
 interface Props {
   params: Promise<{ provider: string }>;
-}
-
-export async function generateStaticParams() {
-  return Object.keys(CERT_PROVIDERS).map((key) => ({ provider: key }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

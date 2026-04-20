@@ -1,5 +1,7 @@
-// Default cache TTL for all routes — overridden per-page as needed.
-export const revalidate = 3600;
+// Force all routes to render on-demand (SSR) — prevents Next from attempting
+// static generation of ~2,000 pages at build time, which causes OOM on Netlify.
+// Individual pages can override with their own `export const revalidate = N`.
+export const dynamic = 'force-dynamic';
 
 import React from 'react';
 import type { Metadata, Viewport } from 'next';

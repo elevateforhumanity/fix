@@ -14,9 +14,7 @@ const pages: Record<string, { title: string; body: string }> = {
   curvature: { title: 'Curvature Program', body: 'A RISE Foundation wellness initiative supporting body-positive health and community care.' },
 };
 
-export function generateStaticParams() {
-  return Object.keys(pages).map((slug) => ({ slug }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

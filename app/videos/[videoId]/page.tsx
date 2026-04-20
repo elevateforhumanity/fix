@@ -7,12 +7,7 @@ import Image from 'next/image';
 import { videos, getVideoById } from '../../../lms-data/videos';
 import { ArrowLeft } from 'lucide-react';
 
-export const revalidate = 3600;
-export async function generateStaticParams() {
-  return videos.map((video) => ({
-    videoId: video.id,
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
   params,

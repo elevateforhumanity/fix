@@ -4,20 +4,7 @@ import type { Metadata } from 'next';
 import { createPublicClient } from '@/lib/supabase/public';
 import { programs as staticPrograms } from '@/content/cf-programs';
 
-export const revalidate = 3600;
-
-export async function generateStaticParams() {
-  const db = createPublicClient();
-  if (db) {
-    const { data } = await db
-      .from('programs')
-      .select('slug')
-      .eq('is_active', true)
-      .neq('status', 'archived');
-    if (data && data.length > 0) return data.map((p) => ({ slug: p.slug }));
-  }
-  return staticPrograms.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
