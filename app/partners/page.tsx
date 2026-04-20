@@ -114,6 +114,18 @@ const TRAINING_PARTNERS = [
 
 ];
 
+  {
+    icon: BookOpen,
+    title: 'Safety & Short-Term Courses',
+    badge: 'CareerSafe · HSI · NRF',
+    who: 'Organizations needing OSHA 10/30, first aid, CPR, or retail certifications for their workforce.',
+    what: 'Access CareerSafe OSHA training, HSI safety courses, and NRF Foundation RISE Up retail certifications through Elevate — individually or for your whole team.',
+    cta: { label: 'CareerSafe Courses', href: '/partners/careersafe' },
+    apply: { label: 'Enroll Your Team', href: '/partners/careersafe' },
+    image: '/images/pages/workforce-training.jpg',
+  },
+];
+
 const TECH_PARTNERS = [
   {
     icon: Globe,
