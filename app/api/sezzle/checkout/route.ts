@@ -14,6 +14,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
 import { sezzle, SezzleSessionRequest } from '@/lib/sezzle/client';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
@@ -119,8 +120,7 @@ async function _POST(request: NextRequest) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.elevateforhumanity.org';
 
     // Use randomBytes — Math.random() has collision risk for concurrent checkouts.
-    const { randomBytes: _rb } = require('crypto') as typeof import('crypto');
-    const referenceId = `EFH-${Date.now()}-${_rb(6).toString('hex')}`;
+    const referenceId = `EFH-${Date.now()}-${randomBytes(6).toString('hex')}`;
 
     // Determine redirect URLs - use custom if provided, otherwise default based on programSlug
     const programApplyBase = programSlug

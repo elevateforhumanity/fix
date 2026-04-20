@@ -1,6 +1,7 @@
 'use server';
 
 import { getAdminClient } from '@/lib/supabase/admin';
+import { randomBytes } from 'crypto';
 import { revalidatePath } from 'next/cache';
 import { sendEmail } from '@/lib/email';
 import { logger } from '@/lib/logger';
@@ -84,10 +85,7 @@ async function createStudentAccount(
     // Use the password the student provided on the application form.
     // Fall back to a generated password only if none was provided (e.g. admin-initiated enrollment).
     // Math.random() is predictable — use randomBytes for the fallback password.
-    const password = userPassword || (() => {
-      const { randomBytes } = require('crypto') as typeof import('crypto');
-      return `EFH-${randomBytes(8).toString('hex')}-Temp!`;
-    })();
+    const password = userPassword || (() => `EFH-${randomBytes(8).toString('hex')}-Temp!`)();
 
     // Check profiles first
     const { data: existingProfile } = await supabase
@@ -897,7 +895,7 @@ async function sendProgramHolderWelcomeEmail(
         options: { redirectTo: `${siteUrl}/auth/set-password` },
       });
       if (linkData?.properties?.action_link) setupLink = linkData.properties.action_link;
-    } catch {}
+    } catch { /* fallback to default setup link */ }
   }
 
   const logoUrl = `${siteUrl}/images/Elevate_for_Humanity_logo_81bf0fab.jpg`;

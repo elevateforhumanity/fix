@@ -2,6 +2,7 @@
 import { getAdminClient } from '@/lib/supabase/admin';
 
 import { NextRequest, NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
 
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -12,7 +13,6 @@ export const dynamic = 'force-dynamic';
 function generateShareCode(): string {
   // Use randomBytes — Math.random() produces predictable, enumerable codes.
   // 9 random bytes → 12 base64url chars (no padding, URL-safe).
-  const { randomBytes } = require('crypto') as typeof import('crypto');
   return randomBytes(9).toString('base64url');
 }
 

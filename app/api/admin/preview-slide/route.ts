@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAdmin } from '@/lib/server/require-admin';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 
 export const runtime = 'nodejs';
 export const maxDuration = 30;
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const { slide, slideIndex, totalSlides, opts } = body;
 
-  const { renderSlideFrameForPreview } = require('../../../../server/lesson-video-renderer') as typeof import('../../../../server/lesson-video-renderer'); // eslint-disable-line @typescript-eslint/no-var-requires
+  const { renderSlideFrameForPreview } = await import('../../../../server/lesson-video-renderer');
 
   const buf: Buffer = await renderSlideFrameForPreview(slide, slideIndex, totalSlides, opts);
 

@@ -9,7 +9,7 @@ async function generateAudio() {
 
   const outputPath = path.join(process.cwd(), 'courses/hvac/module1/output/test-audio.mp3');
   await generateAndSaveAudio(text, outputPath, { voice: 'onyx', speed: 0.95 });
-  console.log('Audio generated:', outputPath);
+  console.info('Audio generated:', outputPath);
 }
 
 generateAudio().catch((err) => {

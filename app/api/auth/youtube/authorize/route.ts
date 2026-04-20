@@ -1,6 +1,7 @@
 // PUBLIC ROUTE: OAuth initiation — no auth possible
 // AUTH: Intentionally public — no authentication required
 import { NextRequest, NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -42,7 +43,6 @@ const clientId = process.env.GOOGLE_CLIENT_ID;
   // HttpOnly cookie so the callback can verify it. Without storing the state
   // server-side, the CSRF check is theater — any attacker-supplied state value
   // would pass because there is nothing to compare it against.
-  const { randomBytes } = require('crypto') as typeof import('crypto');
   const state = randomBytes(16).toString('hex');
   authUrl.searchParams.set('state', state);
 

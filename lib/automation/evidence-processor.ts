@@ -607,8 +607,9 @@ export async function processTranscript(
     state,
   });
 
-  // Transfer hours are only applied after manual admin approval — not automatically.
-  if (false && result.outcome === 'auto_approved' && result.extractedData.hours_completed) {
+  // Transfer hours are only applied after manual admin approval unless explicitly enabled.
+  const shouldAutoApplyTransferHours = process.env.ENABLE_AUTO_TRANSFER_HOURS === 'true';
+  if (shouldAutoApplyTransferHours && result.outcome === 'auto_approved' && result.extractedData.hours_completed) {
     const supabase = await getAdminClient();
     await setAuditContext(supabase, { systemActor: 'evidence_processor' });
     const hours = result.extractedData.hours_completed as number;

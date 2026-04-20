@@ -1,6 +1,7 @@
 // Two-Factor Authentication (2FA) Implementation
 import speakeasy from 'speakeasy';
 import QRCode from 'qrcode';
+import { randomBytes } from 'crypto';
 import { createClient } from '@/lib/supabase/server';
 
 export interface TwoFactorSecret {
@@ -166,7 +167,6 @@ export async function verifyBackupCode(
 // Generate backup codes using a cryptographically secure PRNG.
 // Math.random() is not suitable for security tokens — it is predictable.
 function generateBackupCodes(count: number): string[] {
-  const { randomBytes } = require('crypto') as typeof import('crypto');
   const codes: string[] = [];
   for (let i = 0; i < count; i++) {
     // 6 random bytes → 12 hex chars, uppercased and split XXXX-XXXX for readability
