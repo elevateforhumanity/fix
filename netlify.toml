@@ -30,13 +30,6 @@
   NODE_OPTIONS = "--max-old-space-size=8192"
   NEXT_PRIVATE_MAX_WORKERS = "1"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
-  NEXT_CLI_TURBOPACK = "0"
-  # TURBOPACK=0 is the correct env var for Next.js 16.x to disable Turbopack.
-  # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are no longer
-  # respected in Next.js 16 — they have been replaced by TURBOPACK.
-  TURBOPACK = "0"
-  NEXT_DISABLE_MANAGED_TURBOPACK = "1"
-  NEXT_DISABLE_TURBOPACK = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public
   SECRETS_SCAN_ENABLED = "false"
