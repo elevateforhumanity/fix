@@ -165,61 +165,20 @@ const nextConfig = {
     // cache key — prevents stale partial caches from OOM'd builds being reused.
     config.cache = {
       type: 'filesystem',
-      version: process.env.COMMIT_REF || process.env.GITHUB_SHA || 'local',
+      // Stable key so netlify-plugin-cache can restore it across deploys.
+      // Do NOT use COMMIT_REF here — that busts the cache on every deploy,
+      // forcing a full cold compile every time and causing OOM on 8GB builds.
+      version: 'elevate-lms-v1',
       buildDependencies: {
         config: [new URL(import.meta.url).pathname],
       },
     };
 
-    config.optimization = {
-      ...config.optimization,
-      moduleIds: 'deterministic',
-      splitChunks: {
-        chunks: 'all',
-        maxInitialRequests: 25,
-        minSize: 20000,
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          framework: {
-            name: 'framework',
-            chunks: 'all',
-            test: /[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
-            priority: 40,
-            enforce: true,
-          },
-          lib: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)?.[1];
-              return `npm.${packageName?.replace('@', '')}`;
-            },
-            priority: 30,
-            minChunks: 1,
-            reuseExistingChunk: true,
-          },
-          // Split large UI libraries
-          ui: {
-            test: /[\\/]node_modules[\\/](@radix-ui|lucide-react)[\\/]/,
-            name: 'ui-libs',
-            priority: 35,
-            reuseExistingChunk: true,
-          },
-          // Split Supabase
-          supabase: {
-            test: /[\\/]node_modules[\\/](@supabase)[\\/]/,
-            name: 'supabase',
-            priority: 35,
-            reuseExistingChunk: true,
-          },
-          commons: {
-            name: 'commons',
-            minChunks: 2,
-            priority: 20,
-          },
-        },
-      },
-    };
+    // Use Next.js default splitChunks — the custom config above was creating
+    // one chunk per npm package (name() function), generating thousands of
+    // chunks and holding the entire module graph in memory simultaneously.
+    // On a 2,500+ page app this caused OOM on every cold build.
+    // Let Next.js manage chunking; it's tuned for this scale.
     return config;
   },
 
