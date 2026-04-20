@@ -246,7 +246,7 @@ export default function AdminProgramHolderDocuments() {
         <div className="space-y-4">
           {documents.length === 0 ? (
             <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-              <FileText size={48} className="mx-auto mb-4 text-gray-300" />
+              <FileText size={48} className="mx-auto mb-4 text-slate-700" />
               <p className="text-black">No documents found</p>
             </div>
           ) : (

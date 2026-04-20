@@ -237,7 +237,7 @@ export default function DigitalBinder({
                         {note.category}
                       </span>
                     </div>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-slate-700">
                       {new Date(note.date).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
                     </span>
                   </div>

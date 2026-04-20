@@ -87,9 +87,9 @@ export default function LogApprenticeHoursPage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center">
           <span className="text-slate-500 flex-shrink-0">•</span>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Hours Logged!</h1>
-          <p className="text-gray-600 mb-4">Your apprenticeship hours have been submitted for approval.</p>
-          <p className="text-sm text-gray-500">Redirecting...</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Hours Logged!</h1>
+          <p className="text-slate-700 mb-4">Your apprenticeship hours have been submitted for approval.</p>
+          <p className="text-sm text-slate-700">Redirecting...</p>
         </div>
       </div>
     );
@@ -105,7 +105,7 @@ export default function LogApprenticeHoursPage() {
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <Link href="/apprentice/hours" className="inline-flex items-center text-gray-600 hover:text-brand-green-600 mb-6">
+        <Link href="/apprentice/hours" className="inline-flex items-center text-slate-700 hover:text-brand-green-600 mb-6">
           <ArrowLeft className="w-4 h-4 mr-2" />Back to Hours
         </Link>
 
@@ -115,8 +115,8 @@ export default function LogApprenticeHoursPage() {
               <Clock className="w-6 h-6 text-brand-green-600" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Log Apprenticeship Hours</h1>
-              <p className="text-gray-600">Record your OJT or RTI hours</p>
+              <h1 className="text-2xl font-bold text-slate-900">Log Apprenticeship Hours</h1>
+              <p className="text-slate-700">Record your OJT or RTI hours</p>
             </div>
           </div>
 
@@ -130,13 +130,13 @@ export default function LogApprenticeHoursPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Date <span className="text-brand-red-500">*</span></label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Date <span className="text-brand-red-500">*</span></label>
                 <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   max={new Date().toISOString().split('T')[0]}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green-500" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Hours <span className="text-brand-red-500">*</span></label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Hours <span className="text-brand-red-500">*</span></label>
                 <input type="number" min="0.5" max="24" step="0.5" value={formData.hours}
                   onChange={(e) => setFormData({ ...formData, hours: e.target.value })}
                   placeholder="Enter hours"
@@ -145,55 +145,55 @@ export default function LogApprenticeHoursPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Hour Type <span className="text-brand-red-500">*</span></label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Hour Type <span className="text-brand-red-500">*</span></label>
               <div className="grid grid-cols-2 gap-4">
                 <label className={`flex items-center justify-center p-4 border-2 rounded-lg cursor-pointer transition ${formData.type === 'ojt' ? 'border-brand-blue-600 bg-brand-blue-50' : 'border-gray-300 hover:border-gray-400'}`}>
                   <input type="radio" name="type" value="ojt" checked={formData.type === 'ojt'} onChange={(e) => setFormData({ ...formData, type: e.target.value })} className="sr-only" />
-                  <Building className={`w-6 h-6 mr-2 ${formData.type === 'ojt' ? 'text-brand-blue-600' : 'text-gray-400'}`} />
+                  <Building className={`w-6 h-6 mr-2 ${formData.type === 'ojt' ? 'text-brand-blue-600' : 'text-slate-700'}`} />
                   <div className="text-left">
-                    <p className="font-bold text-gray-900">OJT</p>
-                    <p className="text-xs text-gray-600">On-the-Job Training</p>
+                    <p className="font-bold text-slate-900">OJT</p>
+                    <p className="text-xs text-slate-700">On-the-Job Training</p>
                   </div>
                 </label>
                 <label className={`flex items-center justify-center p-4 border-2 rounded-lg cursor-pointer transition ${formData.type === 'rti' ? 'border-brand-blue-600 bg-brand-blue-50' : 'border-gray-300 hover:border-gray-400'}`}>
                   <input type="radio" name="type" value="rti" checked={formData.type === 'rti'} onChange={(e) => setFormData({ ...formData, type: e.target.value })} className="sr-only" />
-                  <Award className={`w-6 h-6 mr-2 ${formData.type === 'rti' ? 'text-brand-blue-600' : 'text-gray-400'}`} />
+                  <Award className={`w-6 h-6 mr-2 ${formData.type === 'rti' ? 'text-brand-blue-600' : 'text-slate-700'}`} />
                   <div className="text-left">
-                    <p className="font-bold text-gray-900">RTI</p>
-                    <p className="text-xs text-gray-600">Related Technical Instruction</p>
+                    <p className="font-bold text-slate-900">RTI</p>
+                    <p className="text-xs text-slate-700">Related Technical Instruction</p>
                   </div>
                 </label>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Employer/Training Provider</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Employer/Training Provider</label>
               <input type="text" value={formData.employer} onChange={(e) => setFormData({ ...formData, employer: e.target.value })}
                 placeholder="e.g., ABC Barbershop"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green-500" />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Supervisor Name</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Supervisor Name</label>
               <input type="text" value={formData.supervisor} onChange={(e) => setFormData({ ...formData, supervisor: e.target.value })}
                 placeholder="Name of supervising journeyman or instructor"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green-500" />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Activities Performed</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Activities Performed</label>
               <textarea value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 rows={4} placeholder="Describe the work or training activities..."
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-green-500 resize-none" />
             </div>
 
             <div className="bg-brand-green-50 rounded-lg p-4 border border-brand-green-200">
-              <h3 className="font-semibold text-gray-900 mb-2">Verification Required</h3>
-              <p className="text-sm text-gray-700">Your hours will be verified by your supervisor or instructor before being credited to your apprenticeship record.</p>
+              <h3 className="font-semibold text-slate-900 mb-2">Verification Required</h3>
+              <p className="text-sm text-slate-900">Your hours will be verified by your supervisor or instructor before being credited to your apprenticeship record.</p>
             </div>
 
             <div className="flex items-center justify-end gap-4 pt-4 border-t">
-              <Link href="/apprentice/hours" className="px-6 py-3 text-gray-700 hover:text-gray-900 font-medium">Cancel</Link>
+              <Link href="/apprentice/hours" className="px-6 py-3 text-slate-900 hover:text-slate-900 font-medium">Cancel</Link>
               <button type="submit" disabled={isSubmitting}
                 className="bg-brand-green-600 hover:bg-brand-green-700 text-white px-8 py-3 rounded-lg font-bold transition inline-flex items-center disabled:opacity-50">
                 {isSubmitting ? 'Saving...' : <><Save className="w-5 h-5 mr-2" />Save Hours</>}

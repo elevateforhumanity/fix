@@ -209,8 +209,8 @@ export default async function ResourcesPage() {
       {/* Header */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold text-gray-900">Student Resources</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-bold text-slate-900">Student Resources</h1>
+          <p className="text-slate-700 mt-2">
             Everything you need to succeed in your program and career
           </p>
         </div>
@@ -219,7 +219,7 @@ export default async function ResourcesPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Quick Links */}
         <section className="mb-12">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h2>
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Quick Links</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {quickLinks.map((link) => (
               <Link
@@ -228,7 +228,7 @@ export default async function ResourcesPage() {
                 className="flex flex-col items-center p-4 bg-white rounded-xl border border-gray-200 hover:border-brand-blue-500 hover:shadow-md transition-all"
               >
                 <link.icon className="w-6 h-6 text-brand-blue-600 mb-2" />
-                <span className="text-sm font-medium text-gray-900 text-center">
+                <span className="text-sm font-medium text-slate-900 text-center">
                   {link.title}
                 </span>
               </Link>
@@ -238,7 +238,7 @@ export default async function ResourcesPage() {
 
         {/* Resource Categories */}
         <section className="mb-12">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">
             Resource Categories
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -265,7 +265,7 @@ export default async function ResourcesPage() {
                     <category.icon
                       className={`w-6 h-6 ${iconColors[category.color]}`}
                     />
-                    <h3 className="text-xl font-bold text-gray-900">
+                    <h3 className="text-xl font-bold text-slate-900">
                       {category.title}
                     </h3>
                   </div>
@@ -277,14 +277,14 @@ export default async function ResourcesPage() {
                           className="flex items-start gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
                         >
                           <div className="flex-1">
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-slate-900">
                               {resource.title}
                             </p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-slate-700">
                               {resource.description}
                             </p>
                           </div>
-                          <ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0 mt-1" />
+                          <ExternalLink className="w-4 h-4 text-slate-700 flex-shrink-0 mt-1" />
                         </Link>
                       </li>
                     ))}
@@ -297,7 +297,7 @@ export default async function ResourcesPage() {
 
         {/* Downloadable Resources */}
         <section className="mb-12">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">
             Downloadable Guides
           </h2>
           <div className="bg-white rounded-xl border border-gray-200 divide-y">
@@ -311,13 +311,13 @@ export default async function ResourcesPage() {
                     <FileText className="w-5 h-5 text-brand-red-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{resource.title}</p>
-                    <p className="text-sm text-gray-600">{resource.description}</p>
+                    <p className="font-medium text-slate-900">{resource.title}</p>
+                    <p className="text-sm text-slate-700">{resource.description}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-xs text-gray-500">{resource.fileType}</span>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                  <span className="text-xs text-slate-700">{resource.fileType}</span>
+                  <button className="flex items-center gap-2 px-4 py-2 bg-white text-slate-900 rounded-lg hover:bg-gray-200 transition-colors">
                     <Download className="w-4 h-4" />
                     <span className="text-sm font-medium">Download</span>
                   </button>

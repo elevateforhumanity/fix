@@ -158,8 +158,8 @@ export default function HVACActivationPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'HVAC Activation' }]} />
 
-        <h1 className="text-3xl font-bold text-gray-900 mt-4 mb-2">HVAC Course Activation</h1>
-        <p className="text-gray-600 mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 mt-4 mb-2">HVAC Course Activation</h1>
+        <p className="text-slate-700 mb-8">
           Activate the 16-module, 94-lesson HVAC Technician course with EPA 608 exam prep,
           153 quiz questions, and AI-generated voiceovers.
         </p>
@@ -173,16 +173,16 @@ export default function HVACActivationPage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <Database className="w-5 h-5 text-gray-400" />
+                  <Database className="w-5 h-5 text-slate-700" />
                   <h2 className="text-lg font-semibold">Step 1: Database Migration</h2>
                 </div>
-                <p className="text-gray-600 text-sm mb-3">
+                <p className="text-slate-700 text-sm mb-3">
                   Paste the SQL into Supabase Dashboard &gt; SQL Editor. File location:
                 </p>
                 <code className="block bg-gray-100 px-3 py-2 rounded text-sm mb-3 break-all">
                   supabase/migrations/_non_migration/HVAC_ACTIVATION_PASTE_INTO_DASHBOARD.sql
                 </code>
-                <p className="text-gray-500 text-xs mb-4">
+                <p className="text-slate-700 text-xs mb-4">
                   This creates the lessons VIEW fields, HVAC course, and 94 lesson records.
                 </p>
                 <button
@@ -209,10 +209,10 @@ export default function HVACActivationPage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <BookOpen className="w-5 h-5 text-gray-400" />
+                  <BookOpen className="w-5 h-5 text-slate-700" />
                   <h2 className="text-lg font-semibold">Step 2: Sync Quiz Questions</h2>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">
+                <p className="text-slate-700 text-sm mb-4">
                   Populates 153 quiz questions (EPA 608 Core/Type I/II/III + module quizzes),
                   content types, and rich HTML content for all 94 lessons.
                 </p>
@@ -245,10 +245,10 @@ export default function HVACActivationPage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <Volume2 className="w-5 h-5 text-gray-400" />
+                  <Volume2 className="w-5 h-5 text-slate-700" />
                   <h2 className="text-lg font-semibold">Step 3: Generate Voiceovers</h2>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">
+                <p className="text-slate-700 text-sm mb-4">
                   Generates AI voiceovers for all 94 lessons using the trades instructor voice.
                   Priority: Synthesia &rarr; D-ID &rarr; Sora &rarr; gpt-4o-mini-tts &rarr; tts-1-hd.
                   This may take 10-15 minutes.
@@ -282,10 +282,10 @@ export default function HVACActivationPage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <Play className="w-5 h-5 text-gray-400" />
+                  <Play className="w-5 h-5 text-slate-700" />
                   <h2 className="text-lg font-semibold">Media Status</h2>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">
+                <p className="text-slate-700 text-sm mb-4">
                   Check how many lessons have video/audio generated.
                 </p>
                 <button
@@ -305,7 +305,7 @@ export default function HVACActivationPage() {
                     {Object.entries(statusStep.details.services).map(([key, val]) => (
                       <span
                         key={key}
-                        className={`text-xs px-2 py-1 rounded ${val ? 'bg-brand-green-100 text-brand-green-700' : 'bg-gray-100 text-gray-500'}`}
+                        className={`text-xs px-2 py-1 rounded ${val ? 'bg-brand-green-100 text-brand-green-700' : 'bg-gray-100 text-slate-700'}`}
                       >
                         {key}: {val ? 'available' : 'not configured'}
                       </span>
@@ -336,20 +336,20 @@ export default function HVACActivationPage() {
           {/* Course Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white rounded-lg border p-4 text-center">
-              <div className="text-2xl font-bold text-gray-900">16</div>
-              <div className="text-sm text-gray-500">Modules</div>
+              <div className="text-2xl font-bold text-slate-900">16</div>
+              <div className="text-sm text-slate-700">Modules</div>
             </div>
             <div className="bg-white rounded-lg border p-4 text-center">
-              <div className="text-2xl font-bold text-gray-900">94</div>
-              <div className="text-sm text-gray-500">Lessons</div>
+              <div className="text-2xl font-bold text-slate-900">94</div>
+              <div className="text-sm text-slate-700">Lessons</div>
             </div>
             <div className="bg-white rounded-lg border p-4 text-center">
-              <div className="text-2xl font-bold text-gray-900">153</div>
-              <div className="text-sm text-gray-500">Quiz Questions</div>
+              <div className="text-2xl font-bold text-slate-900">153</div>
+              <div className="text-sm text-slate-700">Quiz Questions</div>
             </div>
             <div className="bg-white rounded-lg border p-4 text-center">
-              <div className="text-2xl font-bold text-gray-900">6</div>
-              <div className="text-sm text-gray-500">Credentials</div>
+              <div className="text-2xl font-bold text-slate-900">6</div>
+              <div className="text-sm text-slate-700">Credentials</div>
             </div>
           </div>
         </div>

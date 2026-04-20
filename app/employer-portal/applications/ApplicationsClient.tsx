@@ -36,7 +36,7 @@ export function ApplicationsClient({ applications }: { applications: Application
   };
 
   const statColors: Record<string, string> = {
-    Total: 'text-gray-900',
+    Total: 'text-slate-900',
     New: 'text-brand-blue-600',
     'In Review': 'text-yellow-600',
     Interview: 'text-brand-blue-600',
@@ -71,7 +71,7 @@ export function ApplicationsClient({ applications }: { applications: Application
                 }`}
               >
                 <span className={`text-2xl font-bold ${statColors[label]}`}>{count}</span>
-                <span className="text-gray-500">{label}</span>
+                <span className="text-slate-700">{label}</span>
               </button>
             ))}
           </div>
@@ -82,7 +82,7 @@ export function ApplicationsClient({ applications }: { applications: Application
       <section className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex-1 relative max-w-lg">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input
               type="text"
               value={search}
@@ -98,7 +98,7 @@ export function ApplicationsClient({ applications }: { applications: Application
       <section className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filtered.length === 0 ? (
-            <div className="text-center py-16 text-gray-400">No applications match your filter.</div>
+            <div className="text-center py-16 text-slate-700">No applications match your filter.</div>
           ) : (
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               {filtered.map((app, index) => (
@@ -111,13 +111,13 @@ export function ApplicationsClient({ applications }: { applications: Application
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3">
-                      <h3 className="font-semibold text-gray-900">{app.candidate.name}</h3>
+                      <h3 className="font-semibold text-slate-900">{app.candidate.name}</h3>
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_COLORS[app.status] ?? 'bg-slate-100 text-slate-600'}`}>
                         {app.status}
                       </span>
                     </div>
-                    <p className="text-gray-600 text-sm">{app.position}</p>
-                    <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                    <p className="text-slate-700 text-sm">{app.position}</p>
+                    <div className="flex items-center gap-4 mt-1 text-sm text-slate-700">
                       <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{app.location}</span>
                       <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{app.appliedDate}</span>
                     </div>
@@ -128,14 +128,14 @@ export function ApplicationsClient({ applications }: { applications: Application
                       className="p-2 hover:bg-slate-100 rounded-lg"
                       title="View application"
                     >
-                      <Eye className="w-5 h-5 text-gray-400" />
+                      <Eye className="w-5 h-5 text-slate-700" />
                     </Link>
                     <Link
                       href={`/employer-portal/messages?to=${app.userId}`}
                       className="p-2 hover:bg-slate-100 rounded-lg"
                       title="Message applicant"
                     >
-                      <MessageSquare className="w-5 h-5 text-gray-400" />
+                      <MessageSquare className="w-5 h-5 text-slate-700" />
                     </Link>
                     <Link
                       href={`/employer-portal/applications/${app.id}`}

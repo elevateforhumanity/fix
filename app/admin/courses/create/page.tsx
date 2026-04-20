@@ -36,18 +36,18 @@ export default async function CreateCoursePage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <nav className="text-sm mb-6">
-          <ol className="flex items-center space-x-2 text-gray-500">
+          <ol className="flex items-center space-x-2 text-slate-700">
             <li><Link href="/admin" className="hover:text-brand-blue-600">Admin</Link></li>
             <li>/</li>
             <li><Link href="/admin/courses" className="hover:text-brand-blue-600">Courses</Link></li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">Create</li>
+            <li className="text-slate-900 font-medium">Create</li>
           </ol>
         </nav>
 
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Create New Course</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-slate-900">Create New Course</h1>
+          <p className="text-slate-700 mt-1">
             Describe what you want, or upload a syllabus, script, or document. The AI compiler builds the draft.
           </p>
         </div>

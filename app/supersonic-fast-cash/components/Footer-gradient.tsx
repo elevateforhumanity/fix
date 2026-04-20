@@ -24,7 +24,7 @@ export function SupersonicFooter() {
                 Supersonic Fast Cash
               </div>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-slate-700 text-sm leading-relaxed">
               Fast tax refund advances and professional tax preparation
               services. Licensed Enrolled Agent with full IRS representation
               rights.
@@ -40,7 +40,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/apply"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   💵 Tax Refund Advance
                 </Link>
@@ -48,7 +48,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/services"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   👨‍
                   <Briefcase className="w-5 h-5 inline-block" /> Professional
@@ -58,7 +58,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/diy-taxes"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   <FileText className="w-5 h-5 inline-block" /> DIY Self-Prep
                 </Link>
@@ -66,7 +66,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/book-appointment"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   <Calendar className="w-5 h-5 inline-block" /> Book Appointment
                 </Link>
@@ -74,7 +74,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/pricing"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   💲 Pricing
                 </Link>
@@ -91,7 +91,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/calculator"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   Refund Calculator
                 </Link>
@@ -99,7 +99,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/tools/refund-tracker"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   Track Refund
                 </Link>
@@ -107,7 +107,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/upload-documents"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   Upload Documents
                 </Link>
@@ -115,7 +115,7 @@ export function SupersonicFooter() {
               <li>
                 <Link
                   href="/supersonic-fast-cash/locations"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   Locations
                 </Link>
@@ -134,28 +134,28 @@ export function SupersonicFooter() {
                 <div>
                   <a
                     href="/support"
-                    className="text-gray-300 hover:text-brand-red-400 transition-colors font-semibold"
+                    className="text-slate-700 hover:text-brand-red-400 transition-colors font-semibold"
                   >
                     (317) 314-3757
                   </a>
-                  <div className="text-xs text-gray-300">Mon-Fri 9am-7pm</div>
+                  <div className="text-xs text-slate-700">Mon-Fri 9am-7pm</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-brand-red-500 flex-shrink-0 mt-0.5" />
                 <a
                   href="mailto:supersonicfastcashllc@gmail.com"
-                  className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                  className="text-slate-700 hover:text-brand-red-400 transition-colors"
                 >
                   supersonicfastcashllc@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-brand-red-500 flex-shrink-0 mt-0.5" />
-                <div className="text-gray-300">
+                <div className="text-slate-700">
                   Indianapolis, IN
                   <br />
-                  <span className="text-sm text-gray-300">
+                  <span className="text-sm text-slate-700">
                     Serving all 50 states
                   </span>
                 </div>
@@ -167,32 +167,32 @@ export function SupersonicFooter() {
         {/* Bottom Bar */}
         <div className="border-t border-white/10 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-sm text-gray-300">
+            <div className="text-sm text-slate-700">
               © {new Date().getFullYear()} Supersonic Fast Cash. All rights
               reserved.
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <Link
                 href="/privacy-policy"
-                className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                className="text-slate-700 hover:text-brand-red-400 transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms-of-service"
-                className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                className="text-slate-700 hover:text-brand-red-400 transition-colors"
               >
                 Terms of Service
               </Link>
               <Link
                 href="/supersonic-fast-cash/sub-office-agreement"
-                className="text-gray-300 hover:text-brand-red-400 transition-colors"
+                className="text-slate-700 hover:text-brand-red-400 transition-colors"
               >
                 Sub-Office Agreement
               </Link>
             </div>
           </div>
-          <div className="text-center mt-6 text-xs text-gray-300">
+          <div className="text-center mt-6 text-xs text-slate-700">
             Licensed Enrolled Agent (EA) | IRS Authorized Tax Professional |
             PTIN Holder
           </div>

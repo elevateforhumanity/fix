@@ -58,7 +58,7 @@ export default function OrientationFormClient() {
       aria-busy={loading}
     >
       <div>
-        <label htmlFor="orientName" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="orientName" className="block text-sm font-medium text-slate-900 mb-1">
           Your Name <span className="text-brand-red-500">*</span>
         </label>
         <input
@@ -70,7 +70,7 @@ export default function OrientationFormClient() {
         />
       </div>
       <div>
-        <label htmlFor="orientEmail" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="orientEmail" className="block text-sm font-medium text-slate-900 mb-1">
           Your Email <span className="text-brand-red-500">*</span>
         </label>
         <input
@@ -83,7 +83,7 @@ export default function OrientationFormClient() {
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="orientDate" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="orientDate" className="block text-sm font-medium text-slate-900 mb-1">
             Date <span className="text-brand-red-500">*</span>
           </label>
           <input
@@ -95,7 +95,7 @@ export default function OrientationFormClient() {
           />
         </div>
         <div>
-          <label htmlFor="orientTime" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="orientTime" className="block text-sm font-medium text-slate-900 mb-1">
             Time <span className="text-brand-red-500">*</span>
           </label>
           <select

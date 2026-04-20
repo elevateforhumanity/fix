@@ -41,8 +41,8 @@ export default async function InstructorLayout({
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Service Unavailable</h1>
-          <p className="text-gray-600">Please try again later.</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Service Unavailable</h1>
+          <p className="text-slate-700">Please try again later.</p>
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ export default async function InstructorLayout({
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-brand-blue-600 hover:bg-brand-blue-50 rounded-lg transition"
+                    className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 hover:text-brand-blue-600 hover:bg-brand-blue-50 rounded-lg transition"
                   >
                     <item.icon className="w-4 h-4" />
                     {item.label}
@@ -91,7 +91,7 @@ export default async function InstructorLayout({
             </div>
             <Link
               href="/dashboard"
-              className="text-sm text-gray-600 hover:text-gray-900"
+              className="text-sm text-slate-700 hover:text-slate-900"
             >
               Back to Dashboard
             </Link>

@@ -148,7 +148,7 @@ export function BlockchainCredentialVerification() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`py-4 px-2 border-b-2 font-medium ${
-                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-gray-500'
+                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-slate-700'
                 }`}
               >
                 {tab === 'verify' ? 'Verify Credential' : 'My Credentials'}
@@ -305,7 +305,7 @@ export function BlockchainCredentialVerification() {
 
                   <h3 className="text-lg font-bold mb-2">{credential.title}</h3>
                   <p className="text-sm text-black mb-1">{credential.issuer}</p>
-                  <p className="text-xs text-gray-500 mb-4">Issued: {credential.issueDate}</p>
+                  <p className="text-xs text-slate-700 mb-4">Issued: {credential.issueDate}</p>
 
                   {credential.metadata.skills && (
                     <div className="mb-4">

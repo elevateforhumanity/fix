@@ -101,7 +101,7 @@ export default function FinancialAidPage() {
             <Link href="/how-it-works" className="px-4 py-2 bg-brand-orange-100 text-brand-orange-800 rounded-full text-sm font-medium hover:bg-brand-orange-200 transition-colors">
               How It Works
             </Link>
-            <Link href="/faq" className="px-4 py-2 bg-gray-200 text-gray-800 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
+            <Link href="/faq" className="px-4 py-2 bg-gray-200 text-slate-900 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors">
               FAQ
             </Link>
           </div>
@@ -114,19 +114,19 @@ export default function FinancialAidPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl md:text-4xl font-bold text-brand-green-600 mb-2">Multiple</div>
-              <div className="text-gray-600">Funding Options</div>
+              <div className="text-slate-700">Funding Options</div>
             </div>
             <div>
               <div className="text-3xl md:text-4xl font-bold text-brand-green-600 mb-2">Funded</div>
-              <div className="text-gray-600">For Qualifying Students</div>
+              <div className="text-slate-700">For Qualifying Students</div>
             </div>
             <div>
               <div className="text-3xl md:text-4xl font-bold text-brand-green-600 mb-2">2-3 Days</div>
-              <div className="text-gray-600">Approval Time</div>
+              <div className="text-slate-700">Approval Time</div>
             </div>
             <div>
               <div className="text-3xl md:text-4xl font-bold text-brand-green-600 mb-2">No Loans</div>
-              <div className="text-gray-600">Required</div>
+              <div className="text-slate-700">Required</div>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function FinancialAidPage() {
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-4">Funding Options</h2>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+          <p className="text-slate-700 text-center max-w-2xl mx-auto mb-12">
             We work with multiple funding sources to ensure you can access career training regardless of your financial situation.
           </p>
           <div className="grid md:grid-cols-2 gap-8">
@@ -148,15 +148,15 @@ export default function FinancialAidPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold mb-2">{option.title}</h3>
-                    <p className="text-gray-600 mb-4">{option.description}</p>
+                    <p className="text-slate-700 mb-4">{option.description}</p>
                     <div className="bg-brand-green-50 rounded-lg p-4 mb-4">
                       <div className="text-sm font-medium text-brand-green-800 mb-2">Coverage: {option.coverage}</div>
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-gray-700 mb-2">Eligibility:</div>
+                      <div className="text-sm font-medium text-slate-900 mb-2">Eligibility:</div>
                       <ul className="space-y-1">
                         {option.eligibility.map((req) => (
-                          <li key={req} className="flex items-center gap-2 text-sm text-gray-600">
+                          <li key={req} className="flex items-center gap-2 text-sm text-slate-700">
                             <span className="text-slate-400 flex-shrink-0">•</span>
                             {req}
                           </li>
@@ -180,7 +180,7 @@ export default function FinancialAidPage() {
               Estimate Your Costs
             </div>
             <h2 className="text-3xl font-bold mb-4">Financial Aid Calculator</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-slate-700 max-w-2xl mx-auto">
               Get an estimate of your potential financial aid package based on your income and program costs.
             </p>
           </div>
@@ -199,7 +199,7 @@ export default function FinancialAidPage() {
                   {item.step}
                 </div>
                 <h3 className="font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.description}</p>
+                <p className="text-slate-700 text-sm">{item.description}</p>
               </div>
             ))}
           </div>

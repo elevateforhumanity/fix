@@ -41,8 +41,8 @@ export default async function SiteHealthPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Site Health' }]} />
         <div className="mt-4 mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Site Health</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-3xl font-bold text-slate-900">Site Health</h1>
+          <p className="text-slate-700 text-sm mt-1">
             Live checks — last run {new Date(health.checkedAt).toLocaleString()}
           </p>
         </div>

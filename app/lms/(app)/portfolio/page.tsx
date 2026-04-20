@@ -72,16 +72,16 @@ export default async function PortfolioPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
               <Briefcase className="w-8 h-8 text-brand-blue-600" />
               My Portfolio
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-slate-700 mt-1">
               Showcase your achievements and share with employers
             </p>
           </div>
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg hover:bg-white text-gray-700">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg hover:bg-white text-slate-900">
               <Share2 className="w-4 h-4" />
               Share Portfolio
             </button>
@@ -100,10 +100,10 @@ export default async function PortfolioPage() {
                 <Award className="w-6 h-6 text-brand-green-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-slate-900">
                   {certificates?.length || 0}
                 </div>
-                <div className="text-gray-600 text-sm">Certificates Earned</div>
+                <div className="text-slate-700 text-sm">Certificates Earned</div>
               </div>
             </div>
           </div>
@@ -113,10 +113,10 @@ export default async function PortfolioPage() {
                 <span className="text-slate-400 flex-shrink-0">•</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-slate-900">
                   {completedCourses?.length || 0}
                 </div>
-                <div className="text-gray-600 text-sm">Courses Completed</div>
+                <div className="text-slate-700 text-sm">Courses Completed</div>
               </div>
             </div>
           </div>
@@ -126,8 +126,8 @@ export default async function PortfolioPage() {
                 <FileText className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">0</div>
-                <div className="text-gray-600 text-sm">Projects Added</div>
+                <div className="text-2xl font-bold text-slate-900">0</div>
+                <div className="text-slate-700 text-sm">Projects Added</div>
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default async function PortfolioPage() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm border">
               <div className="p-6 border-b">
-                <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+                <h2 className="font-semibold text-slate-900 flex items-center gap-2">
                   <Award className="w-5 h-5 text-yellow-600" />
                   Certificates & Credentials
                 </h2>
@@ -149,9 +149,9 @@ export default async function PortfolioPage() {
                     <div key={cert.id} className="p-6 hover:bg-white">
                       <div className="flex items-start justify-between">
                         <div>
-                          <h3 className="font-medium text-gray-900">{cert.title}</h3>
-                          <p className="text-sm text-gray-600 mt-1">{cert.issuer}</p>
-                          <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
+                          <h3 className="font-medium text-slate-900">{cert.title}</h3>
+                          <p className="text-sm text-slate-700 mt-1">{cert.issuer}</p>
+                          <div className="flex items-center gap-4 mt-2 text-sm text-slate-700">
                             <span className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               Issued {new Date(cert.issued_at).toLocaleDateString()}
@@ -163,13 +163,13 @@ export default async function PortfolioPage() {
                         </div>
                         <div className="flex gap-2">
                           <button className="p-2 hover:bg-white rounded-lg" title="View">
-                            <Eye className="w-4 h-4 text-gray-600" />
+                            <Eye className="w-4 h-4 text-slate-700" />
                           </button>
                           <button className="p-2 hover:bg-white rounded-lg" title="Download">
-                            <Download className="w-4 h-4 text-gray-600" />
+                            <Download className="w-4 h-4 text-slate-700" />
                           </button>
                           <button className="p-2 hover:bg-white rounded-lg" title="Share">
-                            <ExternalLink className="w-4 h-4 text-gray-600" />
+                            <ExternalLink className="w-4 h-4 text-slate-700" />
                           </button>
                         </div>
                       </div>
@@ -178,9 +178,9 @@ export default async function PortfolioPage() {
                 </div>
               ) : (
                 <div className="p-12 text-center">
-                  <Award className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                  <h3 className="font-medium text-gray-900 mb-2">No certificates yet</h3>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <Award className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+                  <h3 className="font-medium text-slate-900 mb-2">No certificates yet</h3>
+                  <p className="text-slate-700 text-sm mb-4">
                     Complete courses to earn certificates and credentials
                   </p>
                   <Link
@@ -196,7 +196,7 @@ export default async function PortfolioPage() {
             {/* Completed Courses */}
             <div className="bg-white rounded-xl shadow-sm border mt-6">
               <div className="p-6 border-b">
-                <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+                <h2 className="font-semibold text-slate-900 flex items-center gap-2">
                   <span className="text-slate-400 flex-shrink-0">•</span>
                   Completed Courses
                 </h2>
@@ -207,10 +207,10 @@ export default async function PortfolioPage() {
                     <div key={enrollment.id} className="p-6 hover:bg-white">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="font-medium text-gray-900">
+                          <h3 className="font-medium text-slate-900">
                             {enrollment.course?.title || 'Course'}
                           </h3>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="text-sm text-slate-700 mt-1">
                             Completed {new Date(enrollment.completed_at).toLocaleDateString()}
                           </p>
                         </div>
@@ -227,8 +227,8 @@ export default async function PortfolioPage() {
               ) : (
                 <div className="p-12 text-center">
                   <span className="text-slate-400 flex-shrink-0">•</span>
-                  <h3 className="font-medium text-gray-900 mb-2">No completed courses</h3>
-                  <p className="text-gray-600 text-sm">
+                  <h3 className="font-medium text-slate-900 mb-2">No completed courses</h3>
+                  <p className="text-slate-700 text-sm">
                     Your completed courses will appear here
                   </p>
                 </div>
@@ -240,11 +240,11 @@ export default async function PortfolioPage() {
           <div className="lg:col-span-1">
             {/* Add Project */}
             <div className="bg-white rounded-xl p-6 shadow-sm border mb-6">
-              <h2 className="font-semibold text-gray-900 mb-4">Add to Portfolio</h2>
-              <p className="text-gray-600 text-sm mb-4">
+              <h2 className="font-semibold text-slate-900 mb-4">Add to Portfolio</h2>
+              <p className="text-slate-700 text-sm mb-4">
                 Showcase your work by adding projects, case studies, or work samples.
               </p>
-              <button className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-brand-blue-400 hover:text-brand-blue-600 transition-colors">
+              <button className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-slate-700 hover:border-brand-blue-400 hover:text-brand-blue-600 transition-colors">
                 <Plus className="w-5 h-5" />
                 Add Project
               </button>
@@ -262,8 +262,8 @@ export default async function PortfolioPage() {
 
             {/* Portfolio Tips */}
             <div className="bg-brand-blue-50 rounded-xl p-6">
-              <h2 className="font-semibold text-gray-900 mb-4">Portfolio Tips</h2>
-              <ul className="space-y-3 text-sm text-gray-700">
+              <h2 className="font-semibold text-slate-900 mb-4">Portfolio Tips</h2>
+              <ul className="space-y-3 text-sm text-slate-900">
                 <li className="flex items-start gap-2">
                   <span className="text-slate-400 flex-shrink-0">•</span>
                   <span>Add descriptions to your certificates explaining what you learned</span>
@@ -286,7 +286,7 @@ export default async function PortfolioPage() {
             {/* Badges Earned */}
             <div className="bg-white rounded-xl p-6 shadow-sm border mt-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+                <h2 className="font-semibold text-slate-900 flex items-center gap-2">
                   <Trophy className="w-5 h-5 text-yellow-600" />
                   Recent Badges
                 </h2>
@@ -299,19 +299,19 @@ export default async function PortfolioPage() {
                   <div className="w-10 h-10 bg-brand-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
                     <Star className="w-5 h-5 text-brand-blue-600" />
                   </div>
-                  <p className="text-xs text-gray-600">First Steps</p>
+                  <p className="text-xs text-slate-700">First Steps</p>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg opacity-40">
                   <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Flame className="w-5 h-5 text-gray-400" />
+                    <Flame className="w-5 h-5 text-slate-700" />
                   </div>
-                  <p className="text-xs text-gray-400">Locked</p>
+                  <p className="text-xs text-slate-700">Locked</p>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg opacity-40">
                   <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Trophy className="w-5 h-5 text-gray-400" />
+                    <Trophy className="w-5 h-5 text-slate-700" />
                   </div>
-                  <p className="text-xs text-gray-400">Locked</p>
+                  <p className="text-xs text-slate-700">Locked</p>
                 </div>
               </div>
             </div>

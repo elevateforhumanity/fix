@@ -78,19 +78,19 @@ export default async function LessonsPage() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Order</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Video</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Updated</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Title</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Course</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Order</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Duration</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Video</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Updated</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {(lessons || []).length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={7} className="px-6 py-12 text-center text-slate-700">
                       No lessons found. Create lessons from the{' '}
                       <Link href="/admin/course-builder" className="text-brand-blue-600 hover:underline">Course Builder</Link>.
                     </td>
@@ -99,28 +99,28 @@ export default async function LessonsPage() {
                   (lessons || []).map((lesson) => (
                     <tr key={lesson.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
-                        <div className="font-medium text-gray-900">{lesson.title || 'Untitled'}</div>
-                        <div className="text-xs text-gray-400 font-mono">{lesson.id.slice(0, 8)}</div>
+                        <div className="font-medium text-slate-900">{lesson.title || 'Untitled'}</div>
+                        <div className="text-xs text-slate-700 font-mono">{lesson.id.slice(0, 8)}</div>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {lesson.course_id ? (
                           <Link href={`/admin/courses/${lesson.course_id}/content`} className="text-brand-blue-600 hover:underline">
                             {courseMap.get(lesson.course_id) || lesson.course_id.slice(0, 8)}
                           </Link>
                         ) : (
-                          <span className="text-gray-400">—</span>
+                          <span className="text-slate-700">—</span>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{lesson.order_index ?? '—'}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{lesson.duration || '—'}</td>
+                      <td className="px-6 py-4 text-sm text-slate-700">{lesson.order_index ?? '—'}</td>
+                      <td className="px-6 py-4 text-sm text-slate-700">{lesson.duration || '—'}</td>
                       <td className="px-6 py-4 text-sm">
                         {lesson.video_url ? (
                           <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-brand-green-100 text-brand-green-800">Yes</span>
                         ) : (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">No</span>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-slate-700">No</span>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {lesson.updated_at ? new Date(lesson.updated_at).toLocaleDateString() : '—'}
                       </td>
                       <td className="px-6 py-4 text-sm">

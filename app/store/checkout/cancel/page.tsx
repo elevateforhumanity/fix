@@ -29,7 +29,7 @@ function CancelContent() {
             Checkout Cancelled
           </h1>
 
-          <p className="text-lg text-gray-300 mb-8">
+          <p className="text-lg text-slate-700 mb-8">
             Your payment was not processed. No charges have been made.
           </p>
 
@@ -53,7 +53,7 @@ function CancelContent() {
 
             <Link
               href="/contact"
-              className="flex items-center justify-center gap-2 w-full text-gray-400 hover:text-slate-900 py-3 transition-colors"
+              className="flex items-center justify-center gap-2 w-full text-slate-700 hover:text-slate-900 py-3 transition-colors"
             >
               <HelpCircle className="w-4 h-4" />
               Need Help?
@@ -61,7 +61,7 @@ function CancelContent() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-white/10">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-slate-700">
               Having trouble? Contact us at{" "}
               <a
                 href="/contact"

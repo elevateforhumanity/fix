@@ -70,7 +70,7 @@ export function PhotoCTA() {
               >
                 I&apos;m an employer / court / partner
               </Link>
-              <p className="text-xs text-white">
+              <p className="text-xs text-slate-500">
                 We work with workforce boards, courts, re-entry programs,
                 community orgs, and employers to line training up with real
                 opportunities.

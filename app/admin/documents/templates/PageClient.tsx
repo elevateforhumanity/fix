@@ -98,22 +98,22 @@ function MOUBuilder() {
       {/* Form */}
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Partner Organization</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Partner Organization</label>
           <input type="text" value={mou.partnerOrganization} onChange={e => update('partnerOrganization', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500" />
         </div>
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Purpose</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Purpose</label>
           <textarea rows={3} value={mou.purpose} onChange={e => update('purpose', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500" />
         </div>
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Background</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Background</label>
           <textarea rows={3} value={mou.background} onChange={e => update('background', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500" />
         </div>
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Scope of Collaboration</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Scope of Collaboration</label>
           <textarea rows={2} value={mou.scopeOfCollaboration} onChange={e => update('scopeOfCollaboration', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500" />
         </div>
@@ -135,31 +135,31 @@ function MOUBuilder() {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Term Start</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Term Start</label>
             <input type="date" value={mou.termStart} onChange={e => update('termStart', e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Term End</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Term End</label>
             <input type="date" value={mou.termEnd} onChange={e => update('termEnd', e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Financial Terms</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Financial Terms</label>
           <textarea rows={2} value={mou.financialTerms} onChange={e => update('financialTerms', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500" />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Elevate Signer Name</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Elevate Signer Name</label>
             <input type="text" value={mou.elevateSigner.name} onChange={e => update('elevateSigner', { ...mou.elevateSigner, name: e.target.value })}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Partner Signer Name</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Partner Signer Name</label>
             <input type="text" value={mou.partnerSigner.name} onChange={e => update('partnerSigner', { ...mou.partnerSigner, name: e.target.value })}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
@@ -170,9 +170,9 @@ function MOUBuilder() {
       <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h3 className="font-bold text-gray-900">Preview</h3>
+            <h3 className="font-bold text-slate-900">Preview</h3>
             {savedVersion && (
-              <p className="text-xs text-gray-400 mt-0.5">Saved v{savedVersion}</p>
+              <p className="text-xs text-slate-700 mt-0.5">Saved v{savedVersion}</p>
             )}
           </div>
           <div className="flex items-center gap-2">
@@ -201,7 +201,7 @@ function MOUBuilder() {
             </button>
           </div>
         </div>
-        <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono bg-gray-50 rounded-lg p-4 max-h-[600px] overflow-y-auto">
+        <pre className="text-xs text-slate-900 whitespace-pre-wrap font-mono bg-gray-50 rounded-lg p-4 max-h-[600px] overflow-y-auto">
           {markdown}
         </pre>
       </div>
@@ -292,46 +292,46 @@ function ReportBuilder() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Program Name</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Program Name</label>
           <input type="text" value={report.programName} onChange={e => update('programName', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500" />
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Period Start</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Period Start</label>
             <input type="date" value={report.reportingPeriodStart} onChange={e => update('reportingPeriodStart', e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Period End</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Period End</label>
             <input type="date" value={report.reportingPeriodEnd} onChange={e => update('reportingPeriodEnd', e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
         </div>
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Program Overview</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Program Overview</label>
           <textarea rows={3} value={report.programOverview} onChange={e => update('programOverview', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500" />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Enrollments</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Enrollments</label>
             <input type="number" value={report.enrollments} onChange={e => update('enrollments', parseInt(e.target.value) || 0)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Completions</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Completions</label>
             <input type="number" value={report.completions} onChange={e => update('completions', parseInt(e.target.value) || 0)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Certifications</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Certifications</label>
             <input type="number" value={report.certificationsEarned} onChange={e => update('certificationsEarned', parseInt(e.target.value) || 0)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Placements</label>
+            <label className="block text-sm font-semibold text-slate-900 mb-1">Placements</label>
             <input type="number" value={report.employmentPlacements} onChange={e => update('employmentPlacements', parseInt(e.target.value) || 0)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
           </div>
@@ -358,7 +358,7 @@ function ReportBuilder() {
           onRemove={(i) => removeFromList('nextSteps', i)} />
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Summary</label>
+          <label className="block text-sm font-semibold text-slate-900 mb-1">Summary</label>
           <textarea rows={2} value={report.summary} onChange={e => update('summary', e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-blue-500" />
         </div>
@@ -367,9 +367,9 @@ function ReportBuilder() {
       <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h3 className="font-bold text-gray-900">Preview</h3>
+            <h3 className="font-bold text-slate-900">Preview</h3>
             {savedVersion && (
-              <p className="text-xs text-gray-400 mt-0.5">Saved v{savedVersion}</p>
+              <p className="text-xs text-slate-700 mt-0.5">Saved v{savedVersion}</p>
             )}
           </div>
           <div className="flex items-center gap-2">
@@ -398,7 +398,7 @@ function ReportBuilder() {
             </button>
           </div>
         </div>
-        <pre className="text-xs text-gray-700 whitespace-pre-wrap font-mono bg-gray-50 rounded-lg p-4 max-h-[600px] overflow-y-auto">
+        <pre className="text-xs text-slate-900 whitespace-pre-wrap font-mono bg-gray-50 rounded-lg p-4 max-h-[600px] overflow-y-auto">
           {markdown}
         </pre>
       </div>
@@ -439,10 +439,10 @@ function EmailTemplateViewer() {
                   : 'border-gray-200 hover:border-gray-300 bg-white'
               }`}>
               <div className="flex items-center gap-3">
-                <Icon className={`w-5 h-5 ${selected.id === t.id ? 'text-brand-blue-600' : 'text-gray-400'}`} />
+                <Icon className={`w-5 h-5 ${selected.id === t.id ? 'text-brand-blue-600' : 'text-slate-700'}`} />
                 <div>
-                  <div className="font-semibold text-sm text-gray-900">{t.name}</div>
-                  <div className="text-xs text-gray-500">{t.description}</div>
+                  <div className="font-semibold text-sm text-slate-900">{t.name}</div>
+                  <div className="text-xs text-slate-700">{t.description}</div>
                 </div>
               </div>
             </button>
@@ -453,8 +453,8 @@ function EmailTemplateViewer() {
       <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h3 className="font-bold text-gray-900">{selected.name}</h3>
-            <p className="text-sm text-gray-500 mt-1">Subject: {selected.subject}</p>
+            <h3 className="font-bold text-slate-900">{selected.name}</h3>
+            <p className="text-sm text-slate-700 mt-1">Subject: {selected.subject}</p>
           </div>
           <button onClick={() => copyBody(selected.id, `Subject: ${selected.subject}\n\n${selected.body}`)}
             className="flex items-center gap-2 px-3 py-1.5 bg-brand-blue-600 text-white rounded-lg text-sm hover:bg-brand-blue-700">
@@ -474,7 +474,7 @@ function EmailTemplateViewer() {
           </div>
         )}
 
-        <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans bg-gray-50 rounded-lg p-4 max-h-[500px] overflow-y-auto leading-relaxed">
+        <pre className="text-sm text-slate-900 whitespace-pre-wrap font-sans bg-gray-50 rounded-lg p-4 max-h-[500px] overflow-y-auto leading-relaxed">
           {selected.body}
         </pre>
       </div>
@@ -492,7 +492,7 @@ function EditableList({ label, items, onChange, onAdd, onRemove }: {
 }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-semibold text-slate-900 mb-1">{label}</label>
       <div className="space-y-2">
         {items.map((item, i) => (
           <div key={i} className="flex gap-2">
@@ -524,18 +524,18 @@ export default function DocumentTemplatesPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <nav className="text-sm mb-4">
-          <ol className="flex items-center space-x-2 text-gray-500">
+          <ol className="flex items-center space-x-2 text-slate-700">
             <li><Link href="/admin" className="hover:text-brand-blue-600">Admin</Link></li>
             <li>/</li>
             <li><Link href="/admin/documents" className="hover:text-brand-blue-600">Documents</Link></li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">Templates</li>
+            <li className="text-slate-900 font-medium">Templates</li>
           </ol>
         </nav>
 
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Document Templates</h1>
-          <p className="text-gray-600 mt-2">Standardized templates for MOUs, reports, and professional emails. Fill in the fields, copy the output.</p>
+          <h1 className="text-3xl font-bold text-slate-900">Document Templates</h1>
+          <p className="text-slate-700 mt-2">Standardized templates for MOUs, reports, and professional emails. Fill in the fields, copy the output.</p>
         </div>
 
         {/* Tabs */}
@@ -547,11 +547,11 @@ export default function DocumentTemplatesPage() {
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition ${
                   tab === t.id
                     ? 'bg-brand-blue-600 text-white shadow-md'
-                    : 'bg-white text-gray-700 border border-gray-200 hover:border-gray-300'
+                    : 'bg-white text-slate-900 border border-gray-200 hover:border-gray-300'
                 }`}>
                 <Icon className="w-4 h-4" />
                 {t.label}
-                <span className={`text-xs ${tab === t.id ? 'text-brand-blue-200' : 'text-gray-400'}`}>
+                <span className={`text-xs ${tab === t.id ? 'text-brand-blue-200' : 'text-slate-700'}`}>
                   {t.desc}
                 </span>
               </button>

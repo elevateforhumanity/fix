@@ -134,17 +134,13 @@ export default function HeroVideo({
         style={{ height: 'clamp(400px, 56vw, 780px)' }}
         aria-label={analyticsName ? `${analyticsName} hero video` : 'Hero video'}
       >
-        {/* autoPlayOnMount + preloadFull — hero is always above the fold.
-            preloadFull buffers the video immediately so the first frame
-            appears without waiting for the IntersectionObserver tick.
-            loop — hero videos loop indefinitely; without this the video ends,
-            onEnded fires, and the poster fades back in over the video. */}
+        {/* autoPlayOnMount — hero is always above the fold; start immediately.
+            loop — prevents the poster fading back in when the video ends. */}
         <CanonicalVideo
           src={videoSrc}
           poster={posterImage}
           className="absolute inset-0 w-full h-full object-cover object-center"
           autoPlayOnMount
-          preloadFull
           loop
         />
 
@@ -211,7 +207,7 @@ export default function HeroVideo({
                   </h1>
                 )}
                 {belowHeroSubheadline && (
-                  <p className="text-slate-600 text-lg leading-relaxed mb-8 max-w-2xl">
+                  <p className="text-slate-900 text-lg leading-relaxed mb-8 max-w-2xl">
                     {belowHeroSubheadline}
                   </p>
                 )}
@@ -257,7 +253,7 @@ export default function HeroVideo({
               onClick={() => setTranscriptOpen((o) => !o)}
               aria-expanded={transcriptOpen}
               aria-controls={transcriptId}
-              className="flex items-center gap-2 text-white text-xs font-semibold hover:text-slate-700 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-red-500 rounded"
+              className="flex items-center gap-2 text-slate-500 text-xs font-semibold hover:text-slate-700 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-red-500 rounded"
             >
               <span>{transcriptOpen ? '▲' : '▼'}</span>
               Video transcript
@@ -265,7 +261,7 @@ export default function HeroVideo({
             {transcriptOpen && (
               <p
                 id={transcriptId}
-                className="mt-3 text-slate-600 text-sm leading-relaxed max-w-2xl"
+                className="mt-3 text-slate-800 text-sm leading-relaxed max-w-2xl"
               >
                 {transcript}
               </p>

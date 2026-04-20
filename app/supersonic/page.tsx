@@ -78,7 +78,7 @@ export default function SupersonicPage() {
                 <feature.icon className="w-7 h-7 text-brand-blue-400" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-              <p className="text-gray-500 text-sm">{feature.description}</p>
+              <p className="text-slate-700 text-sm">{feature.description}</p>
             </div>
           ))}
         </div>
@@ -95,18 +95,18 @@ export default function SupersonicPage() {
                 </div>
                 <span className="text-2xl font-bold text-brand-red-500">{program.price}</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-500 text-sm mb-4">
+              <div className="flex items-center gap-2 text-slate-700 text-sm mb-4">
                 <TrendingUp className="w-4 h-4" />
                 <span>Regular program: {program.regular}</span>
               </div>
               <ul className="space-y-2 mb-6">
-                <li className="flex items-center gap-2 text-gray-300 text-sm">
+                <li className="flex items-center gap-2 text-slate-700 text-sm">
                   <span className="text-slate-400 flex-shrink-0">•</span> Full curriculum coverage
                 </li>
-                <li className="flex items-center gap-2 text-gray-300 text-sm">
+                <li className="flex items-center gap-2 text-slate-700 text-sm">
                   <span className="text-slate-400 flex-shrink-0">•</span> Hands-on training included
                 </li>
-                <li className="flex items-center gap-2 text-gray-300 text-sm">
+                <li className="flex items-center gap-2 text-slate-700 text-sm">
                   <span className="text-slate-400 flex-shrink-0">•</span> Job placement assistance
                 </li>
               </ul>

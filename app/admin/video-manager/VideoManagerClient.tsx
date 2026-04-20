@@ -77,18 +77,18 @@ export default function VideoManagerPage() {
 
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Video Manager</h1>
-            <p className="text-sm text-gray-500 mt-1">Upload, manage, and organize lesson videos</p>
+            <h1 className="text-2xl font-bold text-slate-900">Video Manager</h1>
+            <p className="text-sm text-slate-700 mt-1">Upload, manage, and organize lesson videos</p>
           </div>
-          <button onClick={fetchVideos} className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
+          <button onClick={fetchVideos} className="p-2 text-slate-700 hover:text-slate-700 rounded-lg hover:bg-gray-100">
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
         </div>
 
         {/* Upload Section */}
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-gray-400" /> Upload Video
+          <h2 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-slate-700" /> Upload Video
           </h2>
           <VideoUploader onUploadComplete={handleUploadComplete} />
         </div>
@@ -96,7 +96,7 @@ export default function VideoManagerPage() {
         {/* Search */}
         <div className="mb-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
             <input
               type="text"
               placeholder="Search videos..."
@@ -110,17 +110,17 @@ export default function VideoManagerPage() {
         {/* Video List */}
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">{filtered.length} Videos</h2>
+            <h2 className="font-semibold text-slate-900">{filtered.length} Videos</h2>
           </div>
           {loading ? (
             <div className="px-6 py-12 text-center">
-              <RefreshCw className="w-6 h-6 text-gray-300 mx-auto mb-2 animate-spin" />
-              <p className="text-sm text-gray-500">Loading videos...</p>
+              <RefreshCw className="w-6 h-6 text-slate-700 mx-auto mb-2 animate-spin" />
+              <p className="text-sm text-slate-700">Loading videos...</p>
             </div>
           ) : filtered.length === 0 ? (
             <div className="px-6 py-12 text-center">
-              <Video className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-              <p className="text-sm text-gray-500">{search ? 'No matching videos.' : 'No videos uploaded yet.'}</p>
+              <Video className="w-10 h-10 text-slate-700 mx-auto mb-3" />
+              <p className="text-sm text-slate-700">{search ? 'No matching videos.' : 'No videos uploaded yet.'}</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-100">
@@ -131,18 +131,18 @@ export default function VideoManagerPage() {
                       <Video className="w-4 h-4 text-purple-600" />
                     </div>
                     <div className="min-w-0">
-                      <div className="text-sm font-medium text-gray-900 truncate">{v.title || v.url.split('/').pop()}</div>
-                      <div className="text-xs text-gray-400 truncate">{v.url}</div>
+                      <div className="text-sm font-medium text-slate-900 truncate">{v.title || v.url.split('/').pop()}</div>
+                      <div className="text-xs text-slate-700 truncate">{v.url}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 ml-4">
                     {v.duration_minutes && (
-                      <span className="text-xs text-gray-400">{v.duration_minutes}m</span>
+                      <span className="text-xs text-slate-700">{v.duration_minutes}m</span>
                     )}
-                    <span className="text-xs text-gray-400">{new Date(v.created_at).toLocaleDateString()}</span>
+                    <span className="text-xs text-slate-700">{new Date(v.created_at).toLocaleDateString()}</span>
                     <button
                       onClick={() => copyToClipboard(v.url)}
-                      className="p-1.5 text-gray-400 hover:text-gray-600 rounded"
+                      className="p-1.5 text-slate-700 hover:text-slate-700 rounded"
                       title="Copy URL"
                     >
                       {copiedUrl === v.url ? <Check className="w-3.5 h-3.5 text-brand-green-600" /> : <Copy className="w-3.5 h-3.5" />}

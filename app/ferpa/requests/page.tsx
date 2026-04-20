@@ -60,8 +60,8 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; icon: typeof
   approved: { label: 'Approved', color: 'bg-brand-green-100 text-brand-green-800', icon: CheckCircle },
   partially_approved: { label: 'Partially Approved', color: 'bg-brand-orange-100 text-brand-orange-800', icon: AlertCircle },
   denied: { label: 'Denied', color: 'bg-brand-red-100 text-brand-red-800', icon: XCircle },
-  completed: { label: 'Completed', color: 'bg-white text-gray-800', icon: CheckCircle },
-  cancelled: { label: 'Cancelled', color: 'bg-white text-gray-500', icon: XCircle },
+  completed: { label: 'Completed', color: 'bg-white text-slate-900', icon: CheckCircle },
+  cancelled: { label: 'Cancelled', color: 'bg-white text-slate-700', icon: XCircle },
 };
 
 export default async function FerpaRequestsPage() {
@@ -127,16 +127,16 @@ export default async function FerpaRequestsPage() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Access Requests</span>
+            <span className="text-slate-900 font-medium">Access Requests</span>
           </nav>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Access Requests</h1>
-              <p className="text-gray-600 mt-1">
+              <h1 className="text-2xl font-bold text-slate-900">Access Requests</h1>
+              <p className="text-slate-700 mt-1">
                 Manage records access and disclosure requests
               </p>
             </div>
@@ -160,8 +160,8 @@ export default async function FerpaRequestsPage() {
                 <Clock className="w-5 h-5 text-yellow-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{pendingCount}</p>
-                <p className="text-sm text-gray-500">Pending</p>
+                <p className="text-2xl font-bold text-slate-900">{pendingCount}</p>
+                <p className="text-sm text-slate-700">Pending</p>
               </div>
             </div>
           </div>
@@ -171,8 +171,8 @@ export default async function FerpaRequestsPage() {
                 <AlertCircle className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{reviewCount}</p>
-                <p className="text-sm text-gray-500">Under Review</p>
+                <p className="text-2xl font-bold text-slate-900">{reviewCount}</p>
+                <p className="text-sm text-slate-700">Under Review</p>
               </div>
             </div>
           </div>
@@ -182,8 +182,8 @@ export default async function FerpaRequestsPage() {
                 <XCircle className="w-5 h-5 text-brand-red-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{overdueCount}</p>
-                <p className="text-sm text-gray-500">Overdue</p>
+                <p className="text-2xl font-bold text-slate-900">{overdueCount}</p>
+                <p className="text-sm text-slate-700">Overdue</p>
               </div>
             </div>
           </div>
@@ -193,8 +193,8 @@ export default async function FerpaRequestsPage() {
                 <span className="text-slate-500 flex-shrink-0">•</span>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{(requests?.length || 0) - pendingCount - reviewCount}</p>
-                <p className="text-sm text-gray-500">Processed</p>
+                <p className="text-2xl font-bold text-slate-900">{(requests?.length || 0) - pendingCount - reviewCount}</p>
+                <p className="text-sm text-slate-700">Processed</p>
               </div>
             </div>
           </div>
@@ -203,8 +203,8 @@ export default async function FerpaRequestsPage() {
         {/* Requests List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">All Requests</h2>
-            <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-white">
+            <h2 className="text-lg font-semibold text-slate-900">All Requests</h2>
+            <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-slate-700 hover:text-slate-900 border border-gray-300 rounded-lg hover:bg-white">
               <Filter className="w-4 h-4" />
               Filter
             </button>
@@ -224,11 +224,11 @@ export default async function FerpaRequestsPage() {
                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                           overdue ? 'bg-brand-red-100' : 'bg-white'
                         }`}>
-                          <FileText className={`w-5 h-5 ${overdue ? 'text-brand-red-600' : 'text-gray-500'}`} />
+                          <FileText className={`w-5 h-5 ${overdue ? 'text-brand-red-600' : 'text-slate-700'}`} />
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <h3 className="font-medium text-gray-900">
+                            <h3 className="font-medium text-slate-900">
                               {REQUEST_TYPE_LABELS[request.request_type] || request.request_type}
                             </h3>
                             {overdue && (
@@ -237,7 +237,7 @@ export default async function FerpaRequestsPage() {
                               </span>
                             )}
                           </div>
-                          <div className="flex items-center gap-4 mt-1 text-sm text-gray-600">
+                          <div className="flex items-center gap-4 mt-1 text-sm text-slate-700">
                             <span className="flex items-center gap-1">
                               <User className="w-4 h-4" />
                               {request.requester_name}
@@ -246,7 +246,7 @@ export default async function FerpaRequestsPage() {
                               <span>Student: {request.student_name}</span>
                             )}
                           </div>
-                          <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                          <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
                             <span>Created: {formatDate(request.created_at)}</span>
                             {request.due_date && (
                               <span className={overdue ? 'text-brand-red-600 font-medium' : ''}>
@@ -275,8 +275,8 @@ export default async function FerpaRequestsPage() {
             </div>
           ) : (
             <div className="px-6 py-12 text-center">
-              <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">No access requests found</p>
+              <FileText className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-700">No access requests found</p>
               <Link
                 href="/ferpa/requests/new"
                 className="text-brand-blue-600 hover:text-brand-blue-700 text-sm font-medium mt-2 inline-block"

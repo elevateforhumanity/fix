@@ -85,8 +85,8 @@ export default async function SampleReportsPage() {
             <Link href="/admin/reporting" className="text-sm text-brand-blue-600 hover:text-brand-blue-700 flex items-center gap-1 mb-2">
               <ArrowLeft className="w-4 h-4" /> Back to Reports
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Sample Reports</h1>
-            <p className="text-sm text-gray-500 mt-1">Live data snapshots from the platform (most recent 20 records per section)</p>
+            <h1 className="text-2xl font-bold text-slate-900">Sample Reports</h1>
+            <p className="text-sm text-slate-700 mt-1">Live data snapshots from the platform (most recent 20 records per section)</p>
           </div>
         </div>
 
@@ -95,22 +95,22 @@ export default async function SampleReportsPage() {
             <div key={section.title} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <section.icon className="w-5 h-5 text-gray-400" />
+                  <section.icon className="w-5 h-5 text-slate-700" />
                   <div>
-                    <h2 className="font-semibold text-gray-900">{section.title}</h2>
-                    <p className="text-xs text-gray-500">{section.count} records</p>
+                    <h2 className="font-semibold text-slate-900">{section.title}</h2>
+                    <p className="text-xs text-slate-700">{section.count} records</p>
                   </div>
                 </div>
               </div>
               {section.rows.length === 0 ? (
-                <div className="px-6 py-8 text-center text-sm text-gray-500">No data available.</div>
+                <div className="px-6 py-8 text-center text-sm text-slate-700">No data available.</div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-gray-50">
                       <tr>
                         {section.headers.map((h) => (
-                          <th key={h} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{h}</th>
+                          <th key={h} className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">{h}</th>
                         ))}
                       </tr>
                     </thead>
@@ -118,7 +118,7 @@ export default async function SampleReportsPage() {
                       {section.rows.map((row: any, i: number) => (
                         <tr key={i} className="hover:bg-gray-50">
                           {row.cols.map((col: string, j: number) => (
-                            <td key={j} className="px-6 py-3 text-sm text-gray-700">{col}</td>
+                            <td key={j} className="px-6 py-3 text-sm text-slate-900">{col}</td>
                           ))}
                         </tr>
                       ))}

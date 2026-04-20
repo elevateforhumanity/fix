@@ -53,7 +53,7 @@ export function ProgramsGridSection({ title, programs }: ProgramsGridSectionProp
                 </p>
 
                 {/* Meta */}
-                <div className="flex items-center gap-4 text-sm text-gray-500">
+                <div className="flex items-center gap-4 text-sm text-slate-700">
                   <div className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
                     <span>{program.duration}</span>

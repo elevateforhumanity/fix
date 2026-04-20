@@ -88,10 +88,10 @@ export default async function AccountPage() {
               )}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-slate-900">
                 {profile?.full_name || 'Welcome'}
               </h1>
-              <p className="text-gray-600">{user.email}</p>
+              <p className="text-slate-700">{user.email}</p>
             </div>
           </div>
         </div>
@@ -105,13 +105,13 @@ export default async function AccountPage() {
               className="bg-white rounded-xl p-6 shadow-sm border hover:border-brand-blue-300 hover:shadow-md transition-all flex items-center gap-4"
             >
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
-                <section.icon className="w-6 h-6 text-gray-600" />
+                <section.icon className="w-6 h-6 text-slate-700" />
               </div>
               <div className="flex-1">
-                <h2 className="font-semibold text-gray-900">{section.title}</h2>
-                <p className="text-gray-600 text-sm">{section.description}</p>
+                <h2 className="font-semibold text-slate-900">{section.title}</h2>
+                <p className="text-slate-700 text-sm">{section.description}</p>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </Link>
           ))}
         </div>

@@ -51,8 +51,8 @@ export function EmployerTalentPipeline() {
     ? candidates
     : candidates.filter(c => c.stage === selectedStage);
 
-  if (loading) return <div className="p-8 text-center text-gray-500">Loading pipeline…</div>;
-  if (candidates.length === 0) return <div className="p-8 text-center text-gray-500">No candidates in pipeline yet.</div>;
+  if (loading) return <div className="p-8 text-center text-slate-700">Loading pipeline…</div>;
+  if (candidates.length === 0) return <div className="p-8 text-center text-slate-700">No candidates in pipeline yet.</div>;
 
   const stageColors: Record<string, string> = {
     sourced: 'bg-gray-100 text-black',
@@ -111,7 +111,7 @@ export function EmployerTalentPipeline() {
                     </span>
                   </div>
                   <p className="text-black">{candidate.program}</p>
-                  <p className="text-sm text-gray-500">Graduates: {candidate.graduationDate}</p>
+                  <p className="text-sm text-slate-700">Graduates: {candidate.graduationDate}</p>
                 </div>
                 <div className="text-right">
                   <div className="text-3xl font-bold text-brand-orange-600">{candidate.matchScore}%</div>

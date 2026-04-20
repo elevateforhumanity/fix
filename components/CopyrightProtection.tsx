@@ -160,10 +160,10 @@ function showCopyrightNotice() {
 export function CopyrightFooter() {
   return (
     <div className="bg-brand-blue-700 text-white py-3 px-4 text-center text-sm">
-      <p className="mb-2 text-gray-300">
+      <p className="mb-2 text-slate-700">
         © 2025 Elevate for Humanity. All Rights Reserved.
       </p>
-      <div className="flex justify-center gap-4 text-xs text-gray-400">
+      <div className="flex justify-center gap-4 text-xs text-slate-700">
         <a href="/terms-of-service" className="hover:text-white">
           Terms
         </a>

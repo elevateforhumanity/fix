@@ -164,12 +164,12 @@ export default function CreateCourseContentPage() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Link href="/admin" className="text-gray-600 hover:text-gray-900">
+              <Link href="/admin" className="text-slate-700 hover:text-slate-900">
                 <ArrowLeft className="w-5 h-5" />
               </Link>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Course Content Creator</h1>
-                <p className="text-sm text-gray-600">Create video lessons with AI</p>
+                <h1 className="text-xl font-bold text-slate-900">Course Content Creator</h1>
+                <p className="text-sm text-slate-700">Create video lessons with AI</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -187,13 +187,13 @@ export default function CreateCourseContentPage() {
           {/* Course & Module Selection */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-sm border p-4 sticky top-24">
-              <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h2 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <List className="w-5 h-5" />
                 Courses & Modules
               </h2>
 
               {courses.length === 0 ? (
-                <p className="text-sm text-gray-500">No courses found. Create courses in the database first.</p>
+                <p className="text-sm text-slate-700">No courses found. Create courses in the database first.</p>
               ) : (
                 <div className="space-y-4">
                   {courses.map((course) => (
@@ -211,7 +211,7 @@ export default function CreateCourseContentPage() {
                         }`}
                       >
                         <p className="font-medium text-sm">{course.title}</p>
-                        <p className="text-xs text-gray-500">{course.modules?.length || 0} modules</p>
+                        <p className="text-xs text-slate-700">{course.modules?.length || 0} modules</p>
                       </button>
 
                       {selectedCourse?.id === course.id && course.modules && (
@@ -252,9 +252,9 @@ export default function CreateCourseContentPage() {
           <div className="lg:col-span-3">
             {!selectedModule ? (
               <div className="bg-white rounded-xl shadow-sm border p-12 text-center">
-                <Video className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Select a Module</h3>
-                <p className="text-gray-600">Choose a course and module from the left to start creating content.</p>
+                <Video className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">Select a Module</h3>
+                <p className="text-slate-700">Choose a course and module from the left to start creating content.</p>
               </div>
             ) : (
               <div className="space-y-6">
@@ -262,10 +262,10 @@ export default function CreateCourseContentPage() {
                 <div className="bg-white rounded-xl shadow-sm border p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900">{selectedModule.title}</h2>
-                      <p className="text-gray-600">{selectedModule.description}</p>
+                      <h2 className="text-2xl font-bold text-slate-900">{selectedModule.title}</h2>
+                      <p className="text-slate-700">{selectedModule.description}</p>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-slate-700">
                       <Clock className="w-4 h-4" />
                       {selectedModule.duration_minutes} min
                     </div>
@@ -324,7 +324,7 @@ export default function CreateCourseContentPage() {
                   />
 
                   <div className="flex justify-between mt-4">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-slate-700">
                       {script.split(' ').length} words • ~{Math.ceil(script.split(' ').length / 150)} min read
                     </p>
                     <button
@@ -348,7 +348,7 @@ export default function CreateCourseContentPage() {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-slate-900 mb-2">
                         Avatar Style
                       </label>
                       <select
@@ -364,7 +364,7 @@ export default function CreateCourseContentPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-slate-900 mb-2">
                         Voice Style
                       </label>
                       <select
@@ -392,7 +392,7 @@ export default function CreateCourseContentPage() {
                     <h3 className="text-lg font-semibold">Generate Video</h3>
                   </div>
 
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-slate-700 mb-4">
                     Once your script is ready, click below to generate the AI avatar video. This may take a few minutes.
                   </p>
 

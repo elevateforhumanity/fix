@@ -65,7 +65,7 @@ export default function DemoApplicationsPage() {
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
           <input
             type="text"
             placeholder="Search by name or program..."
@@ -75,7 +75,7 @@ export default function DemoApplicationsPage() {
           />
         </div>
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-gray-400" />
+          <Filter className="w-4 h-4 text-slate-700" />
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -89,12 +89,12 @@ export default function DemoApplicationsPage() {
       </div>
 
       {/* Count */}
-      <p className="text-xs text-gray-500 mb-3">{filtered.length} application{filtered.length !== 1 ? 's' : ''} found</p>
+      <p className="text-xs text-slate-700 mb-3">{filtered.length} application{filtered.length !== 1 ? 's' : ''} found</p>
 
       {/* Applications list */}
       <div className="space-y-3">
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-gray-500 text-sm">No applications match your search.</div>
+          <div className="text-center py-12 text-slate-700 text-sm">No applications match your search.</div>
         )}
         {filtered.map((s: any) => (
           <div key={s.id} className="bg-white rounded-xl border overflow-hidden hover:shadow-sm transition">
@@ -104,8 +104,8 @@ export default function DemoApplicationsPage() {
               className="w-full p-4 flex items-center justify-between text-left"
             >
               <div className="flex-1 min-w-0">
-                <div className="font-semibold text-gray-900">{s.full_name}</div>
-                <div className="text-sm text-gray-500">{s.program} · Applied {s.applied}</div>
+                <div className="font-semibold text-slate-900">{s.full_name}</div>
+                <div className="text-sm text-slate-700">{s.program} · Applied {s.applied}</div>
               </div>
               <div className="flex items-center gap-3 ml-4">
                 <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
@@ -113,7 +113,7 @@ export default function DemoApplicationsPage() {
                 }`}>
                   {s.status === 'pending' ? 'Needs Review' : 'Enrolled'}
                 </span>
-                {expandedId === s.id ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+                {expandedId === s.id ? <ChevronUp className="w-4 h-4 text-slate-700" /> : <ChevronDown className="w-4 h-4 text-slate-700" />}
               </div>
             </button>
 
@@ -122,33 +122,33 @@ export default function DemoApplicationsPage() {
               <div className="border-t px-4 py-4 bg-gray-50 animate-fade-in-up">
                 <div className="grid sm:grid-cols-3 gap-4 mb-4">
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Contact</p>
-                    <p className="text-sm font-medium text-gray-900">{s.email}</p>
-                    <p className="text-sm text-gray-600">{s.phone}</p>
+                    <p className="text-xs text-slate-700 mb-1">Contact</p>
+                    <p className="text-sm font-medium text-slate-900">{s.email}</p>
+                    <p className="text-sm text-slate-700">{s.phone}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Funding Source</p>
-                    <p className="text-sm font-medium text-gray-900">{s.funding}</p>
+                    <p className="text-xs text-slate-700 mb-1">Funding Source</p>
+                    <p className="text-sm font-medium text-slate-900">{s.funding}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Documents</p>
+                    <p className="text-xs text-slate-700 mb-1">Documents</p>
                     <p className={`text-sm font-medium ${s.documents === 'Complete' ? 'text-brand-green-700' : s.documents === 'Missing ID' ? 'text-brand-red-700' : 'text-amber-700'}`}>
                       {s.documents}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Eligibility</p>
+                    <p className="text-xs text-slate-700 mb-1">Eligibility</p>
                     <p className={`text-sm font-medium ${s.eligibility === 'Verified' ? 'text-brand-green-700' : 'text-amber-700'}`}>
                       {s.eligibility}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Program Start</p>
-                    <p className="text-sm font-medium text-gray-900">{s.start_date}</p>
+                    <p className="text-xs text-slate-700 mb-1">Program Start</p>
+                    <p className="text-sm font-medium text-slate-900">{s.start_date}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">Hours Required</p>
-                    <p className="text-sm font-medium text-gray-900">{s.hours_required?.toLocaleString()}</p>
+                    <p className="text-xs text-slate-700 mb-1">Hours Required</p>
+                    <p className="text-sm font-medium text-slate-900">{s.hours_required?.toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="flex gap-2 pt-2 border-t">
@@ -164,7 +164,7 @@ export default function DemoApplicationsPage() {
                   >
                     <XCircle className="w-3.5 h-3.5" /> Deny
                   </button>
-                  <button className="inline-flex items-center gap-1.5 border text-gray-600 text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+                  <button className="inline-flex items-center gap-1.5 border text-slate-700 text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-100 transition">
                     <Eye className="w-3.5 h-3.5" /> View Full Profile
                   </button>
                 </div>

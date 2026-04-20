@@ -5,13 +5,14 @@ export const maxDuration = 60;
 
 // app/api/grants/draft/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
 import OpenAI from 'openai';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 import { auditMutation } from '@/lib/api/withAudit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
+import { apiAuthGuard } from '@/lib/admin/guards';
 
 // Lazy-load OpenAI client to prevent build-time errors
 function getOpenAI() {
@@ -23,8 +24,11 @@ function getOpenAI() {
 }
 
 async function _POST(req: NextRequest) {
-    const rateLimited = await applyRateLimit(req, 'api');
-    if (rateLimited) return rateLimited;
+  const rateLimited = await applyRateLimit(req, 'api');
+  if (rateLimited) return rateLimited;
+
+  const auth = await apiAuthGuard(req);
+  if (auth.error) return auth.error;
 
   if (
     !process.env.OPENAI_API_KEY ||
@@ -36,6 +40,7 @@ async function _POST(req: NextRequest) {
     );
   }
   try {
+    const supabaseAdmin = await getAdminClient();
     const body = await req.json();
     const { grantId, entityId } = body as { grantId: string; entityId: string };
 

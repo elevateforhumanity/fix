@@ -179,7 +179,7 @@ export function SponsorshipTooltip({ info }: { info?: SponsorshipInfo }) {
           <li>Compliance and reporting</li>
           <li>Payment coordination</li>
         </ul>
-        <p className="text-xs text-gray-600 pt-2 border-t">
+        <p className="text-xs text-slate-700 pt-2 border-t">
           Partners retain their program name and curriculum. {sponsorName} handles the funding
           and compliance.
         </p>

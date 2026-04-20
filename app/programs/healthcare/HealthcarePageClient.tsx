@@ -40,7 +40,6 @@ export default function HealthcarePageClient({ programs }: { programs: Program[]
           src="https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/cna-hero.mp4"
           className="absolute inset-0 w-full h-full object-cover brightness-110"
           autoPlayOnMount
-          preloadFull
           playThrough={false}
         />
 
@@ -136,7 +135,7 @@ export default function HealthcarePageClient({ programs }: { programs: Program[]
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-slate-50 rounded-2xl p-6">
               <h3 className="font-bold text-slate-900 mb-4">Patient Care Skills</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <ul className="space-y-2 text-slate-700 text-sm">
                 <li>• Vital signs monitoring</li>
                 <li>• Patient hygiene assistance</li>
                 <li>• Mobility and transfer techniques</li>
@@ -146,7 +145,7 @@ export default function HealthcarePageClient({ programs }: { programs: Program[]
             </div>
             <div className="bg-slate-50 rounded-2xl p-6">
               <h3 className="font-bold text-slate-900 mb-4">Clinical Procedures</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <ul className="space-y-2 text-slate-700 text-sm">
                 <li>• Blood draw techniques (Phlebotomy)</li>
                 <li>• Specimen collection</li>
                 <li>• Medical equipment operation</li>
@@ -156,7 +155,7 @@ export default function HealthcarePageClient({ programs }: { programs: Program[]
             </div>
             <div className="bg-slate-50 rounded-2xl p-6">
               <h3 className="font-bold text-slate-900 mb-4">Professional Skills</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <ul className="space-y-2 text-slate-700 text-sm">
                 <li>• HIPAA compliance</li>
                 <li>• Medical terminology</li>
                 <li>• Patient communication</li>
@@ -184,7 +183,7 @@ export default function HealthcarePageClient({ programs }: { programs: Program[]
                     <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    <span className="text-gray-700">{req}</span>
+                    <span className="text-slate-900">{req}</span>
                   </li>
                 ))}
               </ul>
@@ -197,7 +196,7 @@ export default function HealthcarePageClient({ programs }: { programs: Program[]
                     <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    <span className="text-gray-700">{req}</span>
+                    <span className="text-slate-900">{req}</span>
                   </li>
                 ))}
               </ul>

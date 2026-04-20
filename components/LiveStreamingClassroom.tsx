@@ -135,7 +135,7 @@ export function LiveStreamingClassroom({ sessionId }: LiveStreamingClassroomProp
         <div className="bg-brand-blue-700 text-white px-6 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-xl font-bold">JavaScript Advanced Concepts</h1>
-            <p className="text-sm text-gray-400">Live Session • 45 participants</p>
+            <p className="text-sm text-slate-700">Live Session • 45 participants</p>
           </div>
           <div className="flex gap-2">
             <Button variant="secondary" size="sm">🔴 Recording</Button>
@@ -152,7 +152,7 @@ export function LiveStreamingClassroom({ sessionId }: LiveStreamingClassroomProp
               <div className="text-center text-white">
                 <div className="text-6xl mb-4 text-4xl md:text-5xl lg:text-6xl">🎥</div>
                 <p className="text-xl">Live Stream Active</p>
-                <p className="text-sm text-gray-400 mt-2">Dr. Emily Rodriguez is presenting</p>
+                <p className="text-sm text-slate-700 mt-2">Dr. Emily Rodriguez is presenting</p>
               </div>
 
               {/* Screen Share Indicator */}
@@ -214,7 +214,7 @@ export function LiveStreamingClassroom({ sessionId }: LiveStreamingClassroomProp
                   className={`flex-1 py-3 text-sm font-medium capitalize ${
                     activePanel === panel
                       ? 'text-white border-b-2 border-brand-red-600'
-                      : 'text-gray-400 hover:text-white'
+                      : 'text-slate-700 hover:text-white'
                   }`}
                 >
                   {panel}
@@ -231,9 +231,9 @@ export function LiveStreamingClassroom({ sessionId }: LiveStreamingClassroomProp
                       <div key={msg.id} className="bg-white rounded p-3">
                         <div className="flex justify-between items-start mb-1">
                           <span className="font-semibold text-white text-sm">{msg.author}</span>
-                          <span className="text-xs text-gray-400">{msg.timestamp}</span>
+                          <span className="text-xs text-slate-700">{msg.timestamp}</span>
                         </div>
-                        <p className="text-sm text-gray-300">{msg.message}</p>
+                        <p className="text-sm text-slate-700">{msg.message}</p>
                       </div>
                     ))}
                   </div>
@@ -254,7 +254,7 @@ export function LiveStreamingClassroom({ sessionId }: LiveStreamingClassroomProp
 
               {activePanel === 'participants' && (
                 <div className="p-4 space-y-2">
-                  <div className="text-sm text-gray-400 mb-3">
+                  <div className="text-sm text-slate-700 mb-3">
                     {participants.length} participants
                   </div>
                   {participants.map((p) => (
@@ -263,13 +263,13 @@ export function LiveStreamingClassroom({ sessionId }: LiveStreamingClassroomProp
                         <div className="text-2xl">{p.avatar}</div>
                         <div>
                           <p className="text-white text-sm font-medium">{p.name}</p>
-                          <p className="text-xs text-gray-400 capitalize">{p.role}</p>
+                          <p className="text-xs text-slate-700 capitalize">{p.role}</p>
                         </div>
                       </div>
                       <div className="flex gap-2">
                         {p.handRaised && <span className="text-yellow-500">✋</span>}
-                        {p.muted && <span className="text-gray-500">🎤</span>}
-                        {!p.videoOn && <span className="text-gray-500">📹</span>}
+                        {p.muted && <span className="text-slate-700">🎤</span>}
+                        {!p.videoOn && <span className="text-slate-700">📹</span>}
                       </div>
                     </div>
                   ))}
@@ -292,7 +292,7 @@ export function LiveStreamingClassroom({ sessionId }: LiveStreamingClassroomProp
                             >
                               <div className="flex justify-between items-center mb-1">
                                 <span className="text-white text-sm">{option.text}</span>
-                                <span className="text-gray-300 text-sm">{option.votes} votes</span>
+                                <span className="text-slate-700 text-sm">{option.votes} votes</span>
                               </div>
                               <div className="w-full bg-white rounded-full h-2">
                                 <div

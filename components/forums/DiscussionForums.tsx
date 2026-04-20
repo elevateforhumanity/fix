@@ -329,7 +329,7 @@ export default function DiscussionForums() {
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <div className="flex items-center gap-4 mb-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-700 w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search discussions..."
@@ -391,7 +391,7 @@ export default function DiscussionForums() {
                       <p className="text-sm text-black mb-3 line-clamp-2">
                         {category.description}
                       </p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-sm text-slate-700">
                         <span className="flex items-center gap-1">
                           <MessageSquare className="w-4 h-4" />
                           {category.thread_count} threads
@@ -481,7 +481,7 @@ export default function DiscussionForums() {
             </div>
           ) : threads.length === 0 ? (
             <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-              <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <MessageSquare className="w-16 h-16 text-slate-700 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-black mb-2">
                 No threads yet
               </h3>
@@ -517,7 +517,7 @@ export default function DiscussionForums() {
                               <Pin className="w-4 h-4 text-brand-blue-600" />
                             )}
                             {thread.is_locked && (
-                              <Lock className="w-4 h-4 text-gray-400" />
+                              <Lock className="w-4 h-4 text-slate-700" />
                             )}
                             <h3 className="text-lg font-semibold text-black hover:text-brand-blue-600">
                               {thread.title}
@@ -528,7 +528,7 @@ export default function DiscussionForums() {
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-sm text-slate-700">
                         <span>{thread.author_name}</span>
                         <span>•</span>
                         <span>{formatTimeAgo(thread.created_at)}</span>
@@ -629,7 +629,7 @@ export default function DiscussionForums() {
             <h1 className="text-3xl font-bold text-black mb-4">
               {selectedThread.title}
             </h1>
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+            <div className="flex items-center gap-2 text-sm text-slate-700 mb-4">
               <span className="font-medium">{selectedThread.author_name}</span>
               <span>•</span>
               <span>{formatTimeAgo(selectedThread.created_at)}</span>
@@ -655,7 +655,7 @@ export default function DiscussionForums() {
                     <span className="font-semibold text-black">
                       {post.author_name}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-slate-700">
                       {formatTimeAgo(post.created_at)}
                     </span>
                   </div>

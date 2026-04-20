@@ -123,7 +123,7 @@ export default function SubmitAssignmentForm({
 
       {/* Written response */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-slate-900 mb-1">
           Written Response
         </label>
         <textarea
@@ -137,10 +137,10 @@ export default function SubmitAssignmentForm({
 
       {/* File upload */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Attachments <span className="text-gray-400 font-normal">(optional, max {maxFileSizeMb} MB each)</span>
+        <label className="block text-sm font-medium text-slate-900 mb-1">
+          Attachments <span className="text-slate-700 font-normal">(optional, max {maxFileSizeMb} MB each)</span>
         </label>
-        <label className="flex items-center gap-2 cursor-pointer w-fit px-4 py-2 border border-dashed border-gray-300 rounded-lg text-sm text-gray-600 hover:border-brand-blue-400 hover:text-brand-blue-600 transition-colors">
+        <label className="flex items-center gap-2 cursor-pointer w-fit px-4 py-2 border border-dashed border-gray-300 rounded-lg text-sm text-slate-700 hover:border-brand-blue-400 hover:text-brand-blue-600 transition-colors">
           <Upload className="w-4 h-4" />
           Choose files
           <input
@@ -155,11 +155,11 @@ export default function SubmitAssignmentForm({
         {files.length > 0 && (
           <ul className="mt-3 space-y-2">
             {files.map((f, i) => (
-              <li key={i} className="flex items-center gap-2 text-sm text-gray-700 bg-gray-50 rounded-lg px-3 py-2">
-                <FileText className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <li key={i} className="flex items-center gap-2 text-sm text-slate-900 bg-gray-50 rounded-lg px-3 py-2">
+                <FileText className="w-4 h-4 text-slate-700 flex-shrink-0" />
                 <span className="flex-1 truncate">{f.name}</span>
-                <span className="text-gray-400 text-xs flex-shrink-0">{(f.size / 1024).toFixed(0)} KB</span>
-                <button type="button" onClick={() => removeFile(i)} className="text-gray-400 hover:text-red-500 transition-colors">
+                <span className="text-slate-700 text-xs flex-shrink-0">{(f.size / 1024).toFixed(0)} KB</span>
+                <button type="button" onClick={() => removeFile(i)} className="text-slate-700 hover:text-red-500 transition-colors">
                   <X className="w-4 h-4" />
                 </button>
               </li>

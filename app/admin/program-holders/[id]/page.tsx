@@ -310,7 +310,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
     active: 'bg-brand-green-100 text-brand-green-800 border-brand-green-200',
     pending: 'bg-amber-100 text-amber-800 border-amber-200',
     rejected: 'bg-brand-red-100 text-brand-red-800 border-brand-red-200',
-    suspended: 'bg-gray-100 text-gray-600 border-gray-200',
+    suspended: 'bg-gray-100 text-slate-700 border-gray-200',
   };
 
   return (
@@ -324,7 +324,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
           ]} />
         </div>
 
-        <Link href="/admin/program-holders" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 mb-4">
+        <Link href="/admin/program-holders" className="inline-flex items-center gap-1 text-sm text-slate-700 hover:text-slate-900 mb-4">
           <ArrowLeft className="w-4 h-4" /> Back to list
         </Link>
 
@@ -344,10 +344,10 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
         <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-slate-900">
                 {holder.organization_name || holder.name || 'Unnamed Organization'}
               </h1>
-              <span className={`inline-block mt-2 text-xs font-medium px-3 py-1 rounded border ${statusColor[holder.status] || 'bg-gray-100 text-gray-600'}`}>
+              <span className={`inline-block mt-2 text-xs font-medium px-3 py-1 rounded border ${statusColor[holder.status] || 'bg-gray-100 text-slate-700'}`}>
                 {holder.status?.toUpperCase()}
               </span>
             </div>
@@ -389,41 +389,41 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
           {/* Details grid */}
           <dl className="grid sm:grid-cols-2 gap-4 mt-6 text-sm">
             <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-gray-400" />
-              <dt className="text-gray-500">Contact:</dt>
+              <User className="w-4 h-4 text-slate-700" />
+              <dt className="text-slate-700">Contact:</dt>
               <dd className="font-medium">{holder.contact_name || '—'}</dd>
             </div>
             <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-gray-400" />
-              <dt className="text-gray-500">Email:</dt>
+              <Mail className="w-4 h-4 text-slate-700" />
+              <dt className="text-slate-700">Email:</dt>
               <dd className="font-medium">{holder.contact_email || '—'}</dd>
             </div>
             <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-gray-400" />
-              <dt className="text-gray-500">Phone:</dt>
+              <Phone className="w-4 h-4 text-slate-700" />
+              <dt className="text-slate-700">Phone:</dt>
               <dd className="font-medium">{holder.contact_phone || '—'}</dd>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-gray-400" />
-              <dt className="text-gray-500">Applied:</dt>
+              <Calendar className="w-4 h-4 text-slate-700" />
+              <dt className="text-slate-700">Applied:</dt>
               <dd className="font-medium">{new Date(holder.created_at).toLocaleDateString()}</dd>
             </div>
             <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-gray-400" />
-              <dt className="text-gray-500">MOU:</dt>
+              <FileText className="w-4 h-4 text-slate-700" />
+              <dt className="text-slate-700">MOU:</dt>
               <dd className="font-medium">{holder.mou_signed ? 'Signed' : 'Not signed'}</dd>
             </div>
             {holderProfile && (
               <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-gray-400" />
-                <dt className="text-gray-500">Account:</dt>
+                <User className="w-4 h-4 text-slate-700" />
+                <dt className="text-slate-700">Account:</dt>
                 <dd className="font-medium">{holderProfile.email} ({holderProfile.role})</dd>
               </div>
             )}
             {holder.approved_by && (
               <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-gray-400" />
-                <dt className="text-gray-500">Approved by:</dt>
+                <User className="w-4 h-4 text-slate-700" />
+                <dt className="text-slate-700">Approved by:</dt>
                 <dd className="font-medium">{holder.approved_by}</dd>
               </div>
             )}
@@ -433,17 +433,17 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
         {/* ── PENDING: Approve & Provision (atomic RPC) ── */}
         {(isPending || isInactive) && hasApprovalAuthority && hasLinkedUser && (
           <div className="bg-white rounded-lg shadow-sm border-2 border-amber-300 p-6 mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-1">
+            <h2 className="text-lg font-semibold text-slate-900 mb-1">
               {isPending ? 'Approve & Provision' : 'Reactivate & Provision'}
             </h2>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-slate-700 mb-4">
               Select the primary program this holder will manage. Approval and program provisioning execute as a single database transaction — the holder cannot be activated without a program.
             </p>
 
             {unassignedPrograms.length > 0 ? (
               <form action={approveAndProvision} className="space-y-4">
                 <div>
-                  <label htmlFor="approve_program_id" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="approve_program_id" className="block text-sm font-medium text-slate-900 mb-1">
                     Primary program to provision
                   </label>
                   <select
@@ -478,11 +478,11 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
 
         {/* ── Provisioned Programs ── */}
         <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-1 flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-slate-900 mb-1 flex items-center gap-2">
             <BookOpen className="w-5 h-5 text-brand-blue-600" />
             Provisioned Programs
           </h2>
-          <p className="text-xs text-gray-500 mb-4">
+          <p className="text-xs text-slate-700 mb-4">
             Each program grants scoped access to student records, grades, and analytics for that program only.
           </p>
 
@@ -493,13 +493,13 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
                 return (
                   <div key={a.id} className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-slate-900">
                         {prog?.name || prog?.title || a.program_id}
                         {a.is_primary && (
                           <span className="ml-2 text-xs bg-brand-blue-100 text-brand-blue-700 px-2 py-0.5 rounded">Primary</span>
                         )}
                       </p>
-                      <p className="text-xs text-gray-500">Role: {a.role_in_program} | Since {new Date(a.created_at).toLocaleDateString()}</p>
+                      <p className="text-xs text-slate-700">Role: {a.role_in_program} | Since {new Date(a.created_at).toLocaleDateString()}</p>
                     </div>
                     {hasApprovalAuthority && (
                       <form action={removeProgram}>
@@ -526,7 +526,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
           {isActive && hasApprovalAuthority && unassignedPrograms.length > 0 && (
             <form action={provisionProgram} className="flex items-end gap-3 pt-4 border-t">
               <div className="flex-1">
-                <label htmlFor="provision_program_id" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="provision_program_id" className="block text-sm font-medium text-slate-900 mb-1">
                   Provision additional program
                 </label>
                 <select
@@ -554,26 +554,26 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
           )}
 
           {!hasApprovalAuthority && unassignedPrograms.length > 0 && (
-            <p className="text-xs text-gray-400 mt-2">Program provisioning requires admin or super_admin role.</p>
+            <p className="text-xs text-slate-700 mt-2">Program provisioning requires admin or super_admin role.</p>
           )}
         </div>
 
         {/* Audit Trail */}
         {(auditEvents || []).length > 0 && (
           <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Audit Trail</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Audit Trail</h2>
             <div className="space-y-2">
               {(auditEvents || []).map((evt: any, i: number) => (
                 <div key={i} className="flex items-start gap-3 text-sm py-2 border-b border-gray-100 last:border-0">
-                  <span className="text-gray-400 whitespace-nowrap text-xs mt-0.5">
+                  <span className="text-slate-700 whitespace-nowrap text-xs mt-0.5">
                     {new Date(evt.created_at).toLocaleString()}
                   </span>
                   <div>
-                    <span className="font-medium text-gray-700">{evt.action.replace('program_holder.', '')}</span>
+                    <span className="font-medium text-slate-900">{evt.action.replace('program_holder.', '')}</span>
                     {evt.metadata?.program_name && (
-                      <span className="text-gray-500"> — {evt.metadata.program_name}</span>
+                      <span className="text-slate-700"> — {evt.metadata.program_name}</span>
                     )}
-                    <p className="text-xs text-gray-400">by {evt.actor_user_id}</p>
+                    <p className="text-xs text-slate-700">by {evt.actor_user_id}</p>
                   </div>
                 </div>
               ))}
@@ -584,8 +584,8 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
         {/* MOU section */}
         {isActive && !holder.mou_signed && (
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">MOU</h2>
-            <p className="text-sm text-gray-600 mb-4">This holder has not signed the MOU yet.</p>
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">MOU</h2>
+            <p className="text-sm text-slate-700 mb-4">This holder has not signed the MOU yet.</p>
             <Link
               href={`/admin/program-holders/${id}/countersign-mou`}
               className="text-sm text-brand-blue-600 hover:underline font-medium"

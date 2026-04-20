@@ -66,10 +66,10 @@ export default async function ProgramHolderStudentsPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Students</h1>
+          <h1 className="text-3xl font-bold text-slate-900">Students</h1>
           <div className="flex items-center gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input type="text" placeholder="Search students..." className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg" />
             </div>
           </div>
@@ -80,12 +80,12 @@ export default async function ProgramHolderStudentsPage() {
             <table className="w-full">
               <thead className="bg-white">
                 <tr>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Student</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Program</th>
-                  <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900">Progress</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Enrolled</th>
-                  <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900">Status</th>
-                  <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900">Actions</th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Student</th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Program</th>
+                  <th className="px-6 py-3 text-center text-sm font-semibold text-slate-900">Progress</th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Enrolled</th>
+                  <th className="px-6 py-3 text-center text-sm font-semibold text-slate-900">Status</th>
+                  <th className="px-6 py-3 text-center text-sm font-semibold text-slate-900">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -93,32 +93,32 @@ export default async function ProgramHolderStudentsPage() {
                   <tr key={student.id} className="hover:bg-white">
                     <td className="px-6 py-4">
                       <div>
-                        <p className="font-medium text-gray-900">{student.name}</p>
-                        <p className="text-sm text-gray-500">{student.email}</p>
+                        <p className="font-medium text-slate-900">{student.name}</p>
+                        <p className="text-sm text-slate-700">{student.email}</p>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-gray-600">{student.program}</td>
+                    <td className="px-6 py-4 text-slate-700">{student.program}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-center gap-2">
                         <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div className={`h-full rounded-full ${student.progress === 100 ? 'bg-brand-green-500' : 'bg-brand-blue-500'}`} style={{ width: `${student.progress}%` }} />
                         </div>
-                        <span className="text-sm text-gray-600">{student.progress}%</span>
+                        <span className="text-sm text-slate-700">{student.progress}%</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-gray-600">{student.enrolled}</td>
+                    <td className="px-6 py-4 text-slate-700">{student.enrolled}</td>
                     <td className="px-6 py-4 text-center">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${
                         student.status === 'completed' ? 'bg-brand-green-100 text-brand-green-700' :
                         student.status === 'active' ? 'bg-brand-blue-100 text-brand-blue-700' :
-                        'bg-white text-gray-700'
+                        'bg-white text-slate-900'
                       }`}>
                         {student.status}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-center gap-2">
-                        <Link href={`/program-holder/students/${student.id}`} className="p-2 text-gray-600 hover:text-brand-blue-600 hover:bg-brand-blue-50 rounded">
+                        <Link href={`/program-holder/students/${student.id}`} className="p-2 text-slate-700 hover:text-brand-blue-600 hover:bg-brand-blue-50 rounded">
                           <Eye className="w-4 h-4" />
                         </Link>
                       </div>
@@ -130,9 +130,9 @@ export default async function ProgramHolderStudentsPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-            <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-gray-900 mb-2">No students yet</h3>
-            <p className="text-gray-600">Students will appear here once they enroll in your programs.</p>
+            <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-slate-900 mb-2">No students yet</h3>
+            <p className="text-slate-700">Students will appear here once they enroll in your programs.</p>
           </div>
         )}
       </div>

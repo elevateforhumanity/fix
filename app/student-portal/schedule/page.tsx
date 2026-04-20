@@ -199,8 +199,8 @@ export default async function StudentPortalSchedulePage() {
               <GraduationCap className="w-5 h-5 text-brand-blue-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Active Programs</h2>
-              <p className="text-sm text-gray-500">Your currently enrolled programs</p>
+              <h2 className="text-xl font-bold text-slate-900">Active Programs</h2>
+              <p className="text-sm text-slate-700">Your currently enrolled programs</p>
             </div>
           </div>
 
@@ -237,7 +237,7 @@ export default async function StudentPortalSchedulePage() {
                   </div>
                   <div className="p-4 space-y-2">
                     {enrollment.delivery_mode && (
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-slate-700">
                         {enrollment.delivery_mode === 'online' || enrollment.delivery_mode === 'virtual'
                           ? <Video className="w-4 h-4 text-brand-blue-500 flex-shrink-0" />
                           : <Building2 className="w-4 h-4 text-brand-blue-500 flex-shrink-0" />}
@@ -261,8 +261,8 @@ export default async function StudentPortalSchedulePage() {
               <Calendar className="w-5 h-5 text-brand-blue-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Upcoming Class Sessions</h2>
-              <p className="text-sm text-gray-500">Scheduled sessions for your cohort</p>
+              <h2 className="text-xl font-bold text-slate-900">Upcoming Class Sessions</h2>
+              <p className="text-sm text-slate-700">Scheduled sessions for your cohort</p>
             </div>
           </div>
 
@@ -293,21 +293,21 @@ export default async function StudentPortalSchedulePage() {
                       </p>
                     </div>
                     <div className="flex-1 min-w-0 space-y-1.5">
-                      <p className="font-semibold text-gray-900">{session.program_title ?? session.cohort_name ?? 'Class Session'}</p>
+                      <p className="font-semibold text-slate-900">{session.program_title ?? session.cohort_name ?? 'Class Session'}</p>
                       {(session.start_time || session.end_time) && (
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-700">
                           <Clock className="w-4 h-4 text-brand-blue-500 flex-shrink-0" />
                           <span>{formatTime(session.start_time)}{session.end_time ? ` – ${formatTime(session.end_time)}` : ''}</span>
                         </div>
                       )}
                       {session.location && (
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-700">
                           {modalityIcon(session.modality)}
                           <span>{session.location}</span>
                         </div>
                       )}
                       {session.instructor_name && (
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-700">
                           <User className="w-4 h-4 text-brand-blue-500 flex-shrink-0" />
                           <span>{session.instructor_name}</span>
                         </div>
@@ -335,8 +335,8 @@ export default async function StudentPortalSchedulePage() {
               <Calendar className="w-5 h-5 text-brand-orange-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Upcoming Appointments</h2>
-              <p className="text-sm text-gray-500">Advising sessions, orientations, and scheduled meetings</p>
+              <h2 className="text-xl font-bold text-slate-900">Upcoming Appointments</h2>
+              <p className="text-sm text-slate-700">Advising sessions, orientations, and scheduled meetings</p>
             </div>
           </div>
 
@@ -368,13 +368,13 @@ export default async function StudentPortalSchedulePage() {
                     </p>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 truncate">{apt.title}</p>
-                    <p className="text-sm text-gray-500 mt-0.5">
+                    <p className="font-semibold text-slate-900 truncate">{apt.title}</p>
+                    <p className="text-sm text-slate-700 mt-0.5">
                       {new Date(apt.scheduled_at).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} at{' '}
                       {new Date(apt.scheduled_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                     </p>
                     {apt.location && (
-                      <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
+                      <p className="text-sm text-slate-700 flex items-center gap-1 mt-1">
                         <MapPin className="w-3 h-3" /> {apt.location}
                       </p>
                     )}
@@ -399,8 +399,8 @@ export default async function StudentPortalSchedulePage() {
               <Building2 className="w-5 h-5 text-emerald-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Training Location</h2>
-              <p className="text-sm text-gray-500">Elevate for Humanity main training center</p>
+              <h2 className="text-xl font-bold text-slate-900">Training Location</h2>
+              <p className="text-sm text-slate-700">Elevate for Humanity main training center</p>
             </div>
           </div>
           <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
@@ -409,8 +409,8 @@ export default async function StudentPortalSchedulePage() {
                 <Image src="/images/pages/student-portal-page-8.jpg" alt="Training center" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
               </div>
               <div className="p-6 sm:p-8 flex flex-col justify-center space-y-4">
-                <h3 className="text-lg font-bold text-gray-900">Elevate for Humanity Career &amp; Technical Institute</h3>
-                <div className="flex items-start gap-3 text-sm text-gray-700">
+                <h3 className="text-lg font-bold text-slate-900">Elevate for Humanity Career &amp; Technical Institute</h3>
+                <div className="flex items-start gap-3 text-sm text-slate-900">
                   <MapPin className="w-4 h-4 text-brand-blue-500 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium">8888 Keystone Crossing, Suite 1300</p>
@@ -418,15 +418,15 @@ export default async function StudentPortalSchedulePage() {
                     <p className="text-slate-500 text-xs mt-1">Appointment-only. Confirm your session before arriving.</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-gray-700">
+                <div className="flex items-center gap-3 text-sm text-slate-900">
                   <Clock className="w-4 h-4 text-brand-blue-500 flex-shrink-0" />
                   <span>Mon–Fri, 9:00 AM – 5:00 PM EST</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-gray-700">
+                <div className="flex items-center gap-3 text-sm text-slate-900">
                   <Phone className="w-4 h-4 text-brand-blue-500 flex-shrink-0" />
                   <a href="tel:+13173143757" className="hover:text-brand-blue-600 transition-colors">(317) 314-3757</a>
                 </div>
-                <div className="flex items-center gap-3 text-sm text-gray-700">
+                <div className="flex items-center gap-3 text-sm text-slate-900">
                   <Mail className="w-4 h-4 text-brand-blue-500 flex-shrink-0" />
                   <a href="mailto:info@elevateforhumanity.org" className="hover:text-brand-blue-600 transition-colors">info@elevateforhumanity.org</a>
                 </div>
@@ -440,7 +440,7 @@ export default async function StudentPortalSchedulePage() {
 
         {/* Quick Links */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-5">Quick Links</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-5">Quick Links</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
               { label: 'My Courses', href: '/lms/courses', img: '/images/pages/student-portal-page-1.jpg' },

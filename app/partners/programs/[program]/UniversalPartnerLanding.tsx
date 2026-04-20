@@ -47,7 +47,7 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
       {/* How It Works */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">How the Program Works</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">How the Program Works</h2>
           {config.registeredApprenticeship && (
             <p className="text-center text-orange-600 font-semibold mb-4">USDOL Registered Apprenticeship</p>
           )}
@@ -61,7 +61,7 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
               <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-orange-600 font-bold text-xl">1</span>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Apply &amp; Get Approved</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Apply &amp; Get Approved</h3>
               <p className="text-black text-sm">
                 Submit your application{config.siteVisitRequired ? ', complete a Zoom site visit,' : ''} and sign the MOU.
                 Approval takes about {config.approvalTimeline}.
@@ -71,7 +71,7 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
               <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-orange-600 font-bold text-xl">2</span>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Host {Cap(config.traineeLabelPlural)}</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Host {Cap(config.traineeLabelPlural)}</h3>
               <p className="text-black text-sm">
                 We match qualified {config.traineeLabelPlural} to your {config.siteLabel}. They complete {config.trainingHours.toLocaleString()} hours
                 of training under your {config.supervisorTitle.toLowerCase()}.
@@ -81,7 +81,7 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
               <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-orange-600 font-bold text-xl">3</span>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Grow Your Team</h3>
+              <h3 className="font-bold text-slate-900 mb-2">Grow Your Team</h3>
               <p className="text-black text-sm">
                 {config.licensingExam
                   ? `${Cap(config.traineeLabelPlural)} sit for the ${config.licensingExam}. You get a trained, credentialed professional.`
@@ -95,11 +95,11 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
       {/* Requirements */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">What Partner {Cap(config.siteLabelPlural)} Need to Know</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">What Partner {Cap(config.siteLabelPlural)} Need to Know</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {config.requirements.map((req) => (
               <div key={req.title} className="bg-white p-6 rounded-xl border border-gray-200">
-                <h3 className="font-bold text-gray-900 mb-2">{req.title}</h3>
+                <h3 className="font-bold text-slate-900 mb-2">{req.title}</h3>
                 <p className="text-black text-sm">{req.description}</p>
               </div>
             ))}
@@ -110,7 +110,7 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
       {/* Timeline */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Approval Timeline</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Approval Timeline</h2>
           <div className="space-y-6">
             {[
               { step: '1', title: 'Submit Application', time: 'Day 1', desc: 'Complete the online partner application form.' },
@@ -125,7 +125,7 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="font-bold text-gray-900">{item.title}</h3>
+                    <h3 className="font-bold text-slate-900">{item.title}</h3>
                     <span className="text-xs bg-white text-black px-2 py-0.5 rounded-full">{item.time}</span>
                   </div>
                   <p className="text-black text-sm">{item.desc}</p>
@@ -139,11 +139,11 @@ export default function UniversalPartnerLanding({ config }: { config: ProgramCon
       {/* FAQ */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {config.faq.map((item, i) => (
               <details key={i} className="bg-white rounded-xl border border-gray-200 overflow-hidden group">
-                <summary className="px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-white transition-colors">
+                <summary className="px-6 py-4 cursor-pointer font-semibold text-slate-900 hover:bg-white transition-colors">
                   {item.question}
                 </summary>
                 <div className="px-6 pb-4 text-black text-sm">{item.answer}</div>

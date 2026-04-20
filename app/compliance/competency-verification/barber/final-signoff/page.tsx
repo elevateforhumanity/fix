@@ -35,9 +35,9 @@ export default function FinalSignoffPage() {
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-lg font-bold">Final Competency Sign-Off — Barber Apprenticeship</h1>
-            <p className="text-[10px] text-gray-600">Elevate for Humanity | RAPIDS ID: 2025-IN-132301 | Occupation: Barber (330.371-010)</p>
+            <p className="text-[10px] text-slate-700">Elevate for Humanity | RAPIDS ID: 2025-IN-132301 | Occupation: Barber (330.371-010)</p>
           </div>
-          <div className="text-right text-[10px] text-gray-500">
+          <div className="text-right text-[10px] text-slate-700">
             <p>Tri-Party Verification</p>
             <p>Total: 2,000 hours | {BARBER_STATS.totalCompetencies} competencies</p>
           </div>
@@ -47,8 +47,8 @@ export default function FinalSignoffPage() {
       {/* Screen header */}
       <div className="print:hidden py-8 bg-white">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Final Competency Sign-Off</h1>
-          <p className="text-gray-600 mb-4">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Final Competency Sign-Off</h1>
+          <p className="text-slate-700 mb-4">
             Tri-party final verification form. All four parties must sign before apprenticeship completion is documented.
           </p>
           <PrintButton />
@@ -197,15 +197,15 @@ export default function FinalSignoffPage() {
           <div className="grid grid-cols-3 gap-3 text-sm print:text-[10px] mb-4">
             <div className="border-2 rounded p-3 text-center print:p-2">
               <p className="font-bold text-brand-green-700">☐ APPRENTICESHIP COMPLETE</p>
-              <p className="text-xs text-gray-500 mt-1">All hours, competencies, and evaluations verified</p>
+              <p className="text-xs text-slate-700 mt-1">All hours, competencies, and evaluations verified</p>
             </div>
             <div className="border-2 rounded p-3 text-center print:p-2">
               <p className="font-bold text-brand-orange-600">☐ REMEDIATION REQUIRED</p>
-              <p className="text-xs text-gray-500 mt-1">Specific competencies below standard</p>
+              <p className="text-xs text-slate-700 mt-1">Specific competencies below standard</p>
             </div>
             <div className="border-2 rounded p-3 text-center print:p-2">
               <p className="font-bold text-brand-red-600">☐ NOT COMPLETE</p>
-              <p className="text-xs text-gray-500 mt-1">Hours or competencies not met</p>
+              <p className="text-xs text-slate-700 mt-1">Hours or competencies not met</p>
             </div>
           </div>
           <div className="text-sm print:text-[10px]">
@@ -217,7 +217,7 @@ export default function FinalSignoffPage() {
         {/* Tri-Party + Sponsor Signatures */}
         <div className="border-t-2 border-gray-900 pt-6 print:pt-4">
           <h2 className="font-bold text-lg mb-2 print:text-sm print:mb-1">Tri-Party Verification & Sponsor Sign-Off</h2>
-          <p className="text-xs text-gray-500 mb-4 print:mb-3">
+          <p className="text-xs text-slate-700 mb-4 print:mb-3">
             All four parties must sign to complete the apprenticeship record. This form is filed with RAPIDS documentation.
           </p>
 
@@ -225,7 +225,7 @@ export default function FinalSignoffPage() {
             {/* Party 1: RTI Instructor */}
             <div className="border-2 rounded-lg p-4 print:p-3 print:border-gray-400">
               <h3 className="font-bold text-sm mb-1 print:text-[11px]">1. Credential Partner — RTI Instructor (Licensed Barber)</h3>
-              <p className="text-xs text-gray-500 mb-3 print:text-[9px] print:mb-2">
+              <p className="text-xs text-slate-700 mb-3 print:text-[9px] print:mb-2">
                 I verify that the apprentice has completed all Related Technical Instruction requirements, demonstrated competency in all RTI-assessed areas (Sections 1–3, 5), and is prepared for the Indiana state board examination.
               </p>
               <div className="grid grid-cols-2 gap-3 text-xs print:text-[9px] print:gap-2">
@@ -242,7 +242,7 @@ export default function FinalSignoffPage() {
             {/* Party 2: Employer */}
             <div className="border-2 rounded-lg p-4 print:p-3 print:border-gray-400">
               <h3 className="font-bold text-sm mb-1 print:text-[11px]">2. Employer — Barbershop Supervisor (Licensed Barber)</h3>
-              <p className="text-xs text-gray-500 mb-3 print:text-[9px] print:mb-2">
+              <p className="text-xs text-slate-700 mb-3 print:text-[9px] print:mb-2">
                 I verify that the apprentice has completed all required On-the-Job Training hours under my direct supervision at a licensed barbershop, demonstrated competency in all OJT-assessed areas (Sections 4–6), and is ready for independent practice.
               </p>
               <div className="grid grid-cols-2 gap-3 text-xs print:text-[9px] print:gap-2">
@@ -261,7 +261,7 @@ export default function FinalSignoffPage() {
             {/* Party 3: Program Holder */}
             <div className="border-2 rounded-lg p-4 print:p-3 print:border-gray-400">
               <h3 className="font-bold text-sm mb-1 print:text-[11px]">3. Program Holder — RTI Coordinator</h3>
-              <p className="text-xs text-gray-500 mb-3 print:text-[9px] print:mb-2">
+              <p className="text-xs text-slate-700 mb-3 print:text-[9px] print:mb-2">
                 I verify that all competency rubric sections have been completed and scored, all evaluation checkpoints (30-day, midpoint, final) have been conducted, and all documentation is recorded in the institutional LMS.
               </p>
               <div className="grid grid-cols-2 gap-3 text-xs print:text-[9px] print:gap-2">
@@ -278,7 +278,7 @@ export default function FinalSignoffPage() {
             {/* Party 4: Sponsor */}
             <div className="border-2 border-gray-900 rounded-lg p-4 print:p-3">
               <h3 className="font-bold text-sm mb-1 print:text-[11px]">4. Elevate for Humanity — Apprenticeship Sponsor</h3>
-              <p className="text-xs text-gray-500 mb-3 print:text-[9px] print:mb-2">
+              <p className="text-xs text-slate-700 mb-3 print:text-[9px] print:mb-2">
                 As the registered apprenticeship sponsor (RAPIDS ID: 2025-IN-132301), I verify that all program requirements have been met, all tri-party verifications are complete, and the apprentice is approved for completion documentation and credential pursuit.
               </p>
               <div className="grid grid-cols-2 gap-3 text-xs print:text-[9px] print:gap-2">
@@ -320,10 +320,10 @@ export default function FinalSignoffPage() {
           <Link href="/compliance/competency-verification/barber" className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700 transition">
             Barber Rubric Overview
           </Link>
-          <Link href="/compliance/competency-verification/barber/scoring-sheet" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/scoring-sheet" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Scoring Sheet
           </Link>
-          <Link href="/compliance/competency-verification/barber/monthly-ojt-evaluation" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/monthly-ojt-evaluation" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Monthly OJT Evaluation
           </Link>
         </div>

@@ -71,7 +71,7 @@ export default async function StaffPortalLayout({
               <span className="text-lg font-bold text-brand-blue-700">Staff Portal</span>
               <div className="hidden md:flex items-center gap-4">
                 {staffNavItems.map((item) => (
-                  <a key={item.href} href={item.href} className="text-sm text-gray-600 hover:text-brand-blue-700">{item.label}</a>
+                  <a key={item.href} href={item.href} className="text-sm text-slate-700 hover:text-brand-blue-700">{item.label}</a>
                 ))}
               </div>
             </div>

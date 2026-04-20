@@ -133,26 +133,26 @@ export default function ScheduleMeetingPage() {
           <div className="w-16 h-16 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-slate-500 flex-shrink-0">•</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">
             {isConfirmed ? 'Meeting Scheduled!' : 'Request Received'}
           </h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             {isConfirmed
               ? `Your ${meetingType === 'virtual' ? 'virtual meeting' : 'phone call'} has been scheduled for:`
               : 'We received your request and will confirm your meeting within 1 business day. If the requested time is unavailable, we will suggest alternatives.'}
           </p>
           {isConfirmed && (
           <div className="bg-white rounded-xl p-4 mb-6">
-            <p className="font-semibold text-gray-900">{selectedDate && formatDateFull(selectedDate)}</p>
-            <p className="text-gray-600">
+            <p className="font-semibold text-slate-900">{selectedDate && formatDateFull(selectedDate)}</p>
+            <p className="text-slate-700">
               {TIME_SLOTS.find(s => s.time === selectedTime)?.display} (1 hour)
             </p>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-slate-700 mt-2">
               {meetingType === 'virtual' ? 'Via Google Meet' : 'We will call you'}
             </p>
           </div>
           )}
-          <p className="text-sm text-gray-600 mb-6">
+          <p className="text-sm text-slate-700 mb-6">
             {isConfirmed
               ? <>A confirmation email has been sent to <strong>{formData.email}</strong></>
               : <>Questions? Call us at <strong>(317) 314-3757</strong></>}
@@ -166,7 +166,7 @@ export default function ScheduleMeetingPage() {
             </Link>
             <Link
               href="/programs"
-              className="w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-white transition"
+              className="w-full border border-gray-300 text-slate-900 px-6 py-3 rounded-lg font-semibold hover:bg-white transition"
             >
               Browse Programs
             </Link>
@@ -188,7 +188,7 @@ export default function ScheduleMeetingPage() {
       {/* Header */}
       <header className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 py-4">
-          <Link href="/" className="inline-flex items-center text-gray-600 hover:text-gray-900">
+          <Link href="/" className="inline-flex items-center text-slate-700 hover:text-slate-900">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
           </Link>
@@ -200,19 +200,19 @@ export default function ScheduleMeetingPage() {
         <div className="flex items-center justify-center mb-12">
           <div className="flex items-center">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-              step >= 1 ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+              step >= 1 ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-slate-700'
             }`}>
               1
             </div>
             <div className={`w-20 h-1 ${step >= 2 ? 'bg-brand-blue-600' : 'bg-gray-200'}`} />
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-              step >= 2 ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+              step >= 2 ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-slate-700'
             }`}>
               2
             </div>
             <div className={`w-20 h-1 ${step >= 3 ? 'bg-brand-blue-600' : 'bg-gray-200'}`} />
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-              step >= 3 ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-gray-500'
+              step >= 3 ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-slate-700'
             }`}>
               3
             </div>
@@ -223,8 +223,8 @@ export default function ScheduleMeetingPage() {
         {step === 1 && (
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">Schedule a Meeting</h1>
-              <p className="text-gray-600">Choose how you'd like to meet with our team</p>
+              <h1 className="text-3xl font-bold text-slate-900 mb-4">Schedule a Meeting</h1>
+              <p className="text-slate-700">Choose how you'd like to meet with our team</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -240,11 +240,11 @@ export default function ScheduleMeetingPage() {
                 <div className="w-14 h-14 bg-brand-blue-100 rounded-xl flex items-center justify-center mb-4">
                   <Video className="w-7 h-7 text-brand-blue-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Virtual Meeting</h3>
-                <p className="text-gray-600 mb-4">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Virtual Meeting</h3>
+                <p className="text-slate-700 mb-4">
                   Meet face-to-face via Google Meet video call. Screen sharing available.
                 </p>
-                <div className="flex items-center text-sm text-gray-500">
+                <div className="flex items-center text-sm text-slate-700">
                   <Clock className="w-4 h-4 mr-2" />
                   1 hour
                 </div>
@@ -262,11 +262,11 @@ export default function ScheduleMeetingPage() {
                 <div className="w-14 h-14 bg-brand-green-100 rounded-xl flex items-center justify-center mb-4">
                   <Phone className="w-7 h-7 text-brand-green-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Phone Call</h3>
-                <p className="text-gray-600 mb-4">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Phone Call</h3>
+                <p className="text-slate-700 mb-4">
                   We'll call you at your preferred number. No video required.
                 </p>
-                <div className="flex items-center text-sm text-gray-500">
+                <div className="flex items-center text-sm text-slate-700">
                   <Clock className="w-4 h-4 mr-2" />
                   1 hour
                 </div>
@@ -279,15 +279,15 @@ export default function ScheduleMeetingPage() {
         {step === 2 && (
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">Select Date & Time</h1>
-              <p className="text-gray-600">
+              <h1 className="text-3xl font-bold text-slate-900 mb-4">Select Date & Time</h1>
+              <p className="text-slate-700">
                 {meetingType === 'virtual' ? 'Virtual Meeting' : 'Phone Call'} • 1 Hour
               </p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-sm border p-6 mb-6">
               {/* Date Selection */}
-              <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+              <h3 className="font-semibold text-slate-900 mb-4 flex items-center">
                 <Calendar className="w-5 h-5 mr-2 text-brand-blue-600" />
                 Select a Date
               </h3>
@@ -299,7 +299,7 @@ export default function ScheduleMeetingPage() {
                     className={`p-3 rounded-xl text-center transition ${
                       selectedDate?.toDateString() === date.toDateString()
                         ? 'bg-brand-blue-600 text-white'
-                        : 'bg-white hover:bg-white text-gray-900'
+                        : 'bg-white hover:bg-white text-slate-900'
                     }`}
                   >
                     <div className="text-xs font-medium opacity-75">
@@ -318,7 +318,7 @@ export default function ScheduleMeetingPage() {
               {/* Time Selection */}
               {selectedDate && (
                 <>
-                  <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+                  <h3 className="font-semibold text-slate-900 mb-4 flex items-center">
                     <Clock className="w-5 h-5 mr-2 text-brand-blue-600" />
                     Select a Time (1 Hour Slots)
                   </h3>
@@ -330,7 +330,7 @@ export default function ScheduleMeetingPage() {
                         className={`p-3 rounded-xl text-center font-medium transition ${
                           selectedTime === slot.time
                             ? 'bg-brand-blue-600 text-white'
-                            : 'bg-white hover:bg-white text-gray-900'
+                            : 'bg-white hover:bg-white text-slate-900'
                         }`}
                       >
                         {slot.display}
@@ -345,7 +345,7 @@ export default function ScheduleMeetingPage() {
             <div className="flex justify-between">
               <button
                 onClick={() => setStep(1)}
-                className="px-6 py-3 text-gray-600 hover:text-gray-900 font-medium flex items-center"
+                className="px-6 py-3 text-slate-700 hover:text-slate-900 font-medium flex items-center"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
@@ -366,8 +366,8 @@ export default function ScheduleMeetingPage() {
         {step === 3 && (
           <div className="max-w-xl mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">Your Information</h1>
-              <p className="text-gray-600">
+              <h1 className="text-3xl font-bold text-slate-900 mb-4">Your Information</h1>
+              <p className="text-slate-700">
                 {formatDateFull(selectedDate!)} at {TIME_SLOTS.find(s => s.time === selectedTime)?.display}
               </p>
             </div>
@@ -375,7 +375,7 @@ export default function ScheduleMeetingPage() {
             <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border p-6">
               <div className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-slate-900 mb-2">
                     <User className="w-4 h-4 inline mr-2" />
                     Full Name <span className="text-brand-red-500">*</span>
                   </label>
@@ -391,7 +391,7 @@ export default function ScheduleMeetingPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-900 mb-2">
                     <Mail className="w-4 h-4 inline mr-2" />
                     Email <span className="text-brand-red-500">*</span>
                   </label>
@@ -407,7 +407,7 @@ export default function ScheduleMeetingPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="phone" className="block text-sm font-medium text-slate-900 mb-2">
                     <Phone className="w-4 h-4 inline mr-2" />
                     Phone Number <span className="text-brand-red-500">*</span>
                   </label>
@@ -423,7 +423,7 @@ export default function ScheduleMeetingPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="notes" className="block text-sm font-medium text-slate-900 mb-2">
                     <MessageSquare className="w-4 h-4 inline mr-2" />
                     What would you like to discuss? (Optional)
                   </label>
@@ -440,8 +440,8 @@ export default function ScheduleMeetingPage() {
 
               {/* Summary */}
               <div className="mt-6 p-4 bg-white rounded-xl">
-                <h4 className="font-semibold text-gray-900 mb-2">Meeting Summary</h4>
-                <div className="text-sm text-gray-600 space-y-1">
+                <h4 className="font-semibold text-slate-900 mb-2">Meeting Summary</h4>
+                <div className="text-sm text-slate-700 space-y-1">
                   <p><strong>Type:</strong> {meetingType === 'virtual' ? 'Virtual Meeting (Google Meet)' : 'Phone Call'}</p>
                   <p><strong>Date:</strong> {selectedDate && formatDateFull(selectedDate)}</p>
                   <p><strong>Time:</strong> {TIME_SLOTS.find(s => s.time === selectedTime)?.display}</p>
@@ -454,7 +454,7 @@ export default function ScheduleMeetingPage() {
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="px-6 py-3 text-gray-600 hover:text-gray-900 font-medium flex items-center"
+                  className="px-6 py-3 text-slate-700 hover:text-slate-900 font-medium flex items-center"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back

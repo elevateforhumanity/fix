@@ -239,31 +239,31 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
               <h2 className="text-xl font-semibold">Personal Information</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">First Name</label>
                   <input type="text" value={formData.firstName}
                     onChange={e => updateField('firstName', e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Last Name</label>
                   <input type="text" value={formData.lastName}
                     onChange={e => updateField('lastName', e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Social Security Number</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Social Security Number</label>
                   <input type="text" value={formData.ssn}
                     onChange={e => updateField('ssn', e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg" placeholder="XXX-XX-XXXX" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Date of Birth</label>
                   <input type="date" value={formData.dateOfBirth}
                     onChange={e => updateField('dateOfBirth', e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Filing Status</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Filing Status</label>
                   <select value={formData.filingStatus}
                     onChange={e => updateField('filingStatus', e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg">
@@ -284,19 +284,19 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
                 <h3 className="font-medium mb-3">W-2 Wages</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Employer Name</label>
+                    <label className="block text-sm text-slate-700 mb-1">Employer Name</label>
                     <input type="text" value={formData.w2Employer}
                       onChange={e => updateField('w2Employer', e.target.value)}
                       className="w-full px-3 py-2 border rounded-lg" />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Wages (Box 1)</label>
+                    <label className="block text-sm text-slate-700 mb-1">Wages (Box 1)</label>
                     <input type="number" value={formData.w2Wages}
                       onChange={e => updateField('w2Wages', e.target.value)}
                       className="w-full px-3 py-2 border rounded-lg" placeholder="0.00" />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Federal Withholding (Box 2)</label>
+                    <label className="block text-sm text-slate-700 mb-1">Federal Withholding (Box 2)</label>
                     <input type="number" value={formData.w2Withholding}
                       onChange={e => updateField('w2Withholding', e.target.value)}
                       className="w-full px-3 py-2 border rounded-lg" placeholder="0.00" />
@@ -306,7 +306,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
               <div className="p-4 border rounded-lg">
                 <h3 className="font-medium mb-3">1099 Income</h3>
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Total 1099 Income</label>
+                  <label className="block text-sm text-slate-700 mb-1">Total 1099 Income</label>
                   <input type="number" value={formData.income1099}
                     onChange={e => updateField('income1099', e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg" placeholder="0.00" />
@@ -327,7 +327,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
                     onChange={e => updateField('deductionType', e.target.value)} />
                   <div>
                     <p className="font-medium">Standard Deduction</p>
-                    <p className="text-sm text-gray-500">$13,850 for single filers ({taxYear})</p>
+                    <p className="text-sm text-slate-700">$13,850 for single filers ({taxYear})</p>
                   </div>
                 </label>
                 <label className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer ${
@@ -338,7 +338,7 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
                     onChange={e => updateField('deductionType', e.target.value)} />
                   <div>
                     <p className="font-medium">Itemized Deductions</p>
-                    <p className="text-sm text-gray-500">Mortgage interest, charitable donations, etc.</p>
+                    <p className="text-sm text-slate-700">Mortgage interest, charitable donations, etc.</p>
                   </div>
                 </label>
               </div>
@@ -372,12 +372,12 @@ export default function TaxPrepForm({ userId, profile, existingDraft, taxYear }:
               <h2 className="text-xl font-semibold">Review & File</h2>
               <div className={`rounded-lg p-6 text-center ${estimatedRefund >= 0 ? 'bg-brand-green-50' : 'bg-brand-red-50'}`}>
                 <DollarSign className={`w-12 h-12 mx-auto mb-2 ${estimatedRefund >= 0 ? 'text-brand-green-500' : 'text-brand-red-500'}`} />
-                <p className="text-sm text-gray-600 mb-1">
+                <p className="text-sm text-slate-700 mb-1">
                   {estimatedRefund >= 0 ? 'Estimated Refund' : 'Estimated Amount Owed'}
                 </p>
                 <p className={`text-4xl font-bold ${estimatedRefund >= 0 ? 'text-brand-green-700' : 'text-brand-red-700'}`}>
                   ${Math.abs(estimatedRefund).toLocaleString()}
-                  {isCalculating && <span role="status" aria-live="polite" className="ml-2 text-base font-normal text-gray-400">(calculating...)</span>}
+                  {isCalculating && <span role="status" aria-live="polite" className="ml-2 text-base font-normal text-slate-700">(calculating...)</span>}
                 </p>
               </div>
               <div className="space-y-2">

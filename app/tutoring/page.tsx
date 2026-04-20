@@ -104,8 +104,8 @@ export default function TutoringPage() {
       {/* Intro */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Tutoring Center</h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Tutoring Center</h1>
+          <p className="text-lg text-slate-700 max-w-3xl mx-auto">
             One-on-one and small group tutoring for every program we offer. Work with instructors and trained peer tutors on coursework, skills practice, and certification exam preparation. Up to 3 sessions per week included with your enrollment.
           </p>
         </div>
@@ -135,7 +135,7 @@ export default function TutoringPage() {
                 </div>
                 <div className="p-5">
                   <h3 className="font-bold text-lg mb-1">{item.title}</h3>
-                  <p className="text-gray-600 text-sm">{item.desc}</p>
+                  <p className="text-slate-700 text-sm">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -147,8 +147,8 @@ export default function TutoringPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Subject Areas</h2>
-            <p className="text-gray-600">Tutoring is available for every program and certification we offer.</p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Subject Areas</h2>
+            <p className="text-slate-700">Tutoring is available for every program and certification we offer.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {subjects.map((subject, index) => (
@@ -164,7 +164,7 @@ export default function TutoringPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">{subject.title}</h3>
-                  <p className="text-gray-600 text-sm">{subject.description}</p>
+                  <p className="text-slate-700 text-sm">{subject.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -183,8 +183,8 @@ export default function TutoringPage() {
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full flex items-center justify-between p-6 text-left hover:bg-white transition"
                 >
-                  <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
-                  {openFaq === index ? <ChevronUp className="w-5 h-5 text-gray-400 flex-shrink-0" /> : <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />}
+                  <span className="font-semibold text-slate-900 pr-4">{faq.question}</span>
+                  {openFaq === index ? <ChevronUp className="w-5 h-5 text-slate-700 flex-shrink-0" /> : <ChevronDown className="w-5 h-5 text-slate-700 flex-shrink-0" />}
                 </button>
                 {openFaq === index && (
                   <motion.div
@@ -192,7 +192,7 @@ export default function TutoringPage() {
                     animate={{ opacity: 1, height: 'auto' }}
                     className="px-6 pb-6"
                   >
-                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
                   </motion.div>
                 )}
               </div>

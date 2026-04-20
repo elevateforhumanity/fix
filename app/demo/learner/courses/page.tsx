@@ -26,10 +26,10 @@ export default function DemoCoursesPage() {
               <div className="flex items-center gap-2">
                 {c.status === 'Completed'  && <span className="w-2 h-2 rounded-full bg-green-500 inline-block" />}
                 {c.status === 'In Progress' && <Play className="w-5 h-5 text-blue-500" />}
-                {c.status === 'Locked'      && <Lock className="w-5 h-5 text-gray-400" />}
+                {c.status === 'Locked'      && <Lock className="w-5 h-5 text-slate-700" />}
                 <div>
-                  <div className="font-semibold text-gray-900">{c.name}</div>
-                  <div className="text-xs text-gray-500">{c.completed}/{c.modules} modules · Grade: {c.grade}</div>
+                  <div className="font-semibold text-slate-900">{c.name}</div>
+                  <div className="text-xs text-slate-700">{c.completed}/{c.modules} modules · Grade: {c.grade}</div>
                 </div>
               </div>
               {c.status !== 'Locked' && (

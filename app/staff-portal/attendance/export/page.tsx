@@ -81,18 +81,18 @@ export default async function ExportAttendancePage() {
           {/* Export Form */}
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-xl shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-6">Export Options</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-6">Export Options</h2>
               
               <form className="space-y-6">
                 {/* Date Range */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     <Calendar className="w-4 h-4 inline mr-2" />
                     Date Range
                   </label>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">Start Date</label>
+                      <label className="block text-xs text-slate-700 mb-1">Start Date</label>
                       <input
                         type="date"
                         className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500"
@@ -100,7 +100,7 @@ export default async function ExportAttendancePage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1">End Date</label>
+                      <label className="block text-xs text-slate-700 mb-1">End Date</label>
                       <input
                         type="date"
                         className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500"
@@ -112,7 +112,7 @@ export default async function ExportAttendancePage() {
 
                 {/* Cohort Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     <Users className="w-4 h-4 inline mr-2" />
                     Cohort/Program
                   </label>
@@ -126,7 +126,7 @@ export default async function ExportAttendancePage() {
 
                 {/* Status Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     <Filter className="w-4 h-4 inline mr-2" />
                     Attendance Status
                   </label>
@@ -138,7 +138,7 @@ export default async function ExportAttendancePage() {
                           defaultChecked={status === 'All'}
                           className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                         />
-                        <span className="text-sm text-gray-700">{status}</span>
+                        <span className="text-sm text-slate-900">{status}</span>
                       </label>
                     ))}
                   </div>
@@ -146,7 +146,7 @@ export default async function ExportAttendancePage() {
 
                 {/* Export Format */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     <FileSpreadsheet className="w-4 h-4 inline mr-2" />
                     Export Format
                   </label>
@@ -168,8 +168,8 @@ export default async function ExportAttendancePage() {
                           className="text-emerald-600 focus:ring-emerald-500"
                         />
                         <div>
-                          <div className="font-medium text-gray-900">{format.label}</div>
-                          <div className="text-xs text-gray-500">{format.desc}</div>
+                          <div className="font-medium text-slate-900">{format.label}</div>
+                          <div className="text-xs text-slate-700">{format.desc}</div>
                         </div>
                       </label>
                     ))}
@@ -178,7 +178,7 @@ export default async function ExportAttendancePage() {
 
                 {/* Include Options */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-900 mb-2">
                     Include in Export
                   </label>
                   <div className="space-y-2">
@@ -195,7 +195,7 @@ export default async function ExportAttendancePage() {
                           defaultChecked
                           className="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                         />
-                        <span className="text-sm text-gray-700">{option}</span>
+                        <span className="text-sm text-slate-900">{option}</span>
                       </label>
                     ))}
                   </div>
@@ -212,7 +212,7 @@ export default async function ExportAttendancePage() {
                   </button>
                   <button
                     type="button"
-                    className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-white text-gray-700"
+                    className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-white text-slate-900"
                   >
                     Preview
                   </button>
@@ -225,48 +225,48 @@ export default async function ExportAttendancePage() {
           <div className="space-y-6">
             {/* Quick Stats */}
             <div className="bg-white rounded-xl shadow-sm border p-6">
-              <h3 className="font-semibold text-gray-900 mb-4">Export Summary</h3>
+              <h3 className="font-semibold text-slate-900 mb-4">Export Summary</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Total Records</span>
-                  <span className="font-semibold text-gray-900">{totalRecords || 0}</span>
+                  <span className="text-slate-700">Total Records</span>
+                  <span className="font-semibold text-slate-900">{totalRecords || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Date Range</span>
-                  <span className="font-semibold text-gray-900">30 days</span>
+                  <span className="text-slate-700">Date Range</span>
+                  <span className="font-semibold text-slate-900">30 days</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Estimated Size</span>
-                  <span className="font-semibold text-gray-900">~50 KB</span>
+                  <span className="text-slate-700">Estimated Size</span>
+                  <span className="font-semibold text-slate-900">~50 KB</span>
                 </div>
               </div>
             </div>
 
             {/* Recent Exports */}
             <div className="bg-white rounded-xl shadow-sm border p-6">
-              <h3 className="font-semibold text-gray-900 mb-4">Recent Exports</h3>
+              <h3 className="font-semibold text-slate-900 mb-4">Recent Exports</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
                   <FileSpreadsheet className="w-8 h-8 text-emerald-600" />
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-gray-900 text-sm truncate">
+                    <div className="font-medium text-slate-900 text-sm truncate">
                       attendance_jan_2024.csv
                     </div>
-                    <div className="text-xs text-gray-500">2 days ago</div>
+                    <div className="text-xs text-slate-700">2 days ago</div>
                   </div>
-                  <button className="p-2 text-gray-400 hover:text-emerald-600">
+                  <button className="p-2 text-slate-700 hover:text-emerald-600">
                     <Download className="w-4 h-4" />
                   </button>
                 </div>
                 <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
                   <FileSpreadsheet className="w-8 h-8 text-emerald-600" />
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-gray-900 text-sm truncate">
+                    <div className="font-medium text-slate-900 text-sm truncate">
                       monthly_report_dec.xlsx
                     </div>
-                    <div className="text-xs text-gray-500">1 week ago</div>
+                    <div className="text-xs text-slate-700">1 week ago</div>
                   </div>
-                  <button className="p-2 text-gray-400 hover:text-emerald-600">
+                  <button className="p-2 text-slate-700 hover:text-emerald-600">
                     <Download className="w-4 h-4" />
                   </button>
                 </div>
@@ -275,8 +275,8 @@ export default async function ExportAttendancePage() {
 
             {/* Help */}
             <div className="bg-emerald-50 rounded-xl p-6">
-              <h3 className="font-semibold text-gray-900 mb-3">Export Tips</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+              <h3 className="font-semibold text-slate-900 mb-3">Export Tips</h3>
+              <ul className="space-y-2 text-sm text-slate-900">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
                   Use CSV for importing into other systems

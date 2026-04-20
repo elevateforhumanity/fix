@@ -84,7 +84,7 @@ export default function EnrollmentWizard({
                 </div>
                 <div className="text-xs mt-2 text-center">
                   <div className="font-semibold">{step.name}</div>
-                  <div className="text-gray-500">{step.description}</div>
+                  <div className="text-slate-700">{step.description}</div>
                 </div>
               </div>
               {idx < STEPS.length - 1 && (

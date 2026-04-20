@@ -23,23 +23,23 @@ export default function NewGrantPage() {
         <div className="mb-8">
           <Link 
             href="/admin/grants"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Grants
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Add Grant Opportunity</h1>
-          <p className="text-gray-600 mt-1">Track a new grant funding opportunity</p>
+          <h1 className="text-3xl font-bold text-slate-900">Add Grant Opportunity</h1>
+          <p className="text-slate-700 mt-1">Track a new grant funding opportunity</p>
         </div>
 
         {/* Form */}
         <form action={createGrantOpportunity} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           {/* Basic Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Grant Details</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-4">Grant Details</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Grant Title *
                 </label>
                 <input
@@ -52,7 +52,7 @@ export default function NewGrantPage() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Funder / Organization *
                 </label>
                 <input
@@ -65,7 +65,7 @@ export default function NewGrantPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Description
                 </label>
                 <textarea
@@ -80,13 +80,13 @@ export default function NewGrantPage() {
 
           {/* Funding Details */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-slate-700" />
               Funding Amount
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Minimum Amount ($)
                 </label>
                 <input
@@ -99,7 +99,7 @@ export default function NewGrantPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Maximum Amount ($)
                 </label>
                 <input
@@ -116,13 +116,13 @@ export default function NewGrantPage() {
 
           {/* Timeline */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-slate-700" />
               Timeline
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Application Deadline
                 </label>
                 <input
@@ -132,7 +132,7 @@ export default function NewGrantPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Status
                 </label>
                 <select
@@ -149,12 +149,12 @@ export default function NewGrantPage() {
 
           {/* Focus Areas */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Tag className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <Tag className="w-5 h-5 text-slate-700" />
               Focus Areas
             </h2>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Focus Areas (comma-separated)
               </label>
               <input
@@ -163,19 +163,19 @@ export default function NewGrantPage() {
                 placeholder="e.g., workforce, healthcare, technology, education"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
               />
-              <p className="text-xs text-gray-500 mt-1">Enter keywords separated by commas</p>
+              <p className="text-xs text-slate-700 mt-1">Enter keywords separated by commas</p>
             </div>
           </div>
 
           {/* Application Link */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <LinkIcon className="w-5 h-5 text-gray-400" />
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <LinkIcon className="w-5 h-5 text-slate-700" />
               Application Information
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Application URL
                 </label>
                 <input
@@ -186,7 +186,7 @@ export default function NewGrantPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Eligibility Requirements
                 </label>
                 <textarea
@@ -203,7 +203,7 @@ export default function NewGrantPage() {
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-gray-200">
             <Link
               href="/admin/grants"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-slate-900 hover:text-slate-900"
             >
               Cancel
             </Link>

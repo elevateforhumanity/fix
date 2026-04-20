@@ -106,7 +106,7 @@ export default async function ApprenticeHandbookPage() {
         {/* Download & Search */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input
               type="text"
               placeholder="Search handbook..."
@@ -143,10 +143,10 @@ export default async function ApprenticeHandbookPage() {
                     <h3 className="font-semibold group-hover:text-brand-blue-600 transition">
                       {section.title}
                     </h3>
-                    <p className="text-sm text-gray-600">{section.description}</p>
+                    <p className="text-sm text-slate-700">{section.description}</p>
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-brand-blue-600 transition" />
+                <ChevronRight className="w-5 h-5 text-slate-700 group-hover:text-brand-blue-600 transition" />
               </Link>
             ))}
           </div>
@@ -161,28 +161,28 @@ export default async function ApprenticeHandbookPage() {
               className="bg-white rounded-lg p-4 hover:shadow-md transition"
             >
               <h4 className="font-medium">Log Hours</h4>
-              <p className="text-sm text-gray-600">Track your training hours</p>
+              <p className="text-sm text-slate-700">Track your training hours</p>
             </Link>
             <Link
               href="/apprentice/skills"
               className="bg-white rounded-lg p-4 hover:shadow-md transition"
             >
               <h4 className="font-medium">Skills Checklist</h4>
-              <p className="text-sm text-gray-600">View your progress</p>
+              <p className="text-sm text-slate-700">View your progress</p>
             </Link>
             <Link
               href="/apprentice/documents"
               className="bg-white rounded-lg p-4 hover:shadow-md transition"
             >
               <h4 className="font-medium">Documents</h4>
-              <p className="text-sm text-gray-600">Access forms and files</p>
+              <p className="text-sm text-slate-700">Access forms and files</p>
             </Link>
           </div>
         </div>
 
         {/* Contact */}
         <div className="mt-8 text-center">
-          <p className="text-gray-600">
+          <p className="text-slate-700">
             Have questions? Contact your program coordinator or{' '}
             <Link href="/contact" className="text-brand-blue-600 hover:underline">
               reach out to us

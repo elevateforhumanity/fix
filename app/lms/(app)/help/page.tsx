@@ -122,11 +122,11 @@ export default async function HelpPage() {
           
           {/* Search */}
           <div className="max-w-xl mx-auto relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input
               type="text"
               placeholder="Search for help articles..."
-              className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue-300"
+              className="w-full pl-12 pr-4 py-4 rounded-xl text-slate-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-blue-300"
             />
           </div>
         </div>
@@ -141,8 +141,8 @@ export default async function HelpPage() {
                 <Phone className="w-6 h-6 text-brand-green-600" />
               </div>
               <div>
-                <div className="font-semibold text-gray-900">Contact Us</div>
-                <div className="text-gray-600">(317) 314-3757</div>
+                <div className="font-semibold text-slate-900">Contact Us</div>
+                <div className="text-slate-700">(317) 314-3757</div>
               </div>
             </a>
             <a href="/contact" className="flex items-center gap-4 p-4 rounded-xl hover:bg-white transition-colors">
@@ -150,8 +150,8 @@ export default async function HelpPage() {
                 <Mail className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <div className="font-semibold text-gray-900">Email Support</div>
-                <div className="text-gray-600">Contact Us</div>
+                <div className="font-semibold text-slate-900">Email Support</div>
+                <div className="text-slate-700">Contact Us</div>
               </div>
             </a>
             <Link href="/lms/messages" className="flex items-center gap-4 p-4 rounded-xl hover:bg-white transition-colors">
@@ -159,8 +159,8 @@ export default async function HelpPage() {
                 <MessageCircle className="w-6 h-6 text-brand-blue-600" />
               </div>
               <div>
-                <div className="font-semibold text-gray-900">Send Message</div>
-                <div className="text-gray-600">Contact your instructor</div>
+                <div className="font-semibold text-slate-900">Send Message</div>
+                <div className="text-slate-700">Contact your instructor</div>
               </div>
             </Link>
           </div>
@@ -170,7 +170,7 @@ export default async function HelpPage() {
       {/* Help Categories */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Browse Help Topics</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">Browse Help Topics</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {helpCategories.map((category, index) => (
               <div key={index} className="bg-white rounded-xl p-6 shadow-sm border">
@@ -179,8 +179,8 @@ export default async function HelpPage() {
                     <category.icon className="w-6 h-6 text-brand-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 text-lg">{category.title}</h3>
-                    <p className="text-gray-600 text-sm">{category.description}</p>
+                    <h3 className="font-bold text-slate-900 text-lg">{category.title}</h3>
+                    <p className="text-slate-700 text-sm">{category.description}</p>
                   </div>
                 </div>
                 <ul className="space-y-2">
@@ -188,7 +188,7 @@ export default async function HelpPage() {
                     <li key={i}>
                       <Link 
                         href={link.href}
-                        className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white text-gray-700 hover:text-brand-blue-600 transition-colors"
+                        className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white text-slate-900 hover:text-brand-blue-600 transition-colors"
                       >
                         <span>{link.label}</span>
                         <ChevronRight className="w-4 h-4" />
@@ -205,17 +205,17 @@ export default async function HelpPage() {
       {/* FAQs */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <details key={index} className="group bg-white rounded-xl">
                 <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                  <span className="font-semibold text-gray-900">{faq.question}</span>
-                  <ChevronRight className="w-5 h-5 text-gray-400 group-open:rotate-90 transition-transform" />
+                  <span className="font-semibold text-slate-900">{faq.question}</span>
+                  <ChevronRight className="w-5 h-5 text-slate-700 group-open:rotate-90 transition-transform" />
                 </summary>
-                <div className="px-6 pb-6 text-gray-600">
+                <div className="px-6 pb-6 text-slate-700">
                   {faq.answer}
                 </div>
               </details>
@@ -230,7 +230,7 @@ export default async function HelpPage() {
           <h2 className="text-2xl font-bold text-white mb-4">
             Still Need Help?
           </h2>
-          <p className="text-gray-300 mb-8">
+          <p className="text-slate-700 mb-8">
             Our support team is available Monday-Friday, 9am-5pm EST.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">

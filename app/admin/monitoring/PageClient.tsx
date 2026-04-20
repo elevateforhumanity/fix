@@ -400,7 +400,7 @@ export default function MonitoringDashboard() {
           </div>
           
           {errors.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-slate-700">
               <span className="text-slate-400 flex-shrink-0">•</span>
               <p>No recent errors - system running smoothly!</p>
             </div>

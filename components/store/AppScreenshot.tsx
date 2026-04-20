@@ -70,7 +70,7 @@ function SamGovScreenshot({ variant }: { variant: string }) {
           <div className="w-3 h-3 rounded-full bg-brand-green-400" />
         </div>
         <div className="flex-1 mx-4">
-          <div className="bg-white rounded px-3 py-1 text-xs text-gray-500 flex items-center gap-2 max-w-md">
+          <div className="bg-white rounded px-3 py-1 text-xs text-slate-700 flex items-center gap-2 max-w-md">
             <Shield className="w-3 h-3 text-brand-green-500" />
             app.elevateforhumanity.org/sam-gov
           </div>
@@ -129,10 +129,10 @@ function SamGovScreenshot({ variant }: { variant: string }) {
           ].map((stat, i) => (
             <div key={i} className="bg-white rounded-xl p-4 border">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-500 text-xs">{stat.label}</span>
+                <span className="text-slate-700 text-xs">{stat.label}</span>
                 <stat.icon className={`w-4 h-4 text-${stat.color}-500`} />
               </div>
-              <p className="font-bold text-gray-900">{stat.value}</p>
+              <p className="font-bold text-slate-900">{stat.value}</p>
             </div>
           ))}
         </div>
@@ -141,7 +141,7 @@ function SamGovScreenshot({ variant }: { variant: string }) {
         <div className="grid grid-cols-3 gap-6">
           {/* Registration Progress */}
           <div className="col-span-2 bg-white rounded-xl p-5 border">
-            <h3 className="font-bold text-gray-900 mb-4">Registration Progress</h3>
+            <h3 className="font-bold text-slate-900 mb-4">Registration Progress</h3>
             <div className="space-y-3">
               {[
                 { step: 'Get UEI Number', status: 'complete' },
@@ -159,10 +159,10 @@ function SamGovScreenshot({ variant }: { variant: string }) {
                     {item.status === 'complete' ? (
                       <span className="text-slate-400 flex-shrink-0">•</span>
                     ) : (
-                      <span className="text-xs font-bold text-gray-400">{i + 1}</span>
+                      <span className="text-xs font-bold text-slate-700">{i + 1}</span>
                     )}
                   </div>
-                  <span className={`text-sm ${item.status === 'complete' ? 'text-gray-900' : 'text-gray-400'}`}>
+                  <span className={`text-sm ${item.status === 'complete' ? 'text-slate-900' : 'text-slate-700'}`}>
                     {item.step}
                   </span>
                 </div>
@@ -172,7 +172,7 @@ function SamGovScreenshot({ variant }: { variant: string }) {
           
           {/* Compliance Alerts */}
           <div className="bg-white rounded-xl p-5 border">
-            <h3 className="font-bold text-gray-900 mb-4">Compliance Alerts</h3>
+            <h3 className="font-bold text-slate-900 mb-4">Compliance Alerts</h3>
             <div className="space-y-3">
               <div className="p-3 bg-brand-green-50 border border-brand-green-200 rounded-lg">
                 <div className="flex items-center gap-2 mb-1">
@@ -207,7 +207,7 @@ function GrantsScreenshot({ variant }: { variant: string }) {
           <div className="w-3 h-3 rounded-full bg-brand-green-400" />
         </div>
         <div className="flex-1 mx-4">
-          <div className="bg-white rounded px-3 py-1 text-xs text-gray-500 flex items-center gap-2 max-w-md">
+          <div className="bg-white rounded px-3 py-1 text-xs text-slate-700 flex items-center gap-2 max-w-md">
             <Shield className="w-3 h-3 text-brand-green-500" />
             app.elevateforhumanity.org/grants
           </div>
@@ -257,7 +257,7 @@ function GrantsScreenshot({ variant }: { variant: string }) {
         {/* Search Bar */}
         <div className="flex gap-4 mb-6">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input 
               type="text" 
               placeholder="Search grants by keyword, agency, or category..."
@@ -279,7 +279,7 @@ function GrantsScreenshot({ variant }: { variant: string }) {
             { label: 'Total Awarded', value: '$250K', color: 'orange' },
           ].map((stat, i) => (
             <div key={i} className="bg-white rounded-lg p-4 border">
-              <p className="text-gray-500 text-xs mb-1">{stat.label}</p>
+              <p className="text-slate-700 text-xs mb-1">{stat.label}</p>
               <p className={`text-2xl font-bold text-${stat.color}-600`}>{stat.value}</p>
             </div>
           ))}
@@ -301,11 +301,11 @@ function GrantsScreenshot({ variant }: { variant: string }) {
                     {grant.match}% Match
                   </span>
                 </div>
-                <h4 className="font-medium text-gray-900 text-sm">{grant.title}</h4>
-                <p className="text-xs text-gray-500">{grant.agency} • {grant.amount}</p>
+                <h4 className="font-medium text-slate-900 text-sm">{grant.title}</h4>
+                <p className="text-xs text-slate-700">{grant.agency} • {grant.amount}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs text-gray-500">Deadline</p>
+                <p className="text-xs text-slate-700">Deadline</p>
                 <p className="text-sm font-medium text-brand-orange-600">{grant.deadline}</p>
               </div>
             </div>
@@ -327,7 +327,7 @@ function WebsiteBuilderScreenshot({ variant }: { variant: string }) {
           <div className="w-3 h-3 rounded-full bg-brand-green-400" />
         </div>
         <div className="flex-1 mx-4">
-          <div className="bg-white rounded px-3 py-1 text-xs text-gray-500 flex items-center gap-2 max-w-md">
+          <div className="bg-white rounded px-3 py-1 text-xs text-slate-700 flex items-center gap-2 max-w-md">
             <Shield className="w-3 h-3 text-brand-green-500" />
             app.elevateforhumanity.org/website-builder
           </div>
@@ -343,7 +343,7 @@ function WebsiteBuilderScreenshot({ variant }: { variant: string }) {
             </div>
             <div>
               <h1 className="font-bold text-sm">My Training Center</h1>
-              <p className="text-gray-500 text-xs">Editing: Home Page</p>
+              <p className="text-slate-700 text-xs">Editing: Home Page</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -357,7 +357,7 @@ function WebsiteBuilderScreenshot({ variant }: { variant: string }) {
       <div className="flex h-80">
         {/* Left Sidebar - Blocks */}
         <div className="w-48 bg-gray-50 border-r p-3">
-          <p className="text-xs font-medium text-gray-500 mb-2">ADD BLOCKS</p>
+          <p className="text-xs font-medium text-slate-700 mb-2">ADD BLOCKS</p>
           <div className="space-y-2">
             {[
               { name: 'Hero Section', icon: Layout },
@@ -367,7 +367,7 @@ function WebsiteBuilderScreenshot({ variant }: { variant: string }) {
               { name: 'Contact Form', icon: FileText },
             ].map((block, i) => (
               <button key={i} className="w-full flex items-center gap-2 p-2 border rounded bg-white text-xs hover:bg-gray-50">
-                <block.icon className="w-4 h-4 text-gray-400" />
+                <block.icon className="w-4 h-4 text-slate-700" />
                 {block.name}
               </button>
             ))}
@@ -415,18 +415,18 @@ function WebsiteBuilderScreenshot({ variant }: { variant: string }) {
         
         {/* Right Sidebar - Properties */}
         <div className="w-56 bg-white border-l p-3">
-          <p className="text-xs font-medium text-gray-500 mb-3">BLOCK PROPERTIES</p>
+          <p className="text-xs font-medium text-slate-700 mb-3">BLOCK PROPERTIES</p>
           <div className="space-y-3">
             <div>
-              <label className="text-xs text-gray-500">Headline</label>
+              <label className="text-xs text-slate-700">Headline</label>
               <input type="text" defaultValue="Transform Your Career" className="w-full border rounded px-2 py-1 text-xs mt-1" />
             </div>
             <div>
-              <label className="text-xs text-gray-500">Button Text</label>
+              <label className="text-xs text-slate-700">Button Text</label>
               <input type="text" defaultValue="Apply Now" className="w-full border rounded px-2 py-1 text-xs mt-1" />
             </div>
             <div>
-              <label className="text-xs text-gray-500">Background</label>
+              <label className="text-xs text-slate-700">Background</label>
               <div className="flex gap-2 mt-1">
                 {['#2563eb', '#059669', '#7c3aed', '#dc2626'].map((c, i) => (
                   <button key={i} className="w-6 h-6 rounded border-2 border-white shadow" style={{backgroundColor: c}} />
@@ -491,7 +491,7 @@ export function AppScreenshotMobile({ app }: { app: 'sam-gov' | 'grants' | 'webs
           <div className="p-4 h-96 bg-gray-50">
             <div className="bg-white rounded-xl p-4 border mb-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-gray-500">Status</span>
+                <span className="text-xs text-slate-700">Status</span>
                 <span className="px-2 py-0.5 bg-brand-green-100 text-brand-green-800 text-xs font-bold rounded">Active</span>
               </div>
               <p className="font-bold">All Systems Operational</p>

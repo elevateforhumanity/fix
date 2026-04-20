@@ -66,7 +66,7 @@ export default async function ImpactPage() {
     employed: 'bg-green-100 text-green-700',
     unemployed: 'bg-red-100 text-red-700',
     training: 'bg-brand-blue-100 text-brand-blue-700',
-    unknown: 'bg-gray-100 text-gray-600',
+    unknown: 'bg-gray-100 text-slate-700',
   };
 
   return (
@@ -76,8 +76,8 @@ export default async function ImpactPage() {
           <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Impact' }]} />
           <div className="flex justify-between items-center mt-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Impact Dashboard</h1>
-              <p className="text-gray-600 mt-1">Live program impact and community outcomes</p>
+              <h1 className="text-3xl font-bold text-slate-900">Impact Dashboard</h1>
+              <p className="text-slate-700 mt-1">Live program impact and community outcomes</p>
             </div>
             <Link href="/admin/outcomes" className="flex items-center gap-2 text-brand-blue-600 hover:text-brand-blue-800 text-sm font-medium">
               View Outcomes <ArrowRight size={16} />
@@ -91,8 +91,8 @@ export default async function ImpactPage() {
               <div className={`w-10 h-10 ${s.bg} rounded-lg flex items-center justify-center mb-3`}>
                 <s.icon className={`w-5 h-5 ${s.color}`} />
               </div>
-              <p className="text-2xl font-bold text-gray-900">{s.value}</p>
-              <p className="text-sm text-gray-500 mt-1">{s.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{s.value}</p>
+              <p className="text-sm text-slate-700 mt-1">{s.label}</p>
             </div>
           ))}
         </div>
@@ -100,7 +100,7 @@ export default async function ImpactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-xl shadow-sm border">
             <div className="p-5 border-b flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Credentials Issued</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Recent Credentials Issued</h2>
               <Link href="/admin/certificates" className="text-sm text-brand-blue-600 hover:text-brand-blue-800">View all</Link>
             </div>
             <div className="divide-y">
@@ -111,21 +111,21 @@ export default async function ImpactPage() {
                       <Award className="w-4 h-4 text-brand-orange-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{(cert.profiles as any)?.full_name || 'Student'}</p>
-                      <p className="text-xs text-gray-500">{cert.issued_at ? new Date(cert.issued_at).toLocaleDateString() : '—'}</p>
+                      <p className="text-sm font-medium text-slate-900">{(cert.profiles as any)?.full_name || 'Student'}</p>
+                      <p className="text-xs text-slate-700">{cert.issued_at ? new Date(cert.issued_at).toLocaleDateString() : '—'}</p>
                     </div>
                   </div>
                   <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Issued</span>
                 </div>
               )) : (
-                <div className="p-8 text-center text-gray-500 text-sm">No certificates issued yet</div>
+                <div className="p-8 text-center text-slate-700 text-sm">No certificates issued yet</div>
               )}
             </div>
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border">
             <div className="p-5 border-b flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-gray-900">Active Programs</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Active Programs</h2>
               <Link href="/admin/programs" className="text-sm text-brand-blue-600 hover:text-brand-blue-800">Manage</Link>
             </div>
             <div className="divide-y">
@@ -135,12 +135,12 @@ export default async function ImpactPage() {
                     <div className="w-8 h-8 bg-brand-blue-100 rounded-full flex items-center justify-center">
                       <BookOpen className="w-4 h-4 text-brand-blue-600" />
                     </div>
-                    <p className="text-sm font-medium text-gray-900">{prog.title || prog.name}</p>
+                    <p className="text-sm font-medium text-slate-900">{prog.title || prog.name}</p>
                   </div>
                   <span className="text-xs bg-brand-blue-100 text-brand-blue-700 px-2 py-1 rounded-full capitalize">{prog.status}</span>
                 </div>
               )) : (
-                <div className="p-8 text-center text-gray-500 text-sm">No active programs</div>
+                <div className="p-8 text-center text-slate-700 text-sm">No active programs</div>
               )}
             </div>
           </div>
@@ -149,7 +149,7 @@ export default async function ImpactPage() {
         {employmentData && employmentData.length > 0 && (
           <div className="mt-6 bg-white rounded-xl shadow-sm border p-5">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Employment Outcomes Breakdown</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Employment Outcomes Breakdown</h2>
               <Link href="/admin/outcomes" className="text-sm text-brand-blue-600 hover:text-brand-blue-800">Full report</Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -158,8 +158,8 @@ export default async function ImpactPage() {
                 const pct = employmentData.length > 0 ? Math.round((count / employmentData.length) * 100) : 0;
                 return (
                   <div key={status} className="text-center p-4 bg-gray-50 rounded-lg">
-                    <p className="text-2xl font-bold text-gray-900">{count}</p>
-                    <p className="text-sm text-gray-500 capitalize mt-1">{status}</p>
+                    <p className="text-2xl font-bold text-slate-900">{count}</p>
+                    <p className="text-sm text-slate-700 capitalize mt-1">{status}</p>
                     <span className={`text-xs px-2 py-0.5 rounded-full mt-1 inline-block ${statusColors[status] || statusColors.unknown}`}>{pct}%</span>
                   </div>
                 );

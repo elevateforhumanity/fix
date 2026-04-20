@@ -119,7 +119,7 @@ core.*
 
 # Temporary logs and outputs (cleanup)
 output/
-public/videos/*.mp4
+# public/videos/*.mp4 — hero MP4s are committed directly for Netlify
 *.log
 *-summary.txt
 check-result.json
@@ -173,7 +173,7 @@ public/hvac/audio/*.mp3
 public/hvac/videos/*.mp4
 public/audio/*.mp3
 public/audio/*.wav
-public/videos/*.mp4
+# public/videos/*.mp4 — hero MP4s are committed directly for Netlify
 public/videos/**/*.mp4
 
 # lesson MP3s are committed so they deploy to Netlify without an API key at build time
@@ -215,7 +215,7 @@ public/videos/**/*.mp4
 public/videos/**/*.mp3
 public/videos/**/*.txt
 public/videos/**/*.jpg
-public/videos/*.mp4
+# public/videos/*.mp4 — hero MP4s are committed directly for Netlify
 public/videos/*.mp3
 public/videos/barber-lessons/*-preview*.mp4
 public/videos/barber-lessons/*-fullframe*.mp4

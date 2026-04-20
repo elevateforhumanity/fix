@@ -104,7 +104,7 @@ export function SearchButton() {
               </div>
               <form onSubmit={handleSearch}>
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                   <input
                     type="text"
                     value={query}

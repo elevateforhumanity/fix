@@ -51,8 +51,8 @@ export default async function InstructorMessagesPage() {
               <ChevronLeft className="w-5 h-5" />
             </Link>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Instructor Messages</h1>
-              <p className="text-sm text-gray-500">Communicate with your instructors</p>
+              <h1 className="text-xl font-bold text-slate-900">Instructor Messages</h1>
+              <p className="text-sm text-slate-700">Communicate with your instructors</p>
             </div>
           </div>
         </div>
@@ -73,14 +73,14 @@ export default async function InstructorMessagesPage() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-slate-900">
                           {isFromMe ? `To: ${otherPerson?.full_name || 'Instructor'}` : otherPerson?.full_name || 'Instructor'}
                         </p>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-slate-700">
                           {new Date(msg.created_at).toLocaleDateString()}
                         </span>
                       </div>
-                      <p className="text-gray-600 mt-1">{msg.content}</p>
+                      <p className="text-slate-700 mt-1">{msg.content}</p>
                     </div>
                   </div>
                 </div>
@@ -89,9 +89,9 @@ export default async function InstructorMessagesPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl border p-12 text-center">
-            <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">No messages yet</h2>
-            <p className="text-gray-600 mb-6">Start a conversation with your instructor.</p>
+            <MessageSquare className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">No messages yet</h2>
+            <p className="text-slate-700 mb-6">Start a conversation with your instructor.</p>
             <Link 
               href="/lms/messages?type=instructor"
               className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"

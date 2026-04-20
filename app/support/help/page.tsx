@@ -20,7 +20,7 @@ const categories = [
   { name: 'Financial Aid', slug: 'Financial Aid', color: 'bg-brand-blue-100 text-brand-blue-600' },
   { name: 'Account', slug: 'Account', color: 'bg-brand-orange-100 text-brand-orange-600' },
   { name: 'Career Services', slug: 'Career Services', color: 'bg-teal-100 text-teal-600' },
-  { name: 'General', slug: 'General', color: 'bg-white text-gray-600' },
+  { name: 'General', slug: 'General', color: 'bg-white text-slate-700' },
 ];
 
 async function getArticles(category?: string, search?: string) {
@@ -93,7 +93,7 @@ export default async function HelpCenterPage({
               className={`px-4 py-2 rounded-full font-medium transition ${
                 !activeCategory
                   ? 'bg-brand-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-200'
+                  : 'bg-white text-slate-900 hover:bg-gray-200'
               }`}
             >
               All Articles
@@ -105,7 +105,7 @@ export default async function HelpCenterPage({
                 className={`px-4 py-2 rounded-full font-medium transition ${
                   activeCategory === cat.slug
                     ? 'bg-brand-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-200'
+                    : 'bg-white text-slate-900 hover:bg-gray-200'
                 }`}
               >
                 {cat.name}
@@ -119,16 +119,16 @@ export default async function HelpCenterPage({
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-6">
           {searchQuery && (
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-700 mb-6">
               Showing results for "<span className="font-semibold">{searchQuery}</span>"
             </p>
           )}
 
           {articles.length === 0 ? (
             <div className="text-center py-16">
-              <HelpCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <HelpCircle className="w-16 h-16 text-slate-700 mx-auto mb-4" />
               <h2 className="text-xl font-bold text-black mb-2">No articles found</h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-slate-700 mb-6">
                 {searchQuery
                   ? `We couldn't find any articles matching "${searchQuery}"`
                   : 'No articles in this category yet'}
@@ -152,7 +152,7 @@ export default async function HelpCenterPage({
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <span className={`px-2 py-2 text-xs font-medium rounded ${
-                          categories.find(c => c.slug === article.category)?.color || 'bg-white text-gray-600'
+                          categories.find(c => c.slug === article.category)?.color || 'bg-white text-slate-700'
                         }`}>
                           {article.category}
                         </span>
@@ -160,11 +160,11 @@ export default async function HelpCenterPage({
                       <h3 className="text-lg font-bold text-black group-hover:text-brand-blue-600 transition mb-2">
                         {article.title}
                       </h3>
-                      <p className="text-gray-600 text-sm line-clamp-2">
+                      <p className="text-slate-700 text-sm line-clamp-2">
                         {article.excerpt}
                       </p>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-brand-blue-600 transition flex-shrink-0 mt-1" />
+                    <ArrowRight className="w-5 h-5 text-slate-700 group-hover:text-brand-blue-600 transition flex-shrink-0 mt-1" />
                   </div>
                 </Link>
               ))}
@@ -177,7 +177,7 @@ export default async function HelpCenterPage({
       <section className="py-12 border-t">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-2xl font-bold text-black mb-4">Can't find what you're looking for?</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             Our support team is here to help with any questions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

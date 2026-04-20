@@ -52,17 +52,17 @@ export default function StateCareerTrainingPage({ state }: StateCareerTrainingPa
       {/* Features Section */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8">
             Workforce Training in {state.name}
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-slate-700 mb-8">
             Workforce and career training programs in {state.name} emphasize:
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {state.careerTraining.features.map((item) => (
               <div key={item} className="flex items-start gap-3">
                 <span className="text-slate-500 flex-shrink-0">•</span>
-                <span className="text-gray-700">{item}</span>
+                <span className="text-slate-900">{item}</span>
               </div>
             ))}
           </div>
@@ -72,14 +72,14 @@ export default function StateCareerTrainingPage({ state }: StateCareerTrainingPa
       {/* Cities Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8">
             Serving {state.name} Communities
           </h2>
           <div className="flex flex-wrap gap-3">
             {state.majorCities.map((city) => (
               <span 
                 key={city} 
-                className="px-4 py-2 bg-white rounded-full text-gray-700 shadow-sm"
+                className="px-4 py-2 bg-white rounded-full text-slate-900 shadow-sm"
               >
                 {city}
               </span>
@@ -91,7 +91,7 @@ export default function StateCareerTrainingPage({ state }: StateCareerTrainingPa
       {/* Other States */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">
             Programs in Other States
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -101,7 +101,7 @@ export default function StateCareerTrainingPage({ state }: StateCareerTrainingPa
                 href={`/career-training-${s.slug}`}
                 className="p-4 bg-gray-50 rounded-lg hover:bg-brand-green-50 transition-colors text-center"
               >
-                <span className="font-medium text-gray-900">{s.name}</span>
+                <span className="font-medium text-slate-900">{s.name}</span>
               </Link>
             ))}
           </div>

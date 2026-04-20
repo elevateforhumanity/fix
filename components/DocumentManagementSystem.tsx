@@ -97,7 +97,7 @@ export function DocumentManagementSystem() {
                           <p className="text-sm text-black">
                             {doc.type} • {doc.size} • {doc.version}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-slate-700">
                             Modified {doc.lastModified} by {doc.author}
                           </p>
                         </div>
@@ -122,13 +122,13 @@ export function DocumentManagementSystem() {
                         <Button size="sm" variant="secondary">Restore</Button>
                       </div>
                       <p className="text-xs text-black">{version.date}</p>
-                      <p className="text-xs text-gray-500">by {version.author}</p>
+                      <p className="text-xs text-slate-700">by {version.author}</p>
                     </div>
                   ))}
                 </div>
               </Card>
             ) : (
-              <Card className="p-6 text-center text-gray-500">
+              <Card className="p-6 text-center text-slate-700">
                 Select a document to view version history
               </Card>
             )}

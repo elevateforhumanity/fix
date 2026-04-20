@@ -79,7 +79,7 @@ export default async function ActivityLogPage() {
       case 'Course Management': return 'bg-brand-blue-100 text-brand-blue-700';
       case 'WIOA': return 'bg-brand-orange-100 text-brand-orange-700';
       case 'Certificates': return 'bg-pink-100 text-pink-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-gray-100 text-slate-900';
     }
   };
 
@@ -95,9 +95,9 @@ export default async function ActivityLogPage() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <Activity className="w-8 h-8 text-indigo-600" />
-                <h1 className="text-3xl font-bold text-gray-900">Activity Log</h1>
+                <h1 className="text-3xl font-bold text-slate-900">Activity Log</h1>
               </div>
-              <p className="text-gray-600">Monitor system activity and audit trail</p>
+              <p className="text-slate-700">Monitor system activity and audit trail</p>
             </div>
             <button className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
               <Download className="w-4 h-4" />
@@ -112,7 +112,7 @@ export default async function ActivityLogPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search activity..."
@@ -158,17 +158,17 @@ export default async function ActivityLogPage() {
                         </div>
                       ) : (
                         <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                          <Settings className="w-5 h-5 text-gray-500" />
+                          <Settings className="w-5 h-5 text-slate-700" />
                         </div>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-medium text-gray-900">{activity.user.name}</span>
-                        <span className="text-gray-500">{activity.action}</span>
+                        <span className="font-medium text-slate-900">{activity.user.name}</span>
+                        <span className="text-slate-700">{activity.action}</span>
                         <span className="font-medium text-indigo-600">{activity.target}</span>
                       </div>
-                      <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 mt-1 text-sm text-slate-700">
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(activity.category)}`}>
                           {activity.category}
                         </span>
@@ -180,7 +180,7 @@ export default async function ActivityLogPage() {
                       </div>
                     </div>
                     <button className="p-2 hover:bg-gray-100 rounded-lg">
-                      <ChevronRight className="w-5 h-5 text-gray-400" />
+                      <ChevronRight className="w-5 h-5 text-slate-700" />
                     </button>
                   </div>
                 </div>
@@ -190,7 +190,7 @@ export default async function ActivityLogPage() {
 
           {/* Pagination */}
           <div className="flex items-center justify-between mt-6">
-            <p className="text-gray-600 text-sm">Showing {Math.min(activities.length, 6)} of {activities.length} activities</p>
+            <p className="text-slate-700 text-sm">Showing {Math.min(activities.length, 6)} of {activities.length} activities</p>
             <div className="flex gap-2">
               <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>
                 Previous

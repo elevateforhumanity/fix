@@ -74,20 +74,20 @@ export default async function EmployerAnalyticsPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-gray-500">
-              <li><Link href="/employer/dashboard" className="hover:text-gray-900">Employer</Link></li>
+            <ol className="flex items-center space-x-2 text-slate-700">
+              <li><Link href="/employer/dashboard" className="hover:text-slate-900">Employer</Link></li>
               <li>/</li>
-              <li className="text-gray-900 font-medium">Analytics</li>
+              <li className="text-slate-900 font-medium">Analytics</li>
             </ol>
           </nav>
-          <h1 className="text-3xl font-bold text-gray-900">Hiring Analytics</h1>
-          <p className="text-gray-600 mt-2">Track your hiring performance and metrics</p>
+          <h1 className="text-3xl font-bold text-slate-900">Hiring Analytics</h1>
+          <p className="text-slate-700 mt-2">Track your hiring performance and metrics</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {stats.map(({ label, value, color }) => (
             <div key={label} className="bg-white rounded-lg shadow-sm border p-6">
-              <h3 className="text-sm font-medium text-gray-500">{label}</h3>
+              <h3 className="text-sm font-medium text-slate-700">{label}</h3>
               <p className={`text-3xl font-bold mt-2 ${color}`}>{value}</p>
             </div>
           ))}

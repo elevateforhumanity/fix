@@ -32,8 +32,8 @@ export default function ApprenticeshipAgreementPage() {
       {/* Screen header */}
       <div className="print:hidden py-8 bg-white">
         <div className="max-w-3xl mx-auto px-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Barbering Apprenticeship Agreement</h1>
-          <p className="text-gray-600 mb-4">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Barbering Apprenticeship Agreement</h1>
+          <p className="text-slate-700 mb-4">
             Formal agreement for each barber apprentice enrollment. Print, complete, and store signed copies in the compliance folder.
           </p>
           <PrintButton />
@@ -44,55 +44,55 @@ export default function ApprenticeshipAgreementPage() {
       <div className="max-w-3xl mx-auto px-4 pb-12 print:px-8 print:pb-0 print:max-w-none">
         {/* Document header */}
         <div className="text-center border-b-2 border-gray-900 pb-6 mb-6 print:pb-4 print:mb-4">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-2 print:text-[9px]">Elevate for Humanity Career & Technical Institute</p>
-          <h2 className="text-2xl font-bold text-gray-900 print:text-xl">BARBERING APPRENTICESHIP AGREEMENT</h2>
-          <p className="text-sm text-gray-600 mt-1 print:text-[10px]">Workplace-Based Apprenticeship Program</p>
-          <p className="text-xs text-gray-500 mt-1 print:text-[9px]">RAPIDS Registration: 2025-IN-132301 | Occupation: Barber (DOT 330.371-010)</p>
+          <p className="text-xs uppercase tracking-widest text-slate-700 mb-2 print:text-[9px]">Elevate for Humanity Career & Technical Institute</p>
+          <h2 className="text-2xl font-bold text-slate-900 print:text-xl">BARBERING APPRENTICESHIP AGREEMENT</h2>
+          <p className="text-sm text-slate-700 mt-1 print:text-[10px]">Workplace-Based Apprenticeship Program</p>
+          <p className="text-xs text-slate-700 mt-1 print:text-[9px]">RAPIDS Registration: 2025-IN-132301 | Occupation: Barber (DOT 330.371-010)</p>
         </div>
 
         {/* Parties */}
         <div className="mb-8 print:mb-5">
-          <p className="text-sm text-gray-700 mb-4 print:text-[10px] print:mb-3">
+          <p className="text-sm text-slate-900 mb-4 print:text-[10px] print:mb-3">
             This Apprenticeship Agreement is entered into between the following parties:
           </p>
           <div className="space-y-3 text-sm print:text-[10px] print:space-y-2">
             <div className="grid grid-cols-[200px_1fr] gap-2 print:grid-cols-[160px_1fr]">
-              <span className="font-semibold text-gray-900">Sponsor / Program Administrator:</span>
+              <span className="font-semibold text-slate-900">Sponsor / Program Administrator:</span>
               <span>Elevate for Humanity Career & Technical Institute</span>
             </div>
             <div className="grid grid-cols-[200px_1fr] gap-2 print:grid-cols-[160px_1fr]">
-              <span className="font-semibold text-gray-900">Apprentice:</span>
+              <span className="font-semibold text-slate-900">Apprentice:</span>
               <span className="border-b border-gray-400 min-w-[200px]">&nbsp;</span>
             </div>
             <div className="grid grid-cols-[200px_1fr] gap-2 print:grid-cols-[160px_1fr]">
-              <span className="font-semibold text-gray-900">Employer (Licensed Barbershop):</span>
+              <span className="font-semibold text-slate-900">Employer (Licensed Barbershop):</span>
               <span className="border-b border-gray-400 min-w-[200px]">&nbsp;</span>
             </div>
             <div className="grid grid-cols-[200px_1fr] gap-2 print:grid-cols-[160px_1fr]">
-              <span className="font-semibold text-gray-900">Licensed Supervisor Barber:</span>
+              <span className="font-semibold text-slate-900">Licensed Supervisor Barber:</span>
               <span className="border-b border-gray-400 min-w-[200px]">&nbsp;</span>
             </div>
             <div className="grid grid-cols-[200px_1fr] gap-2 print:grid-cols-[160px_1fr]">
-              <span className="font-semibold text-gray-900">Program Holder (RTI Coordinator):</span>
+              <span className="font-semibold text-slate-900">Program Holder (RTI Coordinator):</span>
               <span className="border-b border-gray-400 min-w-[200px]">&nbsp;</span>
             </div>
             <div className="grid grid-cols-[200px_1fr] gap-2 print:grid-cols-[160px_1fr]">
-              <span className="font-semibold text-gray-900">Credential Partner (RTI Provider):</span>
+              <span className="font-semibold text-slate-900">Credential Partner (RTI Provider):</span>
               <span className="border-b border-gray-400 min-w-[200px]">&nbsp;</span>
             </div>
             <div className="grid grid-cols-[200px_1fr] gap-2 print:grid-cols-[160px_1fr]">
-              <span className="font-semibold text-gray-900">Effective Date:</span>
+              <span className="font-semibold text-slate-900">Effective Date:</span>
               <span className="border-b border-gray-400 min-w-[200px]">&nbsp;</span>
             </div>
           </div>
         </div>
 
         {/* Sections */}
-        <div className="space-y-6 text-sm text-gray-700 leading-relaxed print:text-[10px] print:space-y-4 print:leading-snug">
+        <div className="space-y-6 text-sm text-slate-900 leading-relaxed print:text-[10px] print:space-y-4 print:leading-snug">
 
           {/* Section 1 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">1. PURPOSE</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">1. PURPOSE</h3>
             <p>
               This agreement establishes a structured barbering apprenticeship combining Related Technical
               Instruction (RTI) and On-the-Job Training (OJT) in a licensed barbershop environment under
@@ -104,7 +104,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 2 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">2. PROGRAM STRUCTURE</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">2. PROGRAM STRUCTURE</h3>
             <p className="mb-2">The apprenticeship program consists of:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Related Technical Instruction (RTI) delivered by licensed credential partners and supervised curriculum modules through the institutional LMS</li>
@@ -116,7 +116,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 3 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">3. TRAINING HOURS</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">3. TRAINING HOURS</h3>
             <div className="border rounded-lg p-4 print:p-2 print:border-gray-400">
               <div className="grid grid-cols-2 gap-3 print:gap-2">
                 <div>Total RTI Hours: <span className="border-b border-gray-400 inline-block min-w-[80px]">&nbsp;</span></div>
@@ -134,7 +134,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 4 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">4. RELATED TECHNICAL INSTRUCTION (RTI)</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">4. RELATED TECHNICAL INSTRUCTION (RTI)</h3>
             <p className="mb-2">RTI will be provided through:</p>
             <ul className="list-disc pl-6 space-y-1 mb-3">
               <li>Licensed credential partners (state-approved barber schools or licensed instructors)</li>
@@ -154,7 +154,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 5 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">5. ON-THE-JOB TRAINING (OJT)</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">5. ON-THE-JOB TRAINING (OJT)</h3>
             <p className="mb-2">The Employer agrees to provide supervised workplace training including:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Haircut and styling techniques on real clients</li>
@@ -172,7 +172,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 6 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">6. SUPERVISION REQUIREMENTS</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">6. SUPERVISION REQUIREMENTS</h3>
             <p className="mb-2">The Employer shall ensure:</p>
             <ul className="list-disc pl-6 space-y-1 mb-3">
               <li>Active Indiana barbershop license maintained throughout the apprenticeship</li>
@@ -182,7 +182,7 @@ export default function ApprenticeshipAgreementPage() {
               <li>Cooperation with Program Holder and Sponsor for progress reviews</li>
             </ul>
             <div className="border rounded-lg p-4 print:p-2 print:border-gray-400">
-              <p className="font-semibold text-gray-900 mb-2">Licensed Supervisor Information</p>
+              <p className="font-semibold text-slate-900 mb-2">Licensed Supervisor Information</p>
               <div className="grid grid-cols-2 gap-3 print:gap-2">
                 <div>Supervisor Name: <span className="border-b border-gray-400 inline-block min-w-[120px]">&nbsp;</span></div>
                 <div>Indiana Barber License #: <span className="border-b border-gray-400 inline-block min-w-[100px]">&nbsp;</span></div>
@@ -194,7 +194,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 7 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">7. COMPETENCY-BASED EVALUATION</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">7. COMPETENCY-BASED EVALUATION</h3>
             <p className="mb-2">
               Apprentice progress will be evaluated using standardized competency rubrics covering six sections:
             </p>
@@ -217,7 +217,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 8 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">8. PROGRESS TRACKING & DOCUMENTATION</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">8. PROGRESS TRACKING & DOCUMENTATION</h3>
             <p className="mb-2">All training hours, competencies, and assessments will be documented through:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Institutional LMS tracking system (RTI hours, module completion, assessment scores)</li>
@@ -234,7 +234,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 9 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">9. ROLES AND RESPONSIBILITIES</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">9. ROLES AND RESPONSIBILITIES</h3>
             <div className="space-y-3 print:space-y-2">
               {[
                 { role: 'Sponsor (2Exclusive LLC-S, DBA Elevate for Humanity Career & Technical Institute)', duties: 'Program oversight, RAPIDS registration and documentation, LMS tracking, completion verification, credential coordination, funding navigation, career services' },
@@ -244,8 +244,8 @@ export default function ApprenticeshipAgreementPage() {
                 { role: 'Apprentice', duties: 'Active participation in all RTI and OJT activities, consistent attendance, skill development, adherence to professional and safety standards, completion of all assessments and evaluations' },
               ].map((item, i) => (
                 <div key={i} className="border-l-2 border-gray-300 pl-3 print:pl-2">
-                  <p className="font-semibold text-gray-900">{item.role}</p>
-                  <p className="text-gray-600">{item.duties}</p>
+                  <p className="font-semibold text-slate-900">{item.role}</p>
+                  <p className="text-slate-700">{item.duties}</p>
                 </div>
               ))}
             </div>
@@ -253,7 +253,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 10 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">10. CREDENTIAL & COMPLETION</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">10. CREDENTIAL & COMPLETION</h3>
             <ul className="list-disc pl-6 space-y-1">
               <li>The Indiana Barber License is issued by the Indiana Professional Licensing Agency (PLA) upon successful completion of the state board examination. Elevate does not issue this credential.</li>
               <li>Elevate will issue a Certificate of Completion upon successful fulfillment of all RTI hours, OJT hours, and competency requirements.</li>
@@ -263,7 +263,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 11 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">11. ATTENDANCE & CONDUCT</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">11. ATTENDANCE & CONDUCT</h3>
             <p className="mb-2">The apprentice agrees to:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Maintain consistent attendance for all scheduled RTI sessions and OJT shifts</li>
@@ -281,7 +281,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 12 */}
           <section className="print:break-inside-avoid">
-            <h3 className="font-bold text-gray-900 text-base mb-2 print:text-[11px] print:mb-1">12. TERMINATION OR MODIFICATION</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-2 print:text-[11px] print:mb-1">12. TERMINATION OR MODIFICATION</h3>
             <p className="mb-2">This agreement may be modified or terminated based on:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Non-compliance with training standards or competency requirements</li>
@@ -298,7 +298,7 @@ export default function ApprenticeshipAgreementPage() {
 
           {/* Section 13: Signatures */}
           <section className="print:break-before-page">
-            <h3 className="font-bold text-gray-900 text-base mb-4 print:text-[11px] print:mb-3">13. SIGNATURES</h3>
+            <h3 className="font-bold text-slate-900 text-base mb-4 print:text-[11px] print:mb-3">13. SIGNATURES</h3>
             <p className="mb-4 print:mb-3">
               By signing below, all parties acknowledge and agree to the terms of this Apprenticeship Agreement.
             </p>
@@ -313,7 +313,7 @@ export default function ApprenticeshipAgreementPage() {
                 { role: 'Sponsor — 2Exclusive LLC-S (DBA Elevate for Humanity Career & Technical Institute)', fields: ['Authorized Representative', 'Title', 'Signature', 'Date'] },
               ].map((signer, i) => (
                 <div key={i} className="border-2 rounded-lg p-4 print:p-3 print:border-gray-400 print:break-inside-avoid">
-                  <p className="font-bold text-gray-900 mb-3 print:text-[11px] print:mb-2">{signer.role}</p>
+                  <p className="font-bold text-slate-900 mb-3 print:text-[11px] print:mb-2">{signer.role}</p>
                   <div className="grid grid-cols-2 gap-3 text-sm print:text-[10px] print:gap-2">
                     {signer.fields.map((field, fi) => (
                       <div key={fi} className={field === 'Signature' ? 'col-span-2' : ''}>
@@ -327,7 +327,7 @@ export default function ApprenticeshipAgreementPage() {
           </section>
 
           {/* Document footer */}
-          <div className="border-t-2 border-gray-900 pt-4 mt-8 text-center text-xs text-gray-500 print:text-[9px] print:pt-3 print:mt-4">
+          <div className="border-t-2 border-gray-900 pt-4 mt-8 text-center text-xs text-slate-700 print:text-[9px] print:pt-3 print:mt-4">
             <p>Elevate for Humanity Career & Technical Institute</p>
             <p>RAPIDS Registration: 2025-IN-132301 | Indianapolis, Indiana</p>
             <p className="mt-1">This agreement is maintained in the apprentice compliance file and filed with RAPIDS documentation.</p>
@@ -341,13 +341,13 @@ export default function ApprenticeshipAgreementPage() {
           <Link href="/compliance/competency-verification/barber" className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700 transition">
             Barber Rubric Overview
           </Link>
-          <Link href="/compliance/competency-verification/barber/scoring-sheet" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/scoring-sheet" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Scoring Sheet
           </Link>
-          <Link href="/compliance/competency-verification/barber/monthly-ojt-evaluation" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/monthly-ojt-evaluation" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Monthly OJT Evaluation
           </Link>
-          <Link href="/compliance/competency-verification/barber/final-signoff" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-white transition">
+          <Link href="/compliance/competency-verification/barber/final-signoff" className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-slate-900 rounded-lg text-sm font-medium hover:bg-white transition">
             Final Sign-Off Form
           </Link>
         </div>

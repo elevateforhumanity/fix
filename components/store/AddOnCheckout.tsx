@@ -113,10 +113,10 @@ function CheckoutForm({
     <div className="min-h-screen bg-white">
       <div className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href={backHref} className="text-sm text-gray-500 hover:text-gray-700">
+          <Link href={backHref} className="text-sm text-slate-700 hover:text-slate-900">
             ← Back to {productName}
           </Link>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-slate-700">
             <Shield className="w-4 h-4" />
             Secure Checkout
           </div>
@@ -126,11 +126,11 @@ function CheckoutForm({
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3">
-            <h1 className="text-2xl font-bold text-gray-900 mb-6">Complete Your Purchase</h1>
+            <h1 className="text-2xl font-bold text-slate-900 mb-6">Complete Your Purchase</h1>
 
             {/* Email */}
             <div className="bg-white rounded-xl border p-6 mb-6">
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-slate-900 mb-2">
                 Email Address
               </label>
               <input
@@ -141,14 +141,14 @@ function CheckoutForm({
                 placeholder="you@organization.com"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 outline-none"
               />
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-slate-700 mt-2">
                 Your license and receipt will be sent to this email.
               </p>
             </div>
 
             {/* Payment Method */}
             <div className="bg-white rounded-xl border p-6 mb-6">
-              <h2 className="text-sm font-semibold text-gray-700 mb-4">Payment Method</h2>
+              <h2 className="text-sm font-semibold text-slate-900 mb-4">Payment Method</h2>
               <div className="space-y-3">
                 {/* Stripe / Card */}
                 <label
@@ -166,10 +166,10 @@ function CheckoutForm({
                     onChange={() => setPaymentMethod('stripe')}
                     className="sr-only"
                   />
-                  <CreditCard className="w-6 h-6 text-gray-700" />
+                  <CreditCard className="w-6 h-6 text-slate-900" />
                   <div className="flex-1">
-                    <div className="font-semibold text-gray-900">Credit / Debit Card</div>
-                    <div className="text-xs text-gray-500">Visa, Mastercard, Amex via Stripe</div>
+                    <div className="font-semibold text-slate-900">Credit / Debit Card</div>
+                    <div className="text-xs text-slate-700">Visa, Mastercard, Amex via Stripe</div>
                   </div>
                   <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                     paymentMethod === 'stripe' ? 'border-brand-blue-500' : 'border-gray-300'
@@ -197,8 +197,8 @@ function CheckoutForm({
                     />
                     <div className="w-6 h-6 bg-brand-blue-100 rounded flex items-center justify-center text-xs font-bold text-brand-blue-700">A</div>
                     <div className="flex-1">
-                      <div className="font-semibold text-gray-900">Affirm</div>
-                      <div className="text-xs text-gray-500">Pay over 3–36 months. As low as 0% APR.</div>
+                      <div className="font-semibold text-slate-900">Affirm</div>
+                      <div className="text-xs text-slate-700">Pay over 3–36 months. As low as 0% APR.</div>
                     </div>
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       paymentMethod === 'affirm' ? 'border-brand-blue-500' : 'border-gray-300'
@@ -227,8 +227,8 @@ function CheckoutForm({
                     />
                     <div className="w-6 h-6 bg-purple-100 rounded flex items-center justify-center text-xs font-bold text-purple-700">S</div>
                     <div className="flex-1">
-                      <div className="font-semibold text-gray-900">Sezzle</div>
-                      <div className="text-xs text-gray-500">4 interest-free payments over 6 weeks</div>
+                      <div className="font-semibold text-slate-900">Sezzle</div>
+                      <div className="text-xs text-slate-700">4 interest-free payments over 6 weeks</div>
                     </div>
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       paymentMethod === 'sezzle' ? 'border-purple-500' : 'border-gray-300'
@@ -267,7 +267,7 @@ function CheckoutForm({
               )}
             </button>
 
-            <p className="text-xs text-gray-500 text-center mt-4">
+            <p className="text-xs text-slate-700 text-center mt-4">
               {paymentMethod === 'stripe' && "You'll be redirected to Stripe for secure payment."}
               {paymentMethod === 'affirm' && "You'll be redirected to Affirm to complete financing."}
               {paymentMethod === 'sezzle' && "You'll be redirected to Sezzle to set up 4 payments."}
@@ -277,58 +277,58 @@ function CheckoutForm({
           {/* Order Summary */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl border p-6 sticky top-8">
-              <h2 className="font-bold text-gray-900 mb-4">Order Summary</h2>
+              <h2 className="font-bold text-slate-900 mb-4">Order Summary</h2>
 
               <div className="flex gap-4 mb-6 pb-6 border-b">
                 <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                   <Image src={productImage} alt={productName} fill className="object-cover"  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">{productName}</h3>
-                  <p className="text-sm text-gray-500">Platform Add-On</p>
+                  <h3 className="font-semibold text-slate-900">{productName}</h3>
+                  <p className="text-sm text-slate-700">Platform Add-On</p>
                 </div>
               </div>
 
               <div className="space-y-3 mb-6 pb-6 border-b text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Plan</span>
-                  <span className="font-medium text-gray-900">{priceDesc}</span>
+                  <span className="text-slate-700">Plan</span>
+                  <span className="font-medium text-slate-900">{priceDesc}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Access</span>
-                  <span className="font-medium text-gray-900">Lifetime</span>
+                  <span className="text-slate-700">Access</span>
+                  <span className="font-medium text-slate-900">Lifetime</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Updates</span>
-                  <span className="font-medium text-gray-900">12 months free</span>
+                  <span className="text-slate-700">Updates</span>
+                  <span className="font-medium text-slate-900">12 months free</span>
                 </div>
                 {features.map((f) => (
                   <div key={f} className="flex justify-between">
-                    <span className="text-gray-600">{f}</span>
-                    <span className="font-medium text-gray-900">Included</span>
+                    <span className="text-slate-700">{f}</span>
+                    <span className="font-medium text-slate-900">Included</span>
                   </div>
                 ))}
               </div>
 
               <div className="flex justify-between items-baseline">
-                <span className="font-bold text-gray-900">Total</span>
+                <span className="font-bold text-slate-900">Total</span>
                 <div className="text-right">
                   {paymentMethod === 'sezzle' ? (
                     <>
-                      <span className="text-2xl font-black text-gray-900">
+                      <span className="text-2xl font-black text-slate-900">
                         4 × ${Math.round(price / 4).toLocaleString('en-US')}
                       </span>
-                      <span className="text-sm text-gray-500 block">
+                      <span className="text-sm text-slate-700 block">
                         ${price.toLocaleString('en-US')} total
                       </span>
                     </>
                   ) : (
                     <>
-                      <span className="text-2xl font-black text-gray-900">
+                      <span className="text-2xl font-black text-slate-900">
                         {isMonthly ? `$${monthlyPrice.toLocaleString('en-US')}` : `$${oneTimePrice.toLocaleString('en-US')}`}
                       </span>
                       {isMonthly && (
-                        <span className="text-sm text-gray-500 block">
+                        <span className="text-sm text-slate-700 block">
                           then ${monthlyPrice.toLocaleString('en-US')}/mo × {monthlyCount - 1}
                         </span>
                       )}
@@ -338,7 +338,7 @@ function CheckoutForm({
               </div>
 
               <div className="mt-6 pt-4 border-t space-y-2">
-                <div className="flex items-center gap-2 text-xs text-gray-500">
+                <div className="flex items-center gap-2 text-xs text-slate-700">
                   <Shield className="w-3 h-3" />
                   256-bit SSL encryption
                 </div>
@@ -365,7 +365,7 @@ export default function AddOnCheckout(props: AddOnCheckoutProps) {
     <Suspense
       fallback={
         <div className="min-h-screen bg-white flex items-center justify-center">
-          <Loader2 className="w-10 h-10 text-gray-400 animate-spin" />
+          <Loader2 className="w-10 h-10 text-slate-700 animate-spin" />
         </div>
       }
     >

@@ -113,30 +113,30 @@ export default function SettingsForm({ profile, preferences, userEmail }: Props)
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">First Name</label>
                   <input type="text" value={profileData.firstName}
                     onChange={e => setProfileData({ ...profileData, firstName: e.target.value })}
                     className="w-full px-3 py-2 border rounded-lg" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Last Name</label>
                   <input type="text" value={profileData.lastName}
                     onChange={e => setProfileData({ ...profileData, lastName: e.target.value })}
                     className="w-full px-3 py-2 border rounded-lg" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Email</label>
                   <input type="email" value={userEmail} disabled
-                    className="w-full px-3 py-2 border rounded-lg bg-white text-gray-500" />
+                    className="w-full px-3 py-2 border rounded-lg bg-white text-slate-700" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Phone</label>
                   <input type="tel" value={profileData.phone}
                     onChange={e => setProfileData({ ...profileData, phone: e.target.value })}
                     className="w-full px-3 py-2 border rounded-lg" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Bio</label>
                   <textarea rows={3} value={profileData.bio}
                     onChange={e => setProfileData({ ...profileData, bio: e.target.value })}
                     className="w-full px-3 py-2 border rounded-lg" placeholder="Tell us about yourself..." />
@@ -181,7 +181,7 @@ export default function SettingsForm({ profile, preferences, userEmail }: Props)
               </div>
               <div className="pt-4 border-t">
                 <h3 className="font-medium mb-2">Two-Factor Authentication</h3>
-                <p className="text-sm text-gray-600 mb-3">Add an extra layer of security to your account</p>
+                <p className="text-sm text-slate-700 mb-3">Add an extra layer of security to your account</p>
                 <button className="px-4 py-2 border rounded-lg hover:bg-white">Enable 2FA</button>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function SettingsForm({ profile, preferences, userEmail }: Props)
               <div>
                 <h3 className="font-medium mb-2">Payment Method</h3>
                 <div className="flex items-center gap-3 p-3 border rounded-lg">
-                  <CreditCard className="w-6 h-6 text-gray-400" />
+                  <CreditCard className="w-6 h-6 text-slate-700" />
                   <span>No payment method on file</span>
                 </div>
                 <button className="mt-3 px-4 py-2 border rounded-lg hover:bg-white">Add Payment Method</button>
@@ -207,12 +207,12 @@ export default function SettingsForm({ profile, preferences, userEmail }: Props)
           {(activeSection === 'language' || activeSection === 'appearance' || activeSection === 'privacy') && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold">{settingsSections.find(s => s.id === activeSection)?.name}</h2>
-              <p className="text-gray-600">{settingsSections.find(s => s.id === activeSection)?.description}</p>
+              <p className="text-slate-700">{settingsSections.find(s => s.id === activeSection)?.description}</p>
               
               {activeSection === 'language' && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Language</label>
+                    <label className="block text-sm font-medium text-slate-900 mb-1">Language</label>
                     <select className="w-full max-w-xs px-3 py-2 border rounded-lg">
                       <option>English (US)</option>
                       <option>Spanish</option>
@@ -220,7 +220,7 @@ export default function SettingsForm({ profile, preferences, userEmail }: Props)
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Timezone</label>
+                    <label className="block text-sm font-medium text-slate-900 mb-1">Timezone</label>
                     <select className="w-full max-w-xs px-3 py-2 border rounded-lg">
                       <option>Eastern Time (ET)</option>
                       <option>Central Time (CT)</option>
@@ -233,7 +233,7 @@ export default function SettingsForm({ profile, preferences, userEmail }: Props)
               {activeSection === 'appearance' && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Theme</label>
+                    <label className="block text-sm font-medium text-slate-900 mb-2">Theme</label>
                     <div className="flex gap-4">
                       {['Light', 'Dark', 'System'].map(theme => (
                         <label key={theme} className="flex items-center gap-2 cursor-pointer">

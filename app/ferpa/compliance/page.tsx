@@ -73,13 +73,13 @@ export default async function FerpaCompliancePage() {
       </section>
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Compliance</span>
+            <span className="text-slate-900 font-medium">Compliance</span>
           </nav>
-          <h1 className="text-2xl font-bold text-gray-900">Compliance Dashboard</h1>
-          <p className="text-gray-600 mt-1">Monitor FERPA compliance status</p>
+          <h1 className="text-2xl font-bold text-slate-900">Compliance Dashboard</h1>
+          <p className="text-slate-700 mt-1">Monitor FERPA compliance status</p>
         </div>
       </div>
 
@@ -92,13 +92,13 @@ export default async function FerpaCompliancePage() {
                 <Shield className="w-8 h-8 text-brand-green-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">FERPA Compliant</h2>
-                <p className="text-gray-600">All major compliance requirements met</p>
+                <h2 className="text-2xl font-bold text-slate-900">FERPA Compliant</h2>
+                <p className="text-slate-700">All major compliance requirements met</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-500">Last Audit</p>
-              <p className="font-semibold text-gray-900">December 15, 2025</p>
+              <p className="text-sm text-slate-700">Last Audit</p>
+              <p className="font-semibold text-slate-900">December 15, 2025</p>
             </div>
           </div>
         </div>
@@ -111,8 +111,8 @@ export default async function FerpaCompliancePage() {
                 <Users className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{totalStaff || 0}</p>
-                <p className="text-sm text-gray-500">Total Staff</p>
+                <p className="text-2xl font-bold text-slate-900">{totalStaff || 0}</p>
+                <p className="text-sm text-slate-700">Total Staff</p>
               </div>
             </div>
           </div>
@@ -122,8 +122,8 @@ export default async function FerpaCompliancePage() {
                 <span className="text-slate-400 flex-shrink-0">•</span>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{trainingRate}%</p>
-                <p className="text-sm text-gray-500">Training Rate</p>
+                <p className="text-2xl font-bold text-slate-900">{trainingRate}%</p>
+                <p className="text-sm text-slate-700">Training Rate</p>
               </div>
             </div>
           </div>
@@ -133,8 +133,8 @@ export default async function FerpaCompliancePage() {
                 <Clock className="w-5 h-5 text-yellow-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{pendingRequests || 0}</p>
-                <p className="text-sm text-gray-500">Pending Requests</p>
+                <p className="text-2xl font-bold text-slate-900">{pendingRequests || 0}</p>
+                <p className="text-sm text-slate-700">Pending Requests</p>
               </div>
             </div>
           </div>
@@ -144,8 +144,8 @@ export default async function FerpaCompliancePage() {
                 <TrendingUp className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">45</p>
-                <p className="text-sm text-gray-500">Days Response Time</p>
+                <p className="text-2xl font-bold text-slate-900">45</p>
+                <p className="text-sm text-slate-700">Days Response Time</p>
               </div>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default async function FerpaCompliancePage() {
         {/* Compliance Checklist */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Compliance Checklist</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Compliance Checklist</h2>
           </div>
           <div className="divide-y divide-gray-200">
             {complianceChecks.map((check, index) => (
@@ -165,11 +165,11 @@ export default async function FerpaCompliancePage() {
                   ) : (
                     <AlertTriangle className="w-5 h-5 text-yellow-600" />
                   )}
-                  <span className="font-medium text-gray-900">{check.name}</span>
+                  <span className="font-medium text-slate-900">{check.name}</span>
                 </div>
                 <div className="flex items-center gap-4">
                   {check.date && (
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-slate-700">
                       Updated: {new Date(check.date).toLocaleDateString()}
                     </span>
                   )}
@@ -190,18 +190,18 @@ export default async function FerpaCompliancePage() {
         <div className="mt-8 grid sm:grid-cols-3 gap-4">
           <Link href="/training/certifications" className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
             <FileText className="w-6 h-6 text-brand-blue-600 mb-2" />
-            <h3 className="font-semibold text-gray-900">FERPA Training</h3>
-            <p className="text-sm text-gray-500">Complete required training</p>
+            <h3 className="font-semibold text-slate-900">FERPA Training</h3>
+            <p className="text-sm text-slate-700">Complete required training</p>
           </Link>
           <Link href="/ferpa/documentation" className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
             <FileText className="w-6 h-6 text-brand-green-600 mb-2" />
-            <h3 className="font-semibold text-gray-900">Policies & Forms</h3>
-            <p className="text-sm text-gray-500">Access compliance documents</p>
+            <h3 className="font-semibold text-slate-900">Policies & Forms</h3>
+            <p className="text-sm text-slate-700">Access compliance documents</p>
           </Link>
           <Link href="/ferpa/reports" className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
             <TrendingUp className="w-6 h-6 text-brand-blue-600 mb-2" />
-            <h3 className="font-semibold text-gray-900">Generate Reports</h3>
-            <p className="text-sm text-gray-500">Compliance reporting</p>
+            <h3 className="font-semibold text-slate-900">Generate Reports</h3>
+            <p className="text-sm text-slate-700">Compliance reporting</p>
           </Link>
         </div>
       </div>

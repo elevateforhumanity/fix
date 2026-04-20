@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS public.lms_progress (
   evidence_url      TEXT,
   last_activity_at  TIMESTAMPTZ,
   created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
   UNIQUE (user_id, course_id)
 );
 CREATE INDEX IF NOT EXISTS idx_lms_progress_user ON public.lms_progress (user_id);

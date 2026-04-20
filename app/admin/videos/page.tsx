@@ -159,7 +159,7 @@ export default async function VideosPage() {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <Video className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                  <Video className="h-16 w-16 text-slate-700 mx-auto mb-4" />
                   <p className="text-black text-lg">No videos found</p>
                   <p className="text-black text-sm mt-2">
                     Upload your first video to get started

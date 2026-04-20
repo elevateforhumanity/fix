@@ -34,11 +34,11 @@ const statusColors: Record<string, string> = {
   in_progress: 'bg-yellow-100 text-yellow-700',
   waiting: 'bg-brand-blue-100 text-brand-blue-700',
   resolved: 'bg-brand-green-100 text-brand-green-700',
-  closed: 'bg-gray-100 text-gray-700',
+  closed: 'bg-gray-100 text-slate-900',
 };
 
 const priorityColors: Record<string, string> = {
-  low: 'bg-gray-100 text-gray-600',
+  low: 'bg-gray-100 text-slate-700',
   medium: 'bg-brand-blue-100 text-brand-blue-600',
   high: 'bg-brand-orange-100 text-brand-orange-600',
   urgent: 'bg-brand-red-100 text-brand-red-600',
@@ -103,7 +103,7 @@ export default function AdminSupportPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-black">Support Dashboard</h1>
-          <p className="text-gray-600">Manage customer support tickets</p>
+          <p className="text-slate-700">Manage customer support tickets</p>
         </div>
 
         {/* Stats */}
@@ -115,7 +115,7 @@ export default function AdminSupportPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-black">{stats.open}</p>
-                <p className="text-sm text-gray-600">Open</p>
+                <p className="text-sm text-slate-700">Open</p>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default function AdminSupportPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-black">{stats.inProgress}</p>
-                <p className="text-sm text-gray-600">In Progress</p>
+                <p className="text-sm text-slate-700">In Progress</p>
               </div>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function AdminSupportPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-black">{stats.resolved}</p>
-                <p className="text-sm text-gray-600">Resolved</p>
+                <p className="text-sm text-slate-700">Resolved</p>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function AdminSupportPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-black">{stats.urgent}</p>
-                <p className="text-sm text-gray-600">Urgent</p>
+                <p className="text-sm text-slate-700">Urgent</p>
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default function AdminSupportPage() {
         <div className="bg-white p-4 rounded-xl shadow-sm mb-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search tickets..."
@@ -200,23 +200,23 @@ export default function AdminSupportPage() {
           {loading ? (
             <div className="p-12 text-center">
               <div className="w-8 h-8 border-4 border-brand-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-gray-600">Loading tickets...</p>
+              <p className="text-slate-700">Loading tickets...</p>
             </div>
           ) : filteredTickets.length === 0 ? (
             <div className="p-12 text-center">
-              <Inbox className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-600">No tickets found</p>
+              <Inbox className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-700">No tickets found</p>
             </div>
           ) : (
             <table className="w-full">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Ticket</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Subject</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Customer</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Status</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Priority</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Created</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Ticket</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Subject</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Customer</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Priority</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -238,9 +238,9 @@ export default function AdminSupportPage() {
                         {ticket.subject}
                       </Link>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500 capitalize">{ticket.category}</span>
+                        <span className="text-xs text-slate-700 capitalize">{ticket.category}</span>
                         {ticket.support_messages && ticket.support_messages.length > 1 && (
-                          <span className="flex items-center gap-1 text-xs text-gray-500">
+                          <span className="flex items-center gap-1 text-xs text-slate-700">
                             <MessageSquare className="w-3 h-3" />
                             {ticket.support_messages.length}
                           </span>
@@ -250,11 +250,11 @@ export default function AdminSupportPage() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                          <User className="w-4 h-4 text-gray-600" />
+                          <User className="w-4 h-4 text-slate-700" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-black">{ticket.name}</p>
-                          <p className="text-xs text-gray-500">{ticket.email}</p>
+                          <p className="text-xs text-slate-700">{ticket.email}</p>
                         </div>
                       </div>
                     </td>
@@ -269,7 +269,7 @@ export default function AdminSupportPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-1 text-sm text-gray-600">
+                      <div className="flex items-center gap-1 text-sm text-slate-700">
                         <Calendar className="w-4 h-4" />
                         {new Date(ticket.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                       </div>

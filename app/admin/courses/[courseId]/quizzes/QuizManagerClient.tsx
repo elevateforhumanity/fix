@@ -131,8 +131,8 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Course Quizzes</h1>
-          <p className="text-gray-600 mt-2">Manage assessments for {course?.title || 'this course'}</p>
+          <h1 className="text-3xl font-bold text-slate-900">Course Quizzes</h1>
+          <p className="text-slate-700 mt-2">Manage assessments for {course?.title || 'this course'}</p>
         </div>
         <div className="flex gap-3">
           <Link href="/admin/course-builder" className="px-4 py-2 border rounded-lg hover:bg-gray-50">Back to Courses</Link>
@@ -166,14 +166,14 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                 </button>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{quiz.title}</h3>
-              <p className="text-sm text-gray-500 mb-4 line-clamp-2">{quiz.description || 'No description'}</p>
-              <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+              <h3 className="font-semibold text-slate-900 mb-2">{quiz.title}</h3>
+              <p className="text-sm text-slate-700 mb-4 line-clamp-2">{quiz.description || 'No description'}</p>
+              <div className="flex items-center justify-between text-sm text-slate-700 mb-4">
                 <span>{quiz.passing_score}% to pass</span>
                 <span>{quiz.max_attempts} attempts</span>
               </div>
               {quiz.time_limit_minutes && (
-                <p className="text-sm text-gray-500 mb-4">{quiz.time_limit_minutes} min time limit</p>
+                <p className="text-sm text-slate-700 mb-4">{quiz.time_limit_minutes} min time limit</p>
               )}
               <div className="flex gap-2">
                 <Link 
@@ -191,11 +191,11 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
         ) : (
           <div className="col-span-full bg-white rounded-lg shadow-sm border p-8 text-center">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
-            <p className="text-gray-500 mb-4">No quizzes created yet</p>
+            <p className="text-slate-700 mb-4">No quizzes created yet</p>
             <button onClick={openCreateModal} className="bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">
               Create First Quiz
             </button>
@@ -209,13 +209,13 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
           <div className="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="px-6 py-4 border-b flex items-center justify-between">
               <h2 className="text-xl font-semibold">{editingQuiz ? 'Edit Quiz' : 'Create New Quiz'}</h2>
-              <button onClick={() => { setShowModal(false); resetForm(); }} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => { setShowModal(false); resetForm(); }} className="text-slate-700 hover:text-slate-700">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Quiz Title *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Quiz Title *</label>
                 <input
                   type="text"
                   required
@@ -226,7 +226,7 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Description</label>
                 <textarea
                   rows={3}
                   value={formData.description}
@@ -237,7 +237,7 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Time Limit (minutes)</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Time Limit (minutes)</label>
                   <input
                     type="number"
                     min="0"
@@ -248,7 +248,7 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Passing Score (%)</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Passing Score (%)</label>
                   <input
                     type="number"
                     min="0"
@@ -260,7 +260,7 @@ export default function QuizManagerClient({ course, initialQuizzes, courseId }: 
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Max Attempts</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Max Attempts</label>
                 <input
                   type="number"
                   min="1"

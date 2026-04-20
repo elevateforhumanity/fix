@@ -189,7 +189,7 @@ export default function CookieConsentBanner() {
                   onClick={() => setShowSettings(false)}
                   className="p-2 hover:bg-gray-100 rounded-lg transition"
                 >
-                  <X className="w-5 h-5 text-gray-500" />
+                  <X className="w-5 h-5 text-slate-700" />
                 </button>
               </div>
 

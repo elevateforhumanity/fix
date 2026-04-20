@@ -130,7 +130,7 @@ export function SMSNotificationSystem() {
                     className="w-full px-4 py-2 border rounded-lg h-32"
                     maxLength={160}
                   />
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-slate-700 mt-1">
                     {message.length}/160 characters
                   </p>
                 </div>

@@ -94,7 +94,7 @@ export default function Terminal({ onCommand, sessionId }: TerminalProps) {
   return (
     <div className="h-full bg-black text-brand-green-400 font-mono text-sm flex flex-col">
       <div className="p-2 border-b border-gray-700 bg-white">
-        <h3 className="font-semibold text-xs text-gray-400">Terminal</h3>
+        <h3 className="font-semibold text-xs text-slate-700">Terminal</h3>
       </div>
 
       <div ref={terminalRef} className="flex-1 overflow-y-auto p-4 space-y-1">

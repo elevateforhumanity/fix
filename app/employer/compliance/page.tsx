@@ -117,11 +117,11 @@ export default async function EmployerCompliancePage() {
                   <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                     <area.icon className="w-5 h-5 text-brand-blue-600" />
                   </div>
-                  <h3 className="font-bold text-gray-900">{area.title}</h3>
+                  <h3 className="font-bold text-slate-900">{area.title}</h3>
                 </div>
                 <span className="text-xs font-medium px-2 py-1 bg-brand-green-100 text-brand-green-700 rounded-full">{area.status}</span>
               </div>
-              <p className="text-gray-600 text-sm mb-4">{area.description}</p>
+              <p className="text-slate-700 text-sm mb-4">{area.description}</p>
               <div className="flex flex-wrap gap-2">
                 {area.actions.map((action, j) => (
                   <Link key={j} href={action.href} className="text-sm px-4 py-2 bg-white rounded-lg hover:bg-brand-blue-50 hover:text-brand-blue-600 transition font-medium">
@@ -136,7 +136,7 @@ export default async function EmployerCompliancePage() {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Upcoming Deadlines */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
               <Clock className="w-5 h-5 text-brand-orange-600" /> Upcoming Deadlines
             </h2>
             <div className="space-y-3">
@@ -145,11 +145,11 @@ export default async function EmployerCompliancePage() {
                   <div className="flex items-center gap-3">
                     <AlertCircle className={`w-4 h-4 ${item.priority === 'high' ? 'text-brand-red-500' : 'text-yellow-500'}`} />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{item.title}</p>
-                      <p className="text-xs text-gray-500">{item.date}</p>
+                      <p className="text-sm font-medium text-slate-900">{item.title}</p>
+                      <p className="text-xs text-slate-700">{item.date}</p>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400" />
+                  <ArrowRight className="w-4 h-4 text-slate-700" />
                 </div>
               ))}
             </div>
@@ -157,14 +157,14 @@ export default async function EmployerCompliancePage() {
 
           {/* Quick Checklist */}
           <div className="bg-white rounded-xl shadow-sm border p-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
               <span className="text-slate-500 flex-shrink-0">•</span> Compliance Checklist
             </h2>
             <div className="space-y-3">
               {quickChecklist.map((item, i) => (
                 <div key={i} className="flex items-start gap-3 p-2">
                   <span className="text-slate-500 flex-shrink-0">•</span>
-                  <span className="text-sm text-gray-700">{item}</span>
+                  <span className="text-sm text-slate-900">{item}</span>
                 </div>
               ))}
             </div>
@@ -173,8 +173,8 @@ export default async function EmployerCompliancePage() {
 
         {/* Help */}
         <div className="mt-8 bg-brand-blue-50 rounded-xl p-6 border border-brand-blue-200">
-          <h2 className="font-bold text-gray-900 mb-2">Need Compliance Help?</h2>
-          <p className="text-gray-600 text-sm mb-4">Our compliance team can help you understand requirements and prepare documentation.</p>
+          <h2 className="font-bold text-slate-900 mb-2">Need Compliance Help?</h2>
+          <p className="text-slate-700 text-sm mb-4">Our compliance team can help you understand requirements and prepare documentation.</p>
           <div className="flex flex-wrap gap-3">
             <Link href="/contact" className="text-sm px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition font-medium">
               Contact Compliance Team

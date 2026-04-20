@@ -48,8 +48,8 @@ export default function SellerRegisterPage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center">
           <span className="text-slate-500 flex-shrink-0">•</span>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Application Submitted!</h1>
-          <p className="text-gray-600 mb-6">We will review your seller application and get back to you within 2-3 business days.</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Application Submitted!</h1>
+          <p className="text-slate-700 mb-6">We will review your seller application and get back to you within 2-3 business days.</p>
           <Link href="/" className="text-brand-blue-600 font-medium">Return to Home</Link>
         </div>
       </div>
@@ -77,23 +77,23 @@ export default function SellerRegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Your Name *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Your Name *</label>
                 <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Full name" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Email *</label>
                 <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="you@example.com" />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Store Name *</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Store Name *</label>
               <input type="text" required value={formData.storeName} onChange={(e) => setFormData({...formData, storeName: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Your store name" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">What will you sell?</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">What will you sell?</label>
               <textarea rows={4} value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none" placeholder="Describe your products or courses..." />
             </div>

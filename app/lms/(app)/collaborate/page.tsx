@@ -73,11 +73,11 @@ export default async function CollaboratePage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
               <Users className="w-8 h-8 text-brand-blue-600" />
               Collaborate
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-slate-700 mt-1">
               Work together with classmates on projects and study sessions
             </p>
           </div>
@@ -108,10 +108,10 @@ export default async function CollaboratePage() {
                   }`} />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">{tool.title}</h3>
-                  <p className="text-gray-600 text-sm mt-1">{tool.description}</p>
+                  <h3 className="font-semibold text-slate-900">{tool.title}</h3>
+                  <p className="text-slate-700 text-sm mt-1">{tool.description}</p>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
+                <ChevronRight className="w-5 h-5 text-slate-700" />
               </div>
             </Link>
           ))}
@@ -122,16 +122,16 @@ export default async function CollaboratePage() {
           {/* My Groups */}
           <div className="bg-white rounded-xl shadow-sm border">
             <div className="p-6 border-b flex items-center justify-between">
-              <h2 className="font-semibold text-gray-900">My Study Groups</h2>
+              <h2 className="font-semibold text-slate-900">My Study Groups</h2>
               <Link href="/lms/study-groups" className="text-brand-blue-600 hover:text-brand-blue-700 text-sm font-medium">
                 View All
               </Link>
             </div>
             <div className="p-6">
               <div className="text-center py-8">
-                <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="font-medium text-gray-900 mb-2">No groups yet</h3>
-                <p className="text-gray-600 text-sm mb-4">
+                <Users className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+                <h3 className="font-medium text-slate-900 mb-2">No groups yet</h3>
+                <p className="text-slate-700 text-sm mb-4">
                   Join a study group or create your own
                 </p>
                 <Link
@@ -147,16 +147,16 @@ export default async function CollaboratePage() {
           {/* Upcoming Sessions */}
           <div className="bg-white rounded-xl shadow-sm border">
             <div className="p-6 border-b flex items-center justify-between">
-              <h2 className="font-semibold text-gray-900">Upcoming Sessions</h2>
+              <h2 className="font-semibold text-slate-900">Upcoming Sessions</h2>
               <Link href="/lms/collaborate/meetings" className="text-brand-blue-600 hover:text-brand-blue-700 text-sm font-medium">
                 Schedule
               </Link>
             </div>
             <div className="p-6">
               <div className="text-center py-8">
-                <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="font-medium text-gray-900 mb-2">No upcoming sessions</h3>
-                <p className="text-gray-600 text-sm mb-4">
+                <Calendar className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+                <h3 className="font-medium text-slate-900 mb-2">No upcoming sessions</h3>
+                <p className="text-slate-700 text-sm mb-4">
                   Schedule a study session with your group
                 </p>
                 <button className="text-brand-blue-600 hover:text-brand-blue-700 font-medium text-sm">
@@ -169,8 +169,8 @@ export default async function CollaboratePage() {
 
         {/* Tips */}
         <div className="mt-8 bg-brand-blue-50 rounded-xl p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Collaboration Tips</h3>
-          <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-700">
+          <h3 className="font-semibold text-slate-900 mb-4">Collaboration Tips</h3>
+          <div className="grid md:grid-cols-3 gap-4 text-sm text-slate-900">
             <div className="flex items-start gap-2">
               <MessageSquare className="w-5 h-5 text-brand-blue-600 flex-shrink-0 mt-0.5" />
               <span>Use the chat feature to stay connected with your study partners</span>

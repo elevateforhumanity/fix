@@ -70,7 +70,7 @@ export default async function SchedulePage() {
                       <p className="font-medium">
                         {enrollment.courses?.title || 'Course'}
                       </p>
-                      <p className="text-sm text-gray-600">Continue learning</p>
+                      <p className="text-sm text-slate-700">Continue learning</p>
                     </div>
                     <Link
                       href={`/lms/courses/${enrollment.course_id}`}
@@ -82,7 +82,7 @@ export default async function SchedulePage() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-600">
+              <p className="text-slate-700">
                 No scheduled activities for today.{' '}
                 <Link href="/lms/courses" className="text-brand-blue-600">
                   Browse courses
@@ -98,7 +98,7 @@ export default async function SchedulePage() {
               <div className="flex items-center justify-between p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                 <div>
                   <p className="font-medium">Assignment Due</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-700">
                     Check your assignments for upcoming deadlines
                   </p>
                 </div>
@@ -118,14 +118,14 @@ export default async function SchedulePage() {
             <div className="grid grid-cols-7 gap-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
                 <div key={day} className="text-center">
-                  <p className="text-sm font-medium text-gray-600 mb-2">{day}</p>
+                  <p className="text-sm font-medium text-slate-700 mb-2">{day}</p>
                   <div className="h-20 bg-white rounded-lg flex items-center justify-center">
-                    <span className="text-xs text-gray-400">-</span>
+                    <span className="text-xs text-slate-700">-</span>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-sm text-gray-600 mt-4 text-center">
+            <p className="text-sm text-slate-700 mt-4 text-center">
               Your scheduled activities will appear here.{' '}
               <Link href="/lms/calendar" className="text-brand-blue-600">
                 Open full calendar

@@ -1,7 +1,5 @@
 export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 import { redirect } from 'next/navigation';
-export default function Page() {
-  redirect('https://www.elevateforhumanity.org');
-}
+export default function Page() { redirect('/solutions'); }

@@ -18,7 +18,7 @@ const STATUS_STYLES: Record<string, string> = {
   active: 'bg-brand-green-100 text-brand-green-800',
   pending: 'bg-amber-100 text-amber-800',
   rejected: 'bg-brand-red-100 text-brand-red-800',
-  suspended: 'bg-gray-100 text-gray-600',
+  suspended: 'bg-gray-100 text-slate-700',
 };
 
 export default async function AdminProgramHoldersPage() {
@@ -61,8 +61,8 @@ export default async function AdminProgramHoldersPage() {
 
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Program Holders</h1>
-            <p className="text-gray-600 mt-1">Manage program holder organizations and approvals</p>
+            <h1 className="text-3xl font-bold text-slate-900">Program Holders</h1>
+            <p className="text-slate-700 mt-1">Manage program holder organizations and approvals</p>
           </div>
         </div>
 
@@ -70,22 +70,22 @@ export default async function AdminProgramHoldersPage() {
         <div className="grid grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center gap-2 mb-2">
-              <Building2 className="w-5 h-5 text-gray-400" />
-              <h3 className="text-sm font-medium text-gray-500">Total</h3>
+              <Building2 className="w-5 h-5 text-slate-700" />
+              <h3 className="text-sm font-medium text-slate-700">Total</h3>
             </div>
-            <p className="text-3xl font-bold text-gray-900">{items.length}</p>
+            <p className="text-3xl font-bold text-slate-900">{items.length}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center gap-2 mb-2">
               <Clock className="w-5 h-5 text-amber-500" />
-              <h3 className="text-sm font-medium text-gray-500">Pending Approval</h3>
+              <h3 className="text-sm font-medium text-slate-700">Pending Approval</h3>
             </div>
             <p className="text-3xl font-bold text-amber-600">{pending}</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle className="w-5 h-5 text-brand-green-500" />
-              <h3 className="text-sm font-medium text-gray-500">Active</h3>
+              <h3 className="text-sm font-medium text-slate-700">Active</h3>
             </div>
             <p className="text-3xl font-bold text-brand-green-600">{active}</p>
           </div>
@@ -97,7 +97,7 @@ export default async function AdminProgramHoldersPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-gray-500 border-b bg-gray-50">
+                  <tr className="text-left text-slate-700 border-b bg-gray-50">
                     <th className="px-4 py-3 font-medium">Organization</th>
                     <th className="px-4 py-3 font-medium">Contact</th>
                     <th className="px-4 py-3 font-medium text-center">Programs</th>
@@ -111,14 +111,14 @@ export default async function AdminProgramHoldersPage() {
                   {items.map((h: any) => (
                     <tr key={h.id} className="hover:bg-gray-50">
                       <td className="px-4 py-3">
-                        <p className="font-medium text-gray-900">{h.organization_name || h.name || 'Unnamed'}</p>
+                        <p className="font-medium text-slate-900">{h.organization_name || h.name || 'Unnamed'}</p>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="text-gray-900">{h.contact_name || '—'}</p>
-                        <p className="text-xs text-gray-500">{h.contact_email || ''}</p>
+                        <p className="text-slate-900">{h.contact_name || '—'}</p>
+                        <p className="text-xs text-slate-700">{h.contact_email || ''}</p>
                       </td>
                       <td className="px-4 py-3 text-center">
-                        <span className={`font-medium ${(countMap[h.id] || 0) === 0 ? 'text-amber-600' : 'text-gray-900'}`}>
+                        <span className={`font-medium ${(countMap[h.id] || 0) === 0 ? 'text-amber-600' : 'text-slate-900'}`}>
                           {countMap[h.id] || 0}
                         </span>
                       </td>
@@ -126,15 +126,15 @@ export default async function AdminProgramHoldersPage() {
                         {h.mou_signed ? (
                           <CheckCircle className="w-4 h-4 text-brand-green-600 mx-auto" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-gray-300 mx-auto" />
+                          <XCircle className="w-4 h-4 text-slate-700 mx-auto" />
                         )}
                       </td>
                       <td className="px-4 py-3 text-center">
-                        <span className={`text-xs font-medium px-2 py-1 rounded ${STATUS_STYLES[h.status] || 'bg-gray-100 text-gray-600'}`}>
+                        <span className={`text-xs font-medium px-2 py-1 rounded ${STATUS_STYLES[h.status] || 'bg-gray-100 text-slate-700'}`}>
                           {h.status}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-gray-500 text-xs">
+                      <td className="px-4 py-3 text-slate-700 text-xs">
                         {new Date(h.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -156,9 +156,9 @@ export default async function AdminProgramHoldersPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <Building2 className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500 font-medium">No program holders yet</p>
-              <p className="text-sm text-gray-500 mt-1">Program holder applications will appear here when submitted.</p>
+              <Building2 className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+              <p className="text-slate-700 font-medium">No program holders yet</p>
+              <p className="text-sm text-slate-700 mt-1">Program holder applications will appear here when submitted.</p>
             </div>
           )}
         </div>

@@ -59,10 +59,10 @@ export default async function InstructorProgramsPage() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">My Programs</h1>
-              <p className="text-gray-600">Programs you are assigned to teach</p>
+              <h1 className="text-2xl font-bold text-slate-900">My Programs</h1>
+              <p className="text-slate-700">Programs you are assigned to teach</p>
             </div>
-            <Link href="/instructor/dashboard" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+            <Link href="/instructor/dashboard" className="px-4 py-2 text-slate-700 hover:text-slate-900">
               ← Dashboard
             </Link>
           </div>
@@ -80,16 +80,16 @@ export default async function InstructorProgramsPage() {
                       <BookOpen className="w-6 h-6 text-brand-blue-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{program.title || program.name}</h3>
-                      <p className="text-sm text-gray-500">{program.credential || 'Certificate'}</p>
+                      <h3 className="font-semibold text-slate-900">{program.title || program.name}</h3>
+                      <p className="text-sm text-slate-700">{program.credential || 'Certificate'}</p>
                     </div>
                   </div>
                   
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                  <p className="text-sm text-slate-700 mb-4 line-clamp-2">
                     {program.description || 'No description available.'}
                   </p>
 
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                  <div className="flex items-center gap-4 text-sm text-slate-700 mb-4">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
                       {program.duration || 'Varies'}
@@ -111,9 +111,9 @@ export default async function InstructorProgramsPage() {
             ))
           ) : (
             <div className="col-span-full bg-white rounded-lg shadow-sm border p-12 text-center">
-              <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No Programs Assigned</h3>
-              <p className="text-gray-600">
+              <BookOpen className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">No Programs Assigned</h3>
+              <p className="text-slate-700">
                 Contact an administrator to be assigned to programs.
               </p>
             </div>

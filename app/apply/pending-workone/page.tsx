@@ -102,7 +102,7 @@ export default function PendingWorkOnePage({
           <div className="inline-flex items-center justify-center w-20 h-20 bg-amber-100 rounded-full mb-6">
             <Clock className="w-10 h-10 text-amber-600" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
             One More Step Before Enrollment
           </h1>
           <p className="text-lg text-black leading-relaxed">
@@ -131,7 +131,7 @@ export default function PendingWorkOnePage({
 
         {/* ── Checklist ── */}
         <div className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-1">Track your progress</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-1">Track your progress</h2>
           <p className="text-sm text-black mb-4">
             Check off each step as you complete it. Add notes like appointment dates,
             advisor names, and authorization codes so nothing gets lost.
@@ -144,7 +144,7 @@ export default function PendingWorkOnePage({
           <h2 className="text-xl font-bold mb-4">What to bring to WorkOne</h2>
           <ul className="space-y-2">
             {BRING_LIST.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-900">
                 <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                 {item}
               </li>
@@ -164,7 +164,7 @@ export default function PendingWorkOnePage({
                 <div className="flex-1 pt-0.5">
                   <div className="flex items-center gap-2 mb-1">
                     {step.icon}
-                    <h3 className={`font-semibold ${'highlight' in step && step.highlight ? 'text-amber-900' : 'text-gray-900'}`}>{step.title}</h3>
+                    <h3 className={`font-semibold ${'highlight' in step && step.highlight ? 'text-amber-900' : 'text-slate-900'}`}>{step.title}</h3>
                     {'highlight' in step && step.highlight && <span className="text-[10px] font-bold bg-amber-400 text-amber-900 px-2 py-0.5 rounded-full uppercase tracking-wide">Required First</span>}
                   </div>
                   <p className="text-black text-sm leading-relaxed">{step.description}</p>
@@ -228,7 +228,7 @@ export default function PendingWorkOnePage({
           </Link>
           <Link
             href="/login"
-            className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold text-center hover:bg-gray-50 transition"
+            className="flex-1 border border-gray-300 text-slate-900 px-6 py-3 rounded-lg font-semibold text-center hover:bg-gray-50 transition"
           >
             Log In to Your Account
           </Link>

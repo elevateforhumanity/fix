@@ -37,7 +37,7 @@ function ProfileStep({ onNext }: { onNext: (data: Record<string, string>) => voi
 
   const field = (label: string, key: keyof typeof form, type = 'text', required = true, placeholder = '') => (
     <div>
-      <label className="block text-sm font-semibold text-gray-700 mb-1">{label}{required && <span className="text-red-500 ml-1">*</span>}</label>
+      <label className="block text-sm font-semibold text-slate-900 mb-1">{label}{required && <span className="text-red-500 ml-1">*</span>}</label>
       <input type={type} value={form[key]} onChange={e => set(key, e.target.value)}
         placeholder={placeholder}
         className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -51,7 +51,7 @@ function ProfileStep({ onNext }: { onNext: (data: Record<string, string>) => voi
         <p>A complete profile is required before apprentices can be placed at your shop. All fields marked * are required by the U.S. Department of Labor.</p>
       </div>
 
-      <h3 className="font-bold text-gray-900">Business Information</h3>
+      <h3 className="font-bold text-slate-900">Business Information</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {field('Barbershop Name', 'shop_name', 'text', true, 'e.g. Prestige Cuts Barbershop')}
         {field('Owner Full Name', 'owner_name', 'text', true, 'e.g. Jane Smith')}
@@ -63,7 +63,7 @@ function ProfileStep({ onNext }: { onNext: (data: Record<string, string>) => voi
         {field('Max Apprentice Capacity', 'apprentice_capacity', 'number', false, '4')}
       </div>
 
-      <h3 className="font-bold text-gray-900 mt-2">Business Address</h3>
+      <h3 className="font-bold text-slate-900 mt-2">Business Address</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {field('Street Address', 'address_line1', 'text', true)}
         {field('City', 'city', 'text', true)}
@@ -71,7 +71,7 @@ function ProfileStep({ onNext }: { onNext: (data: Record<string, string>) => voi
         {field('ZIP Code', 'zip', 'text', true)}
       </div>
 
-      <h3 className="font-bold text-gray-900 mt-2">Indiana Barber Shop License</h3>
+      <h3 className="font-bold text-slate-900 mt-2">Indiana Barber Shop License</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {field('License Number', 'license_number', 'text', true)}
         {field('License State', 'license_state', 'text', true)}
@@ -80,7 +80,7 @@ function ProfileStep({ onNext }: { onNext: (data: Record<string, string>) => voi
 
       <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
         <Upload className="w-8 h-8 text-black mx-auto mb-2" />
-        <p className="text-sm font-semibold text-gray-700">Upload License Photos</p>
+        <p className="text-sm font-semibold text-slate-900">Upload License Photos</p>
         <p className="text-xs text-black mt-1">Upload full, clear photos of your Indiana Barber Shop License and all mentor/journeyperson barber licenses. Both front and back required.</p>
         <p className="text-xs text-red-600 mt-2 font-semibold">⚠ Partial or cropped images will not be accepted</p>
         <input type="file" multiple accept="image/*,.pdf" className="mt-3 text-sm text-black" />
@@ -128,7 +128,7 @@ function MOUStep({ profileData, onNext }: { profileData: Record<string, string>;
   if (done) return (
     <div className="text-center space-y-4">
       <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
-      <h3 className="text-xl font-bold text-gray-900">MOU Signed Successfully</h3>
+      <h3 className="text-xl font-bold text-slate-900">MOU Signed Successfully</h3>
       <p className="text-black text-sm">Your Memorandum of Understanding has been recorded. Continue to the Employer Agreement.</p>
       <button onClick={onNext} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors">
         Continue to Employer Agreement <ChevronRight className="w-5 h-5" />
@@ -139,10 +139,10 @@ function MOUStep({ profileData, onNext }: { profileData: Record<string, string>;
   return (
     <form onSubmit={submit} className="space-y-6">
       {/* MOU Document */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6 max-h-96 overflow-y-auto text-sm text-gray-800 space-y-4">
+      <div className="bg-white border border-gray-200 rounded-xl p-6 max-h-96 overflow-y-auto text-sm text-slate-900 space-y-4">
         <div className="text-center border-b pb-4">
           <p className="text-xs text-black uppercase tracking-wide font-semibold">Version 2.0 — 2025</p>
-          <h3 className="text-lg font-bold text-gray-900 mt-1">Employer Training Site MOU</h3>
+          <h3 className="text-lg font-bold text-slate-900 mt-1">Employer Training Site MOU</h3>
           <p className="text-xs text-black">Barber Apprenticeship Program · RAPIDS: 2025-IN-132301</p>
           <p className="text-xs text-black mt-1">Sponsor: 2Exclusive LLC-S (DBA: Elevate for Humanity Technical and Career Institute)</p>
         </div>
@@ -173,7 +173,7 @@ function MOUStep({ profileData, onNext }: { profileData: Record<string, string>;
 
       {/* Signature */}
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">
+        <label className="block text-sm font-semibold text-slate-900 mb-1">
           <PenLine className="w-4 h-4 inline mr-1" />
           Digital Signature — Type your full legal name *
         </label>
@@ -186,7 +186,7 @@ function MOUStep({ profileData, onNext }: { profileData: Record<string, string>;
       <div className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl">
         <input type="checkbox" id="agreed" checked={agreed} onChange={e => setAgreed(e.target.checked)}
           className="mt-1 h-4 w-4 text-blue-600 rounded" />
-        <label htmlFor="agreed" className="text-sm text-gray-700">
+        <label htmlFor="agreed" className="text-sm text-slate-900">
           I have read and agree to the terms of this Memorandum of Understanding. I understand this digital signature is legally binding and has the same effect as a handwritten signature. I confirm I am authorized to sign on behalf of <strong>{profileData.shop_name || 'my business'}</strong>.
         </label>
       </div>
@@ -242,7 +242,7 @@ function EmployerAgreementStep({ profileData, onNext }: { profileData: Record<st
   if (done) return (
     <div className="text-center space-y-4">
       <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
-      <h3 className="text-xl font-bold text-gray-900">Employer Agreement Complete</h3>
+      <h3 className="text-xl font-bold text-slate-900">Employer Agreement Complete</h3>
       <p className="text-black text-sm">Your employer agreement has been submitted and recorded for RAPIDS. Elevate will review and confirm your onboarding within 2 business days.</p>
       <button onClick={onNext} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-colors">
         Complete Onboarding
@@ -252,7 +252,7 @@ function EmployerAgreementStep({ profileData, onNext }: { profileData: Record<st
 
   const field = (label: string, key: string, type = 'text', placeholder = '') => (
     <div>
-      <label className="block text-sm font-semibold text-gray-700 mb-1">{label} <span className="text-red-500">*</span></label>
+      <label className="block text-sm font-semibold text-slate-900 mb-1">{label} <span className="text-red-500">*</span></label>
       <input type={type} value={form[key as keyof typeof form] as string}
         onChange={e => set(key, e.target.value)} placeholder={placeholder}
         className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -266,14 +266,14 @@ function EmployerAgreementStep({ profileData, onNext }: { profileData: Record<st
         <p>This Employer Agreement is required by the U.S. Department of Labor for all Registered Apprenticeship training sites. Information provided here will be submitted to RAPIDS (Registered Apprenticeship Partners Information Data System).</p>
       </div>
 
-      <h3 className="font-bold text-gray-900">Primary Mentor / Journeyperson Barber</h3>
+      <h3 className="font-bold text-slate-900">Primary Mentor / Journeyperson Barber</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {field('Mentor Full Name', 'mentor_name', 'text', 'Licensed journeyperson barber')}
         {field('Indiana Barber License #', 'mentor_license')}
         {field('License Expiry', 'mentor_license_expiry', 'date')}
       </div>
 
-      <h3 className="font-bold text-gray-900">Progressive Wage Schedule</h3>
+      <h3 className="font-bold text-slate-900">Progressive Wage Schedule</h3>
       <p className="text-xs text-black">Apprentice wages must increase progressively. Enter hourly rates for each year of the apprenticeship.</p>
       <div className="grid grid-cols-3 gap-4">
         {field('Year 1 Hourly Rate ($)', 'wage_year1', 'text', 'e.g. 10.00')}
@@ -281,20 +281,20 @@ function EmployerAgreementStep({ profileData, onNext }: { profileData: Record<st
         {field('Year 3 Hourly Rate ($)', 'wage_year3', 'text', 'e.g. 14.00')}
       </div>
 
-      <h3 className="font-bold text-gray-900">Training Hours</h3>
+      <h3 className="font-bold text-slate-900">Training Hours</h3>
       <div className="grid grid-cols-2 gap-4">
         {field('OJL Hours Per Year', 'ojl_hours_year', 'number')}
         {field('RTI Hours Per Year', 'rti_hours_year', 'number')}
       </div>
 
-      <h3 className="font-bold text-gray-900">Insurance</h3>
+      <h3 className="font-bold text-slate-900">Insurance</h3>
       <div className="grid grid-cols-2 gap-4">
         {field("Workers' Comp Policy #", 'workers_comp')}
         {field('General Liability Policy #', 'liability_insurance')}
       </div>
 
-      <h3 className="font-bold text-gray-900">Employer Certifications</h3>
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-700 space-y-2">
+      <h3 className="font-bold text-slate-900">Employer Certifications</h3>
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-slate-900 space-y-2">
         <p>By signing below, the Employer certifies that:</p>
         <ul className="list-disc pl-5 space-y-1">
           <li>All information provided is accurate and complete</li>
@@ -316,7 +316,7 @@ function EmployerAgreementStep({ profileData, onNext }: { profileData: Record<st
       <div className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl">
         <input type="checkbox" id="emp_agreed" checked={form.agreed}
           onChange={e => set('agreed', e.target.checked)} className="mt-1 h-4 w-4 text-blue-600 rounded" />
-        <label htmlFor="emp_agreed" className="text-sm text-gray-700">
+        <label htmlFor="emp_agreed" className="text-sm text-slate-900">
           I certify that all information is accurate and I am authorized to enter into this Employer Agreement on behalf of <strong>{profileData.shop_name || 'my business'}</strong>. I understand this agreement will be submitted to the U.S. Department of Labor RAPIDS system.
         </label>
       </div>
@@ -361,7 +361,7 @@ export default function BarbershopOnboardingPage() {
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
           <p className="text-xs text-black uppercase tracking-wide font-semibold mb-1">Barber Apprenticeship Program</p>
-          <h1 className="text-2xl font-bold text-gray-900">Employer Training Site Onboarding</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Employer Training Site Onboarding</h1>
           <p className="text-sm text-black mt-1">2Exclusive LLC-S (DBA: Elevate for Humanity Technical and Career Institute) · RAPIDS: 2025-IN-132301</p>
 
           {/* Progress */}
@@ -384,7 +384,7 @@ export default function BarbershopOnboardingPage() {
 
         {/* Step content */}
         <div className="bg-white rounded-2xl shadow-sm p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">
+          <h2 className="text-lg font-bold text-slate-900 mb-5">
             {STEPS[stepIndex]?.label}
           </h2>
 
@@ -400,7 +400,7 @@ export default function BarbershopOnboardingPage() {
           {step === 'done' && (
             <div className="text-center space-y-4 py-8">
               <CheckCircle className="w-20 h-20 text-green-500 mx-auto" />
-              <h3 className="text-2xl font-bold text-gray-900">Onboarding Complete!</h3>
+              <h3 className="text-2xl font-bold text-slate-900">Onboarding Complete!</h3>
               <p className="text-black">Thank you, {profileData.owner_name}. Your profile, MOU, and Employer Agreement have been submitted. Elevate for Humanity will review and confirm within 2 business days. You will receive a confirmation email at {profileData.contact_email}.</p>
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800 text-left">
                 <p className="font-semibold mb-2">Next Steps:</p>

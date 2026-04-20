@@ -74,10 +74,10 @@ export default async function OrientationCompletePage() {
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
+        <h1 className="text-2xl font-bold text-slate-900 text-center mb-2">
           You&apos;re all set, {firstName}!
         </h1>
-        <p className="text-sm text-gray-500 text-center mb-8">
+        <p className="text-sm text-slate-700 text-center mb-8">
           Orientation is complete. Your coursework is now unlocked.
         </p>
 
@@ -136,7 +136,7 @@ export default async function OrientationCompletePage() {
 
         {/* Next steps card */}
         <div className="rounded-xl border border-gray-200 bg-gray-50 p-5 mb-6">
-          <h2 className="text-sm font-semibold text-gray-900 mb-3">
+          <h2 className="text-sm font-semibold text-slate-900 mb-3">
             What happens next
           </h2>
           <ul className="space-y-2">
@@ -146,7 +146,7 @@ export default async function OrientationCompletePage() {
               'Checkpoints unlock the next module — pass at 70% or higher',
               'Your certificate is issued automatically when you finish the program',
             ].map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+              <li key={i} className="flex items-start gap-2 text-xs text-slate-900">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0 mt-0.5" />
                 {item}
               </li>
@@ -166,7 +166,7 @@ export default async function OrientationCompletePage() {
           </Link>
         </div>
 
-        <p className="text-center text-xs text-gray-400 mt-6">
+        <p className="text-center text-xs text-slate-700 mt-6">
           Questions? Call{' '}
           <a href="tel:+13173143757" className="underline">
             (317) 314-3757

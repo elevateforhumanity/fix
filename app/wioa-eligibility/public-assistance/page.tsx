@@ -68,7 +68,7 @@ export default async function PublicAssistancePage() {
         {/* Qualifying Programs */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Qualifying Assistance Programs</h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             If you currently receive any of the following, you automatically meet 
             WIOA income eligibility requirements:
           </p>
@@ -76,7 +76,7 @@ export default async function PublicAssistancePage() {
             {qualifyingPrograms.map((program, index) => (
               <div key={index} className="bg-brand-green-50 rounded-lg p-4">
                 <div className="font-bold text-brand-green-700">{program.title || program.name}</div>
-                <div className="text-sm text-gray-600">{program.full}</div>
+                <div className="text-sm text-slate-700">{program.full}</div>
               </div>
             ))}
           </div>
@@ -89,7 +89,7 @@ export default async function PublicAssistancePage() {
             {benefits.map((benefit, index) => (
               <li key={index} className="flex items-start gap-3">
                 <span className="text-slate-500 flex-shrink-0">•</span>
-                <span className="text-gray-700">{benefit}</span>
+                <span className="text-slate-900">{benefit}</span>
               </li>
             ))}
           </ul>
@@ -131,7 +131,7 @@ export default async function PublicAssistancePage() {
                 >
                   <h3 className="font-semibold">{program.title || program.name}</h3>
                   {program.description && (
-                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">{program.description}</p>
+                    <p className="text-sm text-slate-700 mt-1 line-clamp-2">{program.description}</p>
                   )}
                 </Link>
               ))}

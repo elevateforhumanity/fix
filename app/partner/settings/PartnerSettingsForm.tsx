@@ -79,30 +79,30 @@ export default function PartnerSettingsForm({ initialData }: { initialData: Sett
           <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center">
             <Building2 className="w-5 h-5 text-brand-blue-600" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">Organization Information</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Organization Information</h2>
         </div>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Organization Name</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Organization Name</label>
             <input type="text" value={settings.orgName}
               onChange={(e) => setSettings({ ...settings, orgName: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Street Address</label>
             <input type="text" value={settings.address}
               onChange={(e) => setSettings({ ...settings, address: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">City</label>
               <input type="text" value={settings.city}
                 onChange={(e) => setSettings({ ...settings, city: e.target.value })}
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+              <label className="block text-sm font-medium text-slate-900 mb-1">State</label>
               <input type="text" value={settings.state} maxLength={2} placeholder="IN"
                 onChange={(e) => setSettings({ ...settings, state: e.target.value })}
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
@@ -117,23 +117,23 @@ export default function PartnerSettingsForm({ initialData }: { initialData: Sett
           <div className="w-10 h-10 bg-brand-green-100 rounded-lg flex items-center justify-center">
             <User className="w-5 h-5 text-brand-green-600" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">Primary Contact</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Primary Contact</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Contact Name</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Contact Name</label>
             <input type="text" value={settings.contactName}
               onChange={(e) => setSettings({ ...settings, contactName: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Email</label>
             <input type="email" value={settings.contactEmail}
               onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Phone</label>
             <input type="tel" value={settings.contactPhone}
               onChange={(e) => setSettings({ ...settings, contactPhone: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent" />
@@ -147,7 +147,7 @@ export default function PartnerSettingsForm({ initialData }: { initialData: Sett
           <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center">
             <Bell className="w-5 h-5 text-brand-blue-600" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">Notification Preferences</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Notification Preferences</h2>
         </div>
         <div className="space-y-4">
           {([
@@ -158,8 +158,8 @@ export default function PartnerSettingsForm({ initialData }: { initialData: Sett
           ]).map((item) => (
             <div key={item.key} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
               <div>
-                <p className="font-medium text-gray-900">{item.label}</p>
-                <p className="text-sm text-gray-500">{item.desc}</p>
+                <p className="font-medium text-slate-900">{item.label}</p>
+                <p className="text-sm text-slate-700">{item.desc}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" checked={settings[item.key]}

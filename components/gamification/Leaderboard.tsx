@@ -75,7 +75,7 @@ export function Leaderboard() {
                   {user.rank}
                 </div>
               ) : (
-                <div className="text-lg font-bold text-gray-400">
+                <div className="text-lg font-bold text-slate-700">
                   {user.rank}
                 </div>
               )}
@@ -93,7 +93,7 @@ export function Leaderboard() {
               >
                 {user.name}
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-slate-700">
                 {user.courses} courses completed
               </p>
             </div>
@@ -103,7 +103,7 @@ export function Leaderboard() {
                 <Award className="h-4 w-4" />
                 {(user.points || 0).toLocaleString('en-US')}
               </div>
-              <p className="text-xs text-gray-500">points</p>
+              <p className="text-xs text-slate-700">points</p>
             </div>
           </div>
         ))}

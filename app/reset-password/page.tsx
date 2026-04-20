@@ -39,11 +39,11 @@ export default function ResetPasswordPage() {
             <CheckCircle className="w-8 h-8 text-brand-green-600" />
           </div>
           <h1 className="text-2xl font-bold text-black mb-4">Check Your Email</h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-slate-700 mb-6">
             We've sent a password reset link to <strong>{email}</strong>. 
             Click the link in the email to reset your password.
           </p>
-          <p className="text-sm text-gray-500 mb-8">
+          <p className="text-sm text-slate-700 mb-8">
             Didn't receive the email? Check your spam folder or try again.
           </p>
           <Link
@@ -72,7 +72,7 @@ export default function ResetPasswordPage() {
             />
           </Link>
           <h1 className="text-3xl font-bold text-black mb-2">Reset Password</h1>
-          <p className="text-gray-600">
+          <p className="text-slate-700">
             Enter your email address and we'll send you a link to reset your password.
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function ResetPasswordPage() {
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                 <input
                   type="email"
                   required
@@ -115,7 +115,7 @@ export default function ResetPasswordPage() {
           <div className="mt-6 text-center">
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition"
+              className="inline-flex items-center gap-2 text-slate-700 hover:text-black transition"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Login
@@ -123,7 +123,7 @@ export default function ResetPasswordPage() {
           </div>
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-8">
+        <p className="text-center text-sm text-slate-700 mt-8">
           Don't have an account?{' '}
           <Link href="/signup" className="text-brand-blue-600 hover:underline font-semibold">
             Sign up for free

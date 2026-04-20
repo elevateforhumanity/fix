@@ -13,7 +13,7 @@ interface EligibilityNoticeProps {
 export function EligibilityNotice({ variant = 'inline', className = '' }: EligibilityNoticeProps) {
   if (variant === 'compact') {
     return (
-      <p className={`text-sm text-gray-600 ${className}`}>
+      <p className={`text-sm text-slate-700 ${className}`}>
         <span className="font-medium">Eligibility Required:</span>{' '}
         Approval through WorkOne / Indiana Career Connect is required before enrollment.{' '}
         <Link href="/check-eligibility" className="text-brand-blue-600 hover:underline">
@@ -46,7 +46,7 @@ export function EligibilityNotice({ variant = 'inline', className = '' }: Eligib
 
   // Default: inline variant
   return (
-    <div className={`flex items-center gap-2 text-gray-600 ${className}`}>
+    <div className={`flex items-center gap-2 text-slate-700 ${className}`}>
       <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
       <p className="text-sm">
         <span className="font-medium">Eligibility Notice:</span>{' '}
@@ -65,7 +65,7 @@ export function EligibilityNotice({ variant = 'inline', className = '' }: Eligib
  */
 export function EnrollmentDisclaimer({ className = '' }: { className?: string }) {
   return (
-    <div className={`bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-600 ${className}`}>
+    <div className={`bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-slate-700 ${className}`}>
       <p>
         <strong>Important:</strong> Submitting this application does not guarantee eligibility or funding.
         Eligibility is determined by WorkOne / Indiana Career Connect.

@@ -105,7 +105,7 @@ export default function EnrollmentDocumentStep({
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-semibold mb-2">Required Documents</h2>
-        <p className="text-gray-600 text-sm">
+        <p className="text-slate-700 text-sm">
           Upload the following documents to complete enrollment. Documents will be
           reviewed by staff before activation.
         </p>
@@ -129,10 +129,10 @@ export default function EnrollmentDocumentStep({
       {/* Progress indicator */}
       <div className="bg-gray-50 rounded-lg p-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-700">
+          <span className="text-sm font-medium text-slate-900">
             Upload Progress
           </span>
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-slate-700">
             {uploadedRequiredCount} of {requiredCount} required
           </span>
         </div>
@@ -178,20 +178,20 @@ export default function EnrollmentDocumentStep({
                   {uploaded ? (
                     <span className="text-slate-500 flex-shrink-0">•</span>
                   ) : (
-                    <FileText className="w-6 h-6 text-gray-400" />
+                    <FileText className="w-6 h-6 text-slate-700" />
                   )}
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-medium text-gray-900">{req.label}</h3>
+                    <h3 className="font-medium text-slate-900">{req.label}</h3>
                     {req.required && (
                       <span className="text-xs bg-brand-orange-100 text-brand-orange-700 px-2 py-0.5 rounded">
                         Required
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-3">{req.description}</p>
+                  <p className="text-sm text-slate-700 mb-3">{req.description}</p>
 
                   {uploaded ? (
                     <div className="flex items-center justify-between">
@@ -241,8 +241,8 @@ export default function EnrollmentDocumentStep({
                         htmlFor={`file-${req.type}`}
                         className={`inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium cursor-pointer transition-colors ${
                           isUploading
-                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                            : 'bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400'
+                            ? 'bg-gray-100 text-slate-700 cursor-not-allowed'
+                            : 'bg-white text-slate-900 hover:bg-gray-50 hover:border-gray-400'
                         }`}
                       >
                         {isUploading ? (
@@ -257,7 +257,7 @@ export default function EnrollmentDocumentStep({
                           </>
                         )}
                       </label>
-                      <span className="ml-3 text-xs text-gray-500">
+                      <span className="ml-3 text-xs text-slate-700">
                         PDF, JPG, PNG (max 10MB)
                       </span>
                     </div>

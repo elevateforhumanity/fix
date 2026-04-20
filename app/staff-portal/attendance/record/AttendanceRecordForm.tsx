@@ -108,22 +108,22 @@ export default function AttendanceRecordForm({ students, date, staffId }: Props)
         <div className="bg-white rounded-lg p-4 border">
           <Users className="w-6 h-6 text-brand-blue-500 mb-1" />
           <p className="text-2xl font-bold">{students.length}</p>
-          <p className="text-sm text-gray-500">Total Students</p>
+          <p className="text-sm text-slate-700">Total Students</p>
         </div>
         <div className="bg-white rounded-lg p-4 border">
           <span className="text-slate-500 flex-shrink-0">•</span>
           <p className="text-2xl font-bold">{presentCount}</p>
-          <p className="text-sm text-gray-500">Present</p>
+          <p className="text-sm text-slate-700">Present</p>
         </div>
         <div className="bg-white rounded-lg p-4 border">
           <XCircle className="w-6 h-6 text-brand-red-500 mb-1" />
           <p className="text-2xl font-bold">{absentCount}</p>
-          <p className="text-sm text-gray-500">Absent</p>
+          <p className="text-sm text-slate-700">Absent</p>
         </div>
         <div className="bg-white rounded-lg p-4 border">
           <Clock className="w-6 h-6 text-brand-orange-500 mb-1" />
           <p className="text-2xl font-bold">{markedCount}/{students.length}</p>
-          <p className="text-sm text-gray-500">Marked</p>
+          <p className="text-sm text-slate-700">Marked</p>
         </div>
       </div>
 
@@ -139,7 +139,7 @@ export default function AttendanceRecordForm({ students, date, staffId }: Props)
       <div className="bg-white rounded-xl border p-4 mb-4">
         <div className="flex flex-col md:flex-row gap-4 justify-between">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input type="text" placeholder="Search students..." value={search} onChange={e => setSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border rounded-lg" />
           </div>
@@ -167,9 +167,9 @@ export default function AttendanceRecordForm({ students, date, staffId }: Props)
         <table className="w-full">
           <thead className="bg-white">
             <tr>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Student</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-600">Program</th>
-              <th className="px-4 py-3 text-center text-sm font-medium text-gray-600">Attendance</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Student</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-slate-700">Program</th>
+              <th className="px-4 py-3 text-center text-sm font-medium text-slate-700">Attendance</th>
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -178,7 +178,7 @@ export default function AttendanceRecordForm({ students, date, staffId }: Props)
                 <tr key={student.id} className="hover:bg-white">
                   <td className="px-4 py-3">
                     <p className="font-medium">{student.name}</p>
-                    <p className="text-sm text-gray-500">{student.email}</p>
+                    <p className="text-sm text-slate-700">{student.email}</p>
                   </td>
                   <td className="px-4 py-3 text-sm">{student.program}</td>
                   <td className="px-4 py-3">
@@ -221,7 +221,7 @@ export default function AttendanceRecordForm({ students, date, staffId }: Props)
               ))
             ) : (
               <tr>
-                <td colSpan={3} className="px-4 py-8 text-center text-gray-500">
+                <td colSpan={3} className="px-4 py-8 text-center text-slate-700">
                   {students.length === 0 ? 'No active students found' : 'No students match your search'}
                 </td>
               </tr>

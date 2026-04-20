@@ -260,7 +260,7 @@ export default function StoreGuideChat({ onStartTour, forceOpen = false }: Store
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-black">{choice.label}</p>
                         {choice.description && (
-                          <p className="text-sm text-gray-600 truncate">{choice.description}</p>
+                          <p className="text-sm text-slate-700 truncate">{choice.description}</p>
                         )}
                       </div>
                     </button>
@@ -270,7 +270,7 @@ export default function StoreGuideChat({ onStartTour, forceOpen = false }: Store
                 {currentQuestionId !== 'main' && (
                   <button
                     onClick={() => setCurrentQuestionId('main')}
-                    className="mt-4 text-sm text-gray-500 hover:text-gray-700"
+                    className="mt-4 text-sm text-slate-700 hover:text-slate-900"
                   >
                     ← Back
                   </button>
@@ -291,7 +291,7 @@ export default function StoreGuideChat({ onStartTour, forceOpen = false }: Store
                 <h3 className="text-xl font-bold text-black mb-2">
                   Taking you to {selectedChoice?.label}
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-slate-700 mb-6">
                   {selectedChoice?.description}
                 </p>
 
@@ -334,7 +334,7 @@ export default function StoreGuideChat({ onStartTour, forceOpen = false }: Store
                     setShowConfirmation(false);
                     setSelectedChoice(null);
                   }}
-                  className="mt-4 text-sm text-gray-500 hover:text-gray-700"
+                  className="mt-4 text-sm text-slate-700 hover:text-slate-900"
                 >
                   ← Choose something else
                 </button>

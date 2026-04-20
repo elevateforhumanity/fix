@@ -62,7 +62,7 @@ export default function FileTree({ files, onFileSelect, selectedFile }: FileTree
           ) : (
             <>
               <div className="w-4" />
-              <File className="w-4 h-4 text-gray-500" />
+              <File className="w-4 h-4 text-slate-700" />
             </>
           )}
           <span className="text-sm">{node.name}</span>

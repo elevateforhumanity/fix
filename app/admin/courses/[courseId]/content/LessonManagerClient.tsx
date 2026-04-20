@@ -155,8 +155,8 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">{course?.title || 'Course Content'}</h1>
-          <p className="text-gray-600 mt-2">Manage lessons, videos, and materials</p>
+          <h1 className="text-3xl font-bold text-slate-900">{course?.title || 'Course Content'}</h1>
+          <p className="text-slate-700 mt-2">Manage lessons, videos, and materials</p>
         </div>
         <div className="flex gap-3">
           <Link href="/admin/course-builder" className="px-4 py-2 border rounded-lg hover:bg-gray-50">Back to Courses</Link>
@@ -178,19 +178,19 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-sm text-gray-500">Total Lessons</p>
+          <p className="text-sm text-slate-700">Total Lessons</p>
           <p className="text-2xl font-bold">{lessons.length}</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-sm text-gray-500">Videos</p>
+          <p className="text-sm text-slate-700">Videos</p>
           <p className="text-2xl font-bold">{videoCount}</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-sm text-gray-500">Text Lessons</p>
+          <p className="text-sm text-slate-700">Text Lessons</p>
           <p className="text-2xl font-bold">{lessons.length - videoCount}</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-sm text-gray-500">Total Duration</p>
+          <p className="text-sm text-slate-700">Total Duration</p>
           <p className="text-2xl font-bold">{Math.floor(totalDuration / 60)}h {totalDuration % 60}m</p>
         </div>
       </div>
@@ -199,17 +199,17 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="p-6 border-b">
           <h2 className="text-lg font-semibold">Course Lessons</h2>
-          <p className="text-sm text-gray-500">Use arrows to reorder lessons</p>
+          <p className="text-sm text-slate-700">Use arrows to reorder lessons</p>
         </div>
         <div className="divide-y">
           {lessons.length > 0 ? (
             lessons.map((lesson, index) => (
               <div key={lesson.id} className="p-4 flex items-center gap-4 hover:bg-gray-50">
                 <div className="flex flex-col gap-1">
-                  <button onClick={() => moveLesson(index, 'up')} disabled={index === 0} className="text-gray-400 hover:text-gray-600 disabled:opacity-30">
+                  <button onClick={() => moveLesson(index, 'up')} disabled={index === 0} className="text-slate-700 hover:text-slate-700 disabled:opacity-30">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
                   </button>
-                  <button onClick={() => moveLesson(index, 'down')} disabled={index === lessons.length - 1} className="text-gray-400 hover:text-gray-600 disabled:opacity-30">
+                  <button onClick={() => moveLesson(index, 'down')} disabled={index === lessons.length - 1} className="text-slate-700 hover:text-slate-700 disabled:opacity-30">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                   </button>
                 </div>
@@ -220,12 +220,12 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
                   {lesson.video_url ? (
                     <svg className="w-5 h-5 text-brand-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   ) : (
-                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    <svg className="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                   )}
                 </div>
                 <div className="flex-1">
                   <p className="font-medium">{lesson.title}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-slate-700">
                     {lesson.video_url ? 'Video' : 'Text'} • {lesson.duration_minutes || 0} min
                   </p>
                 </div>
@@ -236,7 +236,7 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
               </div>
             ))
           ) : (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-slate-700">
               <p>No lessons yet</p>
               <button onClick={openCreateModal} className="mt-2 text-brand-blue-600 hover:text-brand-blue-800">Add your first lesson</button>
             </div>
@@ -250,13 +250,13 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="px-6 py-4 border-b flex items-center justify-between">
               <h2 className="text-xl font-semibold">{editingLesson ? 'Edit Lesson' : 'Add New Lesson'}</h2>
-              <button onClick={() => { setShowModal(false); resetForm(); }} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => { setShowModal(false); resetForm(); }} className="text-slate-700 hover:text-slate-700">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Lesson Title *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Lesson Title *</label>
                 <input
                   type="text"
                   required
@@ -267,7 +267,7 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Video URL (optional)</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Video URL (optional)</label>
                 <input
                   type="url"
                   value={formData.video_url}
@@ -275,10 +275,10 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent"
                   placeholder="https://youtube.com/watch?v=... or Vimeo URL"
                 />
-                <p className="text-xs text-gray-500 mt-1">Leave empty for text-only lesson</p>
+                <p className="text-xs text-slate-700 mt-1">Leave empty for text-only lesson</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Content</label>
                 <textarea
                   rows={6}
                   value={formData.content}
@@ -288,7 +288,7 @@ export default function LessonManagerClient({ course, initialLessons, courseId }
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Duration (minutes)</label>
                 <input
                   type="number"
                   min="0"

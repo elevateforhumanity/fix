@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 const STATE_STYLES: Record<CredentialLifecycleState, { label: string; color: string }> = {
-  not_eligible:                    { label: 'Not Eligible',     color: 'bg-white text-gray-600' },
+  not_eligible:                    { label: 'Not Eligible',     color: 'bg-white text-slate-700' },
   eligible:                        { label: 'Eligible',         color: 'bg-brand-blue-100 text-brand-blue-700' },
   payment_required:                { label: 'Payment Required', color: 'bg-yellow-100 text-yellow-700' },
   payment_pending:                 { label: 'Funding Pending',  color: 'bg-orange-100 text-orange-700' },
@@ -93,7 +93,7 @@ export default async function CertificationPage() {
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-slate-900">My Credentials</h1>
-        <p className="text-gray-600 mt-1">Track your credential progress, exam status, and certificates</p>
+        <p className="text-slate-700 mt-1">Track your credential progress, exam status, and certificates</p>
       </div>
 
       {/* Stats */}
@@ -101,17 +101,17 @@ export default async function CertificationPage() {
         <div className="bg-white rounded-xl shadow-sm border p-5 text-center">
           <Award className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
           <div className="text-2xl font-bold">{certificates.length}</div>
-          <div className="text-gray-600 text-sm">Earned</div>
+          <div className="text-slate-700 text-sm">Earned</div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border p-5 text-center">
           <Clock className="w-8 h-8 text-brand-blue-500 mx-auto mb-2" />
           <div className="text-2xl font-bold">{activeCount + inProgress.length}</div>
-          <div className="text-gray-600 text-sm">In Progress</div>
+          <div className="text-slate-700 text-sm">In Progress</div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border p-5 text-center">
           <FileText className="w-8 h-8 text-brand-green-500 mx-auto mb-2" />
           <div className="text-2xl font-bold">{availableCerts.length}</div>
-          <div className="text-gray-600 text-sm">Available</div>
+          <div className="text-slate-700 text-sm">Available</div>
         </div>
       </div>
 
@@ -144,7 +144,7 @@ export default async function CertificationPage() {
                           <h3 className="font-semibold text-slate-900">
                             {attempt.credentials?.name ?? 'Credential'}
                           </h3>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-slate-700">
                             {attempt.credentials?.issuing_authority} · Attempt #{attempt.attempt_number}
                           </p>
                         </div>
@@ -202,8 +202,8 @@ export default async function CertificationPage() {
                       </div>
                       <div>
                         <h3 className="font-semibold">{cert.title}</h3>
-                        {cert.course && <p className="text-sm text-gray-500">{cert.course.course_name}</p>}
-                        <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                        {cert.course && <p className="text-sm text-slate-700">{cert.course.course_name}</p>}
+                        <div className="flex items-center gap-4 mt-1 text-sm text-slate-700">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
                             {new Date(cert.issued_at).toLocaleDateString()}
@@ -228,8 +228,8 @@ export default async function CertificationPage() {
               </div>
             ) : (
               <div className="text-center py-8">
-                <Award className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                <p className="text-gray-500 mb-3">No certificates earned yet</p>
+                <Award className="w-12 h-12 mx-auto mb-3 text-slate-700" />
+                <p className="text-slate-700 mb-3">No certificates earned yet</p>
                 <Link href="/lms/courses" className="text-brand-blue-600 font-medium hover:underline">
                   Browse courses to earn certificates
                 </Link>
@@ -247,13 +247,13 @@ export default async function CertificationPage() {
                     <Clock className="w-5 h-5 text-brand-blue-600 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <h3 className="font-medium text-sm truncate">{item.course?.certification_name}</h3>
-                      <p className="text-xs text-gray-500 truncate">{item.course?.title}</p>
+                      <p className="text-xs text-slate-700 truncate">{item.course?.title}</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div className="h-full bg-brand-blue-600 rounded-full" style={{ width: `${item.progress}%` }} />
                       </div>
-                      <span className="text-xs text-gray-500 w-8">{item.progress}%</span>
+                      <span className="text-xs text-slate-700 w-8">{item.progress}%</span>
                     </div>
                     <Link href={`/lms/courses/${item.course?.id}`} className="text-brand-blue-600 text-sm font-medium flex-shrink-0">
                       Continue
@@ -275,12 +275,12 @@ export default async function CertificationPage() {
                   <Link key={cert.id} href={`/lms/courses/${cert.id}`}
                     className="block p-3 border rounded-lg hover:border-brand-blue-300 transition">
                     <h3 className="font-medium text-sm">{cert.certification_name}</h3>
-                    <p className="text-xs text-gray-500">{cert.certification_body}</p>
+                    <p className="text-xs text-slate-700">{cert.certification_body}</p>
                   </Link>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500">No certifications available</p>
+              <p className="text-sm text-slate-700">No certifications available</p>
             )}
             <Link href="/lms/programs" className="block text-center text-brand-blue-600 text-sm font-medium mt-4 hover:underline">
               View All Programs
@@ -292,7 +292,7 @@ export default async function CertificationPage() {
               <CheckCircle2 className="w-5 h-5 text-brand-blue-600" />
               <h3 className="font-semibold text-brand-blue-900">Verify a Certificate</h3>
             </div>
-            <p className="text-sm text-gray-600 mb-4">Employers can verify certificates using the credential ID.</p>
+            <p className="text-sm text-slate-700 mb-4">Employers can verify certificates using the credential ID.</p>
             <Link href="/verify" className="flex items-center gap-1 text-brand-blue-600 text-sm font-medium hover:underline">
               Verification Portal <ExternalLink className="w-4 h-4" />
             </Link>
@@ -300,7 +300,7 @@ export default async function CertificationPage() {
 
           <div className="bg-white border rounded-xl p-6">
             <h3 className="font-semibold mb-2">Need Help?</h3>
-            <p className="text-sm text-gray-600 mb-3">Questions about your exam, funding, or credentials?</p>
+            <p className="text-sm text-slate-700 mb-3">Questions about your exam, funding, or credentials?</p>
             <a href="tel:+13173143757"
               className="block text-center bg-brand-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-brand-blue-700 transition">
               Call (317) 314-3757

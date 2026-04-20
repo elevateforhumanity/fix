@@ -1,7 +1,27 @@
 export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const revalidate = 86400;
+import { buildMetadata } from '@/lib/cf-seo';
+import { siteConfig } from '@/content/cf-site';
+      <p className="mt-4 text-slate-700">Partner with Elevate as a training provider or host site.</p>
+        <a href={siteConfig.handoff.apply} className="rounded border px-5 py-3 hover:bg-slate-50">
 
-import { redirect } from 'next/navigation';
+export const metadata = buildMetadata({
+  title: 'Training Providers',
+  description: 'Partner with Elevate as a training provider or host site.',
+  path: '/training-providers',
+});
+
 export default function Page() {
-  redirect('https://www.elevateforhumanity.org/about');
+  return (
+    <section className="mx-auto max-w-4xl px-4 py-16">
+      <h1 className="text-3xl font-bold">Training Providers</h1>
+      <div className="mt-8 flex gap-4">
+        <a href="mailto:partnerships@elevateforhumanity.org" className="rounded bg-black px-5 py-3 text-white hover:bg-gray-800">
+          Get in Touch
+        </a>
+          Apply Now
+        </a>
+      </div>
+    </section>
+  );
 }

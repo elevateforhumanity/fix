@@ -24,7 +24,7 @@ export function SupersonicFooter() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-4">Services</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/supersonic-fast-cash/pricing" className="text-black hover:text-white text-sm">
@@ -51,7 +51,7 @@ export function SupersonicFooter() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-4">Legal</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/supersonic-fast-cash/legal/privacy" className="text-black hover:text-white text-sm">
@@ -69,7 +69,7 @@ export function SupersonicFooter() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-300 mb-4">Contact</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-700 mb-4">Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-black" />

@@ -53,8 +53,8 @@ export default function StateCommunityServicesPage({ state }: StateCommunityServ
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">How We Help</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">How We Help</h2>
+            <p className="text-lg text-slate-700 max-w-2xl mx-auto">
               Free support services to help you and your family achieve stability and self-sufficiency.
             </p>
           </div>
@@ -64,8 +64,8 @@ export default function StateCommunityServicesPage({ state }: StateCommunityServ
                 <div className="w-12 h-12 bg-brand-green-100 rounded-lg flex items-center justify-center mb-4">
                   <service.icon className="w-6 h-6 text-brand-green-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
-                <p className="text-gray-600 text-sm">{service.desc}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{service.title}</h3>
+                <p className="text-slate-700 text-sm">{service.desc}</p>
               </div>
             ))}
           </div>
@@ -75,10 +75,10 @@ export default function StateCommunityServicesPage({ state }: StateCommunityServ
       {/* Cities Served */}
       <section className="py-16 bg-brand-green-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">Cities We Serve in {state.name}</h2>
+          <h2 className="text-2xl font-bold text-center text-slate-900 mb-8">Cities We Serve in {state.name}</h2>
           <div className="flex flex-wrap gap-3 justify-center">
             {state.majorCities.map((city) => (
-              <span key={city} className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-gray-700 text-sm font-medium shadow-sm">
+              <span key={city} className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-slate-900 text-sm font-medium shadow-sm">
                 <span className="text-slate-500 flex-shrink-0">•</span> {city}
               </span>
             ))}
@@ -112,18 +112,18 @@ export default function StateCommunityServicesPage({ state }: StateCommunityServ
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-xl border">
-              <h3 className="font-bold text-gray-900 mb-4">Also in {state.name}</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Also in {state.name}</h3>
               <Link href={`/career-training-${state.slug}`} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition mb-2">
-                <span className="text-gray-700">Career Training Programs</span>
+                <span className="text-slate-900">Career Training Programs</span>
                 <ArrowRight className="w-4 h-4 text-brand-green-600" />
               </Link>
               <Link href="/programs" className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                <span className="text-gray-700">All Programs</span>
+                <span className="text-slate-900">All Programs</span>
                 <ArrowRight className="w-4 h-4 text-brand-green-600" />
               </Link>
             </div>
             <div className="bg-white p-6 rounded-xl border">
-              <h3 className="font-bold text-gray-900 mb-4">Other States</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Other States</h3>
               <div className="space-y-2">
                 {otherStates.map((s) => (
                   <Link
@@ -131,7 +131,7 @@ export default function StateCommunityServicesPage({ state }: StateCommunityServ
                     href={`/community-services-${s.slug}`}
                     className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
                   >
-                    <span className="text-gray-700">{s.name}</span>
+                    <span className="text-slate-900">{s.name}</span>
                     <ArrowRight className="w-4 h-4 text-brand-green-600" />
                   </Link>
                 ))}

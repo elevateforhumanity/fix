@@ -94,7 +94,7 @@ export default async function StudentPortalResourcesPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10">
         {Object.entries(grouped).map(([category, items]) => (
           <section key={category}>
-            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
               <span className="w-1 h-5 bg-brand-blue-500 rounded-full inline-block" />
               {CATEGORY_LABELS[category] ?? category}
             </h2>
@@ -120,15 +120,15 @@ export default async function StudentPortalResourcesPage() {
                           </span>
                         )}
                         {resource.external
-                          ? <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
-                          : <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-brand-blue-500 transition-colors" />}
+                          ? <ExternalLink className="w-3.5 h-3.5 text-slate-700" />
+                          : <ChevronRight className="w-4 h-4 text-slate-700 group-hover:text-brand-blue-500 transition-colors" />}
                       </div>
                     </div>
-                    <h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-brand-blue-700 transition-colors">
+                    <h3 className="font-semibold text-slate-900 text-sm mb-1 group-hover:text-brand-blue-700 transition-colors">
                       {resource.title}
                     </h3>
                     {resource.description && (
-                      <p className="text-xs text-gray-500 leading-relaxed flex-1">{resource.description}</p>
+                      <p className="text-xs text-slate-700 leading-relaxed flex-1">{resource.description}</p>
                     )}
                   </Link>
                 );

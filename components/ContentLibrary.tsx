@@ -46,7 +46,7 @@ const TYPE_COLORS = {
   course: 'bg-brand-green-100 text-brand-green-700',
   quiz: 'bg-purple-100 text-purple-700',
   module: 'bg-brand-orange-100 text-brand-orange-700',
-  resource: 'bg-gray-100 text-gray-700',
+  resource: 'bg-gray-100 text-slate-900',
 };
 
 export default function ContentLibrary({ 
@@ -180,7 +180,7 @@ export default function ContentLibrary({
         <div className="space-y-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search content..."
@@ -190,7 +190,7 @@ export default function ContentLibrary({
               />
             </div>
             <div className="flex items-center gap-2">
-              <Filter className="w-5 h-5 text-gray-400" />
+              <Filter className="w-5 h-5 text-slate-700" />
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
@@ -214,7 +214,7 @@ export default function ContentLibrary({
                 className={`px-4 py-2 rounded-full font-medium text-sm transition-colors ${
                   selectedCategory === cat
                     ? 'bg-brand-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-slate-900 hover:bg-gray-200'
                 }`}
               >
                 {cat === 'all' ? 'All Categories' : cat}
@@ -225,7 +225,7 @@ export default function ContentLibrary({
       )}
 
       {/* Results Count */}
-      <div className="text-sm text-gray-600">
+      <div className="text-sm text-slate-700">
         Showing {filteredContent.length} {filteredContent.length === 1 ? 'item' : 'items'}
       </div>
 
@@ -272,9 +272,9 @@ export default function ContentLibrary({
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 line-clamp-2">{item.title}</h3>
+                      <h3 className="font-semibold text-slate-900 line-clamp-2">{item.title}</h3>
                       {item.description && (
-                        <p className="text-sm text-gray-500 line-clamp-2 mt-1">{item.description}</p>
+                        <p className="text-sm text-slate-700 line-clamp-2 mt-1">{item.description}</p>
                       )}
                     </div>
                   </div>
@@ -283,7 +283,7 @@ export default function ContentLibrary({
                     <div className="flex items-center gap-3">
                       <Badge variant="secondary" className="text-xs">{item.category}</Badge>
                       {item.duration && (
-                        <span className="flex items-center gap-1 text-gray-500">
+                        <span className="flex items-center gap-1 text-slate-700">
                           <Clock className="w-3 h-3" />
                           {item.duration}
                         </span>
@@ -323,8 +323,8 @@ export default function ContentLibrary({
 
       {filteredContent.length === 0 && (
         <div className="text-center py-12 bg-gray-50 rounded-xl">
-          <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 mb-2">No content found matching your search.</p>
+          <Search className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+          <p className="text-slate-700 mb-2">No content found matching your search.</p>
           <button
             onClick={() => { setSearchTerm(''); setSelectedCategory('all'); setSelectedType('all'); }}
             className="text-brand-blue-600 hover:underline text-sm"

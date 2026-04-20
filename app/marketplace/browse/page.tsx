@@ -70,7 +70,7 @@ export default async function MarketplaceBrowsePage() {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   category === 'All'
                     ? 'bg-brand-blue-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-white'
+                    : 'bg-white text-slate-900 border border-gray-300 hover:bg-white'
                 }`}
               >
                 {category}
@@ -92,21 +92,21 @@ export default async function MarketplaceBrowsePage() {
                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                 </div>
                 <div className="p-4">
-                  <span className="text-xs text-gray-500">{item.category || 'General'}</span>
-                  <h3 className="font-semibold text-gray-900 mt-1 line-clamp-1">{item.title}</h3>
-                  <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>
+                  <span className="text-xs text-slate-700">{item.category || 'General'}</span>
+                  <h3 className="font-semibold text-slate-900 mt-1 line-clamp-1">{item.title}</h3>
+                  <p className="text-sm text-slate-700 mt-1 line-clamp-2">{item.description}</p>
                   <div className="flex items-center gap-2 mt-2">
-                    <span className="text-sm text-gray-500">{item.seller?.full_name || 'Elevate for Humanity'}</span>
+                    <span className="text-sm text-slate-700">{item.seller?.full_name || 'Elevate for Humanity'}</span>
                   </div>
                   {item.rating > 0 && (
                     <div className="flex items-center gap-1 mt-2">
                       <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                       <span className="text-sm font-medium">{item.rating}</span>
-                      <span className="text-sm text-gray-500">({item.reviews_count || 0})</span>
+                      <span className="text-sm text-slate-700">({item.reviews_count || 0})</span>
                     </div>
                   )}
                   <div className="flex items-center justify-between mt-4">
-                    <span className="text-lg font-bold text-gray-900">${item.price || 0}</span>
+                    <span className="text-lg font-bold text-slate-900">${item.price || 0}</span>
                     <Link
                       href={`/marketplace/items/${item.id}`}
                       className="p-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"
@@ -124,8 +124,8 @@ export default async function MarketplaceBrowsePage() {
               <Image src="/images/pages/marketplace.jpg" alt="Browse marketplace" fill sizes="100vw" className="object-cover" />
             </div>
             <div className="p-8 text-center">
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">No Items Available</h2>
-              <p className="text-gray-600 mb-6">No products listed yet. Contact us to request study materials or resources.</p>
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">No Items Available</h2>
+              <p className="text-slate-700 mb-6">No products listed yet. Contact us to request study materials or resources.</p>
               <Link href="/store" className="inline-block px-6 py-3 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700">
                 Visit Store
               </Link>

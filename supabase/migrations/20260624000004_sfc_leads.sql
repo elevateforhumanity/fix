@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.sfc_leads (
   preferred_contact_method text       CHECK (preferred_contact_method IN ('phone','email','text')) DEFAULT 'phone',
 
   -- Attribution
-  source                  text        NOT NULL DEFAULT 'website'
+  source                  text        NOT NULL DEFAULT 'website',
                             CHECK (source IN ('calculator','service_page','contact','state_page','book_appointment','start','upload','referral','website')),
   source_detail           text,       -- e.g. 'tax-preparation-indiana', 'refund-advance'
   utm_campaign            text,
@@ -37,12 +37,12 @@ CREATE TABLE IF NOT EXISTS public.sfc_leads (
   needs_refund_advance    boolean,
 
   -- Pipeline status
-  status                  text        NOT NULL DEFAULT 'new'
+  status                  text        NOT NULL DEFAULT 'new',
                             CHECK (status IN ('new','contacted','docs_pending','docs_received','in_preparation','filed','completed','lost')),
 
   -- Links
   appointment_id          uuid,       -- FK set after appointment is created
-  notes                   text,
+  notes                   text
 
   UNIQUE (email)           -- one canonical lead per email; use upsert for duplicates
 );

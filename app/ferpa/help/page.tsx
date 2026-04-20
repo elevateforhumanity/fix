@@ -86,13 +86,13 @@ export default async function FerpaHelpPage() {
       </section>
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Help</span>
+            <span className="text-slate-900 font-medium">Help</span>
           </nav>
-          <h1 className="text-2xl font-bold text-gray-900">Help & Resources</h1>
-          <p className="text-gray-600 mt-1">Get help with FERPA compliance</p>
+          <h1 className="text-2xl font-bold text-slate-900">Help & Resources</h1>
+          <p className="text-slate-700 mt-1">Get help with FERPA compliance</p>
         </div>
       </div>
 
@@ -111,8 +111,8 @@ export default async function FerpaHelpPage() {
                     className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow"
                   >
                     <Icon className="w-6 h-6 text-brand-blue-600 mb-2" />
-                    <h3 className="font-semibold text-gray-900">{resource.title}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{resource.description}</p>
+                    <h3 className="font-semibold text-slate-900">{resource.title}</h3>
+                    <p className="text-sm text-slate-700 mt-1">{resource.description}</p>
                   </Link>
                 );
               })}
@@ -121,16 +121,16 @@ export default async function FerpaHelpPage() {
             {/* FAQs */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">Frequently Asked Questions</h2>
+                <h2 className="text-lg font-semibold text-slate-900">Frequently Asked Questions</h2>
               </div>
               <div className="divide-y divide-gray-200">
                 {faqs.map((faq, index) => (
                   <details key={index} className="group">
                     <summary className="px-6 py-4 cursor-pointer flex items-center justify-between hover:bg-white">
-                      <span className="font-medium text-gray-900">{faq.question}</span>
-                      <ChevronDown className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" />
+                      <span className="font-medium text-slate-900">{faq.question}</span>
+                      <ChevronDown className="w-5 h-5 text-slate-700 group-open:rotate-180 transition-transform" />
                     </summary>
-                    <div className="px-6 pb-4 text-gray-600">
+                    <div className="px-6 pb-4 text-slate-700">
                       {faq.answer}
                     </div>
                   </details>
@@ -143,14 +143,14 @@ export default async function FerpaHelpPage() {
           <div className="space-y-6">
             {/* Contact */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact FERPA Officer</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Contact FERPA Officer</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center">
                     <Mail className="w-5 h-5 text-brand-blue-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="text-sm text-slate-700">Email</p>
                     <a href="/contact" className="text-brand-blue-600 hover:text-brand-blue-700">
                       our contact form
                     </a>
@@ -161,7 +161,7 @@ export default async function FerpaHelpPage() {
                     <Phone className="w-5 h-5 text-brand-green-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Phone</p>
+                    <p className="text-sm text-slate-700">Phone</p>
                     <a href="/support" className="text-brand-blue-600 hover:text-brand-blue-700">
                       (317) 314-3757
                     </a>
@@ -172,7 +172,7 @@ export default async function FerpaHelpPage() {
 
             {/* External Resources */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">External Resources</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">External Resources</h2>
               <div className="space-y-3">
                 <a
                   href="https://studentprivacy.ed.gov/"

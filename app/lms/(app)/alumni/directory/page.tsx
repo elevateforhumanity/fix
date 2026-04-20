@@ -72,21 +72,21 @@ export default async function AlumniDirectoryPage() {
     <div className="min-h-screen bg-white">
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/lms/dashboard" className="hover:text-gray-700">LMS</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/lms/dashboard" className="hover:text-slate-900">LMS</Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href="/lms/alumni" className="hover:text-gray-700">Alumni</Link>
+            <Link href="/lms/alumni" className="hover:text-slate-900">Alumni</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Directory</span>
+            <span className="text-slate-900 font-medium">Directory</span>
           </nav>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Alumni Directory</h1>
-              <p className="text-gray-600 mt-1">Connect with fellow program graduates</p>
+              <h1 className="text-2xl font-bold text-slate-900">Alumni Directory</h1>
+              <p className="text-slate-700 mt-1">Connect with fellow program graduates</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                 <input
                   type="text"
                   placeholder="Search alumni..."
@@ -111,8 +111,8 @@ export default async function AlumniDirectoryPage() {
                 <GraduationCap className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{alumni?.length || 0}</p>
-                <p className="text-sm text-gray-500">Total Alumni</p>
+                <p className="text-2xl font-bold text-slate-900">{alumni?.length || 0}</p>
+                <p className="text-sm text-slate-700">Total Alumni</p>
               </div>
             </div>
           </div>
@@ -122,8 +122,8 @@ export default async function AlumniDirectoryPage() {
                 <User className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{mentorCount || 0}</p>
-                <p className="text-sm text-gray-500">Available Mentors</p>
+                <p className="text-2xl font-bold text-slate-900">{mentorCount || 0}</p>
+                <p className="text-sm text-slate-700">Available Mentors</p>
               </div>
             </div>
           </div>
@@ -133,8 +133,8 @@ export default async function AlumniDirectoryPage() {
                 <Briefcase className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">85%</p>
-                <p className="text-sm text-gray-500">Employment Rate</p>
+                <p className="text-2xl font-bold text-slate-900">85%</p>
+                <p className="text-sm text-slate-700">Employment Rate</p>
               </div>
             </div>
           </div>
@@ -154,24 +154,24 @@ export default async function AlumniDirectoryPage() {
                         className="w-16 h-16 rounded-full object-cover"
                       />
                     ) : (
-                      <User className="w-8 h-8 text-gray-400" />
+                      <User className="w-8 h-8 text-slate-700" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 truncate">
+                    <h3 className="font-semibold text-slate-900 truncate">
                       {person.full_name || 'Anonymous'}
                     </h3>
                     {person.job_title && (
-                      <p className="text-sm text-gray-600 truncate">{person.job_title}</p>
+                      <p className="text-sm text-slate-700 truncate">{person.job_title}</p>
                     )}
                     {person.company && (
-                      <p className="text-sm text-gray-500 truncate">{person.company}</p>
+                      <p className="text-sm text-slate-700 truncate">{person.company}</p>
                     )}
                   </div>
                 </div>
 
                 {(person.city || person.state) && (
-                  <div className="flex items-center gap-1 mt-4 text-sm text-gray-500">
+                  <div className="flex items-center gap-1 mt-4 text-sm text-slate-700">
                     <MapPin className="w-4 h-4" />
                     <span>{[person.city, person.state].filter(Boolean).join(', ')}</span>
                   </div>
@@ -180,7 +180,7 @@ export default async function AlumniDirectoryPage() {
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
                   <a
                     href={`mailto:${person.email}`}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-white"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 text-sm text-slate-900 border border-gray-300 rounded-lg hover:bg-white"
                   >
                     <Mail className="w-4 h-4" />
                     Contact
@@ -201,9 +201,9 @@ export default async function AlumniDirectoryPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-            <GraduationCap className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No alumni profiles available yet</p>
-            <p className="text-sm text-gray-500 mt-1">Complete a program to join the alumni network</p>
+            <GraduationCap className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            <p className="text-slate-700">No alumni profiles available yet</p>
+            <p className="text-sm text-slate-700 mt-1">Complete a program to join the alumni network</p>
           </div>
         )}
 

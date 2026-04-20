@@ -30,8 +30,8 @@ export default function PartnersPage() {
       {/* Intro */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Partners &amp; Cohort Training</h1>
-          <div className="text-gray-700 space-y-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">Partners &amp; Cohort Training</h1>
+          <div className="text-slate-900 space-y-4">
             <p>
               Elevate runs custom training cohorts for workforce boards, community organizations,
               employers, and government agencies. This page explains exactly how it works — what
@@ -49,7 +49,7 @@ export default function PartnersPage() {
       {/* How a custom cohort works — step by step */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">How a Custom Cohort Works</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">How a Custom Cohort Works</h2>
           <p className="text-black mb-8">
             This is the process from first conversation to final outcome report. Most cohorts
             are up and running within 2–3 weeks of initial contact.
@@ -110,10 +110,10 @@ export default function PartnersPage() {
                   </div>
                   <div className="p-5 flex-1">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-bold text-gray-900">{s.title}</h3>
+                      <h3 className="font-bold text-slate-900">{s.title}</h3>
                       <span className="text-xs text-black font-medium whitespace-nowrap ml-3">{s.time}</span>
                     </div>
-                    <p className="text-sm text-gray-700">{s.desc}</p>
+                    <p className="text-sm text-slate-900">{s.desc}</p>
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function PartnersPage() {
       {/* What reports look like */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">What Reports You Receive</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">What Reports You Receive</h2>
           <p className="text-black mb-8">
             Reports are generated from our learning platform — not self-reported. You can request
             reports at any time, and we send them in the format you need (PDF, spreadsheet, or
@@ -161,9 +161,9 @@ export default function PartnersPage() {
               },
             ].map((r) => (
               <div key={r.name} className="bg-white rounded-lg border border-gray-200 p-5">
-                <h3 className="font-bold text-gray-900 mb-2">{r.name}</h3>
-                <p className="text-sm text-gray-700 mb-2"><span className="font-semibold">What it includes:</span> {r.includes}</p>
-                <p className="text-sm text-gray-700"><span className="font-semibold">When you get it:</span> {r.when}</p>
+                <h3 className="font-bold text-slate-900 mb-2">{r.name}</h3>
+                <p className="text-sm text-slate-900 mb-2"><span className="font-semibold">What it includes:</span> {r.includes}</p>
+                <p className="text-sm text-slate-900"><span className="font-semibold">When you get it:</span> {r.when}</p>
               </div>
             ))}
           </div>
@@ -173,7 +173,7 @@ export default function PartnersPage() {
       {/* Who partners with us */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Who Partners With Us</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">Who Partners With Us</h2>
 
           <div className="space-y-8">
             {[
@@ -233,9 +233,9 @@ export default function PartnersPage() {
                     <Image src={p.image} alt={p.type} fill sizes="(max-width: 640px) 100vw, 224px" className="object-cover" />
                   </div>
                   <div className="p-5 flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">{p.type}</h3>
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">{p.type}</h3>
                     <p className="text-xs text-black mb-3">Examples: {p.examples}</p>
-                    <ul className="space-y-2 text-sm text-gray-700">
+                    <ul className="space-y-2 text-sm text-slate-900">
                       {p.what.map((item) => (
                         <li key={item} className="flex items-start gap-2">
                           <span className="text-brand-blue-600 mt-0.5 flex-shrink-0">•</span>{item}
@@ -253,7 +253,7 @@ export default function PartnersPage() {
       {/* Available programs quick reference */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Programs Available for Custom Cohorts</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Programs Available for Custom Cohorts</h2>
           <p className="text-black mb-6 text-sm">
             Any of these programs can be configured as a dedicated cohort for your organization.
             Click any program for full details.
@@ -262,10 +262,10 @@ export default function PartnersPage() {
             <table className="w-full text-sm">
               <thead className="bg-white">
                 <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-700">Program</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-700">Duration</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-700">Credential</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-700 hidden sm:table-cell">Funding</th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-900">Program</th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-900">Duration</th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-900">Credential</th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-900 hidden sm:table-cell">Funding</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">

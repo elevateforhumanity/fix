@@ -78,7 +78,7 @@ export default async function DiscussionsPage() {
       <div className="py-8 max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Community Discussions</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Community Discussions</h1>
             <p className="text-black mt-1">Connect, share, and learn with fellow students</p>
           </div>
           <Link
@@ -94,7 +94,7 @@ export default async function DiscussionsPage() {
           {/* Categories Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl border p-4">
-              <h2 className="font-semibold text-gray-900 mb-4">Categories</h2>
+              <h2 className="font-semibold text-slate-900 mb-4">Categories</h2>
               <div className="space-y-2">
                 <Link
                   href="/community/discussions"
@@ -106,7 +106,7 @@ export default async function DiscussionsPage() {
                   <Link
                     key={cat.id}
                     href={`/community/discussions?category=${cat.id}`}
-                    className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-white"
+                    className="block px-3 py-2 rounded-lg text-slate-900 hover:bg-white"
                   >
                     {cat.name}
                   </Link>
@@ -127,7 +127,7 @@ export default async function DiscussionsPage() {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 hover:text-brand-blue-600">
+                        <h3 className="font-semibold text-slate-900 hover:text-brand-blue-600">
                           {discussion.title}
                         </h3>
                         <div className="flex items-center gap-4 mt-2 text-sm text-black">
@@ -156,8 +156,8 @@ export default async function DiscussionsPage() {
               </div>
             ) : (
               <div className="bg-white rounded-xl border p-12 text-center">
-                <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">No discussions yet</h2>
+                <MessageSquare className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                <h2 className="text-xl font-semibold text-slate-900 mb-2">No discussions yet</h2>
                 <p className="text-black mb-6">Be the first to start a conversation!</p>
                 <Link
                   href="/community/discussions/new"

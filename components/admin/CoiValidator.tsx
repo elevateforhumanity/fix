@@ -146,17 +146,17 @@ export function CoiValidator({
     <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
       <div className="mb-4 flex items-center gap-2">
         <Shield className="h-5 w-5 text-brand-blue-600" />
-        <h3 className="text-lg font-semibold text-gray-900">COI Validation</h3>
+        <h3 className="text-lg font-semibold text-slate-900">COI Validation</h3>
       </div>
 
       {!result && (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-slate-900">
               Certificate of Insurance (PDF)
             </label>
             <div className="flex items-center gap-3">
-              <label className="flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+              <label className="flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-slate-900 hover:bg-gray-100">
                 <Upload className="h-4 w-4" />
                 {file ? 'Change file' : 'Choose PDF'}
                 <input
@@ -168,10 +168,10 @@ export function CoiValidator({
                 />
               </label>
               {file && (
-                <span className="flex items-center gap-1 text-sm text-gray-600">
+                <span className="flex items-center gap-1 text-sm text-slate-700">
                   <FileText className="h-4 w-4" />
                   {file.name}
-                  <span className="text-gray-400">({(file.size / 1024).toFixed(0)} KB)</span>
+                  <span className="text-slate-700">({(file.size / 1024).toFixed(0)} KB)</span>
                 </span>
               )}
             </div>
@@ -179,7 +179,7 @@ export function CoiValidator({
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-slate-900">
                 Expected Business Name
                 <span className="ml-1 text-xs text-red-500">*matched against Named Insured</span>
               </label>
@@ -192,9 +192,9 @@ export function CoiValidator({
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-slate-900">
                 Expected Shop Address
-                <span className="ml-1 text-gray-400">(optional)</span>
+                <span className="ml-1 text-slate-700">(optional)</span>
               </label>
               <input
                 type="text"
@@ -205,7 +205,7 @@ export function CoiValidator({
               />
             </div>
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-slate-900">
                 Certificate Holder (your org)
                 <span className="ml-1 text-xs text-red-500">*hard fail if not matched</span>
               </label>
@@ -221,7 +221,7 @@ export function CoiValidator({
 
           {/* Worker relationship — drives conditional WC gate */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="mb-1 block text-sm font-medium text-slate-900">
               Worker relationship
               <span className="ml-1 text-xs text-red-500">*WC required for W-2 employees</span>
             </label>
@@ -256,13 +256,13 @@ export function CoiValidator({
                 />
                 Owner only
               </label>
-              <label className="flex items-center gap-2 text-sm text-gray-500">
+              <label className="flex items-center gap-2 text-sm text-slate-700">
                 <input
                   type="radio"
                   name="workerRel"
                   checked={workerRel === 'not_sure' || workerRel === undefined}
                   onChange={() => setWorkerRel('not_sure')}
-                  className="h-4 w-4 text-gray-400"
+                  className="h-4 w-4 text-slate-700"
                 />
                 Not sure
               </label>
@@ -339,7 +339,7 @@ function ResultDisplay({
 
       {/* Risk level */}
       <div className="flex items-center gap-2">
-        <span className="text-xs font-medium uppercase text-gray-500">Risk Level:</span>
+        <span className="text-xs font-medium uppercase text-slate-700">Risk Level:</span>
         <RiskBadge level={v.riskLevel} />
       </div>
 
@@ -355,9 +355,9 @@ function ResultDisplay({
               </li>
             ))}
           </ul>
-          <div className="mt-3 rounded-md bg-white p-3 text-sm text-gray-700">
+          <div className="mt-3 rounded-md bg-white p-3 text-sm text-slate-900">
             <p className="font-medium">What to tell the partner:</p>
-            <p className="mt-1 text-gray-600">
+            <p className="mt-1 text-slate-700">
               Request a new COI (ACORD 25 form) from your insurance agent showing: Commercial
               General Liability ($1M per occurrence / $2M aggregate), Professional/Barber Services
               Liability ($1M per claim), active policy dates, your shop as Named Insured, and
@@ -369,7 +369,7 @@ function ResultDisplay({
 
       {/* Field-by-field breakdown */}
       <div className="rounded-md border border-gray-200 p-4">
-        <p className="mb-3 text-sm font-semibold text-gray-700">Validation Details</p>
+        <p className="mb-3 text-sm font-semibold text-slate-900">Validation Details</p>
         <div className="space-y-2">
           {/* Document identity */}
           <FieldRow
@@ -377,19 +377,19 @@ function ResultDisplay({
             ok={f.acordFormDetected}
             detail={f.acordFormDetected ? 'Detected' : 'Not detected (non-standard format)'}
             informational
-            icon={<FileSearch className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+            icon={<FileSearch className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
           />
           <FieldRow
             label="Insurance Carrier"
             ok={!!f.insurerName}
             detail={f.insurerName || 'Not detected — document may be incomplete'}
-            icon={<Building2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+            icon={<Building2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
           />
           <FieldRow
             label="Policy Number"
             ok={f.policyNumberDetected}
             detail={f.policyNumberDetected ? 'Detected' : 'Not detected — document may be altered or partial'}
-            icon={<Fingerprint className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+            icon={<Fingerprint className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
           />
 
           {/* Named Insured */}
@@ -437,7 +437,7 @@ function ResultDisplay({
                   : 'Not detected (not required — no employees declared)'
             }
             informational={!f.workersCompRequired}
-            icon={<HardHat className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+            icon={<HardHat className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
           />
           <FieldRow
             label="Business Classification"
@@ -460,7 +460,7 @@ function ResultDisplay({
                 : 'Not detected'
             }
             informational={f.effectiveDate === null}
-            icon={<Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+            icon={<Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
           />
           <FieldRow
             label="Expiration Date"
@@ -470,7 +470,7 @@ function ResultDisplay({
                 ? `${f.expirationDate}${f.expired ? ' (EXPIRED)' : ''}`
                 : 'Not detected'
             }
-            icon={<Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+            icon={<Calendar className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
           />
 
           {/* Address */}
@@ -479,7 +479,7 @@ function ResultDisplay({
               label="Shop Address"
               ok={f.addressMatched}
               detail={f.addressMatched ? 'Matched' : 'Not matched'}
-              icon={<MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+              icon={<MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
             />
           )}
 
@@ -511,7 +511,7 @@ function ResultDisplay({
               label="OCR Quality"
               ok={f.ocrConfidenceSufficient === true}
               detail={`${f.ocrConfidence.toFixed(0)}% confidence${f.ocrConfidenceSufficient === false ? ' — below minimum threshold' : ''}`}
-              icon={<Eye className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />}
+              icon={<Eye className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-700" />}
             />
           )}
         </div>
@@ -519,7 +519,7 @@ function ResultDisplay({
 
       <button
         onClick={onReset}
-        className="flex items-center gap-2 rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        className="flex items-center gap-2 rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-slate-900 hover:bg-gray-50"
       >
         <RotateCcw className="h-4 w-4" />
         Validate Another COI
@@ -574,8 +574,8 @@ function FieldRow({
     <div className="flex items-start gap-2 text-sm">
       {icon || defaultIcon}
       <div>
-        <span className="font-medium text-gray-800">{label}:</span>{' '}
-        <span className="text-gray-600">{detail}</span>
+        <span className="font-medium text-slate-900">{label}:</span>{' '}
+        <span className="text-slate-700">{detail}</span>
       </div>
     </div>
   );

@@ -172,11 +172,11 @@ export function ProductPage({ product }: ProductPageProps) {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
-            <Link href="/store" className="text-gray-500 hover:text-gray-700">Store</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            <Link href="/store/apps" className="text-gray-500 hover:text-gray-700">Apps</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <Link href="/store" className="text-slate-700 hover:text-slate-900">Store</Link>
+            <ChevronRight className="w-4 h-4 text-slate-700" />
+            <Link href="/store/apps" className="text-slate-700 hover:text-slate-900">Apps</Link>
+            <ChevronRight className="w-4 h-4 text-slate-700" />
+            <span className="text-slate-900 font-medium">{product.name}</span>
           </nav>
         </div>
       </div>
@@ -194,7 +194,7 @@ export function ProductPage({ product }: ProductPageProps) {
                     onClick={() => setShowVideo(true)}
                     className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition"
                   >
-                    <Play className="w-10 h-10 text-gray-900 ml-1" />
+                    <Play className="w-10 h-10 text-slate-900 ml-1" />
                   </button>
                 </div>
               ) : (
@@ -254,11 +254,11 @@ export function ProductPage({ product }: ProductPageProps) {
               <span className="bg-brand-blue-100 text-brand-blue-800 text-xs font-bold px-3 py-1 rounded-full">
                 {product.category}
               </span>
-              <span className="text-gray-500 text-sm">by {product.developer}</span>
+              <span className="text-slate-700 text-sm">by {product.developer}</span>
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-2">
+            <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2">
               {product.name}
             </h1>
             <p className="text-xl text-brand-blue-600 font-medium mb-4">{product.tagline}</p>
@@ -269,7 +269,7 @@ export function ProductPage({ product }: ProductPageProps) {
                 {[1,2,3,4,5].map(i => (
                   <Star 
                     key={i} 
-                    className={`w-5 h-5 ${i <= Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+                    className={`w-5 h-5 ${i <= Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-slate-700'}`} 
                   />
                 ))}
                 <span className="font-bold ml-1">{product.rating}</span>
@@ -280,7 +280,7 @@ export function ProductPage({ product }: ProductPageProps) {
             </div>
 
             {/* Description */}
-            <p className="text-gray-600 mb-6 leading-relaxed">
+            <p className="text-slate-700 mb-6 leading-relaxed">
               {product.description}
             </p>
 
@@ -296,7 +296,7 @@ export function ProductPage({ product }: ProductPageProps) {
 
             {/* Pricing Selection */}
             <div className="bg-white rounded-xl border p-6 mb-6">
-              <h3 className="font-bold text-gray-900 mb-4">Choose Your Plan</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Choose Your Plan</h3>
               <div className="space-y-3">
                 {product.pricing.map((plan, i) => (
                   <button
@@ -315,16 +315,16 @@ export function ProductPage({ product }: ProductPageProps) {
                         {selectedPlan === i && <div className="w-3 h-3 bg-brand-blue-600 rounded-full" />}
                       </div>
                       <div className="text-left">
-                        <p className="font-bold text-gray-900">{plan.name}</p>
-                        <p className="text-sm text-gray-500">{plan.description}</p>
+                        <p className="font-bold text-slate-900">{plan.name}</p>
+                        <p className="text-sm text-slate-700">{plan.description}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-black text-xl text-gray-900">${plan.price}</p>
+                      <p className="font-black text-xl text-slate-900">${plan.price}</p>
                       {plan.originalPrice && (
-                        <p className="text-sm text-gray-400 line-through">${plan.originalPrice}</p>
+                        <p className="text-sm text-slate-700 line-through">${plan.originalPrice}</p>
                       )}
-                      <p className="text-xs text-gray-500">{plan.period}</p>
+                      <p className="text-xs text-slate-700">{plan.period}</p>
                     </div>
                   </button>
                 ))}
@@ -351,7 +351,7 @@ export function ProductPage({ product }: ProductPageProps) {
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+            <div className="flex flex-wrap gap-4 text-sm text-slate-700">
               <div className="flex items-center gap-1">
                 <Shield className="w-4 h-4" />
                 <span>30-day money back</span>
@@ -378,7 +378,7 @@ export function ProductPage({ product }: ProductPageProps) {
                 key={tab}
                 href={`#${tab.toLowerCase()}`}
                 className={`py-4 px-2 font-medium border-b-2 whitespace-nowrap ${
-                  i === 0 ? 'border-brand-blue-600 text-brand-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+                  i === 0 ? 'border-brand-blue-600 text-brand-blue-600' : 'border-transparent text-slate-700 hover:text-slate-900'
                 }`}
               >
                 {tab}
@@ -395,7 +395,7 @@ export function ProductPage({ product }: ProductPageProps) {
           <div className="lg:col-span-2 space-y-12">
             {/* Overview */}
             <section id="overview">
-              <h2 className="text-2xl font-black text-gray-900 mb-6">Overview</h2>
+              <h2 className="text-2xl font-black text-slate-900 mb-6">Overview</h2>
               <div className="prose prose-lg max-w-none">
                 <p>{product.longDescription}</p>
               </div>
@@ -403,7 +403,7 @@ export function ProductPage({ product }: ProductPageProps) {
 
             {/* Features */}
             <section id="features">
-              <h2 className="text-2xl font-black text-gray-900 mb-6">Features</h2>
+              <h2 className="text-2xl font-black text-slate-900 mb-6">Features</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {product.features.map((feature, i) => {
                   const IconComponent = iconMap[feature.icon] || Zap;
@@ -412,8 +412,8 @@ export function ProductPage({ product }: ProductPageProps) {
                       <div className="w-12 h-12 bg-brand-blue-100 rounded-xl flex items-center justify-center mb-4">
                         <IconComponent className="w-6 h-6 text-brand-blue-600" />
                       </div>
-                      <h3 className="font-bold text-gray-900 mb-2">{feature.title}</h3>
-                      <p className="text-gray-600 text-sm">{feature.description}</p>
+                      <h3 className="font-bold text-slate-900 mb-2">{feature.title}</h3>
+                      <p className="text-slate-700 text-sm">{feature.description}</p>
                     </div>
                   );
                 })}
@@ -423,7 +423,7 @@ export function ProductPage({ product }: ProductPageProps) {
             {/* Reviews */}
             <section id="reviews">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-black text-gray-900">Reviews</h2>
+                <h2 className="text-2xl font-black text-slate-900">Reviews</h2>
                 <select 
                   value={reviewFilter}
                   onChange={(e) => setReviewFilter(e.target.value as any)}
@@ -442,13 +442,13 @@ export function ProductPage({ product }: ProductPageProps) {
               <div className="bg-gray-50 rounded-xl p-6 mb-6">
                 <div className="flex items-center gap-8">
                   <div className="text-center">
-                    <p className="text-5xl font-black text-gray-900">{product.rating}</p>
+                    <p className="text-5xl font-black text-slate-900">{product.rating}</p>
                     <div className="flex gap-1 justify-center my-2">
                       {[1,2,3,4,5].map(i => (
-                        <Star key={i} className={`w-5 h-5 ${i <= Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
+                        <Star key={i} className={`w-5 h-5 ${i <= Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-slate-700'}`} />
                       ))}
                     </div>
-                    <p className="text-gray-500">{product.reviewCount} reviews</p>
+                    <p className="text-slate-700">{product.reviewCount} reviews</p>
                   </div>
                   <div className="flex-1 space-y-2">
                     {[5,4,3,2,1].map(stars => {
@@ -460,7 +460,7 @@ export function ProductPage({ product }: ProductPageProps) {
                           <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div className="h-full bg-yellow-400 rounded-full" style={{ width: `${percent}%` }} />
                           </div>
-                          <span className="text-sm text-gray-500 w-8">{count}</span>
+                          <span className="text-sm text-slate-700 w-8">{count}</span>
                         </div>
                       );
                     })}
@@ -477,7 +477,7 @@ export function ProductPage({ product }: ProductPageProps) {
                         {review.avatar ? (
                           <Image src={review.avatar} alt={review.author} width={48} height={48} className="rounded-full" />
                         ) : (
-                          <span className="font-bold text-gray-500">{review.author[0]}</span>
+                          <span className="font-bold text-slate-700">{review.author[0]}</span>
                         )}
                       </div>
                       <div className="flex-1">
@@ -490,14 +490,14 @@ export function ProductPage({ product }: ProductPageProps) {
                         <div className="flex items-center gap-2 mb-2">
                           <div className="flex gap-0.5">
                             {[1,2,3,4,5].map(i => (
-                              <Star key={i} className={`w-4 h-4 ${i <= review.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
+                              <Star key={i} className={`w-4 h-4 ${i <= review.rating ? 'fill-yellow-400 text-yellow-400' : 'text-slate-700'}`} />
                             ))}
                           </div>
-                          <span className="text-gray-500 text-sm">{review.date}</span>
+                          <span className="text-slate-700 text-sm">{review.date}</span>
                         </div>
                         <h4 className="font-bold mb-2">{review.title}</h4>
-                        <p className="text-gray-600">{review.content}</p>
-                        <button className="flex items-center gap-2 mt-3 text-gray-500 hover:text-gray-700">
+                        <p className="text-slate-700">{review.content}</p>
+                        <button className="flex items-center gap-2 mt-3 text-slate-700 hover:text-slate-900">
                           <ThumbsUp className="w-4 h-4" />
                           <span className="text-sm">Helpful ({review.helpful})</span>
                         </button>
@@ -510,7 +510,7 @@ export function ProductPage({ product }: ProductPageProps) {
 
             {/* FAQ */}
             <section id="faq">
-              <h2 className="text-2xl font-black text-gray-900 mb-6">Frequently Asked Questions</h2>
+              <h2 className="text-2xl font-black text-slate-900 mb-6">Frequently Asked Questions</h2>
               <div className="space-y-3">
                 {product.faqs.map((faq, i) => (
                   <div key={i} className="border rounded-xl overflow-hidden">
@@ -522,7 +522,7 @@ export function ProductPage({ product }: ProductPageProps) {
                       <ChevronDown className={`w-5 h-5 transition ${expandedFaq === i ? 'rotate-180' : ''}`} />
                     </button>
                     {expandedFaq === i && (
-                      <div className="px-4 pb-4 text-gray-600">
+                      <div className="px-4 pb-4 text-slate-700">
                         {faq.answer}
                       </div>
                     )}
@@ -536,12 +536,12 @@ export function ProductPage({ product }: ProductPageProps) {
           <div className="space-y-6">
             {/* What's Included */}
             <div className="bg-white rounded-xl border p-6">
-              <h3 className="font-bold text-gray-900 mb-4">What&apos;s Included</h3>
+              <h3 className="font-bold text-slate-900 mb-4">What&apos;s Included</h3>
               <ul className="space-y-3">
                 {product.whatsIncluded.map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-brand-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-600">{item}</span>
+                    <span className="text-slate-700">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -549,8 +549,8 @@ export function ProductPage({ product }: ProductPageProps) {
 
             {/* Requirements */}
             <div className="bg-white rounded-xl border p-6">
-              <h3 className="font-bold text-gray-900 mb-4">Requirements</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <h3 className="font-bold text-slate-900 mb-4">Requirements</h3>
+              <ul className="space-y-2 text-sm text-slate-700">
                 {product.requirements.map((req, i) => (
                   <li key={i}>• {req}</li>
                 ))}
@@ -559,18 +559,18 @@ export function ProductPage({ product }: ProductPageProps) {
 
             {/* Product Info */}
             <div className="bg-white rounded-xl border p-6">
-              <h3 className="font-bold text-gray-900 mb-4">Product Info</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Product Info</h3>
               <dl className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <dt className="text-gray-500">Version</dt>
+                  <dt className="text-slate-700">Version</dt>
                   <dd className="font-medium">{product.version}</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-500">Last Updated</dt>
+                  <dt className="text-slate-700">Last Updated</dt>
                   <dd className="font-medium">{product.lastUpdated}</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-500">Developer</dt>
+                  <dt className="text-slate-700">Developer</dt>
                   <dd className="font-medium">{product.developer}</dd>
                 </div>
               </dl>
@@ -578,8 +578,8 @@ export function ProductPage({ product }: ProductPageProps) {
 
             {/* Support */}
             <div className="bg-brand-blue-50 rounded-xl border border-brand-blue-200 p-6">
-              <h3 className="font-bold text-gray-900 mb-2">Need Help?</h3>
-              <p className="text-sm text-gray-600 mb-4">Our support team is here to help you get started.</p>
+              <h3 className="font-bold text-slate-900 mb-2">Need Help?</h3>
+              <p className="text-sm text-slate-700 mb-4">Our support team is here to help you get started.</p>
               <a 
                 href={`mailto:${product.supportEmail}`}
                 className="block w-full text-center bg-brand-blue-600 text-white py-3 rounded-lg font-medium hover:bg-brand-blue-700 transition"
@@ -597,7 +597,7 @@ export function ProductPage({ product }: ProductPageProps) {
           <div className="relative max-w-4xl w-full">
             <button 
               onClick={() => setShowVideo(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300"
+              className="absolute -top-12 right-0 text-white hover:text-slate-700"
             >
               <X className="w-8 h-8" />
             </button>

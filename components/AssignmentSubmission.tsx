@@ -220,7 +220,7 @@ export function AssignmentSubmission({
                 : 'border-gray-300 hover:border-brand-red-600 hover:bg-gray-50'
             }`}
           >
-            <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <Upload className="w-12 h-12 text-slate-700 mx-auto mb-4" />
             <div className="text-lg font-semibold mb-2">
               Drop files here or click to browse
             </div>

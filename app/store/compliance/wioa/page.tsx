@@ -127,15 +127,15 @@ export default function WIOACompliancePage() {
       <nav className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-12 text-sm">
-            <Link href="/" className="text-gray-600 hover:text-black flex items-center gap-1">
+            <Link href="/" className="text-slate-700 hover:text-black flex items-center gap-1">
               <Home className="w-4 h-4" />
               Home
             </Link>
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />
-            <Link href="/store" className="text-gray-600 hover:text-black">Store</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />
-            <Link href="/store/compliance" className="text-gray-600 hover:text-black">Compliance</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />
+            <ChevronRight className="w-4 h-4 text-slate-700 mx-2" />
+            <Link href="/store" className="text-slate-700 hover:text-black">Store</Link>
+            <ChevronRight className="w-4 h-4 text-slate-700 mx-2" />
+            <Link href="/store/compliance" className="text-slate-700 hover:text-black">Compliance</Link>
+            <ChevronRight className="w-4 h-4 text-slate-700 mx-2" />
             <span className="text-black font-semibold">WIOA Compliance</span>
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function WIOACompliancePage() {
       <section id="wioa-features" className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-black text-black mb-2 text-center">Complete WIOA Toolkit</h2>
-          <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+          <p className="text-slate-700 mb-12 text-center max-w-2xl mx-auto">
             Everything you need to maintain WIOA compliance and track performance metrics
           </p>
 
@@ -202,7 +202,7 @@ export default function WIOACompliancePage() {
                   <h3 className="absolute bottom-4 left-4 text-xl font-bold text-slate-900">{feature.title}</h3>
                 </div>
                 <div className="p-6">
-                  <p className="text-gray-600 mb-4">{feature.description}</p>
+                  <p className="text-slate-700 mb-4">{feature.description}</p>
                   <ul className="space-y-2">
                     {feature.items.map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm text-black">
@@ -237,7 +237,7 @@ export default function WIOACompliancePage() {
                   </div>
                 </div>
                 <h3 className="font-bold text-lg text-black mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <p className="text-slate-700 text-sm">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -248,7 +248,7 @@ export default function WIOACompliancePage() {
       <section id="pricing" className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-black text-black mb-2 text-center">WIOA Compliance Pricing</h2>
-          <p className="text-gray-600 mb-12 text-center">Choose the package that fits your organization</p>
+          <p className="text-slate-700 mb-12 text-center">Choose the package that fits your organization</p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {pricing.map((plan) => (
@@ -260,10 +260,10 @@ export default function WIOACompliancePage() {
                 )}
                 <div className={`p-8 ${plan.popular ? 'pt-14' : ''}`}>
                   <h3 className="text-xl font-bold text-black mb-2">{plan.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{plan.description}</p>
+                  <p className="text-slate-700 text-sm mb-4">{plan.description}</p>
                   <div className="mb-6">
                     <span className="text-4xl font-black text-black">{plan.price}</span>
-                    <span className="text-gray-500 text-sm ml-2">{plan.period}</span>
+                    <span className="text-slate-700 text-sm ml-2">{plan.period}</span>
                   </div>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature) => (
@@ -297,7 +297,7 @@ export default function WIOACompliancePage() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h2 className="text-3xl font-black text-black mb-4">Free WIOA Resources</h2>
-                <p className="text-gray-600 mb-6">
+                <p className="text-slate-700 mb-6">
                   Download our free WIOA compliance checklist and eligibility guide to get started.
                 </p>
                 <div className="flex flex-wrap gap-4">

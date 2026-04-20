@@ -61,7 +61,7 @@ export default async function CareerDiscussionsPage() {
             <Briefcase className="w-6 h-6 text-brand-blue-600" />
           </div>
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-gray-900">Career Discussions</h1>
+            <h1 className="text-2xl font-bold text-slate-900">Career Discussions</h1>
             <p className="text-black">Job search tips, interview advice, and career growth</p>
           </div>
           {user && (
@@ -90,7 +90,7 @@ export default async function CareerDiscussionsPage() {
                       {discussion.is_pinned && (
                         <Pin className="w-4 h-4 text-brand-orange-500" />
                       )}
-                      <h3 className="font-medium text-gray-900 truncate">{discussion.title}</h3>
+                      <h3 className="font-medium text-slate-900 truncate">{discussion.title}</h3>
                     </div>
                     <p className="text-sm text-black mt-1">
                       by {discussion.author?.full_name || 'Anonymous'}
@@ -115,8 +115,8 @@ export default async function CareerDiscussionsPage() {
             ))
           ) : (
             <div className="p-12 text-center">
-              <Briefcase className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="font-medium text-gray-900">No discussions yet</p>
+              <Briefcase className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+              <p className="font-medium text-slate-900">No discussions yet</p>
               <p className="text-sm text-black mb-4">Be the first to start a career discussion</p>
               {user && (
                 <Link href="/community/discussions/new?category=career"

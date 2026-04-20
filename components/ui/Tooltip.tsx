@@ -30,7 +30,7 @@ export function Tooltip({ content, type = 'help', children }: TooltipProps) {
     <div className="relative inline-block">
       <button
         type="button"
-        className="inline-flex items-center justify-center w-5 h-5 text-gray-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-brand-blue-500 rounded-full"
+        className="inline-flex items-center justify-center w-5 h-5 text-slate-700 hover:text-black focus:outline-none focus:ring-2 focus:ring-brand-blue-500 rounded-full"
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
         onFocus={() => setIsVisible(true)}

@@ -57,11 +57,11 @@ export default function AppointmentsPage() {
 
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Appointments</h1>
-            <p className="text-sm text-gray-500 mt-1">{appointments.length} scheduled appointments</p>
+            <h1 className="text-2xl font-bold text-slate-900">Appointments</h1>
+            <p className="text-sm text-slate-700 mt-1">{appointments.length} scheduled appointments</p>
           </div>
           <div className="flex items-center gap-3">
-            <button onClick={fetchAppointments} className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
+            <button onClick={fetchAppointments} className="p-2 text-slate-700 hover:text-slate-700 rounded-lg hover:bg-gray-100">
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             </button>
             <Link href="/admin/crm/appointments/new" className="flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg text-sm font-medium hover:bg-brand-blue-700">
@@ -72,7 +72,7 @@ export default function AppointmentsPage() {
 
         <div className="mb-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
             <input
               type="text"
               placeholder="Search appointments..."
@@ -86,13 +86,13 @@ export default function AppointmentsPage() {
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           {loading ? (
             <div className="px-6 py-12 text-center">
-              <RefreshCw className="w-6 h-6 text-gray-300 mx-auto mb-2 animate-spin" />
-              <p className="text-sm text-gray-500">Loading appointments...</p>
+              <RefreshCw className="w-6 h-6 text-slate-700 mx-auto mb-2 animate-spin" />
+              <p className="text-sm text-slate-700">Loading appointments...</p>
             </div>
           ) : filtered.length === 0 ? (
             <div className="px-6 py-12 text-center">
-              <Calendar className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-              <p className="text-sm text-gray-500">{search ? 'No matching appointments.' : 'No appointments scheduled.'}</p>
+              <Calendar className="w-10 h-10 text-slate-700 mx-auto mb-3" />
+              <p className="text-sm text-slate-700">{search ? 'No matching appointments.' : 'No appointments scheduled.'}</p>
               <Link href="/admin/crm/appointments/new" className="inline-block mt-4 text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium">
                 Schedule an appointment
               </Link>
@@ -101,21 +101,21 @@ export default function AppointmentsPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contact</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Scheduled</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Title</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Contact</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Scheduled</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filtered.map((a) => (
                   <tr key={a.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-3 text-sm font-medium text-gray-900">{a.title || 'Untitled'}</td>
-                    <td className="px-6 py-3 text-sm text-gray-600 flex items-center gap-2">
-                      <User className="w-3.5 h-3.5 text-gray-400" /> {a.contact_name || '—'}
+                    <td className="px-6 py-3 text-sm font-medium text-slate-900">{a.title || 'Untitled'}</td>
+                    <td className="px-6 py-3 text-sm text-slate-700 flex items-center gap-2">
+                      <User className="w-3.5 h-3.5 text-slate-700" /> {a.contact_name || '—'}
                     </td>
-                    <td className="px-6 py-3 text-sm text-gray-500 flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-gray-400" />
+                    <td className="px-6 py-3 text-sm text-slate-700 flex items-center gap-2">
+                      <Clock className="w-3.5 h-3.5 text-slate-700" />
                       {a.scheduled_at ? new Date(a.scheduled_at).toLocaleString('en-US', { timeZone: 'UTC' }) : '—'}
                     </td>
                     <td className="px-6 py-3">

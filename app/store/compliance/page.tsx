@@ -55,7 +55,7 @@ export default async function CompliancePage() {
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-4">WIOA Compliance</h3>
-              <p className="text-gray-700 mb-4">
+              <p className="text-slate-900 mb-4">
                 Workforce Innovation and Opportunity Act (WIOA) compliant data collection, reporting, and performance tracking.
               </p>
               <ul className="space-y-2 mb-6">
@@ -92,7 +92,7 @@ export default async function CompliancePage() {
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-4">FERPA Protection</h3>
-              <p className="text-gray-700 mb-4">
+              <p className="text-slate-900 mb-4">
                 Family Educational Rights and Privacy Act (FERPA) compliant student data protection and access controls.
               </p>
               <ul className="space-y-2 mb-6">
@@ -128,7 +128,7 @@ export default async function CompliancePage() {
                 <FileText className="w-8 h-8 text-brand-blue-600" />
               </div>
               <h3 className="text-2xl font-bold mb-4">WCAG AA Accessibility</h3>
-              <p className="text-gray-700 mb-4">
+              <p className="text-slate-900 mb-4">
                 Web Content Accessibility Guidelines (WCAG) 2.1 Level AA compliant for inclusive learning.
               </p>
               <ul className="space-y-2 mb-6">
@@ -165,7 +165,7 @@ export default async function CompliancePage() {
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-bold mb-4">Grant Reporting</h3>
-              <p className="text-gray-700 mb-4">
+              <p className="text-slate-900 mb-4">
                 Automated reporting for federal and state workforce grants with customizable templates.
               </p>
               <ul className="space-y-2 mb-6">
@@ -221,7 +221,7 @@ export default async function CompliancePage() {
                     {item.status}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600">{item.description}</p>
+                <p className="text-sm text-slate-700">{item.description}</p>
               </div>
             ))}
           </div>
@@ -233,7 +233,7 @@ export default async function CompliancePage() {
           <div className="bg-white rounded-2xl p-12 text-center">
             <Download className="w-16 h-16 text-brand-blue-600 mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-4">Download Complete Documentation</h2>
-            <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-900 mb-8 max-w-2xl mx-auto">
               Get the full compliance documentation package including technical specifications, audit reports, and implementation guides.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

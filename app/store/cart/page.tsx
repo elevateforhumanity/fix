@@ -45,15 +45,15 @@ export default async function CartPage({
       <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-4 py-8">
           <div className="flex items-center gap-4 mb-8">
-            <Link href="/store" className="text-gray-500 hover:text-gray-700">
+            <Link href="/store" className="text-slate-700 hover:text-slate-900">
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <h1 className="text-2xl font-bold">Shopping Cart</h1>
           </div>
           <div className="bg-white rounded-xl shadow-sm border p-12 text-center">
-            <ShoppingCart className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+            <ShoppingCart className="w-16 h-16 mx-auto mb-4 text-slate-700" />
             <h2 className="text-xl font-semibold mb-2">Your cart is empty</h2>
-            <p className="text-gray-600 mb-6">Sign in to view your cart or browse our store.</p>
+            <p className="text-slate-700 mb-6">Sign in to view your cart or browse our store.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/login?redirect=/store/cart"
@@ -114,7 +114,7 @@ export default async function CartPage({
           </div>
         )}
         <div className="flex items-center gap-4 mb-8">
-          <Link href="/store" className="text-gray-500 hover:text-gray-700">
+          <Link href="/store" className="text-slate-700 hover:text-slate-900">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <h1 className="text-2xl font-bold">Shopping Cart</h1>
@@ -138,13 +138,13 @@ export default async function CartPage({
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <ShoppingCart className="w-6 h-6 text-gray-400" />
+                          <ShoppingCart className="w-6 h-6 text-slate-700" />
                         </div>
                       )}
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">{item.product?.name}</h3>
-                      <p className="text-sm text-gray-500 capitalize">{item.product?.type}</p>
+                      <p className="text-sm text-slate-700 capitalize">{item.product?.type}</p>
                       <div className="flex items-center justify-between mt-3">
                         <div className="flex items-center gap-2">
                           <form action={`/api/cart/update`} method="POST">
@@ -196,11 +196,11 @@ export default async function CartPage({
               <div className="bg-white rounded-xl shadow-sm border p-6 sticky top-8">
                 <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
                 <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-slate-700">
                     <span>Subtotal</span>
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-slate-700">
                     <span>Tax (7%)</span>
                     <span>${tax.toFixed(2)}</span>
                   </div>
@@ -219,7 +219,7 @@ export default async function CartPage({
                     Proceed to Checkout
                   </button>
                 </form>
-                <div className="flex items-center justify-center gap-2 mt-4 text-sm text-gray-500">
+                <div className="flex items-center justify-center gap-2 mt-4 text-sm text-slate-700">
                   <ShieldCheck className="w-4 h-4" />
                   Secure checkout
                 </div>
@@ -228,9 +228,9 @@ export default async function CartPage({
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm border p-12 text-center">
-            <ShoppingCart className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+            <ShoppingCart className="w-16 h-16 mx-auto mb-4 text-slate-700" />
             <h2 className="text-xl font-semibold mb-2">Your cart is empty</h2>
-            <p className="text-gray-600 mb-6">Browse our store to find resources that support your journey.</p>
+            <p className="text-slate-700 mb-6">Browse our store to find resources that support your journey.</p>
             <Link
               href="/store"
               className="inline-flex items-center gap-2 bg-brand-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-red-700"

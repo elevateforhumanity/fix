@@ -191,19 +191,19 @@ export function OnboardingTour({
                     Step {currentStep + 1} of {steps.length}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
+                <h3 className="text-xl font-bold text-slate-900">{step.title}</h3>
               </div>
               <button
                 onClick={skipTour}
                 className="p-2 hover:bg-gray-100 rounded-lg transition"
                 aria-label="Close tour"
               >
-                <X className="w-5 h-5 text-gray-400" />
+                <X className="w-5 h-5 text-slate-700" />
               </button>
             </div>
 
             {/* Content */}
-            <p className="text-gray-600 leading-relaxed mb-6">{step.description}</p>
+            <p className="text-slate-700 leading-relaxed mb-6">{step.description}</p>
 
             {/* Step Action */}
             {step.action && (
@@ -249,7 +249,7 @@ export function OnboardingTour({
             <div className="flex items-center justify-between">
               <button
                 onClick={skipTour}
-                className="text-sm text-gray-500 hover:text-gray-700 font-medium transition"
+                className="text-sm text-slate-700 hover:text-slate-900 font-medium transition"
               >
                 Skip Tour
               </button>
@@ -257,7 +257,7 @@ export function OnboardingTour({
                 {currentStep > 0 && (
                   <button
                     onClick={handlePrevious}
-                    className="px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition flex items-center gap-1"
+                    className="px-4 py-2.5 border border-gray-300 text-slate-900 rounded-lg font-semibold hover:bg-gray-50 transition flex items-center gap-1"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     Back

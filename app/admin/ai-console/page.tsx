@@ -84,19 +84,19 @@ export default async function AIConsolePage() {
         {/* Status Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow p-5">
-            <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide">Total Tasks</h3>
-            <p className="text-3xl font-bold text-gray-900 mt-1">{totalTasks || 0}</p>
+            <h3 className="text-xs font-medium text-slate-700 uppercase tracking-wide">Total Tasks</h3>
+            <p className="text-3xl font-bold text-slate-900 mt-1">{totalTasks || 0}</p>
           </div>
           <div className="bg-white rounded-lg shadow p-5">
-            <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide">Completed</h3>
+            <h3 className="text-xs font-medium text-slate-700 uppercase tracking-wide">Completed</h3>
             <p className="text-3xl font-bold text-brand-green-600 mt-1">{completedTasks || 0}</p>
           </div>
           <div className="bg-white rounded-lg shadow p-5">
-            <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide">Running</h3>
+            <h3 className="text-xs font-medium text-slate-700 uppercase tracking-wide">Running</h3>
             <p className="text-3xl font-bold text-brand-blue-600 mt-1">{runningTasks || 0}</p>
           </div>
           <div className="bg-white rounded-lg shadow p-5">
-            <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide">Failed</h3>
+            <h3 className="text-xs font-medium text-slate-700 uppercase tracking-wide">Failed</h3>
             <p className="text-3xl font-bold text-brand-red-600 mt-1">{failedTasks || 0}</p>
           </div>
         </div>
@@ -111,8 +111,8 @@ export default async function AIConsolePage() {
             { label: 'Courses Generated', count: totalCourses || 0 },
           ].map((stat) => (
             <div key={stat.label} className="bg-white rounded-lg shadow-sm border p-4">
-              <p className="text-xs text-gray-500">{stat.label}</p>
-              <p className="text-2xl font-bold text-gray-900">{stat.count}</p>
+              <p className="text-xs text-slate-700">{stat.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{stat.count}</p>
             </div>
           ))}
         </div>
@@ -132,12 +132,12 @@ export default async function AIConsolePage() {
                       'bg-gray-400'
                     }`} />
                     <div>
-                      <span className="text-sm font-medium text-gray-900 capitalize">{task.task_type}</span>
+                      <span className="text-sm font-medium text-slate-900 capitalize">{task.task_type}</span>
                       {task.input_config?.title && (
-                        <span className="text-sm text-gray-500 ml-2">— {task.input_config.title}</span>
+                        <span className="text-sm text-slate-700 ml-2">— {task.input_config.title}</span>
                       )}
                       {task.input_config?.prompt && (
-                        <span className="text-sm text-gray-500 ml-2">— {String(task.input_config.prompt).substring(0, 60)}</span>
+                        <span className="text-sm text-slate-700 ml-2">— {String(task.input_config.prompt).substring(0, 60)}</span>
                       )}
                       {task.error_message && (
                         <p className="text-xs text-brand-red-600 mt-0.5">{task.error_message}</p>
@@ -149,15 +149,15 @@ export default async function AIConsolePage() {
                       task.status === 'completed' ? 'bg-brand-green-100 text-brand-green-700' :
                       task.status === 'running' ? 'bg-brand-blue-100 text-brand-blue-700' :
                       task.status === 'failed' ? 'bg-brand-red-100 text-brand-red-700' :
-                      'bg-gray-100 text-gray-700'
+                      'bg-gray-100 text-slate-900'
                     }`}>{task.status}</span>
-                    <p className="text-xs text-gray-400 mt-1">{new Date(task.created_at).toLocaleString()}</p>
+                    <p className="text-xs text-slate-700 mt-1">{new Date(task.created_at).toLocaleString()}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-8">No AI tasks yet. Generate content to see activity here.</p>
+            <p className="text-slate-700 text-center py-8">No AI tasks yet. Generate content to see activity here.</p>
           )}
         </div>
 
@@ -177,10 +177,10 @@ export default async function AIConsolePage() {
           ].map((tool) => (
             <a key={tool.name} href={tool.href} className="bg-white rounded-lg shadow-sm border p-5 hover:shadow-md transition-shadow block">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-semibold text-gray-900">{tool.name}</h3>
+                <h3 className="font-semibold text-slate-900">{tool.name}</h3>
                 <span className="w-2 h-2 rounded-full bg-brand-green-500" />
               </div>
-              <p className="text-sm text-gray-600">{tool.desc}</p>
+              <p className="text-sm text-slate-700">{tool.desc}</p>
             </a>
           ))}
         </div>
@@ -200,7 +200,7 @@ export default async function AIConsolePage() {
               'POST /api/autopilot/build-course — Autopilot course build',
               'POST /api/autopilot/scan-repo — Repository analysis',
             ].map((endpoint) => (
-              <div key={endpoint} className="flex items-center gap-2 text-gray-700">
+              <div key={endpoint} className="flex items-center gap-2 text-slate-900">
                 <span className="text-brand-green-600">•</span>
                 <span>{endpoint}</span>
               </div>

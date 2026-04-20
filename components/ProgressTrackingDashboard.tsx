@@ -154,7 +154,7 @@ export function ProgressTrackingDashboard() {
                     <p className={`font-medium ${milestone.completed ? 'text-black' : 'text-black'}`}>
                       {milestone.title}
                     </p>
-                    <p className="text-sm text-gray-500">{milestone.date}</p>
+                    <p className="text-sm text-slate-700">{milestone.date}</p>
                   </div>
                 </div>
               ))}
@@ -173,7 +173,7 @@ export function ProgressTrackingDashboard() {
                     <p className="text-sm text-black">
                       {course.lessonsCompleted} of {course.totalLessons} lessons completed
                     </p>
-                    <p className="text-sm text-gray-500">Last activity: {course.lastActivity}</p>
+                    <p className="text-sm text-slate-700">Last activity: {course.lastActivity}</p>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-brand-orange-600">{course.progress}%</div>

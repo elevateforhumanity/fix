@@ -45,12 +45,12 @@ export default async function SupersonicApplyPage() {
         <Breadcrumbs items={[{ label: "Supersonic", href: "/supersonic" }, { label: "Apply" }]} />
       </div>
 <div className="max-w-3xl mx-auto px-4">
-        <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
+        <nav className="flex items-center gap-2 text-sm text-slate-700 mb-6">
           <Link href="/" className="hover:text-brand-orange-600">Home</Link>
           <ChevronRight className="w-4 h-4" />
           <Link href="/supersonic" className="hover:text-brand-orange-600">Supersonic</Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900">Fast Cash Application</span>
+          <span className="text-slate-900">Fast Cash Application</span>
         </nav>
 
         <div className="text-center mb-8">
@@ -58,8 +58,8 @@ export default async function SupersonicApplyPage() {
             <Zap className="w-4 h-4" />
             <span className="font-medium">Get your refund in as little as 24 hours</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Supersonic Fast Cash</h1>
-          <p className="text-gray-600">Quick tax refund advance application</p>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Supersonic Fast Cash</h1>
+          <p className="text-slate-700">Quick tax refund advance application</p>
         </div>
 
         {existingApplication && existingApplication.status !== 'rejected' ? (
@@ -74,7 +74,7 @@ export default async function SupersonicApplyPage() {
               }`} />
             </div>
             <h2 className="text-xl font-semibold mb-2">Application {existingApplication.status}</h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-slate-700 mb-4">
               {existingApplication.status === 'approved' 
                 ? 'Your refund advance has been approved!'
                 : existingApplication.status === 'pending'

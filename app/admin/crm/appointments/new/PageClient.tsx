@@ -67,19 +67,19 @@ export default function NewAppointmentPage() {
         <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'CRM', href: '/admin/crm' }, { label: 'New Appointment' }]} />
       </div>
       <div className="max-w-2xl mx-auto">
-        <Link href="/admin/crm/appointments" className="flex items-center gap-2 text-gray-600 hover:text-brand-blue-600 mb-6">
+        <Link href="/admin/crm/appointments" className="flex items-center gap-2 text-slate-700 hover:text-brand-blue-600 mb-6">
           <ArrowLeft className="w-4 h-4" />
           Back to Appointments
         </Link>
 
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">New Appointment</h1>
-          <p className="text-gray-600">Schedule a new appointment</p>
+          <h1 className="text-2xl font-bold text-slate-900">New Appointment</h1>
+          <p className="text-slate-700">Schedule a new appointment</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">Appointment Details</h2>
+            <h2 className="text-lg font-bold text-slate-900 mb-6">Appointment Details</h2>
 
             {error && (
               <div className="mb-4 p-3 bg-brand-red-50 border border-brand-red-200 rounded-lg text-brand-red-700 text-sm">{error}</div>
@@ -87,7 +87,7 @@ export default function NewAppointmentPage() {
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Title *</label>
                 <input
                   type="text"
                   value={form.title}
@@ -99,7 +99,7 @@ export default function NewAppointmentPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Type</label>
                 <select
                   value={form.appointment_type}
                   onChange={e => update('appointment_type', e.target.value)}
@@ -116,7 +116,7 @@ export default function NewAppointmentPage() {
 
               <div className="grid md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Date *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Date *</label>
                   <input
                     type="date"
                     value={form.date}
@@ -126,7 +126,7 @@ export default function NewAppointmentPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Time *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Time *</label>
                   <input
                     type="time"
                     value={form.time}
@@ -136,7 +136,7 @@ export default function NewAppointmentPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-2">Duration</label>
                   <select
                     value={form.duration_minutes}
                     onChange={e => update('duration_minutes', e.target.value)}
@@ -153,7 +153,7 @@ export default function NewAppointmentPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Location</label>
                 <input
                   type="text"
                   value={form.location}
@@ -164,7 +164,7 @@ export default function NewAppointmentPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                <label className="block text-sm font-medium text-slate-900 mb-2">Notes</label>
                 <textarea
                   rows={4}
                   value={form.notes}

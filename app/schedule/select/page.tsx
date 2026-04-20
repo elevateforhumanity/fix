@@ -129,8 +129,8 @@ export default async function SelectSchedulePage() {
           </Link>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Select Your Schedule</h1>
-        <p className="text-sm text-gray-500 mb-8">
+        <h1 className="text-2xl font-bold text-slate-900 mb-1">Select Your Schedule</h1>
+        <p className="text-sm text-slate-700 mb-8">
           Choose the schedule that works best for you. Your enrollment coordinator will confirm your exact start date after your application is approved.
         </p>
 
@@ -162,19 +162,19 @@ export default async function SelectSchedulePage() {
                   />
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-gray-900">{opt.label}</span>
+                      <span className="font-semibold text-slate-900">{opt.label}</span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${opt.badgeColor}`}>
                         {opt.badge}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mb-3">{opt.description}</p>
+                    <p className="text-sm text-slate-700 mb-3">{opt.description}</p>
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2 text-xs text-gray-600">
-                        <Clock className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+                      <div className="flex items-center gap-2 text-xs text-slate-700">
+                        <Clock className="w-3.5 h-3.5 text-slate-700 flex-shrink-0" />
                         {opt.hours}
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-gray-600">
-                        <MapPin className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+                      <div className="flex items-center gap-2 text-xs text-slate-700">
+                        <MapPin className="w-3.5 h-3.5 text-slate-700 flex-shrink-0" />
                         {opt.location}
                       </div>
                     </div>

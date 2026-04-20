@@ -99,14 +99,14 @@ export default function ReportContentButton({
                   <h3 className="text-lg font-semibold text-black">
                     Report Content
                   </h3>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-slate-700">
                     Help us keep the community safe
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-black transition-colors"
+                className="text-slate-700 hover:text-black transition-colors"
                 disabled={isSubmitting}
               >
                 <X className="w-5 h-5" />

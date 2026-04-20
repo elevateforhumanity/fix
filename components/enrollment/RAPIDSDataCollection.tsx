@@ -87,8 +87,8 @@ export function RAPIDSDataCollection({
           <Shield className="w-5 h-5 text-brand-blue-600" />
         </div>
         <div>
-          <h3 className="font-semibold text-gray-900">RAPIDS Registration Information</h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <h3 className="font-semibold text-slate-900">RAPIDS Registration Information</h3>
+          <p className="text-sm text-slate-700 mt-1">
             As a USDOL Registered Apprenticeship program, we are required to collect this information 
             for federal reporting. Your data is protected and used only for compliance purposes.
           </p>
@@ -113,10 +113,10 @@ export function RAPIDSDataCollection({
       <div className="space-y-6">
         {/* Personal Information */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-3">Personal Information</h4>
+          <h4 className="text-sm font-medium text-slate-900 mb-3">Personal Information</h4>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Date of Birth <span className="text-brand-red-500">*</span>
               </label>
               <input
@@ -128,7 +128,7 @@ export function RAPIDSDataCollection({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Gender <span className="text-brand-red-500">*</span>
               </label>
               <select
@@ -143,8 +143,8 @@ export function RAPIDSDataCollection({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Middle Name <span className="text-gray-400">(optional)</span>
+              <label className="block text-sm font-medium text-slate-900 mb-1">
+                Middle Name <span className="text-slate-700">(optional)</span>
               </label>
               <input
                 type="text"
@@ -155,8 +155,8 @@ export function RAPIDSDataCollection({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Suffix <span className="text-gray-400">(optional)</span>
+              <label className="block text-sm font-medium text-slate-900 mb-1">
+                Suffix <span className="text-slate-700">(optional)</span>
               </label>
               <input
                 type="text"
@@ -171,10 +171,10 @@ export function RAPIDSDataCollection({
 
         {/* Demographics */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-3">Demographics (EEO Reporting)</h4>
+          <h4 className="text-sm font-medium text-slate-900 mb-3">Demographics (EEO Reporting)</h4>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Race/Ethnicity <span className="text-brand-red-500">*</span>
               </label>
               <select
@@ -189,7 +189,7 @@ export function RAPIDSDataCollection({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Education Level <span className="text-brand-red-500">*</span>
               </label>
               <select
@@ -213,7 +213,7 @@ export function RAPIDSDataCollection({
                 onChange={(e) => handleChange('veteranStatus', e.target.checked)}
                 className="w-4 h-4 text-brand-blue-600 border-gray-300 rounded focus:ring-brand-blue-500"
               />
-              <span className="text-sm text-gray-700">I am a veteran of the U.S. Armed Forces</span>
+              <span className="text-sm text-slate-900">I am a veteran of the U.S. Armed Forces</span>
             </label>
             <label className="flex items-center gap-3">
               <input
@@ -222,7 +222,7 @@ export function RAPIDSDataCollection({
                 onChange={(e) => handleChange('disabilityStatus', e.target.checked)}
                 className="w-4 h-4 text-brand-blue-600 border-gray-300 rounded focus:ring-brand-blue-500"
               />
-              <span className="text-sm text-gray-700">I have a disability</span>
+              <span className="text-sm text-slate-900">I have a disability</span>
             </label>
           </div>
         </div>
@@ -230,7 +230,7 @@ export function RAPIDSDataCollection({
         {/* Employer (Optional) */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h4 className="text-sm font-medium text-gray-700">Employer Information</h4>
+            <h4 className="text-sm font-medium text-slate-900">Employer Information</h4>
             <button
               type="button"
               onClick={() => setShowEmployer(!showEmployer)}
@@ -243,7 +243,7 @@ export function RAPIDSDataCollection({
           {showEmployer && (
             <div className="grid md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Employer Name
                 </label>
                 <input
@@ -255,7 +255,7 @@ export function RAPIDSDataCollection({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   City
                 </label>
                 <input
@@ -267,7 +267,7 @@ export function RAPIDSDataCollection({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   State
                 </label>
                 <input
@@ -293,7 +293,7 @@ export function RAPIDSDataCollection({
               required={required}
               className="w-4 h-4 mt-1 text-brand-blue-600 border-gray-300 rounded focus:ring-brand-blue-500"
             />
-            <span className="text-sm text-gray-700">
+            <span className="text-sm text-slate-900">
               I understand that {programName} is a USDOL Registered Apprenticeship program and 
               I consent to my information being reported to the Department of Labor for compliance 
               and EEO purposes. I certify that the information provided is accurate.

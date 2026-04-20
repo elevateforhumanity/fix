@@ -61,7 +61,7 @@ export default async function ApprenticeDocumentsPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold">Documents</h1>
-            <p className="text-gray-600">Access your apprenticeship documents and forms</p>
+            <p className="text-slate-700">Access your apprenticeship documents and forms</p>
           </div>
           <button className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-blue-700 transition">
             <Upload className="w-5 h-5" />
@@ -84,7 +84,7 @@ export default async function ApprenticeDocumentsPage() {
                         <FileText className="w-10 h-10 text-brand-blue-500" />
                         <div>
                           <h3 className="font-medium">{doc.name}</h3>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-slate-700">
                             {doc.category} • {new Date(doc.created_at).toLocaleDateString()}
                           </p>
                         </div>
@@ -101,8 +101,8 @@ export default async function ApprenticeDocumentsPage() {
                 </div>
               ) : (
                 <div className="p-8 text-center">
-                  <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500">No documents found</p>
+                  <FileText className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+                  <p className="text-slate-700">No documents found</p>
                 </div>
               )}
             </div>
@@ -128,7 +128,7 @@ export default async function ApprenticeDocumentsPage() {
                   ))}
                 </ul>
               ) : (
-                <p className="text-gray-500 text-sm">No forms available yet.</p>
+                <p className="text-slate-700 text-sm">No forms available yet.</p>
               )}
             </div>
 

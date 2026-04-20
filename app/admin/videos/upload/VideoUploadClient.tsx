@@ -98,13 +98,13 @@ export default function VideoUploadClient() {
           {uploading ? (
             <div className="space-y-3">
               <Loader2 className="w-12 h-12 text-brand-blue-500 mx-auto animate-spin" />
-              <p className="text-gray-600">Uploading...</p>
+              <p className="text-slate-700">Uploading...</p>
             </div>
           ) : (
             <>
-              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 mb-2">Drag and drop video files here</p>
-              <p className="text-sm text-gray-500">MP4, WebM up to 500MB</p>
+              <Upload className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-700 mb-2">Drag and drop video files here</p>
+              <p className="text-sm text-slate-700">MP4, WebM up to 500MB</p>
               <button
                 onClick={() => fileInputRef.current?.click()}
                 className="mt-4 bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700"
@@ -135,8 +135,8 @@ export default function VideoUploadClient() {
       {uploaded.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm border divide-y">
           <div className="p-4">
-            <h3 className="font-medium text-gray-900">Uploaded Videos</h3>
-            <p className="text-sm text-gray-500 mt-1">Copy the URL and paste it into a lesson&apos;s video field.</p>
+            <h3 className="font-medium text-slate-900">Uploaded Videos</h3>
+            <p className="text-sm text-slate-700 mt-1">Copy the URL and paste it into a lesson&apos;s video field.</p>
           </div>
           {uploaded.map((file, i) => (
             <div key={i} className="p-4 flex items-center gap-4">
@@ -146,11 +146,11 @@ export default function VideoUploadClient() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-brand-green-500 flex-shrink-0" />
-                  <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
+                  <p className="text-sm font-medium text-slate-900 truncate">{file.name}</p>
                 </div>
-                <p className="text-xs text-gray-500 mt-1 truncate">{file.url}</p>
+                <p className="text-xs text-slate-700 mt-1 truncate">{file.url}</p>
               </div>
-              <div className="text-sm text-gray-500">{formatSize(file.size)}</div>
+              <div className="text-sm text-slate-700">{formatSize(file.size)}</div>
               <button
                 onClick={() => copyUrl(file.url)}
                 className="text-sm text-brand-blue-600 hover:text-brand-blue-700 font-medium whitespace-nowrap"

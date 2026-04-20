@@ -252,7 +252,7 @@ export default async function StudentPortalPage() {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-4xl font-black text-black mb-4">Quick Access</h2>
-          <p className="text-xl text-gray-600 mb-12">
+          <p className="text-xl text-slate-700 mb-12">
             Everything you need in one place
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -269,7 +269,7 @@ export default async function StudentPortalPage() {
                   <h3 className="text-xl font-bold text-black mb-2 group-hover:text-brand-blue-600 transition">
                     {link.title}
                   </h3>
-                  <p className="text-gray-600 mb-4">{link.description}</p>
+                  <p className="text-slate-700 mb-4">{link.description}</p>
                   <span className="text-brand-blue-600 font-semibold text-sm flex items-center gap-1">
                     Access Now <ArrowRight className="w-4 h-4" />
                   </span>
@@ -289,7 +289,7 @@ export default async function StudentPortalPage() {
           <h2 className="text-4xl font-black text-black mb-4">
             Career Services
           </h2>
-          <p className="text-xl text-gray-600 mb-12">
+          <p className="text-xl text-slate-700 mb-12">
             Free support to help you land your dream job
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -303,7 +303,7 @@ export default async function StudentPortalPage() {
                 <h3 className="text-lg font-bold text-black mb-2 group-hover:text-brand-green-600 transition">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 text-sm">{service.description}</p>
+                <p className="text-slate-700 text-sm">{service.description}</p>
               </Link>
             ))}
           </div>
@@ -325,7 +325,7 @@ export default async function StudentPortalPage() {
           <h2 className="text-4xl font-black text-black mb-4">
             Student Resources
           </h2>
-          <p className="text-xl text-gray-600 mb-12">
+          <p className="text-xl text-slate-700 mb-12">
             Tools and information to support your success
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -339,7 +339,7 @@ export default async function StudentPortalPage() {
                 <h3 className="text-lg font-bold text-black mb-2">
                   {resource.title}
                 </h3>
-                <p className="text-gray-600 text-sm">{resource.description}</p>
+                <p className="text-slate-700 text-sm">{resource.description}</p>
               </Link>
             ))}
           </div>
@@ -352,7 +352,7 @@ export default async function StudentPortalPage() {
           <h2 className="text-4xl font-black text-black mb-4 text-center">
             Need Help?
           </h2>
-          <p className="text-xl text-gray-600 mb-12 text-center">
+          <p className="text-xl text-slate-700 mb-12 text-center">
             Student services is here to support you
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -366,7 +366,7 @@ export default async function StudentPortalPage() {
                 <h3 className="text-lg font-bold text-black mb-2">
                   {option.title}
                 </h3>
-                <p className="text-gray-600 text-sm">{option.description}</p>
+                <p className="text-slate-700 text-sm">{option.description}</p>
               </Link>
             ))}
           </div>
@@ -388,7 +388,7 @@ export default async function StudentPortalPage() {
                 <h3 className="text-xl font-bold text-black mb-3">
                   {faq.question}
                 </h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                <p className="text-slate-700">{faq.answer}</p>
               </div>
             ))}
           </div>

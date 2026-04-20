@@ -188,8 +188,8 @@ export default function OutcomesPage() {
       {/* Intro */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Outcomes &amp; What You Can Expect</h1>
-          <div className="text-gray-700 space-y-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">Outcomes &amp; What You Can Expect</h1>
+          <div className="text-slate-900 space-y-4">
             <p>
               This page explains exactly what each Elevate training program leads to — in plain English.
               What credential you earn, who issues it, who hires you, what they pay, what your training
@@ -215,35 +215,35 @@ export default function OutcomesPage() {
               </div>
 
               <div className="p-6 sm:p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-1">{p.name}</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-1">{p.name}</h2>
                 <p className="text-sm text-black mb-6">{p.duration} · {p.credential}</p>
 
                 {/* What this credential is */}
                 <div className="mb-6">
-                  <h3 className="font-bold text-gray-900 mb-2">What this credential is</h3>
-                  <p className="text-sm text-gray-700">{p.whatItMeans}</p>
+                  <h3 className="font-bold text-slate-900 mb-2">What this credential is</h3>
+                  <p className="text-sm text-slate-900">{p.whatItMeans}</p>
                   <p className="text-xs text-black mt-1">Issued by: {p.issuedBy}</p>
                 </div>
 
                 {/* What training looks like */}
                 <div className="mb-6">
-                  <h3 className="font-bold text-gray-900 mb-2">What training looks like</h3>
-                  <p className="text-sm text-gray-700">{p.training}</p>
+                  <h3 className="font-bold text-slate-900 mb-2">What training looks like</h3>
+                  <p className="text-sm text-slate-900">{p.training}</p>
                 </div>
 
                 {/* Exam day */}
                 <div className="mb-6">
-                  <h3 className="font-bold text-gray-900 mb-2">Exam day</h3>
-                  <p className="text-sm text-gray-700">{p.examDay}</p>
+                  <h3 className="font-bold text-slate-900 mb-2">Exam day</h3>
+                  <p className="text-sm text-slate-900">{p.examDay}</p>
                 </div>
 
                 {/* Who hires you and what they pay */}
                 <div className="mb-6">
-                  <h3 className="font-bold text-gray-900 mb-3">Who hires you and what they pay</h3>
+                  <h3 className="font-bold text-slate-900 mb-3">Who hires you and what they pay</h3>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {p.whoHires.map((h) => (
                       <div key={h.employer} className="bg-white rounded-lg p-3 border border-gray-100">
-                        <div className="font-semibold text-gray-900 text-sm">{h.employer}</div>
+                        <div className="font-semibold text-slate-900 text-sm">{h.employer}</div>
                         <div className="text-brand-blue-600 font-bold text-sm">{h.pay}</div>
                       </div>
                     ))}
@@ -252,14 +252,14 @@ export default function OutcomesPage() {
 
                 {/* Funding */}
                 <div className="mb-6">
-                  <h3 className="font-bold text-gray-900 mb-2">What funding covers</h3>
-                  <p className="text-sm text-gray-700">{p.funding}</p>
+                  <h3 className="font-bold text-slate-900 mb-2">What funding covers</h3>
+                  <p className="text-sm text-slate-900">{p.funding}</p>
                 </div>
 
                 {/* What comes next */}
                 <div className="mb-6">
-                  <h3 className="font-bold text-gray-900 mb-2">What comes after this</h3>
-                  <p className="text-sm text-gray-700">{p.nextStep}</p>
+                  <h3 className="font-bold text-slate-900 mb-2">What comes after this</h3>
+                  <p className="text-sm text-slate-900">{p.nextStep}</p>
                 </div>
 
                 {/* CTAs */}

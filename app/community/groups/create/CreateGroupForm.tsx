@@ -100,7 +100,7 @@ export default function CreateGroupForm({ userId, userName, programs }: Props) {
 
       <div className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Group Name *</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Group Name *</label>
           <input type="text" value={formData.name}
             onChange={e => setFormData({ ...formData, name: e.target.value })}
             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-orange-500"
@@ -108,7 +108,7 @@ export default function CreateGroupForm({ userId, userName, programs }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Description</label>
           <textarea rows={4} value={formData.description}
             onChange={e => setFormData({ ...formData, description: e.target.value })}
             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-orange-500"
@@ -116,7 +116,7 @@ export default function CreateGroupForm({ userId, userName, programs }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Related Program</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Related Program</label>
           <select value={formData.programId}
             onChange={e => setFormData({ ...formData, programId: e.target.value })}
             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-orange-500">
@@ -128,7 +128,7 @@ export default function CreateGroupForm({ userId, userName, programs }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Meeting Schedule</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Meeting Schedule</label>
           <input type="text" value={formData.meetingSchedule}
             onChange={e => setFormData({ ...formData, meetingSchedule: e.target.value })}
             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-orange-500"
@@ -136,7 +136,7 @@ export default function CreateGroupForm({ userId, userName, programs }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Maximum Members</label>
+          <label className="block text-sm font-medium text-slate-900 mb-1">Maximum Members</label>
           <select value={formData.maxMembers}
             onChange={e => setFormData({ ...formData, maxMembers: e.target.value })}
             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-orange-500">
@@ -149,7 +149,7 @@ export default function CreateGroupForm({ userId, userName, programs }: Props) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Visibility</label>
+          <label className="block text-sm font-medium text-slate-900 mb-2">Visibility</label>
           <div className="flex gap-4">
             <label className={`flex-1 flex items-center gap-3 p-4 border rounded-lg cursor-pointer ${
               !formData.isPrivate ? 'border-brand-orange-500 bg-brand-orange-50' : 'hover:bg-white'

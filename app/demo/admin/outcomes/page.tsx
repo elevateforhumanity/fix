@@ -20,22 +20,22 @@ export default function DemoOutcomesPage() {
       </section>
       <div className="grid sm:grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-xl border p-4 text-center">
-          <div className="text-3xl font-bold text-gray-900">78%</div>
-          <div className="text-xs text-gray-500 mt-1">Completion Rate</div>
+          <div className="text-3xl font-bold text-slate-900">78%</div>
+          <div className="text-xs text-slate-700 mt-1">Completion Rate</div>
         </div>
         <div className="bg-white rounded-xl border p-4 text-center">
-          <div className="text-3xl font-bold text-gray-900">84%</div>
-          <div className="text-xs text-gray-500 mt-1">Credential Attainment</div>
+          <div className="text-3xl font-bold text-slate-900">84%</div>
+          <div className="text-xs text-slate-700 mt-1">Credential Attainment</div>
         </div>
         <div className="bg-white rounded-xl border p-4 text-center">
-          <div className="text-3xl font-bold text-gray-900">71%</div>
-          <div className="text-xs text-gray-500 mt-1">Employed Within 90 Days</div>
+          <div className="text-3xl font-bold text-slate-900">71%</div>
+          <div className="text-xs text-slate-700 mt-1">Employed Within 90 Days</div>
         </div>
       </div>
       <div className="bg-white rounded-xl border overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-gray-500 border-b bg-gray-50">
+            <tr className="text-left text-xs text-slate-700 border-b bg-gray-50">
               <th className="px-5 py-3 font-medium">Program</th>
               <th className="px-5 py-3 font-medium">Enrolled</th>
               <th className="px-5 py-3 font-medium">Completed</th>
@@ -48,9 +48,9 @@ export default function DemoOutcomesPage() {
               const rate = p.completionRate ?? 75;
               return (
                 <tr key={i} className="border-b last:border-0 hover:bg-gray-50">
-                  <td className="px-5 py-3 font-medium text-gray-900">{p.name}</td>
-                  <td className="px-5 py-3 text-gray-600">{enrolled}</td>
-                  <td className="px-5 py-3 text-gray-600">{Math.round(enrolled * rate / 100)}</td>
+                  <td className="px-5 py-3 font-medium text-slate-900">{p.name}</td>
+                  <td className="px-5 py-3 text-slate-700">{enrolled}</td>
+                  <td className="px-5 py-3 text-slate-700">{Math.round(enrolled * rate / 100)}</td>
                   <td className="px-5 py-3"><span className="text-xs font-semibold text-green-700">{rate}%</span></td>
                 </tr>
               );

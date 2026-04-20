@@ -41,7 +41,7 @@ export function EmployerList() {
   if (loading) {
     return (
       <div className="bg-white rounded-lg border p-8 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+        <Loader2 className="w-6 h-6 animate-spin text-slate-700" />
       </div>
     );
   }
@@ -49,8 +49,8 @@ export function EmployerList() {
   if (!employers.length) {
     return (
       <div className="bg-white rounded-lg border p-8 text-center">
-        <Building2 className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-        <p className="text-gray-500">No employers added yet.</p>
+        <Building2 className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+        <p className="text-slate-700">No employers added yet.</p>
         <Link
           href="/admin/employers/onboarding"
           className="inline-block mt-4 text-sm text-brand-blue-600 hover:text-brand-blue-800 font-medium"
@@ -73,11 +73,11 @@ export function EmployerList() {
                 </span>
               </div>
               <div>
-                <p className="font-semibold text-gray-900">{emp.name}</p>
+                <p className="font-semibold text-slate-900">{emp.name}</p>
                 {emp.industry && (
-                  <p className="text-sm text-gray-500">{emp.industry}</p>
+                  <p className="text-sm text-slate-700">{emp.industry}</p>
                 )}
-                <div className="flex flex-wrap gap-3 mt-1 text-xs text-gray-500">
+                <div className="flex flex-wrap gap-3 mt-1 text-xs text-slate-700">
                   {(emp.city || emp.state || emp.location) && (
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
@@ -105,7 +105,7 @@ export function EmployerList() {
                       ? 'bg-brand-green-100 text-brand-green-700'
                       : emp.status === 'pending'
                         ? 'bg-yellow-100 text-yellow-700'
-                        : 'bg-gray-100 text-gray-600'
+                        : 'bg-gray-100 text-slate-700'
                   }`}>
                     {emp.status}
                   </span>

@@ -117,8 +117,8 @@ export function HoursApprovalQueue() {
   if (loading) {
     return (
       <div className="bg-white rounded-xl border p-12 text-center">
-        <Clock className="w-12 h-12 text-gray-300 mx-auto mb-4 animate-pulse" />
-        <p className="text-gray-500">Loading pending hours...</p>
+        <Clock className="w-12 h-12 text-slate-700 mx-auto mb-4 animate-pulse" />
+        <p className="text-slate-700">Loading pending hours...</p>
       </div>
     );
   }
@@ -152,8 +152,8 @@ export function HoursApprovalQueue() {
       {entries.length === 0 ? (
         <div className="bg-white rounded-xl border p-12 text-center">
           <CheckCircle className="w-16 h-16 text-brand-green-300 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">All caught up</h2>
-          <p className="text-gray-600">No pending hours to review.</p>
+          <h2 className="text-xl font-semibold text-slate-900 mb-2">All caught up</h2>
+          <p className="text-slate-700">No pending hours to review.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -166,23 +166,23 @@ export function HoursApprovalQueue() {
                       <User className="w-5 h-5 text-brand-blue-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{entry.user_name}</h3>
-                      <p className="text-sm text-gray-500">{entry.user_email}</p>
+                      <h3 className="font-semibold text-slate-900">{entry.user_name}</h3>
+                      <p className="text-sm text-slate-700">{entry.user_email}</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-gray-400" />
-                      <span className="text-sm text-gray-700">
+                      <Calendar className="w-4 h-4 text-slate-700" />
+                      <span className="text-sm text-slate-900">
                         {new Date(entry.work_date).toLocaleDateString('en-US', { timeZone: 'UTC',
                           weekday: 'short', month: 'short', day: 'numeric',
                         })}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-gray-400" />
-                      <span className="text-sm font-medium text-gray-900">{entry.hours_claimed} hours</span>
+                      <Clock className="w-4 h-4 text-slate-700" />
+                      <span className="text-sm font-medium text-slate-900">{entry.hours_claimed} hours</span>
                     </div>
                     <div>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -194,13 +194,13 @@ export function HoursApprovalQueue() {
                       </span>
                     </div>
                     {entry.category && (
-                      <span className="text-sm text-gray-500">{entry.category}</span>
+                      <span className="text-sm text-slate-700">{entry.category}</span>
                     )}
                   </div>
 
                   {entry.notes && (
                     <div className="bg-white rounded-lg p-3">
-                      <p className="text-sm text-gray-700">{entry.notes}</p>
+                      <p className="text-sm text-slate-900">{entry.notes}</p>
                     </div>
                   )}
                 </div>

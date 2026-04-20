@@ -95,7 +95,7 @@ export function NotificationBell() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+        className="relative p-2 text-slate-700 hover:text-slate-900 hover:bg-gray-100 rounded-full transition-colors"
         aria-label={t('notifications.title')}
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -112,7 +112,7 @@ export function NotificationBell() {
         <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
           {/* Header */}
           <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-            <h3 className="font-semibold text-gray-900">{t('notifications.title')}</h3>
+            <h3 className="font-semibold text-slate-900">{t('notifications.title')}</h3>
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
@@ -126,7 +126,7 @@ export function NotificationBell() {
           {/* Notifications list */}
           <div className="max-h-80 overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="px-4 py-8 text-center text-gray-500">
+              <div className="px-4 py-8 text-center text-slate-700">
                 <Bell className="w-8 h-8 mx-auto mb-2 opacity-50" />
                 <p>{t('notifications.noNotifications')}</p>
               </div>
@@ -140,10 +140,10 @@ export function NotificationBell() {
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-medium ${!notification.read ? 'text-gray-900' : 'text-gray-700'}`}>
+                      <p className={`text-sm font-medium ${!notification.read ? 'text-slate-900' : 'text-slate-900'}`}>
                         {notification.title}
                       </p>
-                      <p className="text-sm text-gray-500 truncate">
+                      <p className="text-sm text-slate-700 truncate">
                         {notification.message}
                       </p>
                     </div>
@@ -151,7 +151,7 @@ export function NotificationBell() {
                       {!notification.read && (
                         <button
                           onClick={() => markAsRead(notification.id)}
-                          className="p-1 text-gray-400 hover:text-brand-green-600 rounded"
+                          className="p-1 text-slate-700 hover:text-brand-green-600 rounded"
                           aria-label="Mark as read"
                         >
                           <Check className="w-4 h-4" />
@@ -159,7 +159,7 @@ export function NotificationBell() {
                       )}
                       <button
                         onClick={() => dismissNotification(notification.id)}
-                        className="p-1 text-gray-400 hover:text-brand-red-600 rounded"
+                        className="p-1 text-slate-700 hover:text-brand-red-600 rounded"
                         aria-label="Dismiss"
                       >
                         <X className="w-4 h-4" />

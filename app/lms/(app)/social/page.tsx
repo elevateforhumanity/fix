@@ -57,23 +57,23 @@ export default async function SocialPage() {
                   {profile?.avatar_url ? (
                     <Image src={profile.avatar_url} alt={profile?.full_name || 'Your profile'} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                   ) : (
-                    <Users className="w-8 h-8 text-gray-400" />
+                    <Users className="w-8 h-8 text-slate-700" />
                   )}
                 </div>
-                <h3 className="font-semibold text-gray-900 mt-2">
+                <h3 className="font-semibold text-slate-900 mt-2">
                   {profile?.full_name || 'Student'}
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-slate-700">
                   {profile?.headline || 'Elevate Learner'}
                 </p>
                 <div className="flex gap-4 mt-4 text-sm">
                   <div>
-                    <span className="font-semibold text-gray-900">0</span>
-                    <span className="text-gray-600 ml-1">Connections</span>
+                    <span className="font-semibold text-slate-900">0</span>
+                    <span className="text-slate-700 ml-1">Connections</span>
                   </div>
                   <div>
-                    <span className="font-semibold text-gray-900">0</span>
-                    <span className="text-gray-600 ml-1">Posts</span>
+                    <span className="font-semibold text-slate-900">0</span>
+                    <span className="text-slate-700 ml-1">Posts</span>
                   </div>
                 </div>
               </div>
@@ -81,18 +81,18 @@ export default async function SocialPage() {
 
             {/* Quick Links */}
             <div className="bg-white rounded-xl p-4 shadow-sm border">
-              <h3 className="font-semibold text-gray-900 mb-3">Quick Links</h3>
+              <h3 className="font-semibold text-slate-900 mb-3">Quick Links</h3>
               <nav className="space-y-1">
-                <Link href="/lms/social/connections" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white text-gray-700">
-                  <UserPlus className="w-5 h-5 text-gray-400" />
+                <Link href="/lms/social/connections" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white text-slate-900">
+                  <UserPlus className="w-5 h-5 text-slate-700" />
                   Find Connections
                 </Link>
-                <Link href="/lms/social/groups" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white text-gray-700">
-                  <Users className="w-5 h-5 text-gray-400" />
+                <Link href="/lms/social/groups" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white text-slate-900">
+                  <Users className="w-5 h-5 text-slate-700" />
                   Study Groups
                 </Link>
-                <Link href="/lms/social/trending" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white text-gray-700">
-                  <TrendingUp className="w-5 h-5 text-gray-400" />
+                <Link href="/lms/social/trending" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white text-slate-900">
+                  <TrendingUp className="w-5 h-5 text-slate-700" />
                   Trending Topics
                 </Link>
               </nav>
@@ -108,19 +108,19 @@ export default async function SocialPage() {
                   {profile?.avatar_url ? (
                     <Image src={profile.avatar_url} alt={profile?.full_name || 'Your profile'} width={48} height={48} className="w-full h-full rounded-full object-cover" />
                   ) : (
-                    <Users className="w-5 h-5 text-gray-400" />
+                    <Users className="w-5 h-5 text-slate-700" />
                   )}
                 </div>
-                <button className="flex-1 text-left px-4 py-3 bg-white rounded-full text-gray-500 hover:bg-gray-200 transition-colors">
+                <button className="flex-1 text-left px-4 py-3 bg-white rounded-full text-slate-700 hover:bg-gray-200 transition-colors">
                   Share an update or achievement...
                 </button>
               </div>
               <div className="flex gap-2 mt-4 pt-4 border-t">
-                <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white text-gray-600">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white text-slate-700">
                   <ImageIcon className="w-5 h-5 text-brand-green-600" />
                   Photo
                 </button>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white text-gray-600">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white text-slate-700">
                   <MessageSquare className="w-5 h-5 text-brand-blue-600" />
                   Article
                 </button>
@@ -129,11 +129,11 @@ export default async function SocialPage() {
 
             {/* Empty State */}
             <div className="bg-white rounded-xl p-12 shadow-sm border text-center">
-              <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
                 Welcome to the Community!
               </h3>
-              <p className="text-gray-600 mb-6 max-w-md mx-auto">
+              <p className="text-slate-700 mb-6 max-w-md mx-auto">
                 Connect with fellow learners, share your achievements, and engage in discussions. 
                 Start by finding connections or joining a study group.
               </p>
@@ -147,7 +147,7 @@ export default async function SocialPage() {
                 </Link>
                 <Link
                   href="/lms/social/groups"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white border rounded-lg hover:bg-white text-gray-700 font-medium"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white border rounded-lg hover:bg-white text-slate-900 font-medium"
                 >
                   <Users className="w-5 h-5" />
                   Browse Groups
@@ -160,13 +160,13 @@ export default async function SocialPage() {
           <div className="lg:col-span-1">
             {/* Suggested Connections */}
             <div className="bg-white rounded-xl p-4 shadow-sm border mb-6">
-              <h3 className="font-semibold text-gray-900 mb-4">People You May Know</h3>
+              <h3 className="font-semibold text-slate-900 mb-4">People You May Know</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-gray-900 truncate">Fellow Learner</div>
-                    <div className="text-sm text-gray-500 truncate">Healthcare Program</div>
+                    <div className="font-medium text-slate-900 truncate">Fellow Learner</div>
+                    <div className="text-sm text-slate-700 truncate">Healthcare Program</div>
                   </div>
                   <button className="p-2 text-brand-blue-600 hover:bg-brand-blue-50 rounded-lg">
                     <UserPlus className="w-5 h-5" />
@@ -175,8 +175,8 @@ export default async function SocialPage() {
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-gray-900 truncate">Study Partner</div>
-                    <div className="text-sm text-gray-500 truncate">IT Certification</div>
+                    <div className="font-medium text-slate-900 truncate">Study Partner</div>
+                    <div className="text-sm text-slate-700 truncate">IT Certification</div>
                   </div>
                   <button className="p-2 text-brand-blue-600 hover:bg-brand-blue-50 rounded-lg">
                     <UserPlus className="w-5 h-5" />
@@ -193,19 +193,19 @@ export default async function SocialPage() {
 
             {/* Active Groups */}
             <div className="bg-white rounded-xl p-4 shadow-sm border">
-              <h3 className="font-semibold text-gray-900 mb-4">Popular Groups</h3>
+              <h3 className="font-semibold text-slate-900 mb-4">Popular Groups</h3>
               <div className="space-y-3">
                 <Link href="/lms/social/groups/healthcare" className="block p-3 rounded-lg hover:bg-white">
-                  <div className="font-medium text-gray-900">Healthcare Professionals</div>
-                  <div className="text-sm text-gray-500">234 members</div>
+                  <div className="font-medium text-slate-900">Healthcare Professionals</div>
+                  <div className="text-sm text-slate-700">234 members</div>
                 </Link>
                 <Link href="/lms/social/groups/trades" className="block p-3 rounded-lg hover:bg-white">
-                  <div className="font-medium text-gray-900">Skilled Trades Network</div>
-                  <div className="text-sm text-gray-500">189 members</div>
+                  <div className="font-medium text-slate-900">Skilled Trades Network</div>
+                  <div className="text-sm text-slate-700">189 members</div>
                 </Link>
                 <Link href="/lms/social/groups/career" className="block p-3 rounded-lg hover:bg-white">
-                  <div className="font-medium text-gray-900">Career Changers</div>
-                  <div className="text-sm text-gray-500">156 members</div>
+                  <div className="font-medium text-slate-900">Career Changers</div>
+                  <div className="text-sm text-slate-700">156 members</div>
                 </Link>
               </div>
               <Link

@@ -56,8 +56,8 @@ export default async function WOTCAdminPage() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">WOTC Management</h1>
-            <p className="text-gray-600">Work Opportunity Tax Credit applications and certifications</p>
+            <h1 className="text-2xl font-bold text-slate-900">WOTC Management</h1>
+            <p className="text-slate-700">Work Opportunity Tax Credit applications and certifications</p>
           </div>
           <Link
             href="/admin/wotc/new"
@@ -77,8 +77,8 @@ export default async function WOTCAdminPage() {
                   {stat.change}
                 </span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-sm text-gray-600">{stat.label}</p>
+              <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-sm text-slate-700">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -86,7 +86,7 @@ export default async function WOTCAdminPage() {
         <div className="bg-white rounded-xl shadow-sm">
           <div className="p-4 border-b flex items-center gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
               <input
                 type="text"
                 placeholder="Search applications..."
@@ -111,9 +111,9 @@ export default async function WOTCAdminPage() {
 
           {allApps.length === 0 ? (
             <div className="p-12 text-center">
-              <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No WOTC Applications</h3>
-              <p className="text-gray-600 mb-6">Get started by creating your first WOTC application.</p>
+              <FileText className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">No WOTC Applications</h3>
+              <p className="text-slate-700 mb-6">Get started by creating your first WOTC application.</p>
               <Link
                 href="/admin/wotc/new"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition"
@@ -126,19 +126,19 @@ export default async function WOTCAdminPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Employer</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Employee</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Target Groups</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Credit</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Employer</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Employee</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Target Groups</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Credit</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {allApps.map((app) => (
                   <tr key={app.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 font-medium text-gray-900">{app.employer_name}</td>
-                    <td className="px-6 py-4 text-gray-600">
+                    <td className="px-6 py-4 font-medium text-slate-900">{app.employer_name}</td>
+                    <td className="px-6 py-4 text-slate-700">
                       {app.employee_first_name} {app.employee_last_name}
                     </td>
                     <td className="px-6 py-4">
@@ -149,7 +149,7 @@ export default async function WOTCAdminPage() {
                           </span>
                         ))}
                         {(app.target_groups || []).length > 2 && (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                          <span className="px-2 py-1 bg-gray-100 text-slate-700 text-xs rounded-full">
                             +{app.target_groups.length - 2}
                           </span>
                         )}
@@ -164,7 +164,7 @@ export default async function WOTCAdminPage() {
                         app.status === 'pending_review' ? 'bg-yellow-100 text-yellow-700' :
                         app.status === 'submitted' ? 'bg-brand-blue-100 text-brand-blue-700' :
                         app.status === 'denied' ? 'bg-brand-red-100 text-brand-red-700' :
-                        'bg-gray-100 text-gray-700'
+                        'bg-gray-100 text-slate-900'
                       }`}>
                         {app.status === 'approved' && <span className="text-slate-400 flex-shrink-0">•</span>}
                         {app.status === 'pending_review' && <Clock className="w-4 h-4" />}

@@ -90,9 +90,9 @@ export default function HoursTracker() {
   if (enrollments.length === 0) {
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-        <Clock className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">No Hours Logged</h2>
-        <p className="text-gray-600">
+        <Clock className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+        <h2 className="text-xl font-semibold text-slate-900 mb-2">No Hours Logged</h2>
+        <p className="text-slate-700">
           You don&apos;t have any hours logged yet. Hours will appear here once you start logging time in your program.
         </p>
       </div>
@@ -110,9 +110,9 @@ export default function HoursTracker() {
           <div key={enrollment.enrollment_id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             {/* Header */}
             <div className="bg-white px-6 py-4 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-900">{enrollment.program_name}</h2>
+              <h2 className="text-xl font-bold text-slate-900">{enrollment.program_name}</h2>
               {enrollment.required_hours && (
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-slate-700 mt-1">
                   {enrollment.required_hours} hours required for completion
                 </p>
               )}
@@ -156,7 +156,7 @@ export default function HoursTracker() {
             {/* Progress Bar */}
             {enrollment.required_hours && (
               <div className="px-6 py-4 border-b border-gray-100">
-                <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+                <div className="flex items-center justify-between text-sm text-slate-700 mb-2">
                   <span>Progress toward {enrollment.required_hours} hours</span>
                   <span>{enrollment.verified_total.toFixed(1)} / {enrollment.required_hours}</span>
                 </div>
@@ -171,15 +171,15 @@ export default function HoursTracker() {
 
             {/* Hours Log */}
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Hours Log</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-4">Hours Log</h3>
               
               {enrollment.entries.length === 0 ? (
-                <p className="text-gray-500 text-center py-4">No hours logged yet.</p>
+                <p className="text-slate-700 text-center py-4">No hours logged yet.</p>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="text-left text-sm text-gray-500 border-b border-gray-100">
+                      <tr className="text-left text-sm text-slate-700 border-b border-gray-100">
                         <th className="pb-3 font-medium">Date</th>
                         <th className="pb-3 font-medium">Hours</th>
                         <th className="pb-3 font-medium">Description</th>
@@ -191,15 +191,15 @@ export default function HoursTracker() {
                       {enrollment.entries.map((entry) => (
                         <tr key={entry.id} className="text-sm">
                           <td className="py-3">
-                            <div className="flex items-center gap-2 text-gray-900">
-                              <Calendar className="w-4 h-4 text-gray-400" />
+                            <div className="flex items-center gap-2 text-slate-900">
+                              <Calendar className="w-4 h-4 text-slate-700" />
                               {new Date(entry.logged_date).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                             </div>
                           </td>
-                          <td className="py-3 font-medium text-gray-900">
+                          <td className="py-3 font-medium text-slate-900">
                             {entry.hours.toFixed(1)}
                           </td>
-                          <td className="py-3 text-gray-600 max-w-xs truncate">
+                          <td className="py-3 text-slate-700 max-w-xs truncate">
                             {entry.description || '-'}
                           </td>
                           <td className="py-3">
@@ -215,7 +215,7 @@ export default function HoursTracker() {
                               </span>
                             )}
                           </td>
-                          <td className="py-3 text-gray-500 text-xs">
+                          <td className="py-3 text-slate-700 text-xs">
                             {entry.verified && entry.verified_at ? (
                               <div className="flex items-center gap-1">
                                 <User className="w-3 h-3" />

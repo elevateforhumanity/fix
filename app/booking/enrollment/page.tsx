@@ -87,27 +87,27 @@ export default function EnrollmentBookingPage() {
           <div className="w-20 h-20 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-slate-500 flex-shrink-0">•</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Appointment Confirmed!</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">Appointment Confirmed!</h1>
+          <p className="text-slate-700 mb-6">
             Your enrollment consultation is scheduled for <strong>{selectedDate}</strong> at <strong>{selectedTime}</strong>.
           </p>
           <div className="bg-white rounded-xl border p-6 mb-6 text-left">
             <h3 className="font-semibold mb-3">What to expect:</h3>
-            <ul className="space-y-2 text-sm text-gray-600">
+            <ul className="space-y-2 text-sm text-slate-700">
               <li>• 30-minute consultation with an enrollment advisor</li>
               <li>• Discussion of your career goals and program options</li>
               <li>• Information about funding and financial aid</li>
               <li>• Next steps for enrollment</li>
             </ul>
           </div>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-slate-700 mb-4">
             A confirmation email has been sent to {formData.email}
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/programs" className="text-brand-blue-600 hover:text-brand-blue-700 font-medium">
               Browse Programs
             </Link>
-            <Link href="/" className="text-gray-600 hover:text-gray-700 font-medium">
+            <Link href="/" className="text-slate-700 hover:text-slate-900 font-medium">
               Return Home
             </Link>
           </div>
@@ -144,11 +144,11 @@ export default function EnrollmentBookingPage() {
             {[1, 2, 3].map((s) => (
               <div key={s} className="flex items-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                  step >= s ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                  step >= s ? 'bg-brand-blue-600 text-white' : 'bg-gray-200 text-slate-700'
                 }`}>
                   {s}
                 </div>
-                <span className={`ml-2 text-sm hidden sm:inline ${step >= s ? 'text-brand-blue-600 font-medium' : 'text-gray-500'}`}>
+                <span className={`ml-2 text-sm hidden sm:inline ${step >= s ? 'text-brand-blue-600 font-medium' : 'text-slate-700'}`}>
                   {s === 1 ? 'Select Date' : s === 2 ? 'Select Time' : 'Your Info'}
                 </span>
                 {s < 3 && <div className={`w-12 sm:w-24 h-1 mx-2 ${step > s ? 'bg-brand-blue-600' : 'bg-gray-200'}`} />}
@@ -163,7 +163,7 @@ export default function EnrollmentBookingPage() {
         {/* Step 1: Select Date */}
         {step === 1 && (
           <div className="bg-white rounded-xl border p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
               <Calendar className="w-5 h-5 text-brand-blue-600" />
               Select a Date
             </h2>
@@ -177,9 +177,9 @@ export default function EnrollmentBookingPage() {
                   }}
                   className="p-4 border rounded-lg hover:border-brand-blue-500 hover:bg-brand-blue-50 transition-colors text-center"
                 >
-                  <div className="text-sm text-gray-500">{date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
+                  <div className="text-sm text-slate-700">{date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
                   <div className="text-lg font-semibold">{date.getDate()}</div>
-                  <div className="text-sm text-gray-500">{date.toLocaleDateString('en-US', { month: 'short' })}</div>
+                  <div className="text-sm text-slate-700">{date.toLocaleDateString('en-US', { month: 'short' })}</div>
                 </button>
               ))}
             </div>
@@ -192,11 +192,11 @@ export default function EnrollmentBookingPage() {
             <button onClick={() => setStep(1)} className="text-brand-blue-600 hover:text-brand-blue-700 text-sm mb-4 flex items-center gap-1">
               <ArrowLeft className="w-4 h-4" /> Change date
             </button>
-            <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
               <Clock className="w-5 h-5 text-brand-blue-600" />
               Select a Time
             </h2>
-            <p className="text-gray-600 mb-4">Available times for {selectedDate}</p>
+            <p className="text-slate-700 mb-4">Available times for {selectedDate}</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
               {timeSlots.map((time) => (
                 <button
@@ -227,7 +227,7 @@ export default function EnrollmentBookingPage() {
               </p>
             </div>
 
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
               <User className="w-5 h-5 text-brand-blue-600" />
               Your Information
             </h2>
@@ -235,7 +235,7 @@ export default function EnrollmentBookingPage() {
             <div className="space-y-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">First Name *</label>
                   <input
                     type="text"
                     required
@@ -245,7 +245,7 @@ export default function EnrollmentBookingPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+                  <label className="block text-sm font-medium text-slate-900 mb-1">Last Name *</label>
                   <input
                     type="text"
                     required
@@ -257,7 +257,7 @@ export default function EnrollmentBookingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Email *</label>
                 <input
                   type="email"
                   required
@@ -268,7 +268,7 @@ export default function EnrollmentBookingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Phone *</label>
                 <input
                   type="tel"
                   required
@@ -280,7 +280,7 @@ export default function EnrollmentBookingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Program of Interest</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Program of Interest</label>
                 <select
                   value={formData.program}
                   onChange={(e) => setFormData({ ...formData, program: e.target.value })}
@@ -299,7 +299,7 @@ export default function EnrollmentBookingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Questions or Notes</label>
+                <label className="block text-sm font-medium text-slate-900 mb-1">Questions or Notes</label>
                 <textarea
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -327,7 +327,7 @@ export default function EnrollmentBookingPage() {
 
         {/* Help CTA */}
         <div className="mt-8 bg-white rounded-xl p-6 text-center">
-          <p className="text-gray-600 mb-2">Need help with your enrollment?</p>
+          <p className="text-slate-700 mb-2">Need help with your enrollment?</p>
           <a href="/faq" className="inline-flex items-center gap-2 text-xl font-bold text-brand-blue-600 hover:text-brand-blue-700">
             Visit our FAQ & Help Center →
           </a>

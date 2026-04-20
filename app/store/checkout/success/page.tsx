@@ -61,7 +61,7 @@ function CheckoutSuccessContent() {
       </section>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-green-600 mx-auto mb-4" />
-          <p className="text-gray-600">Confirming your subscription...</p>
+          <p className="text-slate-700">Confirming your subscription...</p>
         </div>
       </div>
     );
@@ -75,10 +75,10 @@ function CheckoutSuccessContent() {
           <div className="w-20 h-20 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-brand-green-600" />
           </div>
-          <h1 className="text-3xl font-black text-gray-900 mb-3">
+          <h1 className="text-3xl font-black text-slate-900 mb-3">
             Trial Started Successfully
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-slate-700">
             Your {TRIAL_DAYS}-day free trial is now active.
           </p>
         </div>
@@ -102,7 +102,7 @@ function CheckoutSuccessContent() {
             </div>
           </div>
 
-          <h2 className="text-xl font-bold text-gray-900 mb-4">What's next?</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">What's next?</h2>
           
           <div className="space-y-4">
             <div className="flex gap-4">
@@ -110,8 +110,8 @@ function CheckoutSuccessContent() {
                 1
               </div>
               <div>
-                <h3 className="font-bold text-gray-900">Your dashboard is ready</h3>
-                <p className="text-sm text-gray-600">
+                <h3 className="font-bold text-slate-900">Your dashboard is ready</h3>
+                <p className="text-sm text-slate-700">
                   Start exploring the platform immediately.
                 </p>
               </div>
@@ -122,8 +122,8 @@ function CheckoutSuccessContent() {
                 2
               </div>
               <div>
-                <h3 className="font-bold text-gray-900">Set up your programs</h3>
-                <p className="text-sm text-gray-600">
+                <h3 className="font-bold text-slate-900">Set up your programs</h3>
+                <p className="text-sm text-slate-700">
                   Configure eligibility pathways and program settings.
                 </p>
               </div>
@@ -134,8 +134,8 @@ function CheckoutSuccessContent() {
                 3
               </div>
               <div>
-                <h3 className="font-bold text-gray-900">Invite your team</h3>
-                <p className="text-sm text-gray-600">
+                <h3 className="font-bold text-slate-900">Invite your team</h3>
+                <p className="text-sm text-slate-700">
                   Add admin users to help manage the platform.
                 </p>
               </div>
@@ -156,10 +156,10 @@ function CheckoutSuccessContent() {
         {/* Billing Info */}
         <div className="bg-white rounded-xl p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <CreditCard className="w-5 h-5 text-gray-600" />
-            <h3 className="font-bold text-gray-900">Billing</h3>
+            <CreditCard className="w-5 h-5 text-slate-700" />
+            <h3 className="font-bold text-slate-900">Billing</h3>
           </div>
-          <p className="text-sm text-gray-600 mb-4">
+          <p className="text-sm text-slate-700 mb-4">
             You can manage your subscription, update payment methods, or cancel anytime from your account settings.
           </p>
           <Link
@@ -171,7 +171,7 @@ function CheckoutSuccessContent() {
         </div>
 
         {/* Support */}
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-slate-700">
           <p>
             Questions? <Link href="/contact" className="text-brand-blue-600 hover:underline">Contact support</Link>
           </p>

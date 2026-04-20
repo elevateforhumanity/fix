@@ -63,21 +63,21 @@ export default async function VolunteerPage() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Benefits */}
         <div className="bg-white rounded-xl border p-8 mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Volunteer?</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Why Volunteer?</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {benefits.map((benefit, index) => (
               <div key={index} className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-brand-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
                   <Heart className="w-4 h-4 text-brand-orange-600" />
                 </div>
-                <span className="text-gray-700">{benefit}</span>
+                <span className="text-slate-900">{benefit}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Opportunities */}
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Current Opportunities</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-6">Current Opportunities</h2>
         
         {opportunityList.length > 0 ? (
           <div className="grid md:grid-cols-2 gap-6">
@@ -85,8 +85,8 @@ export default async function VolunteerPage() {
               <div key={opp.id} className="bg-white rounded-xl border p-6 hover:shadow-lg transition">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{opp.title}</h3>
-                    <p className="text-sm text-gray-500">{opp.category || 'General'}</p>
+                    <h3 className="text-lg font-semibold text-slate-900">{opp.title}</h3>
+                    <p className="text-sm text-slate-700">{opp.category || 'General'}</p>
                   </div>
                   {opp.spots_available && (
                     <span className="px-2 py-1 bg-brand-green-100 text-brand-green-700 text-xs rounded-full">
@@ -94,8 +94,8 @@ export default async function VolunteerPage() {
                     </span>
                   )}
                 </div>
-                <p className="text-gray-600 mb-4 line-clamp-2">{opp.description}</p>
-                <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
+                <p className="text-slate-700 mb-4 line-clamp-2">{opp.description}</p>
+                <div className="flex flex-wrap gap-4 text-sm text-slate-700 mb-4">
                   {opp.location && (
                     <span className="flex items-center gap-1">
                       <MapPin className="w-4 h-4" />
@@ -126,9 +126,9 @@ export default async function VolunteerPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl border p-12 text-center">
-            <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No opportunities listed</h3>
-            <p className="text-gray-600 mb-6">No volunteer opportunities posted yet. Contact us to express your interest and we will reach out when openings are available.</p>
+            <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-slate-900 mb-2">No opportunities listed</h3>
+            <p className="text-slate-700 mb-6">No volunteer opportunities posted yet. Contact us to express your interest and we will reach out when openings are available.</p>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 bg-brand-orange-500 text-white rounded-lg hover:bg-brand-orange-600"
@@ -140,7 +140,7 @@ export default async function VolunteerPage() {
 
         {/* FAQ */}
         <div className="mt-12 bg-white rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Volunteer FAQ</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">Volunteer FAQ</h2>
           <div className="space-y-4 max-w-2xl mx-auto">
             {[
               { q: 'What volunteer opportunities are available?', a: 'We need mentors, guest speakers, mock interview partners, resume reviewers, and event volunteers. Opportunities vary based on current needs.' },
@@ -165,7 +165,7 @@ export default async function VolunteerPage() {
         {/* CTA */}
         <div className="mt-12 bg-brand-blue-700 rounded-xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Ready to Make a Difference?</h2>
-          <p className="text-gray-300 mb-6 max-w-xl mx-auto">
+          <p className="text-slate-700 mb-6 max-w-xl mx-auto">
             Whether you have a few hours or want to commit long-term, we have opportunities for you.
           </p>
           <Link

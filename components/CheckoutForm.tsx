@@ -188,7 +188,7 @@ function PaymentForm({
       </button>
 
       {/* Terms */}
-      <p className="text-xs text-gray-500 text-center">
+      <p className="text-xs text-slate-700 text-center">
         By completing this purchase, you agree to our{' '}
         <a href="/terms-of-service" className="text-brand-blue-600 hover:underline">
           Terms of Service

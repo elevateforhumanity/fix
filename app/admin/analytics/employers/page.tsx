@@ -36,16 +36,16 @@ export default async function EmployerAnalyticsPage() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <nav className="text-sm mb-6">
-          <ol className="flex items-center space-x-2 text-gray-500">
+          <ol className="flex items-center space-x-2 text-slate-700">
             <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
             <li>/</li>
             <li><Link href="/admin/analytics" className="hover:text-primary">Analytics</Link></li>
             <li>/</li>
-            <li className="text-gray-900 font-medium">Employers</li>
+            <li className="text-slate-900 font-medium">Employers</li>
           </ol>
         </nav>
         <h1 className="text-3xl font-bold mb-2">Employer Analytics</h1>
-        <p className="text-gray-500 mb-8">Employer engagement and placement outcomes</p>
+        <p className="text-slate-700 mb-8">Employer engagement and placement outcomes</p>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           {[
@@ -57,7 +57,7 @@ export default async function EmployerAnalyticsPage() {
           ].map(([label, val]) => (
             <div key={label as string} className="bg-white rounded-lg shadow-sm border p-4 text-center">
               <p className="text-2xl font-bold">{val}</p>
-              <p className="text-xs text-gray-500 mt-1">{label}</p>
+              <p className="text-xs text-slate-700 mt-1">{label}</p>
             </div>
           ))}
         </div>
@@ -66,7 +66,7 @@ export default async function EmployerAnalyticsPage() {
           <div className="p-4 border-b"><h2 className="font-semibold">Employer Breakdown</h2></div>
           {employerStats.length > 0 ? (
             <table className="w-full text-sm">
-              <thead><tr className="text-left text-gray-500 border-b bg-gray-50">
+              <thead><tr className="text-left text-slate-700 border-b bg-gray-50">
                 <th className="px-4 py-3">Employer</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3 text-right">Open Jobs</th>
@@ -76,14 +76,14 @@ export default async function EmployerAnalyticsPage() {
                 {employerStats.map((e: any) => (
                   <tr key={e.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3 font-medium">{e.business_name || '—'}</td>
-                    <td className="px-4 py-3"><span className={`px-2 py-0.5 text-xs rounded-full ${e.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>{e.status}</span></td>
+                    <td className="px-4 py-3"><span className={`px-2 py-0.5 text-xs rounded-full ${e.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-slate-700'}`}>{e.status}</span></td>
                     <td className="px-4 py-3 text-right">{e.openJobs}</td>
                     <td className="px-4 py-3 text-right font-semibold">{e.placements}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          ) : <p className="p-8 text-center text-gray-500">No employer data yet.</p>}
+          ) : <p className="p-8 text-center text-slate-700">No employer data yet.</p>}
         </div>
       </div>
     </div>

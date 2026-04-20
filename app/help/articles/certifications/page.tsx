@@ -54,7 +54,7 @@ export default function CertificationsHelpPage() {
             <h1 className="text-3xl font-bold">Certifications</h1>
           </div>
           
-          <p className="text-gray-600 text-lg mb-8">
+          <p className="text-slate-700 text-lg mb-8">
             Everything you need to know about earning, accessing, and verifying your certifications.
           </p>
 
@@ -62,17 +62,17 @@ export default function CertificationsHelpPage() {
             <div className="bg-brand-blue-50 rounded-lg p-6">
               <span className="text-slate-500 flex-shrink-0">•</span>
               <h3 className="font-semibold mb-2">Earn Certificates</h3>
-              <p className="text-sm text-gray-600">Complete courses and pass assessments to earn industry-recognized credentials.</p>
+              <p className="text-sm text-slate-700">Complete courses and pass assessments to earn industry-recognized credentials.</p>
             </div>
             <div className="bg-brand-green-50 rounded-lg p-6">
               <FileText className="w-8 h-8 text-brand-green-600 mb-3" />
               <h3 className="font-semibold mb-2">Access Anytime</h3>
-              <p className="text-sm text-gray-600">View and download your certificates from your dashboard 24/7.</p>
+              <p className="text-sm text-slate-700">View and download your certificates from your dashboard 24/7.</p>
             </div>
             <div className="bg-brand-blue-50 rounded-lg p-6">
               <Download className="w-8 h-8 text-brand-blue-600 mb-3" />
               <h3 className="font-semibold mb-2">Share & Verify</h3>
-              <p className="text-sm text-gray-600">Share certificates with employers who can verify them online.</p>
+              <p className="text-sm text-slate-700">Share certificates with employers who can verify them online.</p>
             </div>
           </div>
         </div>
@@ -83,14 +83,14 @@ export default function CertificationsHelpPage() {
             {faqs.map((faq, index) => (
               <div key={index} className="border-b border-gray-100 pb-6 last:border-0">
                 <h3 className="font-semibold text-lg mb-2">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                <p className="text-slate-700">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
 
         <div className="mt-8 text-center">
-          <p className="text-gray-600 mb-4">Still have questions?</p>
+          <p className="text-slate-700 mb-4">Still have questions?</p>
           <Link
             href="/contact"
             className="inline-block px-6 py-3 bg-brand-blue-600 text-white font-semibold rounded-lg hover:bg-brand-blue-700"

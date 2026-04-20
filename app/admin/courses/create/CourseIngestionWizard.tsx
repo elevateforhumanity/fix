@@ -188,8 +188,8 @@ export default function CourseIngestionWizard({ programs }: Props) {
         <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
           <span className="text-yellow-600 text-xl">⏸</span>
         </div>
-        <h2 className="text-lg font-semibold text-gray-900">Processing paused</h2>
-        <p className="text-sm text-gray-500 max-w-sm">
+        <h2 className="text-lg font-semibold text-slate-900">Processing paused</h2>
+        <p className="text-sm text-slate-700 max-w-sm">
           Your document was too large to process in one request. The summarized content was saved.
           Click Resume to complete the course generation — it will pick up where it left off.
         </p>
@@ -203,7 +203,7 @@ export default function CourseIngestionWizard({ programs }: Props) {
           </button>
           <button
             onClick={() => { setPhase('input'); setResumeJobId(null); setError(null); }}
-            className="px-6 py-2.5 border rounded-lg hover:bg-gray-50 text-gray-700 text-sm"
+            className="px-6 py-2.5 border rounded-lg hover:bg-gray-50 text-slate-900 text-sm"
           >
             Start over
           </button>
@@ -216,8 +216,8 @@ export default function CourseIngestionWizard({ programs }: Props) {
     return (
       <div className="bg-white rounded-xl border shadow-sm p-12 flex flex-col items-center gap-4 text-center">
         <Loader2 className="w-10 h-10 text-brand-blue-600 animate-spin" />
-        <h2 className="text-lg font-semibold text-gray-900">Compiling course…</h2>
-        <p className="text-sm text-gray-500 max-w-sm">
+        <h2 className="text-lg font-semibold text-slate-900">Compiling course…</h2>
+        <p className="text-sm text-slate-700 max-w-sm">
           Classifying input, extracting structure, generating modules and lessons.
           This takes 15–45 seconds depending on document length.
         </p>
@@ -229,8 +229,8 @@ export default function CourseIngestionWizard({ programs }: Props) {
     return (
       <div className="bg-white rounded-xl border shadow-sm p-12 flex flex-col items-center gap-4 text-center">
         <Loader2 className="w-10 h-10 text-brand-blue-600 animate-spin" />
-        <h2 className="text-lg font-semibold text-gray-900">Saving draft…</h2>
-        <p className="text-sm text-gray-500">Creating course, modules, and lessons in the database.</p>
+        <h2 className="text-lg font-semibold text-slate-900">Saving draft…</h2>
+        <p className="text-sm text-slate-700">Creating course, modules, and lessons in the database.</p>
       </div>
     );
   }
@@ -260,12 +260,12 @@ export default function CourseIngestionWizard({ programs }: Props) {
               className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 text-center transition-colors ${
                 active
                   ? 'border-brand-blue-600 bg-brand-blue-50 text-brand-blue-700'
-                  : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                  : 'border-gray-200 bg-white text-slate-700 hover:border-gray-300'
               }`}
             >
               <Icon className="w-6 h-6" />
               <span className="text-sm font-medium">{m.label}</span>
-              <span className="text-xs text-gray-500 leading-tight">{m.description}</span>
+              <span className="text-xs text-slate-700 leading-tight">{m.description}</span>
             </button>
           );
         })}
@@ -273,7 +273,7 @@ export default function CourseIngestionWizard({ programs }: Props) {
 
       <div className="bg-white rounded-xl border shadow-sm p-6 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-gray-900">{selectedMode.label}</h2>
+          <h2 className="font-semibold text-slate-900">{selectedMode.label}</h2>
           {mode !== 'prompt' && (
             <label className="flex items-center gap-2 text-sm text-brand-blue-600 cursor-pointer hover:text-brand-blue-700">
               <Upload className="w-4 h-4" />
@@ -291,14 +291,14 @@ export default function CourseIngestionWizard({ programs }: Props) {
           className="w-full border rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 resize-y"
         />
 
-        <div className="flex items-center justify-between text-xs text-gray-400">
+        <div className="flex items-center justify-between text-xs text-slate-700">
           <span>{sourceText.length.toLocaleString()} / 80,000 characters</span>
           {sourceText.length > 80000 && <span className="text-red-500">Too long — split into sections</span>}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Link to program (optional)</label>
+            <label className="block text-sm font-medium text-slate-900 mb-1">Link to program (optional)</label>
             <select
               value={programId}
               onChange={(e) => setProgramId(e.target.value)}
@@ -318,7 +318,7 @@ export default function CourseIngestionWizard({ programs }: Props) {
               onChange={(e) => setCertEnabled(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-brand-blue-600 focus:ring-brand-blue-500"
             />
-            <label htmlFor="cert_enabled" className="text-sm text-gray-700">
+            <label htmlFor="cert_enabled" className="text-sm text-slate-900">
               Generate certificate of completion
             </label>
           </div>

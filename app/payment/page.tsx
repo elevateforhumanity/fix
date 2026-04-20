@@ -49,7 +49,7 @@ export default async function PaymentPage() {
               {/* Full Payment */}
               <div className="bg-white rounded-lg shadow-sm border p-8">
                 <h2 className="text-2xl font-bold mb-4">Pay in Full</h2>
-                <p className="text-gray-600 mb-6">
+                <p className="text-slate-700 mb-6">
                   Pay the full tuition amount upfront and get started
                   immediately.
                 </p>
@@ -78,7 +78,7 @@ export default async function PaymentPage() {
               {/* Buy Now Pay Later */}
               <div className="bg-white rounded-lg shadow-sm border p-8">
                 <h2 className="text-2xl font-bold mb-4">Pay in 4</h2>
-                <p className="text-gray-600 mb-6">
+                <p className="text-slate-700 mb-6">
                   Split your payment into 4 interest-free installments with
                   Klarna, Afterpay, or Zip.
                 </p>
@@ -152,7 +152,7 @@ export default async function PaymentPage() {
               <h2 className="text-2xl font-bold mb-4 text-center">
                 Additional Funding Options
               </h2>
-              <p className="text-gray-600 text-center mb-8">
+              <p className="text-slate-700 text-center mb-8">
                 You may qualify for free or reduced-cost training through
                 workforce development programs.
               </p>
@@ -162,7 +162,7 @@ export default async function PaymentPage() {
                   className="text-center p-4 rounded-lg hover:bg-white transition-colors border"
                 >
                   <h3 className="font-semibold mb-2">WIOA Funding</h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-700">
                     Workforce Innovation and Opportunity Act - may cover 100% of tuition
                   </p>
                 </Link>
@@ -171,7 +171,7 @@ export default async function PaymentPage() {
                   className="text-center p-4 rounded-lg hover:bg-white transition-colors border"
                 >
                   <h3 className="font-semibold mb-2">Grants</h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-700">
                     Available grants and scholarships
                   </p>
                 </Link>
@@ -180,7 +180,7 @@ export default async function PaymentPage() {
                   className="text-center p-4 rounded-lg hover:bg-white transition-colors border"
                 >
                   <h3 className="font-semibold mb-2">Check Eligibility</h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-slate-700">
                     See if you qualify for free training
                   </p>
                 </Link>
@@ -195,7 +195,7 @@ export default async function PaymentPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl font-bold mb-4">Need Help?</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-700 mb-6">
               Our team is here to help you find the best payment option for your
               situation.
             </p>

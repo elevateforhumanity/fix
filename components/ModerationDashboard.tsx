@@ -156,7 +156,7 @@ export default function ModerationDashboard() {
                 <p className="text-sm text-black">Total Reports</p>
                 <p className="text-2xl font-bold text-black">{stats.totalReports}</p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-gray-400" />
+              <AlertTriangle className="w-8 h-8 text-slate-700" />
             </div>
           </div>
 
@@ -197,7 +197,7 @@ export default function ModerationDashboard() {
       {/* Filters */}
       <div className="bg-white rounded-lg shadow p-4">
         <div className="flex items-center gap-4">
-          <Filter className="w-5 h-5 text-gray-400" />
+          <Filter className="w-5 h-5 text-slate-700" />
           <div className="flex gap-2">
             {['all', 'spam', 'harassment', 'inappropriate', 'copyright'].map(f => (
               <button
@@ -222,19 +222,19 @@ export default function ModerationDashboard() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                   Content
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                   Reason
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                   Reporter
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -249,7 +249,7 @@ export default function ModerationDashboard() {
                         <div className="text-sm font-medium text-black">
                           {report.content_type}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-slate-700">
                           ID: {report.content_id.slice(0, 8)}...
                         </div>
                       </div>
@@ -262,11 +262,11 @@ export default function ModerationDashboard() {
                     <div className="text-sm text-black">
                       {report.reporter?.first_name} {report.reporter?.last_name}
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-slate-700">
                       {report.reporter?.email}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
                     {new Date(report.created_at).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -302,7 +302,7 @@ export default function ModerationDashboard() {
 
         {reports.length === 0 && (
           <div className="text-center py-12">
-            <Shield className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <Shield className="w-12 h-12 text-slate-700 mx-auto mb-4" />
             <p className="text-black">No pending reports</p>
           </div>
         )}
@@ -339,7 +339,7 @@ export default function ModerationDashboard() {
                 <p className="text-black">
                   {selectedReport.reporter?.first_name} {selectedReport.reporter?.last_name}
                 </p>
-                <p className="text-sm text-gray-500">{selectedReport.reporter?.email}</p>
+                <p className="text-sm text-slate-700">{selectedReport.reporter?.email}</p>
               </div>
             </div>
 

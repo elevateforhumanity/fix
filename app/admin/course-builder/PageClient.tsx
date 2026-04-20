@@ -120,7 +120,7 @@ export default function CourseBuilderPage() {
           <button key={i} onClick={() => { setSelMod(i); setSelLes(0); }}
             className={`w-full text-left border rounded p-2 text-xs ${i === selMod ? 'bg-gray-100 font-medium' : ''}`}>
             <div>{m.title || '(untitled)'}</div>
-            <div className="text-gray-500">{m.slug} · {m.lessons.length}L</div>
+            <div className="text-slate-700">{m.slug} · {m.lessons.length}L</div>
           </button>
         ))}
       </div>
@@ -175,7 +175,7 @@ export default function CourseBuilderPage() {
               <button key={i} onClick={() => setSelLes(i)}
                 className={`w-full text-left border rounded p-2 text-xs ${i === selLes ? 'bg-gray-100 font-medium' : ''}`}>
                 <div>{l.title || '(untitled)'}</div>
-                <div className="text-gray-500">{l.lessonType} · {l.durationMinutes}min</div>
+                <div className="text-slate-700">{l.lessonType} · {l.durationMinutes}min</div>
               </button>
             ))}
           </div>
@@ -229,10 +229,10 @@ export default function CourseBuilderPage() {
               <button className="border rounded px-4 py-2 flex-1" onClick={runAudit} disabled={busy}>{busy ? '…' : 'Audit'}</button>
               <button className="border rounded px-4 py-2 flex-1 bg-black text-white disabled:opacity-40" onClick={publish} disabled={busy}>{busy ? '…' : 'Publish'}</button>
             </div>
-            <div className="text-xs text-gray-500">Total: {(totalMinutes / 60).toFixed(2)}h</div>
+            <div className="text-xs text-slate-700">Total: {(totalMinutes / 60).toFixed(2)}h</div>
           </>
         ) : (
-          <div className="text-gray-400">Select or add a lesson.</div>
+          <div className="text-slate-700">Select or add a lesson.</div>
         )}
 
         {auditResult && (

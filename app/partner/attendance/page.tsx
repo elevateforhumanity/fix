@@ -95,8 +95,8 @@ export default async function PartnerAttendancePage() {
 
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Attendance Tracking</h1>
-          <p className="text-gray-600 mt-1">Manage attendance for training sessions</p>
+          <h1 className="text-2xl font-bold text-slate-900">Attendance Tracking</h1>
+          <p className="text-slate-700 mt-1">Manage attendance for training sessions</p>
         </div>
         <div className="flex gap-3">
           <Link href="/partner/attendance/record"
@@ -111,23 +111,23 @@ export default async function PartnerAttendancePage() {
         <div className="bg-white rounded-xl border p-5">
           <div className="flex items-center gap-3 mb-2">
             <Calendar className="w-5 h-5 text-brand-blue-600" />
-            <span className="text-sm text-gray-600">Total Sessions</span>
+            <span className="text-sm text-slate-700">Total Sessions</span>
           </div>
-          <p className="text-3xl font-bold text-gray-900">{totalSessions}</p>
+          <p className="text-3xl font-bold text-slate-900">{totalSessions}</p>
         </div>
         <div className="bg-white rounded-xl border p-5">
           <div className="flex items-center gap-3 mb-2">
             <QrCode className="w-5 h-5 text-brand-green-600" />
-            <span className="text-sm text-gray-600">Avg Attendance Rate</span>
+            <span className="text-sm text-slate-700">Avg Attendance Rate</span>
           </div>
-          <p className="text-3xl font-bold text-gray-900">{Math.round(avgRate)}%</p>
+          <p className="text-3xl font-bold text-slate-900">{Math.round(avgRate)}%</p>
         </div>
         <div className="bg-white rounded-xl border p-5">
           <div className="flex items-center gap-3 mb-2">
             <Users className="w-5 h-5 text-indigo-600" />
-            <span className="text-sm text-gray-600">Total Students</span>
+            <span className="text-sm text-slate-700">Total Students</span>
           </div>
-          <p className="text-3xl font-bold text-gray-900">{totalStudents}</p>
+          <p className="text-3xl font-bold text-slate-900">{totalStudents}</p>
         </div>
       </div>
 
@@ -156,24 +156,24 @@ export default async function PartnerAttendancePage() {
       {/* Sessions Table */}
       <div className="bg-white rounded-xl border overflow-hidden">
         <div className="px-6 py-4 border-b flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Sessions</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Recent Sessions</h2>
         </div>
         {sessions.length > 0 ? (
           <table className="w-full">
             <thead className="bg-white">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Session</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date</th>
-                <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900">Hours</th>
-                <th className="px-6 py-3 text-center text-sm font-semibold text-gray-900">Status</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Notes</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Session</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Date</th>
+                <th className="px-6 py-3 text-center text-sm font-semibold text-slate-900">Hours</th>
+                <th className="px-6 py-3 text-center text-sm font-semibold text-slate-900">Status</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-slate-900">Notes</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {sessions.map((s: any) => (
                 <tr key={s.id} className="hover:bg-white">
-                  <td className="px-6 py-4 font-medium text-gray-900 capitalize">{s.title || 'Session'}</td>
-                  <td className="px-6 py-4 text-gray-600 text-sm">
+                  <td className="px-6 py-4 font-medium text-slate-900 capitalize">{s.title || 'Session'}</td>
+                  <td className="px-6 py-4 text-slate-700 text-sm">
                     {s.date ? new Date(s.date).toLocaleDateString() : '—'}
                   </td>
                   <td className="px-6 py-4 text-center text-sm">
@@ -183,20 +183,20 @@ export default async function PartnerAttendancePage() {
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
                       s.status === 'completed' ? 'bg-brand-green-100 text-brand-green-700' :
                       s.status === 'active' ? 'bg-brand-blue-100 text-brand-blue-700' :
-                      'bg-white text-gray-700'
+                      'bg-white text-slate-900'
                     }`}>
                       {s.status || 'recorded'}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-gray-500 text-sm truncate max-w-[200px]">{s.notes || '—'}</td>
+                  <td className="px-6 py-4 text-slate-700 text-sm truncate max-w-[200px]">{s.notes || '—'}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
           <div className="text-center py-12">
-            <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500 mb-4">No attendance sessions recorded yet.</p>
+            <Calendar className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+            <p className="text-slate-700 mb-4">No attendance sessions recorded yet.</p>
             <Link href="/partner/attendance/record"
               className="text-brand-blue-600 font-medium hover:underline">
               Record your first session

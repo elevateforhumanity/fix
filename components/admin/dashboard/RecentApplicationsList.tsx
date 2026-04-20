@@ -18,7 +18,7 @@ const STATUS_LABEL: Record<string, string> = {
 
 function Badge({ status }: { status: string }) {
   return (
-    <span className={"inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold " + (STATUS_BADGE[status] || "bg-gray-100 text-gray-600")}>
+    <span className={"inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold " + (STATUS_BADGE[status] || "bg-gray-100 text-slate-700")}>
       {STATUS_LABEL[status] || status}
     </span>
   );

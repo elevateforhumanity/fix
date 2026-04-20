@@ -134,7 +134,7 @@ export function PeerReview({ assignmentId, studentName }: PeerReviewProps) {
                   <Star
                     key={star}
                     size={20}
-                    className={star <= averageRating ? 'fill-brand-orange-500 text-brand-orange-500' : 'text-gray-300'}
+                    className={star <= averageRating ? 'fill-brand-orange-500 text-brand-orange-500' : 'text-slate-700'}
                   />
                 ))}
               </div>
@@ -165,7 +165,7 @@ export function PeerReview({ assignmentId, studentName }: PeerReviewProps) {
                 >
                   <Star
                     size={32}
-                    className={star <= newReview.rating ? 'fill-brand-orange-500 text-brand-orange-500' : 'text-gray-300'}
+                    className={star <= newReview.rating ? 'fill-brand-orange-500 text-brand-orange-500' : 'text-slate-700'}
                   />
                 </button>
               ))}
@@ -181,7 +181,7 @@ export function PeerReview({ assignmentId, studentName }: PeerReviewProps) {
               className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-red-500 focus:border-brand-red-500"
               rows={4}
             />
-            <div className="text-xs text-gray-500 mt-2">
+            <div className="text-xs text-slate-700 mt-2">
               Be specific, constructive, and respectful in your feedback
             </div>
           </div>
@@ -214,14 +214,14 @@ export function PeerReview({ assignmentId, studentName }: PeerReviewProps) {
                   <div className="flex items-center justify-between mb-2">
                     <div>
                       <div className="font-semibold">{review.reviewer}</div>
-                      <div className="text-xs text-gray-500">{review.timestamp}</div>
+                      <div className="text-xs text-slate-700">{review.timestamp}</div>
                     </div>
                     <div className="flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star
                           key={star}
                           size={16}
-                          className={star <= review.rating ? 'fill-brand-orange-500 text-brand-orange-500' : 'text-gray-300'}
+                          className={star <= review.rating ? 'fill-brand-orange-500 text-brand-orange-500' : 'text-slate-700'}
                         />
                       ))}
                     </div>

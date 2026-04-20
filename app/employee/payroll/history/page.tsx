@@ -38,13 +38,13 @@ export default function PayrollHistoryPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <Link href="/employee/payroll" className="inline-flex items-center text-gray-600 hover:text-brand-blue-600 mb-6">
+        <Link href="/employee/payroll" className="inline-flex items-center text-slate-700 hover:text-brand-blue-600 mb-6">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Payroll
         </Link>
 
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Payroll History</h1>
+          <h1 className="text-3xl font-bold text-slate-900">Payroll History</h1>
           <div className="flex items-center gap-4">
             <select
               value={year}
@@ -55,7 +55,7 @@ export default function PayrollHistoryPage() {
               <option value="2025">2025</option>
               <option value="2024">2024</option>
             </select>
-            <button className="bg-white hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition flex items-center">
+            <button className="bg-white hover:bg-gray-200 text-slate-900 px-4 py-2 rounded-lg font-medium transition flex items-center">
               <Download className="w-4 h-4 mr-2" />
               Export All
             </button>
@@ -64,23 +64,23 @@ export default function PayrollHistoryPage() {
 
         {/* YTD Summary */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Year-to-Date Summary</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Year-to-Date Summary</h2>
           <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-brand-blue-50 rounded-lg p-4">
-              <p className="text-sm text-gray-600 mb-1">Gross Pay</p>
-              <p className="text-2xl font-bold text-gray-900">${ytdTotals.grossPay.toLocaleString()}</p>
+              <p className="text-sm text-slate-700 mb-1">Gross Pay</p>
+              <p className="text-2xl font-bold text-slate-900">${ytdTotals.grossPay.toLocaleString()}</p>
             </div>
             <div className="bg-brand-green-50 rounded-lg p-4">
-              <p className="text-sm text-gray-600 mb-1">Net Pay</p>
-              <p className="text-2xl font-bold text-gray-900">${ytdTotals.netPay.toLocaleString()}</p>
+              <p className="text-sm text-slate-700 mb-1">Net Pay</p>
+              <p className="text-2xl font-bold text-slate-900">${ytdTotals.netPay.toLocaleString()}</p>
             </div>
             <div className="bg-brand-blue-50 rounded-lg p-4">
-              <p className="text-sm text-gray-600 mb-1">Total Hours</p>
-              <p className="text-2xl font-bold text-gray-900">{ytdTotals.hours}</p>
+              <p className="text-sm text-slate-700 mb-1">Total Hours</p>
+              <p className="text-2xl font-bold text-slate-900">{ytdTotals.hours}</p>
             </div>
             <div className="bg-brand-orange-50 rounded-lg p-4">
-              <p className="text-sm text-gray-600 mb-1">Total Taxes</p>
-              <p className="text-2xl font-bold text-gray-900">${ytdTotals.taxes.toLocaleString()}</p>
+              <p className="text-sm text-slate-700 mb-1">Total Taxes</p>
+              <p className="text-2xl font-bold text-slate-900">${ytdTotals.taxes.toLocaleString()}</p>
             </div>
           </div>
         </div>
@@ -90,22 +90,22 @@ export default function PayrollHistoryPage() {
           <table className="w-full">
             <thead className="bg-white">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Pay Period</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Pay Date</th>
-                <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">Hours</th>
-                <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">Gross Pay</th>
-                <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">Net Pay</th>
-                <th className="px-6 py-4 text-center text-sm font-semibold text-gray-900">Actions</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Pay Period</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Pay Date</th>
+                <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">Hours</th>
+                <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">Gross Pay</th>
+                <th className="px-6 py-4 text-right text-sm font-semibold text-slate-900">Net Pay</th>
+                <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {payHistory.map((pay) => (
                 <tr key={pay.id} className="hover:bg-white">
-                  <td className="px-6 py-4 text-gray-900 font-medium">{pay.period}</td>
-                  <td className="px-6 py-4 text-gray-600">{pay.date}</td>
-                  <td className="px-6 py-4 text-right text-gray-600">{pay.hours}</td>
-                  <td className="px-6 py-4 text-right text-gray-600">${pay.grossPay.toFixed(2)}</td>
-                  <td className="px-6 py-4 text-right font-semibold text-gray-900">${pay.netPay.toFixed(2)}</td>
+                  <td className="px-6 py-4 text-slate-900 font-medium">{pay.period}</td>
+                  <td className="px-6 py-4 text-slate-700">{pay.date}</td>
+                  <td className="px-6 py-4 text-right text-slate-700">{pay.hours}</td>
+                  <td className="px-6 py-4 text-right text-slate-700">${pay.grossPay.toFixed(2)}</td>
+                  <td className="px-6 py-4 text-right font-semibold text-slate-900">${pay.netPay.toFixed(2)}</td>
                   <td className="px-6 py-4 text-center">
                     <button className="text-brand-blue-600 hover:text-brand-blue-700">
                       <Download className="w-5 h-5" />

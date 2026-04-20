@@ -94,19 +94,19 @@ export default async function QuizzesPage() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Questions</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Passing Score</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Time Limit</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Updated</th>
-                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Title</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Course</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Questions</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Passing Score</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Time Limit</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Updated</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-slate-700 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {(quizzes || []).length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={7} className="px-6 py-12 text-center text-slate-700">
                       No quizzes found.{' '}
                       <Link href="/admin/quiz-builder" className="text-brand-blue-600 hover:underline">Create your first quiz</Link>.
                     </td>
@@ -115,28 +115,28 @@ export default async function QuizzesPage() {
                   (quizzes || []).map((quiz) => (
                     <tr key={quiz.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
-                        <div className="font-medium text-gray-900">{quiz.title || 'Untitled'}</div>
-                        <div className="text-xs text-gray-400 font-mono">{quiz.id.slice(0, 8)}</div>
+                        <div className="font-medium text-slate-900">{quiz.title || 'Untitled'}</div>
+                        <div className="text-xs text-slate-700 font-mono">{quiz.id.slice(0, 8)}</div>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {quiz.course_id ? (
                           <Link href={`/admin/courses/${quiz.course_id}/quizzes`} className="text-brand-blue-600 hover:underline">
                             {courseMap.get(quiz.course_id) || quiz.course_id.slice(0, 8)}
                           </Link>
                         ) : (
-                          <span className="text-gray-400">Standalone</span>
+                          <span className="text-slate-700">Standalone</span>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {questionCountMap.get(quiz.id) || 0}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {quiz.passing_score ? `${quiz.passing_score}%` : '—'}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {quiz.time_limit ? `${quiz.time_limit} min` : 'None'}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-sm text-slate-700">
                         {quiz.updated_at ? new Date(quiz.updated_at).toLocaleDateString() : '—'}
                       </td>
                       <td className="px-6 py-4 text-sm">

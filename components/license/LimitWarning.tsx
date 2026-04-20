@@ -90,10 +90,10 @@ export function LimitReachedModal({
           <div className="w-16 h-16 bg-brand-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Lock className="w-8 h-8 text-brand-red-600" />
           </div>
-          <h2 className="text-2xl font-black text-gray-900 mb-4">
+          <h2 className="text-2xl font-black text-slate-900 mb-4">
             {message.title}
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-slate-700 mb-8">
             {message.body}
           </p>
           <div className="space-y-3">
@@ -107,7 +107,7 @@ export function LimitReachedModal({
             {onClose && (
               <button
                 onClick={onClose}
-                className="block w-full text-gray-500 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                className="block w-full text-slate-700 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
               >
                 Go Back
               </button>
@@ -180,8 +180,8 @@ export function UsageIndicator({
   if (limit === 'unlimited') {
     return (
       <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-        <span className="text-gray-700">{label}</span>
-        <span className="text-gray-900 font-medium">{current} (unlimited)</span>
+        <span className="text-slate-900">{label}</span>
+        <span className="text-slate-900 font-medium">{current} (unlimited)</span>
       </div>
     );
   }
@@ -194,8 +194,8 @@ export function UsageIndicator({
   return (
     <div className="p-3 bg-gray-50 rounded-lg">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-gray-700">{label}</span>
-        <span className={`font-medium ${isAtLimit ? 'text-brand-red-600' : isCritical ? 'text-brand-red-600' : isWarning ? 'text-amber-600' : 'text-gray-900'}`}>
+        <span className="text-slate-900">{label}</span>
+        <span className={`font-medium ${isAtLimit ? 'text-brand-red-600' : isCritical ? 'text-brand-red-600' : isWarning ? 'text-amber-600' : 'text-slate-900'}`}>
           {current} / {limit}
         </span>
       </div>
@@ -226,8 +226,8 @@ export function EnterpriseFeatureGate({ featureName }: { featureName: string }) 
   return (
     <div className="bg-slate-100 border border-slate-200 rounded-lg p-6 text-center">
       <Lock className="w-8 h-8 text-slate-400 mx-auto mb-3" />
-      <h3 className="font-bold text-gray-900 mb-2">Enterprise Feature</h3>
-      <p className="text-gray-600 text-sm mb-4">
+      <h3 className="font-bold text-slate-900 mb-2">Enterprise Feature</h3>
+      <p className="text-slate-700 text-sm mb-4">
         {featureName} requires an Enterprise license.
       </p>
       <Link

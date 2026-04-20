@@ -117,8 +117,8 @@ export default async function OrderHistoryPage() {
 
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-2xl font-bold text-gray-900">Order History</h1>
-          <p className="text-gray-600 mt-1">View and track your orders</p>
+          <h1 className="text-2xl font-bold text-slate-900">Order History</h1>
+          <p className="text-slate-700 mt-1">View and track your orders</p>
         </div>
       </div>
 
@@ -134,15 +134,15 @@ export default async function OrderHistoryPage() {
                   <div className="px-6 py-4 bg-white border-b border-gray-200">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                       <div>
-                        <p className="font-semibold text-gray-900">{order.order_number}</p>
-                        <p className="text-sm text-gray-500">Placed on {formatDate(order.created_at)}</p>
+                        <p className="font-semibold text-slate-900">{order.order_number}</p>
+                        <p className="text-sm text-slate-700">Placed on {formatDate(order.created_at)}</p>
                       </div>
                       <div className="flex items-center gap-4">
                         <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${statusConfig.color}`}>
                           <StatusIcon className="w-4 h-4" />
                           {statusConfig.label}
                         </span>
-                        <span className="font-semibold text-gray-900">${order.total.toFixed(2)}</span>
+                        <span className="font-semibold text-slate-900">${order.total.toFixed(2)}</span>
                       </div>
                     </div>
                   </div>
@@ -153,14 +153,14 @@ export default async function OrderHistoryPage() {
                         <div key={index} className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                              <Package className="w-6 h-6 text-gray-400" />
+                              <Package className="w-6 h-6 text-slate-700" />
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">{item.name}</p>
-                              <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                              <p className="font-medium text-slate-900">{item.name}</p>
+                              <p className="text-sm text-slate-700">Qty: {item.quantity}</p>
                             </div>
                           </div>
-                          <p className="font-medium text-gray-900">${item.price.toFixed(2)}</p>
+                          <p className="font-medium text-slate-900">${item.price.toFixed(2)}</p>
                         </div>
                       ))}
                     </div>
@@ -170,7 +170,7 @@ export default async function OrderHistoryPage() {
                     <div className="flex flex-wrap gap-3">
                       <Link
                         href={`/shop/orders/${order.id}`}
-                        className="inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-white"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-sm text-slate-900 border border-gray-300 rounded-lg hover:bg-white"
                       >
                         <Eye className="w-4 h-4" />
                         View Details
@@ -186,7 +186,7 @@ export default async function OrderHistoryPage() {
                           Track Package
                         </a>
                       )}
-                      <button className="inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-white">
+                      <button className="inline-flex items-center gap-2 px-4 py-2 text-sm text-slate-900 border border-gray-300 rounded-lg hover:bg-white">
                         <Download className="w-4 h-4" />
                         Invoice
                       </button>
@@ -198,9 +198,9 @@ export default async function OrderHistoryPage() {
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-            <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">No orders yet</h2>
-            <p className="text-gray-600 mb-6">When you place orders, they will appear here.</p>
+            <ShoppingBag className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">No orders yet</h2>
+            <p className="text-slate-700 mb-6">When you place orders, they will appear here.</p>
             <Link
               href="/shop/products"
               className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"

@@ -65,7 +65,7 @@ export default function NotificationSettings() {
             {enabled ? (
               <Bell size={24} className="text-brand-orange-600" />
             ) : (
-              <BellOff size={24} className="text-gray-400" />
+              <BellOff size={24} className="text-slate-700" />
             )}
           </div>
           <div>

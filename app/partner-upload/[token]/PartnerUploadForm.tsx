@@ -51,8 +51,8 @@ export default function PartnerUploadForm({ partnerId, token }: { partnerId: str
           }`}>
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <p className="font-semibold text-gray-900 text-sm">{doc.label}</p>
-                <p className="text-xs text-gray-500 mt-0.5">{doc.description}</p>
+                <p className="font-semibold text-slate-900 text-sm">{doc.label}</p>
+                <p className="text-xs text-slate-700 mt-0.5">{doc.description}</p>
                 {errors[doc.type] && (
                   <p className="text-xs text-red-600 mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" /> {errors[doc.type]}
@@ -65,7 +65,7 @@ export default function PartnerUploadForm({ partnerId, token }: { partnerId: str
                     <CheckCircle className="w-5 h-5" /> Uploaded
                   </span>
                 ) : state === 'uploading' ? (
-                  <span className="flex items-center gap-1 text-gray-500 text-sm">
+                  <span className="flex items-center gap-1 text-slate-700 text-sm">
                     <Loader2 className="w-4 h-4 animate-spin" /> Uploading...
                   </span>
                 ) : (

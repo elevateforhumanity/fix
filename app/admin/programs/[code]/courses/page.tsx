@@ -38,17 +38,17 @@ export default async function ProgramCoursesPage({ params }: { params: Promise<{
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <nav className="text-sm mb-4">
-        <ol className="flex items-center space-x-2 text-gray-500">
+        <ol className="flex items-center space-x-2 text-slate-700">
           <li><Link href="/admin/programs" className="hover:text-brand-blue-600">Programs</Link></li>
           <li>/</li>
           <li><Link href={`/admin/programs/${code}/dashboard`} className="hover:text-brand-blue-600">{program.title}</Link></li>
           <li>/</li>
-          <li className="text-gray-900 font-medium">Courses</li>
+          <li className="text-slate-900 font-medium">Courses</li>
         </ol>
       </nav>
 
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Courses — {program.title}</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Courses — {program.title}</h1>
         <Link
           href="/admin/courses/create"
           className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700 text-sm font-medium"
@@ -59,9 +59,9 @@ export default async function ProgramCoursesPage({ params }: { params: Promise<{
 
       {(!courses || courses.length === 0) ? (
         <div className="bg-white rounded-lg border p-12 text-center">
-          <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No courses yet</h3>
-          <p className="text-gray-500 mb-4">Create the first course for this program.</p>
+          <BookOpen className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-slate-900 mb-2">No courses yet</h3>
+          <p className="text-slate-700 mb-4">Create the first course for this program.</p>
           <Link href="/admin/courses/create" className="text-brand-blue-600 hover:underline">Create Course</Link>
         </div>
       ) : (
@@ -73,16 +73,16 @@ export default async function ProgramCoursesPage({ params }: { params: Promise<{
               className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
             >
               <div className="flex-1">
-                <h3 className="font-medium text-gray-900">{course.title || course.course_name}</h3>
-                <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                <h3 className="font-medium text-slate-900">{course.title || course.course_name}</h3>
+                <div className="flex items-center gap-4 mt-1 text-sm text-slate-700">
                   <span>{lessonCounts[course.id] || 0} lessons</span>
                   {course.duration_hours && <span>{course.duration_hours}h</span>}
-                  <span className={course.is_active ? 'text-green-600' : 'text-gray-400'}>
+                  <span className={course.is_active ? 'text-green-600' : 'text-slate-700'}>
                     {course.is_active ? 'Active' : 'Inactive'}
                   </span>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-slate-700" />
             </Link>
           ))}
         </div>

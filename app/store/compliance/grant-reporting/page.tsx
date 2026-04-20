@@ -78,15 +78,15 @@ export default function GrantReportingPage() {
       <nav className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-12 text-sm">
-            <Link href="/" className="text-gray-600 hover:text-black flex items-center gap-1">
+            <Link href="/" className="text-slate-700 hover:text-black flex items-center gap-1">
               <Home className="w-4 h-4" />
               Home
             </Link>
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />
-            <Link href="/store" className="text-gray-600 hover:text-black">Store</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />
-            <Link href="/store/compliance" className="text-gray-600 hover:text-black">Compliance</Link>
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />
+            <ChevronRight className="w-4 h-4 text-slate-700 mx-2" />
+            <Link href="/store" className="text-slate-700 hover:text-black">Store</Link>
+            <ChevronRight className="w-4 h-4 text-slate-700 mx-2" />
+            <Link href="/store/compliance" className="text-slate-700 hover:text-black">Compliance</Link>
+            <ChevronRight className="w-4 h-4 text-slate-700 mx-2" />
             <span className="text-black font-semibold">Grant Reporting</span>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default function GrantReportingPage() {
       <section id="grant-features" className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-black text-black mb-2 text-center">Grant Reporting Features</h2>
-          <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+          <p className="text-slate-700 mb-12 text-center max-w-2xl mx-auto">
             Everything you need to streamline grant reporting
           </p>
 
@@ -122,7 +122,7 @@ export default function GrantReportingPage() {
                   <h3 className="absolute bottom-4 left-4 text-xl font-bold text-slate-900">{feature.title}</h3>
                 </div>
                 <div className="p-6">
-                  <p className="text-gray-600 mb-4">{feature.description}</p>
+                  <p className="text-slate-700 mb-4">{feature.description}</p>
                   <ul className="space-y-2">
                     {feature.items.map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm text-black">
@@ -155,7 +155,7 @@ export default function GrantReportingPage() {
             ].map((grant) => (
               <div key={grant.name} className="bg-white rounded-xl p-6 border border-gray-200">
                 <h3 className="font-bold text-black mb-1">{grant.name}</h3>
-                <p className="text-sm text-gray-600">{grant.desc}</p>
+                <p className="text-sm text-slate-700">{grant.desc}</p>
               </div>
             ))}
           </div>

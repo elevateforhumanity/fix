@@ -115,7 +115,7 @@ export default async function LearnerDetailPage({ params }: Props) {
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                   learner.status === 'active' 
                     ? 'bg-brand-green-100 text-brand-green-800' 
-                    : 'bg-gray-100 text-gray-800'
+                    : 'bg-gray-100 text-slate-900'
                 }`}>
                   {learner.status || 'Active'}
                 </span>

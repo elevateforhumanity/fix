@@ -184,7 +184,7 @@ export function DashboardDropdown({ className }: Props) {
     <div className={`relative ${className || ''}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-slate-100 rounded-lg transition"
+        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-900 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition"
       >
         <LayoutDashboard className="w-4 h-4" />
         <span>Dashboards</span>
@@ -233,7 +233,7 @@ export function DashboardDropdown({ className }: Props) {
                         className={`w-5 h-5 mt-0.5 ${dashboard.color} group-hover:scale-110 transition`}
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-gray-900 group-hover:text-brand-blue-600 flex items-center gap-2">
+                        <div className="text-sm font-medium text-slate-900 group-hover:text-brand-blue-600 flex items-center gap-2">
                           {dashboard.name}
                           {isRecent && (
                             <span className="text-xs bg-brand-blue-100 text-brand-blue-600 px-1.5 py-0.5 rounded">

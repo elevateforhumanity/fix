@@ -129,7 +129,7 @@ export function TutorialSystem({
           </div>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-black transition-colors"
+            className="text-slate-700 hover:text-black transition-colors"
             aria-label="Close tutorial"
           >
             <X className="w-6 h-6" />
@@ -142,7 +142,7 @@ export function TutorialSystem({
             <span className="text-sm font-medium text-black">
               Step {currentStepIndex + 1} of {tutorial.steps.length}
             </span>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-slate-700">
               {Math.round(((currentStepIndex + 1) / tutorial.steps.length) * 100)}% Complete
             </span>
           </div>
@@ -352,7 +352,7 @@ export function TutorialLibrary({ userId, userRole }: { userId: string; userRole
                     )}
                   </div>
 
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <div className="flex items-center gap-4 text-sm text-slate-700">
                     <span>{tutorial.duration} min</span>
                     <span>•</span>
                     <span>{tutorial.steps.length} steps</span>

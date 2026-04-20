@@ -149,7 +149,7 @@ export default function StudentApplicationPage() {
             )}
           </div>
           <h1 className="text-2xl font-bold mb-2">Application Already Submitted</h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-slate-700 mb-4">
             You submitted an application on {new Date(existingApplication.submitted_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}
           </p>
           <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
@@ -181,7 +181,7 @@ export default function StudentApplicationPage() {
         <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
           <span className="text-slate-400 flex-shrink-0">•</span>
           <h1 className="text-2xl font-bold mb-2">Application Submitted!</h1>
-          <p className="text-gray-600">Redirecting to status page...</p>
+          <p className="text-slate-700">Redirecting to status page...</p>
         </div>
       </div>
     );
@@ -190,8 +190,8 @@ export default function StudentApplicationPage() {
   return (
     <div className="max-w-3xl mx-auto py-8 px-4">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Program Application</h1>
-        <p className="text-gray-600 mt-2">Complete your application to enroll in a program</p>
+        <h1 className="text-3xl font-bold text-slate-900">Program Application</h1>
+        <p className="text-slate-700 mt-2">Complete your application to enroll in a program</p>
       </div>
 
       {error && (
@@ -203,14 +203,14 @@ export default function StudentApplicationPage() {
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm border p-6 space-y-6">
         {/* Personal Info (pre-filled) */}
         <div className="bg-white rounded-lg p-4">
-          <h2 className="font-semibold text-gray-900 mb-3">Personal Information</h2>
+          <h2 className="font-semibold text-slate-900 mb-3">Personal Information</h2>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-500">Name</span>
+              <span className="text-slate-700">Name</span>
               <p className="font-medium">{user?.first_name} {user?.last_name}</p>
             </div>
             <div>
-              <span className="text-gray-500">Email</span>
+              <span className="text-slate-700">Email</span>
               <p className="font-medium">{user?.email}</p>
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function StudentApplicationPage() {
 
         {/* Program Selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Program <span className="text-brand-red-500">*</span>
           </label>
           <select
@@ -254,7 +254,7 @@ export default function StudentApplicationPage() {
 
         {/* Education */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Highest Education Level <span className="text-brand-red-500">*</span>
           </label>
           <select
@@ -275,7 +275,7 @@ export default function StudentApplicationPage() {
 
         {/* Employment Status */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Current Employment Status <span className="text-brand-red-500">*</span>
           </label>
           <select
@@ -295,7 +295,7 @@ export default function StudentApplicationPage() {
 
         {/* Funding Source */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             How do you plan to pay for training? <span className="text-brand-red-500">*</span>
           </label>
           <select
@@ -316,7 +316,7 @@ export default function StudentApplicationPage() {
 
         {/* Preferred Start Date */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             When would you like to start?
           </label>
           <select
@@ -334,7 +334,7 @@ export default function StudentApplicationPage() {
 
         {/* Goals */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             What are your career goals?
           </label>
           <textarea
@@ -348,7 +348,7 @@ export default function StudentApplicationPage() {
 
         {/* How did you hear about us */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             How did you hear about us?
           </label>
           <select

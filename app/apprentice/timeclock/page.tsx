@@ -371,7 +371,7 @@ export default function TimeclockPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin text-brand-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Loading timeclock...</p>
+          <p className="text-slate-700">Loading timeclock...</p>
         </div>
       </div>
     );
@@ -384,7 +384,7 @@ export default function TimeclockPage() {
         <div className="max-w-md mx-auto px-4">
           <Link 
             href="/apprentice" 
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6"
+            className="inline-flex items-center text-slate-700 hover:text-slate-900 mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
@@ -392,8 +392,8 @@ export default function TimeclockPage() {
           <div className="bg-white rounded-xl shadow-lg p-6">
             <div className="text-center">
               <AlertTriangle className="w-12 h-12 text-brand-red-500 mx-auto mb-4" />
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Cannot Access Timeclock</h2>
-              <p className="text-gray-600 mb-4">{contextError || 'Unable to load timeclock context'}</p>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Cannot Access Timeclock</h2>
+              <p className="text-slate-700 mb-4">{contextError || 'Unable to load timeclock context'}</p>
               <button
                 onClick={() => window.location.reload()}
                 className="inline-flex items-center px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"
@@ -413,15 +413,15 @@ export default function TimeclockPage() {
       <div className="max-w-md mx-auto px-4">
         {/* Nav strip */}
         <div className="flex items-center justify-between mb-6">
-          <Link href="/apprentice" className="inline-flex items-center text-gray-600 hover:text-gray-900">
+          <Link href="/apprentice" className="inline-flex items-center text-slate-700 hover:text-slate-900">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Dashboard
           </Link>
           <div className="flex items-center gap-2 text-xs">
-            <Link href="/apprentice/timeclock/history" className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition">
+            <Link href="/apprentice/timeclock/history" className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-slate-900 rounded-lg transition">
               Shift Log
             </Link>
-            <Link href="/apprentice/hours" className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition">
+            <Link href="/apprentice/hours" className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-slate-900 rounded-lg transition">
               Hours
             </Link>
             <Link href="/apprentice/competencies/log" className="px-3 py-1.5 bg-brand-blue-50 hover:bg-brand-blue-100 text-brand-blue-700 rounded-lg font-medium transition">
@@ -431,11 +431,11 @@ export default function TimeclockPage() {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2 flex items-center">
+          <h1 className="text-2xl font-bold text-slate-900 mb-2 flex items-center">
             <Clock className="w-6 h-6 mr-2 text-brand-blue-600" />
             Timeclock
           </h1>
-          <p className="text-sm text-gray-600 mb-6">{context.programName}</p>
+          <p className="text-sm text-slate-700 mb-6">{context.programName}</p>
           
           {/* Hours Progress */}
           <div className="mb-6 p-3 bg-brand-blue-50 rounded-lg">
@@ -454,11 +454,11 @@ export default function TimeclockPage() {
           {/* Site Selection (only show if not clocked in and has multiple sites) */}
           {!isClockedIn && context.allowedSites.length > 0 && (
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-900 mb-2">
                 Work Site
               </label>
               {context.allowedSites.length === 1 ? (
-                <div className="p-3 bg-white rounded-lg text-sm text-gray-700">
+                <div className="p-3 bg-white rounded-lg text-sm text-slate-900">
                   {context.allowedSites[0].name}
                 </div>
               ) : (
@@ -630,7 +630,7 @@ export default function TimeclockPage() {
           {/* ── RECENT SHIFT LOG ── */}
           <div className="mt-8">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-semibold text-gray-700 flex items-center gap-1.5">
+              <h2 className="text-sm font-semibold text-slate-900 flex items-center gap-1.5">
                 <History className="w-4 h-4 text-brand-blue-500" />
                 Recent Shifts
               </h2>
@@ -643,11 +643,11 @@ export default function TimeclockPage() {
             </div>
 
             {historyLoading ? (
-              <div className="flex items-center justify-center py-6 text-gray-400">
+              <div className="flex items-center justify-center py-6 text-slate-700">
                 <Loader2 className="w-4 h-4 animate-spin mr-2" /> Loading…
               </div>
             ) : recentShifts.length === 0 ? (
-              <p className="text-sm text-gray-500 text-center py-6">No shifts recorded yet.</p>
+              <p className="text-sm text-slate-700 text-center py-6">No shifts recorded yet.</p>
             ) : (
               <div className="space-y-2">
                 {recentShifts.map((s) => {
@@ -664,10 +664,10 @@ export default function TimeclockPage() {
                           <Clock className="w-4 h-4 text-brand-blue-500 flex-shrink-0 animate-pulse" />
                         )}
                         <div>
-                          <p className="font-medium text-gray-800">
+                          <p className="font-medium text-slate-900">
                             {isToday ? 'Today' : new Date(s.work_date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-slate-700">
                             {s.clock_in_at ? new Date(s.clock_in_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—'}
                             {' → '}
                             {s.clock_out_at ? new Date(s.clock_out_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : s.clock_in_at ? 'Active' : '—'}
@@ -676,11 +676,11 @@ export default function TimeclockPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-gray-800">{hrs.toFixed(1)}h</p>
+                        <p className="font-semibold text-slate-900">{hrs.toFixed(1)}h</p>
                         <p className={`text-xs capitalize ${
                           s.status === 'approved' ? 'text-brand-green-600' :
                           s.status === 'rejected' ? 'text-brand-red-600' :
-                          'text-gray-400'
+                          'text-slate-700'
                         }`}>{s.status ?? 'pending'}</p>
                       </div>
                     </div>

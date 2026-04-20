@@ -43,12 +43,12 @@ export default async function EmployerSettingsPage() {
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Account Settings</h1>
-              <p className="text-gray-600">Manage your company profile and preferences</p>
+              <h1 className="text-2xl font-bold text-slate-900">Account Settings</h1>
+              <p className="text-slate-700">Manage your company profile and preferences</p>
             </div>
             <Link
               href="/employer/dashboard"
-              className="px-4 py-2 text-gray-600 hover:text-gray-900"
+              className="px-4 py-2 text-slate-700 hover:text-slate-900"
             >
               ← Back to Dashboard
             </Link>
@@ -66,7 +66,7 @@ export default async function EmployerSettingsPage() {
           
           <form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Company Name
               </label>
               <input
@@ -79,7 +79,7 @@ export default async function EmployerSettingsPage() {
             
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Industry
                 </label>
                 <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500">
@@ -94,7 +94,7 @@ export default async function EmployerSettingsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Company Size
                 </label>
                 <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500">
@@ -109,7 +109,7 @@ export default async function EmployerSettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Company Description
               </label>
               <textarea
@@ -138,7 +138,7 @@ export default async function EmployerSettingsPage() {
           <form className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Contact Name
                 </label>
                 <input
@@ -148,7 +148,7 @@ export default async function EmployerSettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Job Title
                 </label>
                 <input
@@ -161,11 +161,11 @@ export default async function EmployerSettingsPage() {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                   <input
                     type="email"
                     defaultValue={profile.email || user.email || ''}
@@ -174,11 +174,11 @@ export default async function EmployerSettingsPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-slate-900 mb-1">
                   Phone
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
                   <input
                     type="tel"
                     defaultValue={profile.phone || ''}
@@ -189,11 +189,11 @@ export default async function EmployerSettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Address
               </label>
               <div className="relative">
-                <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <MapPin className="absolute left-3 top-3 w-5 h-5 text-slate-700" />
                 <textarea
                   rows={2}
                   className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500"
@@ -264,7 +264,7 @@ export default async function EmployerSettingsPage() {
             <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
               <div>
                 <div className="font-medium">New Applications</div>
-                <div className="text-sm text-gray-600">Get notified when candidates apply to your jobs</div>
+                <div className="text-sm text-slate-700">Get notified when candidates apply to your jobs</div>
               </div>
               <input type="checkbox" defaultChecked className="w-5 h-5 text-brand-blue-600 rounded" />
             </label>
@@ -272,7 +272,7 @@ export default async function EmployerSettingsPage() {
             <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
               <div>
                 <div className="font-medium">New Candidates</div>
-                <div className="text-sm text-gray-600">Get notified when new candidates match your criteria</div>
+                <div className="text-sm text-slate-700">Get notified when new candidates match your criteria</div>
               </div>
               <input type="checkbox" defaultChecked className="w-5 h-5 text-brand-blue-600 rounded" />
             </label>
@@ -280,7 +280,7 @@ export default async function EmployerSettingsPage() {
             <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
               <div>
                 <div className="font-medium">Weekly Digest</div>
-                <div className="text-sm text-gray-600">Receive a weekly summary of activity</div>
+                <div className="text-sm text-slate-700">Receive a weekly summary of activity</div>
               </div>
               <input type="checkbox" className="w-5 h-5 text-brand-blue-600 rounded" />
             </label>

@@ -313,16 +313,16 @@ export default function AdvancedQuizBuilder() {
                   onClick={() => setSelectedQuestion(question.id)}
                 >
                   <div className="flex items-start gap-2">
-                    <GripVertical className="w-4 h-4 text-gray-400 mt-1" />
+                    <GripVertical className="w-4 h-4 text-slate-700 mt-1" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-semibold text-gray-500">
+                        <span className="text-xs font-semibold text-slate-700">
                           Q{index + 1}
                         </span>
                         <span className="text-xs px-2 py-0.5 bg-gray-100 rounded">
                           {question.type.replace('_', ' ')}
                         </span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-slate-700">
                           {question.points}pts
                         </span>
                       </div>
@@ -365,7 +365,7 @@ export default function AdvancedQuizBuilder() {
               onUpdate={(updates) => updateQuestion(selectedQuestion, updates)}
             />
           ) : (
-            <div className="h-full flex items-center justify-center text-gray-500">
+            <div className="h-full flex items-center justify-center text-slate-700">
               <div className="text-center">
                 <span className="text-slate-400 flex-shrink-0">•</span>
                 <p className="text-lg">Select a question to edit</p>
@@ -543,7 +543,7 @@ function QuestionEditor({
               className="w-full p-2 border rounded"
               placeholder="Enter correct answer (case-insensitive)"
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-slate-700 mt-1">
               Separate multiple acceptable answers with commas
             </p>
           </div>

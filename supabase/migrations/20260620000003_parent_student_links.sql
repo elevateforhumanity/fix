@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS public.parent_student_links (
   relationship    TEXT NOT NULL DEFAULT 'guardian',
   verified        BOOLEAN NOT NULL DEFAULT false,
   created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
   UNIQUE (parent_id, student_id)
 );
 

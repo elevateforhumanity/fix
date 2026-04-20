@@ -74,7 +74,7 @@ export default async function AlumniPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold">Alumni Network</h1>
-          <p className="text-gray-600">Connect with {alumniCount || 0} graduates</p>
+          <p className="text-slate-700">Connect with {alumniCount || 0} graduates</p>
         </div>
         {isAlumni && (
           <Link
@@ -91,22 +91,22 @@ export default async function AlumniPage() {
         <div className="bg-white rounded-xl shadow-sm border p-5 text-center">
           <GraduationCap className="w-8 h-8 text-amber-600 mx-auto mb-2" />
           <div className="text-2xl font-bold">{alumniCount || 0}</div>
-          <div className="text-gray-600 text-sm">Total Alumni</div>
+          <div className="text-slate-700 text-sm">Total Alumni</div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border p-5 text-center">
           <Briefcase className="w-8 h-8 text-brand-blue-600 mx-auto mb-2" />
           <div className="text-2xl font-bold">85%</div>
-          <div className="text-gray-600 text-sm">Employed</div>
+          <div className="text-slate-700 text-sm">Employed</div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border p-5 text-center">
           <Users className="w-8 h-8 text-brand-green-600 mx-auto mb-2" />
           <div className="text-2xl font-bold">50+</div>
-          <div className="text-gray-600 text-sm">Companies</div>
+          <div className="text-slate-700 text-sm">Companies</div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border p-5 text-center">
           <MapPin className="w-8 h-8 text-brand-blue-600 mx-auto mb-2" />
           <div className="text-2xl font-bold">20+</div>
-          <div className="text-gray-600 text-sm">Cities</div>
+          <div className="text-slate-700 text-sm">Cities</div>
         </div>
       </div>
 
@@ -134,12 +134,12 @@ export default async function AlumniPage() {
                     <div className="flex-1 min-w-0">
                       <h3 className="font-medium truncate">{member.full_name}</h3>
                       {member.job_title && member.company && (
-                        <p className="text-sm text-gray-500 truncate">
+                        <p className="text-sm text-slate-700 truncate">
                           {member.job_title} at {member.company}
                         </p>
                       )}
                       {member.graduation_year && (
-                        <p className="text-xs text-gray-400">Class of {member.graduation_year}</p>
+                        <p className="text-xs text-slate-700">Class of {member.graduation_year}</p>
                       )}
                     </div>
                     <Link href={`/lms/alumni/${member.id}`} className="text-amber-600 text-sm">
@@ -149,8 +149,8 @@ export default async function AlumniPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 text-gray-500">
-                <Users className="w-10 h-10 mx-auto mb-3 text-gray-300" />
+              <div className="text-center py-8 text-slate-700">
+                <Users className="w-10 h-10 mx-auto mb-3 text-slate-700" />
                 <p>No alumni profiles yet</p>
               </div>
             )}
@@ -164,7 +164,7 @@ export default async function AlumniPage() {
                 {stories.map((story: any) => (
                   <div key={story.id} className="border-l-4 border-amber-500 pl-4">
                     <h3 className="font-medium">{story.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{story.excerpt}</p>
+                    <p className="text-sm text-slate-700 mt-1">{story.excerpt}</p>
                     <Link href={`/success-stories/${story.slug}`} className="text-amber-600 text-sm hover:underline">
                       Read More
                     </Link>
@@ -174,14 +174,14 @@ export default async function AlumniPage() {
             ) : (
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white rounded-lg p-6">
-                  <p className="text-gray-700 italic mb-4">&quot;The program changed my life. I went from unemployed to earning $55K in just 6 months.&quot;</p>
-                  <p className="font-semibold text-gray-900">Graduate</p>
-                  <p className="text-sm text-gray-500">HVAC Graduate, 2025</p>
+                  <p className="text-slate-900 italic mb-4">&quot;The program changed my life. I went from unemployed to earning $55K in just 6 months.&quot;</p>
+                  <p className="font-semibold text-slate-900">Graduate</p>
+                  <p className="text-sm text-slate-700">HVAC Graduate, 2025</p>
                 </div>
                 <div className="bg-white rounded-lg p-6">
-                  <p className="text-gray-700 italic mb-4">&quot;The career services team helped me land my dream job. I am so grateful for this opportunity.&quot;</p>
-                  <p className="font-semibold text-gray-900">Sarah M.</p>
-                  <p className="text-sm text-gray-500">Medical Assistant Graduate, 2025</p>
+                  <p className="text-slate-900 italic mb-4">&quot;The career services team helped me land my dream job. I am so grateful for this opportunity.&quot;</p>
+                  <p className="font-semibold text-slate-900">Sarah M.</p>
+                  <p className="text-sm text-slate-700">Medical Assistant Graduate, 2025</p>
                 </div>
               </div>
             )}
@@ -209,8 +209,8 @@ export default async function AlumniPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-4 text-gray-500">
-                <Calendar className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+              <div className="text-center py-4 text-slate-700">
+                <Calendar className="w-8 h-8 mx-auto mb-2 text-slate-700" />
                 <p className="text-sm">No upcoming events</p>
               </div>
             )}

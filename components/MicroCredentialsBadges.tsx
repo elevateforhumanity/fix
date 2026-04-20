@@ -157,7 +157,7 @@ export default function MicroCredentialsBadges() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`py-4 px-2 border-b-2 font-medium ${
-                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-gray-500'
+                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-slate-700'
                 }`}
               >
                 {tab.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
@@ -201,7 +201,7 @@ export default function MicroCredentialsBadges() {
                 <ul className="space-y-1">
                   {badge.requirements.map((req, idx) => (
                     <li key={idx} className="text-xs text-black flex items-start">
-                      <span className={`mr-2 ${badge.earnedDate ? 'text-brand-green-500' : 'text-gray-400'}`}>
+                      <span className={`mr-2 ${badge.earnedDate ? 'text-brand-green-500' : 'text-slate-700'}`}>
                         {badge.earnedDate ? '•' : '○'}
                       </span>
                       {req}

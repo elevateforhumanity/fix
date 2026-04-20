@@ -189,13 +189,13 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
             Find answers to common questions about our programs and services.
           </p>
           <div className="relative max-w-xl">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input
               type="search"
               placeholder="Search questions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-orange-300"
+              className="w-full pl-12 pr-4 py-3 rounded-lg text-slate-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-orange-300"
             />
           </div>
         </div>
@@ -207,12 +207,12 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
           <div className="lg:col-span-1">
             {/* Categories */}
             <div className="bg-white rounded-xl shadow-sm border p-4 mb-6">
-              <h3 className="font-semibold text-gray-900 mb-3">Categories</h3>
+              <h3 className="font-semibold text-slate-900 mb-3">Categories</h3>
               <div className="space-y-1">
                 <button
                   onClick={() => setSelectedCategory(null)}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                    !selectedCategory ? 'bg-brand-orange-100 text-brand-orange-700 font-medium' : 'text-gray-600 hover:bg-white'
+                    !selectedCategory ? 'bg-brand-orange-100 text-brand-orange-700 font-medium' : 'text-slate-700 hover:bg-white'
                   }`}
                 >
                   All Questions
@@ -222,7 +222,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                     key={cat.id}
                     onClick={() => setSelectedCategory(cat.name)}
                     className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                      selectedCategory === cat.name ? 'bg-brand-orange-100 text-brand-orange-700 font-medium' : 'text-gray-600 hover:bg-white'
+                      selectedCategory === cat.name ? 'bg-brand-orange-100 text-brand-orange-700 font-medium' : 'text-slate-700 hover:bg-white'
                     }`}
                   >
                     {cat.name}
@@ -234,7 +234,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
             {/* Recently Viewed */}
             {recentFaqs.length > 0 && (
               <div className="bg-white rounded-xl shadow-sm border p-4 mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   Recently Viewed
                 </h3>
@@ -246,7 +246,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                         setOpenFaqId(faq.id);
                         document.getElementById(`faq-${faq.id}`)?.scrollIntoView({ behavior: 'smooth' });
                       }}
-                      className="w-full text-left text-sm text-gray-600 hover:text-brand-orange-600 line-clamp-2"
+                      className="w-full text-left text-sm text-slate-700 hover:text-brand-orange-600 line-clamp-2"
                     >
                       {faq.question}
                     </button>
@@ -257,7 +257,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
 
             {/* Popular Questions */}
             <div className="bg-brand-orange-50 rounded-xl p-4">
-              <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-brand-orange-500" />
                 Popular Questions
               </h3>
@@ -269,7 +269,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                       setOpenFaqId(faq.id);
                       document.getElementById(`faq-${faq.id}`)?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="w-full text-left text-sm text-gray-600 hover:text-brand-orange-600 line-clamp-2"
+                    className="w-full text-left text-sm text-slate-700 hover:text-brand-orange-600 line-clamp-2"
                   >
                     {faq.question}
                   </button>
@@ -281,7 +281,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
           {/* Main Content */}
           <div className="lg:col-span-3">
             {searchQuery && (
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-slate-700 mb-4">
                 {filteredFaqs.length} result{filteredFaqs.length !== 1 ? 's' : ''} for "{searchQuery}"
               </p>
             )}
@@ -310,7 +310,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                       <div className="flex items-start gap-4 flex-1">
                         <HelpCircle className="w-6 h-6 text-brand-orange-500 flex-shrink-0 mt-0.5" />
                         <div className="flex-1">
-                          <span className="font-medium text-gray-900 block">
+                          <span className="font-medium text-slate-900 block">
                             {highlightText(faq.question)}
                           </span>
                           {isPopular && (
@@ -321,18 +321,18 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                           )}
                         </div>
                       </div>
-                      <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-5 h-5 text-slate-700 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Answer with animation */}
                     <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[1000px]' : 'max-h-0'}`}>
                       <div className="px-6 pb-6 pl-16">
-                        <p className="text-gray-600 mb-4">{highlightText(faq.answer)}</p>
+                        <p className="text-slate-700 mb-4">{highlightText(faq.answer)}</p>
 
                         {/* Related Questions */}
                         {relatedQuestions.length > 0 && (
                           <div className="mt-4 pt-4 border-t border-gray-100">
-                            <h4 className="text-sm font-medium text-gray-700 mb-2">Related Questions</h4>
+                            <h4 className="text-sm font-medium text-slate-900 mb-2">Related Questions</h4>
                             <div className="space-y-1">
                               {relatedQuestions.map((related) => (
                                 <button
@@ -355,14 +355,14 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                         <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                           {/* Helpful Vote */}
                           <div className="flex items-center gap-4">
-                            <span className="text-sm text-gray-500">Was this helpful?</span>
+                            <span className="text-sm text-slate-700">Was this helpful?</span>
                             <div className="flex items-center gap-2">
                               <button
                                 onClick={() => handleVote(faq.id, true)}
                                 className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${
                                   helpfulVotes[faq.id] === 'yes'
                                     ? 'bg-brand-green-100 text-brand-green-700'
-                                    : 'bg-white text-gray-600 hover:bg-gray-200'
+                                    : 'bg-white text-slate-700 hover:bg-gray-200'
                                 }`}
                               >
                                 <ThumbsUp className="w-4 h-4" />
@@ -373,7 +373,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                                 className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${
                                   helpfulVotes[faq.id] === 'no'
                                     ? 'bg-brand-red-100 text-brand-red-700'
-                                    : 'bg-white text-gray-600 hover:bg-gray-200'
+                                    : 'bg-white text-slate-700 hover:bg-gray-200'
                                 }`}
                               >
                                 <ThumbsDown className="w-4 h-4" />
@@ -386,7 +386,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => printFaq(faq)}
-                              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-white rounded-lg"
+                              className="p-2 text-slate-700 hover:text-slate-700 hover:bg-white rounded-lg"
                               title="Print"
                             >
                               <Printer className="w-4 h-4" />
@@ -394,7 +394,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
                             <div className="relative">
                               <button
                                 onClick={() => setShowShareMenu(showShareMenu === faq.id ? null : faq.id)}
-                                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-white rounded-lg"
+                                className="p-2 text-slate-700 hover:text-slate-700 hover:bg-white rounded-lg"
                                 title="Share"
                               >
                                 <Share2 className="w-4 h-4" />
@@ -412,9 +412,9 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
 
             {filteredFaqs.length === 0 && (
               <div className="text-center py-12">
-                <HelpCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No questions found</h3>
-                <p className="text-gray-500 mb-4">Try adjusting your search or browse all categories.</p>
+                <HelpCircle className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-slate-900 mb-2">No questions found</h3>
+                <p className="text-slate-700 mb-4">Try adjusting your search or browse all categories.</p>
                 <button
                   onClick={() => {
                     setSearchQuery('');
@@ -431,7 +431,7 @@ export default function FAQClient({ faqs, categories, popularIds }: FAQClientPro
             <div className="mt-12 bg-brand-orange-50 rounded-xl p-8 text-center">
               <MessageSquare className="w-12 h-12 text-brand-orange-500 mx-auto mb-4" />
               <h2 className="text-xl font-bold mb-2">Still have questions?</h2>
-              <p className="text-gray-600 mb-4">Our team is here to help you find the answers you need.</p>
+              <p className="text-slate-700 mb-4">Our team is here to help you find the answers you need.</p>
               <Link href="/contact" className="inline-flex items-center gap-2 bg-brand-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-orange-600 transition-colors">
                 Contact Us
               </Link>

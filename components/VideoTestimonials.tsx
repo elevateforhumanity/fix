@@ -217,7 +217,7 @@ export default function VideoTestimonials() {
                           </p>
                         </div>
                         <div className="text-right">
-                          <div className="text-xs text-gray-500">Class of</div>
+                          <div className="text-xs text-slate-700">Class of</div>
                           <div className="text-sm font-bold text-black">{testimonial.graduationYear}</div>
                         </div>
                       </div>
@@ -233,7 +233,7 @@ export default function VideoTestimonials() {
                       {/* Before/After */}
                       <div className="space-y-2 mb-4">
                         <div className="flex items-start gap-2">
-                          <div className="text-xs font-semibold text-gray-500 w-16">BEFORE:</div>
+                          <div className="text-xs font-semibold text-slate-700 w-16">BEFORE:</div>
                           <div className="text-sm text-black flex-1">{testimonial.beforeJob}</div>
                         </div>
                         <div className="flex items-start gap-2">
@@ -380,7 +380,7 @@ export default function VideoTestimonials() {
 
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="text-xs font-semibold text-gray-500 mb-1">BEFORE</div>
+                    <div className="text-xs font-semibold text-slate-700 mb-1">BEFORE</div>
                     <div className="text-black">{selectedVideo.beforeJob}</div>
                   </div>
                   <div className="bg-brand-green-50 rounded-lg p-4">

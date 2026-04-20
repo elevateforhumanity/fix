@@ -62,8 +62,8 @@ export default async function AddProductPage() {
 
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-2xl font-bold text-gray-900">Add New Product</h1>
-          <p className="text-gray-600 mt-1">Create a new product listing</p>
+          <h1 className="text-2xl font-bold text-slate-900">Add New Product</h1>
+          <p className="text-slate-700 mt-1">Create a new product listing</p>
         </div>
       </div>
 
@@ -71,13 +71,13 @@ export default async function AddProductPage() {
         <form className="space-y-8">
           {/* Basic Info */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <Package className="w-5 h-5" />
               Basic Information
             </h2>
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-slate-900 mb-1">
                   Product Name <span className="text-brand-red-500">*</span>
                 </label>
                 <input
@@ -89,7 +89,7 @@ export default async function AddProductPage() {
                 />
               </div>
               <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="description" className="block text-sm font-medium text-slate-900 mb-1">
                   Description <span className="text-brand-red-500">*</span>
                 </label>
                 <textarea
@@ -101,7 +101,7 @@ export default async function AddProductPage() {
                 />
               </div>
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="category" className="block text-sm font-medium text-slate-900 mb-1">
                   Category <span className="text-brand-red-500">*</span>
                 </label>
                 <select
@@ -120,17 +120,17 @@ export default async function AddProductPage() {
 
           {/* Pricing */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <DollarSign className="w-5 h-5" />
               Pricing
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="price" className="block text-sm font-medium text-slate-900 mb-1">
                   Price <span className="text-brand-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-700">$</span>
                   <input
                     type="number"
                     id="price"
@@ -143,11 +143,11 @@ export default async function AddProductPage() {
                 </div>
               </div>
               <div>
-                <label htmlFor="original_price" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="original_price" className="block text-sm font-medium text-slate-900 mb-1">
                   Original Price (for sale items)
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-700">$</span>
                   <input
                     type="number"
                     id="original_price"
@@ -163,13 +163,13 @@ export default async function AddProductPage() {
 
           {/* Inventory */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <Tag className="w-5 h-5" />
               Inventory
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="sku" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="sku" className="block text-sm font-medium text-slate-900 mb-1">
                   SKU
                 </label>
                 <input
@@ -180,7 +180,7 @@ export default async function AddProductPage() {
                 />
               </div>
               <div>
-                <label htmlFor="stock" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="stock" className="block text-sm font-medium text-slate-900 mb-1">
                   Stock Quantity
                 </label>
                 <input
@@ -195,25 +195,25 @@ export default async function AddProductPage() {
             <div className="mt-4">
               <label className="flex items-center gap-3">
                 <input type="checkbox" defaultChecked className="rounded" />
-                <span className="text-sm text-gray-700">Track inventory</span>
+                <span className="text-sm text-slate-900">Track inventory</span>
               </label>
             </div>
           </div>
 
           {/* Images */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <ImageIcon className="w-5 h-5" />
               Product Images
             </h2>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 mb-2">Drag and drop images here, or click to browse</p>
-              <p className="text-sm text-gray-500">PNG, JPG up to 5MB each</p>
+              <Upload className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-700 mb-2">Drag and drop images here, or click to browse</p>
+              <p className="text-sm text-slate-700">PNG, JPG up to 5MB each</p>
               <input type="file" accept="image/*" multiple className="hidden" />
               <button
                 type="button"
-                className="mt-4 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-white"
+                className="mt-4 px-4 py-2 border border-gray-300 rounded-lg text-slate-900 hover:bg-white"
               >
                 Select Files
               </button>
@@ -222,13 +222,13 @@ export default async function AddProductPage() {
 
           {/* Additional Details */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
               <FileText className="w-5 h-5" />
               Additional Details
             </h2>
             <div className="space-y-4">
               <div>
-                <label htmlFor="features" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="features" className="block text-sm font-medium text-slate-900 mb-1">
                   Key Features (one per line)
                 </label>
                 <textarea
@@ -239,7 +239,7 @@ export default async function AddProductPage() {
                 />
               </div>
               <div>
-                <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="tags" className="block text-sm font-medium text-slate-900 mb-1">
                   Tags (comma separated)
                 </label>
                 <input
@@ -256,13 +256,13 @@ export default async function AddProductPage() {
           <div className="flex items-center justify-end gap-4">
             <Link
               href="/shop/products"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+              className="px-4 py-2 text-slate-900 hover:text-slate-900"
             >
               Cancel
             </Link>
             <button
               type="button"
-              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-white"
+              className="px-4 py-2 border border-gray-300 rounded-lg text-slate-900 hover:bg-white"
             >
               Save as Draft
             </button>

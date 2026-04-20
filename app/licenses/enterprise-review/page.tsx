@@ -75,7 +75,7 @@ export default function EnterpriseReviewPage() {
         <p className="text-slate-500 mb-4">
           Enterprise Source-Use License — Starting at $75,000
         </p>
-        <p className="text-gray-500 mb-8 text-sm">
+        <p className="text-slate-700 mb-8 text-sm">
           This license grants internal use of source code only. It does not include ownership, 
           rebranding rights, resale rights, credential authority, or managed hosting. 
           All requests require enterprise approval.
@@ -213,9 +213,9 @@ export default function EnterpriseReviewPage() {
             />
           </div>
 
-          <div className="bg-white rounded-lg p-4 text-sm text-gray-300">
+          <div className="bg-white rounded-lg p-4 text-sm text-slate-700">
             <p className="font-semibold mb-2">By submitting this request, you acknowledge:</p>
-            <ul className="space-y-1 text-gray-400">
+            <ul className="space-y-1 text-slate-700">
               <li>• Source-use licenses do not grant ownership</li>
               <li>• Rebranding and resale are not permitted</li>
               <li>• Approval and signed agreement required before access</li>
@@ -226,7 +226,7 @@ export default function EnterpriseReviewPage() {
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="w-full bg-white text-gray-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white transition-colors disabled:opacity-50"
+            className="w-full bg-white text-slate-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white transition-colors disabled:opacity-50"
           >
             {status === 'submitting' ? 'Submitting...' : 'Submit Enterprise Review Request'}
           </button>

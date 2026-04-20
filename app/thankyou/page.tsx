@@ -72,10 +72,10 @@ export default async function ThankyouPage() {
           <div className="w-20 h-20 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-slate-500 flex-shrink-0">•</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Thank You!
           </h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-slate-700 mb-8">
             Your submission has been received. We're excited to help you start your career journey!
           </p>
           <div className="bg-brand-green-50 border border-brand-green-200 rounded-xl p-6 text-left">
@@ -99,7 +99,7 @@ export default async function ThankyouPage() {
                   <span className="text-brand-blue-600 font-bold">{index + 1}</span>
                 </div>
                 <h3 className="font-semibold mb-2">{step.title}</h3>
-                <p className="text-gray-600 text-sm">{step.description}</p>
+                <p className="text-slate-700 text-sm">{step.description}</p>
               </div>
             ))}
           </div>
@@ -118,7 +118,7 @@ export default async function ThankyouPage() {
               <Phone className="w-8 h-8 text-brand-blue-600" />
               <div>
                 <div className="font-semibold">Contact Us</div>
-                <div className="text-gray-600">(317) 314-3757</div>
+                <div className="text-slate-700">(317) 314-3757</div>
               </div>
             </a>
             <a 
@@ -128,7 +128,7 @@ export default async function ThankyouPage() {
               <Mail className="w-8 h-8 text-brand-blue-600" />
               <div>
                 <div className="font-semibold">Email Us</div>
-                <div className="text-gray-600 text-sm">Contact Us</div>
+                <div className="text-slate-700 text-sm">Contact Us</div>
               </div>
             </a>
             <Link 
@@ -138,7 +138,7 @@ export default async function ThankyouPage() {
               <Calendar className="w-8 h-8 text-brand-blue-600" />
               <div>
                 <div className="font-semibold">Schedule a Meeting</div>
-                <div className="text-gray-600">Book an appointment</div>
+                <div className="text-slate-700">Book an appointment</div>
               </div>
             </Link>
           </div>
@@ -161,7 +161,7 @@ export default async function ThankyouPage() {
                     {program.title || program.title || program.name}
                   </h3>
                   {program.description && (
-                    <p className="text-gray-600 text-sm line-clamp-2">{program.description}</p>
+                    <p className="text-slate-700 text-sm line-clamp-2">{program.description}</p>
                   )}
                   <div className="flex items-center gap-1 text-brand-blue-600 text-sm mt-4 font-medium">
                     Learn more <ArrowRight className="w-4 h-4" />

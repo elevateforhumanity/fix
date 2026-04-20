@@ -203,7 +203,7 @@ export default function ContentLibrary() {
         {/* Search and Filters */}
         <div className="flex gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-700" />
             <input
               type="text"
               value={searchQuery}
@@ -304,7 +304,7 @@ export default function ContentLibrary() {
                         className="w-full h-full object-cover rounded-lg"
                       />
                     ) : (
-                      <Icon className="w-12 h-12 text-gray-400" />
+                      <Icon className="w-12 h-12 text-slate-700" />
                     )}
                   </div>
 
@@ -328,7 +328,7 @@ export default function ContentLibrary() {
                     </div>
 
                     {/* Meta */}
-                    <div className="flex items-center justify-between text-xs text-gray-500">
+                    <div className="flex items-center justify-between text-xs text-slate-700">
                       <span>{formatFileSize(item.file_size)}</span>
                       {item.duration_seconds && (
                         <span>{formatDuration(item.duration_seconds)}</span>
@@ -404,10 +404,10 @@ export default function ContentLibrary() {
                       </td>
                       <td className="p-4">
                         <div className="flex items-center gap-3">
-                          <Icon className="w-5 h-5 text-gray-400" />
+                          <Icon className="w-5 h-5 text-slate-700" />
                           <div>
                             <div className="font-medium">{item.title}</div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-slate-700">
                               {item.description}
                             </div>
                           </div>
@@ -455,8 +455,8 @@ export default function ContentLibrary() {
         )}
 
         {filteredItems.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
-            <Folder className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+          <div className="text-center py-12 text-slate-700">
+            <Folder className="w-16 h-16 mx-auto mb-4 text-slate-700" />
             <p className="text-lg">No content found</p>
             <p className="text-sm">Upload content to get started</p>
           </div>

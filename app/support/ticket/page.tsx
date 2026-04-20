@@ -78,9 +78,9 @@ function SubmitTicketContent() {
               <span className="text-slate-500 flex-shrink-0">•</span>
             </div>
             <h1 className="text-3xl font-bold text-black mb-4">Ticket Submitted!</h1>
-            <p className="text-gray-600 mb-2">Your ticket number is:</p>
+            <p className="text-slate-700 mb-2">Your ticket number is:</p>
             <p className="text-2xl font-mono font-bold text-brand-blue-600 mb-6">{ticketNumber}</p>
-            <p className="text-gray-600 mb-8">
+            <p className="text-slate-700 mb-8">
               We've received your request and will respond within 24-48 hours. 
               A confirmation email has been sent to {formData.email}.
             </p>
@@ -109,7 +109,7 @@ function SubmitTicketContent() {
       <div className="max-w-3xl mx-auto px-6">
         <Link
           href="/support"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-black mb-8 transition"
+          className="inline-flex items-center gap-2 text-slate-700 hover:text-black mb-8 transition"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Support Center
@@ -117,7 +117,7 @@ function SubmitTicketContent() {
 
         <div className="bg-white rounded-2xl p-8 shadow-sm">
           <h1 className="text-3xl font-bold text-black mb-2">Submit a Support Ticket</h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-slate-700 mb-8">
             Fill out the form below and our team will get back to you within 24-48 hours.
           </p>
 
@@ -236,7 +236,7 @@ function SubmitTicketContent() {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 text-black resize-none"
                 placeholder="Please describe your issue in detail. Include any relevant information such as error messages, steps you've already tried, or specific questions you have."
               />
-              <p className="text-sm text-gray-500 mt-1">Minimum 20 characters</p>
+              <p className="text-sm text-slate-700 mt-1">Minimum 20 characters</p>
             </div>
 
             <div className="pt-4">
@@ -261,7 +261,7 @@ function SubmitTicketContent() {
           </form>
 
           <div className="mt-8 pt-8 border-t border-gray-200">
-            <p className="text-sm text-gray-600 text-center">
+            <p className="text-sm text-slate-700 text-center">
               Need immediate help? Contact us at{' '}
               <a href="/support" className="text-brand-blue-600 font-semibold hover:underline">
                 (317) 314-3757

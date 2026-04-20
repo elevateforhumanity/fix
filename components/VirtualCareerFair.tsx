@@ -113,7 +113,7 @@ export default function VirtualCareerFair() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`py-4 px-2 border-b-2 font-medium ${
-                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-gray-500'
+                  activeTab === tab ? 'border-brand-red-600 text-brand-orange-600' : 'border-transparent text-slate-700'
                 }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}

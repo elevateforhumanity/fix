@@ -33,7 +33,7 @@ export default function SAPPolicyPage() {
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Introduction */}
         <section className="mb-10">
-          <p className="text-gray-700 text-lg">
+          <p className="text-slate-900 text-lg">
             Elevate for Humanity requires all students to maintain Satisfactory Academic Progress (SAP) 
             to remain enrolled in their program. This policy establishes the standards for academic 
             achievement and the pace at which students must progress through their program.
@@ -42,21 +42,21 @@ export default function SAPPolicyPage() {
 
         {/* SAP Components */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">SAP Requirements</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">SAP Requirements</h2>
           
-          <p className="text-gray-700 mb-6">
+          <p className="text-slate-900 mb-6">
             Students must meet <strong>all three</strong> of the following requirements to maintain SAP:
           </p>
 
           <div className="space-y-6">
             {/* Qualitative */}
             <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">1. Qualitative Standard (Academic Achievement)</h3>
-              <p className="text-gray-700 mb-4">
+              <h3 className="font-bold text-slate-900 mb-3">1. Qualitative Standard (Academic Achievement)</h3>
+              <p className="text-slate-900 mb-4">
                 Students must maintain a minimum cumulative grade average of <strong>70%</strong> (C or equivalent) 
                 across all coursework, including:
               </p>
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 space-y-1">
                 <li>Online module assessments</li>
                 <li>Quizzes and exams</li>
                 <li>Assignments and projects</li>
@@ -66,17 +66,17 @@ export default function SAPPolicyPage() {
 
             {/* Quantitative - Pace */}
             <div className="bg-brand-green-50 border border-brand-green-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">2. Quantitative Standard (Pace of Completion)</h3>
-              <p className="text-gray-700 mb-4">
+              <h3 className="font-bold text-slate-900 mb-3">2. Quantitative Standard (Pace of Completion)</h3>
+              <p className="text-slate-900 mb-4">
                 Students must successfully complete at least <strong>67%</strong> of all attempted coursework 
                 at each evaluation point. This is calculated as:
               </p>
               <div className="bg-white border border-gray-200 rounded p-4 mb-4">
-                <p className="text-gray-700 font-mono text-center">
+                <p className="text-slate-900 font-mono text-center">
                   Pace = (Completed Hours or Modules) ÷ (Attempted Hours or Modules) × 100
                 </p>
               </div>
-              <p className="text-gray-700">
+              <p className="text-slate-900">
                 <strong>Example:</strong> A student who has attempted 10 modules must have successfully 
                 completed at least 7 modules (70%) to meet the pace requirement.
               </p>
@@ -84,8 +84,8 @@ export default function SAPPolicyPage() {
 
             {/* Maximum Timeframe */}
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">3. Maximum Timeframe</h3>
-              <p className="text-gray-700 mb-4">
+              <h3 className="font-bold text-slate-900 mb-3">3. Maximum Timeframe</h3>
+              <p className="text-slate-900 mb-4">
                 Students must complete their program within <strong>150%</strong> of the published program length.
               </p>
               <div className="overflow-x-auto">
@@ -132,18 +132,18 @@ export default function SAPPolicyPage() {
 
         {/* Evaluation Points */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">SAP Evaluation Points</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">SAP Evaluation Points</h2>
           
           <div className="bg-white rounded-lg p-6">
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               SAP is evaluated at the following points:
             </p>
-            <ul className="list-disc list-inside text-gray-700 space-y-2">
+            <ul className="list-disc list-inside text-slate-900 space-y-2">
               <li><strong>Programs 12 weeks or less:</strong> At the midpoint and end of the program</li>
               <li><strong>Programs longer than 12 weeks:</strong> At the end of each month or module, whichever is more frequent</li>
               <li><strong>Clock hour programs:</strong> At each 450-hour increment or monthly, whichever is more frequent</li>
             </ul>
-            <p className="text-gray-700 mt-4">
+            <p className="text-slate-900 mt-4">
               Students will receive written notification of their SAP status after each evaluation.
             </p>
           </div>
@@ -151,12 +151,12 @@ export default function SAPPolicyPage() {
 
         {/* Academic Standing */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Academic Standing</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Academic Standing</h2>
           
           <div className="space-y-4">
             <div className="bg-brand-green-50 border border-brand-green-200 rounded-lg p-6">
               <h3 className="font-bold text-brand-green-800 mb-2">Good Standing</h3>
-              <p className="text-gray-700">
+              <p className="text-slate-900">
                 Students meeting all SAP requirements are in good standing and may continue 
                 in their program without restriction.
               </p>
@@ -164,11 +164,11 @@ export default function SAPPolicyPage() {
             
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
               <h3 className="font-bold text-yellow-800 mb-2">SAP Warning</h3>
-              <p className="text-gray-700 mb-3">
+              <p className="text-slate-900 mb-3">
                 Students who fail to meet SAP requirements at an evaluation point will be 
                 placed on SAP Warning for the next evaluation period. During warning:
               </p>
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 space-y-1">
                 <li>Student may continue in the program</li>
                 <li>Student must meet with academic advisor</li>
                 <li>An academic improvement plan will be developed</li>
@@ -178,11 +178,11 @@ export default function SAPPolicyPage() {
             
             <div className="bg-brand-orange-50 border border-brand-orange-200 rounded-lg p-6">
               <h3 className="font-bold text-brand-orange-800 mb-2">SAP Probation</h3>
-              <p className="text-gray-700 mb-3">
+              <p className="text-slate-900 mb-3">
                 Students who fail to meet SAP after the warning period and have successfully 
                 appealed may be placed on SAP Probation. During probation:
               </p>
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
+              <ul className="list-disc list-inside text-slate-900 space-y-1">
                 <li>Student may continue under strict academic plan</li>
                 <li>Weekly check-ins with academic advisor required</li>
                 <li>Specific milestones must be met</li>
@@ -192,7 +192,7 @@ export default function SAPPolicyPage() {
             
             <div className="bg-brand-red-50 border border-brand-red-200 rounded-lg p-6">
               <h3 className="font-bold text-brand-red-800 mb-2">Academic Dismissal</h3>
-              <p className="text-gray-700">
+              <p className="text-slate-900">
                 Students who fail to meet SAP after the warning period (without successful appeal) 
                 or who fail to meet probation requirements will be academically dismissed from 
                 the program. Dismissed students may apply for re-enrollment after a minimum of 
@@ -204,22 +204,22 @@ export default function SAPPolicyPage() {
 
         {/* Appeal Process */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">SAP Appeal Process</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">SAP Appeal Process</h2>
           
           <div className="bg-white rounded-lg p-6">
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               Students who fail to meet SAP may appeal if extenuating circumstances affected 
               their academic performance. Extenuating circumstances may include:
             </p>
-            <ul className="list-disc list-inside text-gray-700 space-y-1 mb-6">
+            <ul className="list-disc list-inside text-slate-900 space-y-1 mb-6">
               <li>Serious illness or injury (student or immediate family member)</li>
               <li>Death of an immediate family member</li>
               <li>Significant personal crisis (documented)</li>
               <li>Other circumstances beyond the student's control</li>
             </ul>
             
-            <h3 className="font-bold text-gray-900 mb-3">To Appeal:</h3>
-            <ol className="list-decimal list-inside text-gray-700 space-y-2">
+            <h3 className="font-bold text-slate-900 mb-3">To Appeal:</h3>
+            <ol className="list-decimal list-inside text-slate-900 space-y-2">
               <li>Submit a written appeal within 5 business days of SAP notification</li>
               <li>Explain the circumstances that affected your performance</li>
               <li>Provide supporting documentation</li>
@@ -227,7 +227,7 @@ export default function SAPPolicyPage() {
               <li>Submit to: Student Services, our contact form</li>
             </ol>
             
-            <p className="text-gray-700 mt-6">
+            <p className="text-slate-900 mt-6">
               Appeals are reviewed by the Academic Standards Committee. Students will receive 
               a written decision within 10 business days. The committee's decision is final.
             </p>
@@ -236,19 +236,19 @@ export default function SAPPolicyPage() {
 
         {/* Re-establishing SAP */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Re-establishing SAP</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Re-establishing SAP</h2>
           
           <div className="bg-white rounded-lg p-6">
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               Students on Warning or Probation can return to Good Standing by:
             </p>
-            <ul className="list-disc list-inside text-gray-700 space-y-2">
+            <ul className="list-disc list-inside text-slate-900 space-y-2">
               <li>Achieving a cumulative grade average of 70% or higher</li>
               <li>Achieving a pace of completion of 67% or higher</li>
               <li>Remaining within the maximum timeframe</li>
               <li>Meeting all requirements of their academic improvement plan</li>
             </ul>
-            <p className="text-gray-700 mt-4">
+            <p className="text-slate-900 mt-4">
               Once SAP is re-established, the student returns to Good Standing and the 
               warning/probation status is removed from their record.
             </p>
@@ -257,12 +257,12 @@ export default function SAPPolicyPage() {
 
         {/* Incomplete Grades */}
         <section className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Incomplete Grades and Withdrawals</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Incomplete Grades and Withdrawals</h2>
           
           <div className="space-y-4">
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-2">Incomplete (I) Grades</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-2">Incomplete (I) Grades</h3>
+              <p className="text-slate-900">
                 Incomplete grades count as attempted but not completed for pace calculations. 
                 Students have 14 days to complete outstanding work before the grade converts 
                 to a failing grade.
@@ -270,16 +270,16 @@ export default function SAPPolicyPage() {
             </div>
             
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-2">Withdrawals (W)</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-2">Withdrawals (W)</h3>
+              <p className="text-slate-900">
                 Withdrawn courses count as attempted but not completed for pace calculations. 
                 Withdrawals do not affect the qualitative (grade) calculation.
               </p>
             </div>
             
             <div className="bg-white rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-2">Repeated Coursework</h3>
-              <p className="text-gray-700">
+              <h3 className="font-bold text-slate-900 mb-2">Repeated Coursework</h3>
+              <p className="text-slate-900">
                 Students may repeat failed coursework once. Both attempts count toward 
                 attempted hours for pace calculation, but only the higher grade is used 
                 for the qualitative calculation.
@@ -290,10 +290,10 @@ export default function SAPPolicyPage() {
 
         {/* Footer */}
         <div className="mt-12 pt-8 border-t">
-          <p className="text-gray-600 text-sm mb-4">
+          <p className="text-slate-700 text-sm mb-4">
             <strong>Effective Date:</strong> January 2026
           </p>
-          <p className="text-gray-600 text-sm mb-6">
+          <p className="text-slate-700 text-sm mb-6">
             Questions about SAP? Contact Student Services at Visit Support Center or our contact form
           </p>
           <div className="flex flex-wrap gap-4 text-sm">

@@ -38,7 +38,7 @@ const STATUS_COLORS: Record<string, string> = {
   active: 'bg-brand-green-100 text-brand-green-800',
   completed: 'bg-brand-blue-100 text-brand-blue-800',
   cancelled: 'bg-brand-red-100 text-brand-red-800',
-  exited: 'bg-gray-100 text-gray-800',
+  exited: 'bg-gray-100 text-slate-900',
 };
 
 export default function RAPIDSApprenticesPage() {
@@ -134,8 +134,8 @@ export default function RAPIDSApprenticesPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">RAPIDS Apprentice Management</h1>
-            <p className="text-sm text-gray-600 mt-1">
+            <h1 className="text-2xl font-bold text-slate-900">RAPIDS Apprentice Management</h1>
+            <p className="text-sm text-slate-700 mt-1">
               Export apprentice data for DOL RAPIDS portal submission
             </p>
           </div>
@@ -155,11 +155,11 @@ export default function RAPIDSApprenticesPage() {
           <div className="bg-white rounded-xl p-4 border border-gray-200">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-gray-100 rounded-lg">
-                <Users className="w-5 h-5 text-gray-600" />
+                <Users className="w-5 h-5 text-slate-700" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-                <p className="text-sm text-gray-500">Total</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.total}</p>
+                <p className="text-sm text-slate-700">Total</p>
               </div>
             </div>
           </div>
@@ -169,8 +169,8 @@ export default function RAPIDSApprenticesPage() {
                 <Clock className="w-5 h-5 text-yellow-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
-                <p className="text-sm text-gray-500">Pending</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.pending}</p>
+                <p className="text-sm text-slate-700">Pending</p>
               </div>
             </div>
           </div>
@@ -180,8 +180,8 @@ export default function RAPIDSApprenticesPage() {
                 <FileSpreadsheet className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.registered}</p>
-                <p className="text-sm text-gray-500">Registered</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.registered}</p>
+                <p className="text-sm text-slate-700">Registered</p>
               </div>
             </div>
           </div>
@@ -191,8 +191,8 @@ export default function RAPIDSApprenticesPage() {
                 <RefreshCw className="w-5 h-5 text-brand-green-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.active}</p>
-                <p className="text-sm text-gray-500">Active</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.active}</p>
+                <p className="text-sm text-slate-700">Active</p>
               </div>
             </div>
           </div>
@@ -202,8 +202,8 @@ export default function RAPIDSApprenticesPage() {
                 <Circle className="w-5 h-5 text-brand-blue-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
-                <p className="text-sm text-gray-500">Completed</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.completed}</p>
+                <p className="text-sm text-slate-700">Completed</p>
               </div>
             </div>
           </div>
@@ -211,16 +211,16 @@ export default function RAPIDSApprenticesPage() {
 
         {/* Export Section */}
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Export for RAPIDS Portal</h2>
-          <p className="text-sm text-gray-600 mb-4">
+          <h2 className="text-lg font-semibold text-slate-900 mb-4">Export for RAPIDS Portal</h2>
+          <p className="text-sm text-slate-700 mb-4">
             Download apprentice data formatted for the DOL RAPIDS portal. Upload the CSV file or copy data manually.
           </p>
           
           <div className="grid md:grid-cols-3 gap-4">
             {/* Registration Export */}
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-2">New Registrations</h3>
-              <p className="text-sm text-gray-500 mb-3">
+              <h3 className="font-medium text-slate-900 mb-2">New Registrations</h3>
+              <p className="text-sm text-slate-700 mb-3">
                 Export pending apprentices for initial RAPIDS registration
               </p>
               <div className="flex gap-2">
@@ -235,7 +235,7 @@ export default function RAPIDSApprenticesPage() {
                 <button
                   onClick={() => handleExport('registration', 'json')}
                   disabled={exporting}
-                  className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                  className="px-3 py-2 border border-gray-300 text-slate-900 text-sm rounded-lg hover:bg-gray-50 disabled:opacity-50"
                 >
                   JSON
                 </button>
@@ -244,8 +244,8 @@ export default function RAPIDSApprenticesPage() {
 
             {/* Progress Export */}
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-2">Quarterly Progress</h3>
-              <p className="text-sm text-gray-500 mb-3">
+              <h3 className="font-medium text-slate-900 mb-2">Quarterly Progress</h3>
+              <p className="text-sm text-slate-700 mb-3">
                 Export hours and wage updates for quarterly reporting
               </p>
               <div className="flex gap-2">
@@ -260,7 +260,7 @@ export default function RAPIDSApprenticesPage() {
                 <button
                   onClick={() => handleExport('progress', 'json')}
                   disabled={exporting}
-                  className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                  className="px-3 py-2 border border-gray-300 text-slate-900 text-sm rounded-lg hover:bg-gray-50 disabled:opacity-50"
                 >
                   JSON
                 </button>
@@ -269,8 +269,8 @@ export default function RAPIDSApprenticesPage() {
 
             {/* Completion Export */}
             <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-2">Completions</h3>
-              <p className="text-sm text-gray-500 mb-3">
+              <h3 className="font-medium text-slate-900 mb-2">Completions</h3>
+              <p className="text-sm text-slate-700 mb-3">
                 Export completed apprentices for RAPIDS completion reporting
               </p>
               <div className="flex gap-2">
@@ -285,7 +285,7 @@ export default function RAPIDSApprenticesPage() {
                 <button
                   onClick={() => handleExport('completion', 'json')}
                   disabled={exporting}
-                  className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                  className="px-3 py-2 border border-gray-300 text-slate-900 text-sm rounded-lg hover:bg-gray-50 disabled:opacity-50"
                 >
                   JSON
                 </button>
@@ -299,7 +299,7 @@ export default function RAPIDSApprenticesPage() {
           <div className="p-4 border-b border-gray-200">
             <div className="flex flex-col md:flex-row md:items-center gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
                 <input
                   type="text"
                   placeholder="Search apprentices..."
@@ -309,7 +309,7 @@ export default function RAPIDSApprenticesPage() {
                 />
               </div>
               <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-gray-400" />
+                <Filter className="w-4 h-4 text-slate-700" />
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
@@ -327,7 +327,7 @@ export default function RAPIDSApprenticesPage() {
                   disabled={loading}
                   className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50"
                 >
-                  <RefreshCw className={`w-4 h-4 text-gray-600 ${loading ? 'animate-spin' : ''}`} />
+                  <RefreshCw className={`w-4 h-4 text-slate-700 ${loading ? 'animate-spin' : ''}`} />
                 </button>
               </div>
             </div>
@@ -336,7 +336,7 @@ export default function RAPIDSApprenticesPage() {
           {error ? (
             <div className="p-8 text-center">
               <AlertCircle className="w-12 h-12 text-brand-red-400 mx-auto mb-4" />
-              <p className="text-gray-600">{error}</p>
+              <p className="text-slate-700">{error}</p>
               <button
                 onClick={fetchApprentices}
                 className="mt-4 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700"
@@ -347,13 +347,13 @@ export default function RAPIDSApprenticesPage() {
           ) : loading ? (
             <div className="p-8 text-center">
               <RefreshCw className="w-8 h-8 text-brand-blue-600 animate-spin mx-auto mb-4" />
-              <p className="text-gray-600">Loading apprentices...</p>
+              <p className="text-slate-700">Loading apprentices...</p>
             </div>
           ) : filteredApprentices.length === 0 ? (
             <div className="p-8 text-center">
-              <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-600">No apprentices found</p>
-              <p className="text-sm text-gray-500 mt-1">
+              <Users className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-700">No apprentices found</p>
+              <p className="text-sm text-slate-700 mt-1">
                 Apprentices will appear here once enrolled in RAPIDS-registered programs
               </p>
             </div>
@@ -362,22 +362,22 @@ export default function RAPIDSApprenticesPage() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Apprentice
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Program
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       RAPIDS Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       RAPIDS ID
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Hours Progress
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">
                       Employer
                     </th>
                   </tr>
@@ -386,32 +386,32 @@ export default function RAPIDSApprenticesPage() {
                   {filteredApprentices.map((apprentice: any, index: number) => (
                     <tr key={index} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-slate-900">
                           {apprentice.firstName} {apprentice.lastName}
                         </div>
-                        <div className="text-sm text-gray-500">{apprentice.email}</div>
+                        <div className="text-sm text-slate-700">{apprentice.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{apprentice.programName}</div>
-                        <div className="text-xs text-gray-500 font-mono">{apprentice.occupationCode}</div>
+                        <div className="text-sm text-slate-900">{apprentice.programName}</div>
+                        <div className="text-xs text-slate-700 font-mono">{apprentice.occupationCode}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${STATUS_COLORS[apprentice.status] || 'bg-gray-100 text-gray-800'}`}>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${STATUS_COLORS[apprentice.status] || 'bg-gray-100 text-slate-900'}`}>
                           {apprentice.status}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {apprentice.rapidsId ? (
-                          <span className="font-mono text-sm text-gray-900">{apprentice.rapidsId}</span>
+                          <span className="font-mono text-sm text-slate-900">{apprentice.rapidsId}</span>
                         ) : (
-                          <span className="text-sm text-gray-500">Not assigned</span>
+                          <span className="text-sm text-slate-700">Not assigned</span>
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
+                        <div className="text-sm text-slate-900">
                           {apprentice.ojtHoursCompleted || 0} / {apprentice.totalHoursRequired} OJT
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-slate-700">
                           {apprentice.rtiHoursCompleted || 0} / {apprentice.rtiHoursRequired || 144} RTI
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
@@ -425,9 +425,9 @@ export default function RAPIDSApprenticesPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {apprentice.employerName ? (
-                          <div className="text-sm text-gray-900">{apprentice.employerName}</div>
+                          <div className="text-sm text-slate-900">{apprentice.employerName}</div>
                         ) : (
-                          <span className="text-sm text-gray-500">Not assigned</span>
+                          <span className="text-sm text-slate-700">Not assigned</span>
                         )}
                       </td>
                     </tr>

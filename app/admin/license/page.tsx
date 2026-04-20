@@ -21,9 +21,9 @@ export default async function LicensePage() {
       {/* Hero Image */}
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-gray-500"><li><Link href="/admin" className="hover:text-primary">Admin</Link></li><li>/</li><li className="text-gray-900 font-medium">License</li></ol></nav>
-          <h1 className="text-3xl font-bold text-gray-900">License Management</h1>
-          <p className="text-gray-600 mt-2">View and manage your platform license</p>
+          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/admin" className="hover:text-primary">Admin</Link></li><li>/</li><li className="text-slate-900 font-medium">License</li></ol></nav>
+          <h1 className="text-3xl font-bold text-slate-900">License Management</h1>
+          <p className="text-slate-700 mt-2">View and manage your platform license</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -31,10 +31,10 @@ export default async function LicensePage() {
             <span className="px-3 py-1 bg-brand-green-100 text-brand-green-800 rounded-full text-sm font-medium">Active</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div><p className="text-sm text-gray-500">License Type</p><p className="font-medium">Enterprise</p></div>
-            <div><p className="text-sm text-gray-500">Valid Until</p><p className="font-medium">Dec 31, 2025</p></div>
-            <div><p className="text-sm text-gray-500">User Seats</p><p className="font-medium">Unlimited</p></div>
-            <div><p className="text-sm text-gray-500">Support Level</p><p className="font-medium">Premium</p></div>
+            <div><p className="text-sm text-slate-700">License Type</p><p className="font-medium">Enterprise</p></div>
+            <div><p className="text-sm text-slate-700">Valid Until</p><p className="font-medium">Dec 31, 2025</p></div>
+            <div><p className="text-sm text-slate-700">User Seats</p><p className="font-medium">Unlimited</p></div>
+            <div><p className="text-sm text-slate-700">Support Level</p><p className="font-medium">Premium</p></div>
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6">

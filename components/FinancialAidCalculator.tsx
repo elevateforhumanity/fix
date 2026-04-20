@@ -146,7 +146,7 @@ export function FinancialAidCalculator() {
                 </div>
               </div>
             ) : (
-              <div className="text-center text-gray-500 py-12">
+              <div className="text-center text-slate-700 py-12">
                 Enter your information and click Calculate Aid to see your estimated package
               </div>
             )}

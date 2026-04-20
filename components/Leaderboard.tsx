@@ -22,7 +22,7 @@ interface LeaderboardProps {
 export function Leaderboard({ entries, timeframe = 'week' }: LeaderboardProps) {
   const getRankIcon = (rank: number) => {
     if (rank === 1) return <Trophy className="text-yellow-500" size={24} />;
-    if (rank === 2) return <Medal className="text-gray-400" size={24} />;
+    if (rank === 2) return <Medal className="text-slate-700" size={24} />;
     if (rank === 3) return <Medal className="text-brand-orange-600" size={24} />;
     return null;
   };
@@ -74,7 +74,7 @@ export function Leaderboard({ entries, timeframe = 'week' }: LeaderboardProps) {
 
               <div className="text-right">
                 <div className="font-bold text-brand-orange-600">{entry.points.toLocaleString('en-US')}</div>
-                <div className="text-xs text-gray-500">points</div>
+                <div className="text-xs text-slate-700">points</div>
               </div>
             </div>
           ))}

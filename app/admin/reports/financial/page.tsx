@@ -54,7 +54,7 @@ export default async function FinancialReportPage() {
     sum + (parseFloat(g.amount_max) || 0), 0) || 0;
 
   const wotcStatusColors: Record<string, string> = {
-    draft: 'bg-gray-100 text-gray-600',
+    draft: 'bg-gray-100 text-slate-700',
     submitted: 'bg-brand-blue-100 text-brand-blue-700',
     pending_review: 'bg-yellow-100 text-yellow-700',
     approved: 'bg-brand-green-100 text-brand-green-700',
@@ -69,13 +69,13 @@ export default async function FinancialReportPage() {
         <div className="mb-8">
           <Link 
             href="/admin/reports"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-slate-900 mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Reports
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Financial Report</h1>
-          <p className="text-gray-600">WOTC credits, grants, and funding overview</p>
+          <h1 className="text-2xl font-bold text-slate-900">Financial Report</h1>
+          <p className="text-slate-700">WOTC credits, grants, and funding overview</p>
         </div>
 
         <div className="grid md:grid-cols-4 gap-6 mb-8">
@@ -84,7 +84,7 @@ export default async function FinancialReportPage() {
               <div className="p-2 bg-brand-green-100 rounded-lg">
                 <DollarSign className="w-5 h-5 text-brand-green-600" />
               </div>
-              <span className="text-sm text-gray-600">WOTC Credits</span>
+              <span className="text-sm text-slate-700">WOTC Credits</span>
             </div>
             <p className="text-3xl font-bold text-brand-green-600">${totalWOTCCredits.toLocaleString()}</p>
           </div>
@@ -94,7 +94,7 @@ export default async function FinancialReportPage() {
               <div className="p-2 bg-brand-blue-100 rounded-lg">
                 <DollarSign className="w-5 h-5 text-brand-blue-600" />
               </div>
-              <span className="text-sm text-gray-600">Grants Awarded</span>
+              <span className="text-sm text-slate-700">Grants Awarded</span>
             </div>
             <p className="text-3xl font-bold text-brand-blue-600">${totalGrantsAwarded.toLocaleString()}</p>
           </div>
@@ -104,7 +104,7 @@ export default async function FinancialReportPage() {
               <div className="p-2 bg-brand-blue-100 rounded-lg">
                 <FileText className="w-5 h-5 text-brand-blue-600" />
               </div>
-              <span className="text-sm text-gray-600">Available Grants</span>
+              <span className="text-sm text-slate-700">Available Grants</span>
             </div>
             <p className="text-3xl font-bold text-brand-blue-600">${(availableFunding / 1000).toFixed(0)}K</p>
           </div>
@@ -114,7 +114,7 @@ export default async function FinancialReportPage() {
               <div className="p-2 bg-brand-orange-100 rounded-lg">
                 <Clock className="w-5 h-5 text-brand-orange-600" />
               </div>
-              <span className="text-sm text-gray-600">Pending Apps</span>
+              <span className="text-sm text-slate-700">Pending Apps</span>
             </div>
             <p className="text-3xl font-bold text-brand-orange-600">{pendingWOTC.length + pendingGrants.length}</p>
           </div>
@@ -124,7 +124,7 @@ export default async function FinancialReportPage() {
           {/* WOTC Applications */}
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">WOTC Applications</h2>
+              <h2 className="text-lg font-semibold text-slate-900">WOTC Applications</h2>
               <Link href="/admin/wotc" className="text-sm text-brand-blue-600 hover:text-brand-blue-700">
                 View All
               </Link>
@@ -134,10 +134,10 @@ export default async function FinancialReportPage() {
                 {wotcApps.slice(0, 8).map((app) => (
                   <div key={app.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-slate-900">
                         {app.employee_first_name} {app.employee_last_name}
                       </p>
-                      <p className="text-sm text-gray-500">{app.employer_name}</p>
+                      <p className="text-sm text-slate-700">{app.employer_name}</p>
                     </div>
                     <div className="text-right">
                       <span className={`px-2 py-1 text-xs rounded-full ${wotcStatusColors[app.status] || 'bg-gray-100'}`}>
@@ -153,14 +153,14 @@ export default async function FinancialReportPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No WOTC applications</p>
+              <p className="text-slate-700 text-center py-8">No WOTC applications</p>
             )}
           </div>
 
           {/* Grant Applications */}
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Grant Applications</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Grant Applications</h2>
               <Link href="/admin/grants" className="text-sm text-brand-blue-600 hover:text-brand-blue-700">
                 View All
               </Link>
@@ -170,10 +170,10 @@ export default async function FinancialReportPage() {
                 {grantApps.slice(0, 8).map((app) => (
                   <div key={app.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-slate-900">
                         {(app.grant_opportunities as { title: string })?.title || 'Grant Application'}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-slate-700">
                         Requested: ${parseFloat(app.amount_requested || '0').toLocaleString()}
                       </p>
                     </div>
@@ -195,7 +195,7 @@ export default async function FinancialReportPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-8">No grant applications</p>
+              <p className="text-slate-700 text-center py-8">No grant applications</p>
             )}
           </div>
         </div>
@@ -203,7 +203,7 @@ export default async function FinancialReportPage() {
         {/* Open Grant Opportunities */}
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Open Grant Opportunities</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Open Grant Opportunities</h2>
             <Link href="/admin/grants/new" className="text-sm text-brand-blue-600 hover:text-brand-blue-700">
               Add New
             </Link>
@@ -212,14 +212,14 @@ export default async function FinancialReportPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {grants.map((grant) => (
                 <div key={grant.id} className="p-4 border rounded-lg">
-                  <h3 className="font-medium text-gray-900 mb-1">{grant.title}</h3>
-                  <p className="text-sm text-gray-500 mb-2">{grant.funder}</p>
+                  <h3 className="font-medium text-slate-900 mb-1">{grant.title}</h3>
+                  <p className="text-sm text-slate-700 mb-2">{grant.funder}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-brand-green-600 font-medium">
                       ${(grant.amount_min / 1000).toFixed(0)}K - ${(grant.amount_max / 1000).toFixed(0)}K
                     </span>
                     {grant.deadline && (
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-slate-700">
                         Due: {new Date(grant.deadline).toLocaleDateString()}
                       </span>
                     )}
@@ -228,7 +228,7 @@ export default async function FinancialReportPage() {
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-8">No open grant opportunities</p>
+            <p className="text-slate-700 text-center py-8">No open grant opportunities</p>
           )}
         </div>
       </div>

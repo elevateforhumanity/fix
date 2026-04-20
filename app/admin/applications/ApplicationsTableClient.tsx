@@ -131,12 +131,12 @@ export default function ApplicationsTableClient({ applications }: { applications
       <table className="w-full">
         <thead className="bg-gray-50 border-b">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applicant</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
-            <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Applicant</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Contact</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Program</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Status</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-slate-700 uppercase tracking-wider">Submitted</th>
+            <th className="px-4 py-3 text-right text-xs font-medium text-slate-700 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
@@ -152,40 +152,40 @@ export default function ApplicationsTableClient({ applications }: { applications
             return (
               <tr key={app.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="font-medium text-sm text-gray-900">{displayName}</div>
+                  <div className="font-medium text-sm text-slate-900">{displayName}</div>
                   {app.city && (
-                    <div className="text-xs text-gray-500">{app.city}{app.zip ? `, ${app.zip}` : ''}</div>
+                    <div className="text-xs text-slate-700">{app.city}{app.zip ? `, ${app.zip}` : ''}</div>
                   )}
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{app.email || 'N/A'}</div>
-                  {app.phone && <div className="text-xs text-gray-500">{app.phone}</div>}
+                  <div className="text-sm text-slate-900">{app.email || 'N/A'}</div>
+                  {app.phone && <div className="text-xs text-slate-700">{app.phone}</div>}
                 </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
-                  {app.program_interest || <span className="text-gray-400">Not specified</span>}
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-slate-900">
+                  {app.program_interest || <span className="text-slate-700">Not specified</span>}
                   {!app.program_id && !['rejected', 'waitlisted'].includes(status) && (
                     <div className="text-[10px] text-amber-600 font-medium mt-0.5">⚠ No program linked</div>
                   )}
                   {app.source && (
-                    <div className="text-xs text-gray-400">{app.source.replace(/-/g, ' ')}</div>
+                    <div className="text-xs text-slate-700">{app.source.replace(/-/g, ' ')}</div>
                   )}
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${STATUS_COLORS[status] || 'bg-gray-100 text-gray-800'}`}>
+                  <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${STATUS_COLORS[status] || 'bg-gray-100 text-slate-900'}`}>
                     {STATUS_LABELS[status] || status}
                   </span>
                   {rowError[app.id] && (
                     <div className="text-[10px] text-red-600 mt-0.5">{rowError[app.id]}</div>
                   )}
                 </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-slate-700">
                   {new Date(app.created_at).toLocaleDateString('en-US')}
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
                   <div className="flex items-center justify-end gap-1.5 flex-wrap">
                     <Link
                       href={`/admin/applications/review/${app.id}`}
-                      className="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-medium rounded bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                      className="inline-flex items-center gap-1 px-2 py-1 text-[10px] font-medium rounded bg-gray-100 text-slate-900 hover:bg-gray-200 transition-colors"
                     >
                       <Eye className="w-2.5 h-2.5" /> View
                     </Link>

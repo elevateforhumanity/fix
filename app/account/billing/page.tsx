@@ -154,7 +154,7 @@ export default function BillingPage() {
   if (isPageLoading) {
     return (
       <div className="min-h-screen bg-white py-12 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+        <Loader2 className="w-8 h-8 animate-spin text-slate-700" />
       </div>
     );
   }
@@ -165,7 +165,7 @@ export default function BillingPage() {
         <div className="max-w-3xl mx-auto px-4">
           <div className="bg-white rounded-xl shadow-sm p-8 text-center">
             <AlertTriangle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
-            <h1 className="text-xl font-bold text-gray-900 mb-2">{error}</h1>
+            <h1 className="text-xl font-bold text-slate-900 mb-2">{error}</h1>
             <Link href="/login" className="text-brand-blue-600 hover:underline">
               Sign in to continue
             </Link>
@@ -180,14 +180,14 @@ export default function BillingPage() {
       <div className="min-h-screen bg-white py-12">
         <div className="max-w-3xl mx-auto px-4">
           <div className="mb-8">
-            <h1 className="text-3xl font-black text-gray-900">Billing</h1>
-            <p className="text-gray-600">Manage your subscription and payment methods</p>
+            <h1 className="text-3xl font-black text-slate-900">Billing</h1>
+            <p className="text-slate-700">Manage your subscription and payment methods</p>
           </div>
 
           <div className="bg-white rounded-xl shadow-sm p-8 text-center">
-            <CreditCard className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-gray-900 mb-2">No Active Subscription</h2>
-            <p className="text-gray-600 mb-6">
+            <CreditCard className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-slate-900 mb-2">No Active Subscription</h2>
+            <p className="text-slate-700 mb-6">
               You don't have an active subscription yet. Explore our plans to get started.
             </p>
             <Link
@@ -199,7 +199,7 @@ export default function BillingPage() {
           </div>
 
           <div className="mt-8 text-center">
-            <Link href="/account" className="text-gray-600 hover:text-gray-900">
+            <Link href="/account" className="text-slate-700 hover:text-slate-900">
               ← Back to Account
             </Link>
           </div>
@@ -223,15 +223,15 @@ export default function BillingPage() {
 
       <div className="max-w-3xl mx-auto px-4 py-12">
         <div className="mb-8">
-          <h1 className="text-3xl font-black text-gray-900">Billing</h1>
-          <p className="text-gray-600">Manage your subscription and payment methods</p>
+          <h1 className="text-3xl font-black text-slate-900">Billing</h1>
+          <p className="text-slate-700">Manage your subscription and payment methods</p>
         </div>
 
         {/* Status Card */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-1">
+              <h2 className="text-lg font-bold text-slate-900 mb-1">
                 Subscription Status
               </h2>
               <div className="flex items-center gap-2">
@@ -239,7 +239,7 @@ export default function BillingPage() {
                   <StatusIcon className="w-4 h-4" />
                   {status.label}
                 </span>
-                <span className="text-gray-600 text-sm">{status.message}</span>
+                <span className="text-slate-700 text-sm">{status.message}</span>
               </div>
             </div>
           </div>
@@ -275,11 +275,11 @@ export default function BillingPage() {
 
         {/* Plan Card */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Current Plan</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Current Plan</h2>
           <div className="flex items-center justify-between p-4 bg-white rounded-lg">
             <div>
-              <p className="font-bold text-gray-900">{plan.name} Plan</p>
-              <p className="text-gray-600">
+              <p className="font-bold text-slate-900">{plan.name} Plan</p>
+              <p className="text-slate-700">
                 ${plan.price}/{plan.interval}
               </p>
             </div>
@@ -293,10 +293,10 @@ export default function BillingPage() {
           </div>
 
           <div className="mt-4">
-            <h3 className="text-sm font-medium text-gray-700 mb-2">Included:</h3>
+            <h3 className="text-sm font-medium text-slate-900 mb-2">Included:</h3>
             <ul className="space-y-1">
               {plan.features.map((feature, idx) => (
-                <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                <li key={idx} className="flex items-center gap-2 text-sm text-slate-700">
                   <Check className="w-4 h-4 text-brand-green-600" />
                   {feature}
                 </li>
@@ -308,15 +308,15 @@ export default function BillingPage() {
         {/* Payment Method Card */}
         {license.stripeCustomerId && (
           <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Payment Method</h2>
+            <h2 className="text-lg font-bold text-slate-900 mb-4">Payment Method</h2>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                  <CreditCard className="w-5 h-5 text-gray-600" />
+                  <CreditCard className="w-5 h-5 text-slate-700" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">Payment method on file</p>
-                  <p className="text-sm text-gray-500">Managed via Stripe</p>
+                  <p className="font-medium text-slate-900">Payment method on file</p>
+                  <p className="text-sm text-slate-700">Managed via Stripe</p>
                 </div>
               </div>
               <button
@@ -332,8 +332,8 @@ export default function BillingPage() {
 
         {/* Manage Billing Button */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">Billing Portal</h2>
-          <p className="text-gray-600 mb-4">
+          <h2 className="text-lg font-bold text-slate-900 mb-2">Billing Portal</h2>
+          <p className="text-slate-700 mb-4">
             View invoices, update payment methods, change plans, or cancel your subscription.
           </p>
           <button
@@ -350,14 +350,14 @@ export default function BillingPage() {
               </>
             )}
           </button>
-          <p className="text-xs text-gray-500 mt-3">
+          <p className="text-xs text-slate-700 mt-3">
             Opens Stripe's secure billing portal
           </p>
         </div>
 
         {/* Back Link */}
         <div className="mt-8 text-center">
-          <Link href="/account" className="text-gray-600 hover:text-gray-900">
+          <Link href="/account" className="text-slate-700 hover:text-slate-900">
             ← Back to Account
           </Link>
         </div>

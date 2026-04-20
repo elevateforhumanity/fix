@@ -37,9 +37,9 @@ export default async function ReportsPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="flex items-center gap-4 mb-2">
             <BarChart3 className="w-8 h-8 text-brand-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">Reports Dashboard</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Reports Dashboard</h1>
           </div>
-          <p className="text-gray-600 ml-12">View and download reports for your programs and students.</p>
+          <p className="text-slate-700 ml-12">View and download reports for your programs and students.</p>
         </div>
       </section>
 
@@ -51,10 +51,10 @@ export default async function ReportsPage() {
               <table className="w-full">
                 <thead className="bg-white border-b">
                   <tr>
-                    <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700">Report</th>
-                    <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700 hidden md:table-cell">Type</th>
-                    <th className="text-left px-6 py-3 text-sm font-semibold text-gray-700 hidden md:table-cell">Date</th>
-                    <th className="text-right px-6 py-3 text-sm font-semibold text-gray-700">Action</th>
+                    <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900">Report</th>
+                    <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900 hidden md:table-cell">Type</th>
+                    <th className="text-left px-6 py-3 text-sm font-semibold text-slate-900 hidden md:table-cell">Date</th>
+                    <th className="text-right px-6 py-3 text-sm font-semibold text-slate-900">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -62,12 +62,12 @@ export default async function ReportsPage() {
                     <tr key={report.id} className="hover:bg-white">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <FileText className="w-5 h-5 text-gray-400" />
-                          <span className="font-medium text-gray-900">{report.title || report.name || 'Untitled Report'}</span>
+                          <FileText className="w-5 h-5 text-slate-700" />
+                          <span className="font-medium text-slate-900">{report.title || report.name || 'Untitled Report'}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-gray-600 text-sm hidden md:table-cell">{report.type || 'General'}</td>
-                      <td className="px-6 py-4 text-gray-600 text-sm hidden md:table-cell">
+                      <td className="px-6 py-4 text-slate-700 text-sm hidden md:table-cell">{report.type || 'General'}</td>
+                      <td className="px-6 py-4 text-slate-700 text-sm hidden md:table-cell">
                         {report.created_at ? new Date(report.created_at).toLocaleDateString() : '—'}
                       </td>
                       <td className="px-6 py-4 text-right">
@@ -83,9 +83,9 @@ export default async function ReportsPage() {
             </div>
           ) : (
             <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-              <BarChart3 className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No Reports Yet</h3>
-              <p className="text-gray-600 mb-6">Reports will appear here as your programs generate data.</p>
+              <BarChart3 className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No Reports Yet</h3>
+              <p className="text-slate-700 mb-6">Reports will appear here as your programs generate data.</p>
               <Link
                 href="/learner/dashboard"
                 className="bg-brand-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-blue-700 transition"

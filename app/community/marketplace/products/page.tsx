@@ -43,7 +43,7 @@ export default async function MarketplaceProductsPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Digital Products & Resources</h1>
+          <h1 className="text-4xl font-bold text-slate-900 mb-4">Digital Products & Resources</h1>
           <p className="text-xl text-black max-w-3xl mx-auto">
             Study guides, resume templates, career toolkits, and professional resources
             for workforce development students and graduates.
@@ -55,7 +55,7 @@ export default async function MarketplaceProductsPage() {
           <div className="flex flex-wrap gap-2 mb-8 justify-center">
             <span className="px-4 py-2 bg-brand-blue-600 text-white rounded-full text-sm font-medium">All</span>
             {categories.map(cat => (
-              <span key={cat} className="px-4 py-2 bg-white border rounded-full text-sm font-medium text-gray-700 hover:bg-white cursor-pointer">
+              <span key={cat} className="px-4 py-2 bg-white border rounded-full text-sm font-medium text-slate-900 hover:bg-white cursor-pointer">
                 {cat}
               </span>
             ))}
@@ -64,8 +64,8 @@ export default async function MarketplaceProductsPage() {
 
         {items.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-sm p-12 text-center">
-            <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-gray-900 mb-2">No products yet</h2>
+            <Package className="w-12 h-12 text-slate-700 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-slate-900 mb-2">No products yet</h2>
             <p className="text-black">No products listed yet. Contact us to request study guides, templates, or resources.</p>
           </div>
         ) : (
@@ -91,7 +91,7 @@ export default async function MarketplaceProductsPage() {
                         <span className="text-sm text-brand-blue-600 font-medium">{product.category}</span>
                       </div>
                     )}
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-brand-blue-600 transition">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-blue-600 transition">
                       {product.title}
                     </h3>
                     {product.description && (
@@ -99,7 +99,7 @@ export default async function MarketplaceProductsPage() {
                     )}
                     <div className="flex items-center justify-between">
                       <span className={`text-lg font-bold ${
-                        product.price === 0 ? 'text-brand-green-600' : 'text-gray-900'
+                        product.price === 0 ? 'text-brand-green-600' : 'text-slate-900'
                       }`}>
                         {product.price === 0 ? 'Free' : `$${product.price}`}
                       </span>

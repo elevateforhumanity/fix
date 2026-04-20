@@ -186,7 +186,7 @@ export default function AvatarGuide({
 
             {/* Speech bubble */}
             <div className="bg-white rounded-2xl rounded-tl-none p-4 shadow-lg mb-4 relative">
-              <p className="text-gray-800 text-base sm:text-lg leading-relaxed min-h-[60px]">
+              <p className="text-slate-900 text-base sm:text-lg leading-relaxed min-h-[60px]">
                 {displayedText}
                 {isTyping && <span className="inline-block w-2 h-5 bg-brand-orange-500 ml-1 animate-pulse" />}
               </p>

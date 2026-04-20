@@ -37,7 +37,7 @@ export function DownloadOfflineButton({ courseId, lessonUrls = [] }: DownloadOff
     return (
       <button
         disabled
-        className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm"
+        className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-slate-700 rounded-lg text-sm"
       >
         <Loader2 className="w-4 h-4 animate-spin" />
         <span>{t('offline.downloading')} {cacheProgress}%</span>
@@ -59,7 +59,7 @@ export function DownloadOfflineButton({ courseId, lessonUrls = [] }: DownloadOff
             </button>
             <button
               onClick={() => setShowConfirm(false)}
-              className="px-3 py-2 text-gray-600 hover:text-gray-900 text-sm"
+              className="px-3 py-2 text-slate-700 hover:text-slate-900 text-sm"
             >
               Cancel
             </button>

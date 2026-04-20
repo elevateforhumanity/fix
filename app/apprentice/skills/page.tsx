@@ -92,7 +92,7 @@ export default async function ApprenticeSkillsPage() {
       case 'in-progress':
         return <TrendingUp className="w-5 h-5 text-brand-blue-500" />;
       default:
-        return <Circle className="w-5 h-5 text-gray-300" />;
+        return <Circle className="w-5 h-5 text-slate-700" />;
     }
   };
 
@@ -103,7 +103,7 @@ export default async function ApprenticeSkillsPage() {
       case 'in-progress':
         return 'bg-brand-blue-100 text-brand-blue-700';
       default:
-        return 'bg-white text-gray-600';
+        return 'bg-white text-slate-700';
     }
   };
 
@@ -118,7 +118,7 @@ export default async function ApprenticeSkillsPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold">Skills Checklist</h1>
-          <p className="text-gray-600">Track your skill development and competencies</p>
+          <p className="text-slate-700">Track your skill development and competencies</p>
         </div>
 
         {/* Progress Overview */}
@@ -135,7 +135,7 @@ export default async function ApprenticeSkillsPage() {
               style={{ width: `${progressPercent}%` }}
             />
           </div>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-slate-700">
             {progressPercent.toFixed(0)}% of skills completed
           </p>
         </div>
@@ -180,7 +180,7 @@ export default async function ApprenticeSkillsPage() {
               <span>In Progress</span>
             </div>
             <div className="flex items-center gap-2">
-              <Circle className="w-5 h-5 text-gray-300" />
+              <Circle className="w-5 h-5 text-slate-700" />
               <span>Not Started</span>
             </div>
           </div>

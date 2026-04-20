@@ -36,7 +36,7 @@ export function SocialShare({ url, title, description }: SocialShareProps) {
   
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-gray-500 mr-2">Share:</span>
+      <span className="text-sm text-slate-700 mr-2">Share:</span>
       
       <a
         href={shareLinks.facebook}
@@ -89,7 +89,7 @@ export function SocialShare({ url, title, description }: SocialShareProps) {
       <button
         onClick={copyToClipboard}
         className={`w-10 h-10 flex items-center justify-center rounded-full transition ${
-          copied ? 'bg-brand-green-500 text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+          copied ? 'bg-brand-green-500 text-white' : 'bg-gray-200 text-slate-700 hover:bg-gray-300'
         }`}
         aria-label="Copy link"
       >

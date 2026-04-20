@@ -52,8 +52,8 @@ export default function EducatorHubPage() {
               <Link key={i} href={r.href} className="bg-white rounded-xl p-6 shadow-sm border hover:shadow-md transition-all flex items-start gap-4">
                 <r.icon className="w-10 h-10 text-teal-600 flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-1">{r.title}</h3>
-                  <p className="text-gray-600">{r.description}</p>
+                  <h3 className="font-bold text-slate-900 mb-1">{r.title}</h3>
+                  <p className="text-slate-700">{r.description}</p>
                 </div>
               </Link>
             ))}
@@ -64,7 +64,7 @@ export default function EducatorHubPage() {
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-4">Become an Instructor</h2>
-          <p className="text-gray-600 mb-8">Share your expertise and help others achieve their career goals.</p>
+          <p className="text-slate-700 mb-8">Share your expertise and help others achieve their career goals.</p>
           <Link href="/start" className="inline-flex items-center gap-2 bg-teal-600 text-slate-900 px-8 py-4 rounded-lg font-semibold hover:bg-teal-700">
             Apply to Teach
           </Link>

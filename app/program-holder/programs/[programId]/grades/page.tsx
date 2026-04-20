@@ -19,7 +19,7 @@ export default async function ProgramGradesPage({
     .eq('id', programId)
     .maybeSingle();
 
-  if (!program) return <div className="p-8 text-center text-gray-500">Program not found.</div>;
+  if (!program) return <div className="p-8 text-center text-slate-700">Program not found.</div>;
 
   const { data: enrollments } = await db
     .from('program_enrollments')
@@ -34,23 +34,23 @@ export default async function ProgramGradesPage({
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">
+      <h1 className="text-2xl font-bold text-slate-900 mb-6">
         Grades — {program.name || program.title}
       </h1>
 
       <div className="grid grid-cols-3 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">Total Enrollments</h3>
+          <h3 className="text-sm font-medium text-slate-700 mb-2">Total Enrollments</h3>
           <p className="text-3xl font-bold text-brand-blue-600">{items.length}</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">Active</h3>
+          <h3 className="text-sm font-medium text-slate-700 mb-2">Active</h3>
           <p className="text-3xl font-bold text-brand-green-600">
             {items.filter((i: any) => i.status === 'active').length}
           </p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">Completed</h3>
+          <h3 className="text-sm font-medium text-slate-700 mb-2">Completed</h3>
           <p className="text-3xl font-bold text-brand-blue-600">{completed}</p>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default async function ProgramGradesPage({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-gray-500 border-b">
+                <tr className="text-left text-slate-700 border-b">
                   <th className="pb-3 font-medium">Student</th>
                   <th className="pb-3 font-medium text-center">Progress</th>
                   <th className="pb-3 font-medium text-center">Grade</th>
@@ -74,8 +74,8 @@ export default async function ProgramGradesPage({
                   return (
                     <tr key={item.id} className="hover:bg-white">
                       <td className="py-3">
-                        <p className="font-medium text-gray-900">{profile?.full_name || 'Unknown'}</p>
-                        <p className="text-xs text-gray-500">{profile?.email || ''}</p>
+                        <p className="font-medium text-slate-900">{profile?.full_name || 'Unknown'}</p>
+                        <p className="text-xs text-slate-700">{profile?.email || ''}</p>
                       </td>
                       <td className="py-3 text-center font-medium">{item.progress || 0}%</td>
                       <td className="py-3 text-center font-bold">{item.grade || '—'}</td>
@@ -83,7 +83,7 @@ export default async function ProgramGradesPage({
                         <span className={`text-xs font-medium px-2 py-1 rounded ${
                           item.status === 'completed' ? 'bg-brand-green-100 text-brand-green-800' :
                           item.status === 'active' ? 'bg-brand-blue-100 text-brand-blue-800' :
-                          'bg-white text-gray-600'
+                          'bg-white text-slate-700'
                         }`}>{item.status}</span>
                       </td>
                     </tr>
@@ -94,8 +94,8 @@ export default async function ProgramGradesPage({
           </div>
         ) : (
           <div className="text-center py-8">
-            <GraduationCap className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500">No student enrollments in this program yet.</p>
+            <GraduationCap className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+            <p className="text-slate-700">No student enrollments in this program yet.</p>
           </div>
         )}
       </div>

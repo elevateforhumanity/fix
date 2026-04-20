@@ -81,13 +81,13 @@ export default async function MarketplacePage() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center gap-4 mb-8" data-tour="marketplace-filters">
-          <Filter className="w-5 h-5 text-gray-500" />
+          <Filter className="w-5 h-5 text-slate-700" />
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <Link 
                 key={cat}
                 href={cat === 'All' ? '/marketplace' : `/marketplace?category=${cat.toLowerCase()}`}
-                className={`px-4 py-2 rounded-lg text-sm ${cat === 'All' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-white'}`}
+                className={`px-4 py-2 rounded-lg text-sm ${cat === 'All' ? 'bg-indigo-600 text-white' : 'bg-white text-slate-900 hover:bg-white'}`}
               >
                 {cat}
               </Link>
@@ -113,15 +113,15 @@ export default async function MarketplacePage() {
               </div>
               <div className="p-6">
                 <span className="text-xs text-indigo-600 font-medium">{course.category}</span>
-                <h2 className="font-semibold text-gray-900 text-lg mb-1">{course.title}</h2>
-                <p className="text-sm text-gray-500 mb-3">by {course.creator_name}</p>
-                <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                <h2 className="font-semibold text-slate-900 text-lg mb-1">{course.title}</h2>
+                <p className="text-sm text-slate-700 mb-3">by {course.creator_name}</p>
+                <div className="flex items-center gap-4 text-sm text-slate-700 mb-4">
                   <span className="flex items-center gap-1"><Star className="w-4 h-4 text-yellow-400 fill-current" /> {course.rating}</span>
                   <span className="flex items-center gap-1"><Users className="w-4 h-4" /> {course.student_count?.toLocaleString()}</span>
                   <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {course.duration_hours}h</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-gray-900">${course.price}</span>
+                  <span className="text-2xl font-bold text-slate-900">${course.price}</span>
                   <span className="text-indigo-600 flex items-center gap-1 text-sm font-medium">
                     View <ChevronRight className="w-4 h-4" />
                   </span>

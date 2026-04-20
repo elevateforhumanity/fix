@@ -59,8 +59,8 @@ export default function VerifyClient({ initialId }: { initialId?: string }) {
         <div className="w-16 h-16 bg-brand-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <Award className="w-8 h-8 text-brand-orange-600" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Certificate Verification</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Certificate Verification</h1>
+        <p className="text-slate-700">
           Enter a certificate ID or verification code to verify its authenticity.
         </p>
       </div>
@@ -71,7 +71,7 @@ export default function VerifyClient({ initialId }: { initialId?: string }) {
           <div className="flex-1">
             <label htmlFor="credentialId" className="sr-only">Certificate ID</label>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700" />
               <input
                 type="text"
                 id="credentialId"
@@ -116,38 +116,38 @@ export default function VerifyClient({ initialId }: { initialId?: string }) {
               <div className="p-6 space-y-4">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                    <div className="flex items-center gap-2 text-slate-700 text-sm mb-1">
                       <User className="w-4 h-4" />
                       <span>Recipient</span>
                     </div>
-                    <p className="font-semibold text-gray-900">{resp.record.fullName}</p>
+                    <p className="font-semibold text-slate-900">{resp.record.fullName}</p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                    <div className="flex items-center gap-2 text-slate-700 text-sm mb-1">
                       <Award className="w-4 h-4" />
                       <span>Credential</span>
                     </div>
-                    <p className="font-semibold text-gray-900">{resp.record.credentialType}</p>
+                    <p className="font-semibold text-slate-900">{resp.record.credentialType}</p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                    <div className="flex items-center gap-2 text-slate-700 text-sm mb-1">
                       <Calendar className="w-4 h-4" />
                       <span>Issue Date</span>
                     </div>
-                    <p className="font-semibold text-gray-900">{fmtDate(resp.record.issuedAt)}</p>
+                    <p className="font-semibold text-slate-900">{fmtDate(resp.record.issuedAt)}</p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-1">
+                    <div className="flex items-center gap-2 text-slate-700 text-sm mb-1">
                       <Building2 className="w-4 h-4" />
                       <span>Certificate Number</span>
                     </div>
-                    <p className="font-semibold text-gray-900 font-mono">{resp.record.credentialId}</p>
+                    <p className="font-semibold text-slate-900 font-mono">{resp.record.credentialId}</p>
                   </div>
                 </div>
 
                 {resp.record.program && resp.record.program !== 'N/A' && (
                   <div className="pt-4 border-t border-gray-200">
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-slate-700">
                       <span className="font-medium">Program:</span> {resp.record.program}
                     </p>
                   </div>
@@ -155,13 +155,13 @@ export default function VerifyClient({ initialId }: { initialId?: string }) {
 
                 {resp.record.expiresAt && (
                   <div className="pt-4 border-t border-gray-200">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-slate-700">
                       <span className="font-medium">Expires:</span> {fmtDate(resp.record.expiresAt)}
                     </p>
                   </div>
                 )}
 
-                <p className="pt-2 text-xs text-gray-400">
+                <p className="pt-2 text-xs text-slate-700">
                   If you need written confirmation, contact support with the Certificate Number.
                 </p>
               </div>
@@ -182,7 +182,7 @@ export default function VerifyClient({ initialId }: { initialId?: string }) {
                 </div>
               </div>
               <div className="p-6">
-                <p className="text-gray-600 mb-4">
+                <p className="text-slate-700 mb-4">
                   Please check the certificate ID and try again. If you believe this is an error,
                   please contact our support team.
                 </p>

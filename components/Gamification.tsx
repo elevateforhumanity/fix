@@ -89,7 +89,7 @@ export function Gamification({ points, level, achievements, streak }: Gamificati
                   <div className="font-semibold text-sm mb-1">{achievement.title}</div>
                   <div className="text-xs text-black">{achievement.description}</div>
                   {achievement.progress !== undefined && (
-                    <div className="mt-2 text-xs text-gray-500">
+                    <div className="mt-2 text-xs text-slate-700">
                       {achievement.progress}/{achievement.total}
                     </div>
                   )}

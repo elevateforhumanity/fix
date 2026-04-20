@@ -156,9 +156,9 @@ function PartnerLoginPageInner() {
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-700" />
                 <input 
                   type="email" 
                   required 
@@ -171,9 +171,9 @@ function PartnerLoginPageInner() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <label className="block text-sm font-medium text-slate-900 mb-2">Password</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-700" />
                 <input 
                   type="password" 
                   required 
@@ -188,7 +188,7 @@ function PartnerLoginPageInner() {
             <div className="flex items-center justify-between">
               <label className="flex items-center">
                 <input type="checkbox" className="w-4 h-4 text-brand-blue-600 border-gray-300 rounded focus:ring-brand-blue-500" />
-                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                <span className="ml-2 text-sm text-slate-700">Remember me</span>
               </label>
               <Link href="/reset-password" className="text-sm text-brand-blue-600 hover:text-brand-blue-700">
                 Forgot password?
@@ -227,7 +227,7 @@ function PartnerLoginPageInner() {
           </div>
 
           <div className="mt-6 pt-6 border-t text-center">
-            <p className="text-gray-600">
+            <p className="text-slate-700">
               Not a partner yet?{' '}
               <Link href="/partner/onboarding" className="text-brand-blue-600 font-medium hover:text-brand-blue-700">
                 Apply here
@@ -236,7 +236,7 @@ function PartnerLoginPageInner() {
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/login" className="text-sm text-gray-500 hover:text-gray-700">
+            <Link href="/login" className="text-sm text-slate-700 hover:text-slate-900">
               Looking for student login?
             </Link>
           </div>

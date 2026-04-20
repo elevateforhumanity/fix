@@ -321,7 +321,7 @@ export default function AutomationQAPage() {
                 <CardTitle>Test Result</CardTitle>
               </CardHeader>
               <CardContent>
-                <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto max-h-96 text-sm">
+                <pre className="bg-gray-900 text-slate-700 p-4 rounded-lg overflow-auto max-h-96 text-sm">
                   {testResult}
                 </pre>
               </CardContent>

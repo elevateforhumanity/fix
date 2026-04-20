@@ -19,7 +19,7 @@ export default function InquirySuccessPage() {
           <span className="text-black flex-shrink-0">•</span>
         </div>
         
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl font-bold text-slate-900 mb-4">
           Thank You for Your Interest!
         </h1>
         
@@ -29,7 +29,7 @@ export default function InquirySuccessPage() {
         </p>
 
         <div className="bg-white rounded-lg p-4 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-3">What's Next?</h2>
+          <h2 className="font-semibold text-slate-900 mb-3">What's Next?</h2>
           <ul className="text-left text-black space-y-2">
             <li>• Check your email for confirmation</li>
             <li>• Expect a call from our admissions team</li>

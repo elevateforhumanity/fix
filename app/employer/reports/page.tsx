@@ -80,19 +80,19 @@ export default async function EmployerReportsPage() {
       <h1 className="text-3xl font-bold mb-6">Reports & Analytics</h1>
 
       <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-        <p className="text-gray-600 mb-6">Hiring metrics and workforce analytics.</p>
+        <p className="text-slate-700 mb-6">Hiring metrics and workforce analytics.</p>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="border rounded-lg p-4 text-center">
             <div className="text-3xl font-bold text-brand-blue-600 mb-2">{activePostings ?? 0}</div>
-            <div className="text-sm text-gray-600">Active Postings</div>
+            <div className="text-sm text-slate-700">Active Postings</div>
           </div>
           <div className="border rounded-lg p-4 text-center">
             <div className="text-3xl font-bold text-brand-green-600 mb-2">{totalApplications ?? 0}</div>
-            <div className="text-sm text-gray-600">Applications</div>
+            <div className="text-sm text-slate-700">Applications</div>
           </div>
           <div className="border rounded-lg p-4 text-center">
             <div className="text-3xl font-bold text-brand-blue-600 mb-2">{hires ?? 0}</div>
-            <div className="text-sm text-gray-600">Hires</div>
+            <div className="text-sm text-slate-700">Hires</div>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default async function EmployerReportsPage() {
               ['Hired', hires ?? 0],
             ].map(([label, val]) => (
               <div key={label as string} className="flex justify-between items-center">
-                <span className="text-gray-600">{label}</span>
+                <span className="text-slate-700">{label}</span>
                 <span className="font-semibold">{val}</span>
               </div>
             ))}
@@ -119,11 +119,11 @@ export default async function EmployerReportsPage() {
           <h3 className="text-lg font-semibold mb-4">Time to Hire</h3>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Average Days</span>
+              <span className="text-slate-700">Average Days</span>
               <span className="font-semibold">{avgDaysToHire != null ? `${avgDaysToHire}d` : '—'}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Total Placements</span>
+              <span className="text-slate-700">Total Placements</span>
               <span className="font-semibold">{placements?.length ?? 0}</span>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default async function EmployerReportsPage() {
               ['Referrals', referrals ?? 0],
             ].map(([label, val]) => (
               <div key={label as string} className="flex justify-between items-center">
-                <span className="text-gray-600">{label}</span>
+                <span className="text-slate-700">{label}</span>
                 <span className="font-semibold">{val}</span>
               </div>
             ))}

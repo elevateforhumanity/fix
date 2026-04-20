@@ -81,15 +81,15 @@ export default function GenerateReportPage() {
       </div>
 <div className="bg-white border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/ferpa" className="hover:text-gray-700">FERPA Portal</Link>
+          <nav className="flex items-center gap-2 text-sm text-slate-700 mb-4">
+            <Link href="/ferpa" className="hover:text-slate-900">FERPA Portal</Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href="/ferpa/reports" className="hover:text-gray-700">Reports</Link>
+            <Link href="/ferpa/reports" className="hover:text-slate-900">Reports</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Generate</span>
+            <span className="text-slate-900 font-medium">Generate</span>
           </nav>
-          <h1 className="text-2xl font-bold text-gray-900">Generate Report</h1>
-          <p className="text-gray-600 mt-1">Create a custom FERPA compliance report</p>
+          <h1 className="text-2xl font-bold text-slate-900">Generate Report</h1>
+          <p className="text-slate-700 mt-1">Create a custom FERPA compliance report</p>
         </div>
       </div>
 
@@ -99,8 +99,8 @@ export default function GenerateReportPage() {
             <div className="w-16 h-16 bg-brand-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <FileText className="w-8 h-8 text-brand-green-600" />
             </div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Report Generated</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">Report Generated</h2>
+            <p className="text-slate-700 mb-6">
               Your {REPORT_TYPES.find(t => t.value === formData.reportType)?.label} is ready for download.
             </p>
             <div className="flex items-center justify-center gap-4">
@@ -110,7 +110,7 @@ export default function GenerateReportPage() {
               </button>
               <button
                 onClick={() => setGenerated(false)}
-                className="px-4 py-2 text-gray-700 hover:text-gray-900"
+                className="px-4 py-2 text-slate-900 hover:text-slate-900"
               >
                 Generate Another
               </button>
@@ -120,7 +120,7 @@ export default function GenerateReportPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Report Type */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <BarChart3 className="w-5 h-5" />
                 Report Type
               </h2>
@@ -141,7 +141,7 @@ export default function GenerateReportPage() {
                       checked={formData.reportType === type.value}
                       onChange={(e) => setFormData({ ...formData, reportType: e.target.value })}
                     />
-                    <span className="font-medium text-gray-900">{type.label}</span>
+                    <span className="font-medium text-slate-900">{type.label}</span>
                   </label>
                 ))}
               </div>
@@ -149,13 +149,13 @@ export default function GenerateReportPage() {
 
             {/* Date Range */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <Calendar className="w-5 h-5" />
                 Date Range
               </h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="startDate" className="block text-sm font-medium text-slate-900 mb-1">
                     Start Date
                   </label>
                   <input
@@ -167,7 +167,7 @@ export default function GenerateReportPage() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="endDate" className="block text-sm font-medium text-slate-900 mb-1">
                     End Date
                   </label>
                   <input
@@ -183,10 +183,10 @@ export default function GenerateReportPage() {
 
             {/* Options */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Options</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Options</h2>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="format" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="format" className="block text-sm font-medium text-slate-900 mb-1">
                     Export Format
                   </label>
                   <select
@@ -207,14 +207,14 @@ export default function GenerateReportPage() {
                     onChange={(e) => setFormData({ ...formData, includeDetails: e.target.checked })}
                     className="rounded"
                   />
-                  <span className="text-sm text-gray-700">Include detailed records (larger file size)</span>
+                  <span className="text-sm text-slate-900">Include detailed records (larger file size)</span>
                 </label>
               </div>
             </div>
 
             {/* Submit */}
             <div className="flex items-center justify-end gap-4">
-              <Link href="/ferpa/reports" className="px-4 py-2 text-gray-700 hover:text-gray-900">
+              <Link href="/ferpa/reports" className="px-4 py-2 text-slate-900 hover:text-slate-900">
                 Cancel
               </Link>
               <button

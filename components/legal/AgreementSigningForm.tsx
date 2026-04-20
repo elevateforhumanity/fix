@@ -130,8 +130,8 @@ export default function AgreementSigningForm({
     return (
       <div className="text-center py-8">
         <span className="text-slate-500 flex-shrink-0">•</span>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">All Agreements Signed</h3>
-        <p className="text-gray-600">You have already accepted all required agreements.</p>
+        <h3 className="text-xl font-bold text-slate-900 mb-2">All Agreements Signed</h3>
+        <p className="text-slate-700">You have already accepted all required agreements.</p>
       </div>
     );
   }
@@ -148,8 +148,8 @@ export default function AgreementSigningForm({
       {step === 'review' && (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Review Required Agreements</h2>
-            <p className="text-gray-600">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">Review Required Agreements</h2>
+            <p className="text-slate-700">
               Please review each agreement before signing. Click on each agreement to read it.
             </p>
           </div>
@@ -170,9 +170,9 @@ export default function AgreementSigningForm({
                     {isReviewed ? (
                       <span className="text-slate-500 flex-shrink-0">•</span>
                     ) : (
-                      <Circle className="w-5 h-5 text-gray-400" />
+                      <Circle className="w-5 h-5 text-slate-700" />
                     )}
-                    <span className="font-medium text-gray-900">{agreement.label}</span>
+                    <span className="font-medium text-slate-900">{agreement.label}</span>
                   </div>
                   <Link
                     href={agreement.url}
@@ -209,8 +209,8 @@ export default function AgreementSigningForm({
       {step === 'sign' && (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Sign Agreements</h2>
-            <p className="text-gray-600">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">Sign Agreements</h2>
+            <p className="text-slate-700">
               Complete the information below to digitally sign the agreements.
             </p>
           </div>
@@ -218,7 +218,7 @@ export default function AgreementSigningForm({
           {/* Signer Information */}
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Full Legal Name <span className="text-brand-red-500">*</span>
               </label>
               <input
@@ -232,7 +232,7 @@ export default function AgreementSigningForm({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Email Address <span className="text-brand-red-500">*</span>
               </label>
               <input
@@ -246,7 +246,7 @@ export default function AgreementSigningForm({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Title/Position (if signing on behalf of an organization)
               </label>
               <input
@@ -261,7 +261,7 @@ export default function AgreementSigningForm({
 
           {/* Signature Method Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">
+            <label className="block text-sm font-medium text-slate-900 mb-3">
               Signature Method
             </label>
             <div className="flex gap-2">
@@ -271,7 +271,7 @@ export default function AgreementSigningForm({
                 className={`flex-1 py-2 px-4 rounded-lg border-2 font-medium transition ${
                   signatureMethod === 'typed'
                     ? 'border-brand-blue-600 bg-brand-blue-50 text-brand-blue-700'
-                    : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                    : 'border-gray-200 text-slate-700 hover:border-gray-300'
                 }`}
               >
                 Type Signature
@@ -282,7 +282,7 @@ export default function AgreementSigningForm({
                 className={`flex-1 py-2 px-4 rounded-lg border-2 font-medium transition ${
                   signatureMethod === 'drawn'
                     ? 'border-brand-blue-600 bg-brand-blue-50 text-brand-blue-700'
-                    : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                    : 'border-gray-200 text-slate-700 hover:border-gray-300'
                 }`}
               >
                 Draw Signature
@@ -293,7 +293,7 @@ export default function AgreementSigningForm({
           {/* Signature Input */}
           {signatureMethod === 'typed' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 mb-1">
                 Type Your Signature <span className="text-brand-red-500">*</span>
               </label>
               <input
@@ -306,9 +306,9 @@ export default function AgreementSigningForm({
               />
               {typedSignature && (
                 <div className="mt-3 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                  <p className="text-sm text-gray-500 mb-1">Signature Preview:</p>
+                  <p className="text-sm text-slate-700 mb-1">Signature Preview:</p>
                   <p
-                    className="text-3xl text-gray-900"
+                    className="text-3xl text-slate-900"
                     style={{ fontFamily: "'Brush Script MT', cursive" }}
                   >
                     {typedSignature}
@@ -320,7 +320,7 @@ export default function AgreementSigningForm({
 
           {signatureMethod === 'drawn' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-900 mb-2">
                 Draw Your Signature <span className="text-brand-red-500">*</span>
               </label>
               <SignatureCanvas
@@ -340,7 +340,7 @@ export default function AgreementSigningForm({
                 onChange={(e) => setAcknowledged(e.target.checked)}
                 className="mt-1 w-5 h-5 text-brand-blue-600 rounded border-gray-300 focus:ring-brand-blue-500"
               />
-              <span className="text-sm text-gray-700">
+              <span className="text-sm text-slate-900">
                 I confirm that I have read and understand all agreements listed above. I agree to
                 be legally bound by these agreements. I understand that this electronic signature
                 has the same legal effect as a handwritten signature. I am authorized to sign on
@@ -369,7 +369,7 @@ export default function AgreementSigningForm({
             <button
               type="button"
               onClick={() => setStep('review')}
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition"
+              className="px-6 py-3 border border-gray-300 text-slate-900 font-medium rounded-lg hover:bg-gray-50 transition"
             >
               Back
             </button>
@@ -382,7 +382,7 @@ export default function AgreementSigningForm({
             </button>
           </div>
 
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-slate-700 text-center">
             By clicking "Sign Agreements", you agree that your electronic signature is the legal
             equivalent of your manual signature on these agreements. Timestamp and IP address will
             be recorded.

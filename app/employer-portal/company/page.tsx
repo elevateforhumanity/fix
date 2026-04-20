@@ -66,8 +66,8 @@ export default async function CompanyProfilePage() {
           <div className="w-16 h-16 bg-brand-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Building className="w-8 h-8 text-brand-blue-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Set Up Your Company Profile</h1>
-          <p className="text-gray-600 mb-8">
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Set Up Your Company Profile</h1>
+          <p className="text-slate-700 mb-8">
             Create your company profile to start posting jobs and connecting with qualified candidates.
           </p>
           <Link
@@ -134,7 +134,7 @@ export default async function CompanyProfilePage() {
             <div className="flex flex-col md:flex-row md:items-end gap-6">
               <div className="relative -mt-20 md:-mt-24">
                 <div className="w-[120px] h-[120px] rounded-xl border-4 border-white shadow-lg bg-white flex items-center justify-center">
-                  <Building className="w-12 h-12 text-gray-400" />
+                  <Building className="w-12 h-12 text-slate-700" />
                 </div>
                 <Link 
                   href="/employer-portal/company/setup"
@@ -145,9 +145,9 @@ export default async function CompanyProfilePage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
+                  <h1 className="text-2xl font-bold text-slate-900">{companyData.name}</h1>
                   {companyData.dba && (
-                    <span className="text-gray-500">DBA: {companyData.dba}</span>
+                    <span className="text-slate-700">DBA: {companyData.dba}</span>
                   )}
                   {companyData.verified ? (
                     <span className="px-3 py-1 bg-brand-green-100 text-brand-green-700 text-sm font-medium rounded-full flex items-center gap-1">
@@ -161,7 +161,7 @@ export default async function CompanyProfilePage() {
                     </span>
                   )}
                 </div>
-                <div className="flex flex-wrap items-center gap-4 text-gray-600">
+                <div className="flex flex-wrap items-center gap-4 text-slate-700">
                   <span className="flex items-center gap-1">
                     <Building className="w-4 h-4" />
                     {companyData.industry}
@@ -194,43 +194,43 @@ export default async function CompanyProfilePage() {
           <div className="lg:col-span-2 space-y-8">
             {/* About */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">About Us</h2>
-              <p className="text-gray-600">{companyData.description}</p>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">About Us</h2>
+              <p className="text-slate-700">{companyData.description}</p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white rounded-xl shadow-sm p-6 text-center">
                 <Briefcase className="w-8 h-8 text-brand-blue-600 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-gray-900">{stats.activeJobs}</p>
-                <p className="text-sm text-gray-600">Active Jobs</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.activeJobs}</p>
+                <p className="text-sm text-slate-700">Active Jobs</p>
               </div>
               <div className="bg-white rounded-xl shadow-sm p-6 text-center">
                 <Users className="w-8 h-8 text-brand-blue-600 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-gray-900">{stats.totalHires}</p>
-                <p className="text-sm text-gray-600">Total Hires</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.totalHires}</p>
+                <p className="text-sm text-slate-700">Total Hires</p>
               </div>
               <div className="bg-white rounded-xl shadow-sm p-6 text-center">
                 <Award className="w-8 h-8 text-brand-green-600 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-gray-900">{stats.wotcCredits}</p>
-                <p className="text-sm text-gray-600">WOTC Credits</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.wotcCredits}</p>
+                <p className="text-sm text-slate-700">WOTC Credits</p>
               </div>
               <div className="bg-white rounded-xl shadow-sm p-6 text-center">
                 <span className="text-slate-500 flex-shrink-0">•</span>
-                <p className="text-2xl font-bold text-gray-900">{stats.avgTimeToHire}</p>
-                <p className="text-sm text-gray-600">Avg. Time to Hire</p>
+                <p className="text-2xl font-bold text-slate-900">{stats.avgTimeToHire}</p>
+                <p className="text-sm text-slate-700">Avg. Time to Hire</p>
               </div>
             </div>
 
             {/* Benefits */}
             {companyData.benefits.length > 0 && (
               <div className="bg-white rounded-xl shadow-sm p-6">
-                <h2 className="text-lg font-bold text-gray-900 mb-4">Benefits &amp; Perks</h2>
+                <h2 className="text-lg font-bold text-slate-900 mb-4">Benefits &amp; Perks</h2>
                 <div className="grid md:grid-cols-3 gap-4">
                   {companyData.benefits.map((benefit: string, index: number) => (
                     <div key={index} className="flex items-center gap-2 p-3 bg-white rounded-lg">
                       <span className="text-slate-500 flex-shrink-0">•</span>
-                      <span className="text-gray-700">{benefit}</span>
+                      <span className="text-slate-900">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -242,11 +242,11 @@ export default async function CompanyProfilePage() {
           <div className="space-y-6">
             {/* Contact Info */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="font-bold text-gray-900 mb-4">Contact Information</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Contact Information</h3>
               <div className="space-y-4">
                 {companyData.website && (
                   <div className="flex items-center gap-3">
-                    <Globe className="w-5 h-5 text-gray-400" />
+                    <Globe className="w-5 h-5 text-slate-700" />
                     <a href={`https://${companyData.website}`} target="_blank" rel="noopener noreferrer" className="text-brand-blue-600 hover:underline">
                       {companyData.website}
                     </a>
@@ -254,24 +254,24 @@ export default async function CompanyProfilePage() {
                 )}
                 {companyData.phone && (
                   <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-gray-400" />
-                    <a href={`tel:${companyData.phone}`} className="text-gray-700 hover:text-brand-blue-600">
+                    <Phone className="w-5 h-5 text-slate-700" />
+                    <a href={`tel:${companyData.phone}`} className="text-slate-900 hover:text-brand-blue-600">
                       {companyData.phone}
                     </a>
                   </div>
                 )}
                 {companyData.email && (
                   <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-gray-400" />
-                    <a href={`mailto:${companyData.email}`} className="text-gray-700 hover:text-brand-blue-600">
+                    <Mail className="w-5 h-5 text-slate-700" />
+                    <a href={`mailto:${companyData.email}`} className="text-slate-900 hover:text-brand-blue-600">
                       {companyData.email}
                     </a>
                   </div>
                 )}
                 {companyData.address !== 'Not specified' && (
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
-                    <span className="text-gray-700">{companyData.address}</span>
+                    <MapPin className="w-5 h-5 text-slate-700 mt-0.5" />
+                    <span className="text-slate-900">{companyData.address}</span>
                   </div>
                 )}
               </div>
@@ -279,7 +279,7 @@ export default async function CompanyProfilePage() {
 
             {/* Quick Actions */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="font-bold text-gray-900 mb-4">Quick Actions</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <Link
                   href="/employer/jobs/new"
@@ -295,7 +295,7 @@ export default async function CompanyProfilePage() {
                 </Link>
                 <Link
                   href="/employer/wotc"
-                  className="block w-full px-4 py-3 border border-gray-300 text-gray-700 text-center rounded-lg hover:bg-white transition"
+                  className="block w-full px-4 py-3 border border-gray-300 text-slate-900 text-center rounded-lg hover:bg-white transition"
                 >
                   View WOTC Status
                 </Link>

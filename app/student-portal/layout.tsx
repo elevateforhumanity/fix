@@ -39,7 +39,7 @@ export default function StudentPortalLayout({
               <Link href="/student-portal" className="text-lg font-bold text-brand-blue-700">Student Portal</Link>
               <div className="hidden md:flex items-center gap-4">
                 {navItems.map((item) => (
-                  <Link key={item.href} href={item.href} className="text-sm text-gray-600 hover:text-brand-blue-700">{item.label}</Link>
+                  <Link key={item.href} href={item.href} className="text-sm text-slate-700 hover:text-brand-blue-700">{item.label}</Link>
                 ))}
               </div>
             </div>

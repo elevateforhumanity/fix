@@ -132,7 +132,7 @@ export default function LiveChatPage() {
               <h3 className="font-medium text-black mb-2">
                 3. Add to Environment Variables
               </h3>
-              <div className="bg-slate-800 text-gray-100 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-slate-800 text-slate-700 p-4 rounded-lg font-mono text-sm">
                 <div>NEXT_PUBLIC_TAWK_PROPERTY_ID=your_property_id</div>
                 <div>NEXT_PUBLIC_TAWK_WIDGET_ID=your_widget_id</div>
               </div>

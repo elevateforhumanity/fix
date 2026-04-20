@@ -77,7 +77,7 @@ export function EditCourseForm({ course, programs }: Props) {
       )}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-slate-900 mb-2">
           Course Title <span className="text-brand-red-500">*</span>
         </label>
         <input
@@ -90,7 +90,7 @@ export function EditCourseForm({ course, programs }: Props) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-slate-900 mb-2">
           Description
         </label>
         <textarea
@@ -103,7 +103,7 @@ export function EditCourseForm({ course, programs }: Props) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Program
           </label>
           <select
@@ -120,7 +120,7 @@ export function EditCourseForm({ course, programs }: Props) {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-900 mb-2">
             Duration (hours)
           </label>
           <input
@@ -141,7 +141,7 @@ export function EditCourseForm({ course, programs }: Props) {
           onChange={(e) => setIsPublished(e.target.checked)}
           className="h-4 w-4 rounded border-gray-300 text-brand-blue-600 focus:ring-brand-blue-500"
         />
-        <label htmlFor="is_published" className="text-sm text-gray-700">
+        <label htmlFor="is_published" className="text-sm text-slate-900">
           Published
         </label>
       </div>
@@ -161,13 +161,13 @@ export function EditCourseForm({ course, programs }: Props) {
         </button>
         <Link
           href={`/admin/courses/${course.id}/content`}
-          className="px-4 py-2.5 border rounded-lg hover:bg-gray-50 text-gray-700"
+          className="px-4 py-2.5 border rounded-lg hover:bg-gray-50 text-slate-900"
         >
           Manage Lessons
         </Link>
         <Link
           href="/admin/courses"
-          className="px-4 py-2.5 border rounded-lg hover:bg-gray-50 text-gray-700"
+          className="px-4 py-2.5 border rounded-lg hover:bg-gray-50 text-slate-900"
         >
           Back
         </Link>

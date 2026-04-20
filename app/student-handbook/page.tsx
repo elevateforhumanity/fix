@@ -82,7 +82,7 @@ export default async function StudentHandbookPage() {
               </div>
               <div>
                 <h2 className="font-semibold text-lg">Student Handbook 2024</h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-700">
                   Last updated: {handbook?.updated_at ? new Date(handbook.updated_at).toLocaleDateString() : 'January 2024'}
                 </p>
               </div>
@@ -117,7 +117,7 @@ export default async function StudentHandbookPage() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-medium">{section.title}</h3>
-                  <p className="text-sm text-gray-500">{section.description}</p>
+                  <p className="text-sm text-slate-700">{section.description}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-brand-blue-600" />
               </Link>
@@ -143,13 +143,13 @@ export default async function StudentHandbookPage() {
 
           <section id="section-1"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">1. Welcome & Mission</h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               Elevate for Humanity provides career training, credentialing, and job placement support
               to job seekers, returning citizens, veterans, and underserved communities across Indiana.
               Our programs are designed to get you employed in a skilled trade or career field with
               industry-recognized credentials.
             </p>
-            <p className="text-gray-700">
+            <p className="text-slate-900">
               You are here because you chose to invest in yourself. We take that seriously. In return,
               we expect you to show up, do the work, and conduct yourself as the professional you are
               training to become.
@@ -158,10 +158,10 @@ export default async function StudentHandbookPage() {
 
           <section id="section-2"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">2. Program Expectations</h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               These are not suggestions. They are the minimum standards required to remain enrolled.
             </p>
-            <ul className="space-y-3 text-gray-700">
+            <ul className="space-y-3 text-slate-900">
               {[
                 'Attend every scheduled session. Attendance is tracked and reported to funding agencies.',
                 'Arrive on time. Arriving more than 15 minutes late counts as a half-absence.',
@@ -180,12 +180,12 @@ export default async function StudentHandbookPage() {
 
           <section id="section-3"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">3. Attendance Policy</h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               <strong>Minimum 80% attendance is required to remain in good standing.</strong> This is
               not a guideline — it is a condition of your enrollment and, for funded students, a
               condition of your funding.
             </p>
-            <div className="space-y-3 text-gray-700">
+            <div className="space-y-3 text-slate-900">
               <p><strong>Excused absences:</strong> Notify your program coordinator within 24 hours of any absence. Documentation may be required (medical, court, emergency). Excused absences still count toward your attendance percentage.</p>
               <p><strong>Unexcused absences:</strong> Three consecutive unexcused absences will result in a probation notice. A fourth may result in dismissal from the program.</p>
               <p><strong>Tardiness:</strong> Arriving more than 15 minutes late counts as a half-absence. Leaving more than 15 minutes early counts as a half-absence.</p>
@@ -201,12 +201,12 @@ export default async function StudentHandbookPage() {
 
           <section id="section-4"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">4. Code of Conduct</h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               You are training to enter a professional field. The conduct standards here mirror what
               employers expect. Violating them is not just a handbook issue — it reflects on your
               readiness for employment.
             </p>
-            <div className="space-y-3 text-gray-700 mb-4">
+            <div className="space-y-3 text-slate-900 mb-4">
               <p><strong>Treat everyone with respect.</strong> This includes fellow students, instructors, staff, and anyone you encounter at employer sites. Harassment, bullying, or discrimination of any kind will result in immediate dismissal.</p>
               <p><strong>No weapons, alcohol, or illegal substances</strong> on any training site or employer site, at any time. Violation results in immediate dismissal with no appeal.</p>
               <p><strong>No recording</strong> of instructors, staff, or fellow students without explicit consent.</p>
@@ -226,11 +226,11 @@ export default async function StudentHandbookPage() {
 
           <section id="section-5"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">5. Academic Integrity</h2>
-            <p className="text-gray-700 mb-3">
+            <p className="text-slate-900 mb-3">
               Your credentials mean something because they are earned. Cheating undermines that — for
               you and for every other student in the program.
             </p>
-            <ul className="space-y-2 text-gray-700">
+            <ul className="space-y-2 text-slate-900">
               <li className="flex items-start gap-2"><span className="text-brand-blue-600 font-bold mt-0.5">—</span> All submitted work must be your own.</li>
               <li className="flex items-start gap-2"><span className="text-brand-blue-600 font-bold mt-0.5">—</span> Plagiarism or cheating on any exam or assessment results in immediate dismissal from the program.</li>
               <li className="flex items-start gap-2"><span className="text-brand-blue-600 font-bold mt-0.5">—</span> AI-generated content submitted as your own original work is prohibited.</li>
@@ -240,11 +240,11 @@ export default async function StudentHandbookPage() {
 
           <section id="section-6"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">6. Your Rights as a Student</h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               These rights are guaranteed. Elevate is obligated to honor them. If you believe any
               have been violated, you have the right to file a grievance without retaliation.
             </p>
-            <ul className="space-y-3 text-gray-700">
+            <ul className="space-y-3 text-slate-900">
               <li><strong>Right to a safe, respectful learning environment.</strong> No student should feel unsafe or disrespected at any Elevate training site.</li>
               <li><strong>Right to inspect your educational records under FERPA.</strong> You may request to view your records at any time. Contact your program coordinator.</li>
               <li><strong>Right to reasonable accommodations</strong> for documented disabilities under the ADA and Section 504. Request accommodations at enrollment — do not wait until you are struggling.</li>
@@ -256,7 +256,7 @@ export default async function StudentHandbookPage() {
 
           <section id="section-7"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">7. Support Services</h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-slate-900 mb-4">
               These services exist to help you succeed. Use them. Asking for help is not a sign of
               weakness — it is what professionals do.
             </p>
@@ -269,7 +269,7 @@ export default async function StudentHandbookPage() {
               ].map((s) => (
                 <div key={s.title} className="p-4 bg-white rounded-lg">
                   <h3 className="font-semibold mb-1">{s.title}</h3>
-                  <p className="text-sm text-gray-600">{s.desc}</p>
+                  <p className="text-sm text-slate-700">{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -277,27 +277,27 @@ export default async function StudentHandbookPage() {
 
           <section id="section-8"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">8. Grievance Procedure</h2>
-            <p className="text-gray-700 mb-3">
+            <p className="text-slate-900 mb-3">
               If you have a complaint about a student, instructor, staff member, or program condition:
             </p>
-            <ol className="space-y-3 text-gray-700 list-decimal list-inside">
+            <ol className="space-y-3 text-slate-900 list-decimal list-inside">
               <li><strong>Step 1:</strong> Speak with your program coordinator. Most issues are resolved here within 2 business days.</li>
               <li><strong>Step 2:</strong> If unresolved within 5 business days, submit a written grievance to <strong>elevate4humanityedu@gmail.com</strong> with subject line &quot;Student Grievance.&quot;</li>
               <li><strong>Step 3:</strong> Elevate will respond in writing within 10 business days.</li>
               <li><strong>Step 4:</strong> If still unresolved, you may contact the Indiana Commission for Higher Education or the U.S. Department of Education.</li>
             </ol>
-            <p className="text-sm text-gray-500 mt-3">
+            <p className="text-sm text-slate-700 mt-3">
               Filing a grievance will not affect your enrollment status or result in retaliation of any kind.
             </p>
           </section>
 
           <section id="section-9"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">9. Disciplinary Process</h2>
-            <p className="text-gray-700 mb-3">
+            <p className="text-slate-900 mb-3">
               For most violations, the process is: verbal warning → written warning → probation → dismissal.
               Serious violations skip directly to dismissal (see Section 4).
             </p>
-            <p className="text-gray-700">
+            <p className="text-slate-900">
               You have the right to respond in writing to any written warning or probation notice within
               5 business days. Your response will be placed in your file and considered before any
               further action is taken.
@@ -306,7 +306,7 @@ export default async function StudentHandbookPage() {
 
           <section id="section-10"className="rounded-xl shadow-sm border p-6">
             <h2 className="text-xl font-bold mb-4">10. Contact</h2>
-            <div className="space-y-1 text-gray-700">
+            <div className="space-y-1 text-slate-900">
               <p><strong>Program Coordinator:</strong> Assigned at enrollment</p>
               <p><strong>Phone:</strong> (317) 314-3757</p>
               <p><strong>Email:</strong> elevate4humanityedu@gmail.com</p>
@@ -324,7 +324,7 @@ export default async function StudentHandbookPage() {
               <input type="hidden" name="type" value="student" />
               <label className="flex items-start gap-3 mb-4">
                 <input type="checkbox" name="confirm" required className="mt-1" />
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-slate-700">
                   I have read and understand the Student Handbook. I agree to abide by all policies and procedures.
                 </span>
               </label>

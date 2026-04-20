@@ -167,7 +167,7 @@ export default function CompetencyTracking() {
                     </span>
                   </div>
                   <p className="text-sm text-black">{competency.category}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-slate-700">
                     {competency.assessments} assessments • Last assessed: {competency.lastAssessed}
                   </p>
                 </div>

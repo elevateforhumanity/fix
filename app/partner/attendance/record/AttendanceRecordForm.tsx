@@ -68,8 +68,8 @@ export default function AttendanceRecordForm({
     return (
       <div className="text-center py-12">
         <span className="text-slate-500 flex-shrink-0">•</span>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Attendance Recorded!</h2>
-        <p className="text-gray-600">Redirecting...</p>
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">Attendance Recorded!</h2>
+        <p className="text-slate-700">Redirecting...</p>
       </div>
     );
   }
@@ -78,7 +78,7 @@ export default function AttendanceRecordForm({
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
+          <label className="block text-sm font-medium text-slate-900 mb-2">Date</label>
           <input 
             type="date" 
             value={date} 
@@ -87,7 +87,7 @@ export default function AttendanceRecordForm({
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Course</label>
+          <label className="block text-sm font-medium text-slate-900 mb-2">Course</label>
           <select 
             value={courseId} 
             onChange={(e) => setCourseId(e.target.value)}
@@ -102,11 +102,11 @@ export default function AttendanceRecordForm({
       </div>
 
       <div>
-        <h3 className="font-semibold text-gray-900 mb-4">Students ({attendance.length})</h3>
+        <h3 className="font-semibold text-slate-900 mb-4">Students ({attendance.length})</h3>
         <div className="space-y-2">
           {attendance.map((student, i) => (
             <div key={student.id} className="flex items-center justify-between p-3 bg-white rounded-lg">
-              <span className="font-medium text-gray-900">{student.name}</span>
+              <span className="font-medium text-slate-900">{student.name}</span>
               <div className="flex gap-4">
                 <label className="flex items-center cursor-pointer">
                   <input 

@@ -80,7 +80,7 @@ export default async function HelpArticlesPage() {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Browse by Category</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Browse by Category</h2>
             <div className="grid md:grid-cols-2 gap-4">
               {categories.map((category) => (
                 <Link 
@@ -94,18 +94,18 @@ export default async function HelpArticlesPage() {
                         <FileText className="w-5 h-5 text-brand-blue-600" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900">{category.name}</h3>
-                        <p className="text-sm text-gray-500">{category.article_count} articles</p>
+                        <h3 className="font-semibold text-slate-900">{category.name}</h3>
+                        <p className="text-sm text-slate-700">{category.article_count} articles</p>
                       </div>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                    <ChevronRight className="w-5 h-5 text-slate-700" />
                   </div>
                 </Link>
               ))}
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Popular Articles</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Popular Articles</h2>
             <div className="bg-white rounded-xl shadow-sm divide-y">
               {popularArticles.map((article) => (
                 <Link 
@@ -113,8 +113,8 @@ export default async function HelpArticlesPage() {
                   href={`/help/articles/article/${article.slug || article.id}`} 
                   className="block p-4 hover:bg-white"
                 >
-                  <h3 className="font-medium text-gray-900 mb-1">{article.title}</h3>
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <h3 className="font-medium text-slate-900 mb-1">{article.title}</h3>
+                  <div className="flex items-center gap-4 text-sm text-slate-700">
                     <span>{article.category}</span>
                     <span className="flex items-center gap-1"><Eye className="w-4 h-4" /> {article.view_count?.toLocaleString()}</span>
                   </div>

@@ -296,7 +296,7 @@ label="English" />}
         <div className="absolute inset-0 flex items-center justify-center bg-black/80 text-white p-4 text-center">
           <div>
             <p className="text-lg font-semibold mb-2">Video Error</p>
-            <p className="text-sm text-gray-300">{error}</p>
+            <p className="text-sm text-slate-700">{error}</p>
           </div>
         </div>
       )}
