@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -61,44 +61,7 @@ export default function FranchiseAdminDashboard() {
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-  useEffect(() => {
-    checkAuthAndLoadData();
-  }, [selectedYear]);
-
-  async function checkAuthAndLoadData() {
-    try {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        window.location.href = '/login';
-        return;
-      }
-
-      // Check if user is admin
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .maybeSingle();
-
-      if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
-        setAuthorized(false);
-        setLoading(false);
-        return;
-      }
-
-      setAuthorized(true);
-      await loadDashboardData();
-
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function loadDashboardData() {
+  const loadDashboardData = useCallback(async () => {
     const supabase = createClient();
 
     // Load offices
@@ -170,7 +133,44 @@ export default function FranchiseAdminDashboard() {
       }));
       setRecentActivity(activities);
     }
-  }
+  }, [selectedYear]);
+
+  const checkAuthAndLoadData = useCallback(async () => {
+    try {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        window.location.href = '/login';
+        return;
+      }
+
+      // Check if user is admin
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
+        setAuthorized(false);
+        setLoading(false);
+        return;
+      }
+
+      setAuthorized(true);
+      await loadDashboardData();
+
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [loadDashboardData]);
+
+  useEffect(() => {
+    void checkAuthAndLoadData();
+  }, [checkAuthAndLoadData]);
 
   function formatActivityDescription(log: any): string {
     switch (log.action) {

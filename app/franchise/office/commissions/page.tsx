@@ -2,7 +2,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -64,11 +64,7 @@ export default function CommissionsPage() {
     { value: '12', label: 'December' },
   ];
 
-  useEffect(() => {
-    loadData();
-  }, [selectedYear, selectedMonth]);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       const supabase = createClient();
@@ -155,7 +151,11 @@ export default function CommissionsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [selectedMonth, selectedYear]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   function exportCSV() {
     const headers = ['Preparer', 'PTIN', 'Commission Type', 'Returns', 'Client Fees', 'Commission'];
