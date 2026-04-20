@@ -86,16 +86,15 @@ function barberVideoUrl(
   if (videoConfig?.videoFile) return videoConfig.videoFile;
   return null;
 }
-import dynamic from 'next/dynamic';
 import { lessonUuidToSimulationKey } from '@/lib/lms/hvac-simulations';
-
-import { ExplainSimply } from '@/components/lms/ai/ExplainSimply';
-import { TranslateToggle } from '@/components/lms/ai/TranslateToggle';
-import SpacedRepetitionReview from '@/components/lms/SpacedRepetitionReview';
-import LessonActivityMenu from '@/components/lms/LessonActivityMenu';
 import { getActivitiesForLesson, getDefaultActivity } from '@/lib/lms/activity-map';
 import type { ActivityId } from '@/lib/lms/activity-map';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
+
+const ExplainSimply = dynamic(() => import('@/components/lms/ai/ExplainSimply').then(m => ({ default: m.ExplainSimply })), { ssr: false });
+const TranslateToggle = dynamic(() => import('@/components/lms/ai/TranslateToggle').then(m => ({ default: m.TranslateToggle })), { ssr: false });
+const SpacedRepetitionReview = dynamic(() => import('@/components/lms/SpacedRepetitionReview'), { ssr: false });
+const LessonActivityMenu = dynamic(() => import('@/components/lms/LessonActivityMenu'), { ssr: false });
 
 const LessonVideoWithSimulation = dynamic(
   () => import('@/components/lms/LessonVideoWithSimulation'),
