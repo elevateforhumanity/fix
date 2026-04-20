@@ -177,8 +177,8 @@ function getAutoConfig(section: string, label: string, route: string): AutoConfi
         shortTagline: "Bring your program into a larger ecosystem without losing your identity.",
         description:
           `The "${baseLabel}" page is for program holders who host training, apprenticeships, or specialized pathways on the Elevate For Humanity platform.`,
-        primaryCta: { href: "/program-holders/apply", label: "Become a Program Holder" },
-        secondaryCta: { href: "/program-holders/universal-mou", label: "View Universal MOU" },
+        primaryCta: { href: "/apply/program-holder", label: "Become a Program Holder" },
+        secondaryCta: { href: "/legal/program-holder-mou", label: "View Universal MOU" },
         bullets: [
           "Digital MOUs, onboarding, and reporting in one place",
           "Shared LMS, compliance, and data tools across all programs",

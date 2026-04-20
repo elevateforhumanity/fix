@@ -356,8 +356,8 @@ export const siteMapSections: SiteMapSection[] = [
     id: "program-holders",
     title: "Program Holders",
     items: [
-      { label: "Acknowledgement", href: "/program-holders/acknowledgement" },
-      { label: "Program Holders", href: "/program-holders" }
+      { label: "Acknowledgement", href: "/program-holder/rights-responsibilities" },
+      { label: "Program Holders", href: "/program-holder" }
     ],
   },
   {

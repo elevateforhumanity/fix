@@ -47,11 +47,11 @@ export default function ProgramHolderConfirmationPage() {
               <div>
                 <p className="font-semibold text-amber-900 text-sm">Check your email now</p>
                 <p className="text-amber-800 text-sm mt-1 leading-relaxed">
-                  We sent you an onboarding link. Click it to access your portal and
-                  complete the required steps — no password needed.
+                  We sent you a password setup link. Click it to set your password and
+                  start your onboarding steps.
                 </p>
                 <p className="text-amber-900 text-sm mt-2 font-semibold">
-                  ⚠️ The link expires in 1 hour. Open it before it expires.
+                  ⚠️ The link expires in 24 hours. Open it before it expires.
                 </p>
               </div>
             </div>
