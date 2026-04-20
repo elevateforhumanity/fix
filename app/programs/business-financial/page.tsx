@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Briefcase, Clock, DollarSign, Shield, Award, CheckCircle, Users } from 'lucide-react';
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default async function BusinessFinancialPage() {
   const supabase = await createClient();
-  const _admin = createAdminClient(); const db = _admin || supabase;
+  const db = await getAdminClient();
 
   if (!supabase) {
     return (

@@ -3,7 +3,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { protectTestEndpoint } from '@/lib/api/protect-test-endpoint';
 
 export const GET = protectTestEndpoint(async () => {
@@ -19,7 +19,7 @@ export const GET = protectTestEndpoint(async () => {
     let clientCreated = false;
     let clientError = null;
     try {
-      const supabase = createAdminClient();
+      const db = await getAdminClient();
       clientCreated = true;
 
       // Try a simple query

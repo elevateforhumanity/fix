@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { NextResponse } from 'next/server';
 import { createAccount, enrollInCourse } from '@/lib/partners/milady';
 import { toErrorMessage } from '@/lib/safe';
@@ -27,7 +27,7 @@ async function _POST(request: Request) {
     const { studentId, programId } = await request.json();
 
     const supabase = await createClient();
-  const _admin = createAdminClient(); const db = _admin || supabase;
+  const db = await getAdminClient();
 
     // Get student profile
     const { data: profile } = await db

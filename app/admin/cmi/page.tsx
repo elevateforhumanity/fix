@@ -1,4 +1,4 @@
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
@@ -31,7 +31,7 @@ const STATUS_COLORS: Record<string, string> = {
 export default async function CMIDashboardPage() {
   // Auth — admin layout handles redirect, but double-check role here
   const supabase = await createClient();
-  const adminDb = createAdminClient();
+  const db = await getAdminClient();
   const db = adminDb || supabase;
 
   if (!supabase) redirect('/login?redirect=/admin/cmi');

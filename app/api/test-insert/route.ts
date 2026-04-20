@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 import { NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 
 export async function GET() {
   return NextResponse.json({
@@ -22,7 +22,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const supabase = createAdminClient();
+    const db = await getAdminClient();
 
     // Try to insert test data
     const { data, error }: any = await supabase
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     }
 
     // Delete the test record
-    await supabase.from('applications').delete().eq('id', data.id);
+    await db.from('applications').delete().eq('id', data.id);
 
     return NextResponse.json({
       success: true,

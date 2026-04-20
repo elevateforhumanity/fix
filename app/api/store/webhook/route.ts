@@ -5,7 +5,7 @@ export const maxDuration = 60;
 import { verifyWebhookSignature } from '@/lib/store/stripe';
 import { generateLicenseKey, hashLicenseKey } from '@/lib/store/license';
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { logger } from '@/lib/logger';
 import { toErrorMessage } from '@/lib/safe';
 import { auditLog } from '@/lib/auditLog';
@@ -22,8 +22,8 @@ interface ProductRecord {
  * Check if webhook event has already been processed (idempotency)
  */
 async function isEventProcessed(eventId: string): Promise<boolean> {
-  const supabase = createAdminClient();
-  const { data } = await supabase
+  const db = await getAdminClient();
+  const { data } = await db
     .from('processed_webhook_events')
     .select('id')
     .eq('event_id', eventId)
@@ -35,8 +35,8 @@ async function isEventProcessed(eventId: string): Promise<boolean> {
  * Mark webhook event as processed
  */
 async function markEventProcessed(eventId: string, eventType: string): Promise<void> {
-  const supabase = createAdminClient();
-  await supabase.from('processed_webhook_events').insert({
+  const db = await getAdminClient();
+  await db.from('processed_webhook_events').insert({
     event_id: eventId,
     event_type: eventType,
     processed_at: new Date().toISOString(),
@@ -145,7 +145,7 @@ export async function POST(req: Request) {
       const licenseHash = hashLicenseKey(licenseKey);
 
       // Store purchase
-      const { error: purchaseError } = await supabase.from('purchases').insert({
+      const { error: purchaseError } = await db.from('purchases').insert({
         email,
         product_id: productId,
         repo: product.repo,
@@ -157,7 +157,7 @@ export async function POST(req: Request) {
       }
 
       // Store license
-      const { data: licenseData, error: licenseError } = await supabase.from('licenses').insert({
+      const { data: licenseData, error: licenseError } = await db.from('licenses').insert({
         email,
         product_id: productId,
         license_key: licenseHash,

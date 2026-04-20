@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { apiRequireAdmin } from '@/lib/admin/guards';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { logger } from '@/lib/logger';
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       return safeError('miladyLink must be a valid URL', 400);
     }
 
-    const db = createAdminClient();
+    const db = await getAdminClient();
 
     // Fetch the queue row
     const { data: queueRow, error: qErr } = await db

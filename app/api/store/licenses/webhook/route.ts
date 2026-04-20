@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe/client';
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { headers } from 'next/headers';
 import { Resend } from 'resend';
 import { generateLicenseWelcomeEmail } from '@/lib/email-templates/license-welcome';
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = await createClient();
-    const adminSupabase = createAdminClient();
+    const db = await getAdminClient();
 
     // SECTION 2: Idempotency check - CRITICAL
     const alreadyProcessed = await isEventProcessed(supabase, event.id);
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
 
             try {
               // Generate magic link for admin login
-              const { data: magicLink } = await adminSupabase.auth.admin.generateLink({
+              const { data: magicLink } = await db.auth.admin.generateLink({
                 type: 'magiclink',
                 email: purchase.contact_email,
                 options: {

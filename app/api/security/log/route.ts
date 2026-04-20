@@ -7,7 +7,7 @@ export const maxDuration = 10;
 import { NextRequest, NextResponse } from 'next/server';
 import { parseBody } from '@/lib/api-helpers';
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 // Simple in-memory rate limiting (per IP)
@@ -55,7 +55,7 @@ async function _POST(request: NextRequest) {
     Promise.resolve().then(async () => {
       try {
         const supabase = await createClient();
-  const _admin = createAdminClient(); const db = _admin || supabase;
+  const db = await getAdminClient();
         await db.from('audit_logs').insert({
           action: body.type,
           event_type: 'security',
