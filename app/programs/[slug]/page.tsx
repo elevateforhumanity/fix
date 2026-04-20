@@ -1,4 +1,10 @@
 import { redirect } from 'next/navigation';
-export default function Page() {
-  redirect('https://www.elevateforhumanity.org/programs/[slug]');
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  redirect(`/programs/${slug}/training`);
 }
