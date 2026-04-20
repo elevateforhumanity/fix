@@ -43,6 +43,11 @@
   # Skip browser binary downloads — reduces install time significantly
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
   PUPPETEER_SKIP_DOWNLOAD = "1"
+  NEXT_TELEMETRY_DISABLED = "1"
+  # NOW_BUILDER=1 sets hasNextSupport=true in Next.js ci-info, suppressing the
+  # "No build cache found" warning that fires on every Netlify build because
+  # Next.js only skips the check when it detects Vercel (NOW_BUILDER env var).
+  NOW_BUILDER = "1"
 
 # ---------------------------------------------------------------------------
 # ENV VAR STRATEGY (Lambda 4 KB limit)
