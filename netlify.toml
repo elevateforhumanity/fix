@@ -29,6 +29,7 @@
   NODE_OPTIONS = "--max-old-space-size=6144"
   NEXT_PRIVATE_MAX_WORKERS = "1"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
+  NEXT_PRIVATE_WORKER_POOL_SIZE = "1"
   SENTRY_SKIP_AUTO_INSTRUMENTATION = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public
