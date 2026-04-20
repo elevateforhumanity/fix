@@ -99,7 +99,7 @@ const NAV = [
       { label: "Leads",                  href: "/admin/leads" },
       { label: "Contacts",               href: "/admin/contacts" },
       { label: "Transfer Hours",         href: "/admin/transfer-hours" },
-      { label: "HSI Enrollments",        href: "/admin/hsi-enrollments" },
+
       { label: "WorkOne Queue",          href: "/admin/workone-queue" },
       { label: "SAP",                    href: "/admin/sap" },
       { label: "FERPA",                  href: "/admin/ferpa" },
