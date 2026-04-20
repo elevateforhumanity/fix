@@ -41,6 +41,22 @@ const nextConfig = {
     'jsdom',
     'typescript',
     'core-js',
+    // Server-only packages — confirmed not used in any 'use client' component
+    '@upstash/ratelimit',
+    '@mailchimp/mailchimp_marketing',
+    '@octokit/rest',
+    '@octokit/auth-oauth-app',
+    '@webcontainer/api',
+    'cheerio',
+    'docx',
+    'fast-xml-parser',
+    'jszip',
+    'qrcode',
+    'resend',
+    'speakeasy',
+    'web-push',
+    'yjs',
+    'y-websocket',
   ],
 
   // Disable dev indicators (static route indicator, build indicator)
