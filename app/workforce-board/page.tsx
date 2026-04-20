@@ -1,23 +1,13 @@
-<<<<<<< HEAD
 export const dynamic = 'force-static';
 export const revalidate = 86400;
-
-import { buildMetadata } from '@/lib/seo';
-import { siteConfig } from '@/content/site';
-=======
 import { buildMetadata } from '@/lib/cf-seo';
 import { siteConfig } from '@/content/cf-site';
->>>>>>> preview/branch-consolidation-20260418
+      <p className="mt-4 text-slate-700">Elevate partners with regional workforce boards to connect eligible learners to WIOA-funded training programs.</p>
 export const metadata = buildMetadata({ title: 'Workforce Board', description: 'Workforce board partnerships and WIOA-funded training access.', path: '/workforce-board' });
 export default function Page() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-bold">Workforce Board</h1>
-<<<<<<< HEAD
-      <p className="mt-4 text-gray-600">Elevate partners with regional workforce boards to connect eligible learners to WIOA-funded training programs.</p>
-=======
-      <p className="mt-4 text-slate-700">Elevate partners with regional workforce boards to connect eligible learners to WIOA-funded training programs.</p>
->>>>>>> preview/branch-consolidation-20260418
       <div className="mt-8"><a href={siteConfig.handoff.apply} className="rounded bg-black px-5 py-3 text-white hover:bg-gray-800">Check Eligibility</a></div>
     </section>
   );

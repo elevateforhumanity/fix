@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 export const dynamic = 'force-static';
 export const revalidate = 86400;
-
-import Link from 'next/link';
-import { legalDocs } from '@/content/legal';
-import { buildMetadata } from '@/lib/seo';
-=======
 import Link from 'next/link';
 import { legalDocs } from '@/content/cf-legal';
 import { buildMetadata } from '@/lib/cf-seo';
->>>>>>> preview/branch-consolidation-20260418
+      <p className="mt-4 text-slate-700">
+            <p className="mt-1 text-sm text-slate-700">{doc.summary}</p>
 
 export const metadata = buildMetadata({
   title: 'Legal',
@@ -21,11 +16,6 @@ export default function LegalPage() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-bold">Legal</h1>
-<<<<<<< HEAD
-      <p className="mt-4 text-gray-600">
-=======
-      <p className="mt-4 text-slate-700">
->>>>>>> preview/branch-consolidation-20260418
         Legal agreements, disclosures, and documents governing use of Elevate for Humanity
         programs and platforms.
       </p>
@@ -35,11 +25,6 @@ export default function LegalPage() {
             <Link href={`/legal/${doc.slug}`} className="font-medium hover:underline">
               {doc.title}
             </Link>
-<<<<<<< HEAD
-            <p className="mt-1 text-sm text-gray-600">{doc.summary}</p>
-=======
-            <p className="mt-1 text-sm text-slate-700">{doc.summary}</p>
->>>>>>> preview/branch-consolidation-20260418
           </li>
         ))}
       </ul>

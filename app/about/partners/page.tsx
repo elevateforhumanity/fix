@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 export const dynamic = 'force-static';
 export const revalidate = 86400;
-
-import { buildMetadata } from '@/lib/seo';
-import { siteConfig } from '@/content/site';
-=======
 import { buildMetadata } from '@/lib/cf-seo';
 import { siteConfig } from '@/content/cf-site';
->>>>>>> preview/branch-consolidation-20260418
+      <p className="mt-4 text-slate-700">
+            <p className="mt-2 text-slate-700">{p.body}</p>
 
 export const metadata = buildMetadata({
   title: 'Partners',
@@ -38,11 +34,6 @@ export default function PartnersPage() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-bold">Partners</h1>
-<<<<<<< HEAD
-      <p className="mt-4 text-gray-600">
-=======
-      <p className="mt-4 text-slate-700">
->>>>>>> preview/branch-consolidation-20260418
         Our network of employer, workforce, and community partners makes it possible to connect
         learners to training, funding, and jobs.
       </p>
@@ -50,11 +41,6 @@ export default function PartnersPage() {
         {partnerTypes.map((p) => (
           <div key={p.heading}>
             <h2 className="text-xl font-semibold">{p.heading}</h2>
-<<<<<<< HEAD
-            <p className="mt-2 text-gray-600">{p.body}</p>
-=======
-            <p className="mt-2 text-slate-700">{p.body}</p>
->>>>>>> preview/branch-consolidation-20260418
           </div>
         ))}
       </div>
