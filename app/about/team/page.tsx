@@ -1,5 +1,3 @@
-export const dynamic = 'force-static';
-export const revalidate = 86400;
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
@@ -9,6 +7,10 @@ export const metadata: Metadata = {
   title: 'Our Team | Elevate for Humanity',
   description: 'Meet the Elevate for Humanity team — educators, workforce specialists, and community advocates.',
 };
+
+export default function TeamPage() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-3xl font-bold text-slate-900">Our Team</h1>
       <p className="mt-4 text-slate-700">
         Educators, workforce specialists, and community advocates committed to learner success.
@@ -36,10 +38,6 @@ export const metadata: Metadata = {
                 Read more
               </Link>
             </div>
-
-export default function TeamPage() {
-  return (
-    <section className="mx-auto max-w-6xl px-4 py-16">
           </article>
         ))}
       </div>

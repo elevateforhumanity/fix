@@ -1,8 +1,5 @@
-export const dynamic = 'force-static';
-export const revalidate = 86400;
 import { buildMetadata } from '@/lib/cf-seo';
 import { siteConfig } from '@/content/cf-site';
-      <p className="mt-4 text-slate-700">
 
 export const metadata = buildMetadata({
   title: 'Alumni',
@@ -14,6 +11,7 @@ export default function Page() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-bold">Alumni</h1>
+      <p className="mt-4 text-slate-700">
         For more information, contact us at{' '}
         <a href="mailto:info@elevateforhumanity.org" className="underline">
           info@elevateforhumanity.org

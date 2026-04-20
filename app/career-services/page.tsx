@@ -1,13 +1,7 @@
-export const dynamic = 'force-static';
-export const revalidate = 86400;
 import Link from 'next/link';
 import { buildMetadata } from '@/lib/cf-seo';
 import { siteConfig } from '@/content/cf-site';
 
-      <p className="mt-4 text-slate-700">
-          <article key={s.slug} className="rounded border p-6 hover:bg-slate-50">
-            <h2 className="text-xl font-semibold">{s.title}</h2>
-            <p className="mt-2 text-sm text-slate-700">{s.summary}</p>
 export const metadata = buildMetadata({
   title: 'Career Services',
   description: 'Resume building, interview prep, job placement, and ongoing career support from Elevate for Humanity.',
@@ -25,10 +19,14 @@ export default function CareerServicesPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-3xl font-bold">Career Services</h1>
+      <p className="mt-4 text-slate-700">
         Elevate graduates receive career support beyond the classroom — from resume help to direct employer connections.
       </p>
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {services.map((s) => (
+          <article key={s.slug} className="rounded border p-6 hover:bg-slate-50">
+            <h2 className="text-xl font-semibold">{s.title}</h2>
+            <p className="mt-2 text-sm text-slate-700">{s.summary}</p>
             <Link href={`/career-services/${s.slug}`} className="mt-4 inline-block text-sm underline">Learn more</Link>
           </article>
         ))}

@@ -175,7 +175,6 @@ const nextConfig = {
       },
     };
 
-
     config.optimization = {
       ...config.optimization,
       moduleIds: 'deterministic',
