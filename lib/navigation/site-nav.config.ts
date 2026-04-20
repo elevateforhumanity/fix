@@ -553,11 +553,6 @@ export const footerNavigation = {
   courses: {
     title: 'Courses',
     links: [
-      { label: 'Capital Readiness', href: '/courses/capital-readiness' },
-      { label: 'CareerSafe', href: '/courses/careersafe' },
-      { label: 'Course Detail', href: '/courses/coursedetail' },
-      { label: 'NDS', href: '/courses/nds' },
-      { label: 'NRF', href: '/courses/nrf' },
       { label: 'CNA Certification', href: '/programs/cna' },
       { label: 'Micro Programs', href: '/programs/micro-programs' },
       { label: 'Web Development', href: '/programs/technology/web-development' },
