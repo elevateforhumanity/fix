@@ -110,7 +110,6 @@ const PRUNE_PACKAGES = [
   // Misc
   '@mailchimp',
   'jszip',
-  'fast-xml-parser',
   'marked',
   'cheerio',
 ];
