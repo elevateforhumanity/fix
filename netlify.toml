@@ -5,7 +5,7 @@
 [build]
   # libxml2-utils provides xmllint, required for IRS MeF XSD validation.
   # Without it, schema-validator.ts returns XMLLINT_NOT_AVAILABLE and blocks all submissions.
-  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && node scripts/clear-build-cache.mjs && node scripts/check-redirect-conflicts.mjs && node scripts/stamp-sw.mjs && NEXT_CLI_TURBOPACK=0 NODE_OPTIONS=--max-old-space-size=6144 pnpm exec next build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
+  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && node scripts/clear-build-cache.mjs && node scripts/check-redirect-conflicts.mjs && node scripts/stamp-sw.mjs && NEXT_CLI_TURBOPACK=0 pnpm exec next build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
   # publish is intentionally omitted — @netlify/plugin-nextjs manages the output directory.
   # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
   functions = "netlify/functions"
@@ -28,6 +28,10 @@
 [build.environment]
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=8192"
+  # Limit webpack worker concurrency to reduce peak memory during Next.js build.
+  # Netlify SIGKILL's the process when memory exceeds the build environment limit.
+  # Increase to 2 once builds succeed consistently.
+  NEXT_PRIVATE_MAX_WORKERS = "1"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   NEXT_CLI_TURBOPACK = "0"
   # NEXT_CLI_TURBOPACK=0 forces webpack for `next build` in CI.
