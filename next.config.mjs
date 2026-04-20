@@ -795,11 +795,17 @@ const nextConfig = {
 };
 
 // Sentry configuration
+// Disabled on Netlify — auto-instrumentation wraps every file with Rollup,
+// consuming significant memory and causing OOM (exit 137) on Netlify builds.
 const sentryWebpackPluginOptions = {
   silent: true,
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
+  disableServerWebpackPlugin: process.env.NETLIFY === 'true',
+  disableClientWebpackPlugin: process.env.NETLIFY === 'true',
+  autoInstrumentServerFunctions: process.env.NETLIFY !== 'true',
+  autoInstrumentMiddleware: process.env.NETLIFY !== 'true',
 };
 
 export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
