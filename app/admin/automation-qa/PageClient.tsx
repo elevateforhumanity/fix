@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -60,14 +60,7 @@ export default function AutomationQAPage() {
   const [testResult, setTestResult] = useState<string | null>(null);
   const [testRunning, setTestRunning] = useState(false);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) { router.replace('/login?redirect=/admin/automation-qa'); return; }
-      loadData();
-    });
-  }, []);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     const supabase = createClient();
 
     // Load recent automated decisions
@@ -88,7 +81,15 @@ export default function AutomationQAPage() {
     setDecisions(decisionsData || []);
     setReviewItems(reviewData || []);
     setLoading(false);
-  }
+  }, []);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) { router.replace('/login?redirect=/admin/automation-qa'); return; }
+      loadData();
+    });
+  }, [loadData, router]);
 
   async function runDocumentProcessingTest() {
     setTestRunning(true);

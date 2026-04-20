@@ -3,7 +3,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import React from 'react';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   FileText,
   XCircle,
@@ -84,13 +84,9 @@ export default function AdminProgramHolderDocuments() {
   const [approvalNotes, setApprovalNotes] = useState('');
   const [processing, setProcessing] = useState(false);
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
-  useEffect(() => {
-    loadDocuments();
-  }, [filter]);
-
-  const loadDocuments = async () => {
+  const loadDocuments = useCallback(async () => {
     try {
       let query = supabase
         .from('program_holder_documents')
@@ -119,7 +115,11 @@ export default function AdminProgramHolderDocuments() {
     } catch (error) { /* Error handled silently */ } finally {
       setLoading(false);
     }
-  };
+  }, [filter, supabase]);
+
+  useEffect(() => {
+    loadDocuments();
+  }, [loadDocuments]);
 
   const handleApprove = async (docId: string, approve: boolean) => {
     setProcessing(true);

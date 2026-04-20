@@ -21,7 +21,7 @@ export default function RapidsAdminPage() {
       supabase.from('apprenticeships').select('*').limit(50)
         .then(({ data }) => { if (data) setDbRows(data); });
     });
-  }, []);
+  }, [router]);
 
   const programs = Object.entries(RAPIDS_CONFIG.programs).map(([key, program]) => ({
     key,

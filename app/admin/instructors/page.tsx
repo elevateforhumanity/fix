@@ -5,7 +5,7 @@
 import React from 'react';
 
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,19 +14,12 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export default function InstructorsPage() {
   const router = useRouter();
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
   const [instructors, setInstructors] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) { router.replace('/login?redirect=/admin/instructors'); return; }
-      loadData();
-    });
-  }, [filter]);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     
     // Load instructors with their course assignments and performance
     let query = supabase
@@ -52,7 +45,14 @@ export default function InstructorsPage() {
     const { data: instructorsData } = await query;
     setInstructors(instructorsData || []);
     setLoading(false);
-  }
+  }, [filter, supabase]);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) { router.replace('/login?redirect=/admin/instructors'); return; }
+      loadData();
+    });
+  }, [loadData, router, supabase]);
 
   function calculateAverageRating(ratings: any[]) {
     if (!ratings || ratings.length === 0) return '0';

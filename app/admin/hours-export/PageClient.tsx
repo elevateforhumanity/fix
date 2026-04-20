@@ -2,14 +2,14 @@
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import React from 'react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Calendar, Download, Clock } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 
 
 
-export default async function HoursExportPage() {
+export default function HoursExportPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -17,13 +17,13 @@ export default async function HoursExportPage() {
   const [endDate, setEndDate] = useState('');
 
   // Set default to current week
-  useState(() => {
+  useEffect(() => {
     const today = new Date();
     const weekStart = getWeekStart(today);
     const weekEnd = getWeekEnd(today);
     setStartDate(weekStart.toISOString().split('T')[0]);
     setEndDate(weekEnd.toISOString().split('T')[0]);
-  });
+  }, []);
 
   const handleExport = async () => {
     setLoading(true);
