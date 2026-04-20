@@ -1,23 +1,45 @@
 /**
  * Barber Apprenticeship Blueprint
  *
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * CANONICAL SOURCE OF TRUTH — DO NOT DUPLICATE
+ *
+ * This file is the single authoritative definition of the Indiana Barber
+ * Apprenticeship curriculum.  All module names, lesson slugs, lesson counts,
+ * domain keys, lesson content, and video references live here and nowhere else.
+ *
+ * Seeding path (canonical):
+ *   pnpm tsx scripts/seed-course-from-blueprint.ts \
+ *     --blueprint barber-apprenticeship-v1 --program <programId>
+ *
+ * DEPRECATED scripts (do NOT run for this course):
+ *   scripts/seed-barber-program-complete.ts  — old SCORM/Milady 4-module structure
+ *   scripts/seed-barber-program.ts           — old Milady 10-module structure
+ *   scripts/generate-barber-course.ts        — conflicting slug→topic assignments
+ * ═══════════════════════════════════════════════════════════════════════════════
+ *
  * Slug numbering convention (intentional — do not "fix"):
- *   Each module contains 6 lessons + 1 checkpoint.
+ *   Each module contains 5–6 lessons + 1 checkpoint.
  *   Lessons are numbered sequentially across modules (1–6, 8–13, 15–20, …).
  *   The 7th slot of each module (7, 14, 21, 28, …) is reserved for the checkpoint,
  *   which uses a named slug (barber-module-N-checkpoint) instead of barber-lesson-N.
  *   These gaps are load-bearing — progress tracking and unlock logic depend on them.
  *   Never renumber existing slugs. Add new lessons at the next available number.
  *
- * Module → lesson slug map:
- *   Module 1 (Foundations & Safety):          lessons 1–6,  checkpoint slot 7
- *   Module 2 (Hair Science & Scalp Analysis):  lessons 8–13, checkpoint slot 14
- *   Module 3 (Haircutting Theory):             lessons 15–20, checkpoint slot 21
- *   Module 4 (Shaving & Facial Hair):          lessons 22–27, checkpoint slot 28
- *   Module 5 (Chemical Services):              lessons 29–33, checkpoint slot 34
- *   Module 6 (Business & Client Relations):    lessons 35–38, checkpoint slot 39
- *   Module 7 (State Board Prep):               lessons 40–44, checkpoint slot 45
- *   Module 8 (Capstone):                       lessons 46–49, final exam
+ * Module → lesson slug map (matches the `title` fields in this file exactly):
+ *   Module 1 (Infection Control & Safety):         lessons 1–6,   checkpoint slot 7
+ *   Module 2 (Hair Science & Scalp Analysis):      lessons 8–13,  checkpoint slot 14
+ *   Module 3 (Tools, Equipment & Ergonomics):      lessons 15–20, checkpoint slot 21
+ *   Module 4 (Haircutting Techniques):             lessons 22–27, checkpoint slot 28
+ *   Module 5 (Shaving & Beard Services):           lessons 29–33, checkpoint slot 34
+ *   Module 6 (Chemical Services):                  lessons 35–38, checkpoint slot 39
+ *   Module 7 (Professional & Business Skills):     lessons 40–44, checkpoint slot 45
+ *   Module 8 (State Board Exam Preparation):       lessons 46–49, final exam
+ *
+ * Lesson counts (current):
+ *   42 content lessons + 7 checkpoints + 1 final exam = 50 concrete lesson slugs
+ *   expectedLessonCount is intentionally set to 50 and must match these concrete
+ *   lesson entries exactly for blueprint validation and seeding integrity.
  */
 import type { CredentialBlueprint, BlueprintVideoConfig } from './types';
 
@@ -59,7 +81,7 @@ export const barberApprenticeshipBlueprint: CredentialBlueprint = {
   },
 
   expectedModuleCount: 8,
-  expectedLessonCount: 64,
+  expectedLessonCount: 50,
 
   modules: [
     // ── Module 1 ─────────────────────────────────────────────────────────────

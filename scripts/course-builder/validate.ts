@@ -30,6 +30,7 @@ function validateLesson(l: LessonSeed, moduleSlug: string): AuditRow {
   if (!l.content || l.content.trim().length < 20) fail(`Missing/empty content: ${l.slug}`);
   const wordCount = l.content.trim().split(/\s+/).length;
   if (wordCount < 800) fail(`${l.slug}: content too thin (${wordCount}w, need 800w) — run: pnpm course:generate-content --slug ${l.slug}`);
+  if (!l.miladyChapter || !l.miladyChapter.trim()) fail(`Missing miladyChapter alignment: ${l.slug}`);
 
   if (!l.domain)      fail(`Missing domain: ${l.slug}`);
   if (!VALID_DOMAINS.includes(l.domain)) fail(`Invalid domain "${l.domain}": ${l.slug}`);

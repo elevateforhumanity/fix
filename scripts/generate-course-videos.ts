@@ -70,10 +70,10 @@ import { createClient } from '@supabase/supabase-js';
 
 // ─── Supabase ─────────────────────────────────────────────────────────────────
 
-const sb = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const HAS_SUPABASE_ENV = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+const sb = HAS_SUPABASE_ENV
+  ? createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  : null;
 
 // ─── Course registry ──────────────────────────────────────────────────────────
 
@@ -124,6 +124,11 @@ const FORCE         = args.includes('--force');
 const DRY_RUN       = args.includes('--dry-run');
 const CHAPTER_MODE  = args.includes('--chapter');
 const UPLOAD        = args.includes('--upload');  // upload to Supabase after generating
+const SOURCE_MODE = (getArg('--source') ?? 'auto').toLowerCase(); // auto | db | generated
+const TTS_TIMEOUT_MS = parseInt(getArg('--tts-timeout-ms') ?? '120000', 10);
+const FFMPEG_TIMEOUT_MS = parseInt(getArg('--ffmpeg-timeout-ms') ?? '240000', 10);
+const TTS_MAX_RETRIES = parseInt(getArg('--tts-retries') ?? '3', 10);
+const REUSE_PREVIOUS_ON_FAIL = !args.includes('--no-reuse-previous');
 
 // ─── B-roll library ───────────────────────────────────────────────────────────
 
@@ -260,24 +265,41 @@ function splitIntoScenes(title: string, moduleName: string, content: string): Sc
  * Sounds like a master barber teaching on the shop floor, not reading a textbook.
  */
 async function generateTTS(text: string, outPath: string): Promise<void> {
-  const res = await fetch('https://api.openai.com/v1/audio/speech', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini-tts',
-      input: text,
-      voice: 'onyx',
-      instructions: `You are Brandon Williams, a master barber with 12 years of experience teaching at a DOL-registered barbering apprenticeship program in Indianapolis, Indiana.
+  let lastError: Error | null = null;
+  for (let attempt = 1; attempt <= TTS_MAX_RETRIES; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TTS_TIMEOUT_MS);
+    try {
+      const res = await fetch('https://api.openai.com/v1/audio/speech', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+        signal: controller.signal,
+        body: JSON.stringify({
+          model: 'gpt-4o-mini-tts',
+          input: text,
+          voice: 'onyx',
+          instructions: `You are Brandon Williams, a master barber with 12 years of experience teaching at a DOL-registered barbering apprenticeship program in Indianapolis, Indiana.
 Speak directly to your apprentices — confident, clear, and practical.
 Steady professional pace. Emphasize key terms when you say them.
 Natural pauses between paragraphs. Sound like you are in the shop teaching, not reading from a textbook.
 Never rush. Never sound robotic.`,
-      response_format: 'mp3',
-      speed: 1.0,
-    }),
-  });
-  if (!res.ok) throw new Error(`TTS failed (${res.status}): ${await res.text()}`);
-  fs.writeFileSync(outPath, Buffer.from(await res.arrayBuffer()));
+          response_format: 'mp3',
+          speed: 1.0,
+        }),
+      });
+      if (!res.ok) throw new Error(`TTS failed (${res.status}): ${await res.text()}`);
+      fs.writeFileSync(outPath, Buffer.from(await res.arrayBuffer()));
+      clearTimeout(timeout);
+      return;
+    } catch (err: any) {
+      clearTimeout(timeout);
+      lastError = err instanceof Error ? err : new Error(String(err));
+      if (attempt < TTS_MAX_RETRIES) {
+        await new Promise((resolve) => setTimeout(resolve, 1500 * attempt));
+      }
+    }
+  }
+  throw new Error(`TTS failed after ${TTS_MAX_RETRIES} attempts: ${lastError?.message ?? 'unknown error'}`);
 }
 
 // ─── Video assembly ───────────────────────────────────────────────────────────
@@ -286,9 +308,16 @@ Never rush. Never sound robotic.`,
 const clipOffsets = new Map<string, number>();
 
 function getFileDur(f: string): number {
-  return parseFloat(
-    execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${f}"`, { encoding: 'utf8' }).trim()
-  );
+  try {
+    return parseFloat(
+      execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${f}"`, {
+        encoding: 'utf8',
+        timeout: FFMPEG_TIMEOUT_MS,
+      }).trim()
+    );
+  } catch {
+    return 0;
+  }
 }
 
 /**
@@ -306,7 +335,7 @@ function buildScene(clipPath: string, audioPath: string, outPath: string): void 
     `-map 0:v -map 1:a -t ${audioDur.toFixed(3)} ` +
     `-vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=24" ` +
     `-c:v libx264 -preset fast -crf 20 -c:a aac -b:a 192k -movflags +faststart "${outPath}"`,
-    { stdio: 'pipe', maxBuffer: 200 * 1024 * 1024 }
+    { stdio: 'pipe', maxBuffer: 200 * 1024 * 1024, timeout: FFMPEG_TIMEOUT_MS }
   );
   clipOffsets.set(clipPath, startAt + audioDur);
 }
@@ -316,19 +345,54 @@ function concatScenes(scenePaths: string[], outPath: string, tmpDir: string): vo
   fs.writeFileSync(list, scenePaths.map(p => `file '${p}'`).join('\n'));
   execSync(
     `ffmpeg -y -f concat -safe 0 -i "${list}" -c copy -movflags +faststart "${outPath}"`,
-    { stdio: 'pipe', maxBuffer: 500 * 1024 * 1024 }
+    { stdio: 'pipe', maxBuffer: 500 * 1024 * 1024, timeout: FFMPEG_TIMEOUT_MS }
   );
 }
 
 // ─── Supabase upload ──────────────────────────────────────────────────────────
 
 async function uploadToSupabase(localPath: string, course: CourseConfig, slug: string): Promise<string> {
+  if (!sb) throw new Error('Supabase is not configured for upload');
   const file = fs.readFileSync(localPath);
   const storagePath = `${course.storagePrefix}/${slug}.mp4`;
   const { error } = await sb.storage.from(course.storageBucket).upload(storagePath, file, { contentType: 'video/mp4', upsert: true });
   if (error) throw new Error(`Upload failed: ${error.message}`);
   const { data } = sb.storage.from(course.storageBucket).getPublicUrl(storagePath);
   return data.publicUrl;
+}
+
+interface LessonRow {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  orderValue: number;
+}
+
+function loadLessonsFromGeneratedCourse(courseKey: string): LessonRow[] {
+  if (courseKey !== 'barber') {
+    throw new Error(`Generated source is currently supported for barber only (requested: ${courseKey})`);
+  }
+  const generatedPath = path.join(process.cwd(), 'scripts/generated/barber-course.generated.json');
+  if (!fs.existsSync(generatedPath)) {
+    throw new Error(`Generated course file not found: ${generatedPath}. Run "pnpm course:build" first.`);
+  }
+  const json = JSON.parse(fs.readFileSync(generatedPath, 'utf8')) as {
+    modules?: Array<{ lessons?: Array<{ slug: string; title: string; content: string }> }>;
+  };
+  const rows: LessonRow[] = [];
+  (json.modules ?? []).forEach((mod, modIdx) => {
+    (mod.lessons ?? []).forEach((lesson, lessonIdx) => {
+      rows.push({
+        id: lesson.slug,
+        slug: lesson.slug,
+        title: lesson.title,
+        content: lesson.content ?? '',
+        orderValue: (modIdx + 1) * 1000 + (lessonIdx + 1),
+      });
+    });
+  });
+  return rows;
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -342,32 +406,57 @@ async function main() {
 
   fs.mkdirSync(course.outDir, { recursive: true });
 
-  const { data: lessons, error } = await sb
-    .from(course.table)
-    .select(`id, title, slug, content, ${course.orderColumn}`)
-    .eq(course.idColumn, course.id)
-    .order(course.orderColumn);
+  const useGeneratedSource = SOURCE_MODE === 'generated' || (SOURCE_MODE === 'auto' && !HAS_SUPABASE_ENV);
+  const useDbSource = SOURCE_MODE === 'db' || (SOURCE_MODE === 'auto' && HAS_SUPABASE_ENV);
+  if (!useGeneratedSource && !useDbSource) {
+    console.error(`Invalid --source "${SOURCE_MODE}". Use one of: auto | db | generated`);
+    process.exit(1);
+  }
+  if (useDbSource && !sb) {
+    console.error('Supabase env vars are required for --source db');
+    process.exit(1);
+  }
 
-  if (error) { console.error('DB error:', error.message); process.exit(1); }
-  if (!lessons?.length) { console.error('No lessons found'); process.exit(1); }
+  const sourceLabel = useGeneratedSource ? 'generated course file' : 'database';
+  const lessons: LessonRow[] = useGeneratedSource
+    ? loadLessonsFromGeneratedCourse(COURSE_KEY)
+    : await (async () => {
+      const { data, error } = await sb!
+        .from(course.table)
+        .select(`id, title, slug, content, ${course.orderColumn}`)
+        .eq(course.idColumn, course.id)
+        .order(course.orderColumn);
+      if (error) throw new Error(`DB error: ${error.message}`);
+      return (data ?? []).map((l: any) => ({
+        id: l.id,
+        slug: l.slug,
+        title: l.title,
+        content: l.content ?? '',
+        orderValue: l[course.orderColumn],
+      }));
+    })();
 
-  let targets = lessons as any[];
+  if (!lessons.length) { console.error(`No lessons found from ${sourceLabel}`); process.exit(1); }
+
+  let targets = lessons;
   if (SLUG_FILTER)   targets = targets.filter(l => l.slug === SLUG_FILTER);
-  if (MODULE_FILTER) targets = targets.filter(l => Math.floor(l[course.orderColumn] / 1000) === MODULE_FILTER);
+  if (MODULE_FILTER) targets = targets.filter(l => Math.floor(l.orderValue / 1000) === MODULE_FILTER);
   if (!targets.length) { console.error('No lessons matched filters'); process.exit(1); }
 
-  console.log(`\n═══ ${course.label} — ${targets.length} lesson(s) ═══\n`);
+  console.log(`\n═══ ${course.label} — ${targets.length} lesson(s) [source: ${sourceLabel}] ═══\n`);
 
   let ok = 0, skipped = 0, failed = 0;
+  let fallbackReused = 0;
+  let previousVideoPath: string | null = null;
 
   for (let i = 0; i < targets.length; i++) {
     const lesson = targets[i];
-    const modNum  = Math.floor(lesson[course.orderColumn] / 1000);
+    const modNum  = Math.floor(lesson.orderValue / 1000);
     const outPath = path.join(course.outDir, `${lesson.slug}.mp4`);
     const prefix  = `[${i + 1}/${targets.length}] ${lesson.slug}`;
 
     if (!FORCE && fs.existsSync(outPath) && getFileDur(outPath) > 60) {
-      console.log(`  SKIP  ${prefix}`); skipped++; continue;
+      console.log(`  SKIP  ${prefix}`); skipped++; previousVideoPath = outPath; continue;
     }
 
     if (!lesson.content || lesson.content.length < 50) {
@@ -418,20 +507,46 @@ async function main() {
         process.stdout.write(` ✅\n`);
       }
 
-      const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
-      if (upErr) process.stdout.write(`        ⚠️  DB: ${upErr.message}\n`);
-      else       process.stdout.write(`        DB ✅\n`);
+      if (!useGeneratedSource && sb) {
+        const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
+        if (upErr) process.stdout.write(`        ⚠️  DB: ${upErr.message}\n`);
+        else       process.stdout.write(`        DB ✅\n`);
+      } else {
+        process.stdout.write(`        DB skipped (generated source mode)\n`);
+      }
 
       ok++;
+      previousVideoPath = outPath;
     } catch (err: any) {
-      console.error(`  ❌    ${prefix} — ${err.message}`);
+      if (REUSE_PREVIOUS_ON_FAIL && previousVideoPath && fs.existsSync(previousVideoPath)) {
+        try {
+          fs.copyFileSync(previousVideoPath, outPath);
+          const videoUrl = `/videos/${path.basename(course.outDir)}/${lesson.slug}.mp4`;
+          if (!useGeneratedSource && sb) {
+            const { error: upErr } = await sb.from(course.table).update({ video_url: videoUrl }).eq('id', lesson.id);
+            if (upErr) {
+              throw new Error(`fallback copy succeeded but DB update failed: ${upErr.message}`);
+            }
+          }
+          console.warn(`  ⚠️    ${prefix} — generation failed (${err.message}); reused previous video`);
+          ok++;
+          fallbackReused++;
+          previousVideoPath = outPath;
+          fs.rmSync(tmpDir, { recursive: true, force: true });
+          continue;
+        } catch (fallbackErr: any) {
+          console.error(`  ❌    ${prefix} — ${err.message}; fallback failed: ${fallbackErr.message}`);
+        }
+      } else {
+        console.error(`  ❌    ${prefix} — ${err.message}`);
+      }
       try { fs.unlinkSync(outPath); } catch {}
       fs.rmSync(tmpDir, { recursive: true, force: true });
       failed++;
     }
   }
 
-  console.log(`\n═══ Done: ${ok} generated, ${skipped} skipped, ${failed} failed ═══\n`);
+  console.log(`\n═══ Done: ${ok} generated, ${skipped} skipped, ${failed} failed, ${fallbackReused} reused previous ═══\n`);
 
   // Chapter mode — concat all module lessons into one file
   if (CHAPTER_MODE && MODULE_FILTER) {
@@ -441,8 +556,16 @@ async function main() {
       const tmpList = path.join(os.tmpdir(), `chapter-${MODULE_FILTER}.txt`);
       const rawPath = path.join(os.tmpdir(), `chapter-${MODULE_FILTER}-raw.mp4`);
       fs.writeFileSync(tmpList, files.map(f => `file '${f}'`).join('\n'));
-      execSync(`ffmpeg -y -f concat -safe 0 -i "${tmpList}" -c copy "${rawPath}"`, { stdio: 'pipe', maxBuffer: 2000 * 1024 * 1024 });
-      execSync(`ffmpeg -y -i "${rawPath}" -c copy -movflags +faststart "${chapterPath}"`, { stdio: 'pipe', maxBuffer: 2000 * 1024 * 1024 });
+      execSync(`ffmpeg -y -f concat -safe 0 -i "${tmpList}" -c copy "${rawPath}"`, {
+        stdio: 'pipe',
+        maxBuffer: 2000 * 1024 * 1024,
+        timeout: FFMPEG_TIMEOUT_MS,
+      });
+      execSync(`ffmpeg -y -i "${rawPath}" -c copy -movflags +faststart "${chapterPath}"`, {
+        stdio: 'pipe',
+        maxBuffer: 2000 * 1024 * 1024,
+        timeout: FFMPEG_TIMEOUT_MS,
+      });
       try { fs.unlinkSync(rawPath); fs.unlinkSync(tmpList); } catch {}
       const dur = getFileDur(chapterPath);
       console.log(`Chapter: ${Math.floor(dur / 60)}m ${Math.round(dur % 60)}s → ${chapterPath}\n`);

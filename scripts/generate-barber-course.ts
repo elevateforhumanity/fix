@@ -1,4 +1,28 @@
 /* eslint-disable no-console */
+/**
+ * @deprecated — DO NOT USE AS A CURRICULUM SOURCE
+ *
+ * This script was written as a content-generation helper that outputs
+ * scripts/generated/barber-course.generated.ts.  Its intention was to
+ * generate draft lesson content that would then be manually merged into
+ * lib/curriculum/blueprints/barber-apprenticeship.ts.  That merge was
+ * never completed, leaving the generated output as a competing definition.
+ *
+ * CRITICAL CONFLICT: This script assigns lesson slugs 22–27 (barber-lesson-22
+ * through barber-lesson-27) to SANITATION content (Cleaning vs. Disinfecting,
+ * Blood Exposure Procedure, etc.).  The canonical blueprint assigns those same
+ * slugs to HAIRCUTTING content (Head Shape & Sectioning, The Fade, etc.).
+ * Running this script and merging its output would overwrite correct blueprint
+ * content with wrong content.
+ *
+ * ── CANONICAL SOURCE ────────────────────────────────────────────────────────
+ * lib/curriculum/blueprints/barber-apprenticeship.ts
+ *
+ * Any lesson content from this file that is still needed (e.g. Chemical
+ * Services module 6 lessons 35–38) must be reviewed against the blueprint
+ * and merged manually lesson-by-lesson, not by running this generator.
+ * ────────────────────────────────────────────────────────────────────────────
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 
