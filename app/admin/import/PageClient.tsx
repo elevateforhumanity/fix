@@ -84,7 +84,7 @@ export default function AdminImportPage() {
 
   const activeTabData = IMPORT_TABS.find(t => t.id === activeTab)!;
 
-  const parseCSV = (text: string): ImportPreview => {
+  const parseCSV = useCallback((text: string): ImportPreview => {
     const lines = text.split('\n').filter(line => line.trim());
     if (lines.length === 0) {
       return { headers: [], rows: [], totalRows: 0, errors: ['File is empty'], warnings: [] };
@@ -125,7 +125,7 @@ export default function AdminImportPage() {
       errors,
       warnings,
     };
-  };
+  }, [activeTabData]);
 
   const handleFile = useCallback((file: File) => {
     setFile(file);
@@ -138,7 +138,7 @@ export default function AdminImportPage() {
       setPreview(parsed);
     };
     reader.readAsText(file);
-  }, [activeTab]);
+  }, [parseCSV]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();

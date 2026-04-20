@@ -15,7 +15,6 @@ import EventFeed from '@/components/blocks/EventFeed';
 import JobFeed from '@/components/blocks/JobFeed';
 import FormBlock from '@/components/blocks/FormBlock';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ComponentRegistry: Record<string, ComponentType<any>> = {
   Hero,
   RichText,

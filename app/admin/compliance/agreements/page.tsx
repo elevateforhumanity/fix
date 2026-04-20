@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -46,7 +46,7 @@ export default function AdminAgreementsPage() {
   const [totalCount, setTotalCount] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -114,11 +114,11 @@ export default function AdminAgreementsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [loadData]);
 
   const handleExport = async (format: 'json' | 'csv') => {
     window.open(`/api/compliance/export?type=agreements&format=${format}`, '_blank');

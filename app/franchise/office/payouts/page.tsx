@@ -2,7 +2,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -55,18 +55,7 @@ export default function PayoutsPage() {
   const [periodStart, setPeriodStart] = useState('');
   const [periodEnd, setPeriodEnd] = useState('');
 
-  useEffect(() => {
-    // Set default period to current month
-    const now = new Date();
-    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    setPeriodStart(firstDay.toISOString().split('T')[0]);
-    setPeriodEnd(lastDay.toISOString().split('T')[0]);
-    
-    loadData();
-  }, []);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -108,7 +97,18 @@ export default function PayoutsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    // Set default period to current month
+    const now = new Date();
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    setPeriodStart(firstDay.toISOString().split('T')[0]);
+    setPeriodEnd(lastDay.toISOString().split('T')[0]);
+    
+    void loadData();
+  }, [loadData]);
 
   async function loadSummaries(officeId: string) {
     const supabase = createClient();

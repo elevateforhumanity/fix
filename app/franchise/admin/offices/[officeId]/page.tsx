@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -83,42 +83,7 @@ export default function AdminOfficeDetailPage() {
   const [returns, setReturns] = useState<Return[]>([]);
   const [editData, setEditData] = useState<Partial<Office>>({});
 
-  useEffect(() => {
-    checkAuthAndLoad();
-  }, [officeId]);
-
-  async function checkAuthAndLoad() {
-    try {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
-        return;
-      }
-
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .maybeSingle();
-
-      if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
-        setAuthorized(false);
-        setLoading(false);
-        return;
-      }
-
-      setAuthorized(true);
-      await loadData();
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     const supabase = createClient();
 
     const { data: officeData, error } = await supabase
@@ -158,7 +123,42 @@ export default function AdminOfficeDetailPage() {
     if (returnsData) {
       setReturns(returnsData);
     }
-  }
+  }, [officeId, router, toast]);
+
+  const checkAuthAndLoad = useCallback(async () => {
+    try {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
+        return;
+      }
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
+        setAuthorized(false);
+        setLoading(false);
+        return;
+      }
+
+      setAuthorized(true);
+      await loadData();
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [loadData, router]);
+
+  useEffect(() => {
+    void checkAuthAndLoad();
+  }, [checkAuthAndLoad]);
 
   async function saveChanges() {
     setSaving(true);

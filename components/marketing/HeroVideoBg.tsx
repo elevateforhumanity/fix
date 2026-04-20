@@ -68,7 +68,6 @@ export function HeroVideoBg({ src, poster, audioSrc }: HeroVideoBgProps) {
   // Reduced-motion: show poster image only, no video
   if (reducedMotion) {
     return poster ? (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={poster}
         alt=""

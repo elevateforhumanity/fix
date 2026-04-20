@@ -3,7 +3,8 @@
 
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
 interface License {
@@ -26,19 +27,12 @@ interface Tenant {
 
 export default function LicensingPage() {
   const router = useRouter();
+  const supabase = useMemo(() => createClient(), []);
   const [licenses, setLicenses] = useState<License[]>([]);
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) { router.replace('/login?redirect=/admin/licensing'); return; }
-      loadData();
-    });
-  }, []);
-
-  async function loadData() {
-    const supabase = createClient();
+  const loadData = useCallback(async () => {
 
     const [licensesRes, tenantsRes] = await Promise.all([
       supabase.from('licenses').select('*').order('created_at', { ascending: false }),
@@ -48,7 +42,14 @@ export default function LicensingPage() {
     if (licensesRes.data) setLicenses(licensesRes.data);
     if (tenantsRes.data) setTenants(tenantsRes.data);
     setLoading(false);
-  }
+  }, [supabase]);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) { router.replace('/login?redirect=/admin/licensing'); return; }
+      loadData();
+    });
+  }, [loadData, router, supabase]);
 
   async function handleUpdateLicenseStatus(licenseId: string, status: string) {
     const { updateLicenseStatus: serverUpdate } = await import('./actions');

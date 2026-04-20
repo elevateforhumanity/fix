@@ -68,24 +68,6 @@ export default function QuizTakingInterface({ quiz, questions, attemptId, visito
   const answeredCount = Object.keys(answers).length;
   const progress = (answeredCount / shuffledQuestions.length) * 100;
 
-  // Timer
-  useEffect(() => {
-    if (timeRemaining === null || timeRemaining <= 0) return;
-
-    const timer = setInterval(() => {
-      setTimeRemaining(prev => {
-        if (prev === null || prev <= 1) {
-          clearInterval(timer);
-          handleSubmit();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [timeRemaining]);
-
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -134,6 +116,24 @@ export default function QuizTakingInterface({ quiz, questions, attemptId, visito
       alert('Failed to submit quiz. Please try again.');
     }
   }, [quiz.id, attemptId, answers, isSubmitting, router]);
+
+  // Timer
+  useEffect(() => {
+    if (timeRemaining === null || timeRemaining <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeRemaining(prev => {
+        if (prev === null || prev <= 1) {
+          clearInterval(timer);
+          handleSubmit();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeRemaining, handleSubmit]);
 
   const unansweredCount = shuffledQuestions.length - answeredCount;
 

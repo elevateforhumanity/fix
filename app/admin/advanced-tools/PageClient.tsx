@@ -165,7 +165,7 @@ export default function AdvancedToolsPage() {
       supabase.from('settings').select('*').limit(50)
         .then(({ data }) => { if (data) setDbRows(data); });
     });
-  }, []);
+  }, [router]);
 
   const [search, setSearch] = useState("");
   const [pinnedTools, setPinnedTools] = useState<string[]>([]);

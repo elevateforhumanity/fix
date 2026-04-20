@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * Data Encryption Utility
  * Provides encryption/decryption for sensitive data fields

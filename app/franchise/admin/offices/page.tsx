@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -41,56 +41,7 @@ export default function AdminOfficesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredOffices, setFilteredOffices] = useState<Office[]>([]);
 
-  useEffect(() => {
-    checkAuthAndLoad();
-  }, []);
-
-  useEffect(() => {
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      setFilteredOffices(offices.filter(o => 
-        o.office_code.toLowerCase().includes(query) ||
-        o.office_name.toLowerCase().includes(query) ||
-        o.owner_name.toLowerCase().includes(query) ||
-        o.address_city.toLowerCase().includes(query)
-      ));
-    } else {
-      setFilteredOffices(offices);
-    }
-  }, [searchQuery, offices]);
-
-  async function checkAuthAndLoad() {
-    try {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        window.location.href = '/login';
-        return;
-      }
-
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .maybeSingle();
-
-      if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
-        setAuthorized(false);
-        setLoading(false);
-        return;
-      }
-
-      setAuthorized(true);
-      await loadOffices();
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function loadOffices() {
+  const loadOffices = useCallback(async () => {
     const supabase = createClient();
     
     const { data: officesData } = await supabase
@@ -122,7 +73,56 @@ export default function AdminOfficesPage() {
       setOffices(officesWithStats);
       setFilteredOffices(officesWithStats);
     }
-  }
+  }, []);
+
+  const checkAuthAndLoad = useCallback(async () => {
+    try {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        window.location.href = '/login';
+        return;
+      }
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profile?.role !== 'super_admin' && profile?.role !== 'franchise_admin') {
+        setAuthorized(false);
+        setLoading(false);
+        return;
+      }
+
+      setAuthorized(true);
+      await loadOffices();
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [loadOffices]);
+
+  useEffect(() => {
+    void checkAuthAndLoad();
+  }, [checkAuthAndLoad]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      setFilteredOffices(offices.filter(o => 
+        o.office_code.toLowerCase().includes(query) ||
+        o.office_name.toLowerCase().includes(query) ||
+        o.owner_name.toLowerCase().includes(query) ||
+        o.address_city.toLowerCase().includes(query)
+      ));
+    } else {
+      setFilteredOffices(offices);
+    }
+  }, [searchQuery, offices]);
 
   if (loading) {
     return (

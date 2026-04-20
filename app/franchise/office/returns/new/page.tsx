@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -70,11 +70,7 @@ export default function NewReturnPage() {
   const [federalWithholding, setFederalWithholding] = useState<number>(0);
   const [estimatedPayments, setEstimatedPayments] = useState<number>(0);
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -155,7 +151,11 @@ export default function NewReturnPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [router, toast]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   const totalIncome = wages + interest + dividends + businessIncome + otherIncome;
   

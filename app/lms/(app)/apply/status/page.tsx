@@ -1,7 +1,7 @@
 'use client';
 
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -26,11 +26,7 @@ export default function ApplicationStatusPage() {
   const [application, setApplication] = useState<Application | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadApplication();
-  }, []);
-
-  const loadApplication = async () => {
+  const loadApplication = useCallback(async () => {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -49,7 +45,11 @@ export default function ApplicationStatusPage() {
 
     setApplication(data);
     setLoading(false);
-  };
+  }, [router]);
+
+  useEffect(() => {
+    void loadApplication();
+  }, [loadApplication]);
 
   if (loading) {
     return (

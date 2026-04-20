@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -39,8 +39,18 @@ export default function ClientsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredClients, setFilteredClients] = useState<Client[]>([]);
 
-  useEffect(() => {
-    loadData();
+  const loadClients = useCallback(async (officeId: string) => {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('franchise_clients')
+      .select('*')
+      .eq('office_id', officeId)
+      .order('last_name');
+
+    if (data) {
+      setClients(data);
+      setFilteredClients(data);
+    }
   }, []);
 
   useEffect(() => {
@@ -57,7 +67,7 @@ export default function ClientsPage() {
     }
   }, [searchQuery, clients]);
 
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -95,21 +105,11 @@ export default function ClientsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [loadClients]);
 
-  async function loadClients(officeId: string) {
-    const supabase = createClient();
-    const { data } = await supabase
-      .from('franchise_clients')
-      .select('*')
-      .eq('office_id', officeId)
-      .order('last_name');
-
-    if (data) {
-      setClients(data);
-      setFilteredClients(data);
-    }
-  }
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   if (loading) {
     return (

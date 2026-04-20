@@ -15,7 +15,6 @@ export function safeErrorMessage(error: unknown, fallback = 'Something went wron
  * Creates a NextResponse JSON error response with a safe message.
  */
 export function safeErrorJson(error: unknown, status = 500, fallback?: string) {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { NextResponse } = require('next/server');
   return NextResponse.json(
     { error: safeErrorMessage(error, fallback) },

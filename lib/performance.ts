@@ -143,7 +143,6 @@ export function trackMemoryUsage() {
     const totalMemory = memory.totalJSHeapSize / 1048576; // MB
 
     if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console -- dev-only memory tracing
       (console as any).debug?.(`Memory: ${usedMemory.toFixed(2)}MB / ${totalMemory.toFixed(2)}MB`); // ci-ignore
     }
 

@@ -25,6 +25,14 @@ interface StudentMatch {
   email: string;
 }
 
+function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
+  return (
+    <label className="block text-xs font-semibold text-slate-600 mb-1">
+      {children} {required && <span className="text-brand-red-500">*</span>}
+    </label>
+  );
+}
+
 export default function NewSessionForm({ session, onSaved, onCancel }: Props) {
   const supabase = createClient();
   const isEdit = !!session;
@@ -225,12 +233,6 @@ export default function NewSessionForm({ session, onSaved, onCancel }: Props) {
       onSaved();
     }
   };
-
-  const Label = ({ children, required }: { children: React.ReactNode; required?: boolean }) => (
-    <label className="block text-xs font-semibold text-slate-600 mb-1">
-      {children} {required && <span className="text-brand-red-500">*</span>}
-    </label>
-  );
 
   const inputCls = 'w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500';
   const selectCls = inputCls;

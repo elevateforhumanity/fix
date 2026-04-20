@@ -9,20 +9,10 @@ import PublicLayout from '@/components/layout/PublicLayout';
 import ToasterClient from '@/components/ui/ToasterClient';
 import { SkipToContent } from '@/components/ui/SkipToContent';
 import { DMCATrackingPixel } from '@/components/InvisibleWatermark';
-import { Inter } from 'next/font/google';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import RootWidgets from './RootWidgets';
-
+import AdminPWAInit from '@/components/admin/AdminPWAInit';
 import PWAManager from '@/app/components/PWAManager';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'block',
-  variable: '--font-inter',
-  preload: true,
-  fallback: ['system-ui', '-apple-system', 'sans-serif'],
-  adjustFontFallback: true,
-});
 
 // Viewport configuration (separate from metadata in Next.js 14+)
 export const viewport: Viewport = {
@@ -153,7 +143,7 @@ export default function RootLayout({
   const isProduction = process.env.NODE_ENV === 'production';
 
   return (
-    <html lang="en" className={`light ${inter.variable}`}>
+    <html lang="en" className="light">
       <head>
         {!isProduction && <meta name="robots" content="noindex,nofollow" />}
 
@@ -183,8 +173,8 @@ export default function RootLayout({
         {/* Critical CSS to prevent FOUC on mobile */}
         <style dangerouslySetInnerHTML={{__html: `
           *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-          html{-webkit-text-size-adjust:100%;background:#fff}
-          body{margin:0;line-height:1.6;background:#fff;font-size:17px;min-height:100vh;color:#111827}
+          html{-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;background:#fff}
+          body{margin:0;line-height:1.6;background:#fff;font-size:17px;min-height:100vh}
           img{max-width:100%;height:auto;display:block}
           button,input,select,textarea{font-family:inherit;font-size:100%}
           .flex{display:flex}
@@ -227,6 +217,7 @@ export default function RootLayout({
         <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(){var p=location.pathname;var APP=['/admin','/lms','/learner','/instructor','/employer','/partner','/staff-portal','/mentor','/program-holder'];if(APP.some(function(a){return p===a||p.startsWith(a+'/')})){document.body.setAttribute('data-app-route','true');}if(p==='/admin'||p.startsWith('/admin/')){document.body.setAttribute('data-admin-route','true');}})();` }} />
         <SkipToContent />
         <GoogleAnalytics />
+        <AdminPWAInit />
         <PWAManager />
         <PublicLayout>{children}</PublicLayout>
         <DMCATrackingPixel />

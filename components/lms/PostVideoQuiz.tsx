@@ -43,6 +43,18 @@ export interface PostVideoQuizProps {
   videoWatchGateMet?: boolean;
 }
 
+function computeScoreForQuestions(
+  answers: (number | null)[],
+  questions: QuizQuestion[]
+) {
+  const correct = answers.filter((s, i) => s === questions[i].answer).length;
+  return {
+    correct,
+    total: questions.length,
+    percent: Math.round((correct / questions.length) * 100),
+  };
+}
+
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
@@ -85,18 +97,13 @@ export function PostVideoQuiz({
     return merged;
   };
 
-  const computeScore = (answers: (number | null)[]) => {
-    const correct = answers.filter((s, i) => s === questions[i].answer).length;
-    return { correct, total: questions.length, percent: Math.round((correct / questions.length) * 100) };
-  };
-
   // Initial submit
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const handleSubmit = useCallback(() => {
     if (selected.some(s => s === null)) return;
     setSubmitted(true);
 
-    const { correct, total, percent } = computeScore(selected);
+    const { correct, total, percent } = computeScoreForQuestions(selected, questions);
     const isPassed = percent >= passingScore;
     const newBest = Math.max(bestScore, percent);
     setBestScore(newBest);
@@ -132,7 +139,12 @@ export function PostVideoQuiz({
 
     // If we already did a retry, check merged answers for missed
     if (retryIndices && retrySubmitted) {
-      const merged = getMergedAnswers();
+      const merged = [...selected];
+      retryIndices.forEach((origIdx) => {
+        if (retrySelected[origIdx] !== null) {
+          merged[origIdx] = retrySelected[origIdx];
+        }
+      });
       const stillMissed = merged
         .map((s, i) => (s !== questions[i].answer ? i : -1))
         .filter(i => i >= 0);
@@ -145,7 +157,7 @@ export function PostVideoQuiz({
     setRetryIndices(missed);
     setRetrySelected(new Array(questions.length).fill(null));
     setRetrySubmitted(false);
-  }, [selected, questions, retryIndices, retrySubmitted]);
+  }, [selected, questions, retryIndices, retrySubmitted, retrySelected]);
 
   // Submit retry
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -163,7 +175,7 @@ export function PostVideoQuiz({
       }
     });
 
-    const { correct, total, percent } = computeScore(merged);
+    const { correct, total, percent } = computeScoreForQuestions(merged, questions);
     const newBest = Math.max(bestScore, percent);
     setBestScore(newBest);
 
@@ -204,7 +216,7 @@ export function PostVideoQuiz({
   // ── RETRY REVIEW (after retry submitted) ──
   if (retrySubmitted && retryIndices) {
     const merged = getMergedAnswers();
-    const { correct, total, percent } = computeScore(merged);
+    const { correct, total, percent } = computeScoreForQuestions(merged, questions);
     const isPassed = Math.max(bestScore, percent) >= passingScore;
     const stillMissed = merged.filter((s, i) => s !== questions[i].answer).length;
 

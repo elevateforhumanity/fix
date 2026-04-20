@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -72,11 +72,7 @@ export default function ReturnDetailPage() {
   const [loading, setLoading] = useState(true);
   const [returnData, setReturnData] = useState<ReturnDetail | null>(null);
 
-  useEffect(() => {
-    loadData();
-  }, [returnId]);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const supabase = createClient();
       
@@ -103,7 +99,11 @@ export default function ReturnDetailPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [returnId, router, toast]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   function getStatusColor(status: string) {
     switch (status) {

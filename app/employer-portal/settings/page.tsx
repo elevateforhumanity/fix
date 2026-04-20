@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
-import {  } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { redirect } from 'next/navigation';
 import { Settings, User, Bell, Building } from 'lucide-react';
 
@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function EmployerSettingsPage() {
   const supabase = await createClient();
-  const db = await getAdminClient();
+  const db = (await getAdminClient()) || supabase;
   
   if (!supabase) redirect('/login');
 

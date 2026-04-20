@@ -6,7 +6,7 @@ import {
   GraduationCap, Briefcase, Award, BookOpen, Sparkles 
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
-import {  } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { CourseCatalog } from '@/components/CourseCatalog';
 import { CourseCompletionTracking } from '@/components/CourseCompletionTracking';
@@ -27,7 +27,7 @@ const categories = ['All', 'Healthcare', 'Trades', 'Beauty', 'Transportation', '
 
 export default async function CoursesPage() {
   const supabase = await createClient();
-  const db = await getAdminClient();
+  const db = (await getAdminClient()) || supabase;
   let featuredCourses: any[] = [];
 
   if (supabase) {

@@ -11,40 +11,47 @@ export const metadata: Metadata = {
   description: 'Join discussions with fellow students and professionals.',
 };
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 export default async function DiscussionsPage() {
-  const supabase = await createClient();
+  let discussionList: any[] = [];
+  let categories: any[] = [];
 
-  // Fetch discussions from database
-  const { data: discussions, error } = await supabase
-    .from('discussion_threads')
-    .select(`
-      id,
-      title,
-      category,
-      created_at,
-      replies_count,
-      views_count,
-      author:profiles(full_name)
-    `)
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
-    .limit(20);
+  try {
+    const supabase = await createClient();
 
-  if (error) {
-    logger.error('Error fetching discussions:', error.message);
+    // Fetch discussions from database
+    const { data: discussions, error } = await supabase
+      .from('discussion_threads')
+      .select(`
+        id,
+        title,
+        category,
+        created_at,
+        replies_count,
+        views_count,
+        author:profiles(full_name)
+      `)
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    if (error) {
+      logger.error('Error fetching discussions:', error.message);
+    } else {
+      discussionList = discussions || [];
+    }
+
+    // Fetch categories
+    const { data: categoriesData } = await supabase
+      .from('forums')
+      .select('id, name, description')
+      .eq('is_active', true)
+      .order('name');
+
+    categories = categoriesData || [];
+  } catch (err) {
+    logger.warn('Discussions page falling back without Supabase data', err as Error);
   }
-
-  const discussionList = discussions || [];
-
-  // Fetch categories
-  const { data: categoriesData } = await supabase
-    .from('forums')
-    .select('id, name, description')
-    .eq('is_active', true)
-    .order('name');
-
-  const categories = categoriesData || [];
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
