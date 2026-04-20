@@ -26,8 +26,7 @@ export async function POST(request: NextRequest) {
     if (rateLimited) return rateLimited;
 
     const supabase = await createClient();
-    const db = await getAdminClient();
-    const db = adminDb || supabase;
+    const db = await getAdminClient() || supabase;
 
     if (!supabase) return safeError('Database not configured', 503);
 

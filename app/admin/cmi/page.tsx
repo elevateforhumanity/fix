@@ -31,8 +31,7 @@ const STATUS_COLORS: Record<string, string> = {
 export default async function CMIDashboardPage() {
   // Auth — admin layout handles redirect, but double-check role here
   const supabase = await createClient();
-  const db = await getAdminClient();
-  const db = adminDb || supabase;
+  const db = await getAdminClient() || supabase;
 
   if (!supabase) redirect('/login?redirect=/admin/cmi');
 
