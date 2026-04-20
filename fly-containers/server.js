@@ -157,7 +157,7 @@ app.post('/api/exec', async (req, res) => {
 
 // WebSocket: Interactive terminal
 wss.on('connection', (ws, req) => {
-  console.log('Terminal connection established');
+  console.info('Terminal connection established');
   
   // Create PTY
   const pty = spawn('bash', [], {
@@ -219,7 +219,7 @@ wss.on('connection', (ws, req) => {
   });
   
   ws.on('close', () => {
-    console.log('Terminal connection closed');
+    console.info('Terminal connection closed');
     pty.kill();
     terminals.delete(terminalId);
   });
@@ -234,12 +234,12 @@ wss.on('connection', (ws, req) => {
 // Start server
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Studio container server running on port ${PORT}`);
+  console.info(`Studio container server running on port ${PORT}`);
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('Shutting down...');
+  console.info('Shutting down...');
   terminals.forEach(({ pty }) => pty.kill());
   server.close(() => process.exit(0));
 });

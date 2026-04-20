@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
  * Body: { course_lesson_id, course_id, step_type, submission_text?, file_urls?, competency_key? }
  */
 export async function POST(request: NextRequest) {
-  try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch { /* ignore rate-limit backend failures */ }
+  try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch { /* continue on rate-limit backend failure */ }
 
   const auth = await apiAuthGuard(request);
   if (auth.error) return auth.error;
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
  * Returns the learner's own submissions for a lesson.
  */
 export async function GET(request: NextRequest) {
-  try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch { /* ignore rate-limit backend failures */ }
+  try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch { /* continue on rate-limit backend failure */ }
 
   const auth = await apiAuthGuard(request);
   if (auth.error) return auth.error;

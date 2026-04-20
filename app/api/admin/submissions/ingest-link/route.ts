@@ -89,7 +89,7 @@ function extractIssuer(html: string, url: string): string | null {
 
 function extractRefNumber(html: string): string | null {
   const patterns = [
-    /(?:RFP|RFQ|RFI|ITB|Solicitation|Reference|Opportunity)\s*(?:No\.?|Number|#)\s*:?\s*([A-Z0-9_/-]{4,30})/i,
+    /(?:RFP|RFQ|RFI|ITB|Solicitation|Reference|Opportunity)\s*(?:No\.?|Number|#)\s*:?\s*([A-Z0-9-_/]{4,30})/i,
     /(?:CFDA|ALN)\s*(?:No\.?|Number|#)?\s*:?\s*(\d{2}\.\d{3})/i,
     /(?:Funding Opportunity Number|FON)\s*:?\s*([A-Z0-9-]{4,30})/i,
   ];

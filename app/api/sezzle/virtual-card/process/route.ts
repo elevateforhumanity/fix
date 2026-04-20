@@ -15,6 +15,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
 import { sezzle } from '@/lib/sezzle/client';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
@@ -153,8 +154,7 @@ async function _POST(request: NextRequest) {
 
     // Generate internal order ID
     // Use randomBytes — Math.random() has collision risk for concurrent requests.
-    const { randomBytes: _rb } = require('crypto') as typeof import('crypto');
-    const internalOrderId = `ORD-${Date.now()}-${_rb(6).toString('hex')}`;
+    const internalOrderId = `ORD-${Date.now()}-${randomBytes(6).toString('hex')}`;
 
     // Store the payment record
     if (supabase) {

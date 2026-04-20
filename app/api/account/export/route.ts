@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
 
 async function _GET(request: Request) {
   try {
-    try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch { /* ignore rate-limit backend failures */ }
+    try { const rl = await applyRateLimit(request, 'api'); if (rl) return rl; } catch { /* continue on rate-limit backend failure */ }
 
     const auth = await apiAuthGuard(request as any);
     if (auth.error) return auth.error;

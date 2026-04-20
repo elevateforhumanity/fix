@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   description: 'Elevate for Humanity community hub.',
   robots: { index: false, follow: false },
 };
+export const dynamic = 'force-dynamic';
 
 export default function CommunityLayout({ children }: { children: React.ReactNode }) {
   return children;

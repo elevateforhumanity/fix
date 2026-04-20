@@ -7,7 +7,7 @@ import { lessonToScenes } from '../../../../lib/autopilot/lesson-to-scenes';
 import fs from 'fs/promises';
 
 async function generateScenes() {
-  console.log('Generating scenes from lesson script...');
+  console.info('Generating scenes from lesson script...');
 
   const result = await lessonToScenes({
     title: 'Introduction to HVAC Systems',
@@ -21,17 +21,17 @@ async function generateScenes() {
     instructorTitle: 'HVAC Training Program',
   });
 
-  console.log(`Generated ${result.scenes.length} scenes`);
-  console.log(`Total duration: ${result.totalDuration}s`);
-  console.log(`Image paths: ${result.imagePaths.length}`);
+  console.info(`Generated ${result.scenes.length} scenes`);
+  console.info(`Total duration: ${result.totalDuration}s`);
+  console.info(`Image paths: ${result.imagePaths.length}`);
 
   // Save scenes to JSON for the video renderer
   const outputPath = path.join(process.cwd(), 'courses/hvac/module1', 'lesson1-scenes.json');
   await fs.writeFile(outputPath, JSON.stringify(result, null, 2));
-  console.log(`Scenes saved to ${outputPath}`);
+  console.info(`Scenes saved to ${outputPath}`);
 
   for (const scene of result.scenes) {
-    console.log(`  [${scene.type}] ${scene.duration}s — ${scene.script.substring(0, 80)}...`);
+    console.info(`  [${scene.type}] ${scene.duration}s — ${scene.script.substring(0, 80)}...`);
   }
 }
 

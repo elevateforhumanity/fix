@@ -356,7 +356,7 @@ async function _POST(request: NextRequest) {
   <li><strong>Access your dashboard</strong> — log hours, track progress, and access your coursework in the Elevate LMS once orientation is complete.</li>
 </ol>
 
-${!fullyPaid ? `<p><strong>Payment plan:</strong> Weekly invoices will arrive every Friday starting next week.</p>` : ''}
+${!fullyPaid ? `<p><strong>Payment plan:</strong> Your card on file will be automatically charged $${(weeklyPaymentCents / 100).toFixed(2)} every Friday until your balance is paid in full. No action needed — charges happen automatically.</p>` : ''}
 
 <p>Questions? Call <a href="tel:3173143757">(317) 314-3757</a> or reply to this email.</p>
 <p>— Elevate for Humanity</p>
@@ -533,7 +533,7 @@ ${!fullyPaid ? `<p><strong>Payment plan:</strong> Weekly invoices will arrive ev
   <li><strong>Access your dashboard</strong> — log hours, track progress, and access your coursework in the Elevate LMS once orientation is complete.</li>
 </ol>
 
-${!fullyPaid ? `<p><strong>Payment plan:</strong> Weekly invoices will arrive every Friday starting next week.</p>` : ''}
+${!fullyPaid ? `<p><strong>Payment plan:</strong> Your card on file will be automatically charged $${(weeklyPaymentCents / 100).toFixed(2)} every Friday until your balance is paid in full. No action needed — charges happen automatically.</p>` : ''}
 
 <p>Questions? Call <a href="tel:3173143757">(317) 314-3757</a> or reply to this email.</p>
 <p>— Elevate for Humanity</p>

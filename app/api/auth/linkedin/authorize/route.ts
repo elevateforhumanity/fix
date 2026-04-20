@@ -1,6 +1,7 @@
 // PUBLIC ROUTE: OAuth initiation — no auth possible
 // AUTH: Intentionally public — no authentication required
 import { NextRequest, NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
@@ -27,7 +28,6 @@ const clientId = process.env.LINKEDIN_CLIENT_ID;
 
   // Use crypto.randomBytes for the OAuth state parameter — Math.random() is
   // predictable and makes CSRF protection ineffective.
-  const { randomBytes } = require('crypto') as typeof import('crypto');
   const state = randomBytes(16).toString('hex');
 
   // LinkedIn OAuth scopes

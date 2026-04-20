@@ -42,7 +42,7 @@ export default async function ApplicationsPage({
 
   // Use admin client for data queries to bypass RLS
   let adminDb: Awaited<ReturnType<typeof getAdminClient>> | null = null;
-  try { adminDb = await getAdminClient(); } catch { /* ignore admin client init failures */ }
+  try { adminDb = await getAdminClient(); } catch { /* handled by null check below */ }
   if (!adminDb) return <div className="p-8 text-red-600">Service temporarily unavailable. Please try again.</div>;
 
   let query = adminDb.from('applications').select('*', { count: 'exact' }).order('created_at', { ascending: false });

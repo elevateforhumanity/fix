@@ -71,10 +71,22 @@ export function createBrowserClient(): SupabaseClient<any> {
   // process.env.NEXT_PUBLIC_* is inlined by Next.js at build time.
   // Fallback literals ensure the client works even when Turbopack
   // fails to inline env vars in dev (known issue with some env setups).
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  return createSupabaseBrowserClient(supabaseUrl, supabaseAnonKey);
+  if (!supabaseUrl || !supabaseAnonKey) {
+    if (!warnedOnce && process.env.NODE_ENV !== 'production') {
+      logger.warn('[Supabase Browser] Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY; returning no-op client.');
+      warnedOnce = true;
+    }
+    return noOpClient;
+  }
+
+  try {
+    return createSupabaseBrowserClient(supabaseUrl, supabaseAnonKey);
+  } catch {
+    return noOpClient;
+  }
 }
 
 // Legacy export for backwards compatibility

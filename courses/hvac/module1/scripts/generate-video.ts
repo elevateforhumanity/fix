@@ -16,7 +16,7 @@ import { generateVideo } from '../../../../server/video-generator-v2';
 import fs from 'fs/promises';
 
 async function generate() {
-  console.log('STEP 1: Converting lesson script to scenes with DALL-E images...');
+  console.info('STEP 1: Converting lesson script to scenes with DALL-E images...');
 
   const sceneResult = await lessonToScenes({
     title: 'Introduction to HVAC Systems',
@@ -30,9 +30,9 @@ async function generate() {
     instructorTitle: 'HVAC Training Program',
   });
 
-  console.log(`  ${sceneResult.scenes.length} scenes, ${sceneResult.imagePaths.length} images, ${sceneResult.totalDuration}s`);
+  console.info(`  ${sceneResult.scenes.length} scenes, ${sceneResult.imagePaths.length} images, ${sceneResult.totalDuration}s`);
 
-  console.log('\nSTEP 2: Generating video (TTS + FFmpeg compositing)...');
+  console.info('\nSTEP 2: Generating video (TTS + FFmpeg compositing)...');
 
   const result = await generateVideo({
     title: 'HVAC Module 1 - Introduction to HVAC Systems',
@@ -46,9 +46,9 @@ async function generate() {
     },
   });
 
-  console.log(`\nResult status: ${result.status}`);
-  console.log(`  videoPath: ${result.videoPath}`);
-  console.log(`  duration: ${result.duration}s`);
+  console.info(`\nResult status: ${result.status}`);
+  console.info(`  videoPath: ${result.videoPath}`);
+  console.info(`  duration: ${result.duration}s`);
 
   if (result.status === 'failed') {
     console.error('  Error:', result.error);
@@ -60,11 +60,11 @@ async function generate() {
     await fs.mkdir(path.dirname(finalPath), { recursive: true });
     await fs.copyFile(result.videoPath, finalPath);
     const stat = await fs.stat(finalPath);
-    console.log(`  Copied to: ${finalPath} (${(stat.size / 1024 / 1024).toFixed(1)} MB)`);
+    console.info(`  Copied to: ${finalPath} (${(stat.size / 1024 / 1024).toFixed(1)} MB)`);
   }
 
   await cleanupSceneImages(sceneResult.imagePaths);
-  console.log('  Temp images cleaned up');
+  console.info('  Temp images cleaned up');
 }
 
 generate().catch((err) => {
