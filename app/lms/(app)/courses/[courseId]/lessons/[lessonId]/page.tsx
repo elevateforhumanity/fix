@@ -427,7 +427,7 @@ export default function LessonPage() {
         setCheckpointBlocked(true);
       }
     }
-  }, [lessonId, courseId]); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessonId, courseId]);
 
   useEffect(() => {
     lessonStartTime.current = Date.now();

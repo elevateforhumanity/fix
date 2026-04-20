@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ShoppingBag, DollarSign, Package, Users, BarChart3 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
@@ -22,7 +22,7 @@ const emptyStats = [
 
 export default async function ShopDashboardPage() {
   const supabase = await createClient();
-  const _admin = createAdminClient(); const db = _admin || supabase;
+  const db = (await getAdminClient()) || supabase;
   let stats = emptyStats;
   let orders: any[] = [];
 

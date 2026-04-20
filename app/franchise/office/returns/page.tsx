@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -48,15 +48,25 @@ export default function ReturnsPage() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [yearFilter, setYearFilter] = useState('all');
 
-  useEffect(() => {
-    loadData();
+  const loadReturns = useCallback(async (officeId: string) => {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('franchise_return_submissions')
+      .select(`
+        *,
+        preparer:franchise_preparers(first_name, last_name),
+        client:franchise_clients(first_name, last_name, ssn_last_four)
+      `)
+      .eq('office_id', officeId)
+      .order('created_at', { ascending: false });
+
+    if (data) {
+      setReturns(data as any);
+      setFilteredReturns(data as any);
+    }
   }, []);
 
-  useEffect(() => {
-    filterReturns();
-  }, [searchQuery, statusFilter, yearFilter, returns]);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -92,27 +102,9 @@ export default function ReturnsPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [loadReturns]);
 
-  async function loadReturns(officeId: string) {
-    const supabase = createClient();
-    const { data } = await supabase
-      .from('franchise_return_submissions')
-      .select(`
-        *,
-        preparer:franchise_preparers(first_name, last_name),
-        client:franchise_clients(first_name, last_name, ssn_last_four)
-      `)
-      .eq('office_id', officeId)
-      .order('created_at', { ascending: false });
-
-    if (data) {
-      setReturns(data as any);
-      setFilteredReturns(data as any);
-    }
-  }
-
-  function filterReturns() {
+  const filterReturns = useCallback(() => {
     let filtered = [...returns];
 
     if (searchQuery) {
@@ -136,7 +128,15 @@ export default function ReturnsPage() {
     }
 
     setFilteredReturns(filtered);
-  }
+  }, [returns, searchQuery, statusFilter, yearFilter]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
+
+  useEffect(() => {
+    filterReturns();
+  }, [filterReturns]);
 
   const years = [...new Set(returns.map(r => r.tax_year))].sort((a, b) => b - a);
   const statuses = [...new Set(returns.map(r => r.status))];

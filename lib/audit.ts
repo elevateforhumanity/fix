@@ -55,7 +55,6 @@ async function onAuditFailure(context: string, error: unknown, event: Record<str
     try {
       // Dynamic require: fs is unavailable in edge runtime, so this is
       // guarded by the process check and wrapped in try/catch.
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { appendFileSync } = require('node:fs');
       const line = JSON.stringify({ ...failureRecord, event }) + '\n';
       appendFileSync('/tmp/audit-fallback.jsonl', line);

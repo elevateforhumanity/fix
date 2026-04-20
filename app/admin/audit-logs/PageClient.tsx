@@ -3,7 +3,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import React from 'react';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Shield, Filter, Download, Search } from 'lucide-react';
 
@@ -28,11 +28,7 @@ export default function AuditLogsPage() {
   const [resourceFilter, setResourceFilter] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    loadLogs();
-  }, [actionFilter, resourceFilter]);
-
-  const loadLogs = async () => {
+  const loadLogs = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (actionFilter) params.append('action', actionFilter);
@@ -48,7 +44,11 @@ export default function AuditLogsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [actionFilter, resourceFilter]);
+
+  useEffect(() => {
+    loadLogs();
+  }, [loadLogs]);
 
   const filteredLogs = logs.filter((log) => {
     if (!searchTerm) return true;

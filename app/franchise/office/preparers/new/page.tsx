@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -44,11 +44,7 @@ export default function NewPreparerPage() {
   const [hourlyRate, setHourlyRate] = useState<number>(0);
   const [notes, setNotes] = useState('');
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -81,7 +77,11 @@ export default function NewPreparerPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [router, toast]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   function formatPTIN(value: string): string {
     const clean = value.toUpperCase().replace(/[^P0-9]/g, '');

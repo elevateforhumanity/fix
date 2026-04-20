@@ -79,7 +79,7 @@ export default function DisableDevTools() {
 
     // Clear console and add warning
     const clearConsole = () => {
-      console.clear();
+      window.console?.clear?.();
     };
 
     // Detect devtools open (basic detection)

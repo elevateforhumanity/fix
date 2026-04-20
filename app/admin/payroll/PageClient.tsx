@@ -5,7 +5,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import React from 'react';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -14,21 +14,13 @@ import { useRouter } from 'next/navigation';
 export default function AdminPayroll() {
   const router = useRouter();
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
   const [apprenticeships, setApprenticeships] = useState<any[]>([]);
   const [payrolls, setPayrolls] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
 
-  useEffect(() => {
-    // Verify session before loading sensitive payroll data
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) { router.replace('/login?redirect=/admin/payroll'); return; }
-      loadData();
-    });
-  }, []);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     const { data: apprenticeshipData } = await supabase
       .from('apprenticeship_enrollments')
       .select(
@@ -56,7 +48,15 @@ export default function AdminPayroll() {
 
     setPayrolls(payrollData || []);
     setLoading(false);
-  }
+  }, [supabase]);
+
+  useEffect(() => {
+    // Verify session before loading sensitive payroll data
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) { router.replace('/login?redirect=/admin/payroll'); return; }
+      loadData();
+    });
+  }, [loadData, router, supabase]);
 
   async function generatePayroll(apprenticeshipId: string) {
     setGenerating(true);

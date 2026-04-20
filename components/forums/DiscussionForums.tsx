@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { createBrowserClient } from '@supabase/ssr';
+import { createBrowserClient } from '@/lib/supabase/client';
 import {
   MessageSquare,
   ThumbsUp,
@@ -62,10 +62,7 @@ interface ForumPost {
 }
 
 export default function DiscussionForums() {
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabase = createBrowserClient();
   const [activeView, setActiveView] = useState<
     'categories' | 'threads' | 'thread'
   >('categories');

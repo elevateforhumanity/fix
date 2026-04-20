@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { 
   Inbox, 
@@ -52,11 +52,7 @@ export default function AdminSupportPage() {
   const [filter, setFilter] = useState({ status: '', category: '' });
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    fetchTickets();
-  }, [filter]);
-
-  const fetchTickets = async () => {
+  const fetchTickets = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (filter.status) params.set('status', filter.status);
@@ -70,7 +66,11 @@ export default function AdminSupportPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => {
+    fetchTickets();
+  }, [fetchTickets]);
 
   const stats = {
     open: tickets.filter(t => t.status === 'open').length,

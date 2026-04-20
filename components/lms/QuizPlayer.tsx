@@ -62,7 +62,6 @@ function normalizeQuestion(raw: unknown, index: number): Question | null {
 }
 
 interface QuizPlayerProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   questions: any[];
   onComplete: (score: number, answers?: Record<string, number>) => void;
   passingScore?: number;

@@ -158,7 +158,6 @@ export default function InteractiveDemoPlayer({
         {videoError && (
           <div className="absolute inset-0 bg-slate-900">
             {scene.poster && (
-              // eslint-disable-next-line @next/next/no-img-element
               <img src={scene.poster} alt={scene.title} className="absolute inset-0 w-full h-full object-cover" />
             )}
           </div>

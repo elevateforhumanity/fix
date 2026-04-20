@@ -31,13 +31,15 @@ export default async function LmsPublicPage() {
   // Load programs from DB — active, published, ordered
   const { getAdminClient } = await import('@/lib/supabase/admin');
   const db = await getAdminClient();
-  const dbPrograms = db ? (await db
-    .from('programs')
-    .select('id, title, slug, description, excerpt, image_url, duration_weeks, credential, credential_name, is_active, status')
-    .eq('is_active', true)
-    .neq('status', 'archived')
-    .order('title')
-    .limit(12)).data : null;
+  const { data: dbPrograms } = db
+    ? await db
+      .from('programs')
+      .select('id, title, slug, description, excerpt, image_url, duration_weeks, credential, credential_name, is_active, status')
+      .eq('is_active', true)
+      .neq('status', 'archived')
+      .order('title')
+      .limit(12)
+    : { data: [] };
 
   const programs = (dbPrograms ?? []).map((p: any) => ({
     title: p.title,

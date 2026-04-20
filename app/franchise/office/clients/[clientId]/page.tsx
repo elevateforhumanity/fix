@@ -1,7 +1,7 @@
 'use client';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -77,11 +77,7 @@ export default function ClientDetailPage() {
   const [returns, setReturns] = useState<Return[]>([]);
   const [editData, setEditData] = useState<Partial<Client>>({});
 
-  useEffect(() => {
-    loadData();
-  }, [clientId]);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const supabase = createClient();
       
@@ -118,7 +114,11 @@ export default function ClientDetailPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [clientId, router, toast]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   async function saveChanges() {
     setSaving(true);

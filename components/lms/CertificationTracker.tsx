@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { 
   
   Clock, 
@@ -55,11 +55,7 @@ export function CertificationTracker({ programId, userId }: CertificationTracker
   const [expandedCert, setExpandedCert] = useState<string | null>(null);
   const [uploadingCert, setUploadingCert] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchCertifications();
-  }, [programId, userId]);
-
-  const fetchCertifications = async () => {
+  const fetchCertifications = useCallback(async () => {
     try {
       const res = await fetch(`/api/certifications/progress?programId=${programId}&userId=${userId}`);
       if (res.ok) {
@@ -71,7 +67,11 @@ export function CertificationTracker({ programId, userId }: CertificationTracker
     } finally {
       setLoading(false);
     }
-  };
+  }, [programId, userId]);
+
+  useEffect(() => {
+    void fetchCertifications();
+  }, [fetchCertifications]);
 
   const handleFileUpload = async (certId: string, file: File) => {
     setUploadingCert(certId);
