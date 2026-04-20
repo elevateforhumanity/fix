@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { createPublicClient } from '@/lib/supabase/public';
 import { programs as staticPrograms } from '@/content/cf-programs';
 
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const db = await getAdminClient();
+  const db = createPublicClient();
   if (db) {
     const { data } = await db
       .from('programs')
@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const db = await getAdminClient();
+  const db = createPublicClient();
   if (db) {
     const { data } = await db
       .from('programs')
@@ -42,7 +42,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
   const { slug } = await params;
 
   // Try Supabase first
-  const db = await getAdminClient();
+  const db = createPublicClient();
   if (db) {
     const { data: p } = await db
       .from('programs')

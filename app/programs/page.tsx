@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getAdminClient } from '@/lib/supabase/admin';
+import { createPublicClient } from '@/lib/supabase/public';
 import { programs as staticPrograms } from '@/content/cf-programs';
 
 export const revalidate = 3600;
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProgramsPage() {
-  const db = await getAdminClient();
+  const db = createPublicClient();
   let programs: { slug: string; title: string; description: string | null }[] = [];
 
   if (db) {
