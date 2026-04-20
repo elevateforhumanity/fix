@@ -13,11 +13,7 @@
 [build.processing]
   skip_processing = false
 
-[[build.cache]]
-  path = ".next/cache"
 
-[[build.cache]]
-  path = "node_modules/.cache"
 
 # Block preview and branch deployments from search engine indexing
 [context.deploy-preview]
@@ -71,6 +67,11 @@
 # To seed app_secrets: bash scripts/seed-app-secrets.sh > /tmp/seed.sql
 # Then run in Supabase SQL Editor.
 # ---------------------------------------------------------------------------
+
+[[plugins]]
+  package = "netlify-plugin-cache"
+  [plugins.inputs]
+    paths = [".next/cache", "node_modules/.cache"]
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
