@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -20,11 +20,7 @@ export default function CourseLeaderboardPage() {
   const [loading, setLoading] = useState(true);
   const [timeframe, setTimeframe] = useState<'all' | 'month' | 'week'>('all');
 
-  useEffect(() => {
-    loadData();
-  }, [courseId, timeframe]);
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     const supabase = createClient();
 
     // Load course
@@ -74,7 +70,11 @@ export default function CourseLeaderboardPage() {
 
     setLeaderboard(rankedData);
     setLoading(false);
-  }
+  }, [courseId, timeframe]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   if (loading) {
     return (

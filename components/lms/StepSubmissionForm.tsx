@@ -63,7 +63,7 @@ export default function StepSubmissionForm({ lessonId, courseId, stepType, lesso
       }
     }
     loadPrior();
-  }, [lessonId, courseId]);
+  }, [lessonId, courseId, competencyKey]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

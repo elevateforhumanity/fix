@@ -20,29 +20,7 @@ export function NotificationBell() {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  useEffect(() => {
-    fetchNotifications();
-
-    // Subscribe to realtime notifications
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (!user) return;
-      const unsubscribe = subscribeToNotifications(user.id, (payload) => {
-        const newNotif = payload as any;
-        setNotifications((prev) => [{
-          id: newNotif.id,
-          type: newNotif.type || 'system',
-          title: newNotif.title || 'New notification',
-          message: newNotif.message || '',
-          time: 'Just now',
-          read: false,
-        }, ...prev]);
-      });
-      return () => unsubscribe();
-    });
-  }, []);
-
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     const supabase = createClient();
     const {
       data: { user },
@@ -69,7 +47,29 @@ export function NotificationBell() {
         }))
       );
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    void fetchNotifications();
+
+    // Subscribe to realtime notifications
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!user) return;
+      const unsubscribe = subscribeToNotifications(user.id, (payload) => {
+        const newNotif = payload as any;
+        setNotifications((prev) => [{
+          id: newNotif.id,
+          type: newNotif.type || 'system',
+          title: newNotif.title || 'New notification',
+          message: newNotif.message || '',
+          time: 'Just now',
+          read: false,
+        }, ...prev]);
+      });
+      return () => unsubscribe();
+    });
+  }, [fetchNotifications]);
 
   const getTimeAgo = (date: string) => {
     const seconds = Math.floor(

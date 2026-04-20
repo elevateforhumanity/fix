@@ -8,7 +8,7 @@
  * quizzes, and guides the student through the material conversationally.
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Send, Loader2, RotateCcw, ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 
@@ -45,12 +45,7 @@ export default function MarcusInstructor({ lessonNumber, lessonTitle }: Props) {
   }, [messages]);
 
   // Load opening message when panel first opens
-  useEffect(() => {
-    if (!opened || messages.length > 0) return;
-    fetchReply([], true);
-  }, [opened]);
-
-  const fetchReply = async (history: Message[], isOpening = false) => {
+  const fetchReply = useCallback(async (history: Message[], isOpening = false) => {
     setLoading(true);
     try {
       const res = await fetch('/api/ai-instructor/hvac', {
@@ -75,7 +70,12 @@ export default function MarcusInstructor({ lessonNumber, lessonTitle }: Props) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [lessonNumber, lessonTitle]);
+
+  useEffect(() => {
+    if (!opened || messages.length > 0) return;
+    void fetchReply([], true);
+  }, [opened, messages.length, fetchReply]);
 
   const send = async (text?: string) => {
     const msg = (text ?? input).trim();

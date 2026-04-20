@@ -60,10 +60,6 @@ export default function ContentLibrary() {
     fetchContent();
   }, []);
 
-  useEffect(() => {
-    filterContent();
-  }, [searchQuery, selectedType, selectedCategory, items]);
-
   const fetchContent = async () => {
     try {
       const response = await fetch('/api/content-library');
@@ -74,7 +70,7 @@ export default function ContentLibrary() {
     }
   };
 
-  const filterContent = () => {
+  const filterContent = useCallback(() => {
     let filtered = items;
 
     if (searchQuery) {
@@ -97,7 +93,11 @@ export default function ContentLibrary() {
     }
 
     setFilteredItems(filtered);
-  };
+  }, [items, searchQuery, selectedType, selectedCategory]);
+
+  useEffect(() => {
+    filterContent();
+  }, [filterContent]);
 
   const handleUpload = async (files: FileList) => {
     const formData = new FormData();

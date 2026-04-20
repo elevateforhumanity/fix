@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -45,11 +45,7 @@ export default function BillingSettingsPage() {
   const [balance, setBalance] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadBillingData();
-  }, []);
-
-  const loadBillingData = async () => {
+  const loadBillingData = useCallback(async () => {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     
@@ -98,7 +94,11 @@ export default function BillingSettingsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
+
+  useEffect(() => {
+    void loadBillingData();
+  }, [loadBillingData]);
 
   const handleManageBilling = async () => {
     try {

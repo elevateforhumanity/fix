@@ -98,7 +98,7 @@ export default function TimedPracticeExam({
 
     const score = Math.round((exam.filter((_, i) => answers[i] === exam[i].answer).length / exam.length) * 100);
     onComplete?.(score, score >= passingScore, missed);
-  }, [state]);
+  }, [state, exam, answers, onComplete, passingScore, sectionName]);
 
   const selectAnswer = (qi: number, oi: number) => {
     if (state !== 'active') return;
