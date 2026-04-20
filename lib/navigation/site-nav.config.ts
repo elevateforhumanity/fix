@@ -553,6 +553,7 @@ export const footerNavigation = {
   courses: {
     title: 'Courses',
     links: [
+      { label: 'NRF', href: '/courses/nrf' },
       { label: 'CNA Certification', href: '/programs/cna' },
       { label: 'Micro Programs', href: '/programs/micro-programs' },
       { label: 'Web Development', href: '/programs/technology/web-development' },
