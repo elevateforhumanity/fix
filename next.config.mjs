@@ -756,20 +756,17 @@ const nextConfig = {
   },
 };
 
-// Sentry configuration
-// Disabled on Netlify — auto-instrumentation wraps every file with Rollup,
-// consuming significant memory and causing OOM (exit 137) on Netlify builds.
+// On Netlify, skip withSentryConfig entirely — it wraps webpack even when
+// both plugins are disabled, adding loaders and instrumentation overhead
+// that pushes the build over the 8GB heap limit.
+// Sentry still initialises at runtime via instrumentation.ts + instrumentation-client.ts.
 const sentryWebpackPluginOptions = {
   silent: true,
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
-  disableServerWebpackPlugin: process.env.NETLIFY === 'true',
-  disableClientWebpackPlugin: process.env.NETLIFY === 'true',
-  webpack: {
-    autoInstrumentServerFunctions: process.env.NETLIFY !== 'true',
-    autoInstrumentMiddleware: process.env.NETLIFY !== 'true',
-  },
 };
 
-export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+export default process.env.NETLIFY === 'true'
+  ? nextConfig
+  : withSentryConfig(nextConfig, sentryWebpackPluginOptions);
