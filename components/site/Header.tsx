@@ -41,7 +41,7 @@ export const NAV_ITEMS = [
       { name: 'All Healthcare Programs', href: '/programs/healthcare' },
       { name: '— Skilled Trades —', href: '/programs/skilled-trades', isHeader: true },
       { name: 'HVAC Technician', href: '/programs/hvac-technician' },
-      { name: 'CDL / Commercial Driving', href: '/programs/cdl-training' },
+
       { name: 'Electrical', href: '/programs/electrical' },
       { name: 'Welding', href: '/programs/welding' },
       { name: 'Plumbing', href: '/programs/plumbing' },

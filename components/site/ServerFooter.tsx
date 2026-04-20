@@ -36,7 +36,7 @@ const footerLinks = {
     // Skilled Trades
     { name: 'Skilled Trades', href: '/programs/skilled-trades' },
     { name: 'HVAC Technician', href: '/programs/hvac-technician' },
-    { name: 'CDL Training', href: '/programs/cdl-training' },
+
     { name: 'Welding', href: '/programs/welding' },
     { name: 'Electrical', href: '/programs/electrical' },
     { name: 'Plumbing', href: '/programs/plumbing' },
