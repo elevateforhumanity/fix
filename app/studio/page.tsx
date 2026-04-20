@@ -1,31 +1,33 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { useStudio } from './hooks/useStudio';
 import { useStudioBackend } from './hooks/useStudioBackend';
 import { useWebContainer } from './hooks/useWebContainer';
-import { FileTree } from './components/FileTree';
-import { Editor } from './components/Editor';
-import { Tabs } from './components/Tabs';
-import { AIChat } from './components/AIChat';
-import { GitPanel } from './components/GitPanel';
-import { WorkspaceSelector } from './components/WorkspaceSelector';
-import { SettingsModal } from './components/SettingsModal';
-import { Header } from './components/Header';
-import { Terminal } from './components/Terminal';
-import { WebContainerTerminal } from './components/WebContainerTerminal';
-import { PreviewPanel } from './components/PreviewPanel';
-import { CommandPalette } from './components/CommandPalette';
-import { WebSocketTerminal } from './components/WebSocketTerminal';
-import { PortForwarding } from './components/PortForwarding';
-import { Debugger } from './components/Debugger';
-import { BlameGutter } from './components/BlameGutter';
-import { PullRequests } from './components/PullRequests';
-import { ActionsPanel } from './components/ActionsPanel';
-import { DeployPanel } from './components/DeployPanel';
-import { ConflictResolver } from './components/ConflictResolver';
-import { RefactorModal } from './components/RefactorModal';
 import type { Panel } from './types';
+
+const FileTree = dynamic(() => import('./components/FileTree').then(m => ({ default: m.FileTree })), { ssr: false });
+const Editor = dynamic(() => import('./components/Editor').then(m => ({ default: m.Editor })), { ssr: false });
+const Tabs = dynamic(() => import('./components/Tabs').then(m => ({ default: m.Tabs })), { ssr: false });
+const AIChat = dynamic(() => import('./components/AIChat').then(m => ({ default: m.AIChat })), { ssr: false });
+const GitPanel = dynamic(() => import('./components/GitPanel').then(m => ({ default: m.GitPanel })), { ssr: false });
+const WorkspaceSelector = dynamic(() => import('./components/WorkspaceSelector').then(m => ({ default: m.WorkspaceSelector })), { ssr: false });
+const SettingsModal = dynamic(() => import('./components/SettingsModal').then(m => ({ default: m.SettingsModal })), { ssr: false });
+const Header = dynamic(() => import('./components/Header').then(m => ({ default: m.Header })), { ssr: false });
+const Terminal = dynamic(() => import('./components/Terminal').then(m => ({ default: m.Terminal })), { ssr: false });
+const WebContainerTerminal = dynamic(() => import('./components/WebContainerTerminal').then(m => ({ default: m.WebContainerTerminal })), { ssr: false });
+const PreviewPanel = dynamic(() => import('./components/PreviewPanel').then(m => ({ default: m.PreviewPanel })), { ssr: false });
+const CommandPalette = dynamic(() => import('./components/CommandPalette').then(m => ({ default: m.CommandPalette })), { ssr: false });
+const WebSocketTerminal = dynamic(() => import('./components/WebSocketTerminal').then(m => ({ default: m.WebSocketTerminal })), { ssr: false });
+const PortForwarding = dynamic(() => import('./components/PortForwarding').then(m => ({ default: m.PortForwarding })), { ssr: false });
+const Debugger = dynamic(() => import('./components/Debugger').then(m => ({ default: m.Debugger })), { ssr: false });
+const BlameGutter = dynamic(() => import('./components/BlameGutter').then(m => ({ default: m.BlameGutter })), { ssr: false });
+const PullRequests = dynamic(() => import('./components/PullRequests').then(m => ({ default: m.PullRequests })), { ssr: false });
+const ActionsPanel = dynamic(() => import('./components/ActionsPanel').then(m => ({ default: m.ActionsPanel })), { ssr: false });
+const DeployPanel = dynamic(() => import('./components/DeployPanel').then(m => ({ default: m.DeployPanel })), { ssr: false });
+const ConflictResolver = dynamic(() => import('./components/ConflictResolver').then(m => ({ default: m.ConflictResolver })), { ssr: false });
+const RefactorModal = dynamic(() => import('./components/RefactorModal').then(m => ({ default: m.RefactorModal })), { ssr: false });
 
 type RightPanel = 'ai' | 'git' | 'debug' | 'ports' | 'prs' | 'actions' | 'deploy' | 'preview';
 

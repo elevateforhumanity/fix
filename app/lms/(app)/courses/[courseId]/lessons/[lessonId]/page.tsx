@@ -26,16 +26,18 @@ import {
   Shield,
   Lock,
 } from 'lucide-react';
-import { QuizSystem } from '@/components/lms/QuizSystem';
-import QuizPlayer from '@/components/lms/QuizPlayer';
-import LessonPlayer from '@/components/lms/LessonPlayer';
-import StepSubmissionForm from '@/components/lms/StepSubmissionForm';
-import OjtCompletionPanel from '@/components/lms/OjtCompletionPanel';
-import InteractiveVideoPlayer from '@/components/lms/InteractiveVideoPlayer';
-import HvacLessonVideo from '@/components/lms/HvacLessonVideo';
+import dynamic from 'next/dynamic';
 import { sanitizeRichHtml } from '@/lib/security/sanitize-html';
-import { NoteTaking } from '@/components/NoteTaking';
-import DigitalBinder from '@/components/DigitalBinder';
+
+const QuizSystem = dynamic(() => import('@/components/lms/QuizSystem').then(m => ({ default: m.QuizSystem })), { ssr: false });
+const QuizPlayer = dynamic(() => import('@/components/lms/QuizPlayer'), { ssr: false });
+const LessonPlayer = dynamic(() => import('@/components/lms/LessonPlayer'), { ssr: false });
+const StepSubmissionForm = dynamic(() => import('@/components/lms/StepSubmissionForm'), { ssr: false });
+const OjtCompletionPanel = dynamic(() => import('@/components/lms/OjtCompletionPanel'), { ssr: false });
+const InteractiveVideoPlayer = dynamic(() => import('@/components/lms/InteractiveVideoPlayer'), { ssr: false });
+const HvacLessonVideo = dynamic(() => import('@/components/lms/HvacLessonVideo'), { ssr: false });
+const NoteTaking = dynamic(() => import('@/components/NoteTaking').then(m => ({ default: m.NoteTaking })), { ssr: false });
+const DigitalBinder = dynamic(() => import('@/components/DigitalBinder'), { ssr: false });
 import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
 
 // Reverse map: UUID → definition key (e.g. '2f172cb2-...' → 'hvac-01-01').
