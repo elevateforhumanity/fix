@@ -153,7 +153,7 @@ export default function CourseLeaderboardPage() {
                   </div>
                   <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
-                      src="/images/efh/hero/hero-support.jpg"
+                      src="/images/pages/about-supportive-services.jpg"
                       alt="Students achieving goals"
                       fill
                       className="object-cover"
