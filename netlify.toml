@@ -5,7 +5,7 @@
 [build]
   # libxml2-utils provides xmllint, required for IRS MeF XSD validation.
   # Without it, schema-validator.ts returns XMLLINT_NOT_AVAILABLE and blocks all submissions.
-  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && node scripts/clear-build-cache.mjs && node scripts/check-redirect-conflicts.mjs && node scripts/stamp-sw.mjs && NEXT_CLI_TURBOPACK=0 pnpm exec next build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
+  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && pnpm run build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
   # publish is intentionally omitted — @netlify/plugin-nextjs manages the output directory.
   # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
   functions = "netlify/functions"
@@ -28,17 +28,12 @@
 [build.environment]
   NODE_VERSION = "20"
   NODE_OPTIONS = "--max-old-space-size=8192"
-  # Limit webpack worker concurrency to reduce peak memory during Next.js build.
-  # Netlify SIGKILL's the process when memory exceeds the build environment limit.
-  # Increase to 2 once builds succeed consistently.
-  NEXT_PRIVATE_MAX_WORKERS = "1"
-  NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   NEXT_CLI_TURBOPACK = "0"
-  # NEXT_CLI_TURBOPACK=0 forces webpack for `next build` in CI.
-  # TURBOPACK=0 is kept for compatibility with prior Netlify settings.
-  # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are legacy flags.
+  NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
+  # TURBOPACK=0 is the correct env var for Next.js 16.x to disable Turbopack.
+  # NEXT_DISABLE_TURBOPACK and NEXT_DISABLE_MANAGED_TURBOPACK are no longer
+  # respected in Next.js 16 — they have been replaced by TURBOPACK.
   TURBOPACK = "0"
-  NEXT_SKIP_TURBOPACK = "1"
   NEXT_DISABLE_MANAGED_TURBOPACK = "1"
   NEXT_DISABLE_TURBOPACK = "1"
   NETLIFY_USE_PNPM = "true"
@@ -432,6 +427,28 @@
 
 # Admin domain → /admin
 [[redirects]]
+  from = "https://www.elevateconnectsdirectory.org"
+  to = "https://www.elevateforhumanity.org/admin"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.elevateconnectsdirectory.org/*"
+  to = "https://www.elevateforhumanity.org/admin/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://elevateconnectsdirectory.org/*"
+  to = "https://www.elevateforhumanity.org/admin/:splat"
+  status = 301
+  force = true
+
+# ============================================
+# NETLIFY FUNCTION REWRITES
+# ============================================
+
+[[redirects]]
   from = "/api/pdf/export"
   to = "/.netlify/functions/export-pdf"
   status = 200
@@ -571,12 +588,6 @@
   status = 301
   force = true
 
-[[redirects]]
-  from = "/docs/Indiana-Barbershop-Apprenticeship-MOU"
-  to = "https://www.elevateforhumanity.org/docs/Indiana-Barbershop-Apprenticeship-MOU"
-  status = 301
-  force = true
-
 [[headers]]
   for = "/*"
   [headers.values]
@@ -656,157 +667,3 @@
 
 
 
-
-# ── Marketing/public page redirects to www.elevateforhumanity.org ──────────
-# These were previously Next.js stub pages — moved to edge redirects to
-# eliminate build cost and redirect latency.
-
-[[redirects]]
-  from = "/career-services/courses"
-  to = "https://learn.elevateforhumanity.org/lms/courses"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/career-services/courses/my-courses"
-  to = "https://learn.elevateforhumanity.org/lms/courses"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/career-services/courses/success"
-  to = "https://learn.elevateforhumanity.org/lms/courses"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/career-services/networking-events"
-  to = "https://learn.elevateforhumanity.org/learner/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/career-services/ongoing-support"
-  to = "https://learn.elevateforhumanity.org/learner/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/admins"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/case-management"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/lms"
-  to = "https://learn.elevateforhumanity.org/lms"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/program-holder-guide"
-  to = "https://learn.elevateforhumanity.org/program-holder/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/program-holders"
-  to = "https://learn.elevateforhumanity.org/program-holder/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/reporting"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/docs/students"
-  to = "https://learn.elevateforhumanity.org/learner/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/employers/apprenticeships"
-  to = "https://learn.elevateforhumanity.org/employer/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/employers/benefits"
-  to = "https://learn.elevateforhumanity.org/employer/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/employers/post-job"
-  to = "https://learn.elevateforhumanity.org/employer/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/employers/talent-pipeline"
-  to = "https://learn.elevateforhumanity.org/employer/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/platform/partner-portal"
-  to = "https://learn.elevateforhumanity.org/partner/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/platform/program-holders"
-  to = "https://learn.elevateforhumanity.org/program-holder/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/platform/workforce-analytics"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/scholarships"
-  to = "https://learn.elevateforhumanity.org/learner/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/tuition-fees"
-  to = "https://learn.elevateforhumanity.org/learner/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/workforce-board/follow-ups"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/workforce-board/reports"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/workforce-board/reports/performance"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/workforce-board/training"
-  to = "https://learn.elevateforhumanity.org/admin/dashboard"
-  status = 301
-  force = true
