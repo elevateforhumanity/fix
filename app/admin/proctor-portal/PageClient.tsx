@@ -69,7 +69,7 @@ export default function ProctorPortalPage() {
     }
   };
 
-  const SortIcon = ({ field }: { field: string }) => {
+  const renderSortIcon = (field: string) => {
     if (sortField !== field) return null;
     return sortDir === 'asc' ? <ChevronUp className="w-3 h-3 inline ml-1" /> : <ChevronDown className="w-3 h-3 inline ml-1" />;
   };
@@ -222,10 +222,10 @@ export default function ProctorPortalPage() {
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
                   <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer" onClick={() => toggleSort('created_at')}>
-                    Date <SortIcon field="created_at" />
+                    Date {renderSortIcon('created_at')}
                   </th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-600 cursor-pointer" onClick={() => toggleSort('student_name')}>
-                    Student <SortIcon field="student_name" />
+                    Student {renderSortIcon('student_name')}
                   </th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-600">Provider</th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-600">Exam</th>
