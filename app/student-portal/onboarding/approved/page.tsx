@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import {  } from '@/lib/supabase/admin';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle, XCircle, ArrowRight, Shield } from 'lucide-react';
@@ -25,7 +25,7 @@ interface VerificationResult {
 
 export default async function ApprovedPage() {
   const supabase = await createClient();
-  const _admin = createAdminClient(); const db = _admin || supabase;
+  const db = await getAdminClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login?next=/student-portal/onboarding/approved');
 
