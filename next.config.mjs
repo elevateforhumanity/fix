@@ -135,11 +135,7 @@ const nextConfig = {
     optimizeCss: false,
     parallelServerCompiles: false,
     parallelServerBuildTraces: false,
-    // Turbopack disabled on Netlify — it uses significantly more memory than
-    // webpack during production builds and causes SIGKILL (exit 137) on Netlify's
-    // build environment. Env vars (TURBOPACK=0, NEXT_CLI_TURBOPACK=0) are not
-    // reliably respected in Next 16; this config-level guard is authoritative.
-    turbo: process.env.NETLIFY === 'true' ? false : undefined,
+
   },
   
   // Suppress middleware deprecation warning (middleware.ts is still correct for our use case)
