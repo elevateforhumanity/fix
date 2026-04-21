@@ -25,8 +25,6 @@ async function _POST(
 
     const { courseId } = await params;
     const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
 
     // Get course info
