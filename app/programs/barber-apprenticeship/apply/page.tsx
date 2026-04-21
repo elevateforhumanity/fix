@@ -1,5 +1,6 @@
 'use client';
 import Turnstile from '@/components/Turnstile';
+import HostShopSelect from '@/components/programs/HostShopSelect';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -557,18 +558,11 @@ export default function BarberApprenticeshipApplyPage() {
                 </div>
 
                 {formData.hasHostShop === 'yes' && (
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-1">
-                      Shop Name (optional)
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.hostShopName}
-                      onChange={(e) => updateField('hostShopName', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500"
-                      placeholder="Name of the barbershop"
-                    />
-                  </div>
+                  <HostShopSelect
+                    program="barber"
+                    value={formData.hostShopName}
+                    onChange={(v) => updateField('hostShopName', v)}
+                  />
                 )}
 
                 {/* Payment Options */}
