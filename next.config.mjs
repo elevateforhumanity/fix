@@ -520,7 +520,7 @@ const nextConfig = {
       { source: '/downloads', destination: '/resources', permanent: true },
       { source: '/docs/students/certificates', destination: '/credentials', permanent: true },
       { source: '/programs/food-handler', destination: '/programs', permanent: true },
-      { source: '/program-holder/portal/:path*', destination: '/program-holder/:path*', permanent: true },
+
 
       // ============================================
       // ENROLL / APPLY CONSOLIDATION
