@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Header } from '@/components/ui/Header';
-import { Footer } from '@/components/ui/Footer';
+import Header from '@/components/site/Header';
+import ServerFooter from '@/components/site/ServerFooter';
 import { 
   Building2, 
   CheckCircle, 
@@ -258,7 +258,7 @@ export default function DOLFundingPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <ServerFooter />
     </>
   );
 }
