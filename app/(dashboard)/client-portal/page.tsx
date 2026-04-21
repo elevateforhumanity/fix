@@ -1,5 +1,6 @@
 // app/(dashboard)/client-portal/page.tsx - Elevate Client Portal
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import {
@@ -28,7 +29,11 @@ export const metadata: Metadata = {
 
 export default async function ClientPortalPage() {
   const supabase = await createClient();
-  
+
+  // Auth gate — unauthenticated users go to login
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login?redirect=/client-portal');
+
   // Fetch client portal features
   const { data: features } = await supabase
     .from('portal_features')

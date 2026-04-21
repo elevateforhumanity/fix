@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { 
   LayoutDashboard, 
@@ -102,7 +104,41 @@ const portals = [
   },
 ];
 
-export default function PortalsPage() {
+export const dynamic = 'force-dynamic';
+
+const ROLE_DASHBOARD: Record<string, string> = {
+  student:        '/learner/dashboard',
+  learner:        '/learner/dashboard',
+  employer:       '/employer/dashboard',
+  instructor:     '/instructor/dashboard',
+  partner:        '/partner/dashboard',
+  program_holder: '/program-holder/dashboard',
+  staff:          '/staff-portal/dashboard',
+  mentor:         '/mentor/dashboard',
+  case_manager:   '/case-manager/dashboard',
+  org_admin:      '/partner/dashboard',
+  admin:          '/admin/dashboard',
+  super_admin:    '/admin/dashboard',
+};
+
+export default async function PortalsPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle();
+    const dest = profile?.role ? ROLE_DASHBOARD[profile.role] : null;
+    if (dest) redirect(dest);
+  }
+
+  // Unauthenticated — show portal directory
+  return PortalsDirectory();
+}
+
+function PortalsDirectory() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 py-16">
       <div className="max-w-6xl mx-auto px-4">
