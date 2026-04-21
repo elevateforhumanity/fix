@@ -24,7 +24,7 @@ SET
   mou_signed_at  = bpa.mou_signed_at,
   updated_at     = now()
 FROM public.barbershop_partner_applications bpa
-WHERE bpa.contact_email = p.email
+WHERE bpa.contact_email = p.contact_email
   AND bpa.mou_signed_at IS NOT NULL
   AND bpa.status = 'approved'
   AND p.mou_signed = false;
@@ -45,7 +45,7 @@ BEGIN
       mou_signed    = true,
       mou_signed_at = NEW.mou_signed_at,
       updated_at    = now()
-    WHERE email = NEW.contact_email;
+    WHERE contact_email = NEW.contact_email;
   END IF;
   RETURN NEW;
 END;
@@ -79,7 +79,7 @@ BEGIN
     SET
       onboarding_completed = true,
       updated_at           = now()
-    WHERE email = NEW.contact_email;
+    WHERE contact_email = NEW.contact_email;
   END IF;
   RETURN NEW;
 END;
