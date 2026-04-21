@@ -76,12 +76,12 @@ export async function POST(req: Request) {
           programType: 'apprenticeship',
           fundingSource: 'self-pay',
           hasHostShop: validated.hasHostShop,
-          hostShopName: validated.hostShopName,
-          hostShopAddress: validated.hostShopAddress,
-          hostShopContact: validated.hostShopContact,
+          hostShopName: validated.hostShopName ?? null,
+          hostShopAddress: validated.hostShopAddress ?? null,
+          hostShopContact: validated.hostShopContact ?? null,
           enrolledInBarberSchool: validated.enrolledInBarberSchool,
-          barberSchoolName: validated.barberSchoolName,
-          priorExperience: validated.priorExperience,
+          barberSchoolName: validated.barberSchoolName ?? null,
+          priorExperience: validated.priorExperience ?? null,
         }),
       })
       .select('id')

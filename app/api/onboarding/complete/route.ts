@@ -113,7 +113,7 @@ async function _POST(request: NextRequest) {
         .eq('id', userId)
         .maybeSingle(),
       db.from('applications')
-        .select('id, status, program_id, program_interest')
+        .select('id, status, program_id, program_interest, support_notes')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .limit(1)
@@ -269,27 +269,35 @@ async function _POST(request: NextRequest) {
         .maybeSingle();
 
       if (!existingApprentice) {
-        // Look up the partner's shop so we can link the apprentice and send the check-in code
-        const { data: partnerShop } = await db
-          .from('shops')
-          .select('id')
-          .eq('owner_id', userId)  // apprentice owns no shop — try employer link below
-          .limit(1)
-          .maybeSingle();
+        // Resolve shop_id from the application's host shop name.
+        // support_notes may be JSON (new applications) or plain text (older ones).
+        let shopId: string | null = null;
+        if (application?.support_notes) {
+          let hostShopName: string | null = null;
+          const raw = application.support_notes as string;
+          // Try JSON first
+          try {
+            const parsed = JSON.parse(raw);
+            hostShopName = parsed?.hostShopName ?? null;
+          } catch {
+            // Plain text format: "Has Host Shop: yes\nHost Shop Name: Kountry Kutz"
+            const match = raw.match(/Host Shop Name:\s*(.+)/i);
+            hostShopName = match?.[1]?.trim() ?? null;
+          }
 
-        // More likely: find shop via program_enrollments partner/employer reference
-        // Fall back to any active shop linked to the enrollment's partner
-        let shopId: string | null = partnerShop?.id ?? null;
-        if (!shopId && enrollment) {
-          const { data: enrollmentShop } = await db
-            .from('shops')
-            .select('id')
-            .eq('active', true)
-            .limit(1)
-            .maybeSingle();
-          // Only use if there's exactly one active shop (single-shop deployments)
-          // Multi-shop: admin must assign via admin panel
-          shopId = enrollmentShop?.id ?? null;
+          if (hostShopName) {
+            const { data: matchedShop } = await db
+              .from('shops')
+              .select('id')
+              .ilike('name', `%${hostShopName}%`)
+              .eq('active', true)
+              .limit(1)
+              .maybeSingle();
+            shopId = matchedShop?.id ?? null;
+            if (!shopId) {
+              logger.warn('[onboarding/complete] host shop not found in shops table', { hostShopName, userId });
+            }
+          }
         }
 
         await db.from('apprentices').insert({
