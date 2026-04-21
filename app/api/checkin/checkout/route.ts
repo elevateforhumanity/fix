@@ -68,6 +68,7 @@ async function _POST(request: NextRequest) {
       .from('apprentice_hours')
       .insert({
         user_id: user.id,
+        shop_id: session.shop_id ?? null,
         discipline: 'barber',
         date: checkinTime.toISOString().split('T')[0],
         hours: totalHoursInt,

@@ -42,6 +42,7 @@ const MIGRATIONS = [
   '20260608000002_exam_booking_leads.sql',
   '20260609000001_program_lessons_add_checkpoint_type.sql',
   '20260421000001_checkin_sessions_checkout_columns.sql',
+  '20260421000002_apprentice_hours_shop_id.sql',
 ]
 
 export async function POST(req: NextRequest) {
