@@ -40,7 +40,7 @@ const SKIP_DIRS = new Set([
   "build",
   "coverage",
   ".turbo",
-  ".vercel",
+
   ".netlify",
   "tmp",
   "temp",
