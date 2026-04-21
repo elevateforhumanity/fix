@@ -111,9 +111,6 @@ const TRAINING_PARTNERS = [
     apply: { label: 'Apply as Training Provider', href: '/apply/program-holder' },
     image: '/images/pages/training-providers-page-1.jpg',
   },
-
-];
-
   {
     icon: BookOpen,
     title: 'Safety & Short-Term Courses',
