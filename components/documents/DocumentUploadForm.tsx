@@ -104,7 +104,7 @@ export function DocumentUploadForm({ requirements }: Props) {
       setSuccess(true);
       // Redirect to the correct documents page based on role
       const { data: { user: currentUser } } = await supabase.auth.getUser();
-      let dest = '/learner/dashboard';
+      let dest = '/program-holder/onboarding';
       if (currentUser) {
         const { data: prof } = await supabase
           .from('profiles')
@@ -116,7 +116,7 @@ export function DocumentUploadForm({ requirements }: Props) {
           // Fire onboarding-complete check — sends welcome email if all steps done
           fetch('/api/program-holder/onboarding-complete', { method: 'POST' }).catch(() => {});
         } else if (prof?.role === 'student' || prof?.role === 'learner') {
-          dest = '/learner/dashboard';
+          dest = '/program-holder/onboarding';
         }
       }
       setTimeout(() => {

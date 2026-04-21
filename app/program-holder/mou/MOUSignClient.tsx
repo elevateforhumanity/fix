@@ -27,7 +27,7 @@ export default function MOUSignClient({ holderName }: { holderName: string }) {
         throw new Error(d.error || 'Failed to sign MOU');
       }
       setSigned(true);
-      setTimeout(() => router.push('/program-holder/dashboard'), 2000);
+      setTimeout(() => router.push('/program-holder/handbook'), 2000);
     } catch (e: any) {
       setError(e.message);
     } finally {
