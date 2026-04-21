@@ -1,6 +1,6 @@
-export const dynamic = 'force-dynamic';
-
 'use client';
+
+export const dynamic = 'force-dynamic';
 
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import React from 'react';
