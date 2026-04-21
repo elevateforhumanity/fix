@@ -101,7 +101,7 @@ function PaymentSetupForm({ weeklyAmount }: { weeklyAmount: number }) {
 
 export default function PaymentSetupPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [weeklyAmount, setWeeklyAmount] = useState(5960); // $59.60 default (2000hrs ÷ 40hrs/wk = 50 weeks)
+  const [weeklyAmount, setWeeklyAmount] = useState(7095); // default — recalculated server-side based on transfer hours
   const [loading, setLoading] = useState(true);
   const [fatalError, setFatalError] = useState<string | null>(null);
 
@@ -143,7 +143,7 @@ export default function PaymentSetupPage() {
             </div>
             <div>
               <p className="font-semibold text-white">Weekly Payment Plan</p>
-              <p className="text-slate-400 text-sm">Barber Apprenticeship — 50 weeks (2,000 hrs @ 40 hrs/wk)</p>
+              <p className="text-slate-400 text-sm">Barber Apprenticeship — 2,000 OJL hrs @ 40 hrs/wk</p>
             </div>
           </div>
 

@@ -82,8 +82,11 @@ export async function POST(request: NextRequest) {
       const amountPaidCents = enrollment?.amount_paid_cents ?? 0;
       const tuitionCents = 498000; // $4,980 fixed
       const remainingCents = Math.max(0, tuitionCents - amountPaidCents);
-      // 2,000 OJL hours at 40 hrs/week = 50 weeks
-      const weeksRemaining = 50;
+      // 2,000 OJL hours at 40 hrs/week. Transfer hours reduce the term.
+      // transferHours sourced from barber_subscriptions.transferred_hours_verified if already set.
+      const transferHours = 0; // default — overridden per-student after verification
+      const ojlRemaining = Math.max(0, 2000 - transferHours);
+      const weeksRemaining = Math.ceil(ojlRemaining / 40);
       const weeklyPaymentCents = Math.ceil(remainingCents / weeksRemaining);
 
       await db.from('barber_subscriptions').insert({
@@ -104,9 +107,18 @@ export async function POST(request: NextRequest) {
         .eq('id', existingSub.id);
     }
 
+    // Pull final weekly amount from DB (may differ if sub already existed with transfer hours applied)
+    const { data: finalSub } = await db
+      .from('barber_subscriptions')
+      .select('weekly_payment_cents, weeks_remaining')
+      .eq('user_id', userId)
+      .maybeSingle();
+
     return NextResponse.json({
       clientSecret: setupIntent.client_secret,
       customerId,
+      weeklyPaymentCents: finalSub?.weekly_payment_cents ?? weeklyPaymentCents,
+      weeksRemaining: finalSub?.weeks_remaining ?? weeksRemaining,
     });
   } catch (err) {
     logger.error('[barber/setup-intent] Error', err);
