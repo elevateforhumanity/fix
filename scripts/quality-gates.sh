@@ -228,16 +228,20 @@ echo ""
 # CHECK: Schema contract — governed table column validation
 # =============================================================================
 echo "Checking governed table column references against live schema..."
-if [ -f "scripts/governed-schema.json" ]; then
-  SCHEMA_ERRORS=$(python3 scripts/check-schema-columns.py 2>/dev/null || true)
-  if [ -n "$SCHEMA_ERRORS" ]; then
-    echo -e "${YELLOW}⚠️  WARNING:${NC} Column mismatches found in governed tables (non-blocking):"
-    echo "$SCHEMA_ERRORS"
-  else
-    echo -e "${GREEN}✅ All governed table column references match live schema${NC}"
-  fi
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "   ⚠️  python3 not available — skipping schema/waiver/audit checks"
 else
-  echo "   ⚠️  scripts/governed-schema.json not found, skipping column validation"
+  if [ -f "scripts/governed-schema.json" ]; then
+    SCHEMA_ERRORS=$(python3 scripts/check-schema-columns.py 2>/dev/null || true)
+    if [ -n "$SCHEMA_ERRORS" ]; then
+      echo -e "${YELLOW}⚠️  WARNING:${NC} Column mismatches found in governed tables (non-blocking):"
+      echo "$SCHEMA_ERRORS"
+    else
+      echo -e "${GREEN}✅ All governed table column references match live schema${NC}"
+    fi
+  else
+    echo "   ⚠️  scripts/governed-schema.json not found, skipping column validation"
+  fi
 fi
 echo ""
 
@@ -245,7 +249,9 @@ echo ""
 # CHECK: Waiver expiry enforcement
 # =============================================================================
 echo "Checking column mismatch waiver expiry dates..."
-if [ -f "scripts/admin-column-mismatches-waiver.json" ]; then
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "   ⚠️  python3 not available — skipping waiver expiry check"
+elif [ -f "scripts/admin-column-mismatches-waiver.json" ]; then
   EXPIRED=$(python3 -c "
 import json, sys
 from datetime import datetime
@@ -281,7 +287,9 @@ echo ""
 # CHECK: No new admin mutations without audit trail
 # =============================================================================
 echo "Checking for admin mutations without audit events..."
-if [ -f "scripts/admin-route-inventory.json" ]; then
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "   ⚠️  python3 not available — skipping audit gap check"
+elif [ -f "scripts/admin-route-inventory.json" ]; then
   AUDIT_GAPS=$(python3 -c "
 import json, sys
 
