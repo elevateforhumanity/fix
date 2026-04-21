@@ -20,7 +20,18 @@ export default async function BarberOrientationPage() {
     fullyPaid:           false,
   };
 
+  let alreadyComplete = false;
+
   if (user) {
+    // Check if orientation is already marked complete on the profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('orientation_completed')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    alreadyComplete = !!profile?.orientation_completed;
+
     // Look up the student's actual subscription record to get their real down payment
     const { data: sub } = await db
       .from('barber_subscriptions')
@@ -41,5 +52,5 @@ export default async function BarberOrientationPage() {
     }
   }
 
-  return <BarberOrientationClient payment={payment} />;
+  return <BarberOrientationClient payment={payment} alreadyComplete={alreadyComplete} />;
 }

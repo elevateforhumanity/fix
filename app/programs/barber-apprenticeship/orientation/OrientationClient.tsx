@@ -97,14 +97,24 @@ const HANDBOOK_SLIDES = [
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function BarberOrientationClient({ payment }: { payment: BarberPaymentSummary }) {
+export default function BarberOrientationClient({
+  payment,
+  alreadyComplete = false,
+}: {
+  payment: BarberPaymentSummary;
+  alreadyComplete?: boolean;
+}) {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const [videoProgress, setVideoProgress] = useState(0);
-  const [videoWatched, setVideoWatched] = useState(false);
+  // If orientation was already completed (e.g. DB-patched or prior session),
+  // pre-unlock all gates so the student can proceed without re-watching.
+  const [videoProgress, setVideoProgress] = useState(alreadyComplete ? 100 : 0);
+  const [videoWatched, setVideoWatched] = useState(alreadyComplete);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [readSlides, setReadSlides] = useState<Set<number>>(new Set());
+  const [readSlides, setReadSlides] = useState<Set<number>>(
+    alreadyComplete ? new Set(HANDBOOK_SLIDES.map((_, i) => i)) : new Set(),
+  );
   const [acknowledged, setAcknowledged] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -149,10 +159,10 @@ export default function BarberOrientationClient({ payment }: { payment: BarberPa
       <div className="bg-slate-900 border-b border-slate-800 px-6 py-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div>
-            <p className="text-black text-xs uppercase tracking-widest mb-0.5">Barber Apprenticeship</p>
+            <p className="text-slate-400 text-xs uppercase tracking-widest mb-0.5">Barber Apprenticeship</p>
             <h1 className="text-white font-bold text-lg">Program Orientation</h1>
           </div>
-          <div className="flex items-center gap-4 text-black text-sm">
+          <div className="flex items-center gap-4 text-slate-400 text-sm">
             <span className={videoWatched ? 'text-emerald-400' : ''}>
               {videoWatched ? '✓ Video' : '① Video'}
             </span>
@@ -176,7 +186,7 @@ export default function BarberOrientationClient({ payment }: { payment: BarberPa
           <div className="relative bg-black rounded-2xl overflow-hidden aspect-video shadow-2xl">
             <video
               ref={videoRef}
-              src="/videos/barber-training.mp4"
+              src="/videos/barber-course-intro-with-voice.mp4"
               poster="/images/pages/barber-apprentice-learning.jpg"
               controls
               playsInline
@@ -204,7 +214,7 @@ export default function BarberOrientationClient({ payment }: { payment: BarberPa
                 style={{ width: `${videoProgress}%` }}
               />
             </div>
-            <p className="text-black text-xs text-right">
+            <p className="text-slate-400 text-xs text-right">
               {videoWatched
                 ? '✓ Video complete — continue to handbook below'
                 : `Watch at least 80% to unlock the handbook (${Math.round(videoProgress)}%)`}
@@ -233,7 +243,7 @@ export default function BarberOrientationClient({ payment }: { payment: BarberPa
                       ? 'bg-brand-blue-600 text-white'
                       : isRead
                         ? 'bg-emerald-900/50 text-emerald-400 border border-emerald-700/50'
-                        : 'bg-slate-800 text-black hover:text-white'
+                        : 'bg-slate-800 text-slate-400 hover:text-white'
                   }`}
                 >
                   {isRead && !isCurrent ? <CheckCircle className="w-3 h-3" /> : <Icon className="w-3 h-3" />}
@@ -262,31 +272,31 @@ export default function BarberOrientationClient({ payment }: { payment: BarberPa
             {currentSlide.id === 'payment-terms' && (
               <div className="bg-slate-700/50 rounded-xl divide-y divide-slate-600 mt-4">
                 <div className="flex justify-between px-4 py-2.5">
-                  <span className="text-black text-sm">Program Total</span>
+                  <span className="text-slate-400 text-sm">Program Total</span>
                   <span className="text-white font-semibold text-sm">{formatCurrency(BARBER_PRICING.fullPrice)}</span>
                 </div>
                 <div className="flex justify-between px-4 py-2.5">
-                  <span className="text-black text-sm">Your Down Payment</span>
+                  <span className="text-slate-400 text-sm">Your Down Payment</span>
                   <span className="text-white font-semibold text-sm">{formatCurrency(payment.downPayment)}</span>
                 </div>
                 {!payment.fullyPaid ? (
                   <>
                     <div className="flex justify-between px-4 py-2.5">
-                      <span className="text-black text-sm">Remaining Balance</span>
+                      <span className="text-slate-400 text-sm">Remaining Balance</span>
                       <span className="text-white font-semibold text-sm">{formatCurrency(payment.remainingBalance)}</span>
                     </div>
                     <div className="flex justify-between px-4 py-2.5">
-                      <span className="text-black text-sm">Weekly Auto-Draft</span>
+                      <span className="text-slate-400 text-sm">Weekly Auto-Draft</span>
                       <span className="text-brand-blue-400 font-bold text-sm">{formatCurrency(weeklyDollars)} every Friday</span>
                     </div>
                     <div className="flex justify-between px-4 py-2.5">
-                      <span className="text-black text-sm">Weeks Remaining</span>
+                      <span className="text-slate-400 text-sm">Weeks Remaining</span>
                       <span className="text-white font-semibold text-sm">{payment.weeksRemaining} weeks</span>
                     </div>
                   </>
                 ) : (
                   <div className="flex justify-between px-4 py-2.5">
-                    <span className="text-black text-sm">Status</span>
+                    <span className="text-slate-400 text-sm">Status</span>
                     <span className="text-emerald-400 font-semibold text-sm">Paid in full</span>
                   </div>
                 )}
@@ -298,7 +308,7 @@ export default function BarberOrientationClient({ payment }: { payment: BarberPa
               <button
                 onClick={() => goToSlide(Math.max(0, slideIndex - 1))}
                 disabled={slideIndex === 0}
-                className="flex items-center gap-1 text-black hover:text-white text-sm disabled:opacity-30 transition"
+                className="flex items-center gap-1 text-slate-400 hover:text-white text-sm disabled:opacity-30 transition"
               >
                 <ChevronLeft className="w-4 h-4" /> Previous
               </button>
@@ -346,7 +356,7 @@ export default function BarberOrientationClient({ payment }: { payment: BarberPa
             {submitting ? 'Processing…' : 'Continue to Program Documents →'}
           </button>
           {!allSlidesRead && (
-            <p className="text-black text-xs text-center">
+            <p className="text-slate-400 text-xs text-center">
               Read all {HANDBOOK_SLIDES.length} handbook sections to unlock this step.
             </p>
           )}
