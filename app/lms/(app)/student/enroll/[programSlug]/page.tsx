@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { redirect, notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { Clock, Award, ArrowRight } from 'lucide-react';
@@ -34,17 +34,17 @@ export default async function EnrollProgramPage({ params }: Props) {
     redirect(`/login?redirect=/lms/student/enroll/${programSlug}`);
   }
 
-  // Try to find the course/program
+  // Resolve program from canonical `programs` table
   const { data: course } = await supabase
-    .from('training_courses')
-    .select('*')
-    .eq('slug', programSlug)
+    .from('programs')
+    .select('id, slug, title, description, credential, is_active')
+    .or(`slug.eq.${programSlug},id.eq.${programSlug}`)
+    .eq('is_active', true)
     .maybeSingle();
 
-  const programTitle = course?.title || programSlug
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  if (!course) notFound();
+
+  const programTitle = course.title;
 
   return (
     <div className="min-h-screen bg-white py-12">
@@ -58,98 +58,64 @@ export default async function EnrollProgramPage({ params }: Props) {
 
           {/* Content */}
           <div className="p-8">
-            {course ? (
-              <>
-                <div className="mb-8">
-                  <h2 className="text-xl font-semibold text-slate-900 mb-4">Program Details</h2>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div className="flex items-center gap-3 p-4 bg-white rounded-lg">
-                      <Clock className="w-5 h-5 text-brand-blue-600" />
-                      <div>
-                        <p className="text-sm text-slate-700">Duration</p>
-                        <p className="font-medium">{course.duration || '8-16 weeks'}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-4 bg-white rounded-lg">
-                      <Award className="w-5 h-5 text-brand-blue-600" />
-                      <div>
-                        <p className="text-sm text-slate-700">Certification</p>
-                        <p className="font-medium">Industry Recognized</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-4 bg-white rounded-lg">
-                      <span className="text-slate-400 flex-shrink-0">•</span>
-                      <div>
-                        <p className="text-sm text-slate-700">Cost</p>
-                        <p className="font-medium text-brand-green-600">Free with WIOA</p>
-                      </div>
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-slate-900 mb-4">Program Details</h2>
+              {course.description && (
+                <p className="text-slate-600 mb-4">{course.description}</p>
+              )}
+              <div className="grid md:grid-cols-2 gap-4">
+                {course.credential && (
+                  <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg">
+                    <Award className="w-5 h-5 text-brand-blue-600" />
+                    <div>
+                      <p className="text-sm text-slate-500">Credential</p>
+                      <p className="font-medium">{course.credential}</p>
                     </div>
                   </div>
-                </div>
-
-                <div className="mb-8">
-                  <h2 className="text-xl font-semibold text-slate-900 mb-4">Next Steps</h2>
-                  <ol className="space-y-4">
-                    <li className="flex items-start gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 bg-brand-blue-100 text-brand-blue-600 rounded-full flex items-center justify-center font-semibold">1</span>
-                      <div>
-                        <p className="font-medium text-slate-900">Verify WIOA Eligibility</p>
-                        <p className="text-sm text-slate-700">Complete the eligibility check to qualify for free training</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 bg-brand-blue-100 text-brand-blue-600 rounded-full flex items-center justify-center font-semibold">2</span>
-                      <div>
-                        <p className="font-medium text-slate-900">Submit Application</p>
-                        <p className="text-sm text-slate-700">Provide your information and select your preferred start date</p>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-4">
-                      <span className="flex-shrink-0 w-8 h-8 bg-brand-blue-100 text-brand-blue-600 rounded-full flex items-center justify-center font-semibold">3</span>
-                      <div>
-                        <p className="font-medium text-slate-900">Begin Training</p>
-                        <p className="text-sm text-slate-700">Start your journey to a new career</p>
-                      </div>
-                    </li>
-                  </ol>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href="/wioa-eligibility"
-                    className="flex-1 bg-brand-blue-600 text-white text-center py-3 px-6 rounded-lg font-semibold hover:bg-brand-blue-700 transition flex items-center justify-center gap-2"
-                  >
-                    Check Eligibility <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href={`/programs/${programSlug}`}
-                    className="flex-1 border border-gray-300 text-slate-900 text-center py-3 px-6 rounded-lg font-semibold hover:bg-white transition"
-                  >
-                    View Program Details
-                  </Link>
-                </div>
-              </>
-            ) : (
-              <div className="text-center py-8">
-                <p className="text-slate-700 mb-6">
-                  Ready to enroll in {programTitle}? Start by checking your eligibility for free training.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link
-                    href="/wioa-eligibility"
-                    className="bg-brand-blue-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-brand-blue-700 transition"
-                  >
-                    Check Eligibility
-                  </Link>
-                  <Link
-                    href="/lms/programs"
-                    className="border border-gray-300 text-slate-900 py-3 px-8 rounded-lg font-semibold hover:bg-white transition"
-                  >
-                    Browse Programs
-                  </Link>
+                )}
+                <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg">
+                  <Clock className="w-5 h-5 text-brand-blue-600" />
+                  <div>
+                    <p className="text-sm text-slate-500">Cost</p>
+                    <p className="font-medium text-brand-green-600">Free with WIOA when eligible</p>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
+
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-slate-900 mb-4">Next Steps</h2>
+              <ol className="space-y-4">
+                {[
+                  ['Verify WIOA Eligibility', 'Complete the eligibility check to qualify for free training'],
+                  ['Submit Application', 'Provide your information and select your preferred start date'],
+                  ['Begin Training', 'Start your journey to a new career'],
+                ].map(([title, desc], i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-brand-blue-100 text-brand-blue-600 rounded-full flex items-center justify-center font-semibold">{i + 1}</span>
+                    <div>
+                      <p className="font-medium text-slate-900">{title}</p>
+                      <p className="text-sm text-slate-600">{desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/wioa-eligibility"
+                className="flex-1 bg-brand-blue-600 text-white text-center py-3 px-6 rounded-lg font-semibold hover:bg-brand-blue-700 transition flex items-center justify-center gap-2"
+              >
+                Check Eligibility <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href={`/programs/${course.slug}`}
+                className="flex-1 border border-gray-300 text-slate-900 text-center py-3 px-6 rounded-lg font-semibold hover:bg-slate-50 transition"
+              >
+                View Program Details
+              </Link>
+            </div>
           </div>
         </div>
       </div>
