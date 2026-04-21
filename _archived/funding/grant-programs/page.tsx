@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { programs } from '@/app/data/programs';
+
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createBrowserClient } from '@supabase/ssr';
 const grantFundedPrograms = programs.filter((p) =>

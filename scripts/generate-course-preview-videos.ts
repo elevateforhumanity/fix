@@ -20,7 +20,7 @@ import ffmpegInstaller from '@ffmpeg-installer/ffmpeg';
 import ffmpeg from 'fluent-ffmpeg';
 import sharp from 'sharp';
 import { createCanvas, loadImage } from 'canvas';
-import { HVAC_LESSON_UUID } from '../lib/courses/hvac-uuids';
+import { HVAC_LESSON_UUID } from '../lib/courses/hvac-legacy-maps';
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 

@@ -26,7 +26,7 @@ dotenv.config({ path: '.env', override: false });
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { HVAC_LESSON_UUID } from '../lib/courses/hvac-uuids';
+import { HVAC_LESSON_UUID } from '../lib/courses/hvac-legacy-maps';
 
 const DID_API_BASE = 'https://api.d-id.com';
 const DID_KEY = process.env.DID_API_KEY;

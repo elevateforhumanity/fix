@@ -3,7 +3,6 @@ import { getCourseBySlug } from '@/lib/courses/definitions';
 import { getCurrentUser } from '@/lib/auth';
 import { getAdminClient } from '@/lib/supabase/admin';
 import HvacCourseHome from './HvacCourseHome';
-import { HVAC_COURSE_ID, HVAC_PROGRAM_ID } from '@/lib/courses/hvac-uuids';
 
 export const metadata: Metadata = {
   title: 'HVAC Technician Course | Elevate for Humanity',
