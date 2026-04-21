@@ -9,7 +9,8 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import PageAvatar from '@/components/PageAvatar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import ProgramHeroBanner from '@/components/ProgramHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { ProgramStructuredData } from '@/components/seo/CourseStructuredData';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
@@ -36,31 +37,21 @@ export default function Page() {
       outcomes: ['Adobe Certified Professional — Visual Design (Certiport/Adobe)', 'Certificate of Completion'],
     }} />
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" pageKey="graphic-design" />
+      
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Graphic Design Professional' }]} />
-      <section className="relative w-full -mt-[72px]">
-        <div className="relative min-h-[70vh] w-full overflow-hidden">
-          <Image src="/images/pages/office-admin-desk.jpg" alt="Graphic Design Professional Training" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
-          <div className="relative z-10 flex items-center justify-center min-h-[70vh]">
-            <div className="max-w-5xl mx-auto px-6 text-center text-white">
-              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/30">
-                <Palette className="w-6 h-6 text-brand-blue-300 flex-shrink-0" />
-                <span className="text-sm font-semibold">Adobe Certified Professional</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl font-black mb-6">Graphic Design Professional</h1>
-              <p className="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">Create visual content for brands. Graphic designers earn $63,482/year in Indiana.</p>
-              <p className="text-lg mb-8 text-brand-blue-200 font-semibold">DWD Top Jobs: 4-Star Occupation | WorkOne Eligible | SOC 27-1024</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/apply?program=graphic-design" className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-blue-600 font-bold rounded-xl hover:bg-gray-100 transition text-lg shadow-lg">Apply Now</Link>
-                <a href="https://www.indianacareerconnect.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-bold rounded-xl hover:bg-white/10 transition text-lg border-2 border-white">Schedule at WorkOne</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <PageAvatar videoSrc="/videos/avatars/design-guide.mp4" title="Graphic Design Program Guide" />
-      <PathwayDisclosure programName="Graphic Design Professional" programSlug="graphic-design" />
+      <HeroVideo
+        videoSrcDesktop={heroBanners['graphic-design'].videoSrcDesktop}
+        posterImage={heroBanners['graphic-design'].posterImage}
+        voiceoverSrc={heroBanners['graphic-design'].voiceoverSrc}
+        microLabel={heroBanners['graphic-design'].microLabel}
+        belowHeroHeadline={heroBanners['graphic-design'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['graphic-design'].belowHeroSubheadline}
+        ctas={[heroBanners['graphic-design'].primaryCta, ...(heroBanners['graphic-design'].secondaryCta ? [heroBanners['graphic-design'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['graphic-design'].trustIndicators}
+        transcript={heroBanners['graphic-design'].transcript}
+        analyticsName={heroBanners['graphic-design'].analyticsName}
+      />
+
       <section className="py-16 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Why Graphic Design?</h2>

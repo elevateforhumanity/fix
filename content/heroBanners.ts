@@ -1315,6 +1315,21 @@ Apply online in minutes. No cost to apply. No obligation. Just the first step to
     analyticsName: 'jri',
   },
 
+  impact: {
+    pageKey: 'impact',
+    videoSrcDesktop: '/videos/graduation-success.mp4',
+    videoSrcMobile: '/videos/graduation-success.mp4',
+    posterImage: '/images/pages/impact-video-poster.jpg',
+    microLabel: 'Impact & Outcomes',
+    belowHeroHeadline: 'Real results for learners, employers, and communities.',
+    belowHeroSubheadline: 'Elevate for Humanity tracks every outcome — credentials earned, jobs placed, wages increased. See the data.',
+    primaryCta: { label: 'Our Programs', href: '/programs' },
+    secondaryCta: { label: 'Partner With Us', href: '/partners', variant: 'secondary' },
+    trustIndicators: ['ETPL Certified', 'DOL Registered', 'RAPIDS Tracked'],
+    transcript: 'Elevate for Humanity measures every outcome — credentials earned, jobs placed, and wages increased. Our programs are ETPL certified, DOL registered, and RAPIDS tracked.',
+    analyticsName: 'impact',
+  },
+
   supersonic: {
     pageKey: 'supersonic',
     videoSrcDesktop: 'https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hero-home-fast.mp4',

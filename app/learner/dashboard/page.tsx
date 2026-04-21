@@ -222,7 +222,18 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
 
       {/* Learner hero — only shown on first visit (no active enrollments) */}
       {activeEnrollments.length === 0 && (
-        <HeroVideo banner={heroBanners.learner} />
+        <HeroVideo
+          videoSrcDesktop={heroBanners.learner.videoSrcDesktop}
+          posterImage={heroBanners.learner.posterImage}
+          voiceoverSrc={heroBanners.learner.voiceoverSrc}
+          microLabel={heroBanners.learner.microLabel}
+          belowHeroHeadline={heroBanners.learner.belowHeroHeadline}
+          belowHeroSubheadline={heroBanners.learner.belowHeroSubheadline}
+          ctas={[heroBanners.learner.primaryCta, ...(heroBanners.learner.secondaryCta ? [heroBanners.learner.secondaryCta] : [])]}
+          trustIndicators={heroBanners.learner.trustIndicators}
+          transcript={heroBanners.learner.transcript}
+          analyticsName={heroBanners.learner.analyticsName}
+        />
       )}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
