@@ -41,6 +41,8 @@ const nextConfig = {
     'jsdom',
     'typescript',
     'core-js',
+    // edge-tts ships a .ts source file that webpack cannot parse directly
+    'edge-tts',
     // Server-only packages — confirmed not used in any 'use client' component
     '@upstash/ratelimit',
     '@mailchimp/mailchimp_marketing',
