@@ -5,7 +5,7 @@
 [build]
   # libxml2-utils provides xmllint, required for IRS MeF XSD validation.
   # Without it, schema-validator.ts returns XMLLINT_NOT_AVAILABLE and blocks all submissions.
-  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && pnpm run build && NODE_OPTIONS='--max-old-space-size=512' node scripts/prune-standalone.mjs && NODE_OPTIONS='--max-old-space-size=512' node scripts/prune-node-modules.mjs"
+  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && pnpm run build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
   # publish is intentionally omitted — @netlify/plugin-nextjs manages the output directory.
   # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
   functions = "netlify/functions"
@@ -26,15 +26,16 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # 4096MB for the webpack compiler process (single process, needs headroom
-  # for 1400+ page module graph). Workers are capped separately via
-  # NEXT_PRIVATE_* vars and --max-old-space-size in the build command.
+  # 4096MB for the webpack compiler. This is a single process building the
+  # full module graph — it needs headroom. Page data workers are separate
+  # child processes controlled by NEXT_PRIVATE_* below.
   NODE_OPTIONS = "--max-old-space-size=4096"
+  # Serialize all Next.js internal worker pools to 1 thread each.
+  # These are the real Next.js env vars — NEXT_WORKER_CONCURRENCY is not real.
   NEXT_PRIVATE_MAX_WORKERS = "1"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   NEXT_PRIVATE_WORKER_POOL_SIZE = "1"
-  # Serialize page data collection workers (default 5 × inherited heap = OOM)
-  NEXT_WORKER_CONCURRENCY = "1"
+  NEXT_PRIVATE_WORKER_THREADS = "false"
   SENTRY_SKIP_AUTO_INSTRUMENTATION = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public

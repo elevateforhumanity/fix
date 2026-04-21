@@ -187,10 +187,10 @@ const nextConfig = {
     // cache key — prevents stale partial caches from OOM'd builds being reused.
     config.cache = {
       type: 'filesystem',
-      // Stable key so netlify-plugin-cache can restore it across deploys.
-      // Do NOT use COMMIT_REF here — that busts the cache on every deploy,
-      // forcing a full cold compile every time and causing OOM on 8GB builds.
-      version: 'elevate-lms-v1',
+      // Tie cache version to the git commit so a partial/corrupt cache from
+      // an OOM'd build is never reused on the next deploy. COMMIT_REF is set
+      // by Netlify; falls back to timestamp for local builds.
+      version: process.env.COMMIT_REF || `local-${Date.now()}`,
       buildDependencies: {
         config: [new URL(import.meta.url).pathname],
       },
