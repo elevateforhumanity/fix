@@ -26,10 +26,15 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_OPTIONS = "--max-old-space-size=7168"
+  # 1536MB per process — with up to 4 Node processes in flight during build,
+  # total stays under Netlify's 8GB limit. 7168 caused OOM when page data
+  # collection spawned 5 workers each inheriting the full heap limit.
+  NODE_OPTIONS = "--max-old-space-size=1536"
   NEXT_PRIVATE_MAX_WORKERS = "1"
   NEXT_PRIVATE_BUILD_WORKER_COUNT = "1"
   NEXT_PRIVATE_WORKER_POOL_SIZE = "1"
+  # Limit page data collection workers — default 5 causes OOM on 1400+ page builds
+  NEXT_WORKER_CONCURRENCY = "1"
   SENTRY_SKIP_AUTO_INSTRUMENTATION = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public
