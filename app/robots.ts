@@ -31,7 +31,7 @@ export default function robots(): MetadataRoute.Robots {
           '/staff-portal/',
           '/partner-portal/',
           '/employer-portal/',
-          '/client-portal/',
+
           '/onboarding/',
           '/settings/',
 
