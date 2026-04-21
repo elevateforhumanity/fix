@@ -372,6 +372,12 @@ const nextConfig = {
         destination: '/images/efh/hero/hero-main-clean.jpg',
         permanent: true,
       },
+      // /sitemap → /site-map (HTML sitemap page moved to avoid conflict with app/sitemap.ts)
+      {
+        source: '/sitemap',
+        destination: '/site-map',
+        permanent: true,
+      },
       // Redirect sitemap-page to sitemap.xml
       {
         source: '/sitemap-page',

@@ -29,7 +29,7 @@ const avatarConfig: { pattern: RegExp; video: string; name: string }[] = [
 const excludedPatterns = [
   /^\/api/i, /^\/auth/i, /^\/login/i, /^\/signup/i, /^\/register/i,
   /^\/privacy/i, /^\/terms/i, /^\/policies/i, /^\/governance/i,
-  /^\/accessibility/i, /^\/sitemap/i, /^\/404/i, /^\/500/i,
+  /^\/accessibility/i, /^\/site-map/i, /^\/404/i, /^\/500/i,
 ];
 
 export default function GlobalAvatar() {

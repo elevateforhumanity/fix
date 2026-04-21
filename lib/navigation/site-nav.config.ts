@@ -376,7 +376,7 @@ export const footerNavigation = {
       { label: 'FAQs', href: '/faq' },
       { label: 'Help Center', href: '/help' },
       { label: 'Locations', href: '/locations' },
-      { label: 'Sitemap', href: '/sitemap' },
+      { label: 'Sitemap', href: '/site-map' },
     ],
   },
   legal: {
