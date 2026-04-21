@@ -89,12 +89,15 @@ function barberVideoUrl(
 import { lessonUuidToSimulationKey } from '@/lib/lms/hvac-simulations';
 import { getActivitiesForLesson, getDefaultActivity } from '@/lib/lms/activity-map';
 import type { ActivityId } from '@/lib/lms/activity-map';
+import { useActivityCompletion } from '@/lib/lms/use-activity-completion';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
 
 const ExplainSimply = dynamic(() => import('@/components/lms/ai/ExplainSimply').then(m => ({ default: m.ExplainSimply })), { ssr: false });
 const TranslateToggle = dynamic(() => import('@/components/lms/ai/TranslateToggle').then(m => ({ default: m.TranslateToggle })), { ssr: false });
 const SpacedRepetitionReview = dynamic(() => import('@/components/lms/SpacedRepetitionReview'), { ssr: false });
 const LessonActivityMenu = dynamic(() => import('@/components/lms/LessonActivityMenu'), { ssr: false });
+const LessonInlineInput = dynamic(() => import('@/components/lms/LessonInlineInput'), { ssr: false });
+const ScenarioBlock = dynamic(() => import('@/components/lms/ScenarioBlock'), { ssr: false });
 
 const LessonVideoWithSimulation = dynamic(
   () => import('@/components/lms/LessonVideoWithSimulation'),
@@ -156,6 +159,14 @@ export default function LessonPage() {
   const [checkpointBlocked, setCheckpointBlocked] = useState(false);
   const [passedCheckpointIds, setPassedCheckpointIds] = useState<Set<string>>(new Set());
   const [loadTimeout, setLoadTimeout] = useState(false);
+
+  // ── Activity completion tracking (real completion, not just tab visits) ──
+  const {
+    completed: completedActivities,
+    markCompleted: markActivityCompleted,
+    onVideoProgress,
+    onReadingScroll,
+  } = useActivityCompletion();
 
   // ── Refs — stable across renders, safe to use in any hook below ──
   // Mirrors passedCheckpointIds so fetchLessonData can read it without
@@ -1356,6 +1367,7 @@ export default function LessonPage() {
                   activities={activityDefs}
                   activeId={activeActivity}
                   attempted={attempted}
+                  completedActivities={completedActivities}
                   isCompleted={isCompleted}
                   onChange={(id) => {
                     setActiveActivity(id);
@@ -1368,13 +1380,14 @@ export default function LessonPage() {
 
                   {/* VIDEO */}
                   {activeActivity === 'video' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Video">
                       {isBarberLesson ? (
                         barberVideoUrl(lesson.slug, lesson.video_config, lesson.video_url) ? (
                           <InteractiveVideoPlayer
                             videoUrl={barberVideoUrl(lesson.slug, lesson.video_config, lesson.video_url)!}
                             title={lesson.title}
-                            onComplete={() => { markAttempted('video'); if (!isCompleted) markComplete(); }}
+                            onProgress={(p) => onVideoProgress(p, 100)}
+                            onComplete={() => { markActivityCompleted('video'); markAttempted('video'); if (!isCompleted) markComplete(); }}
                           />
                         ) : (
                           <div className="bg-slate-100 rounded-xl flex items-center justify-center h-48 text-slate-400 text-sm">
@@ -1387,13 +1400,14 @@ export default function LessonPage() {
                             lessonId={lessonId}
                             videoUrl={lesson.video_url}
                             title={lesson.title}
-                            onComplete={() => { markAttempted('video'); if (!isCompleted) markComplete(); }}
+                            onComplete={() => { markActivityCompleted('video'); markAttempted('video'); if (!isCompleted) markComplete(); }}
                           />
                         ) : (
                           <InteractiveVideoPlayer
                             videoUrl={lesson.video_url}
                             title={lesson.title}
-                            onComplete={() => { markAttempted('video'); if (!isCompleted) markComplete(); }}
+                            onProgress={(p) => onVideoProgress(p, 100)}
+                            onComplete={() => { markActivityCompleted('video'); markAttempted('video'); if (!isCompleted) markComplete(); }}
                           />
                         )
                       ) : (
@@ -1413,13 +1427,29 @@ export default function LessonPage() {
 
                   {/* READING */}
                   {activeActivity === 'reading' && (
-                    <div className="bg-white rounded-xl p-4 md:p-8 shadow-sm">
+                    <div
+                      role="tabpanel"
+                      aria-label="Reading"
+                      className="bg-white rounded-xl p-4 md:p-8 shadow-sm overflow-y-auto max-h-[70vh]"
+                      onScroll={onReadingScroll}
+                    >
                       {lesson.content ? (
                         <>
                           <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(lesson.content) }} />
                           <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-3">
                             <ExplainSimply content={lesson.content} />
                             <TranslateToggle content={lesson.content} />
+                          </div>
+                          {/* Inline reflection prompt — auto-saves to lesson_responses */}
+                          <div className="mt-6">
+                            <LessonInlineInput
+                              lessonId={lessonId}
+                              courseId={courseId}
+                              fieldKey="reading-reflection"
+                              prompt="What's one key idea from this reading you want to remember?"
+                              variant="reflect"
+                              onChange={() => markActivityCompleted('reading')}
+                            />
                           </div>
                         </>
                       ) : (
@@ -1433,14 +1463,14 @@ export default function LessonPage() {
 
                   {/* FLASHCARDS */}
                   {activeActivity === 'flashcards' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Flashcards">
                       <SpacedRepetitionReview />
                     </div>
                   )}
 
                   {/* LAB */}
                   {activeActivity === 'lab' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Lab">
                       {(lesson.step_type === 'lab' || lesson.step_type === 'assignment') ? (
                         <StepSubmissionForm
                           lessonId={lessonId}
@@ -1448,7 +1478,7 @@ export default function LessonPage() {
                           stepType={lesson.step_type}
                           lessonTitle={lesson.title}
                           competencyKey={lesson.competency_checks?.[0]?.key}
-                          onSubmitted={() => { markAttempted('lab'); if (!isCompleted) markComplete(); }}
+                          onSubmitted={() => { markActivityCompleted('lab'); markAttempted('lab'); if (!isCompleted) markComplete(); }}
                         />
                       ) : (
                         <div className="bg-white rounded-xl p-8 shadow-sm text-center">
@@ -1461,13 +1491,13 @@ export default function LessonPage() {
 
                   {/* PRACTICE QUESTIONS */}
                   {activeActivity === 'practice' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Practice">
                       {lesson.quiz_questions?.length > 0 ? (
                         <QuizPlayer
                           questions={lesson.quiz_questions}
                           title="Practice Questions"
                           passingScore={60}
-                          onComplete={() => markAttempted('practice')}
+                          onComplete={() => { markActivityCompleted('practice'); markAttempted('practice'); }}
                         />
                       ) : (
                         <div className="bg-white rounded-xl p-8 shadow-sm text-center">
@@ -1480,7 +1510,7 @@ export default function LessonPage() {
 
                   {/* CHECKPOINT / QUIZ */}
                   {activeActivity === 'checkpoint' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Checkpoint">
                       {lesson.quiz_questions?.length > 0 ? (
                         <QuizPlayer
                           questions={lesson.quiz_questions}
@@ -1488,6 +1518,7 @@ export default function LessonPage() {
                           passingScore={lesson.passing_score || 70}
                           isCheckpoint={lesson.step_type === 'checkpoint'}
                           onComplete={(score) => {
+                            markActivityCompleted('checkpoint');
                             if (score >= (lesson.passing_score || 70) && !isCompleted) markComplete();
                           }}
                         />
@@ -1502,12 +1533,14 @@ export default function LessonPage() {
 
                   {/* NOTES */}
                   {activeActivity === 'notes' && (
-                    <NoteTaking courseId={courseId} lessonId={lessonId} />
+                    <div role="tabpanel" aria-label="Notes">
+                      <NoteTaking courseId={courseId} lessonId={lessonId} />
+                    </div>
                   )}
 
                   {/* RESOURCES */}
                   {activeActivity === 'resources' && (
-                    <div className="space-y-3">
+                    <div role="tabpanel" aria-label="Resources" className="space-y-3">
                       {lesson.resources?.length > 0 ? lesson.resources.map((resource: any, idx: number) => (
                         <div key={idx} className="flex items-center justify-between p-4 bg-white rounded-lg hover:bg-slate-50 transition">
                           <div className="flex items-center gap-3">
