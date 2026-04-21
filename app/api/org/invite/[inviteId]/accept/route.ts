@@ -11,7 +11,7 @@ import { applyRateLimit } from '@/lib/api/withRateLimit';
 
 export async function POST(
   req: NextRequest,
-  context: { params: Promise<{ token: string }> }
+  context: { params: Promise<{ inviteId: string }> }
 ) {
     const rateLimited = await applyRateLimit(req, 'api');
     if (rateLimited) return rateLimited;
@@ -34,7 +34,7 @@ export async function POST(
     // Get invite details via RPC (no enumeration)
     const { data: invites, error: inviteError } = await supabase.rpc(
       'get_org_invite_by_token',
-      { p_token: params.token }
+      { p_token: params.inviteId }
     );
 
     if (inviteError || !invites || invites.length === 0) {
@@ -87,7 +87,7 @@ export async function POST(
     const { error: updateError } = await db
       .from('org_invites')
       .update({ accepted_at: new Date().toISOString() })
-      .eq('token', params.token);
+      .eq('token', params.inviteId);
 
     if (updateError) {
       // Don't fail - member was added successfully
