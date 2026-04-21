@@ -381,7 +381,7 @@ function BookingForm() {
                     <span className="font-bold text-sm text-slate-900 leading-snug">{provider.name}</span>
                     {provider.status !== 'active' && (
                       <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded flex-shrink-0">
-                        {provider.status === 'coming_soon' ? 'Soon' : 'Partner'}
+                        {provider.status === 'coming_soon' ? 'Launching' : 'Partner'}
                       </span>
                     )}
                   </div>

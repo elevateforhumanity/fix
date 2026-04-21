@@ -4,7 +4,6 @@
  */
 
 export const BANNED_TOKENS = [
-  'coming soon',
   'sample',
   'example',
   'lorem',

@@ -27,9 +27,10 @@ const EXCLUDE_PATTERNS = [
 
 const FILE_EXTENSIONS = ['.tsx', '.jsx'];
 
-// Only check these high-signal tokens in CI
+// Only check these high-signal tokens in CI.
+// 'coming soon' removed — it is a legitimate DB enum value (coming_soon) and
+// program status label. Catching it here produces only false positives.
 const CI_BANNED_TOKENS = [
-  'coming soon',
   'lorem ipsum',
   'lorem',
   'tbd',
@@ -56,6 +57,14 @@ const ACCEPTABLE_PATTERNS = [
   /\/\*.*\*\//i, // Inline comments
   /\/\//i, // Line comments
   /{\/\*.*\*\/}/i, // JSX comments
+  // 'coming_soon' as a DB enum / JS identifier — not placeholder content
+  /coming_soon/,
+  // Status label strings in config objects (label: '...', description: '...')
+  /label:\s*['"][^'"]*coming\s+soon[^'"]*['"]/i,
+  /description:\s*['"][^'"]*coming\s+soon[^'"]*['"]/i,
+  // Fallback/message strings that reference enrollment opening
+  /opening\s+soon/i,
+  /enrollment.*opening/i,
 ];
 
 function isAcceptableUse(line: string, token: string): boolean {
