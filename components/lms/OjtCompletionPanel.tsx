@@ -142,21 +142,21 @@ export default function OjtCompletionPanel({ lessonId, courseId, lessonTitle, on
           </div>
         </div>
 
-        {/* Rep breakdown */}
-        <div className="grid grid-cols-3 gap-3 text-center text-sm">
-          <div className="bg-white rounded-lg p-3 border border-slate-200">
-            <div className="text-2xl font-bold text-green-600">{status.verifiedReps}</div>
-            <div className="text-xs text-slate-500 mt-0.5">Verified</div>
+        {/* Rep breakdown — stacked on mobile, 3-col on sm+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-sm">
+          <div className="bg-white rounded-lg p-4 border border-slate-200">
+            <div className="text-3xl font-bold text-green-600">{status.verifiedReps}</div>
+            <div className="text-sm text-slate-500 mt-1">Verified</div>
           </div>
-          <div className="bg-white rounded-lg p-3 border border-slate-200">
-            <div className="text-2xl font-bold text-amber-500">{status.pendingReps}</div>
-            <div className="text-xs text-slate-500 mt-0.5">Pending review</div>
+          <div className="bg-white rounded-lg p-4 border border-slate-200">
+            <div className="text-3xl font-bold text-amber-500">{status.pendingReps}</div>
+            <div className="text-sm text-slate-500 mt-1">Pending review</div>
           </div>
-          <div className="bg-white rounded-lg p-3 border border-slate-200">
-            <div className="text-2xl font-bold text-slate-400">
+          <div className="bg-white rounded-lg p-4 border border-slate-200">
+            <div className="text-3xl font-bold text-slate-400">
               {Math.max(0, status.requiredReps - status.verifiedReps)}
             </div>
-            <div className="text-xs text-slate-500 mt-0.5">Still needed</div>
+            <div className="text-sm text-slate-500 mt-1">Still needed</div>
           </div>
         </div>
 
@@ -174,21 +174,22 @@ export default function OjtCompletionPanel({ lessonId, courseId, lessonTitle, on
           <h4 className="font-semibold text-slate-900">Log a Shop Attempt</h4>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
               Number of times performed this session
             </label>
             <input
               type="number"
+              inputMode="numeric"
               min={1}
               max={20}
               value={logForm.serviceCount}
               onChange={e => setLogForm(f => ({ ...f, serviceCount: parseInt(e.target.value) || 1 }))}
-              className="w-24 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
+              className="w-full border border-slate-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
               Supervising barber name
             </label>
             <input
@@ -196,12 +197,12 @@ export default function OjtCompletionPanel({ lessonId, courseId, lessonTitle, on
               placeholder="e.g. Marcus Johnson"
               value={logForm.supervisorName}
               onChange={e => setLogForm(f => ({ ...f, supervisorName: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
+              className="w-full border border-slate-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
               Notes <span className="text-slate-400">(optional)</span>
             </label>
             <textarea
@@ -209,29 +210,29 @@ export default function OjtCompletionPanel({ lessonId, courseId, lessonTitle, on
               placeholder="What did you work on? Any feedback from your supervisor?"
               value={logForm.notes}
               onChange={e => setLogForm(f => ({ ...f, notes: e.target.value }))}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500 resize-none"
+              className="w-full border border-slate-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-blue-500 resize-none"
             />
           </div>
 
           {error && (
-            <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">
+            <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               {error}
             </div>
           )}
 
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={logAttempt}
               disabled={logging}
-              className="flex items-center gap-2 bg-brand-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-brand-blue-700 disabled:opacity-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 bg-brand-blue-600 text-white px-5 py-4 rounded-xl text-base font-semibold hover:bg-brand-blue-700 disabled:opacity-50 transition-colors min-h-[52px]"
             >
-              {logging ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+              {logging ? <Loader2 className="w-5 h-5 animate-spin" /> : <Plus className="w-5 h-5" />}
               {logging ? 'Saving…' : 'Save Attempt'}
             </button>
             <button
               onClick={() => { setShowLogForm(false); setError(null); }}
-              className="px-5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors"
+              className="flex-1 sm:flex-none px-5 py-4 rounded-xl text-base font-medium text-slate-600 hover:bg-slate-100 transition-colors min-h-[52px]"
             >
               Cancel
             </button>
@@ -240,9 +241,9 @@ export default function OjtCompletionPanel({ lessonId, courseId, lessonTitle, on
       ) : (
         <button
           onClick={() => setShowLogForm(true)}
-          className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-brand-blue-300 text-brand-blue-600 rounded-xl py-4 text-sm font-semibold hover:bg-brand-blue-50 transition-colors"
+          className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-brand-blue-300 text-brand-blue-600 rounded-xl py-5 text-base font-semibold hover:bg-brand-blue-50 transition-colors min-h-[60px]"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-5 h-5" />
           Log a shop attempt
         </button>
       )}

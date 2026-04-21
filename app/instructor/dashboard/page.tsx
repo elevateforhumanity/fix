@@ -155,6 +155,29 @@ export default async function InstructorDashboard() {
       completionRate: p.students > 0 ? Math.round((p.completed / p.students) * 100) : 0,
     }));
 
+  // OJT reps awaiting supervisor verification
+  const { data: pendingOjtReps } = await supabase
+    .from('competency_log')
+    .select('id, created_at, notes, profiles ( full_name, email )')
+    .eq('supervisor_verified', false)
+    .order('created_at', { ascending: false })
+    .limit(10);
+
+  // Barber sign-offs pending
+  const { data: pendingSignoffs } = await supabase
+    .from('barber_instructor_signoffs')
+    .select('id, signoff_type, created_at, profiles ( full_name, email )')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false })
+    .limit(10);
+
+  // Hour summary for instructor-scoped students (top 10 by total hours)
+  const { data: hourSummary } = await supabase
+    .from('student_hour_summary')
+    .select('student_id, theory_hours, lab_hours, field_hours, total_approved_hours, total_pending_hours')
+    .order('total_approved_hours', { ascending: false })
+    .limit(10);
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -428,6 +451,78 @@ export default async function InstructorDashboard() {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* OJT Sign-Off Queue */}
+            {((pendingOjtReps?.length ?? 0) > 0 || (pendingSignoffs?.length ?? 0) > 0) && (
+              <div className="mt-8 bg-white rounded-xl p-6 shadow-sm border border-amber-200">
+                <h3 className="font-bold text-black mb-4 flex items-center gap-2">
+                  <ClipboardList className="w-5 h-5 text-amber-600" />
+                  OJT &amp; Sign-Off Queue
+                </h3>
+                {(pendingOjtReps?.length ?? 0) > 0 && (
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Unverified OJT Reps</p>
+                    <div className="space-y-2">
+                      {pendingOjtReps!.map((rep: any) => (
+                        <div key={rep.id} className="flex items-center justify-between bg-amber-50 rounded-lg px-3 py-2 text-sm">
+                          <span className="font-medium text-slate-800">{rep.profiles?.full_name ?? rep.profiles?.email ?? 'Student'}</span>
+                          <span className="text-xs text-slate-500">{safeFormatDate(rep.created_at)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {(pendingSignoffs?.length ?? 0) > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Pending Module Sign-Offs</p>
+                    <div className="space-y-2">
+                      {pendingSignoffs!.map((s: any) => (
+                        <div key={s.id} className="flex items-center justify-between bg-amber-50 rounded-lg px-3 py-2 text-sm">
+                          <span className="font-medium text-slate-800">{s.profiles?.full_name ?? s.profiles?.email ?? 'Student'}</span>
+                          <span className="text-xs text-slate-400 capitalize">{s.signoff_type?.replace(/_/g, ' ')}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Student Hour Summary */}
+            {(hourSummary?.length ?? 0) > 0 && (
+              <div className="mt-8 bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h3 className="font-bold text-black mb-4 flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-brand-blue-600" />
+                  Student Hour Summary
+                </h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="text-xs text-slate-500 border-b">
+                        <th className="text-left pb-2 font-medium">Student</th>
+                        <th className="text-right pb-2 font-medium">Theory</th>
+                        <th className="text-right pb-2 font-medium">Lab</th>
+                        <th className="text-right pb-2 font-medium">Field</th>
+                        <th className="text-right pb-2 font-medium">Approved</th>
+                        <th className="text-right pb-2 font-medium">Pending</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {hourSummary!.map((row: any) => (
+                        <tr key={row.student_id}>
+                          <td className="py-2 text-slate-700 font-mono text-xs truncate max-w-[120px]">{row.student_id.slice(0, 8)}…</td>
+                          <td className="py-2 text-right text-slate-600">{Number(row.theory_hours ?? 0).toFixed(1)}</td>
+                          <td className="py-2 text-right text-slate-600">{Number(row.lab_hours ?? 0).toFixed(1)}</td>
+                          <td className="py-2 text-right text-slate-600">{Number(row.field_hours ?? 0).toFixed(1)}</td>
+                          <td className="py-2 text-right font-semibold text-green-700">{Number(row.total_approved_hours ?? 0).toFixed(1)}</td>
+                          <td className="py-2 text-right text-amber-600">{Number(row.total_pending_hours ?? 0).toFixed(1)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
