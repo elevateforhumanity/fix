@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function PharmacyTechnicianPage() {
   return (
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/program-hero.mp4" voiceoverSrc="/audio/heroes/programs.mp3" />
+      <ProgramHeroBanner videoSrc="/videos/program-hero.mp4" voiceoverSrc="/audio/heroes/programs.mp3" pageKey="pharmacy-technician" />
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Healthcare', href: '/programs/healthcare' }, { label: 'Pharmacy Technician' }]} />

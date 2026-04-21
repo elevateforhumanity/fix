@@ -105,7 +105,7 @@ export default function NailTechnicianApprenticeshipPage() {
 
   return (
     <>
-      <ProgramHeroBanner videoSrc="/videos/beauty-cosmetology.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/beauty-cosmetology.mp4" pageKey="nail-technician-apprenticeship" />
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[

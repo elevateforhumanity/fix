@@ -122,7 +122,7 @@ export default function WeldingProgramPage() {
 
   return (
     <>
-      <ProgramHeroBanner videoSrc="/videos/welding-trades.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/welding-trades.mp4" pageKey="welding" />
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[

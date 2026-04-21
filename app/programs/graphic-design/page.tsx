@@ -36,7 +36,7 @@ export default function Page() {
       outcomes: ['Adobe Certified Professional — Visual Design (Certiport/Adobe)', 'Certificate of Completion'],
     }} />
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" pageKey="graphic-design" />
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Graphic Design Professional' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">

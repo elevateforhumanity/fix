@@ -168,10 +168,10 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   if (poster) {
     return (
       <>
-        {/* Poster — z-0, always visible until video plays.
-            Explicit z-index prevents the video element (even at opacity-0)
-            from blocking the poster on Safari/iOS where stacking context
-            behaves differently from Chrome. */}
+        {/* Poster — z-1, always visible until video plays.
+            Sits above the container background but below the video (z-2).
+            Explicit inline position/size so it fills the container regardless
+            of what className the caller passes — Safari/iOS stacking fix. */}
         <img
           src={poster}
           alt=""
@@ -180,9 +180,9 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           loading={autoPlayOnMount ? 'eager' : 'lazy'}
           decoding="async"
           className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-          style={{ objectFit: 'cover', zIndex: 0 }}
+          style={{ objectFit: 'cover', objectPosition: 'center', zIndex: 1, position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         />
-        {/* Video — z-10, fades in once onPlaying fires (first real frame on screen).
+        {/* Video — z-2, fades in once onPlaying fires (first real frame on screen).
             When loop=true (hero videos), onEnded never fires so the poster stays
             hidden and the video plays seamlessly in perpetuity.
             src set directly on <video> (not only via <source>) so canplay fires
@@ -199,7 +199,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           onPlaying={handlePlaying}
           onEnded={handleEnded}
           onError={handleError}
-          style={{ zIndex: 10 }}
+          style={{ zIndex: 2, position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
         />
       </>
     );

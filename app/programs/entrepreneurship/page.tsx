@@ -111,7 +111,7 @@ export default function EntrepreneurshipPage() {
 
   return (
     <>
-      <ProgramHeroBanner videoSrc="/videos/business-finance.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/business-finance.mp4" pageKey="entrepreneurship" />
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[

@@ -36,7 +36,7 @@ export default function Page() {
       outcomes: ['IT Specialist — Networking (Certiport)', 'Cisco Certified Support Technician', 'Certificate of Completion'],
     }} />
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" pageKey="network-support-technician" />
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Network Support Technician' }]} />
 
       <section className="relative w-full -mt-[72px]">

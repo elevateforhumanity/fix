@@ -36,7 +36,7 @@ export default function Page() {
       outcomes: ['IT Specialist — Databases (Certiport)', 'Certificate of Completion'],
     }} />
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" pageKey="network-administration" />
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Network & Systems Administration' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">

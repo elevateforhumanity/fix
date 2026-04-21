@@ -111,7 +111,7 @@ export default function MedicalAssistantProgramPage() {
 
   return (
     <>
-      <ProgramHeroBanner videoSrc="/videos/healthcare-cna.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/healthcare-cna.mp4" pageKey="medical-assistant" />
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[

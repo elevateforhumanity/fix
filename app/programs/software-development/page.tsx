@@ -36,7 +36,7 @@ export default function Page() {
       outcomes: ['IT Specialist — Software Development (Certiport)', 'Certificate of Completion'],
     }} />
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" />
+      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" pageKey="software-development" />
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Software Development Foundations' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">
