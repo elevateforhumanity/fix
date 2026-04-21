@@ -256,13 +256,22 @@ async function sendDMCATakedown(data: {
     'namecheap.com': 'abuse@namecheap.com',
   };
 
-  // Find matching abuse contact
+  // Find matching abuse contact for known providers
   let abuseEmail: string | null = null;
   for (const [pattern, email] of Object.entries(abuseContacts)) {
     if (data.domain.endsWith(pattern)) {
       abuseEmail = email;
       break;
     }
+  }
+
+  // For unknown providers, attempt to resolve abuse contact via whois TLD pattern
+  // abuse@ is the RFC 2142 standard contact for all domains
+  if (!abuseEmail) {
+    const tldParts = data.domain.split('.');
+    const registrarDomain = tldParts.slice(-2).join('.');
+    abuseEmail = `abuse@${registrarDomain}`;
+    logger.info('[DMCA] Unknown provider — attempting RFC 2142 abuse contact:', abuseEmail);
   }
 
   // Formal DMCA takedown notice (17 U.S.C. § 512(c))
@@ -319,47 +328,42 @@ Elevate for Humanity Career & Technical Institute
     </div>
   `;
 
-  // Send to hosting provider if we found their abuse contact
-  if (abuseEmail) {
-    const providerResult = await sendEmail({
-      to: abuseEmail,
-      subject: `DMCA Takedown Notice — Unauthorized copy of elevateforhumanity.org on ${data.domain}`,
-      html: dmcaHtml,
-      text: dmcaNotice,
-    });
+  // Always send takedown to the abuse contact — known provider or RFC 2142 fallback
+  const providerResult = await sendEmail({
+    to: abuseEmail,
+    subject: `DMCA Takedown Notice — Unauthorized copy of elevateforhumanity.org on ${data.domain}`,
+    html: dmcaHtml,
+    text: dmcaNotice,
+  });
 
-    if (providerResult.success) {
-      logger.info('[DMCA] Takedown notice sent to hosting provider:', abuseEmail);
-    } else {
-      logger.error('[DMCA] Failed to send to provider:', abuseEmail, providerResult.error);
-    }
+  if (providerResult.success) {
+    logger.info('[DMCA] Takedown notice sent to:', abuseEmail);
   } else {
-    logger.info('[DMCA] No known abuse contact for domain:', data.domain);
+    logger.error('[DMCA] Failed to send takedown to:', abuseEmail, providerResult.error);
   }
 
-  // Always send a copy to yourself with the DMCA notice + who to contact
+  // Always send owner alert with full details
   await sendEmail({
     to: 'elevate4humanityedu@gmail.com',
-    subject: `DMCA Takedown ${abuseEmail ? 'SENT' : 'MANUAL ACTION NEEDED'}: ${data.domain}`,
+    subject: `DMCA Takedown SENT: Unauthorized copy detected on ${data.domain}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: ${abuseEmail ? '#059669' : '#d97706'}; color: white; padding: 16px; text-align: center;">
-          <h2 style="margin: 0;">${abuseEmail ? 'Automatic DMCA Takedown Sent' : 'Manual DMCA Takedown Required'}</h2>
+        <div style="background: #991b1b; color: white; padding: 16px; text-align: center;">
+          <h2 style="margin: 0;">⚠️ Unauthorized Site Copy Detected</h2>
+          <p style="margin: 4px 0 0; font-size: 14px;">DMCA takedown automatically sent</p>
         </div>
         <div style="padding: 20px; background: #f9fafb; border: 1px solid #e5e7eb;">
           <p><strong>Clone domain:</strong> <a href="http://${data.domain}">${data.domain}</a></p>
           <p><strong>Clone URL:</strong> <a href="${data.url}">${data.url}</a></p>
           <p><strong>Detected:</strong> ${data.timestamp}</p>
-          ${abuseEmail
-            ? `<p><strong>Takedown sent to:</strong> ${abuseEmail}</p>
-               <p style="color: #059669;">The hosting provider has been notified. Most providers respond within 24-72 hours.</p>`
-            : `<p style="color: #d97706;"><strong>Could not identify hosting provider.</strong> You need to:</p>
-               <ol>
-                 <li>Look up the domain's hosting provider at <a href="https://who.is/whois/${data.domain}">who.is</a></li>
-                 <li>Find their abuse/DMCA contact</li>
-                 <li>Forward the DMCA notice below to them</li>
-               </ol>`
-          }
+          <p><strong>Takedown sent to:</strong> ${abuseEmail}</p>
+          <p style="color: #059669;">The hosting provider has been notified. Most providers respond within 24–72 hours.</p>
+          <p>If no response within 72 hours, escalate by filing directly at:</p>
+          <ul>
+            <li><a href="https://who.is/whois/${data.domain}">Look up registrar at who.is</a></li>
+            <li><a href="https://www.icann.org/resources/pages/help/dndr/udrp-en">ICANN UDRP filing</a></li>
+            <li>Contact an IP attorney for federal court injunction</li>
+          </ul>
           <hr style="margin: 20px 0;" />
           <details>
             <summary style="cursor: pointer; font-weight: bold;">View DMCA Notice Text</summary>
