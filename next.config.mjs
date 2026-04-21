@@ -79,6 +79,13 @@ const nextConfig = {
   // the dynamic import() in the TTS route still causes webpack to trace it.
   transpilePackages: ['edge-tts'],
 
+  // Next.js 16 defaults to Turbopack but errors when it finds a custom webpack
+  // config with no turbopack config. Setting turbopack: {} acknowledges the
+  // situation and silences the error. The webpack() function in this config
+  // still runs for production builds (Next.js uses webpack for `next build`
+  // unless --turbopack is explicitly passed).
+  turbopack: {},
+
   reactStrictMode: true,
   trailingSlash: false,
   poweredByHeader: false,
