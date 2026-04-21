@@ -9,7 +9,8 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import PageAvatar from '@/components/PageAvatar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import ProgramHeroBanner from '@/components/ProgramHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { ProgramStructuredData } from '@/components/seo/CourseStructuredData';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
@@ -36,7 +37,18 @@ export default function Page() {
       outcomes: ['Microsoft Office Specialist — Word (Certiport/Microsoft)', 'Microsoft Office Specialist — Excel (Certiport/Microsoft)', 'Certificate of Completion'],
     }} />
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" pageKey="office-administration" />
+      <HeroVideo
+        videoSrcDesktop={heroBanners['office-administration'].videoSrcDesktop}
+        posterImage={heroBanners['office-administration'].posterImage}
+        voiceoverSrc={heroBanners['office-administration'].voiceoverSrc}
+        microLabel={heroBanners['office-administration'].microLabel}
+        belowHeroHeadline={heroBanners['office-administration'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['office-administration'].belowHeroSubheadline}
+        ctas={[heroBanners['office-administration'].primaryCta, ...(heroBanners['office-administration'].secondaryCta ? [heroBanners['office-administration'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['office-administration'].trustIndicators}
+        transcript={heroBanners['office-administration'].transcript}
+        analyticsName={heroBanners['office-administration'].analyticsName}
+      />
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Office Administration' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">

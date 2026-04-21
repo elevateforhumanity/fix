@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import ProgramHeroBanner from '@/components/ProgramHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { FundingBadge } from '@/components/programs/FundingBadge';
 import { createBrowserClient } from '@supabase/ssr';
@@ -111,7 +112,18 @@ export default function EntrepreneurshipPage() {
 
   return (
     <>
-      <ProgramHeroBanner videoSrc="/videos/business-finance.mp4" pageKey="entrepreneurship" />
+      <HeroVideo
+        videoSrcDesktop={heroBanners['entrepreneurship'].videoSrcDesktop}
+        posterImage={heroBanners['entrepreneurship'].posterImage}
+        voiceoverSrc={heroBanners['entrepreneurship'].voiceoverSrc}
+        microLabel={heroBanners['entrepreneurship'].microLabel}
+        belowHeroHeadline={heroBanners['entrepreneurship'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['entrepreneurship'].belowHeroSubheadline}
+        ctas={[heroBanners['entrepreneurship'].primaryCta, ...(heroBanners['entrepreneurship'].secondaryCta ? [heroBanners['entrepreneurship'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['entrepreneurship'].trustIndicators}
+        transcript={heroBanners['entrepreneurship'].transcript}
+        analyticsName={heroBanners['entrepreneurship'].analyticsName}
+      />
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[

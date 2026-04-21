@@ -9,7 +9,8 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import PageAvatar from '@/components/PageAvatar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import ProgramHeroBanner from '@/components/ProgramHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { ProgramStructuredData } from '@/components/seo/CourseStructuredData';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
@@ -36,7 +37,18 @@ export default function Page() {
       outcomes: ['PMI Project Management Ready (Certiport/PMI)', 'Certificate of Completion'],
     }} />
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/it-technology.mp4" pageKey="project-management" />
+      <HeroVideo
+        videoSrcDesktop={heroBanners['project-management'].videoSrcDesktop}
+        posterImage={heroBanners['project-management'].posterImage}
+        voiceoverSrc={heroBanners['project-management'].voiceoverSrc}
+        microLabel={heroBanners['project-management'].microLabel}
+        belowHeroHeadline={heroBanners['project-management'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['project-management'].belowHeroSubheadline}
+        ctas={[heroBanners['project-management'].primaryCta, ...(heroBanners['project-management'].secondaryCta ? [heroBanners['project-management'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['project-management'].trustIndicators}
+        transcript={heroBanners['project-management'].transcript}
+        analyticsName={heroBanners['project-management'].analyticsName}
+      />
       <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Technology', href: '/programs/technology' }, { label: 'Project Management' }]} />
       <section className="relative w-full -mt-[72px]">
         <div className="relative min-h-[70vh] w-full overflow-hidden">

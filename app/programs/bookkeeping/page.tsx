@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import ProgramHeroBanner from '@/components/ProgramHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { FundingBadge } from '@/components/programs/FundingBadge';
 import { createBrowserClient } from '@supabase/ssr';
@@ -111,7 +112,18 @@ export default function BookkeepingPage() {
 
   return (
     <>
-      <ProgramHeroBanner videoSrc="/videos/business-finance.mp4" pageKey="bookkeeping" />
+      <HeroVideo
+        videoSrcDesktop={heroBanners['bookkeeping'].videoSrcDesktop}
+        posterImage={heroBanners['bookkeeping'].posterImage}
+        voiceoverSrc={heroBanners['bookkeeping'].voiceoverSrc}
+        microLabel={heroBanners['bookkeeping'].microLabel}
+        belowHeroHeadline={heroBanners['bookkeeping'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['bookkeeping'].belowHeroSubheadline}
+        ctas={[heroBanners['bookkeeping'].primaryCta, ...(heroBanners['bookkeeping'].secondaryCta ? [heroBanners['bookkeeping'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['bookkeeping'].trustIndicators}
+        transcript={heroBanners['bookkeeping'].transcript}
+        analyticsName={heroBanners['bookkeeping'].analyticsName}
+      />
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[
