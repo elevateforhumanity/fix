@@ -1,156 +1,107 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
+import { getAdminClient } from '@/lib/supabase/admin';
+import { Cpu, CheckCircle, Clock, XCircle } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-  alternates: {
-    canonical: 'https://www.elevateforhumanity.org/admin/data-processor',
-  },
-  title: 'Data Processor | Elevate For Humanity',
-  description:
-    'Process and manage data imports.',
+  title: 'Data Processor | Admin',
 };
 
 export default async function DataProcessorPage() {
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
+  const db = await getAdminClient();
 
-
-
-  const { data: items, count: totalItems } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .limit(50);
-
-  const { count: activeItems } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active');
-
-  if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
-    redirect('/unauthorized');
-  }
+  // data_processing_jobs: id, name, description, status, created_at, updated_at
+  const [
+    { data: jobs, count: total },
+    { count: pending },
+    { count: completed },
+    { count: failed },
+  ] = await Promise.all([
+    db
+      .from('data_processing_jobs')
+      .select('id, name, description, status, created_at, updated_at', { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .limit(100),
+    db.from('data_processing_jobs').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+    db.from('data_processing_jobs').select('id', { count: 'exact', head: true }).eq('status', 'completed'),
+    db.from('data_processing_jobs').select('id', { count: 'exact', head: true }).eq('status', 'failed'),
+  ]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Data Processor' }]} />
 
-      {/* Hero Image */}
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Data Processor" }]} />
+        <div className="mt-4 mb-6">
+          <h1 className="text-2xl font-bold text-slate-900">Data Processor</h1>
+          <p className="text-slate-600 text-sm mt-1">Background data processing jobs — {total ?? 0} total</p>
         </div>
-      {/* Hero Section */}
-      <section className="relative h-48 md:h-64 overflow-hidden">
-        <Image
-          src="/images/pages/admin-data-processor-detail.jpg"
-          alt="Data Processor"
-          fill
-          className="object-cover"
-          quality={100}
-          priority
-          sizes="100vw"
-        />
 
-      </section>
-
-      {/* Content Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Total Items
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {totalItems || 0}
-                </p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {[
+            { label: 'Total', value: total ?? 0, icon: Cpu, color: 'text-slate-900' },
+            { label: 'Pending', value: pending ?? 0, icon: Clock, color: 'text-yellow-600' },
+            { label: 'Completed', value: completed ?? 0, icon: CheckCircle, color: 'text-green-600' },
+            { label: 'Failed', value: failed ?? 0, icon: XCircle, color: 'text-red-600' },
+          ].map(({ label, value, icon: Icon, color }) => (
+            <div key={label} className="bg-white rounded-xl border p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <Icon className={`w-5 h-5 ${color}`} />
+                <span className="text-sm text-slate-600">{label}</span>
               </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Active
-                </h3>
-                <p className="text-3xl font-bold text-brand-green-600">
-                  {activeItems || 0}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Recent
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {items?.filter((i) => {
-                    const created = new Date(i.created_at);
-                    const weekAgo = new Date();
-                    weekAgo.setDate(weekAgo.getDate() - 7);
-                    return created > weekAgo;
-                  }).length || 0}
-                </p>
-              </div>
+              <p className={`text-3xl font-bold ${color}`}>{value}</p>
             </div>
+          ))}
+        </div>
 
-            {/* Data Display */}
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-2xl font-bold mb-4">Items</h2>
-              {items && items.length > 0 ? (
-                <div className="space-y-4">
-                  {items.map((item: any) => (
-                    <div
-                      key={item.id}
-                      className="p-4 border rounded-lg hover:bg-gray-50"
-                    >
-                      <p className="font-semibold">
-                        {item.title || item.name || item.id}
-                      </p>
-                      <p className="text-sm text-black">
-                        {new Date(item.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
+        <div className="bg-white rounded-xl border overflow-hidden">
+          <div className="px-6 py-4 border-b">
+            <h2 className="font-semibold text-slate-900">Processing Jobs</h2>
+          </div>
+          {jobs && jobs.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 border-b">
+                  <tr>
+                    <th className="px-6 py-3 text-left font-medium text-slate-600">Job</th>
+                    <th className="px-6 py-3 text-left font-medium text-slate-600">Status</th>
+                    <th className="px-6 py-3 text-left font-medium text-slate-600">Created</th>
+                    <th className="px-6 py-3 text-left font-medium text-slate-600">Updated</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {jobs.map((j: any) => (
+                    <tr key={j.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        <p className="font-medium text-slate-900">{j.name ?? 'Unnamed Job'}</p>
+                        {j.description && <p className="text-xs text-slate-500 truncate max-w-xs">{j.description}</p>}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          j.status === 'completed' ? 'bg-green-100 text-green-800' :
+                          j.status === 'pending'   ? 'bg-yellow-100 text-yellow-800' :
+                          j.status === 'failed'    ? 'bg-red-100 text-red-800' :
+                          j.status === 'running'   ? 'bg-blue-100 text-blue-800' :
+                                                     'bg-gray-100 text-gray-700'
+                        }`}>{j.status ?? 'unknown'}</span>
+                      </td>
+                      <td className="px-6 py-4 text-slate-500 text-xs">{new Date(j.created_at).toLocaleString()}</td>
+                      <td className="px-6 py-4 text-slate-500 text-xs">{j.updated_at ? new Date(j.updated_at).toLocaleString() : '—'}</td>
+                    </tr>
                   ))}
-                </div>
-              ) : (
-                <p className="text-black text-center py-8">No items found</p>
-              )}
+                </tbody>
+              </table>
             </div>
-          </div>
+          ) : (
+            <div className="py-16 text-center text-slate-500">No processing jobs found.</div>
+          )}
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-brand-blue-700">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Data Processing Tools
-                        </h2>
-            <p className="text-base md:text-lg text-brand-blue-100 mb-8">
-              Run batch operations on student records and enrollment data.
-                        </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/admin/data-processor"
-                className="bg-white text-brand-blue-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 text-lg"
-              >
-                Run Job
-              </Link>
-              <Link
-                href="/admin/reports"
-                className="bg-brand-blue-800 text-white px-8 py-4 rounded-lg font-semibold hover:bg-brand-blue-600 border-2 border-white text-lg"
-              >
-                View Reports
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

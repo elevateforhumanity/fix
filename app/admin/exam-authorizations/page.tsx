@@ -14,6 +14,9 @@ export const metadata: Metadata = {
 
 export default async function ExamAuthorizationsPage() {
   const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect('/login');
+
   const db = await getAdminClient();
 
   const { data: profile } = await supabase
