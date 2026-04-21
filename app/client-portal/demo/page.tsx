@@ -3,7 +3,8 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Demo',
-  alternates: { canonical: 'https://www.elevateforhumanity.org/client-portal/demo' },
+  alternates: { canonical: 'https://www.elevateforhumanity.org/start/demo' },
+  robots: { index: false, follow: false },
 };
 
-export default function Page() { redirect('/client-portal'); }
+export default function Page() { redirect('/start/demo'); }
