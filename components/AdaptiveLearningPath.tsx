@@ -328,3 +328,4 @@ export function AdaptiveLearningPath() {
     </div>
   );
 }
+export { AdaptiveLearningPath as default } from './AdaptiveLearningPath';

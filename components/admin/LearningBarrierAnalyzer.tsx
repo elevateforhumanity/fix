@@ -500,3 +500,4 @@ export function LearningBarrierAnalyzer() {
   );
 }
 
+export { LearningBarrierAnalyzer as default } from './LearningBarrierAnalyzer';

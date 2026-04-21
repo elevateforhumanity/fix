@@ -62,6 +62,15 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTML
 );
 CardDescription.displayName = 'CardDescription';
 
+export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, className = '', ...props }, ref) => (
+    <div ref={ref} className={`flex items-center px-6 py-4 ${className}`} {...props}>
+      {children}
+    </div>
+  )
+);
+CardFooter.displayName = 'CardFooter';
+
 // Program Card Component
 export interface ProgramCardProps {
   title: string;

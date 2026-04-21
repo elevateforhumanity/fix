@@ -111,3 +111,4 @@ export function AssignmentSubmitForm({ assignmentId, assignmentTitle }: Assignme
     </div>
   );
 }
+export { AssignmentSubmitForm as default } from './AssignmentSubmitForm';

@@ -289,3 +289,4 @@ Sarah Johnson, IT Support, 2025-01-22, sarah@email.com"
     </div>
   );
 }
+export { CopilotAssistant as default } from './CopilotAssistant';

@@ -302,3 +302,4 @@ export function AssignmentSubmission({
     </div>
   );
 }
+export { AssignmentSubmission as default } from './AssignmentSubmission';
