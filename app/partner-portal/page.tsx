@@ -38,10 +38,10 @@ export default async function PartnerPortalPage() {
     redirect('/lms/dashboard');
   }
 
-  // Partner referral stats
+  // Partner record
   const { data: partnerUser } = await db
     .from('partner_users')
-    .select('id, organization_id, role')
+    .select('id, partner_id, role')
     .eq('user_id', user.id)
     .maybeSingle();
 

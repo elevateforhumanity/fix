@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { CreditCard, FileText, Clock, CheckCircle, AlertCircle, ArrowRight } from 'lucide-react';
+import { CreditCard, FileText, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,28 +23,21 @@ export default async function BillingPage() {
   const db = await getAdminClient();
 
   // Pull invoices for this user
+  // Columns: id, invoice_number, amount, total, status, due_date, paid_at, created_at, items
   const { data: invoices } = await db
     .from('invoices')
-    .select('id, amount, status, due_date, paid_at, description, created_at')
+    .select('id, invoice_number, amount, total, status, due_date, paid_at, created_at, items')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(20);
 
-  // Pull payments
-  const { data: payments } = await db
-    .from('payments')
-    .select('id, amount, status, created_at, payment_method, description')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false })
-    .limit(10);
-
   const totalOwed = invoices
     ?.filter(i => i.status === 'unpaid' || i.status === 'overdue')
-    .reduce((sum, i) => sum + (i.amount ?? 0), 0) ?? 0;
+    .reduce((sum, i) => sum + (i.total ?? i.amount ?? 0), 0) ?? 0;
 
-  const totalPaid = payments
-    ?.filter(p => p.status === 'completed')
-    .reduce((sum, p) => sum + (p.amount ?? 0), 0) ?? 0;
+  const totalPaid = invoices
+    ?.filter(i => i.status === 'paid')
+    .reduce((sum, i) => sum + (i.total ?? i.amount ?? 0), 0) ?? 0;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -62,14 +55,14 @@ export default async function BillingPage() {
           <div className="rounded-xl border border-slate-200 bg-white p-6">
             <CreditCard className="w-6 h-6 text-brand-red-500 mb-3" />
             <p className="text-2xl font-extrabold text-slate-900">
-              ${(totalOwed / 100).toFixed(2)}
+              ${Number(totalOwed).toFixed(2)}
             </p>
             <p className="text-sm text-slate-500 mt-1">Balance Due</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-6">
             <CheckCircle className="w-6 h-6 text-green-500 mb-3" />
             <p className="text-2xl font-extrabold text-slate-900">
-              ${(totalPaid / 100).toFixed(2)}
+              ${Number(totalPaid).toFixed(2)}
             </p>
             <p className="text-sm text-slate-500 mt-1">Total Paid</p>
           </div>
@@ -95,7 +88,9 @@ export default async function BillingPage() {
               {invoices.map((inv) => (
                 <div key={inv.id} className="flex items-center justify-between px-6 py-4">
                   <div>
-                    <p className="font-medium text-slate-900 text-sm">{inv.description ?? 'Invoice'}</p>
+                    <p className="font-medium text-slate-900 text-sm">
+                      {inv.invoice_number ? `Invoice #${inv.invoice_number}` : 'Invoice'}
+                    </p>
                     <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       {inv.due_date ? `Due ${new Date(inv.due_date).toLocaleDateString()}` : new Date(inv.created_at).toLocaleDateString()}
@@ -107,10 +102,10 @@ export default async function BillingPage() {
                       inv.status === 'overdue' ? 'bg-red-50 text-red-700' :
                       'bg-amber-50 text-amber-700'
                     }`}>
-                      {inv.status}
+                      {inv.status ?? 'pending'}
                     </span>
                     <span className="font-bold text-slate-900 text-sm">
-                      ${((inv.amount ?? 0) / 100).toFixed(2)}
+                      ${Number(inv.total ?? inv.amount ?? 0).toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -119,27 +114,28 @@ export default async function BillingPage() {
           )}
         </div>
 
-        {/* Payment history */}
+        {/* Paid invoices */}
         <div className="bg-white rounded-xl border border-slate-200">
           <div className="px-6 py-4 border-b border-slate-100">
             <h2 className="font-bold text-slate-900">Payment History</h2>
           </div>
-          {!payments || payments.length === 0 ? (
+          {!invoices || invoices.filter(i => i.status === 'paid').length === 0 ? (
             <div className="px-6 py-10 text-center text-slate-500 text-sm">No payments recorded.</div>
           ) : (
             <div className="divide-y divide-slate-100">
-              {payments.map((p) => (
-                <div key={p.id} className="flex items-center justify-between px-6 py-4">
+              {invoices.filter(i => i.status === 'paid').map((inv) => (
+                <div key={`paid-${inv.id}`} className="flex items-center justify-between px-6 py-4">
                   <div>
-                    <p className="font-medium text-slate-900 text-sm">{p.description ?? 'Payment'}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{new Date(p.created_at).toLocaleDateString()}</p>
+                    <p className="font-medium text-slate-900 text-sm">
+                      {inv.invoice_number ? `Invoice #${inv.invoice_number}` : 'Invoice'}
+                    </p>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      {inv.paid_at ? `Paid ${new Date(inv.paid_at).toLocaleDateString()}` : new Date(inv.created_at).toLocaleDateString()}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs text-slate-500">{p.payment_method ?? '—'}</span>
-                    <span className="font-bold text-slate-900 text-sm">
-                      ${((p.amount ?? 0) / 100).toFixed(2)}
-                    </span>
-                  </div>
+                  <span className="font-bold text-slate-900 text-sm">
+                    ${Number(inv.total ?? inv.amount ?? 0).toFixed(2)}
+                  </span>
                 </div>
               ))}
             </div>
