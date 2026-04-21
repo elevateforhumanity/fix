@@ -4,11 +4,10 @@ import { getAdminClient } from '@/lib/supabase/admin';
 
 export const dynamic = 'force-dynamic';
 
-// All routes under (onboarding) require:
-// 1. Authenticated user
-// 2. Allowed role (admins/staff bypass approval check)
-// 3. Approved application in barbershop_partner_applications OR partner_applications
-export default async function OnboardingLayout({
+// Server-side auth gate for the legacy all-in-one barbershop onboarding page.
+// Replaces the client-side useEffect/getSession check which allowed the page
+// to render before the redirect fired.
+export default async function BarbershopOnboardingLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -17,7 +16,7 @@ export default async function OnboardingLayout({
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect('/login?redirect=/partners/barbershop-apprenticeship/forms');
+    redirect('/login?redirect=/partners/barbershop-apprenticeship/onboarding');
   }
 
   const db = getAdminClient();
@@ -35,12 +34,12 @@ export default async function OnboardingLayout({
     redirect('/partners/barbershop-apprenticeship');
   }
 
-  // Admins and staff bypass the approval check
+  // Admins bypass approval check
   if (adminRoles.includes(profile.role)) {
     return <>{children}</>;
   }
 
-  // Partner/employer/program_holder must have an approved application
+  // Must have an approved application to access onboarding
   const [{ data: bpa }, { data: pa }] = await Promise.all([
     db
       .from('barbershop_partner_applications')
@@ -57,7 +56,6 @@ export default async function OnboardingLayout({
   ]);
 
   if (!bpa && !pa) {
-    // Authenticated but application not yet approved
     redirect('/partners/barbershop-apprenticeship?status=pending');
   }
 

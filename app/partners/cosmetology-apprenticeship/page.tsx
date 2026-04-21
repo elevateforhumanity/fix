@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
+import { createClient } from '@/lib/supabase/server';
 import CosmetologyPartnerPageClient from './PartnerPageClient';
 
-
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Salon Partner Program | Indiana Cosmetology Apprenticeship | Elevate for Humanity',
@@ -18,6 +18,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CosmetologyPartnerPage() {
-  return <CosmetologyPartnerPageClient />;
+export default async function CosmetologyPartnerPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  let isApproved = false;
+  if (user?.email) {
+    // Check both application tables — cosmetology uses partner_applications,
+    // may also have entries in barbershop_partner_applications for cross-program applicants
+    const { data: pa } = await supabase
+      .from('partner_applications')
+      .select('status')
+      .eq('contact_email', user.email)
+      .eq('status', 'approved')
+      .maybeSingle();
+    isApproved = !!pa;
+  }
+
+  return <CosmetologyPartnerPageClient isApproved={isApproved} />;
 }

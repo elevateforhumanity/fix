@@ -6,7 +6,11 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_30MIN || 'https://calendly.com/elevate4humanityedu/30min';
 
-export default function CosmetologyPartnerPageClient() {
+interface Props {
+  isApproved?: boolean;
+}
+
+export default function CosmetologyPartnerPageClient({ isApproved = false }: Props) {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-4">
@@ -181,8 +185,8 @@ export default function CosmetologyPartnerPageClient() {
         </div>
       </section>
 
-      {/* Onboarding steps */}
-      <section className="py-16 bg-slate-50 border-t border-slate-200">
+      {/* Onboarding steps — only shown to authenticated users with an approved application */}
+      {isApproved && <section className="py-16 bg-slate-50 border-t border-slate-200">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-2">
             <CheckCircle2 className="w-6 h-6 text-brand-green-600 flex-shrink-0" />
@@ -261,7 +265,7 @@ export default function CosmetologyPartnerPageClient() {
             </Link>
           </div>
         </div>
-      </section>
+      </section>}
     </div>
   );
 }

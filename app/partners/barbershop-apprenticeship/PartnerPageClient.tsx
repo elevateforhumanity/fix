@@ -7,7 +7,11 @@ import Image from 'next/image';
 
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_30MIN || 'https://calendly.com/elevate4humanityedu/30min';
 
-export default function PartnerPageClient() {
+interface Props {
+  isApproved?: boolean;
+}
+
+export default function PartnerPageClient({ isApproved = false }: Props) {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-4">
@@ -215,8 +219,8 @@ export default function PartnerPageClient() {
         </div>
       </section>
 
-      {/* Onboarding — shown after application section as next steps */}
-      <section className="py-16 bg-slate-50 border-t border-slate-200">
+      {/* Onboarding — only shown to authenticated users with an approved application */}
+      {isApproved && <section className="py-16 bg-slate-50 border-t border-slate-200">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-2">
             <CheckCircle2 className="w-6 h-6 text-brand-green-600 flex-shrink-0" />
@@ -296,10 +300,10 @@ export default function PartnerPageClient() {
           </div>
 
           <p className="mt-6 text-xs text-black text-center">
-            Already approved? <Link href="/login?redirect=/partners/barbershop-apprenticeship/forms" className="underline text-brand-blue-600">Log in to your partner account</Link> to access these steps. Questions? Call <a href="tel:3173143757" className="underline">(317) 314-3757</a>.
+            Questions? Call <a href="tel:3173143757" className="underline">(317) 314-3757</a>.
           </p>
         </div>
-      </section>
+      </section>}
     </div>
   );
 }
