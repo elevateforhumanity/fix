@@ -60,27 +60,27 @@ async function _POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to check out' }, { status: 500 });
     }
 
-    // Create hour entry from session
-    const totalHours = Math.round((durationMinutes / 60) * 100) / 100;
+    // Log hours to apprentice_hours (the canonical hours table for apprenticeship programs)
+    const totalMinutes = durationMinutes % 60;
+    const totalHoursInt = Math.floor(durationMinutes / 60);
 
     const { error: entryError } = await supabase
-      .from('hour_entries')
+      .from('apprentice_hours')
       .insert({
         user_id: user.id,
-        source_type: 'timeclock',
-        work_date: checkinTime.toISOString().split('T')[0],
-        hours_claimed: totalHours,
+        discipline: 'barber',
+        date: checkinTime.toISOString().split('T')[0],
+        hours: totalHoursInt,
+        minutes: totalMinutes,
         category: 'practical',
-        notes: `Auto-logged from check-in session`,
-        entered_by_email: user.email || '',
+        notes: `Auto-logged from check-in at shop`,
         status: 'pending',
-        checkin_session_id: session.id,
         submitted_at: checkoutTime.toISOString(),
       });
 
     if (entryError) {
       logger.error('Error creating hour entry:', entryError);
-      // Don't fail checkout if entry creation fails
+      // Don't fail checkout if hour logging fails
     }
 
     return NextResponse.json({

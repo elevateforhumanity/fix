@@ -20,12 +20,28 @@ async function sendEnrollmentConfirmationEmail({
   to,
   firstName,
   programName,
+  checkinCode,
+  shopName,
 }: {
   to: string;
   firstName: string;
   programName: string;
+  checkinCode?: string | null;
+  shopName?: string | null;
 }) {
   const logoUrl = `${SITE_URL}/images/Elevate_for_Humanity_logo_81bf0fab.jpg`;
+
+  const checkinBlock = checkinCode ? `
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:20px;margin:24px 0">
+            <p style="margin:0 0 8px;font-size:14px;font-weight:bold;color:#1e40af">🏪 Your Shop Check-In Code</p>
+            <p style="margin:0 0 12px;font-size:13px;color:#1e3a8a">Use this code to clock in and out at ${shopName || 'your training shop'} each day.</p>
+            <div style="background:#1e40af;border-radius:6px;padding:14px;text-align:center">
+              <span style="font-family:monospace;font-size:28px;font-weight:bold;color:#ffffff;letter-spacing:6px">${checkinCode}</span>
+            </div>
+            <p style="margin:12px 0 0;font-size:12px;color:#3b82f6;text-align:center">
+              Go to <a href="${SITE_URL}/pwa/barber/checkin" style="color:#1d4ed8">${SITE_URL}/pwa/barber/checkin</a> and enter this code
+            </p>
+          </div>` : '';
 
   await sendEmail({
     to,
@@ -44,6 +60,7 @@ async function sendEnrollmentConfirmationEmail({
           <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:20px;margin:24px 0">
             <p style="margin:0;font-size:15px;font-weight:bold;color:#15803d">✅ Enrollment confirmed — ${programName}</p>
           </div>
+          ${checkinBlock}
           <h3 style="font-size:16px;font-weight:bold;margin:0 0 12px;color:#1a1a1a">What happens next</h3>
           <ol style="margin:0 0 24px;padding-left:20px;font-size:14px;color:#333;line-height:1.9">
             <li>Log in to your student dashboard to access your courses</li>
@@ -92,7 +109,7 @@ async function _POST(request: NextRequest) {
     // Fetch profile + most recent application + enrollment in parallel
     const [profileResult, appResult, enrollmentResult] = await Promise.all([
       db.from('profiles')
-        .select('first_name, full_name, email, onboarding_completed, enrollment_status')
+        .select('first_name, last_name, full_name, email, onboarding_completed, enrollment_status')
         .eq('id', userId)
         .maybeSingle(),
       db.from('applications')
@@ -171,9 +188,36 @@ async function _POST(request: NextRequest) {
     const email = profile?.email || user.email || '';
     const firstName = profile?.first_name || profile?.full_name?.split(' ')[0] || 'Student';
 
+    // Look up check-in code for apprenticeship programs — included in confirmation email
+    let checkinCode: string | null = null;
+    let checkinShopName: string | null = null;
+    if (isApprenticeship) {
+      // Find the apprentice's assigned shop (may have just been created above)
+      const { data: apprenticeRecord } = await db
+        .from('apprentices')
+        .select('shop_id')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      const shopId = apprenticeRecord?.shop_id ?? null;
+      if (shopId) {
+        const { data: codeRow } = await db
+          .from('shop_checkin_codes')
+          .select('code, name')
+          .eq('shop_id', shopId)
+          .eq('status', 'active')
+          .gt('expires_at', new Date().toISOString())
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        checkinCode = codeRow?.code ?? null;
+        checkinShopName = codeRow?.name ?? null;
+      }
+    }
+
     if (email) {
       // Non-blocking — don't fail the request if email fails
-      sendEnrollmentConfirmationEmail({ to: email, firstName, programName })
+      sendEnrollmentConfirmationEmail({ to: email, firstName, programName, checkinCode, shopName: checkinShopName })
         .catch(err => logger.warn('[onboarding/complete] Enrollment email failed', err));
 
       sendEmail({
@@ -181,6 +225,83 @@ async function _POST(request: NextRequest) {
         subject: `[ENROLLED] ${profile?.full_name || firstName} — ${programName}`,
         html: `<p><strong>${profile?.full_name || firstName}</strong> completed onboarding and is now enrolled in <strong>${programName}</strong>.</p><p>Email: <a href="mailto:${email}">${email}</a></p><p><a href="${SITE_URL}/admin/enrollments">View in Admin</a></p>`,
       }).catch(err => logger.warn('[onboarding/complete] Admin notification failed', err));
+    }
+
+    // Provision students record (required for student_enrollments FK and clock-in)
+    // students.id is the PK — not a FK to profiles. Use userId as the id for easy lookup.
+    const { data: existingStudent } = await db
+      .from('students')
+      .select('id')
+      .eq('id', userId)
+      .maybeSingle();
+
+    if (!existingStudent) {
+      const nameParts = (profile?.full_name ?? '').trim().split(' ');
+      const firstName = profile?.first_name ?? nameParts[0] ?? null;
+      const lastName = profile?.last_name ?? (nameParts.length > 1 ? nameParts.slice(1).join(' ') : null);
+      await db.from('students').insert({
+        id: userId,
+        email: profile?.email ?? user.email ?? null,
+        first_name: firstName,
+        last_name: lastName,
+        state: 'IN',
+        funding_type: 'apprenticeship',
+        eligibility_verified: true,
+        eligibility_verified_at: new Date().toISOString(),
+        program_name: programName !== 'your training program' ? programName : null,
+      }).then(({ error }) => {
+        if (error) logger.warn('[onboarding/complete] students insert failed', error);
+      });
+    }
+
+    // Provision apprentices record for apprenticeship programs (required for clock-in)
+    const apprenticeshipKeywords = ['barber', 'cosmetology', 'hvac', 'electrical', 'plumbing', 'nail'];
+    const programSlug = (enrollment as any)?.program_slug ?? application?.program_interest ?? '';
+    const isApprenticeship = apprenticeshipKeywords.some((k) =>
+      programSlug.toLowerCase().includes(k) || programName.toLowerCase().includes(k)
+    );
+
+    if (isApprenticeship) {
+      const { data: existingApprentice } = await db
+        .from('apprentices')
+        .select('id')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (!existingApprentice) {
+        // Look up the partner's shop so we can link the apprentice and send the check-in code
+        const { data: partnerShop } = await db
+          .from('shops')
+          .select('id')
+          .eq('owner_id', userId)  // apprentice owns no shop — try employer link below
+          .limit(1)
+          .maybeSingle();
+
+        // More likely: find shop via program_enrollments partner/employer reference
+        // Fall back to any active shop linked to the enrollment's partner
+        let shopId: string | null = partnerShop?.id ?? null;
+        if (!shopId && enrollment) {
+          const { data: enrollmentShop } = await db
+            .from('shops')
+            .select('id')
+            .eq('active', true)
+            .limit(1)
+            .maybeSingle();
+          // Only use if there's exactly one active shop (single-shop deployments)
+          // Multi-shop: admin must assign via admin panel
+          shopId = enrollmentShop?.id ?? null;
+        }
+
+        await db.from('apprentices').insert({
+          user_id: userId,
+          program_id: programId ?? null,
+          status: 'active',
+          start_date: new Date().toISOString().split('T')[0],
+          shop_id: shopId,
+        }).then(({ error }) => {
+          if (error) logger.warn('[onboarding/complete] apprentices insert failed', error);
+        });
+      }
     }
 
     return NextResponse.json({

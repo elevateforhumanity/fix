@@ -41,6 +41,7 @@ const MIGRATIONS = [
   '20260608000001_fix_hyphenated_tables_missing_tables_rls_indexes.sql',
   '20260608000002_exam_booking_leads.sql',
   '20260609000001_program_lessons_add_checkpoint_type.sql',
+  '20260421000001_checkin_sessions_checkout_columns.sql',
 ]
 
 export async function POST(req: NextRequest) {
