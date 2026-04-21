@@ -39,7 +39,30 @@ export default async function LeadsPage() {
     dueDate: l.due_date ? new Date(l.due_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '--',
   }));
 
-  const stages = ['All Stages', 'Initial Contact', 'Discovery', 'Qualified', 'Proposal', 'Negotiation', 'Closed Won'];
+  // Derive distinct stages from DB rather than hardcoding
+  const { data: stageRows } = await supabase
+    .from('leads')
+    .select('stage')
+    .not('stage', 'is', null);
+  const uniqueStages = ['All Stages', ...Array.from(new Set((stageRows ?? []).map((r: any) => r.stage).filter(Boolean))).sort()];
+  const stages = uniqueStages.length > 1 ? uniqueStages : ['All Stages', 'Initial Contact', 'Discovery', 'Qualified', 'Proposal', 'Negotiation', 'Closed Won'];
+
+  // Derive distinct sources from DB
+  const { data: sourceRows } = await supabase
+    .from('leads')
+    .select('source')
+    .not('source', 'is', null);
+  const uniqueSources = Array.from(new Set((sourceRows ?? []).map((r: any) => r.source).filter(Boolean))).sort();
+
+  // Real win rate: closed-won / total
+  const { count: wonCount } = await supabase
+    .from('leads')
+    .select('*', { count: 'exact', head: true })
+    .eq('stage', 'Closed Won');
+  const { count: totalCount } = await supabase
+    .from('leads')
+    .select('*', { count: 'exact', head: true });
+  const winRate = totalCount ? Math.round(((wonCount ?? 0) / totalCount) * 100) : null;
 
   const getStageColor = (stage: string) => {
     switch (stage) {
@@ -63,7 +86,7 @@ export default async function LeadsPage() {
     { label: 'Total Leads', value: String(leads.length), change: 'All time' },
     { label: 'Pipeline Value', value: `$${totalValue.toLocaleString()}`, change: 'Total' },
     { label: 'Avg. Deal Size', value: `$${avgDeal.toLocaleString()}`, change: 'Average' },
-    { label: 'Win Rate', value: '32%', change: '+3%' },
+    { label: 'Win Rate', value: winRate !== null ? `${winRate}%` : 'Unavailable', change: winRate !== null ? 'Closed Won / Total' : 'No data yet' },
   ];
 
   return (
@@ -127,10 +150,9 @@ export default async function LeadsPage() {
               </select>
               <select className="px-4 py-2 border border-gray-300 rounded-lg">
                 <option>All Sources</option>
-                <option>Website</option>
-                <option>Referral</option>
-                <option>Conference</option>
-                <option>Cold Outreach</option>
+                {uniqueSources.map((source) => (
+                  <option key={source}>{source}</option>
+                ))}
               </select>
             </div>
           </div>

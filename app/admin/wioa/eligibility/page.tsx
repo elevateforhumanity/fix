@@ -24,13 +24,18 @@ export default async function WIOAEligibilityPage() {
 
   const allApps = applications || [];
 
-  // Calculate stats
+  // Calculate stats from real data
   const stats = [
-    { label: 'Pending Review', value: allApps.filter(a => a.status === 'pending').length, color: 'yellow' },
-    { label: 'Approved', value: allApps.filter(a => a.status === 'approved').length, color: 'green' },
-    { label: 'Denied', value: allApps.filter(a => a.status === 'denied').length, color: 'red' },
-    { label: 'Incomplete', value: allApps.filter(a => a.status === 'incomplete').length, color: 'gray' },
+    { label: 'Pending Review', value: allApps.filter((a: any) => a.status === 'pending').length, color: 'yellow' },
+    { label: 'Approved', value: allApps.filter((a: any) => a.status === 'approved').length, color: 'green' },
+    { label: 'Denied', value: allApps.filter((a: any) => a.status === 'denied').length, color: 'red' },
+    { label: 'Incomplete', value: allApps.filter((a: any) => a.status === 'incomplete').length, color: 'gray' },
   ];
+
+  // Derive distinct eligibility categories from DB
+  const uniqueCategories = Array.from(
+    new Set(allApps.map((a: any) => a.eligibility_category).filter(Boolean))
+  ).sort() as string[];
   return (
     <div className="min-h-screen bg-white p-8">
 
@@ -73,9 +78,16 @@ export default async function WIOAEligibilityPage() {
             </div>
             <select className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500">
               <option>All Categories</option>
-              <option>Adult</option>
-              <option>Dislocated Worker</option>
-              <option>Youth</option>
+              {uniqueCategories.map((cat) => (
+                <option key={cat}>{cat}</option>
+              ))}
+              {uniqueCategories.length === 0 && (
+                <>
+                  <option>Adult</option>
+                  <option>Dislocated Worker</option>
+                  <option>Youth</option>
+                </>
+              )}
             </select>
             <select className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500">
               <option>All Status</option>

@@ -126,8 +126,45 @@ export interface PendingSubmission {
   status: string;
 }
 
+export interface ComplianceAlert {
+  id: string;
+  alert_type: string | null;
+  severity: string | null;
+  message: string | null;
+  created_at: string | null;
+}
+
+export interface StaleLeadItem {
+  id: string;
+  company_name: string | null;
+  contact_name: string | null;
+  stage: string | null;
+  updated_at: string | null;
+  days_stale: number;
+  href: string;
+}
+
+export interface OperationalCounts {
+  /** pending enrollments + pending WIOA docs */
+  needsReview: number;
+  needsReviewDetail: string;
+  /** learners inactive 7+ days */
+  atRisk: number;
+  /** unresolved compliance_alerts */
+  complianceAlerts: number;
+  complianceAlertsSeverity: string | null;
+  /** new leads + new enrollments created today */
+  newToday: number;
+  newTodayDetail: string;
+  /** revenue this month in cents */
+  revenueThisMonthCents: number;
+}
+
 export interface AdminDashboardData {
   counts: DashboardCounts;
+  operational: OperationalCounts;
+  /** Scored and sorted priority items — top 10, ready to render directly */
+  priorities: import('@/lib/admin/priority-score').PriorityItem[];
   kpis: KPICard[];
   enrollmentTrend: EnrollmentTrendPoint[];
   studentStatuses: StatusPoint[];
@@ -138,6 +175,10 @@ export interface AdminDashboardData {
   blockedPrograms: BlockedProgram[];
   inactiveLearners: InactiveLearner[];
   pendingSubmissions: PendingSubmission[];
+  complianceAlerts: ComplianceAlert[];
+  staleLeads: StaleLeadItem[];
+  /** pending WIOA docs count */
+  pendingWioaDocs: number;
   profile: { full_name: string | null } | null;
   generatedAt: string;
   /** Non-empty when one or more non-critical sections failed to load. */

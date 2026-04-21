@@ -8,18 +8,17 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 import {
-
   AlertTriangle,
   FileText,
   Users,
   GraduationCap,
   TrendingUp,
   Download,
-  ExternalLink,
   Shield,
   BookOpen,
   Award,
-CheckCircle, } from 'lucide-react';
+  CheckCircle2,
+} from 'lucide-react';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -66,131 +65,33 @@ export default async function AccreditationPage() {
     ? Math.round(((placements?.length || 0) / completions.length) * 100)
     : 0;
 
-  const complianceItems = [
-    {
-      category: 'Documentation',
-      items: [
-        { name: 'Mission Statement', status: 'complete', link: '/about' },
-        { name: 'Program Descriptions', status: 'complete', link: '/programs' },
-        { name: 'Course Syllabi', status: 'complete', link: '/syllabi' },
-        {
-          name: 'Student Handbook',
-          status: 'complete',
-          link: '/student-handbook',
-        },
-        { name: 'Learning Outcomes', status: 'complete', link: '/syllabi' },
-        { name: 'Assessment Methods', status: 'complete', link: '/syllabi' },
-      ],
-    },
-    {
-      category: 'Systems',
-      items: [
-        {
-          name: 'Student Information System',
-          status: 'complete',
-          link: '/admin/students',
-        },
-        {
-          name: 'Learning Management System',
-          status: 'complete',
-          link: '/lms',
-        },
-        {
-          name: 'Financial Aid Management',
-          status: 'complete',
-          link: '/admin/financial-aid',
-        },
-        {
-          name: 'Attendance Tracking',
-          status: 'complete',
-          link: '/admin/attendance',
-        },
-        {
-          name: 'Outcome Tracking',
-          status: 'complete',
-          link: '/admin/outcomes',
-        },
-        {
-          name: 'ECR Integration',
-          status: 'warning',
-          link: '/admin/integrations',
-        },
-        {
-          name: 'Hour Tracking Dashboard',
-          status: 'warning',
-          link: '/admin/hours',
-        },
-      ],
-    },
-    {
-      category: 'Compliance',
-      items: [
-        { name: 'FERPA Compliance', status: 'complete', link: '/ferpa' },
-        { name: 'Title IX Compliance', status: 'complete', link: '/title-ix' },
-        { name: 'ADA Compliance', status: 'complete', link: '/accessibility' },
-        {
-          name: 'State Authorization',
-          status: 'complete',
-          link: '/admin/licensing',
-        },
-        { name: 'WIOA Approval', status: 'complete', link: '/admin/wioa' },
-        {
-          name: 'Safety Procedures',
-          status: 'complete',
-          link: '/student-handbook',
-        },
-      ],
-    },
-    {
-      category: 'Student Experience',
-      items: [
-        { name: 'Application Process', status: 'complete', link: '/apply' },
-        {
-          name: 'Enrollment Agreements',
-          status: 'complete',
-          link: '/admin/enrollments',
-        },
-        {
-          name: 'Orientation Program',
-          status: 'complete',
-          link: '/orientation',
-        },
-        { name: 'Academic Advising', status: 'complete', link: '/advising' },
-        {
-          name: 'Career Services',
-          status: 'complete',
-          link: '/career-services',
-        },
-        {
-          name: 'Welcome Packet',
-          status: 'warning',
-          link: '/admin/welcome-packets',
-        },
-        {
-          name: 'Elevate LMS SSO Access',
-          status: 'warning',
-          link: '/admin/integrations',
-        },
-      ],
-    },
-  ];
+  // Accreditation readiness — sourced from accreditation_readiness view (migration 20260625000003).
+  // Falls back gracefully if the migration has not been applied yet.
+  const { data: readinessRows } = await supabase
+    .from('accreditation_readiness')
+    .select('category, standard_id, name, required, admin_link, sort_order, status, accepted_evidence_count')
+    .order('sort_order', { ascending: true });
 
-  const totalItems = complianceItems.reduce(
-    (sum, cat) => sum + cat.items.length,
-    0
-  );
-  const completeItems = complianceItems.reduce(
-    (sum, cat) =>
-      sum + cat.items.filter((item: any) => item.status === 'complete').length,
-    0
-  );
-  const warningItems = complianceItems.reduce(
-    (sum, cat) =>
-      sum + cat.items.filter((item: any) => item.status === 'warning').length,
-    0
-  );
+  const { data: summaryRows } = await supabase
+    .rpc('get_accreditation_readiness_summary')
+    .maybeSingle();
 
-  const readinessScore = Math.round((completeItems / totalItems) * 100);
+  const readinessSummary = summaryRows as {
+    total_required: number;
+    total_complete: number;
+    total_pending: number;
+    total_missing: number;
+    readiness_score: number;
+    last_review_date: string | null;
+  } | null;
+
+  // Group standards by category for display
+  const standardsByCategory: Record<string, typeof readinessRows> = {};
+  for (const row of (readinessRows ?? [])) {
+    if (!standardsByCategory[row.category]) standardsByCategory[row.category] = [];
+    standardsByCategory[row.category]!.push(row);
+  }
+  const hasAccreditationData = (readinessRows ?? []).length > 0;
 
   return (
     <div className="min-h-screen bg-white">
@@ -227,25 +128,46 @@ export default async function AccreditationPage() {
         <div className="bg-slate-900 rounded-lg p-8 text-white mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold mb-2">
-                Overall Readiness Score
-              </h2>
-              <p className="text-brand-blue-100">
-                {completeItems} of {totalItems} items complete
-                {warningItems > 0 && ` • ${warningItems} items need attention`}
-              </p>
+              <h2 className="text-2xl font-bold mb-2">Overall Readiness Score</h2>
+              {hasAccreditationData && readinessSummary ? (
+                <>
+                  <p className="text-slate-300 text-sm">
+                    {readinessSummary.total_complete} of {readinessSummary.total_required} required standards complete
+                    {readinessSummary.total_pending > 0 && ` · ${readinessSummary.total_pending} pending evidence`}
+                    {readinessSummary.total_missing > 0 && ` · ${readinessSummary.total_missing} missing`}
+                  </p>
+                  {readinessSummary.last_review_date && (
+                    <p className="text-slate-400 text-xs mt-1">
+                      Last reviewed: {new Date(readinessSummary.last_review_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="text-slate-400 text-sm mt-1">
+                  Apply migration 20260625000003 and add evidence to enable readiness scoring.
+                </p>
+              )}
             </div>
             <div className="text-center">
-              <div className="text-6xl font-bold text-4xl md:text-5xl lg:text-6xl">
-                {readinessScore}%
-              </div>
-              <div className="text-brand-blue-100 mt-2">
-                {readinessScore >= 95
-                  ? '<span className="text-slate-400 flex-shrink-0">•</span> Ready'
-                  : readinessScore >= 85
-                    ? '<AlertTriangle className="w-5 h-5 inline-block" /> Nearly Ready'
-                    : '🔄 In Progress'}
-              </div>
+              {hasAccreditationData && readinessSummary ? (
+                <>
+                  <div className={`text-6xl font-black ${
+                    readinessSummary.readiness_score >= 90 ? 'text-brand-green-400' :
+                    readinessSummary.readiness_score >= 70 ? 'text-yellow-400' : 'text-rose-400'
+                  }`}>
+                    {readinessSummary.readiness_score}%
+                  </div>
+                  <div className="text-slate-400 mt-2 text-sm">
+                    {readinessSummary.readiness_score >= 90 ? 'Ready' :
+                     readinessSummary.readiness_score >= 70 ? 'Nearly ready' : 'In progress'}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-4xl font-bold text-slate-500">—</div>
+                  <div className="text-slate-500 mt-2 text-sm">Not configured</div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -308,77 +230,90 @@ export default async function AccreditationPage() {
         </div>
 
         {/* Compliance Checklist */}
-        <div className="space-y-6">
-          {complianceItems.map((category, idx) => (
-            <div key={idx} className="bg-white rounded-lg shadow-sm border">
-              <div className="px-6 py-4 border-b bg-gray-50">
-                <h3 className="text-lg font-semibold text-black">
-                  {category.category}
-                </h3>
-              </div>
-              <div className="p-6">
-                <div className="space-y-3">
-                  {category.items.map((item, itemIdx) => (
-                    <div
-                      key={itemIdx}
-                      className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                    >
+        {!hasAccreditationData ? (
+          <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
+            <AlertTriangle className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <h3 className="text-lg font-semibold text-slate-700 mb-2">Accreditation checklist not configured</h3>
+            <p className="text-slate-500 text-sm max-w-md mx-auto">
+              Apply migration <code className="bg-gray-100 px-1 rounded text-xs">20260625000003_accreditation_system.sql</code> in the Supabase Dashboard to enable the checklist and readiness scoring.
+            </p>
+            <Link
+              href="/admin/accreditation/report"
+              className="inline-flex items-center gap-2 mt-6 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition-colors text-sm"
+            >
+              <FileText className="w-4 h-4" />
+              View Accreditation Report
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {Object.entries(standardsByCategory).map(([category, standards]) => (
+              <div key={category} className="bg-white rounded-lg shadow-sm border">
+                <div className="px-6 py-4 border-b bg-gray-50 flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-slate-900">{category}</h3>
+                  <span className="text-xs text-slate-500">
+                    {(standards ?? []).filter((s: any) => s.status === 'complete').length} / {(standards ?? []).length} complete
+                  </span>
+                </div>
+                <div className="p-6 space-y-3">
+                  {(standards ?? []).map((std: any) => (
+                    <div key={std.standard_id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
                       <div className="flex items-center gap-3">
-                        {item.status === 'complete' ? (
-                          <span className="text-slate-400 flex-shrink-0">•</span>
+                        {std.status === 'complete' ? (
+                          <BookOpen className="w-4 h-4 text-brand-green-500 flex-shrink-0" />
+                        ) : std.status === 'pending' ? (
+                          <Shield className="w-4 h-4 text-yellow-500 flex-shrink-0" />
                         ) : (
-                          <AlertTriangle className="w-5 h-5 text-brand-orange-600" />
+                          <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
                         )}
-                        <span className="font-medium text-black">
-                          {item.name}
-                        </span>
+                        <div>
+                          <span className="font-medium text-slate-900 text-sm">{std.name}</span>
+                          {!std.required && <span className="ml-2 text-xs text-slate-400">(optional)</span>}
+                        </div>
                       </div>
-                      <Link
-                        href={item.link}
-                        className="flex items-center gap-2 text-brand-blue-600 hover:text-brand-blue-700 text-sm font-medium"
-                      >
-                        <span>View</span>
-                        <ExternalLink className="w-4 h-4" />
-                      </Link>
+                      <div className="flex items-center gap-3">
+                        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                          std.status === 'complete' ? 'bg-brand-green-100 text-brand-green-700' :
+                          std.status === 'pending'  ? 'bg-yellow-100 text-yellow-700' :
+                          'bg-rose-100 text-rose-700'
+                        }`}>
+                          {std.status === 'complete' ? 'Complete' : std.status === 'pending' ? 'Pending evidence' : 'Missing'}
+                        </span>
+                        {std.admin_link && (
+                          <Link href={std.admin_link} className="text-brand-blue-600 hover:text-brand-blue-700 text-xs font-medium">
+                            View →
+                          </Link>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
 
-        {/* Action Items */}
-        {warningItems > 0 && (
-          <div className="mt-8 bg-brand-orange-50 border border-brand-orange-200 rounded-lg p-6">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="w-6 h-6 text-brand-orange-600 flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="text-lg font-semibold text-brand-orange-900 mb-2">
-                  Action Required: {warningItems} Items Need Attention
-                </h3>
-                <ul className="space-y-2 text-brand-orange-800">
-                  <li>
-                    • Complete ECR integration with Elevate LMS for automated
-                    reporting
-                  </li>
-                  <li>
-                    • Build unified hour tracking dashboard (Elevate LMS + Internal)
-                  </li>
-                  <li>• Automate welcome packet delivery system</li>
-                  <li>• Implement Elevate LMS SSO access for students</li>
-                </ul>
-                <div className="mt-4">
-                  <Link
-                    href="/admin/accreditation/report"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange-600 text-white rounded-lg hover:bg-brand-orange-700 transition-colors"
-                  >
-                    <FileText className="w-4 h-4" />
-                    <span>View Full Audit Report</span>
-                  </Link>
+            {/* Missing standards — action required */}
+            {readinessSummary && readinessSummary.total_missing > 0 && (
+              <div className="bg-rose-50 border border-rose-200 rounded-lg p-6">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="font-semibold text-rose-900 mb-1">
+                      {readinessSummary.total_missing} required standard{readinessSummary.total_missing !== 1 ? 's' : ''} missing evidence
+                    </h3>
+                    <p className="text-rose-700 text-sm">
+                      Upload evidence documents or add attestations to move these standards to complete.
+                    </p>
+                    <Link
+                      href="/admin/accreditation/evidence"
+                      className="inline-flex items-center gap-2 mt-3 px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 text-sm font-medium"
+                    >
+                      <FileText className="w-4 h-4" />
+                      Manage Evidence
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 

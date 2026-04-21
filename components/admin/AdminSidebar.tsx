@@ -69,7 +69,7 @@ const NAV: NavSection[] = [
       { name: 'Modules', href: '/admin/modules' },
       { name: 'Quiz Builder', href: '/admin/quiz-builder' },
       { name: 'Enrollments', href: '/admin/enrollments' },
-      { name: 'HVAC Activation', href: '/admin/hvac-activation', badge: 'NEW' },
+      { name: 'HVAC Activation', href: '/admin/hvac-activation' },
     ],
   },
   {

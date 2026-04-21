@@ -24,14 +24,28 @@ export default async function WIOADocumentsPage() {
 
   const allDocs = documents || [];
 
-  // Calculate folder counts
-  const folders = [
-    { name: 'Eligibility Forms', count: allDocs.filter(d => d.document_type === 'eligibility').length },
-    { name: 'Income Verification', count: allDocs.filter(d => d.document_type === 'income').length },
-    { name: 'Training Agreements', count: allDocs.filter(d => d.document_type === 'training').length },
-    { name: 'Outcome Documentation', count: allDocs.filter(d => d.document_type === 'outcome').length },
-    { name: 'Support Services', count: allDocs.filter(d => d.document_type === 'support').length },
-  ];
+  // Derive folder categories from actual document_type values in DB
+  const typeCountMap = allDocs.reduce((acc: Record<string, number>, d: any) => {
+    const t = d.document_type || 'other';
+    acc[t] = (acc[t] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Human-readable label map — extend as new types appear in DB
+  const typeLabels: Record<string, string> = {
+    eligibility: 'Eligibility Forms',
+    income: 'Income Verification',
+    training: 'Training Agreements',
+    outcome: 'Outcome Documentation',
+    support: 'Support Services',
+    other: 'Other',
+  };
+
+  const folders = Object.entries(typeCountMap).map(([type, count]) => ({
+    name: typeLabels[type] ?? type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    count,
+    type,
+  }));
   return (
     <div className="min-h-screen bg-white p-8">
 

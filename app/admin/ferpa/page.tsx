@@ -24,11 +24,19 @@ export default async function AdminFerpaPage() {
   const { count: pendingDocs } = await supabase.from('documents').select('*', { count: 'exact', head: true }).eq('status', 'pending');
   const { count: totalStudents } = await supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'student');
 
+  // FERPA violations YTD — sourced from compliance_alerts
+  const ytdStart = new Date(new Date().getFullYear(), 0, 1).toISOString();
+  const { count: ferpaViolations } = await supabase
+    .from('compliance_alerts')
+    .select('*', { count: 'exact', head: true })
+    .eq('alert_type', 'ferpa_violation')
+    .gte('created_at', ytdStart);
+
   const complianceStats = [
     { label: 'Active Consent Forms', value: String(consentCount || 0), icon: FileText, color: 'green' },
     { label: 'Pending Reviews', value: String(pendingDocs || 0), icon: Clock, color: 'yellow' },
     { label: 'Student Records', value: String(totalStudents || 0), icon: Eye, color: 'blue' },
-    { label: 'Violations (YTD)', value: '0', icon: AlertTriangle, color: 'green' },
+    { label: 'Violations (YTD)', value: String(ferpaViolations ?? 0), icon: AlertTriangle, color: (ferpaViolations ?? 0) > 0 ? 'red' : 'green' },
   ];
 
   // Query recent audit activity
@@ -45,9 +53,13 @@ export default async function AdminFerpaPage() {
     status: 'complete',
   }));
 
-
-
-  // Check admin role
+  // FERPA compliance checklist — query from DB if records exist
+  const { data: checklistRows } = await supabase
+    .from('ferpa_compliance_checklist')
+    .select('checklist_type, academic_year, items, completion_percentage, status, reviewed_at')
+    .order('created_at', { ascending: false })
+    .limit(1);
+  const latestChecklist = checklistRows?.[0] ?? null;
 
   return (
     <div className="min-h-screen bg-white">
@@ -152,27 +164,34 @@ export default async function AdminFerpaPage() {
               </div>
             </div>
 
-            {/* Compliance Checklist */}
+            {/* Compliance Checklist — DB-driven */}
             <div className="bg-white rounded-xl p-6 shadow-sm border mt-6">
               <h2 className="font-semibold text-slate-900 mb-4">Annual Compliance</h2>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-slate-400 flex-shrink-0">•</span>
-                  <span className="text-slate-900 text-sm">Annual FERPA notice sent</span>
+              {latestChecklist ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-slate-500">{latestChecklist.academic_year}</span>
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                      latestChecklist.status === 'complete' ? 'bg-brand-green-100 text-brand-green-700' : 'bg-yellow-100 text-yellow-700'
+                    }`}>{latestChecklist.completion_percentage ?? 0}% complete</span>
+                  </div>
+                  {latestChecklist.reviewed_at && (
+                    <p className="text-xs text-slate-500">Last reviewed: {new Date(latestChecklist.reviewed_at).toLocaleDateString()}</p>
+                  )}
+                  {Array.isArray(latestChecklist.items) && latestChecklist.items.map((item: any, i: number) => (
+                    <div key={i} className="flex items-center gap-3">
+                      {item.completed ? (
+                        <span className="text-brand-green-500 flex-shrink-0">✓</span>
+                      ) : (
+                        <Clock className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+                      )}
+                      <span className="text-slate-900 text-sm">{item.name ?? item.label ?? item}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-slate-400 flex-shrink-0">•</span>
-                  <span className="text-slate-900 text-sm">Staff training completed</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-slate-400 flex-shrink-0">•</span>
-                  <span className="text-slate-900 text-sm">Directory opt-out period closed</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-yellow-600" />
-                  <span className="text-slate-900 text-sm">Q1 audit pending</span>
-                </div>
-              </div>
+              ) : (
+                <p className="text-sm text-slate-500">No compliance checklist on record. Create one in the FERPA compliance module.</p>
+              )}
             </div>
           </div>
 
