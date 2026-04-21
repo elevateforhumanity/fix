@@ -26,10 +26,10 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # 4096MB for the webpack compiler. This is a single process building the
-  # full module graph — it needs headroom. Page data workers are separate
-  # child processes controlled by NEXT_PRIVATE_* below.
-  NODE_OPTIONS = "--max-old-space-size=4096"
+  # 6144MB — SWC compiler (Rust-based, replaces webpack --webpack flag which
+  # was causing OOM at 3667MB). SWC uses significantly less JS heap than
+  # webpack but still needs headroom for 1400+ pages.
+  NODE_OPTIONS = "--max-old-space-size=6144"
   # Serialize all Next.js internal worker pools to 1 thread each.
   # These are the real Next.js env vars — NEXT_WORKER_CONCURRENCY is not real.
   NEXT_PRIVATE_MAX_WORKERS = "1"
