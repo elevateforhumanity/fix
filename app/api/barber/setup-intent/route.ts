@@ -82,7 +82,8 @@ export async function POST(request: NextRequest) {
       const amountPaidCents = enrollment?.amount_paid_cents ?? 0;
       const tuitionCents = 498000; // $4,980 fixed
       const remainingCents = Math.max(0, tuitionCents - amountPaidCents);
-      const weeksRemaining = 29;
+      // 2,000 OJL hours at 40 hrs/week = 50 weeks
+      const weeksRemaining = 50;
       const weeklyPaymentCents = Math.ceil(remainingCents / weeksRemaining);
 
       await db.from('barber_subscriptions').insert({
