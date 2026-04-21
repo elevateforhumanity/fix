@@ -1,7 +1,9 @@
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import {
   GraduationCap,
@@ -120,7 +122,35 @@ const colorClasses: Record<string, { bg: string; text: string; border: string; l
   red:    { bg: 'bg-red-600',          text: 'text-red-600',          border: 'border-red-200',          light: 'bg-red-50' },
 };
 
-export default function PortalsPage() {
+const ROLE_DASHBOARD: Record<string, string> = {
+  student:        '/learner/dashboard',
+  learner:        '/learner/dashboard',
+  employer:       '/employer/dashboard',
+  instructor:     '/instructor/dashboard',
+  partner:        '/partner/dashboard',
+  program_holder: '/program-holder/dashboard',
+  staff:          '/staff-portal/dashboard',
+  mentor:         '/mentor/dashboard',
+  case_manager:   '/case-manager/dashboard',
+  org_admin:      '/partner/dashboard',
+  admin:          '/admin/dashboard',
+  super_admin:    '/admin/dashboard',
+};
+
+export default async function PortalsPage() {
+  // Authenticated users go straight to their dashboard
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle();
+    const dest = profile?.role ? ROLE_DASHBOARD[profile.role] : null;
+    if (dest) redirect(dest);
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <Breadcrumbs

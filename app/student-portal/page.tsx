@@ -186,6 +186,19 @@ export default async function StudentPortalPage() {
   // Announcements fetched from database via AnnouncementsFeed component
   // No hardcoded/fake announcements - strict rendering rule
 
+  // Live enrollment stats for public marketing section
+  const { getAdminClient } = await import('@/lib/supabase/admin');
+  const db = await getAdminClient();
+  const [
+    { count: activeEnrollments },
+    { count: publishedPrograms },
+    { count: certificatesIssued },
+  ] = await Promise.all([
+    db.from('program_enrollments').select('*', { count: 'exact', head: true }).eq('status', 'active'),
+    db.from('programs').select('*', { count: 'exact', head: true }).eq('published', true).eq('is_active', true),
+    db.from('program_completion_certificates').select('*', { count: 'exact', head: true }),
+  ]);
+
   // FAQs — load from DB, filtered to student-portal category first, then general fallback
   const { data: faqsFromDb } = await supabase
     .from('faqs')
@@ -391,6 +404,28 @@ export default async function StudentPortalPage() {
                 <p className="text-slate-700">{faq.answer}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Live stats bar */}
+      <section className="bg-slate-900 py-8 px-4">
+        <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-10 text-center">
+          <div>
+            <p className="text-3xl font-extrabold text-white">{activeEnrollments ?? '—'}</p>
+            <p className="text-slate-400 text-sm mt-1">Active Students</p>
+          </div>
+          <div>
+            <p className="text-3xl font-extrabold text-white">{publishedPrograms ?? '—'}</p>
+            <p className="text-slate-400 text-sm mt-1">Training Programs</p>
+          </div>
+          <div>
+            <p className="text-3xl font-extrabold text-white">{certificatesIssued ?? '—'}</p>
+            <p className="text-slate-400 text-sm mt-1">Certificates Issued</p>
+          </div>
+          <div>
+            <p className="text-3xl font-extrabold text-white">WIOA</p>
+            <p className="text-slate-400 text-sm mt-1">Funding Available</p>
           </div>
         </div>
       </section>
