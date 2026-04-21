@@ -101,7 +101,7 @@ function PaymentSetupForm({ weeklyAmount }: { weeklyAmount: number }) {
 
 export default function PaymentSetupPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [weeklyAmount, setWeeklyAmount] = useState(7095); // default — recalculated server-side based on transfer hours
+  const [weeklyAmount, setWeeklyAmount] = useState(7095); // recalculated server-side from DB (transfer hours applied)
   const [loading, setLoading] = useState(true);
   const [fatalError, setFatalError] = useState<string | null>(null);
 

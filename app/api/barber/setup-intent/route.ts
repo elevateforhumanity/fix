@@ -80,11 +80,14 @@ export async function POST(request: NextRequest) {
         .maybeSingle();
 
       const amountPaidCents = enrollment?.amount_paid_cents ?? 0;
-      const tuitionCents = 498000; // $4,980 fixed — transfer hours never affect price
+      const tuitionCents = 498000; // $4,980 fixed
       const remainingCents = Math.max(0, tuitionCents - amountPaidCents);
-      // Payment term is always 50 weeks (2,000 OJL hrs @ 40 hrs/wk).
-      // Transfer hours credit the hour balance only, not the dollar balance.
-      const weeksRemaining = 50;
+      // Term = OJL remaining after transfer hours ÷ 40 hrs/wk.
+      // Transfer hours reduce hours to complete (and therefore the term),
+      // which increases the weekly payment since the balance is spread over fewer weeks.
+      const transferHoursVerified = 0; // default for new enrollees — set per-student after verification
+      const ojlRemaining = Math.max(0, 2000 - transferHoursVerified);
+      const weeksRemaining = Math.ceil(ojlRemaining / 40);
       const weeklyPaymentCents = Math.ceil(remainingCents / weeksRemaining);
 
       await db.from('barber_subscriptions').insert({
