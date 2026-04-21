@@ -67,6 +67,11 @@ import fs from 'fs';
 import os from 'os';
 import { execSync } from 'child_process';
 import { createClient } from '@supabase/supabase-js';
+import ffmpegInstaller from '@ffmpeg-installer/ffmpeg';
+import ffprobeInstaller from '@ffprobe-installer/ffprobe';
+
+const FFMPEG_BIN  = ffmpegInstaller.path;
+const FFPROBE_BIN = ffprobeInstaller.path;
 
 // ─── Supabase ─────────────────────────────────────────────────────────────────
 
@@ -210,51 +215,36 @@ function pickClip(heading: string, body: string): string {
   return fs.existsSync(result) ? result : clip('barbershop-intro');
 }
 
-// ─── Scene splitting ──────────────────────────────────────────────────────────
-
-interface Scene { heading: string; body: string; }
-
 /**
- * splitIntoScenes — splits markdown content into narration scenes.
- * Each ## heading = one scene. Short scenes (<25 words) merge into previous.
- * Always appends a closing summary scene.
+ * buildFullLessonScript — converts full lesson HTML/markdown into a single
+ * continuous narration script for one TTS call.
+ * No scene splitting. The entire lesson is one uninterrupted narration.
+ * Brandon Williams reads the whole lesson start to finish.
  */
-function splitIntoScenes(title: string, moduleName: string, content: string): Scene[] {
-  const raw: Scene[] = [];
-  let heading = `Introduction to ${title}`;
-  let lines: string[] = [`Welcome to this lesson on ${title}, part of ${moduleName}.`];
+function buildFullLessonScript(title: string, moduleName: string, content: string): string {
+  // Strip HTML tags
+  const stripped = content
+    .replace(/<table[\s\S]*?<\/table>/gi, '') // skip tables — hard to narrate
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/&#39;/g, "'").replace(/&quot;/g, '"')
+    .replace(/#{1,6}\s+/g, '') // strip markdown headings
+    .replace(/\*\*/g, '').replace(/\*/g, '')
+    .replace(/^\s*[-*+]\s+/gm, '') // strip list bullets
+    .replace(/^\s*\d+\.\s+/gm, '') // strip numbered lists
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\n{2,}/g, '\n')
+    .trim();
 
-  const flush = () => {
-    const body = lines.join(' ').replace(/\s+/g, ' ').trim();
-    if (body) raw.push({ heading, body });
-    lines = [];
-  };
+  // Build the full script as one narration
+  const lines = stripped.split('\n').map(l => l.trim()).filter(Boolean);
 
-  for (const line of content.split('\n')) {
-    const h = line.match(/^#{1,3}\s+(.+)/);
-    if (h) { flush(); heading = h[1].replace(/\*\*/g, '').trim(); }
-    else {
-      const clean = line.replace(/^[\s]*[-*+]\s+/, '').replace(/^[\s]*\d+\.\s+/, '').replace(/\*\*/g, '').trim();
-      if (clean) lines.push(clean);
-    }
-  }
-  flush();
-
-  raw.push({
-    heading: 'Summary',
-    body: `That covers everything for this lesson on ${title}. Complete the quiz and review your flashcards before moving on.`,
-  });
-
-  // Merge scenes under 25 words into previous
-  const merged: Scene[] = [];
-  for (const s of raw) {
-    if (s.body.split(/\s+/).length < 25 && merged.length > 0) {
-      merged[merged.length - 1].body += ' ' + s.body;
-    } else {
-      merged.push({ ...s });
-    }
-  }
-  return merged;
+  return [
+    `Welcome. I'm Brandon Williams, and this is ${title}, part of ${moduleName}.`,
+    '',
+    ...lines,
+    '',
+    `That's everything for ${title}. Take the quiz when you're ready, and I'll see you in the next lesson.`,
+  ].join('\n');
 }
 
 // ─── TTS ──────────────────────────────────────────────────────────────────────
@@ -310,7 +300,7 @@ const clipOffsets = new Map<string, number>();
 function getFileDur(f: string): number {
   try {
     return parseFloat(
-      execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${f}"`, {
+      execSync(`"${FFPROBE_BIN}" -v quiet -show_entries format=duration -of csv=p=0 "${f}"`, {
         encoding: 'utf8',
         timeout: FFMPEG_TIMEOUT_MS,
       }).trim()
@@ -321,30 +311,54 @@ function getFileDur(f: string): number {
 }
 
 /**
- * buildScene — trims b-roll to exact audio duration, 1280x720/24fps.
- * Advances clipOffsets so next scene using same clip picks up where this left off.
+ * buildFullLessonVideo — lays full-lesson TTS audio over a unique segment of
+ * the barber master b-roll track. Each lesson starts at a different offset so
+ * no two lessons show the same footage.
+ *
+ * Master track: public/videos/broll/barber-master.mp4 (~900s, 63 unique clips)
+ * Offset: lessonIndex * (masterDur / totalLessons) — spreads 50 lessons evenly
+ *
+ * Output: 1280x720 / 24fps / AAC 192k / +faststart MP4
  */
-function buildScene(clipPath: string, audioPath: string, outPath: string): void {
-  const audioDur = getFileDur(audioPath);
-  const clipDur  = getFileDur(clipPath);
-  const offset   = clipOffsets.get(clipPath) ?? 0;
-  const startAt  = (offset + audioDur <= clipDur) ? offset : 0;
+function buildFullLessonVideo(
+  _clipPath: string,
+  audioPath: string,
+  outPath: string,
+  lessonIndex: number,
+  totalLessons: number,
+): void {
+  const MASTER = path.join(process.cwd(), 'public/videos/broll/barber-master.mp4');
+
+  if (!fs.existsSync(MASTER)) throw new Error(`Master b-roll not found: ${MASTER}`);
+
+  const audioDur  = getFileDur(audioPath);
+  const masterDur = getFileDur(MASTER);
+
+  if (audioDur  <= 0) throw new Error(`Audio duration is 0: ${audioPath}`);
+  if (masterDur <= 0) throw new Error(`Master b-roll duration is 0`);
+
+  // Spread lessons evenly across the master so each starts at a unique point
+  const segmentSize = masterDur / Math.max(totalLessons, 1);
+  const startOffset = (lessonIndex * segmentSize) % masterDur;
+
+  // If the lesson audio is longer than the remaining master footage, wrap around
+  // by using -stream_loop 1 (one extra loop) — still no visible repeat within lesson
+  const remaining = masterDur - startOffset;
+  const needsLoop = audioDur > remaining;
 
   execSync(
-    `ffmpeg -y -ss ${startAt.toFixed(3)} -i "${clipPath}" -i "${audioPath}" ` +
-    `-map 0:v -map 1:a -t ${audioDur.toFixed(3)} ` +
+    `"${FFMPEG_BIN}" -y ` +
+    `-ss ${startOffset.toFixed(3)} ` +
+    (needsLoop ? `-stream_loop 1 ` : '') +
+    `-i "${MASTER}" ` +
+    `-i "${audioPath}" ` +
+    `-map 0:v -map 1:a ` +
+    `-t ${audioDur.toFixed(3)} ` +
     `-vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=24" ` +
-    `-c:v libx264 -preset fast -crf 20 -c:a aac -b:a 192k -movflags +faststart "${outPath}"`,
-    { stdio: 'pipe', maxBuffer: 200 * 1024 * 1024, timeout: FFMPEG_TIMEOUT_MS }
-  );
-  clipOffsets.set(clipPath, startAt + audioDur);
-}
-
-function concatScenes(scenePaths: string[], outPath: string, tmpDir: string): void {
-  const list = path.join(tmpDir, 'scenes.txt');
-  fs.writeFileSync(list, scenePaths.map(p => `file '${p}'`).join('\n'));
-  execSync(
-    `ffmpeg -y -f concat -safe 0 -i "${list}" -c copy -movflags +faststart "${outPath}"`,
+    `-c:v libx264 -preset fast -crf 20 ` +
+    `-c:a aac -b:a 192k ` +
+    `-movflags +faststart ` +
+    `"${outPath}"`,
     { stdio: 'pipe', maxBuffer: 500 * 1024 * 1024, timeout: FFMPEG_TIMEOUT_MS }
   );
 }
@@ -455,6 +469,12 @@ async function main() {
     const outPath = path.join(course.outDir, `${lesson.slug}.mp4`);
     const prefix  = `[${i + 1}/${targets.length}] ${lesson.slug}`;
 
+    // Never overwrite the locked orientation video
+    const LOCKED = ['barber-course-intro-with-voice'];
+    if (LOCKED.includes(lesson.slug)) {
+      console.log(`  LOCK  ${prefix} — protected, skipping`); skipped++; continue;
+    }
+
     if (!FORCE && fs.existsSync(outPath) && getFileDur(outPath) > 60) {
       console.log(`  SKIP  ${prefix}`); skipped++; previousVideoPath = outPath; continue;
     }
@@ -463,38 +483,29 @@ async function main() {
       console.log(`  ❌    ${prefix} — no content`); failed++; continue;
     }
 
-    const scenes = splitIntoScenes(lesson.title, `${course.label} Module ${modNum}`, lesson.content);
+    const fullScript = buildFullLessonScript(lesson.title, `${course.label} Module ${modNum}`, lesson.content);
+    const clipPath   = pickClip(lesson.title, fullScript.slice(0, 500));
 
     if (DRY_RUN) {
-      console.log(`  DRY   ${prefix} — ${scenes.length} scenes`);
-      scenes.forEach((s, si) => console.log(`         ${si + 1}. "${s.heading}" → ${path.basename(pickClip(s.heading, s.body), '.mp4')}`));
+      const words = fullScript.split(/\s+/).length;
+      console.log(`  DRY   ${prefix} — ${words} words → b-roll: ${path.basename(clipPath, '.mp4')}`);
       continue;
     }
 
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), `elevate-${lesson.slug}-`));
 
     try {
-      console.log(`\n  GEN   ${prefix} — ${scenes.length} scenes`);
-      const scenePaths: string[] = [];
+      const words = fullScript.split(/\s+/).length;
+      process.stdout.write(`\n  GEN   ${prefix} — ${words} words, b-roll: ${path.basename(clipPath, '.mp4')}\n`);
 
-      for (let si = 0; si < scenes.length; si++) {
-        const scene     = scenes[si];
-        const clipPath  = pickClip(scene.heading, scene.body);
-        const audioPath = path.join(tmpDir, `s${si}.mp3`);
-        const scenePath = path.join(tmpDir, `s${si}.mp4`);
-        const words     = scene.body.split(/\s+/).length;
+      const audioPath = path.join(tmpDir, `${lesson.slug}.mp3`);
+      process.stdout.write(`        TTS...`);
+      await generateTTS(fullScript, audioPath);
+      const audioDur = getFileDur(audioPath);
+      process.stdout.write(` ${Math.round(audioDur)}s audio ✓\n`);
 
-        process.stdout.write(`        scene ${si + 1}/${scenes.length} [${path.basename(clipPath, '.mp4')}] "${scene.heading}" (${words}w)...`);
-        await generateTTS(scene.body, audioPath);
-        const dur = getFileDur(audioPath);
-        buildScene(clipPath, audioPath, scenePath);
-        process.stdout.write(` ${Math.round(dur)}s ✓\n`);
-        scenePaths.push(scenePath);
-        try { fs.unlinkSync(audioPath); } catch {}
-      }
-
-      process.stdout.write(`        concat ${scenePaths.length} scenes...`);
-      concatScenes(scenePaths, outPath, tmpDir);
+      process.stdout.write(`        building video (offset ${i}/${targets.length})...`);
+      buildFullLessonVideo(clipPath, audioPath, outPath, i, targets.length);
       const finalDur = getFileDur(outPath);
       process.stdout.write(` ${Math.round(finalDur)}s ✅\n`);
       fs.rmSync(tmpDir, { recursive: true, force: true });
@@ -556,12 +567,12 @@ async function main() {
       const tmpList = path.join(os.tmpdir(), `chapter-${MODULE_FILTER}.txt`);
       const rawPath = path.join(os.tmpdir(), `chapter-${MODULE_FILTER}-raw.mp4`);
       fs.writeFileSync(tmpList, files.map(f => `file '${f}'`).join('\n'));
-      execSync(`ffmpeg -y -f concat -safe 0 -i "${tmpList}" -c copy "${rawPath}"`, {
+      execSync(`"${FFMPEG_BIN}" -y -f concat -safe 0 -i "${tmpList}" -c copy "${rawPath}"`, {
         stdio: 'pipe',
         maxBuffer: 2000 * 1024 * 1024,
         timeout: FFMPEG_TIMEOUT_MS,
       });
-      execSync(`ffmpeg -y -i "${rawPath}" -c copy -movflags +faststart "${chapterPath}"`, {
+      execSync(`"${FFMPEG_BIN}" -y -i "${rawPath}" -c copy -movflags +faststart "${chapterPath}"`, {
         stdio: 'pipe',
         maxBuffer: 2000 * 1024 * 1024,
         timeout: FFMPEG_TIMEOUT_MS,
