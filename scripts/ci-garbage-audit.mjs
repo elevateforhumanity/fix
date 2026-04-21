@@ -78,6 +78,23 @@ const IGNORE_FILES = [
   /scripts\/ci-garbage-audit/, // the audit script itself
 ];
 
+// Per-file line-level suppressions.
+// Each entry: { file: RegExp, line: RegExp, reason: string }
+// A match hit is suppressed when BOTH the file path and the line content match.
+const LINE_SUPPRESSIONS = [
+  // Email subject/body fallbacks — intentional runtime defaults, not placeholder content
+  { file: /app\/api\/funnel\/lead\/route\.ts/, line: /Program TBD/, reason: 'internal admin email fallback' },
+  { file: /app\/api\/testing\/calendly-webhook\/route\.ts/, line: /Exam TBD/, reason: 'internal staff email fallback' },
+  // HR email templates — nullish-coalescing fallbacks for optional params
+  { file: /lib\/email\/templates\/hr-emails\.ts/, line: /\?\?\s*['"]TBD['"]/, reason: 'nullish coalescing fallback for optional HR email param' },
+  // AI prompt instructions — "no TBD" is an instruction to the model, not placeholder content
+  { file: /lib\/ai\/generate-course-outline-fn\.ts/, line: /No placeholders.*TBD/, reason: 'AI prompt instruction forbidding TBD in output' },
+  // Test runner section comments — structural comments, not placeholder content
+  { file: /app\/api\/test-production-ready\/route\.ts/, line: /\/\/\s*\d+\.\s*(BROKEN|ERRORS|LINKS)/, reason: 'test runner section comment' },
+  // Barber webhook — TODO documents an intentionally deferred call-site, function is complete
+  { file: /app\/api\/barber\/webhook\/route\.ts/, line: /TODO: replace createWeeklySubscription/, reason: 'deferred call-site note on complete function' },
+];
+
 function shouldIgnoreFile(file) {
   return IGNORE_FILES.some((r) => r.test(file));
 }
@@ -119,11 +136,18 @@ let warnCount = 0;
 
 for (const file of files) {
   const text = fs.readFileSync(file, "utf8");
+  const rel = path.relative(ROOT, file);
   for (const check of checks) {
     for (const match of text.matchAll(check.regex)) {
       const { line, col } = getLineCol(text, match.index);
       const snippet = getLineSnippet(text, match.index);
-      const rel = path.relative(ROOT, file);
+
+      // Check per-file line-level suppressions before reporting
+      const suppressed = LINE_SUPPRESSIONS.some(
+        (s) => s.file.test(rel) && s.line.test(snippet)
+      );
+      if (suppressed) continue;
+
       const prefix = check.severity === "error" ? "ERROR" : "WARN ";
       console.log(`${prefix} [${check.name}] ${rel}:${line}:${col}`);
       console.log(`  ${snippet}`);

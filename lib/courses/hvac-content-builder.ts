@@ -53,7 +53,7 @@ export function buildLessonContent(lessonId: string): string {
 
 function buildVideoLessonContent(lesson: CourseLesson, mod: CourseModule, week?: number): string {
   const objectives = mod.competencyObjectives
-    ?.filter(co => lesson.assessesObjectives?.includes(co.id) || true)
+    ?.filter(co => !lesson.assessesObjectives || lesson.assessesObjectives.includes(co.id))
     .slice(0, 4) || [];
 
   const credBadge = mod.competencyObjectives?.find(co => co.credentialAlignment)?.credentialAlignment;
