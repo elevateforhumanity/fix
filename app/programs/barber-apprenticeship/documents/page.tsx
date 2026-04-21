@@ -149,7 +149,7 @@ export default function BarberDocumentsPage() {
         return;
       }
 
-      router.push('/apprentice');
+      router.push('/programs/barber-apprenticeship/payment-setup');
     } catch {
       setSubmitError('Unable to submit. Please try again or call (317) 314-3757.');
       setSubmitting(false);

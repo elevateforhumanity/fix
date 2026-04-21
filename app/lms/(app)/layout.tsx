@@ -67,6 +67,26 @@ export default async function LmsAppLayout({ children }: { children: ReactNode }
       .limit(1)
       .maybeSingle();
 
+    // Payment suspension check — barber apprentices with a suspended subscription
+    // lose LMS access until payment is resolved.
+    const { data: barberSub } = await db
+      .from('barber_subscriptions')
+      .select('status, payment_status, suspension_deadline')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (barberSub) {
+      const isSuspended =
+        barberSub.status === 'suspended' ||
+        barberSub.payment_status === 'suspended' ||
+        (barberSub.suspension_deadline &&
+          new Date(barberSub.suspension_deadline) < new Date());
+
+      if (isSuspended) {
+        redirect('/billing-required?reason=payment_failed');
+      }
+    }
+
     if (!enrollment?.access_granted_at) {
       // Fallback: HVAC and other legacy students are enrolled via training_enrollments
       // (pre-dates program_enrollments). approved_at serves the same gate role.
