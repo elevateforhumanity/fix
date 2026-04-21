@@ -7,7 +7,8 @@ import {
   BookOpen, LayoutDashboard, Award, Menu, X, Calendar,
   MessageSquare, TrendingUp, ClipboardCheck, Settings,
   LogOut, ChevronLeft, GraduationCap, HelpCircle,
-  Play, Target, Users, ChevronRight,
+  Play, Target, Users, ChevronRight, FileText, Zap,
+  Folder, Bell,
 } from 'lucide-react';
 import { NotificationBell } from './NotificationBell';
 import { createClient } from '@/lib/supabase/client';
@@ -25,24 +26,42 @@ interface LMSSidebarProps {
   unreadMessages?: number;
 }
 
-const navItems = [
-  { href: '/lms/dashboard',        label: 'Dashboard',      icon: LayoutDashboard },
-  { href: '/lms/courses',          label: 'My Courses',     icon: BookOpen },
-  { href: '/lms/assignments',      label: 'Assignments',    icon: Target },
-  { href: '/lms/progress',         label: 'Progress',       icon: TrendingUp },
-  { href: '/lms/quizzes',          label: 'Quizzes',        icon: ClipboardCheck },
-  { href: '/lms/calendar',         label: 'Schedule',       icon: Calendar },
-  { href: '/lms/attendance',       label: 'Attendance',     icon: ClipboardCheck },
-  { href: '/lms/messages',         label: 'Messages',       icon: MessageSquare },
-  { href: '/lms/chat',             label: 'Chat',           icon: MessageSquare },
-  { href: '/lms/certificates',     label: 'Certificates',   icon: Award },
-  { href: '/lms/certification',    label: 'Certification',  icon: Award },
-  { href: '/lms/ai-tutor',         label: 'AI Tutor',       icon: BookOpen },
-  { href: '/lms/library',          label: 'Library',        icon: BookOpen },
-  { href: '/lms/social',           label: 'Community',      icon: Users },
-  { href: '/lms/alumni',           label: 'Alumni',         icon: Users },
-  { href: '/lms/payments',         label: 'Payments',       icon: Award },
+// MY LEARNING — core learner workflow
+const learningItems = [
+  { href: '/lms/dashboard',      label: 'Dashboard',      icon: LayoutDashboard },
+  { href: '/lms/courses',        label: 'My Courses',     icon: BookOpen },
+  { href: '/lms/progress',       label: 'Progress',       icon: TrendingUp },
+  { href: '/lms/certificates',   label: 'Certificates',   icon: Award },
+  { href: '/lms/grades',         label: 'Grades',         icon: ClipboardCheck },
+  { href: '/lms/learning-paths', label: 'Learning Paths', icon: Play },
 ];
+
+// PRACTICE — assessments and work
+const practiceItems = [
+  { href: '/lms/assignments',    label: 'Assignments',    icon: Target },
+  { href: '/lms/quizzes',        label: 'Quizzes',        icon: Zap },
+  { href: '/lms/peer-review',    label: 'Peer Review',    icon: Users },
+];
+
+// COMMUNITY — social and communication
+const communityItems = [
+  { href: '/lms/forums',         label: 'Forums',         icon: MessageSquare },
+  { href: '/lms/messages',       label: 'Messages',       icon: MessageSquare },
+  { href: '/lms/study-groups',   label: 'Study Groups',   icon: Users },
+  { href: '/lms/ai-tutor',       label: 'AI Tutor',       icon: GraduationCap },
+];
+
+// TOOLS — utilities
+const toolItems = [
+  { href: '/lms/calendar',       label: 'Calendar',       icon: Calendar },
+  { href: '/lms/files',          label: 'Files',          icon: Folder },
+  { href: '/lms/library',        label: 'Library',        icon: BookOpen },
+  { href: '/lms/notifications',  label: 'Notifications',  icon: Bell },
+  { href: '/lms/payments',       label: 'Payments',       icon: FileText },
+];
+
+// Kept for badge logic
+const navItems = [...learningItems, ...practiceItems, ...communityItems, ...toolItems];
 
 const bottomItems = [
   { href: '/lms/support',  label: 'Get Help',  icon: HelpCircle },
@@ -128,8 +147,18 @@ export function LMSSidebar({ user, profile, courseCount = 0, unreadMessages = 0 
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
-        {navItems.map(({ href, label, icon: Icon }) => {
+      <nav className="flex-1 overflow-y-auto py-3 px-2">
+        {[
+          { label: 'My Learning', items: learningItems },
+          { label: 'Practice', items: practiceItems },
+          { label: 'Community', items: communityItems },
+          { label: 'Tools', items: toolItems },
+        ].map(({ label: sectionLabel, items }) => (
+          <div key={sectionLabel} className="mb-4">
+            {!collapsed && (
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-600 px-3 mb-1">{sectionLabel}</p>
+            )}
+            {items.map(({ href, label, icon: Icon }) => {
           const active = isActive(href);
           const badge = getBadge(href);
           return (
@@ -137,7 +166,7 @@ export function LMSSidebar({ user, profile, courseCount = 0, unreadMessages = 0 
               key={href}
               href={href}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group mb-0.5 ${
                 active
                   ? 'bg-brand-blue-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -159,6 +188,8 @@ export function LMSSidebar({ user, profile, courseCount = 0, unreadMessages = 0 
             </Link>
           );
         })}
+          </div>
+        ))}
       </nav>
 
       {/* Bottom items */}
