@@ -3,7 +3,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { FileText, Download, Printer, Eye, Calendar, Building2, Clock, GraduationCap } from 'lucide-react';
-import { programs } from '@/app/data/programs';
+
 
 export const metadata: Metadata = {
   title: 'Program Catalog Generator | Admin | Elevate',
@@ -15,49 +15,29 @@ export const dynamic = 'force-dynamic';
 export default async function ProgramCatalogPage() {
   const supabase = await createClient();
   
-  // Get programs from database or use static data
-  let allPrograms = programs;
-  
-  if (supabase) {
-    const { data: dbPrograms } = await supabase
-      .from('programs')
-      .select('*')
-      .order('name', { ascending: true });
-    
-    if (dbPrograms && dbPrograms.length > 0) {
-      allPrograms = dbPrograms;
-    }
-  }
+  const { data: allPrograms = [] } = await supabase
+    .from('programs')
+    .select('*')
+    .order('title', { ascending: true });
 
   // Group programs by category
   const categories = {
-    healthcare: allPrograms.filter(p => 
-      p.name?.toLowerCase().includes('cna') || 
-      p.name?.toLowerCase().includes('medical') ||
-      p.name?.toLowerCase().includes('phlebotomy') ||
-      p.name?.toLowerCase().includes('health')
+    healthcare: allPrograms.filter((p: any) =>
+      (p.title || p.name || '').toLowerCase().match(/cna|medical|phlebotomy|health/)
     ),
-    trades: allPrograms.filter(p => 
-      p.name?.toLowerCase().includes('hvac') || 
-      p.name?.toLowerCase().includes('barber') ||
-      p.name?.toLowerCase().includes('electrical') ||
-      p.name?.toLowerCase().includes('plumbing') ||
-      p.name?.toLowerCase().includes('welding')
+    trades: allPrograms.filter(p =>
+      (p.title || p.name || '').toLowerCase().match(/hvac|barber|electrical|plumbing|welding/)
     ),
-    technology: allPrograms.filter(p => 
-      p.name?.toLowerCase().includes('it') || 
-      p.name?.toLowerCase().includes('cyber') ||
-      p.name?.toLowerCase().includes('tech')
+    technology: allPrograms.filter(p =>
+      (p.title || p.name || '').toLowerCase().match(/\bit\b|cyber|tech/)
     ),
-    business: allPrograms.filter(p => 
-      p.name?.toLowerCase().includes('business') || 
-      p.name?.toLowerCase().includes('tax') ||
-      p.name?.toLowerCase().includes('marketing')
+    business: allPrograms.filter(p =>
+      (p.title || p.name || '').toLowerCase().match(/business|tax|marketing/)
     ),
   };
 
   const totalPrograms = allPrograms.length;
-  const totalClockHours = allPrograms.reduce((sum, p) => sum + (p.clockHours || 0), 0);
+  const totalClockHours = allPrograms.reduce((sum: number, p: any) => sum + (p.clock_hours || 0), 0);
 
   return (
     <div className="min-h-screen bg-white">
@@ -215,8 +195,8 @@ export default async function ProgramCatalogPage() {
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
                     <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
                     <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
-                      <span>{program.duration}</span>
-                      {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
+                      <span>{program.duration_weeks ? `${program.duration_weeks} weeks` : "—"}</span>
+                      {program.clock_hours && <span className="text-brand-blue-600 font-medium">{program.clock_hours} hrs</span>}
                     </div>
                   </div>
                 ))}
@@ -234,8 +214,8 @@ export default async function ProgramCatalogPage() {
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
                     <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
                     <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
-                      <span>{program.duration}</span>
-                      {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
+                      <span>{program.duration_weeks ? `${program.duration_weeks} weeks` : "—"}</span>
+                      {program.clock_hours && <span className="text-brand-blue-600 font-medium">{program.clock_hours} hrs</span>}
                     </div>
                   </div>
                 ))}
@@ -253,8 +233,8 @@ export default async function ProgramCatalogPage() {
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
                     <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
                     <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
-                      <span>{program.duration}</span>
-                      {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
+                      <span>{program.duration_weeks ? `${program.duration_weeks} weeks` : "—"}</span>
+                      {program.clock_hours && <span className="text-brand-blue-600 font-medium">{program.clock_hours} hrs</span>}
                     </div>
                   </div>
                 ))}
@@ -272,8 +252,8 @@ export default async function ProgramCatalogPage() {
                   <div key={program.slug} className="bg-gray-50 rounded-lg p-4">
                     <h4 className="font-medium text-slate-900 text-sm">{program.title || program.name}</h4>
                     <div className="flex items-center gap-4 mt-2 text-xs text-slate-700">
-                      <span>{program.duration}</span>
-                      {program.clockHours && <span className="text-brand-blue-600 font-medium">{program.clockHours} hrs</span>}
+                      <span>{program.duration_weeks ? `${program.duration_weeks} weeks` : "—"}</span>
+                      {program.clock_hours && <span className="text-brand-blue-600 font-medium">{program.clock_hours} hrs</span>}
                     </div>
                   </div>
                 ))}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import type { Program } from '@/app/data/programs';
+import type { Program } from '@/lib/types/program';
 import CanonicalVideo from '@/components/video/CanonicalVideo';
 
 export function ProgramHero({ program }: { program: Program }) {

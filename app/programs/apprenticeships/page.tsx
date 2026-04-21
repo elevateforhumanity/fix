@@ -7,7 +7,7 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { programs } from '@/app/data/programs';
+
 import { Briefcase, Clock, DollarSign, Award } from 'lucide-react';
 import { HostShopRequirements } from '@/components/compliance/HostShopRequirements';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -51,9 +51,7 @@ export default async function ApprenticeshipProgramsPage() {
     .select('*')
     .eq('type', 'apprenticeship');
 
-  const apprenticeships = programs.filter((p) =>
-    apprenticeshipSlugs.includes(p.slug)
-  );
+  const apprenticeships = dbApprenticeships ?? [];
 
   return (
     <div className="bg-white">

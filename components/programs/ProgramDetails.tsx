@@ -1,6 +1,6 @@
 "use client";
 
-import type { Program } from '@/app/data/programs';
+import type { Program } from '@/lib/types/program';
 import Link from 'next/link';
 import { ApprenticeshipBadge } from '@/components/programs/ApprenticeshipBadge';
 import { BNPL_PROVIDER_NAMES } from '@/lib/bnpl-config';

@@ -7,7 +7,7 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { createPublicClient } from '@/lib/supabase/server';
-import { programs } from '@/app/data/programs';
+
 import { Zap, Clock, Target, TrendingUp } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
@@ -50,9 +50,7 @@ export default async function MicroProgramsPage() {
     .select('*')
     .eq('type', 'micro');
 
-  const microPrograms = programs.filter((p) =>
-    microProgramSlugs.includes(p.slug)
-  );
+  const microPrograms = dbMicroPrograms ?? [];
 
   return (
     <div className="bg-white">

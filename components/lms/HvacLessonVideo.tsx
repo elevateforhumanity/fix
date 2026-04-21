@@ -16,12 +16,18 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import LessonPlayer from '@/components/lms/LessonPlayer';
-import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
 
 const AVATAR_VIDEO = '/videos/avatars/trades-guide.mp4';
 
 interface Props {
-  lessonDefId: string;
+  /**
+   * The lesson's DB UUID — used to build local media paths
+   * (/hvac/videos/lesson-{id}.mp4, /hvac/audio/lesson-{id}.mp3).
+   * Pass the lessonId from route params directly; no slug map needed.
+   */
+  lessonId: string;
+  /** @deprecated Use lessonId. Kept for backward compat during transition. */
+  lessonDefId?: string;
   brollVideoUrl: string;
   lessonTitle: string;
   /** Assembled lesson video from DB — checked first before local paths */
@@ -33,6 +39,7 @@ interface Props {
 type MediaMode = 'mp4' | 'mp3+avatar' | 'broll' | null;
 
 export default function HvacLessonVideo({
+  lessonId,
   lessonDefId,
   brollVideoUrl,
   lessonTitle,
@@ -40,6 +47,9 @@ export default function HvacLessonVideo({
   onProgress,
   onComplete,
 }: Props) {
+  // Resolve the UUID to use for local media paths.
+  // lessonId is the canonical DB UUID. lessonDefId is legacy (slug-based).
+  const resolvedUuid = lessonId || lessonDefId || '';
   const [mode, setMode] = useState<MediaMode>(null);
   const [mp3Url, setMp3Url] = useState<string>('');
   const [mp4Url, setMp4Url] = useState<string>('');
@@ -73,8 +83,7 @@ export default function HvacLessonVideo({
 
     function checkLocalPaths() {
       // Priority 0: assembled lesson video by UUID — canonical path /hvac/videos/
-      const uuid0 = HVAC_LESSON_UUID[lessonDefId];
-      const assembledPath = uuid0 ? `/hvac/videos/lesson-${uuid0}.mp4` : null;
+      const assembledPath = resolvedUuid ? `/hvac/videos/lesson-${resolvedUuid}.mp4` : null;
       if (!assembledPath) { checkUuidPaths(); return; }
       fetch(assembledPath, { method: 'HEAD' })
         .then(r => {
@@ -88,14 +97,13 @@ export default function HvacLessonVideo({
         .catch(() => checkUuidPaths());
 
       function checkUuidPaths() {
-        const uuid = HVAC_LESSON_UUID[lessonDefId];
-        if (!uuid) {
+        if (!resolvedUuid) {
           setMode('broll');
           return;
         }
 
         // Canonical audio path
-        const audioPath = `/hvac/audio/lesson-${uuid}.mp3`;
+        const audioPath = `/hvac/audio/lesson-${resolvedUuid}.mp3`;
 
       fetch(audioPath, { method: 'HEAD' })
         .then(r => {

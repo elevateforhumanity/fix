@@ -4,7 +4,7 @@ import PathwayDisclosure from '@/components/PathwayDisclosure';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { programs } from '@/app/data/programs';
+
 import {
   Heart,
   Shield,
@@ -58,7 +58,7 @@ export default async function JRIProgramsPage() {
     .select('*')
     .eq('category', 'jri');
 
-  const jriPrograms = programs.filter((p) => jriProgramSlugs.includes(p.slug));
+  const jriPrograms = dbPrograms ?? [];
 
   return (
     <div className="bg-white">

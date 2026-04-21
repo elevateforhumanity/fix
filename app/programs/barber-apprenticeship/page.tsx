@@ -4,7 +4,7 @@ export const revalidate = 3600;
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { programs } from '@/app/data/programs';
+import { createClient } from '@/lib/supabase/server';
 import ReactMarkdown from 'react-markdown';
 import {
   ExternalLink,
@@ -27,10 +27,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BarberApprenticeshipPage() {
-  const barberProgram = programs.find(
-    (p) => p.slug === 'barber-apprenticeship'
-  );
+export default async function BarberApprenticeshipPage() {
+  const supabase = await createClient();
+  const { data: barberProgram } = await supabase
+    .from('programs')
+    .select('slug, title, description, long_description')
+    .eq('slug', 'barber-apprenticeship')
+    .maybeSingle();
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -293,7 +296,7 @@ export default function BarberApprenticeshipPage() {
       </section>
 
       {/* Comprehensive Program Details from programs.ts */}
-      {barberProgram && barberProgram.longDescription && (
+      {barberProgram && barberProgram.long_description && (
         <section className="py-8 md:py-12 bg-white">
           <div className="max-w-4xl mx-auto px-6">
             <div
@@ -315,7 +318,7 @@ export default function BarberApprenticeshipPage() {
               prose-td:p-3 prose-td:border prose-td:border-slate-300
             "
             >
-              <ReactMarkdown>{barberProgram.longDescription}</ReactMarkdown>
+              <ReactMarkdown>{barberProgram.long_description}</ReactMarkdown>
             </div>
           </div>
         </section>

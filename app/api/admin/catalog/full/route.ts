@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { programs } from '@/app/data/programs';
+
 import { createClient } from '@/lib/supabase/server';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -25,6 +25,12 @@ const denied = await guardAdmin();
   const format = searchParams.get('format') || 'html';
 
   // Generate HTML content for the catalog
+  const supabaseClient = await createClient();
+  const { data: programs = [] } = await supabaseClient
+    .from('programs')
+    .select('slug, title, name, description, short_description, credential, clock_hours, is_active')
+    .eq('is_active', true)
+    .order('title');
   const catalogHtml = generateCatalogHtml(programs);
 
   if (format === 'pdf') {
@@ -44,7 +50,7 @@ const denied = await guardAdmin();
   });
 }
 
-function generateCatalogHtml(programList: typeof programs) {
+function generateCatalogHtml(programList: any[]) {
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -177,88 +183,22 @@ function generateCatalogHtml(programList: typeof programs) {
     
     ${programList.map((program, i) => `
       <div class="program" id="program-${i}">
-        <h2>${program.title || program?.title || program?.name}</h2>
-        
+        <h2>${program.title || program.name || ''}</h2>
         <div class="program-meta">
-          <div class="meta-item">
-            <div class="meta-label">Duration</div>
-            <div class="meta-value">${program.duration}</div>
-          </div>
-          ${program.clockHours ? `
+          ${program.clock_hours ? `
           <div class="meta-item">
             <div class="meta-label">Clock Hours</div>
-            <div class="meta-value highlight">${program.clockHours} hours</div>
-          </div>
-          ` : ''}
-          <div class="meta-item">
-            <div class="meta-label">Delivery Format</div>
-            <div class="meta-value">${program.delivery}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Schedule</div>
-            <div class="meta-value">${program.schedule}</div>
-          </div>
+            <div class="meta-value highlight">${program.clock_hours} hours</div>
+          </div>` : ''}
           <div class="meta-item">
             <div class="meta-label">Credential</div>
-            <div class="meta-value">${program.credential}</div>
+            <div class="meta-value">${program.credential || 'Certificate of Completion'}</div>
           </div>
-          ${program.etplProgramId ? `
-          <div class="meta-item">
-            <div class="meta-label">ETPL Program ID</div>
-            <div class="meta-value">${program.etplProgramId}</div>
-          </div>
-          ` : ''}
         </div>
-        
         <div class="program-description">
-          <p>${program.shortDescription}</p>
+          <p>${program.short_description || program.description || ''}</p>
         </div>
-        
-        ${program.outcomes && program.outcomes.length > 0 ? `
-        <div class="program-section">
-          <h3>Program Outcomes</h3>
-          <ul>
-            ${program.outcomes.filter(o => o && o.trim()).map(outcome => `
-              <li>${outcome}</li>
-            `).join('')}
-          </ul>
-        </div>
-        ` : ''}
-        
-        ${program.requirements && program.requirements.length > 0 ? `
-        <div class="program-section">
-          <h3>Requirements</h3>
-          <ul>
-            ${program.requirements.filter(r => r && r.trim()).map(req => `
-              <li>${req}</li>
-            `).join('')}
-          </ul>
-        </div>
-        ` : ''}
-        
-        ${program.approvals && program.approvals.length > 0 ? `
-        <div class="program-section">
-          <h3>Approvals & Certifications</h3>
-          <ul>
-            ${program.approvals.filter(a => a && a.trim()).map(approval => `
-              <li>${approval}</li>
-            `).join('')}
-          </ul>
-        </div>
-        ` : ''}
-        
-        ${program.fundingOptions && program.fundingOptions.length > 0 ? `
-        <div class="program-section">
-          <h3>Funding Options</h3>
-          <ul>
-            ${program.fundingOptions.filter(f => f && f.trim()).map(funding => `
-              <li>${funding}</li>
-            `).join('')}
-          </ul>
-        </div>
-        ` : ''}
       </div>
-      
       ${(i + 1) % 2 === 0 ? '<div class="page-break"></div>' : ''}
     `).join('')}
     

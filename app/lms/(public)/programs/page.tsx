@@ -14,16 +14,7 @@ export const metadata: Metadata = {
   description: 'Browse career training programs. WIOA funding available for eligible Indiana residents.',
 };
 
-// Local image fallback map — used when a DB program row has no image_url set.
-// Keys are program slugs. Only covers programs with confirmed assets in public/images/pages/.
-const IMAGE_FALLBACK: Record<string, string> = {
-  'hvac-technician':       '/images/pages/hvac-unit.jpg',
-  'cna':                   '/images/pages/cna-nursing-real.jpg',
-  'cdl-training':          '/images/pages/cdl-truck-highway.jpg',
-  'barber-apprenticeship': '/images/pages/barber-hero-main.jpg',
-  'medical-assistant':     '/images/pages/medical-assistant-real.jpg',
-  'cybersecurity-analyst': '/images/pages/cybersecurity.jpg',
-};
+const DEFAULT_PROGRAM_IMAGE = '/images/pages/comp-home-hero-programs.jpg';
 
 export default async function LmsProgramsPage() {
   const supabase = await createClient();
@@ -136,7 +127,7 @@ export default async function LmsProgramsPage() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {programs.map((p) => {
-                const imgSrc = p.image ?? IMAGE_FALLBACK[p.slug] ?? null;
+                const imgSrc = p.image ?? DEFAULT_PROGRAM_IMAGE;
                 return (
                   <article
                     key={p.id}

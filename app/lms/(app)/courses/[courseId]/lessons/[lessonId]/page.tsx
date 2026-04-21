@@ -38,23 +38,6 @@ const InteractiveVideoPlayer = dynamic(() => import('@/components/lms/Interactiv
 const HvacLessonVideo = dynamic(() => import('@/components/lms/HvacLessonVideo'), { ssr: false });
 const NoteTaking = dynamic(() => import('@/components/NoteTaking').then(m => ({ default: m.NoteTaking })), { ssr: false });
 const DigitalBinder = dynamic(() => import('@/components/DigitalBinder'), { ssr: false });
-import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
-
-// Reverse map: UUID → definition key (e.g. '2f172cb2-...' → 'hvac-01-01').
-// Used by HvacLessonVideo to resolve local MP3/MP4 files in /public/hvac/.
-const HVAC_UUID_TO_DEF: Record<string, string> = Object.fromEntries(
-  Object.entries(HVAC_LESSON_UUID).map(([defId, uuid]) => [uuid, defId])
-);
-
-// Slug-based fallback for HvacLessonVideo defId resolution.
-function hvacDefIdFromSlug(slug: string): string | undefined {
-  if (/^hvac-\d{2}-\d{2}$/.test(slug)) return slug;
-  const match = slug.match(/^hvac-lesson-(\d+)$/);
-  if (!match) return undefined;
-  const n = parseInt(match[1], 10);
-  const defKeys = Object.keys(HVAC_LESSON_UUID);
-  return defKeys[n - 1];
-}
 import { transformLessonContent, isAiJsonBlob } from '@/lib/lms/transformLessonContent';
 import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
@@ -1116,15 +1099,10 @@ export default function LessonPage() {
             />
           </div>
         ) : isHvacCourse ? (
-          /* HVAC: always render the avatar+audio player — video_url is NULL in DB,
-             HvacLessonVideo resolves the file from defId → UUID → /hvac/videos/ */
+          /* HVAC: avatar+audio player — resolves local MP3/MP4 by lessonId UUID */
           <div className="max-w-4xl mx-auto p-4 md:p-8">
             <HvacLessonVideo
-              lessonDefId={
-                HVAC_UUID_TO_DEF[lessonId] ??
-                (lesson.slug ? hvacDefIdFromSlug(lesson.slug) : undefined) ??
-                lesson.slug
-              }
+              lessonId={lessonId}
               dbVideoUrl={lesson.video_url ?? undefined}
               brollVideoUrl="/videos/hvac-technician.mp4"
               lessonTitle={lesson.title}
