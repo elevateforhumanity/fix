@@ -17,7 +17,7 @@ export default async function CourseAuthoringPage() {
 
   const [{ data: lessons }, { data: courses }] = await Promise.all([
     db.from('course_lessons')
-      .select('id, title, lesson_type, status, course_id, created_at')
+      .select('id, title, lesson_type, course_id, created_at')
       .order('created_at', { ascending: false })
       .limit(60),
     db.from('courses')
@@ -91,7 +91,7 @@ export default async function CourseAuthoringPage() {
                     <th className="px-6 py-3 text-left">Lesson</th>
                     <th className="px-6 py-3 text-left">Course</th>
                     <th className="px-6 py-3 text-left">Type</th>
-                    <th className="px-6 py-3 text-left">Status</th>
+                    <th className="px-6 py-3 text-left">Notes</th>
                     <th className="px-6 py-3 text-left">Created</th>
                     <th className="px-6 py-3 text-left">Actions</th>
                   </tr>
@@ -102,10 +102,8 @@ export default async function CourseAuthoringPage() {
                       <td className="px-6 py-4 font-medium text-slate-900">{l.title}</td>
                       <td className="px-6 py-4 text-slate-500">{courseMap[l.course_id] ?? '—'}</td>
                       <td className="px-6 py-4 text-slate-500">{l.lesson_type}</td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          l.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
-                        }`}>{l.status}</span>
+                      <td className="px-6 py-4 text-slate-400 text-xs">
+                        {courseMap[l.course_id] ? '—' : 'Unassigned'}
                       </td>
                       <td className="px-6 py-4 text-slate-400 text-xs">{new Date(l.created_at).toLocaleDateString()}</td>
                       <td className="px-6 py-4">

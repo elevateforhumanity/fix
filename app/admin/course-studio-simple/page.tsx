@@ -25,13 +25,14 @@ export default async function CourseStudioSimplePage() {
 
   const { data: lessons } = await db
     .from('course_lessons')
-    .select('id, title, lesson_type, status, course_id')
-    .in('status', ['draft', 'review'])
+    .select('id, title, lesson_type, course_id, created_at')
     .order('created_at', { ascending: false })
     .limit(50);
 
   const rows = courses ?? [];
-  const lessonRows = lessons ?? [];
+  const lessonRows = (lessons ?? []).filter((l) =>
+    rows.some((c) => c.id === l.course_id)
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -89,7 +90,7 @@ export default async function CourseStudioSimplePage() {
                 <div key={l.id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
                   <div>
                     <div className="font-medium text-slate-900">{l.title}</div>
-                    <div className="text-xs text-slate-400 mt-0.5">{l.lesson_type} · {l.status}</div>
+                    <div className="text-xs text-slate-400 mt-0.5">{l.lesson_type}</div>
                   </div>
                   <Link href={`/admin/courses/${l.course_id}/lessons/${l.id}`} className="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:underline">
                     <Edit3 className="w-3.5 h-3.5" /> Edit
