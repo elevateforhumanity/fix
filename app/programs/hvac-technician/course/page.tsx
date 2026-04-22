@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 import { readFileSync } from 'fs';
 import path from 'path';
-const _courseDefs: any[] = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
-const getCourseBySlug = (slug: string) => _courseDefs.find((c: any) => c.slug === slug);
+function getCourseBySlug(slug: string) {
+  const defs: any[] = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
+  return defs.find((c: any) => c.slug === slug);
+}
 import { getCurrentUser } from '@/lib/auth';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { resolveHvacCourseId } from '@/lib/courses/resolvers';

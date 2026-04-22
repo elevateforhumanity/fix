@@ -2,36 +2,35 @@
 // Generates rich lesson HTML from course definition metadata.
 // Used by the public API fallback when Supabase has only placeholder content.
 
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { loadJsonOnce } from '@/lib/data/json-cache';
 
 type CourseModule = any;
 type CourseLesson = any;
 
-const _defs: any[] = JSON.parse(readFileSync(join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
-const HVAC_DEF = _defs.find((c: any) => c.slug === 'hvac-technician');
-
-if (!HVAC_DEF) {
-  throw new Error('HVAC course definition not found in course-definitions.json');
+function loadHvacDef() {
+  const defs = loadJsonOnce<any[]>('course-definitions.json');
+  const def = defs.find((c: any) => c.slug === 'hvac-technician');
+  if (!def) throw new Error('HVAC course definition not found in course-definitions.json');
+  return def;
 }
 
-/** Build a reverse map: lesson ID → { module, lessonIndex } */
-function buildLessonModuleMap() {
+/** Build a reverse map: lesson ID → { module, lessonIndex } — called per-request, GC-eligible */
+function buildLessonModuleMap(hvacDef: any) {
   const map: Record<string, { module: CourseModule; lessonIndex: number }> = {};
-  for (const mod of HVAC_DEF.modules) {
-    mod.lessons.forEach((lesson, i) => {
+  for (const mod of hvacDef.modules) {
+    mod.lessons.forEach((lesson: any, i: number) => {
       map[lesson.id] = { module: mod, lessonIndex: i };
     });
   }
   return map;
 }
 
-const LESSON_MODULE_MAP = buildLessonModuleMap();
-
 /**
  * Generate rich HTML content for a lesson based on its type and metadata.
  */
 export function buildLessonContent(lessonId: string): string {
+  const HVAC_DEF = loadHvacDef();
+  const LESSON_MODULE_MAP = buildLessonModuleMap(HVAC_DEF);
   const entry = LESSON_MODULE_MAP[lessonId];
   if (!entry) return '<p>Lesson content not found.</p>';
 
@@ -275,6 +274,7 @@ function buildModuleLessonList(mod: CourseModule, currentLessonId: string): stri
  * Get content for all HVAC lessons as a map: lessonId → HTML
  */
 export function getAllLessonContent(): Record<string, string> {
+  const HVAC_DEF = loadHvacDef();
   const content: Record<string, string> = {};
   for (const mod of HVAC_DEF.modules) {
     for (const lesson of mod.lessons) {

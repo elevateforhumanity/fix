@@ -6,12 +6,11 @@ import path from 'path';
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { apiAuthGuard } from '@/lib/admin/guards';
-// Load course definitions from JSON — excluded from webpack module graph
-const COURSE_DEFINITIONS: any[] = JSON.parse(
-  require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/course-definitions.json'), 'utf8')
-);
 type CourseLesson = any;
 type CourseModule = any;
+function loadCourseDefinitions(): any[] {
+  return JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
+}
 import { getInstructorForCourse } from '@/lib/ai-instructors';
 import { aiChat, isAIAvailable } from '@/lib/ai/ai-service';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
@@ -41,6 +40,7 @@ interface LessonContext {
 }
 
 function findLesson(lessonId: string): LessonContext | null {
+  const COURSE_DEFINITIONS = loadCourseDefinitions();
   for (const course of COURSE_DEFINITIONS) {
     for (let mi = 0; mi < course.modules.length; mi++) {
       const mod = course.modules[mi];

@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { readFileSync } from 'fs';
 import path from 'path';
-const _courseDefs: any[] = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
-const getCourseBySlug = (slug: string) => _courseDefs.find((c: any) => c.slug === slug);
+function getCourseBySlug(slug: string) {
+  const defs: any[] = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
+  return defs.find((c: any) => c.slug === slug);
+}
 
 export const metadata: Metadata = {
   title: 'HVAC Technician Curriculum | Elevate for Humanity',

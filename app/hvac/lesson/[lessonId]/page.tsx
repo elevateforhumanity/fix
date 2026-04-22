@@ -22,8 +22,10 @@ import { getAllHvacLessons, getHvacLesson } from '@/lib/courses/hvac-csv-loader'
 import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-legacy-maps';
 import { readFileSync } from 'fs';
 import path from 'path';
-const _hvacQuizzes = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/hvac-quizzes.json'), 'utf8'));
-const HVAC_QUIZ_MAP: Record<string, any[]> = _hvacQuizzes.HVAC_QUIZ_MAP ?? {};
+function loadHvacQuizMap(): Record<string, any[]> {
+  const d = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/hvac-quizzes.json'), 'utf8'));
+  return d.HVAC_QUIZ_MAP ?? {};
+}
 import { EPA_608_LESSON_TAGS } from '@/lib/courses/hvac-epa-tags';
 
 export const dynamic = 'force-dynamic';
@@ -46,6 +48,9 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
   const { lessonId } = await params;
   const lesson = getHvacLesson(lessonId);
   if (!lesson) notFound();
+
+  // Load per-request — GC-eligible after render
+  const HVAC_QUIZ_MAP = loadHvacQuizMap();
 
   const allLessons = getAllHvacLessons();
   const currentIdx = allLessons.findIndex(l => l.lessonId === lesson.lessonId);

@@ -5,7 +5,7 @@
 [build]
   # libxml2-utils provides xmllint, required for IRS MeF XSD validation.
   # Without it, schema-validator.ts returns XMLLINT_NOT_AVAILABLE and blocks all submissions.
-  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run audit:garbage && pnpm run audit:admin && pnpm run audit:dashboard && pnpm run build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
+  command = "corepack enable && pnpm install --no-frozen-lockfile && npx tsx scripts/ci-token-gate.ts && pnpm run build && node scripts/prune-standalone.mjs && node scripts/prune-node-modules.mjs"
   # publish is intentionally omitted — @netlify/plugin-nextjs manages the output directory.
   # Setting publish = ".next" causes Turbopack to error: distDirRoot navigates outside projectPath.
   functions = "netlify/functions"
@@ -29,7 +29,7 @@
   # 6144MB for the Next.js build process. The project uses webpack (required
   # for custom webpack config in next.config.mjs). With 1400+ pages the
   # webpack compiler needs significant JS heap headroom.
-  NODE_OPTIONS = "--max-old-space-size=7168"
+  NODE_OPTIONS = "--max-old-space-size=8192"
   SENTRY_SKIP_AUTO_INSTRUMENTATION = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public

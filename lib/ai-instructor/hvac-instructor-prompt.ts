@@ -7,18 +7,9 @@
  * actual instructor rather than a generic chatbot.
  */
 
-import { readFileSync } from 'fs';
-import path from 'path';
 import { HVAC_LESSON_NUMBER_TO_DEF_ID, getModuleIdForLessonNumber } from '@/lib/courses/hvac-lesson-number-map';
+import { loadJsonOnce } from '@/lib/data/json-cache';
 
-// Load static HVAC data from JSON at runtime — excluded from webpack module graph
-const dataDir = path.join(process.cwd(), 'public', 'data');
-const HVAC_LESSON_CONTENT: Record<string, any> = JSON.parse(readFileSync(path.join(dataDir, 'hvac-lesson-content.json'), 'utf8'));
-const HVAC_QUIZ_BANKS: Record<string, any> = JSON.parse(readFileSync(path.join(dataDir, 'hvac-quiz-banks.json'), 'utf8'));
-const { EPA608_STUDY_TOPICS }: { EPA608_STUDY_TOPICS: any[] } = JSON.parse(readFileSync(path.join(dataDir, 'hvac-epa608-prep.json'), 'utf8'));
-const HVAC_SERVICE_SCENARIOS: any[] = JSON.parse(readFileSync(path.join(dataDir, 'hvac-service-scenarios.json'), 'utf8'));
-
-// hvac-procedures.ts is an empty stub — inline the no-op
 const getProceduresByModule = (_moduleId: string): any[] => [];
 
 export interface LessonContext {
@@ -40,11 +31,17 @@ export function buildLessonContext(lessonNumber: number, lessonTitle: string): L
 export function buildMarcusSystemPrompt(ctx: LessonContext): string {
   const { lessonNumber, lessonTitle, defId, moduleId } = ctx;
 
+  // Cached per process — parsed once, reused across requests
+  const HVAC_LESSON_CONTENT = loadJsonOnce<Record<string, any>>('hvac-lesson-content.json');
+  const HVAC_QUIZ_BANKS = loadJsonOnce<Record<string, any>>('hvac-quiz-banks.json');
+  const { EPA608_STUDY_TOPICS } = loadJsonOnce<{ EPA608_STUDY_TOPICS: any[] }>('hvac-epa608-prep.json');
+  const HVAC_SERVICE_SCENARIOS = loadJsonOnce<any[]>('hvac-service-scenarios.json');
+
   const lessonContent = defId ? HVAC_LESSON_CONTENT[defId] : null;
   const quizQuestions = moduleId ? (HVAC_QUIZ_BANKS[moduleId] ?? []) : [];
   const procedures = moduleId ? getProceduresByModule(moduleId) : [];
   const scenarios = moduleId
-    ? HVAC_SERVICE_SCENARIOS.filter((s) => s.moduleIds.includes(moduleId))
+    ? HVAC_SERVICE_SCENARIOS.filter((s: any) => s.moduleIds?.includes(moduleId))
     : [];
 
   // EPA 608 topics for modules 6-9
@@ -55,7 +52,7 @@ export function buildMarcusSystemPrompt(ctx: LessonContext): string {
     modNum === 8 ? 'type2' :
     modNum === 9 ? 'type3' : null;
   const epaTopics = epaSection
-    ? EPA608_STUDY_TOPICS.filter((t) => t.section === epaSection)
+    ? EPA608_STUDY_TOPICS.filter((t: any) => t.section === epaSection)
     : [];
 
   // ── Build the prompt ──────────────────────────────────────────────────

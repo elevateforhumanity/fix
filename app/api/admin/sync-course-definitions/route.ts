@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { readFileSync } from 'fs';
-import path from 'path';
-const COURSE_DEFINITIONS: any[] = JSON.parse(
-  readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8')
-);
+import { loadJsonOnce } from '@/lib/data/json-cache';
 
-// Load quiz data from JSON — excluded from webpack module graph
-const _hvacQuizzes = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/hvac-quizzes.json'), 'utf8'));
-const HVAC_QUIZ_MAP: Record<string, any[]> = _hvacQuizzes.HVAC_QUIZ_MAP ?? {};
-const getUniversalExam = (): any[] => _hvacQuizzes.UNIVERSAL_EXAM ?? [];
+function loadCourseDefinitions(): any[] { return loadJsonOnce('course-definitions.json'); }
+function loadHvacQuizzes() {
+  const d = loadJsonOnce<any>('hvac-quizzes.json');
+  return { HVAC_QUIZ_MAP: d.HVAC_QUIZ_MAP ?? {} as Record<string, any[]>, getUniversalExam: () => d.UNIVERSAL_EXAM ?? [] as any[] };
+}
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { v5 as uuidv5 } from 'uuid';
@@ -89,12 +86,16 @@ async function _POST(request: NextRequest) {
   }
   const { db } = auth;
 
+  // Load per-request — GC-eligible after handler returns
+  const COURSE_DEFINITIONS = loadCourseDefinitions();
+  const { HVAC_QUIZ_MAP, getUniversalExam } = loadHvacQuizzes();
+
   try {
     const body = await request.json().catch(() => ({}));
     const { slug } = body;
 
     const courses = slug
-      ? COURSE_DEFINITIONS.filter((c) => c.slug === slug)
+      ? COURSE_DEFINITIONS.filter((c: any) => c.slug === slug)
       : COURSE_DEFINITIONS;
 
     if (courses.length === 0) {
@@ -250,7 +251,8 @@ async function _GET(request: NextRequest) {
     return NextResponse.json({ error: auth.error }, { status: auth.status });
   }
 
-  const summary = COURSE_DEFINITIONS.map((c) => ({
+  const COURSE_DEFINITIONS = loadCourseDefinitions();
+  const summary = COURSE_DEFINITIONS.map((c: any) => ({
     slug: c.slug,
     title: c.title,
     category: c.category,

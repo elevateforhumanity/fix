@@ -6,13 +6,8 @@
  * avoid a filesystem dependency at build time.
  */
 
-import { readFileSync } from 'fs';
-import { join } from 'path';
 import { HVAC_LESSON_NUMBER_TO_DEF_ID } from './hvac-lesson-number-map';
-
-const HVAC_LESSON_CONTENT: Record<string, any> = JSON.parse(
-  readFileSync(join(process.cwd(), 'public/data/hvac-lesson-content.json'), 'utf8')
-);
+import { loadJsonOnce } from '@/lib/data/json-cache';
 
 export interface HvacLesson {
   lessonId: string;
@@ -31,6 +26,7 @@ export interface HvacLesson {
 
 // Build the lesson list from the number map + content store
 function buildLessons(): HvacLesson[] {
+  const HVAC_LESSON_CONTENT = loadJsonOnce<Record<string, any>>('hvac-lesson-content.json');
   return Object.entries(HVAC_LESSON_NUMBER_TO_DEF_ID)
     .sort(([a], [b]) => Number(a) - Number(b))
     .map(([num, defId]) => {

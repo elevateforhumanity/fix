@@ -3,9 +3,10 @@ import { createClient } from '@/lib/supabase/server';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { readFileSync } from 'fs';
 import path from 'path';
-const COURSE_DEFINITIONS: any[] = JSON.parse(
-  readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8')
-);
+
+function loadCourseDefinitions(): any[] {
+  return JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
+}
 import { HVAC_LESSON_UUID, HVAC_MODULE_UUID } from '@/lib/courses/hvac-legacy-maps';
 
 import { buildLessonContent, isPlaceholderContent } from '@/lib/courses/hvac-content-builder';
@@ -35,8 +36,8 @@ const QUIZ_MAPS: Record<string, Record<string, { questions: any[]; passingScore:
  * Build lesson/module response from local CourseDefinition when Supabase
  * hasn't been seeded yet. Uses deterministic UUIDs so lesson URLs match.
  */
-function buildLocalFallback(courseId: string, slug: string) {
-  const def = COURSE_DEFINITIONS.find((c) => c.slug === slug);
+function buildLocalFallback(courseId: string, slug: string, COURSE_DEFINITIONS: any[]) {
+  const def = COURSE_DEFINITIONS.find((c: any) => c.slug === slug);
   if (!def) return null;
 
   const lessonUuids = LESSON_ID_TO_UUID[slug] || {};
@@ -123,6 +124,8 @@ async function _GET(
   if (limited) return limited;
 
   const { courseId } = await params;
+  // Load per-request — GC-eligible after handler returns
+  const COURSE_DEFINITIONS = loadCourseDefinitions();
 
   // Use the server client (respects RLS) — never the admin client for public routes.
   // The admin client bypasses RLS and would serve protected content to unauthenticated callers.
@@ -130,7 +133,7 @@ async function _GET(
   if (!supabase) {
     const slug = COURSE_ID_TO_SLUG[courseId];
     if (slug) {
-      const fallback = buildLocalFallback(courseId, slug);
+      const fallback = buildLocalFallback(courseId, slug, COURSE_DEFINITIONS);
       if (fallback) return NextResponse.json(stripSensitiveFields(fallback));
     }
     return NextResponse.json({ error: 'Database unavailable' }, { status: 500 });
@@ -173,7 +176,7 @@ async function _GET(
   if (courseErr || !course) {
     const slug = COURSE_ID_TO_SLUG[courseId];
     if (slug) {
-      const fallback = buildLocalFallback(courseId, slug);
+      const fallback = buildLocalFallback(courseId, slug, COURSE_DEFINITIONS);
       if (fallback) {
         // Known courses serve full content publicly
         return NextResponse.json({ ...fallback, enrolled: isEnrolled, authenticated: isAuthenticated });
