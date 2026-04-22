@@ -1,157 +1,134 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
-import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
+import { Users, Activity, TrendingUp, Clock, ChevronRight, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://www.elevateforhumanity.org/admin/analytics/engagement',
-  },
-  title: 'Engagement Analytics | Elevate For Humanity',
-  description: 'Track user engagement metrics and platform activity.',
-};
+export const metadata: Metadata = { robots: { index: false, follow: false }, title: 'Engagement Analytics | Admin' };
 
 export default async function EngagementPage() {
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
+  const db = await getAdminClient();
 
+  const week  = new Date(Date.now() - 7  * 86400000).toISOString();
+  const month = new Date(Date.now() - 30 * 86400000).toISOString();
 
+  const [
+    totalUsersRes,
+    activeWeekRes,
+    activeMonthRes,
+    newThisMonthRes,
+    recentUsersRes,
+    auditCountRes,
+  ] = await Promise.all([
+    db.from('profiles').select('id', { count: 'exact', head: true }),
+    db.from('profiles').select('id', { count: 'exact', head: true }).gte('last_sign_in_at', week),
+    db.from('profiles').select('id', { count: 'exact', head: true }).gte('last_sign_in_at', month),
+    db.from('profiles').select('id', { count: 'exact', head: true }).gte('created_at', month),
+    db.from('profiles')
+      .select('id, full_name, email, role, last_sign_in_at, created_at')
+      .order('last_sign_in_at', { ascending: false, nullsFirst: false })
+      .limit(25),
+    db.from('audit_logs').select('id', { count: 'exact', head: true }).gte('created_at', week),
+  ]);
 
-  // Fetch engagement data
-  const { count: totalUsers } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact', head: true });
+  const totalUsers   = totalUsersRes.count ?? 0;
+  const activeWeek   = activeWeekRes.count ?? 0;
+  const activeMonth  = activeMonthRes.count ?? 0;
+  const newThisMonth = newThisMonthRes.count ?? 0;
+  const recentUsers  = recentUsersRes.data ?? [];
+  const auditCount   = auditCountRes.count ?? 0;
 
-  const { count: activeUsers } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact', head: true })
-    .gte('last_sign_in_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString());
-
-  const { count: totalEnrollments } = await supabase
-    .from('program_enrollments')
-    .select('*', { count: 'exact', head: true });
-
-  const { data: recentActivity } = await supabase
-    .from('profiles')
-    .select('id, full_name, email, last_sign_in_at')
-    .order('last_sign_in_at', { ascending: false })
-    .limit(10);
-
-  const engagementRate = totalUsers ? Math.round(((activeUsers || 0) / totalUsers) * 100) : 0;
+  const weekRate  = totalUsers > 0 ? Math.round((activeWeek  / totalUsers) * 100) : 0;
+  const monthRate = totalUsers > 0 ? Math.round((activeMonth / totalUsers) * 100) : 0;
 
   return (
     <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-slate-200 px-6 py-5">
+        <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+          <Link href="/admin/dashboard" className="hover:text-slate-700">Admin</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href="/admin/analytics" className="hover:text-slate-700">Analytics</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-slate-900 font-medium">Engagement</span>
+        </nav>
+        <h1 className="text-2xl font-bold text-slate-900">Engagement Analytics</h1>
+        <p className="text-sm text-slate-500 mt-1">User activity, sign-ins, and platform engagement</p>
+      </div>
 
-      {/* Hero Image */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-slate-700">
-              <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
-              <li>/</li>
-              <li><Link href="/admin/analytics" className="hover:text-primary">Analytics</Link></li>
-              <li>/</li>
-              <li className="text-slate-900 font-medium">Engagement</li>
-            </ol>
-          </nav>
-          <h1 className="text-3xl font-bold text-slate-900">Engagement Analytics</h1>
-          <p className="text-slate-700 mt-2">Monitor user activity and platform engagement metrics</p>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Total Users</h3>
-              <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{totalUsers || 0}</p>
-            <p className="text-sm text-slate-700 mt-1">Registered accounts</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Active Users (7d)</h3>
-              <span className="text-brand-green-600 bg-brand-green-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{activeUsers || 0}</p>
-            <p className="text-sm text-slate-700 mt-1">Logged in this week</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Engagement Rate</h3>
-              <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{engagementRate}%</p>
-            <p className="text-sm text-slate-700 mt-1">Weekly active rate</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Total Enrollments</h3>
-              <span className="text-brand-orange-600 bg-brand-orange-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{totalEnrollments || 0}</p>
-            <p className="text-sm text-slate-700 mt-1">Course enrollments</p>
-          </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow-sm border">
-          <div className="p-6 border-b">
-            <h2 className="text-lg font-semibold">Recent Activity</h2>
-            <p className="text-sm text-slate-700">Users who recently logged in</p>
-          </div>
-          <div className="divide-y">
-            {recentActivity && recentActivity.length > 0 ? (
-              recentActivity.map((user: any) => (
-                <div key={user.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-brand-blue-100 rounded-full flex items-center justify-center">
-                      <span className="text-brand-blue-600 font-medium">
-                        {(user.full_name || user.email || '?')[0].toUpperCase()}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-slate-900">{user.full_name || 'Unknown'}</p>
-                      <p className="text-sm text-slate-700">{user.email}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-slate-700">
-                      {user.last_sign_in_at 
-                        ? new Date(user.last_sign_in_at).toLocaleDateString()
-                        : 'Never'}
-                    </p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="p-8 text-center text-slate-700">
-                No recent activity found
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: 'Total Users',       value: totalUsers,   icon: Users,     color: 'text-brand-blue-600', bg: 'bg-brand-blue-50' },
+            { label: 'Active (7d)',        value: activeWeek,   icon: Activity,  color: 'text-green-600',      bg: 'bg-green-50' },
+            { label: 'Active (30d)',       value: activeMonth,  icon: TrendingUp,color: 'text-purple-600',     bg: 'bg-purple-50' },
+            { label: 'New This Month',     value: newThisMonth, icon: Clock,     color: 'text-amber-600',      bg: 'bg-amber-50' },
+          ].map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                <div className={`w-9 h-9 rounded-xl ${s.bg} flex items-center justify-center mb-3`}><Icon className={`w-4 h-4 ${s.color}`} /></div>
+                <p className="text-2xl font-bold text-slate-900 tabular-nums">{s.value}</p>
+                <p className="text-xs text-slate-500 mt-1 font-medium">{s.label}</p>
               </div>
-            )}
+            );
+          })}
+        </div>
+
+        {/* Activity rates */}
+        <div className="grid sm:grid-cols-2 gap-4">
+          {[
+            { label: '7-Day Active Rate',  rate: weekRate,  active: activeWeek,  total: totalUsers },
+            { label: '30-Day Active Rate', rate: monthRate, active: activeMonth, total: totalUsers },
+          ].map((r) => (
+            <div key={r.label} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="font-semibold text-slate-900 text-sm">{r.label}</h2>
+                <span className="text-lg font-bold text-slate-900">{r.rate}%</span>
+              </div>
+              <div className="w-full bg-slate-100 rounded-full h-2.5">
+                <div className="bg-brand-blue-500 h-2.5 rounded-full" style={{ width: `${r.rate}%` }} />
+              </div>
+              <p className="text-xs text-slate-400 mt-2">{r.active} of {r.total} users active</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Platform events this week */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+          <h2 className="font-semibold text-slate-900 text-sm mb-1">Platform Events (7d)</h2>
+          <p className="text-3xl font-bold text-slate-900 tabular-nums">{auditCount.toLocaleString()}</p>
+          <p className="text-xs text-slate-400 mt-1">Audit log entries in the last 7 days</p>
+          <Link href="/admin/audit-logs" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 hover:underline">
+            View audit log <ArrowRight className="w-3 h-3" />
+          </Link>
+        </div>
+
+        {/* Recently active users */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h2 className="font-semibold text-slate-900 text-sm">Recently Active Users</h2>
+            <Link href="/admin/students" className="text-xs font-semibold text-brand-blue-600 hover:underline flex items-center gap-1">All users <ArrowRight className="w-3 h-3" /></Link>
           </div>
+          <table className="w-full text-sm">
+            <thead><tr className="border-b border-slate-100 bg-slate-50">
+              {['User','Role','Last Sign In','Joined'].map(h => <th key={h} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">{h}</th>)}
+            </tr></thead>
+            <tbody className="divide-y divide-slate-50">
+              {recentUsers.map((u: any) => (
+                <tr key={u.id} className="hover:bg-slate-50">
+                  <td className="py-3.5 px-5">
+                    <p className="font-semibold text-slate-900">{u.full_name ?? '—'}</p>
+                    <p className="text-xs text-slate-400">{u.email ?? ''}</p>
+                  </td>
+                  <td className="py-3.5 px-5"><span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">{u.role ?? 'user'}</span></td>
+                  <td className="py-3.5 px-5 text-slate-500 text-xs">{u.last_sign_in_at ? new Date(u.last_sign_in_at).toLocaleString() : 'Never'}</td>
+                  <td className="py-3.5 px-5 text-slate-500 text-xs">{u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

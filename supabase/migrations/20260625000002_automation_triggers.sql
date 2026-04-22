@@ -33,64 +33,36 @@ CREATE TABLE IF NOT EXISTS public.automation_rules (
   updated_at      timestamptz NOT NULL DEFAULT now()
 );
 
--- Seed default rules
+-- NOTE: automation_rules already existed in the DB with a different schema.
+-- The table uses trigger_config (not condition_json) and status (not enabled).
+-- Migration applied the following ALTER to add missing columns:
+--   ALTER TABLE public.automation_rules
+--     ADD COLUMN IF NOT EXISTS condition_json jsonb NOT NULL DEFAULT '{}',
+--     ADD COLUMN IF NOT EXISTS enabled boolean NOT NULL DEFAULT true,
+--     ADD COLUMN IF NOT EXISTS cooldown_hours integer NOT NULL DEFAULT 24;
+
+-- Seed default rules (uses both trigger_config and condition_json for compatibility)
 INSERT INTO public.automation_rules
-  (name, description, trigger_type, condition_json, action_type, action_config, cooldown_hours)
+  (name, description, trigger_type, trigger_config, condition_json, action_type, action_config, cooldown_hours, enabled)
 VALUES
-  (
-    'Stale lead reminder',
-    'Email assigned staff when a lead has no activity for 5+ days.',
-    'stale_lead',
-    '{"days_threshold": 5}',
-    'send_email',
-    '{"template": "stale_lead_reminder", "to_role": "staff"}',
-    24
-  ),
-  (
-    'Critical compliance escalation',
-    'Escalate unresolved critical compliance alerts to super_admin after 24 hours.',
-    'compliance_alert',
-    '{"severity": "critical", "hours_threshold": 24}',
-    'escalate',
-    '{"to_role": "super_admin", "template": "compliance_escalation"}',
-    24
-  ),
-  (
-    'High compliance escalation',
-    'Escalate unresolved high-severity compliance alerts to admin after 72 hours.',
-    'compliance_alert',
-    '{"severity": "high", "hours_threshold": 72}',
-    'escalate',
-    '{"to_role": "admin", "template": "compliance_escalation"}',
-    48
-  ),
-  (
-    'Failed job retry',
-    'Retry failed jobs up to 3 times with exponential backoff.',
-    'job_failure',
-    '{"max_attempts": 3}',
-    'retry_job',
-    '{"backoff_minutes": [5, 15, 60]}',
-    1
-  ),
-  (
-    'Enrollment overdue nudge',
-    'Email applicant when their enrollment review has been pending 72+ hours.',
-    'enrollment_overdue',
-    '{"hours_threshold": 72}',
-    'send_email',
-    '{"template": "enrollment_pending_nudge", "to": "applicant"}',
-    48
-  ),
-  (
-    'Inactive learner outreach',
-    'Email learner when they have been inactive for 7+ days.',
-    'inactive_learner',
-    '{"days_threshold": 7}',
-    'send_email',
-    '{"template": "learner_reengagement", "to": "learner"}',
-    72
-  )
+  ('Stale lead reminder', 'Email assigned staff when a lead has no activity for 5+ days.',
+   'stale_lead', '{"days_threshold": 5}', '{"days_threshold": 5}',
+   'send_email', '{"template": "stale_lead_reminder", "to_role": "staff"}', 24, true),
+  ('Critical compliance escalation', 'Escalate unresolved critical compliance alerts to super_admin after 24 hours.',
+   'compliance_alert', '{"severity": "critical", "hours_threshold": 24}', '{"severity": "critical", "hours_threshold": 24}',
+   'escalate', '{"to_role": "super_admin", "template": "compliance_escalation"}', 24, true),
+  ('High compliance escalation', 'Escalate unresolved high-severity compliance alerts to admin after 72 hours.',
+   'compliance_alert', '{"severity": "high", "hours_threshold": 72}', '{"severity": "high", "hours_threshold": 72}',
+   'escalate', '{"to_role": "admin", "template": "compliance_escalation"}', 48, true),
+  ('Failed job retry', 'Retry failed jobs up to 3 times with exponential backoff.',
+   'job_failure', '{"max_attempts": 3}', '{"max_attempts": 3}',
+   'retry_job', '{"backoff_minutes": [5, 15, 60]}', 1, true),
+  ('Enrollment overdue nudge', 'Email applicant when their enrollment review has been pending 72+ hours.',
+   'enrollment_overdue', '{"hours_threshold": 72}', '{"hours_threshold": 72}',
+   'send_email', '{"template": "enrollment_pending_nudge", "to": "applicant"}', 48, true),
+  ('Inactive learner outreach', 'Email learner when they have been inactive for 7+ days.',
+   'inactive_learner', '{"days_threshold": 7}', '{"days_threshold": 7}',
+   'send_email', '{"template": "learner_reengagement", "to": "learner"}', 72, true)
 ON CONFLICT DO NOTHING;
 
 -- ── automation_action_queue ───────────────────────────────────────────────────

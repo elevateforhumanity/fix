@@ -1,252 +1,134 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
-import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { 
-  Shield, FileText, Users, AlertTriangle, 
-  Clock, Download, Eye, Search, Filter
-} from 'lucide-react';
+import { Shield, FileText, Users, AlertTriangle, Clock, ChevronRight, ArrowRight, Download, Eye } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
-  title: 'FERPA Compliance | Admin | Elevate For Humanity',
-  description: 'Manage FERPA compliance, student records access, and privacy controls.',
-};
+export const metadata: Metadata = { robots: { index: false, follow: false }, title: 'FERPA Compliance | Admin' };
 
 export default async function AdminFerpaPage() {
   await requireRole(['admin', 'super_admin', 'staff']);
-  const supabase = await createClient();
-
-  // Query real counts from documents table (consent forms are documents)
-  const { count: consentCount } = await supabase.from('documents').select('*', { count: 'exact', head: true }).eq('document_type', 'consent');
-  const { count: pendingDocs } = await supabase.from('documents').select('*', { count: 'exact', head: true }).eq('status', 'pending');
-  const { count: totalStudents } = await supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'student');
-
-  // FERPA violations YTD — sourced from compliance_alerts
+  const db = await getAdminClient();
   const ytdStart = new Date(new Date().getFullYear(), 0, 1).toISOString();
-  const { count: ferpaViolations } = await supabase
-    .from('compliance_alerts')
-    .select('*', { count: 'exact', head: true })
-    .eq('alert_type', 'ferpa_violation')
-    .gte('created_at', ytdStart);
 
-  const complianceStats = [
-    { label: 'Active Consent Forms', value: String(consentCount || 0), icon: FileText, color: 'green' },
-    { label: 'Pending Reviews', value: String(pendingDocs || 0), icon: Clock, color: 'yellow' },
-    { label: 'Student Records', value: String(totalStudents || 0), icon: Eye, color: 'blue' },
-    { label: 'Violations (YTD)', value: String(ferpaViolations ?? 0), icon: AlertTriangle, color: (ferpaViolations ?? 0) > 0 ? 'red' : 'green' },
+  const [consentRes, pendingDocsRes, totalStudentsRes, ferpaViolRes, auditRes] = await Promise.all([
+    db.from('documents').select('id', { count: 'exact', head: true }).eq('document_type', 'consent'),
+    db.from('documents').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+    db.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'student'),
+    db.from('compliance_alerts').select('id', { count: 'exact', head: true }).eq('alert_type', 'ferpa_violation').gte('created_at', ytdStart),
+    db.from('audit_logs').select('id, action, target_type, resource_type, created_at, actor_role, actor_id').order('created_at', { ascending: false }).limit(20),
+  ]);
+
+  const consentCount    = consentRes.count ?? 0;
+  const pendingDocs     = pendingDocsRes.count ?? 0;
+  const totalStudents   = totalStudentsRes.count ?? 0;
+  const ferpaViolations = ferpaViolRes.count ?? 0;
+  const auditLogs       = auditRes.data ?? [];
+
+  const stats = [
+    { label: 'Active Consent Forms', value: consentCount,    icon: FileText,      color: 'text-green-600',       bg: 'bg-green-50' },
+    { label: 'Pending Reviews',      value: pendingDocs,     icon: Clock,         color: 'text-yellow-600',      bg: 'bg-yellow-50',  urgent: pendingDocs > 0 },
+    { label: 'Student Records',      value: totalStudents,   icon: Eye,           color: 'text-brand-blue-600',  bg: 'bg-brand-blue-50' },
+    { label: 'Violations YTD',       value: ferpaViolations, icon: AlertTriangle, color: 'text-red-600',         bg: 'bg-red-50',     urgent: ferpaViolations > 0 },
   ];
 
-  // Query recent audit activity
-  const { data: auditLogs } = await supabase
-    .from('audit_logs')
-    .select('action, target_type, created_at, actor_id')
-    .order('created_at', { ascending: false })
-    .limit(5);
-
-  const recentActivity = (auditLogs || []).map((log: any) => ({
-    action: log.action || 'Activity',
-    student: log.target_type || 'Record',
-    date: log.created_at ? new Date(log.created_at).toLocaleDateString() : '',
-    status: 'complete',
-  }));
-
-  // FERPA compliance checklist — query from DB if records exist
-  const { data: checklistRows } = await supabase
-    .from('ferpa_compliance_checklist')
-    .select('checklist_type, academic_year, items, completion_percentage, status, reviewed_at')
-    .order('created_at', { ascending: false })
-    .limit(1);
-  const latestChecklist = checklistRows?.[0] ?? null;
+  const quickActions = [
+    { label: 'Manage Consent Forms',    href: '/admin/documents?type=consent',  icon: FileText },
+    { label: 'Review Access Requests',  href: '/admin/documents?status=pending', icon: Eye },
+    { label: 'Directory Information',   href: '/admin/students',                 icon: Users },
+    { label: 'Generate FERPA Report',   href: '/admin/reports/ferpa',            icon: Download },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
-
-      {/* Hero Image */}
-      {/* Breadcrumbs */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[
-            { label: 'Admin', href: '/admin' },
-            { label: 'FERPA Compliance' }
-          ]} />
+      <div className="bg-white border-b border-slate-200 px-6 py-5">
+        <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+          <Link href="/admin/dashboard" className="hover:text-slate-700">Admin</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href="/admin/compliance" className="hover:text-slate-700">Compliance</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-slate-900 font-medium">FERPA</span>
+        </nav>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2"><Shield className="w-6 h-6 text-brand-blue-600" />FERPA Compliance</h1>
+            <p className="text-sm text-slate-500 mt-1">Student privacy, consent forms, and records access</p>
+          </div>
+          <Link href="/admin/compliance" className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">← Compliance</Link>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-              <Shield className="w-8 h-8 text-brand-blue-600" />
-              FERPA Compliance Dashboard
-            </h1>
-            <p className="text-slate-700 mt-1">
-              Manage student privacy, consent forms, and records access
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <Link
-              href="/admin/ferpa"
-              className="px-4 py-2 bg-white border rounded-lg hover:bg-gray-50 text-slate-900 font-medium"
-            >
-              Audit Log
-            </Link>
-            <Link
-              href="/admin/ferpa/training"
-              className="px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 font-medium"
-            >
-              Staff Training
-            </Link>
-          </div>
-        </div>
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
         {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          {complianceStats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-xl p-6 shadow-sm border">
-              <div className="flex items-center justify-between mb-4">
-                <stat.icon className={`w-8 h-8 ${
-                  stat.color === 'green' ? 'text-brand-green-600' :
-                  stat.color === 'yellow' ? 'text-yellow-600' :
-                  stat.color === 'blue' ? 'text-brand-blue-600' : 'text-slate-700'
-                }`} />
-                <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                  stat.color === 'green' ? 'bg-brand-green-100 text-brand-green-700' :
-                  stat.color === 'yellow' ? 'bg-yellow-100 text-yellow-700' :
-                  stat.color === 'blue' ? 'bg-brand-blue-100 text-brand-blue-700' : 'bg-gray-100 text-slate-900'
-                }`}>
-                  {stat.color === 'green' ? 'Good' : stat.color === 'yellow' ? 'Action Needed' : 'Info'}
-                </span>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {stats.map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} className={`bg-white rounded-2xl border shadow-sm p-5 ${(s as any).urgent ? 'border-rose-300 ring-1 ring-rose-200' : 'border-slate-200'}`}>
+                <div className={`w-9 h-9 rounded-xl ${s.bg} flex items-center justify-center mb-3`}><Icon className={`w-4 h-4 ${s.color}`} /></div>
+                <p className="text-2xl font-bold text-slate-900 tabular-nums">{s.value}</p>
+                <p className="text-xs text-slate-500 mt-1 font-medium">{s.label}</p>
               </div>
-              <div className="text-3xl font-bold text-slate-900">{stat.value}</div>
-              <div className="text-slate-700 text-sm">{stat.label}</div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Quick Actions */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl p-6 shadow-sm border">
+          {/* Quick actions */}
+          <div className="space-y-4">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
               <h2 className="font-semibold text-slate-900 mb-4">Quick Actions</h2>
-              <div className="space-y-3">
-                <Link
-                  href="/admin/ferpa"
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <FileText className="w-5 h-5 text-brand-blue-600" />
-                  <span className="text-slate-900">Manage Consent Forms</span>
-                </Link>
-                <Link
-                  href="/admin/ferpa"
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <Eye className="w-5 h-5 text-brand-blue-600" />
-                  <span className="text-slate-900">Review Access Requests</span>
-                </Link>
-                <Link
-                  href="/admin/ferpa"
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <Users className="w-5 h-5 text-brand-green-600" />
-                  <span className="text-slate-900">Directory Information</span>
-                </Link>
-                <Link
-                  href="/admin/ferpa"
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <Download className="w-5 h-5 text-brand-orange-600" />
-                  <span className="text-slate-900">Generate Reports</span>
-                </Link>
+              <div className="space-y-2">
+                {quickActions.map((a) => {
+                  const Icon = a.icon;
+                  return (
+                    <Link key={a.href} href={a.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors group">
+                      <Icon className="w-4 h-4 text-brand-blue-600 flex-shrink-0" />
+                      <span className="text-sm text-slate-700 group-hover:text-slate-900">{a.label}</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-slate-500 ml-auto" />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Compliance Checklist — DB-driven */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border mt-6">
-              <h2 className="font-semibold text-slate-900 mb-4">Annual Compliance</h2>
-              {latestChecklist ? (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-slate-500">{latestChecklist.academic_year}</span>
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                      latestChecklist.status === 'complete' ? 'bg-brand-green-100 text-brand-green-700' : 'bg-yellow-100 text-yellow-700'
-                    }`}>{latestChecklist.completion_percentage ?? 0}% complete</span>
-                  </div>
-                  {latestChecklist.reviewed_at && (
-                    <p className="text-xs text-slate-500">Last reviewed: {new Date(latestChecklist.reviewed_at).toLocaleDateString()}</p>
-                  )}
-                  {Array.isArray(latestChecklist.items) && latestChecklist.items.map((item: any, i: number) => (
-                    <div key={i} className="flex items-center gap-3">
-                      {item.completed ? (
-                        <span className="text-brand-green-500 flex-shrink-0">✓</span>
-                      ) : (
-                        <Clock className="w-4 h-4 text-yellow-600 flex-shrink-0" />
-                      )}
-                      <span className="text-slate-900 text-sm">{item.name ?? item.label ?? item}</span>
-                    </div>
-                  ))}
+            {ferpaViolations > 0 && (
+              <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertTriangle className="w-4 h-4 text-red-600" />
+                  <p className="text-sm font-semibold text-red-800">FERPA Violations YTD</p>
                 </div>
-              ) : (
-                <p className="text-sm text-slate-500">No compliance checklist on record. Create one in the FERPA compliance module.</p>
-              )}
-            </div>
+                <p className="text-3xl font-bold text-red-700">{ferpaViolations}</p>
+                <p className="text-xs text-red-600 mt-1">Requires immediate review</p>
+                <Link href="/admin/compliance" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-red-700 hover:underline">
+                  View alerts <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            )}
           </div>
 
-          {/* Recent Activity */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-sm border">
-              <div className="p-6 border-b">
-                <div className="flex items-center justify-between">
-                  <h2 className="font-semibold text-slate-900">Recent Activity</h2>
-                  <div className="flex gap-2">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
-                      <input
-                        type="text"
-                        placeholder="Search..."
-                        className="pl-9 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500"
-                      />
+          {/* Recent audit activity */}
+          <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+              <h2 className="font-semibold text-slate-900">Recent Audit Activity</h2>
+              <Link href="/admin/audit-logs" className="text-xs font-semibold text-brand-blue-600 hover:underline flex items-center gap-1">View all <ArrowRight className="w-3 h-3" /></Link>
+            </div>
+            {auditLogs.length === 0 ? (
+              <div className="py-12 text-center text-sm text-slate-400">No audit activity recorded</div>
+            ) : (
+              <div className="divide-y divide-slate-100">
+                {auditLogs.map((log: any) => (
+                  <div key={log.id} className="px-6 py-3 flex items-center justify-between hover:bg-slate-50">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-slate-900 truncate">{log.action ?? 'Action'}</p>
+                      <p className="text-xs text-slate-400">{log.resource_type ?? log.target_type ?? 'Record'} · {log.actor_role ?? 'user'}</p>
                     </div>
-                    <button className="p-2 border rounded-lg hover:bg-gray-50">
-                      <Filter className="w-4 h-4 text-slate-700" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="divide-y">
-                {recentActivity.map((activity, index) => (
-                  <div key={index} className="p-4 hover:bg-gray-50">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-slate-900">{activity.action}</div>
-                        <div className="text-sm text-slate-700">Student: {activity.student}</div>
-                      </div>
-                      <div className="text-right">
-                        <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                          activity.status === 'complete' ? 'bg-brand-green-100 text-brand-green-700' :
-                          activity.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-brand-blue-100 text-brand-blue-700'
-                        }`}>
-                          {activity.status}
-                        </span>
-                        <div className="text-sm text-slate-700 mt-1">{activity.date}</div>
-                      </div>
-                    </div>
+                    <p className="text-xs text-slate-400 flex-shrink-0 ml-4">{log.created_at ? new Date(log.created_at).toLocaleString() : '—'}</p>
                   </div>
                 ))}
               </div>
-              <div className="p-4 border-t">
-                <Link
-                  href="/admin/ferpa"
-                  className="text-brand-blue-600 hover:text-brand-blue-700 text-sm font-medium"
-                >
-                  View All Activity →
-                </Link>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

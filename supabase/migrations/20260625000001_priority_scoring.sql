@@ -78,6 +78,10 @@ CREATE TRIGGER trg_refresh_priority_score
 -- ── Populate queue from live system state ─────────────────────────────────────
 -- Called by a scheduled job or on-demand from /api/admin/priority-queue/refresh.
 -- Safe to run repeatedly — uses INSERT ... ON CONFLICT DO UPDATE.
+-- NOTE: Column names corrected to match live DB schema:
+--   applications: first_name + last_name (no full_name)
+--   compliance_alerts: title (not message), status != 'resolved' (not resolved boolean)
+--   leads: first_name + last_name (no company_name/contact_name), status (not stage)
 CREATE OR REPLACE FUNCTION public.refresh_admin_priority_queue()
 RETURNS void LANGUAGE plpgsql AS $$
 DECLARE
@@ -93,158 +97,109 @@ BEGIN
     (item_type, reference_id, reference_table, title, href,
      compliance_risk, days_overdue, revenue_impact, user_blocked, severity)
   SELECT
-    'enrollment_review',
-    a.id,
-    'applications',
-    'Review enrollment: ' || COALESCE(a.full_name, a.first_name, 'Applicant'),
+    'enrollment_review', a.id, 'applications',
+    'Review enrollment: ' || COALESCE(NULLIF(TRIM(a.first_name || ' ' || a.last_name), ''), a.email, 'Applicant'),
     '/admin/applications/' || a.id,
-    1,  -- compliance_risk: enrollment paperwork is low compliance risk
+    1,
     GREATEST(0, EXTRACT(EPOCH FROM (now() - a.created_at))::integer / 3600 - sla_enrollment_hrs) / 24,
-    3,  -- revenue_impact: blocked enrollment = blocked revenue
-    true -- user_blocked: learner cannot start until approved
+    3, true, 'high'
   FROM public.applications a
   WHERE a.status IN ('submitted', 'pending', 'in_review')
   ON CONFLICT (item_type, reference_id) DO UPDATE SET
-    days_overdue   = EXCLUDED.days_overdue,
-    updated_at     = now();
+    days_overdue = EXCLUDED.days_overdue, updated_at = now();
 
   -- ── Compliance alerts ─────────────────────────────────────────────────────
   INSERT INTO public.admin_priority_queue
     (item_type, reference_id, reference_table, title, href,
      compliance_risk, days_overdue, revenue_impact, user_blocked, severity)
   SELECT
-    'compliance_alert',
-    ca.id,
-    'compliance_alerts',
-    COALESCE(ca.message, 'Compliance alert: ' || COALESCE(ca.alert_type, 'unknown')),
+    'compliance_alert', ca.id, 'compliance_alerts',
+    COALESCE(ca.title, 'Compliance alert: ' || COALESCE(ca.alert_type, 'unknown')),
     '/admin/compliance',
     CASE ca.severity WHEN 'critical' THEN 5 WHEN 'high' THEN 4 WHEN 'medium' THEN 2 ELSE 1 END,
     CASE ca.severity
       WHEN 'critical' THEN GREATEST(0, EXTRACT(EPOCH FROM (now() - ca.created_at))::integer / 3600 - sla_alert_crit_hrs) / 24
       ELSE GREATEST(0, EXTRACT(EPOCH FROM (now() - ca.created_at))::integer / 3600 - sla_alert_high_hrs) / 24
     END,
-    0,
-    false
+    0, false, ca.severity
   FROM public.compliance_alerts ca
-  WHERE ca.resolved = false
+  WHERE ca.status != 'resolved'
   ON CONFLICT (item_type, reference_id) DO UPDATE SET
-    days_overdue   = EXCLUDED.days_overdue,
-    compliance_risk = EXCLUDED.compliance_risk,
-    updated_at     = now();
+    days_overdue = EXCLUDED.days_overdue, compliance_risk = EXCLUDED.compliance_risk, updated_at = now();
 
   -- ── WIOA documents ────────────────────────────────────────────────────────
   INSERT INTO public.admin_priority_queue
     (item_type, reference_id, reference_table, title, href,
      compliance_risk, days_overdue, revenue_impact, user_blocked, severity)
   SELECT
-    'wioa_document',
-    wd.id,
-    'wioa_documents',
+    'wioa_document', wd.id, 'wioa_documents',
     'WIOA document pending: ' || COALESCE(wd.document_type, 'document'),
     '/admin/wioa/documents',
-    3,  -- WIOA is federally funded — compliance risk is high
+    3,
     GREATEST(0, EXTRACT(EPOCH FROM (now() - wd.created_at))::integer / 3600 - sla_wioa_hrs) / 24,
-    2,  -- revenue_impact: WIOA funding may be blocked
-    true -- user_blocked: funding eligibility gated on docs
+    2, true, 'high'
   FROM public.wioa_documents wd
   WHERE wd.status = 'pending'
   ON CONFLICT (item_type, reference_id) DO UPDATE SET
-    days_overdue = EXCLUDED.days_overdue,
-    updated_at   = now();
+    days_overdue = EXCLUDED.days_overdue, updated_at = now();
 
   -- ── Stale CRM leads ───────────────────────────────────────────────────────
   INSERT INTO public.admin_priority_queue
     (item_type, reference_id, reference_table, title, href,
      compliance_risk, days_overdue, revenue_impact, user_blocked, severity)
   SELECT
-    'stale_lead',
-    l.id,
-    'leads',
-    'Stale lead: ' || COALESCE(l.company_name, l.contact_name, 'Lead'),
+    'stale_lead', l.id, 'leads',
+    'Stale lead: ' || COALESCE(NULLIF(TRIM(l.first_name || ' ' || l.last_name), ''), l.email, 'Lead'),
     '/admin/crm/leads/' || l.id,
     0,
     GREATEST(0, EXTRACT(EPOCH FROM (now() - l.updated_at))::integer / 86400 - sla_lead_days),
-    2,  -- revenue_impact: unconverted lead = lost revenue
-    false
+    2, false, 'medium'
   FROM public.leads l
-  WHERE l.stage NOT IN ('Closed Won', 'Closed Lost')
+  WHERE l.status NOT IN ('closed_won', 'closed_lost', 'Closed Won', 'Closed Lost')
     AND l.updated_at < now() - (sla_lead_days || ' days')::interval
   ON CONFLICT (item_type, reference_id) DO UPDATE SET
-    days_overdue = EXCLUDED.days_overdue,
-    updated_at   = now();
+    days_overdue = EXCLUDED.days_overdue, updated_at = now();
 
   -- ── Failed jobs ───────────────────────────────────────────────────────────
   INSERT INTO public.admin_priority_queue
     (item_type, reference_id, reference_table, title, href,
      compliance_risk, days_overdue, revenue_impact, user_blocked, severity)
   SELECT
-    'job_failure',
-    jq.id,
-    'job_queue',
+    'job_failure', jq.id, 'job_queue',
     'Failed job: ' || jq.type,
     '/admin/system/jobs',
     1,
     GREATEST(0, EXTRACT(EPOCH FROM (now() - jq.created_at))::integer / 3600),
-    1,
-    false
+    1, false, 'high'
   FROM public.job_queue jq
   WHERE jq.status = 'failed'
   ON CONFLICT (item_type, reference_id) DO UPDATE SET
-    days_overdue = EXCLUDED.days_overdue,
-    updated_at   = now();
+    days_overdue = EXCLUDED.days_overdue, updated_at = now();
 
   -- ── Mark resolved items ───────────────────────────────────────────────────
-  -- Enrollments no longer pending
-  UPDATE public.admin_priority_queue q
-  SET resolved = true, resolved_at = now()
-  WHERE q.item_type = 'enrollment_review'
-    AND q.resolved = false
-    AND NOT EXISTS (
-      SELECT 1 FROM public.applications a
-      WHERE a.id = q.reference_id AND a.status IN ('submitted','pending','in_review')
-    );
+  UPDATE public.admin_priority_queue q SET resolved = true, resolved_at = now()
+  WHERE q.item_type = 'enrollment_review' AND q.resolved = false
+    AND NOT EXISTS (SELECT 1 FROM public.applications a WHERE a.id = q.reference_id AND a.status IN ('submitted','pending','in_review'));
 
-  -- Compliance alerts now resolved
-  UPDATE public.admin_priority_queue q
-  SET resolved = true, resolved_at = now()
-  WHERE q.item_type = 'compliance_alert'
-    AND q.resolved = false
-    AND NOT EXISTS (
-      SELECT 1 FROM public.compliance_alerts ca
-      WHERE ca.id = q.reference_id AND ca.resolved = false
-    );
+  UPDATE public.admin_priority_queue q SET resolved = true, resolved_at = now()
+  WHERE q.item_type = 'compliance_alert' AND q.resolved = false
+    AND NOT EXISTS (SELECT 1 FROM public.compliance_alerts ca WHERE ca.id = q.reference_id AND ca.status != 'resolved');
 
-  -- WIOA docs no longer pending
-  UPDATE public.admin_priority_queue q
-  SET resolved = true, resolved_at = now()
-  WHERE q.item_type = 'wioa_document'
-    AND q.resolved = false
-    AND NOT EXISTS (
-      SELECT 1 FROM public.wioa_documents wd
-      WHERE wd.id = q.reference_id AND wd.status = 'pending'
-    );
+  UPDATE public.admin_priority_queue q SET resolved = true, resolved_at = now()
+  WHERE q.item_type = 'wioa_document' AND q.resolved = false
+    AND NOT EXISTS (SELECT 1 FROM public.wioa_documents wd WHERE wd.id = q.reference_id AND wd.status = 'pending');
 
-  -- Leads no longer stale
-  UPDATE public.admin_priority_queue q
-  SET resolved = true, resolved_at = now()
-  WHERE q.item_type = 'stale_lead'
-    AND q.resolved = false
+  UPDATE public.admin_priority_queue q SET resolved = true, resolved_at = now()
+  WHERE q.item_type = 'stale_lead' AND q.resolved = false
     AND NOT EXISTS (
-      SELECT 1 FROM public.leads l
-      WHERE l.id = q.reference_id
-        AND l.stage NOT IN ('Closed Won','Closed Lost')
+      SELECT 1 FROM public.leads l WHERE l.id = q.reference_id
+        AND l.status NOT IN ('closed_won','closed_lost','Closed Won','Closed Lost')
         AND l.updated_at < now() - (sla_lead_days || ' days')::interval
     );
 
-  -- Jobs no longer failed
-  UPDATE public.admin_priority_queue q
-  SET resolved = true, resolved_at = now()
-  WHERE q.item_type = 'job_failure'
-    AND q.resolved = false
-    AND NOT EXISTS (
-      SELECT 1 FROM public.job_queue jq
-      WHERE jq.id = q.reference_id AND jq.status = 'failed'
-    );
+  UPDATE public.admin_priority_queue q SET resolved = true, resolved_at = now()
+  WHERE q.item_type = 'job_failure' AND q.resolved = false
+    AND NOT EXISTS (SELECT 1 FROM public.job_queue jq WHERE jq.id = q.reference_id AND jq.status = 'failed');
 
 END;
 $$;

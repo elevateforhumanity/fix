@@ -1,163 +1,153 @@
 import { Metadata } from 'next';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { requireRole } from '@/lib/auth/require-role';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
-import { Upload, Download, Search, Filter, Folder, File, Eye, Trash2, ArrowLeft, Plus } from 'lucide-react';
-import { createClient } from '@/lib/supabase/server';
+import { FileText, ChevronRight, ArrowRight, Clock, CheckCircle, XCircle, Plus } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = { robots: { index: false, follow: false }, title: 'WIOA Documents | Admin' };
 
-export const metadata: Metadata = {
-  title: 'WIOA Documents | Admin',
-  description: 'Manage WIOA participant documentation.',
-  robots: { index: false, follow: false },
+const STATUS_STYLES: Record<string, string> = {
+  pending:  'bg-amber-100 text-amber-800',
+  approved: 'bg-green-100 text-green-800',
+  rejected: 'bg-red-100 text-red-800',
+  review:   'bg-blue-100 text-blue-800',
 };
 
 export default async function WIOADocumentsPage() {
-  const supabase = await createClient();
+  await requireRole(['admin', 'super_admin', 'staff']);
+  const db = await getAdminClient();
 
-  // Fetch WIOA documents
-  const { data: documents } = await supabase
-    .from('wioa_documents')
-    .select('*, profiles(first_name, last_name)')
-    .order('created_at', { ascending: false })
-    .limit(50);
+  const [docsRes, pendingRes, approvedRes] = await Promise.all([
+    db.from('wioa_documents')
+      .select('id, document_type, file_name, status, created_at, updated_at, user_id', { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .limit(100),
+    db.from('wioa_documents').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+    db.from('wioa_documents').select('id', { count: 'exact', head: true }).eq('status', 'approved'),
+  ]);
 
-  const allDocs = documents || [];
+  const docs         = docsRes.data ?? [];
+  const totalCount   = docsRes.count ?? 0;
+  const pendingCount = pendingRes.count ?? 0;
+  const approvedCount = approvedRes.count ?? 0;
 
-  // Derive folder categories from actual document_type values in DB
-  const typeCountMap = allDocs.reduce((acc: Record<string, number>, d: any) => {
-    const t = d.document_type || 'other';
-    acc[t] = (acc[t] || 0) + 1;
-    return acc;
-  }, {});
+  // Hydrate user profiles
+  const userIds = [...new Set(docs.map((d: any) => d.user_id).filter(Boolean))];
+  const { data: profiles } = userIds.length
+    ? await db.from('profiles').select('id, full_name, email').in('id', userIds)
+    : { data: [] };
+  const profileMap = Object.fromEntries((profiles ?? []).map((p: any) => [p.id, p]));
 
-  // Human-readable label map — extend as new types appear in DB
+  // Group by document_type for folder view
+  const typeCountMap: Record<string, number> = {};
+  for (const d of docs) {
+    const t = (d as any).document_type || 'other';
+    typeCountMap[t] = (typeCountMap[t] || 0) + 1;
+  }
   const typeLabels: Record<string, string> = {
-    eligibility: 'Eligibility Forms',
-    income: 'Income Verification',
-    training: 'Training Agreements',
-    outcome: 'Outcome Documentation',
-    support: 'Support Services',
-    other: 'Other',
+    eligibility: 'Eligibility Forms', income: 'Income Verification',
+    training: 'Training Agreements', outcome: 'Outcome Documentation',
+    support: 'Support Services', other: 'Other',
   };
 
-  const folders = Object.entries(typeCountMap).map(([type, count]) => ({
-    name: typeLabels[type] ?? type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-    count,
-    type,
-  }));
   return (
-    <div className="min-h-screen bg-white p-8">
-
-      {/* Hero Image */}
-            <div className="max-w-7xl mx-auto px-4 py-4">
-        <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Documents" }]} />
-      </div>
-<div className="max-w-7xl mx-auto">
-        <Link href="/admin/wioa" className="flex items-center gap-2 text-slate-700 hover:text-brand-blue-600 mb-6">
-          <ArrowLeft className="w-4 h-4" />
-          Back to WIOA Management
-        </Link>
-
-        <div className="flex items-center justify-between mb-8">
+    <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-slate-200 px-6 py-5">
+        <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+          <Link href="/admin/dashboard" className="hover:text-slate-700">Admin</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href="/admin/wioa" className="hover:text-slate-700">WIOA</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-slate-900 font-medium">Documents</span>
+        </nav>
+        <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-slate-900">WIOA Documents</h1>
-            <p className="text-slate-700">Manage participant documentation and compliance files</p>
+            <p className="text-sm text-slate-500 mt-1">Federal funding documentation and participant records</p>
           </div>
-          <button className="px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition flex items-center gap-2">
-            <Upload className="w-4 h-4" />
-            Upload Document
-          </button>
+          <Link href="/admin/wioa/documents/upload" className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+            <Plus className="w-4 h-4" /> Upload Document
+          </Link>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-4">
+          {[
+            { label: 'Total Documents', value: totalCount,    icon: FileText,    color: 'text-slate-600',  bg: 'bg-slate-100' },
+            { label: 'Pending Review',  value: pendingCount,  icon: Clock,       color: 'text-amber-600',  bg: 'bg-amber-50',  urgent: pendingCount > 0 },
+            { label: 'Approved',        value: approvedCount, icon: CheckCircle, color: 'text-green-600',  bg: 'bg-green-50' },
+          ].map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} className={`bg-white rounded-2xl border shadow-sm p-5 ${(s as any).urgent ? 'border-amber-300 ring-1 ring-amber-200' : 'border-slate-200'}`}>
+                <div className={`w-9 h-9 rounded-xl ${s.bg} flex items-center justify-center mb-3`}><Icon className={`w-4 h-4 ${s.color}`} /></div>
+                <p className="text-2xl font-bold text-slate-900 tabular-nums">{s.value}</p>
+                <p className="text-xs text-slate-500 mt-1 font-medium">{s.label}</p>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm p-4">
-              <h3 className="font-semibold text-slate-900 mb-4">Folders</h3>
-              <div className="space-y-2">
-                {folders.map((folder, index) => (
-                  <button key={index} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition text-left">
-                    <div className="flex items-center gap-3">
-                      <Folder className="w-5 h-5 text-yellow-500" />
-                      <span className="text-slate-900">{folder.name}</span>
-                    </div>
-                    <span className="text-sm text-slate-700">{folder.count}</span>
-                  </button>
+        {/* Document type folders */}
+        {Object.keys(typeCountMap).length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {Object.entries(typeCountMap).map(([type, count]) => (
+              <div key={type} className="bg-white rounded-xl border border-slate-200 p-4 hover:border-brand-blue-300 hover:shadow-sm transition-all cursor-pointer">
+                <FileText className="w-6 h-6 text-brand-blue-500 mb-2" />
+                <p className="text-sm font-semibold text-slate-900">{typeLabels[type] ?? type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{count} document{count !== 1 ? 's' : ''}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Documents table */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h2 className="font-semibold text-slate-900 text-sm">All Documents</h2>
+            <span className="text-xs text-slate-400">{totalCount} total</span>
+          </div>
+          {docs.length === 0 ? (
+            <div className="py-16 text-center">
+              <FileText className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+              <p className="text-sm text-slate-500">No WIOA documents uploaded yet</p>
+            </div>
+          ) : (
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-slate-100 bg-slate-50">
+                {['Participant','Document Type','File','Status','Uploaded',''].map(h => (
+                  <th key={h} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">{h}</th>
                 ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-xl shadow-sm">
-              <div className="p-4 border-b flex items-center gap-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
-                  <input
-                    type="text"
-                    placeholder="Search documents..."
-                    className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent"
-                  />
-                </div>
-                <button className="px-4 py-2 border rounded-lg hover:bg-gray-50 transition flex items-center gap-2">
-                  <Filter className="w-4 h-4" />
-                  Filter
-                </button>
-              </div>
-
-              {allDocs.length === 0 ? (
-                <div className="p-12 text-center">
-                  <File className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-slate-900 mb-2">No Documents</h3>
-                  <p className="text-slate-700 mb-6">Upload WIOA participant documents to get started.</p>
-                  <button className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition">
-                    <Plus className="w-4 h-4" />
-                    Upload Document
-                  </button>
-                </div>
-              ) : (
-                <div className="divide-y">
-                  {allDocs.map((doc) => {
-                    const profile = doc.profiles as { first_name: string; last_name: string } | null;
-                    return (
-                      <div key={doc.id} className="p-4 flex items-center gap-4 hover:bg-gray-50">
-                        <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                          <File className="w-5 h-5 text-slate-700" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-slate-900 truncate">{doc.file_name || doc.title}</p>
-                          <p className="text-sm text-slate-700">
-                            {profile ? `${profile.first_name} ${profile.last_name}` : 'Unknown'} - {doc.document_type}
-                          </p>
-                        </div>
-                        <div className="text-sm text-slate-700">
-                          {new Date(doc.created_at).toLocaleDateString()}
-                        </div>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          doc.status === 'verified' ? 'bg-brand-green-100 text-brand-green-700' :
-                          doc.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-brand-red-100 text-brand-red-700'
-                        }`}>
-                          {doc.status || 'pending'}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <button className="p-2 hover:bg-gray-100 rounded-lg" title="View">
-                            <Eye className="w-4 h-4 text-slate-700" />
-                          </button>
-                          <button className="p-2 hover:bg-gray-100 rounded-lg" title="Download">
-                            <Download className="w-4 h-4 text-slate-700" />
-                          </button>
-                          <button className="p-2 hover:bg-gray-100 rounded-lg" title="Delete">
-                            <Trash2 className="w-4 h-4 text-brand-red-500" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
+              </tr></thead>
+              <tbody className="divide-y divide-slate-50">
+                {docs.map((d: any) => {
+                  const p = profileMap[d.user_id];
+                  return (
+                    <tr key={d.id} className="hover:bg-slate-50">
+                      <td className="py-3.5 px-5">
+                        <p className="font-semibold text-slate-900">{p?.full_name ?? '—'}</p>
+                        <p className="text-xs text-slate-400">{p?.email ?? ''}</p>
+                      </td>
+                      <td className="py-3.5 px-5 text-slate-600 capitalize">{(d.document_type ?? 'other').replace(/_/g, ' ')}</td>
+                      <td className="py-3.5 px-5 text-slate-500 text-xs truncate max-w-[160px]">{d.file_name ?? '—'}</td>
+                      <td className="py-3.5 px-5">
+                        <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-semibold ${STATUS_STYLES[d.status] ?? 'bg-slate-100 text-slate-600'}`}>{d.status ?? 'unknown'}</span>
+                      </td>
+                      <td className="py-3.5 px-5 text-slate-500 text-xs">{d.created_at ? new Date(d.created_at).toLocaleDateString() : '—'}</td>
+                      <td className="py-3.5 px-5 text-right">
+                        <Link href={`/admin/wioa/documents/${d.id}`} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700">
+                          Review <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

@@ -1,114 +1,88 @@
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
+import { requireRole } from '@/lib/auth/require-role';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { Shield } from 'lucide-react';
+import Link from 'next/link';
+import { Clock, ChevronRight, Shield } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
-export const metadata: Metadata = {
-  title: 'Audit Logs | Admin | Elevate For Humanity',
-  robots: { index: false, follow: false },
-};
+export const metadata: Metadata = { robots: { index: false, follow: false }, title: 'Audit Logs | Admin' };
 
-const ACTION_STYLES: Record<string, string> = {
-  create: 'bg-green-100 text-green-700',
-  update: 'bg-blue-100 text-blue-700',
-  delete: 'bg-red-100 text-red-700',
-  login:  'bg-slate-100 text-slate-700',
-  export: 'bg-yellow-100 text-yellow-700',
-};
-
-export default async function AuditLogsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ action?: string; resource?: string; page?: string }>;
-}) {
-  const params = await searchParams;
+export default async function AuditLogsPage() {
+  await requireRole(['admin', 'super_admin']);
   const db = await getAdminClient();
-  const page = Math.max(1, parseInt(params.page ?? '1', 10));
-  const pageSize = 50;
-  const offset = (page - 1) * pageSize;
 
-  let query = db
-    .from('audit_logs')
-    .select('id,user_id,action,resource_type,resource_id,created_at,metadata', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range(offset, offset + pageSize - 1);
+  const [logsRes, totalRes] = await Promise.all([
+    db.from('audit_logs')
+      .select('id, action, actor_id, actor_email, actor_role, resource_type, resource_id, target_type, target_id, event_type, ip_address, created_at, metadata, details')
+      .order('created_at', { ascending: false })
+      .limit(100),
+    db.from('audit_logs').select('id', { count: 'exact', head: true }),
+  ]);
 
-  if (params.action) query = query.eq('action', params.action);
-  if (params.resource) query = query.eq('resource_type', params.resource);
+  const logs       = logsRes.data ?? [];
+  const totalCount = totalRes.count ?? 0;
 
-  const { data: logs, count } = await query;
-  const total = count ?? 0;
-  const totalPages = Math.ceil(total / pageSize);
-
-  function fmt(iso: string) {
-    return new Date(iso).toLocaleString('en-US', {
-      month: 'short', day: 'numeric', year: 'numeric',
-      hour: 'numeric', minute: '2-digit',
-    });
-  }
+  // Hydrate actor profiles where actor_email is missing
+  const actorIds = [...new Set(logs.filter((l: any) => !l.actor_email && l.actor_id).map((l: any) => l.actor_id))];
+  const { data: actors } = actorIds.length
+    ? await db.from('profiles').select('id, full_name, email').in('id', actorIds)
+    : { data: [] };
+  const actorMap = Object.fromEntries((actors ?? []).map((a: any) => [a.id, a]));
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center gap-3">
-            <Shield className="w-6 h-6 text-slate-400" />
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">Audit Logs</h1>
-              <p className="text-slate-500 text-sm">{total.toLocaleString()} total events</p>
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-slate-200 px-6 py-5">
+        <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+          <Link href="/admin/dashboard" className="hover:text-slate-700">Admin</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-slate-900 font-medium">Audit Logs</span>
+        </nav>
+        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Shield className="w-6 h-6 text-slate-600" /> Audit Logs
+        </h1>
+        <p className="text-sm text-slate-500 mt-1">{totalCount.toLocaleString()} total events · showing most recent 100</p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-xl border overflow-hidden">
-          {!logs || logs.length === 0 ? (
-            <div className="text-center py-16 text-slate-400">
-              <Shield className="w-12 h-12 mx-auto mb-3 text-slate-200" />
-              <p>No audit log entries found.</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          {logs.length === 0 ? (
+            <div className="py-16 text-center">
+              <Clock className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+              <p className="text-sm text-slate-500">No audit events recorded</p>
             </div>
           ) : (
-            <table className="min-w-full divide-y divide-slate-100">
-              <thead className="bg-slate-50">
-                <tr>
-                  {['Time', 'Action', 'Resource', 'Resource ID', 'User'].map(h => (
-                    <th key={h} className="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {logs.map((log) => (
-                  <tr key={log.id} className="hover:bg-slate-50 text-sm">
-                    <td className="px-6 py-3 text-slate-500 whitespace-nowrap">{fmt(log.created_at)}</td>
-                    <td className="px-6 py-3">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${ACTION_STYLES[log.action] ?? 'bg-slate-100 text-slate-600'}`}>
-                        {log.action}
-                      </span>
-                    </td>
-                    <td className="px-6 py-3 text-slate-700">{log.resource_type}</td>
-                    <td className="px-6 py-3 text-slate-400 font-mono text-xs">{log.resource_id ?? '—'}</td>
-                    <td className="px-6 py-3 text-slate-400 font-mono text-xs truncate max-w-[160px]">{log.user_id ?? '—'}</td>
-                  </tr>
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-slate-100 bg-slate-50">
+                {['Time','Actor','Action','Resource','IP'].map(h => (
+                  <th key={h} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">{h}</th>
                 ))}
+              </tr></thead>
+              <tbody className="divide-y divide-slate-50">
+                {logs.map((log: any) => {
+                  const actor = actorMap[log.actor_id];
+                  const actorLabel = log.actor_email ?? actor?.email ?? actor?.full_name ?? log.actor_id ?? 'System';
+                  const resource = [log.resource_type ?? log.target_type, log.resource_id ?? log.target_id].filter(Boolean).join(' ');
+                  return (
+                    <tr key={log.id} className="hover:bg-slate-50">
+                      <td className="py-3 px-5 text-slate-500 text-xs whitespace-nowrap">
+                        {log.created_at ? new Date(log.created_at).toLocaleString() : '—'}
+                      </td>
+                      <td className="py-3 px-5">
+                        <p className="text-xs font-medium text-slate-900 truncate max-w-[140px]">{actorLabel}</p>
+                        {log.actor_role && <p className="text-[10px] text-slate-400">{log.actor_role}</p>}
+                      </td>
+                      <td className="py-3 px-5">
+                        <span className="text-xs font-mono bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">{log.action ?? log.event_type ?? '—'}</span>
+                      </td>
+                      <td className="py-3 px-5 text-slate-500 text-xs truncate max-w-[160px]">{resource || '—'}</td>
+                      <td className="py-3 px-5 text-slate-400 text-xs font-mono">{log.ip_address ?? '—'}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           )}
         </div>
-
-        {totalPages > 1 && (
-          <div className="flex items-center justify-between mt-4 text-sm text-slate-500">
-            <span>Page {page} of {totalPages}</span>
-            <div className="flex gap-2">
-              {page > 1 && (
-                <a href={`?page=${page - 1}`} className="px-3 py-1.5 border rounded-lg hover:bg-slate-50">Previous</a>
-              )}
-              {page < totalPages && (
-                <a href={`?page=${page + 1}`} className="px-3 py-1.5 border rounded-lg hover:bg-slate-50">Next</a>
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

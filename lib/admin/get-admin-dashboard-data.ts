@@ -129,7 +129,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     newEnrollmentsTodayRes,
   ] = await Promise.all([
     db.from('applications')
-      .select('id, first_name, last_name, full_name, email, program_interest, program_slug, status, created_at, submitted_at, next_step_due_date, funding_type')
+      .select('id, first_name, last_name, full_name, email, program_interest, program_slug, status, created_at, submitted_at')
       .in('status', ['submitted', 'pending', 'in_review'])
       .order('created_at', { ascending: true })
       .limit(20),
@@ -222,16 +222,18 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       .limit(10),
 
     // Compliance alerts — unresolved, for dashboard snapshot
+    // Real columns: title (not message), status != 'resolved' (not a boolean resolved column)
     db.from('compliance_alerts')
-      .select('id, alert_type, severity, message, created_at')
-      .eq('resolved', false)
+      .select('id, alert_type, severity, title, description, created_at')
+      .neq('status', 'resolved')
       .order('severity', { ascending: false })
       .limit(5),
 
     // Stale CRM leads — no activity in 5+ days, not closed
+    // Real columns: first_name, last_name, email, status (not company_name/contact_name/stage)
     db.from('leads')
-      .select('id, company_name, contact_name, stage, updated_at')
-      .not('stage', 'in', '("Closed Won","Closed Lost")')
+      .select('id, first_name, last_name, email, status, updated_at')
+      .not('status', 'in', '(closed_won,closed_lost)')
       .lt('updated_at', new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString())
       .order('updated_at', { ascending: true })
       .limit(5),
@@ -279,9 +281,8 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   const now2 = Date.now();
   const staleLeads = staleLeadsData.map((l: any) => ({
     id: l.id,
-    company_name: l.company_name ?? null,
-    contact_name: l.contact_name ?? null,
-    stage: l.stage ?? null,
+    name: [l.first_name, l.last_name].filter(Boolean).join(' ') || l.email || null,
+    status: l.status ?? null,
     updated_at: l.updated_at ?? null,
     days_stale: l.updated_at ? Math.floor((now2 - new Date(l.updated_at).getTime()) / 86400000) : 0,
     href: `/admin/crm/leads/${l.id}`,
@@ -300,7 +301,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     rawPriorityItems.push({
       id: a.id,
       type: 'compliance',
-      label: a.message ?? `Compliance alert: ${a.alert_type ?? 'unknown'}`,
+      label: a.title ?? `Compliance alert: ${a.alert_type ?? 'unknown'}`,
       href: '/admin/compliance',
       score,
       severity: scoreSeverity(score),
@@ -314,11 +315,11 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     rawPriorityItems.push({
       id: l.id,
       type: 'lead',
-      label: `Stale lead: ${l.company_name ?? l.contact_name ?? 'Unknown'}`,
+      label: `Stale lead: ${l.name ?? 'Unknown'}`,
       href: l.href,
       score,
       severity: scoreSeverity(score),
-      context: `${l.days_stale}d no activity · ${l.stage ?? 'No stage'}`,
+      context: `${l.days_stale}d no activity · ${l.status ?? 'No status'}`,
     });
   }
 
