@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
         slot_id: slotId ?? '',
       },
 
-      success_url: `${SITE_URL}/testing/book/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${SITE_URL}/testing/book?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${SITE_URL}/testing/book?cancelled=1`,
     });
 

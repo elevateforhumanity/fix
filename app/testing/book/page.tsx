@@ -48,6 +48,8 @@ function BookingForm() {
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [paid, setPaid] = useState(false);
+  const [paidSessionId, setPaidSessionId] = useState('');
   const [enforcementHold, setEnforcementHold] = useState<{
     id: string; enforcement_type: string; fee_cents: number;
   } | null>(null);
@@ -171,6 +173,30 @@ function BookingForm() {
       .finally(() => setSlotsLoading(false));
   }, [selectedProvider]);
 
+  // Detect return from Stripe — restore form state and unlock slot picker
+  useEffect(() => {
+    const sessionId = searchParams.get('session_id');
+    if (!sessionId) return;
+    setPaid(true);
+    setPaidSessionId(sessionId);
+    try {
+      const saved = sessionStorage.getItem('pendingBooking');
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.name) setName(data.name);
+        if (data.email) setEmail(data.email);
+        if (data.phone) setPhone(data.phone);
+        if (data.notes) setNotes(data.notes);
+        if (data.examType) {
+          const match = ALL_PROVIDERS.find(p => p.key === data.examType);
+          if (match) setSelectedProvider(match);
+        }
+        if (data.proctoringMode) setProctoringMode(data.proctoringMode);
+        if (data.addOnSelected) setAddOnSelected(data.addOnSelected);
+      }
+    } catch { /* ignore */ }
+  }, [searchParams]);
+
   const proctoringOptions = selectedProvider
     ? getProctoringOptions(selectedProvider.key)
     : null;
@@ -224,12 +250,14 @@ function BookingForm() {
             examType: selectedProvider.key,
             examName: selectedProvider.name,
             bookingType: isOrg ? 'organization' : 'individual',
-            firstName, lastName, email, phone,
+            firstName, lastName, name, email, phone,
             organization: org, participantCount: isOrg ? qty : 1,
             preferredDate, preferredTime: '',
             slotId: selectedSlotId || null,
             notes,
             addOn: !isOrg && addOnSelected,
+            proctoringMode,
+            addOnSelected,
           }));
           window.location.href = data.url;
           return;
@@ -642,13 +670,16 @@ function BookingForm() {
                 </div>
               )}
 
-              {/* Slot picker — pulls live availability from DB */}
-              <div className={enforcementHold && !enforcementHold.paid ? 'opacity-40 pointer-events-none select-none' : ''}>
+              {/* Slot picker — only shown after payment is confirmed */}
+              {!paid && !enforcementHold && (
+                <div className="bg-brand-blue-50 border border-brand-blue-200 rounded-xl px-4 py-4 text-sm text-brand-blue-800">
+                  <p className="font-bold mb-1">Payment required before scheduling</p>
+                  <p className="text-xs text-brand-blue-700">Complete your details above and click <strong>Pay &amp; Continue</strong> to select your testing slot after payment is confirmed.</p>
+                </div>
+              )}
+              <div className={(!paid && !enforcementHold) || (enforcementHold && !enforcementHold.paid) ? 'hidden' : ''}>
                 <label className="block text-xs font-semibold text-slate-600 mb-1">
                   Select a testing date &amp; time *
-                  {enforcementHold && !enforcementHold.paid && (
-                    <span className="ml-2 text-brand-blue-600 font-bold">(Pay first to unlock)</span>
-                  )}
                 </label>
                 {slotsLoading ? (
                   <p className="text-xs text-slate-400 py-2">Loading available slots...</p>
@@ -745,11 +776,15 @@ function BookingForm() {
 
               <button
                 type="submit"
-                disabled={submitting || !!enforcementHold || checkingHold}
+                disabled={submitting || (!!enforcementHold && !enforcementHold.paid) || checkingHold || (paid && !selectedSlotId)}
                 className="w-full bg-brand-red-600 hover:bg-brand-red-700 disabled:opacity-60 text-white font-bold py-3 rounded-xl transition-colors text-sm"
               >
                 {submitting
                   ? 'Processing...'
+                  : paid
+                  ? selectedSlotId
+                    ? 'Confirm Booking'
+                    : 'Select a time slot above'
                   : selectedProvider?.fees?.length
                   ? (() => {
                       const isOrgType = orgType !== 'Individual' && orgType !== '';
@@ -758,9 +793,9 @@ function BookingForm() {
                       const addOn = (!isOrgType && addOnSelected && selectedProvider.addOn)
                         ? selectedProvider.addOn.amountCents / 100 : 0;
                       const total = isOrgType ? base * qty : base + addOn;
-                      return `Pay & Book — $${total.toFixed(0)}${isOrgType && qty > 1 ? ` (${qty} seats)` : ''}`;
+                      return `Pay & Continue — $${total.toFixed(0)}${isOrgType && qty > 1 ? ` (${qty} seats)` : ''}`;
                     })()
-                  : 'Submit Booking Request'}
+                  : 'Continue to Payment'}
               </button>
 
               <p className="text-xs text-slate-500 text-center">

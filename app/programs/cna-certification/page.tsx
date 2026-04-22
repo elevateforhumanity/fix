@@ -1,7 +1,2 @@
-
-export const revalidate = 3600;
-
 import { redirect } from 'next/navigation';
-export default function CNACertificationPage() {
-  redirect('/programs/cna');
-}
+export default function Redirect() { redirect('/programs/cna'); }
