@@ -7,7 +7,10 @@ import {
   BookOpen, Video, FileText, ClipboardCheck, Wrench, FlaskConical,
   ChevronRight, Play, X, Maximize2,
 } from 'lucide-react';
-import type { CourseDefinition, CourseLesson, CourseModule } from '@/lib/courses/definitions';
+// Inline types — avoids pulling definitions.ts into the webpack module graph
+type CourseLesson = any;
+type CourseModule = any;
+type CourseDefinition = any;
 import {
   HVAC_FIRST_LESSON_ID as FIRST_LESSON_ID,
   HVAC_LESSON_UUID as LESSON_UUID,

@@ -1,5 +1,8 @@
 import { Metadata } from 'next';
-import { getCourseBySlug } from '@/lib/courses/definitions';
+import { readFileSync } from 'fs';
+import path from 'path';
+const _courseDefs: any[] = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
+const getCourseBySlug = (slug: string) => _courseDefs.find((c: any) => c.slug === slug);
 import { getCurrentUser } from '@/lib/auth';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { resolveHvacCourseId } from '@/lib/courses/resolvers';

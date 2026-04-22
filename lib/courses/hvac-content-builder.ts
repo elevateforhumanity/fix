@@ -2,13 +2,17 @@
 // Generates rich lesson HTML from course definition metadata.
 // Used by the public API fallback when Supabase has only placeholder content.
 
-import { COURSE_DEFINITIONS } from './definitions';
-import type { CourseModule, CourseLesson } from './definitions';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-const HVAC_DEF = COURSE_DEFINITIONS.find(c => c.slug === 'hvac-technician');
+type CourseModule = any;
+type CourseLesson = any;
+
+const _defs: any[] = JSON.parse(readFileSync(join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
+const HVAC_DEF = _defs.find((c: any) => c.slug === 'hvac-technician');
 
 if (!HVAC_DEF) {
-  throw new Error('HVAC course definition not found in COURSE_DEFINITIONS');
+  throw new Error('HVAC course definition not found in course-definitions.json');
 }
 
 /** Build a reverse map: lesson ID → { module, lessonIndex } */

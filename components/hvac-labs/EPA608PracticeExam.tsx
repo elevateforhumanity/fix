@@ -2,17 +2,22 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { CheckCircle, XCircle, Clock, RotateCcw, ChevronRight, AlertTriangle } from 'lucide-react';
-import {
-  EPA608_QUESTIONS,
-  EPA608_SECTIONS,
-  getQuestionsBySection,
-  type EPA608Question,
-} from '@/lib/courses/hvac-epa608-prep';
+// Data loaded by server parent and passed as props — not imported directly
+type EPA608Question = any;
 
-type ExamSection = typeof EPA608_SECTIONS[number]['id'];
+interface EPA608SectionDef { id: string; label: string; description?: string; }
+
+interface EPA608PracticeExamProps {
+  questions?: EPA608Question[];
+  sections?: EPA608SectionDef[];
+}
+
+type ExamSection = string;
 type ExamPhase = 'select' | 'exam' | 'review';
 
-export default function EPA608PracticeExam() {
+export default function EPA608PracticeExam({ questions: EPA608_QUESTIONS = [], sections: EPA608_SECTIONS = [] }: EPA608PracticeExamProps) {
+  const getQuestionsBySection = (sectionId: string) =>
+    EPA608_QUESTIONS.filter((q: any) => q.section === sectionId || q.sectionId === sectionId);
   const [phase, setPhase] = useState<ExamPhase>('select');
   const [section, setSection] = useState<ExamSection>('core');
   const [questions, setQuestions] = useState<EPA608Question[]>([]);

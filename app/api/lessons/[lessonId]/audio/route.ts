@@ -6,8 +6,12 @@ import path from 'path';
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { apiAuthGuard } from '@/lib/admin/guards';
-import { COURSE_DEFINITIONS } from '@/lib/courses/definitions';
-import type { CourseLesson, CourseModule } from '@/lib/courses/definitions';
+// Load course definitions from JSON — excluded from webpack module graph
+const COURSE_DEFINITIONS: any[] = JSON.parse(
+  require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/course-definitions.json'), 'utf8')
+);
+type CourseLesson = any;
+type CourseModule = any;
 import { getInstructorForCourse } from '@/lib/ai-instructors';
 import { aiChat, isAIAvailable } from '@/lib/ai/ai-service';
 import { withApiAudit } from '@/lib/audit/withApiAudit';

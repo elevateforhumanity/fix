@@ -20,7 +20,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getAllHvacLessons, getHvacLesson } from '@/lib/courses/hvac-csv-loader';
 import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-legacy-maps';
-import { HVAC_QUIZ_MAP } from '@/lib/courses/hvac-quizzes';
+import { readFileSync } from 'fs';
+import path from 'path';
+const _hvacQuizzes = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/hvac-quizzes.json'), 'utf8'));
+const HVAC_QUIZ_MAP: Record<string, any[]> = _hvacQuizzes.HVAC_QUIZ_MAP ?? {};
 import { EPA_608_LESSON_TAGS } from '@/lib/courses/hvac-epa-tags';
 
 export const dynamic = 'force-dynamic';

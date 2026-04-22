@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
-import { COURSE_DEFINITIONS } from '@/lib/courses/definitions';
+import { readFileSync } from 'fs';
+import path from 'path';
+const COURSE_DEFINITIONS: any[] = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8')
+);
 import { HVAC_LESSON_UUID, HVAC_MODULE_UUID } from '@/lib/courses/hvac-legacy-maps';
-import { HVAC_QUIZ_MAP } from '@/lib/courses/hvac-quiz-map';
+
 import { buildLessonContent, isPlaceholderContent } from '@/lib/courses/hvac-content-builder';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
@@ -23,10 +27,9 @@ const LESSON_ID_TO_UUID: Record<string, Record<string, string>> = {
 const MODULE_ID_TO_UUID: Record<string, Record<string, string>> = {
   'hvac-technician': HVAC_MODULE_UUID,
 };
-// Quiz data lookup by slug
-const QUIZ_MAPS: Record<string, typeof HVAC_QUIZ_MAP> = {
-  'hvac-technician': HVAC_QUIZ_MAP,
-};
+// Quiz questions are now served from course_lessons.quiz_questions in the DB.
+// The local fallback returns null for quiz fields — enrolled users get the DB path.
+const QUIZ_MAPS: Record<string, Record<string, { questions: any[]; passingScore: number; timeLimit?: number }>> = {};
 
 /**
  * Build lesson/module response from local CourseDefinition when Supabase

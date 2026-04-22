@@ -2,7 +2,14 @@
 
 import { useState } from 'react';
 import { CheckCircle, XCircle, RotateCcw, Trophy } from 'lucide-react';
-import type { QuizQuestion } from '@/lib/courses/hvac-quizzes';
+// QuizQuestion type — inline to avoid pulling hvac-quizzes.ts into the bundle
+interface QuizQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation?: string;
+}
 
 export function QuizPanel({
   questions,

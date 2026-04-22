@@ -2,7 +2,10 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { getCourseBySlug } from '@/lib/courses/definitions';
+import { readFileSync } from 'fs';
+import path from 'path';
+const _courseDefs: any[] = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8'));
+const getCourseBySlug = (slug: string) => _courseDefs.find((c: any) => c.slug === slug);
 
 export const metadata: Metadata = {
   title: 'HVAC Technician Curriculum | Elevate for Humanity',

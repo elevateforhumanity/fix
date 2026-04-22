@@ -10,8 +10,8 @@ export async function loadBlueprint(programSlug: string) {
   switch (programSlug) {
     case 'hvac-epa608-v1':
     case 'hvac-technician': {
-      const mod = await import('@/lib/curriculum/blueprints/hvac-epa-608');
-      return mod.hvacEpa608Blueprint ?? mod.default ?? null;
+      // Blueprint migrated to DB — no static file
+      return null;
     }
     case 'barber':
     case 'barber-apprenticeship': {

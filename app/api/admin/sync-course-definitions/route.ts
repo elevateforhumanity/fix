@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { COURSE_DEFINITIONS } from '@/lib/courses/definitions';
-import { HVAC_QUIZ_MAP, getUniversalExam } from '@/lib/courses/hvac-quizzes';
+import { readFileSync } from 'fs';
+import path from 'path';
+const COURSE_DEFINITIONS: any[] = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'public/data/course-definitions.json'), 'utf8')
+);
+
+// Load quiz data from JSON — excluded from webpack module graph
+const _hvacQuizzes = JSON.parse(readFileSync(path.join(process.cwd(), 'public/data/hvac-quizzes.json'), 'utf8'));
+const HVAC_QUIZ_MAP: Record<string, any[]> = _hvacQuizzes.HVAC_QUIZ_MAP ?? {};
+const getUniversalExam = (): any[] => _hvacQuizzes.UNIVERSAL_EXAM ?? [];
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { v5 as uuidv5 } from 'uuid';

@@ -27,7 +27,7 @@ import InteractiveVideoPlayer from '@/components/lms/InteractiveVideoPlayer';
 import PracticalLessonShell from '@/components/lms/PracticalLessonShell';
 import { ExplainSimply } from '@/components/lms/ai/ExplainSimply';
 import { TranslateToggle } from '@/components/lms/ai/TranslateToggle';
-import { HVAC_QUICK_CHECKS } from '@/lib/courses/hvac-quick-checks';
+
 import { lessonUuidToSimulationKey } from '@/lib/lms/hvac-simulations';
 import {
   HVAC_LEGACY_RUNTIME_ALLOWED,
@@ -124,13 +124,13 @@ export default function LessonContentRenderer({
                   dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(content.instructionalContent) }} />
               </div>
             )}
-            {HVAC_QUICK_CHECKS[lessonId] && (
+            {lesson.quiz_questions && (
               <div className="mt-8">
                 <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                   <ClipboardList className="w-6 h-6 text-brand-blue-600" />
                   Quick Check
                 </h3>
-                <QuizPlayer questions={HVAC_QUICK_CHECKS[lessonId]} title="Quick Check"
+                <QuizPlayer questions={lesson.quiz_questions} title="Quick Check"
                   passingScore={60} onComplete={() => {}} />
               </div>
             )}
@@ -159,13 +159,13 @@ export default function LessonContentRenderer({
                 dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(content.instructionalContent) }} />
             </div>
           )}
-          {HVAC_QUICK_CHECKS[lessonId] && (
+          {lesson.quiz_questions && (
             <div className="mt-8">
               <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <ClipboardList className="w-6 h-6 text-brand-blue-600" />
                 Quick Check
               </h3>
-              <QuizPlayer questions={HVAC_QUICK_CHECKS[lessonId]} title="Quick Check"
+              <QuizPlayer questions={lesson.quiz_questions} title="Quick Check"
                 passingScore={60} onComplete={() => {}} />
             </div>
           )}
@@ -264,13 +264,13 @@ export default function LessonContentRenderer({
                   dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(lesson.content as string) }} />
               </div>
             )}
-            {HVAC_QUICK_CHECKS[lessonId] && (
+            {lesson.quiz_questions && (
               <div className="mt-8">
                 <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                   <ClipboardList className="w-6 h-6 text-brand-blue-600" />
                   Quick Check
                 </h3>
-                <QuizPlayer questions={HVAC_QUICK_CHECKS[lessonId]} title="Quick Check"
+                <QuizPlayer questions={lesson.quiz_questions} title="Quick Check"
                   passingScore={60} onComplete={() => {}} />
               </div>
             )}
@@ -292,13 +292,13 @@ export default function LessonContentRenderer({
                   dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(lesson.content as string) }} />
               </div>
             )}
-            {HVAC_QUICK_CHECKS[lessonId] && (
+            {lesson.quiz_questions && (
               <div className="mt-8">
                 <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                   <ClipboardList className="w-6 h-6 text-brand-blue-600" />
                   Quick Check
                 </h3>
-                <QuizPlayer questions={HVAC_QUICK_CHECKS[lessonId]} title="Quick Check"
+                <QuizPlayer questions={lesson.quiz_questions} title="Quick Check"
                   passingScore={60} onComplete={() => {}} />
               </div>
             )}

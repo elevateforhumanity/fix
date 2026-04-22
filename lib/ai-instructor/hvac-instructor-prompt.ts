@@ -7,12 +7,19 @@
  * actual instructor rather than a generic chatbot.
  */
 
-import { HVAC_LESSON_CONTENT } from '@/lib/courses/hvac-lesson-content';
-import { HVAC_QUIZ_BANKS } from '@/lib/courses/hvac-quiz-banks';
-import { HVAC_PROCEDURES, getProceduresByModule } from '@/lib/courses/hvac-procedures';
-import { HVAC_SERVICE_SCENARIOS } from '@/lib/courses/hvac-service-scenarios';
-import { EPA608_STUDY_TOPICS } from '@/lib/courses/hvac-epa608-prep';
+import { readFileSync } from 'fs';
+import path from 'path';
 import { HVAC_LESSON_NUMBER_TO_DEF_ID, getModuleIdForLessonNumber } from '@/lib/courses/hvac-lesson-number-map';
+
+// Load static HVAC data from JSON at runtime — excluded from webpack module graph
+const dataDir = path.join(process.cwd(), 'public', 'data');
+const HVAC_LESSON_CONTENT: Record<string, any> = JSON.parse(readFileSync(path.join(dataDir, 'hvac-lesson-content.json'), 'utf8'));
+const HVAC_QUIZ_BANKS: Record<string, any> = JSON.parse(readFileSync(path.join(dataDir, 'hvac-quiz-banks.json'), 'utf8'));
+const { EPA608_STUDY_TOPICS }: { EPA608_STUDY_TOPICS: any[] } = JSON.parse(readFileSync(path.join(dataDir, 'hvac-epa608-prep.json'), 'utf8'));
+const HVAC_SERVICE_SCENARIOS: any[] = JSON.parse(readFileSync(path.join(dataDir, 'hvac-service-scenarios.json'), 'utf8'));
+
+// hvac-procedures.ts is an empty stub — inline the no-op
+const getProceduresByModule = (_moduleId: string): any[] => [];
 
 export interface LessonContext {
   lessonNumber: number;

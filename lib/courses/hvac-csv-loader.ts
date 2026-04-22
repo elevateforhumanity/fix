@@ -6,8 +6,13 @@
  * avoid a filesystem dependency at build time.
  */
 
-import { HVAC_LESSON_CONTENT } from './hvac-lesson-content';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { HVAC_LESSON_NUMBER_TO_DEF_ID } from './hvac-lesson-number-map';
+
+const HVAC_LESSON_CONTENT: Record<string, any> = JSON.parse(
+  readFileSync(join(process.cwd(), 'public/data/hvac-lesson-content.json'), 'utf8')
+);
 
 export interface HvacLesson {
   lessonId: string;
