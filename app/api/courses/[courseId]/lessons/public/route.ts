@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 import { COURSE_DEFINITIONS } from '@/lib/courses/definitions';
-import { HVAC_LESSON_UUID, HVAC_MODULE_UUID } from '@/lib/courses/hvac-uuids';
+import { HVAC_LESSON_UUID, HVAC_MODULE_UUID } from '@/lib/courses/hvac-legacy-maps';
 import { HVAC_QUIZ_MAP } from '@/lib/courses/hvac-quiz-map';
 import { buildLessonContent, isPlaceholderContent } from '@/lib/courses/hvac-content-builder';
 import { applyRateLimit } from '@/lib/api/withRateLimit';

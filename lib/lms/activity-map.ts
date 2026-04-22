@@ -34,8 +34,8 @@ export interface ActivityDef {
 /** Activities available per step_type */
 const ACTIVITY_MAP: Record<string, ActivityDef[]> = {
   lesson: [
-    { id: 'video',       label: 'Watch Video',         gatesCheckpoint: false, alwaysShow: true  },
-    { id: 'reading',     label: 'Reading',             gatesCheckpoint: false, alwaysShow: true  },
+    { id: 'video',       label: 'Watch Video',         gatesCheckpoint: true,  alwaysShow: true  },
+    { id: 'reading',     label: 'Reading',             gatesCheckpoint: true,  alwaysShow: true  },
     { id: 'flashcards',  label: 'Flashcards',          gatesCheckpoint: false, alwaysShow: true  },
     { id: 'practice',    label: 'Practice Questions',  gatesCheckpoint: false, alwaysShow: true  },
     { id: 'notes',       label: 'My Notes',            gatesCheckpoint: false, alwaysShow: false },

@@ -61,6 +61,8 @@ interface Props {
   activities:  ActivityDef[];
   activeId:    ActivityId;
   attempted:   Set<ActivityId>;
+  /** Activities truly completed — video watched ≥80%, reading scrolled to bottom, etc. */
+  completedActivities?: Set<ActivityId>;
   isCompleted: boolean;
   onChange:    (id: ActivityId) => void;
 }
@@ -69,35 +71,43 @@ export default function LessonActivityMenu({
   activities,
   activeId,
   attempted,
+  completedActivities,
   isCompleted,
   onChange,
 }: Props) {
   const gateIds = new Set(getCheckpointGates(activities));
 
   function isLocked(act: ActivityDef): boolean {
-    // Checkpoint/exam tab locked until all gating activities attempted
+    // Checkpoint/exam tab locked until all gating activities are truly completed
     if (act.id !== 'checkpoint') return false;
     if (isCompleted) return false;
-    return [...gateIds].some(id => !attempted.has(id));
+    // Use completedActivities if available, fall back to attempted
+    const doneSet = completedActivities ?? attempted;
+    return [...gateIds].some(id => !doneSet.has(id));
   }
 
   function statusIcon(act: ActivityDef) {
+    const done = completedActivities ?? attempted;
     if (isLocked(act)) {
-      return <Lock className="w-3 h-3 text-slate-400 flex-shrink-0" />;
+      return <Lock className="w-3 h-3 text-slate-400 flex-shrink-0" aria-hidden />;
     }
-    if (attempted.has(act.id)) {
-      return <CheckCircle2 className="w-3 h-3 text-green-500 flex-shrink-0" />;
+    if (done.has(act.id)) {
+      return <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0" aria-label="Completed" />;
     }
     if (act.gatesCheckpoint) {
-      // Required but not yet attempted — red dot
-      return <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />;
+      // Required but not yet completed — amber dot
+      return <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0" aria-label="Required" />;
     }
     return null;
   }
 
   return (
     <div className="border-b border-slate-200 mb-6">
-      <div className="flex gap-0.5 overflow-x-auto pb-0 scrollbar-hide">
+      <div
+        role="tablist"
+        aria-label="Lesson activities"
+        className="flex gap-0.5 overflow-x-auto pb-0 scrollbar-hide"
+      >
         {activities.map((act) => {
           const Icon    = ACTIVITY_ICONS[act.id] ?? FileText;
           const color   = ACTIVITY_COLORS[act.id] ?? 'text-slate-600';
@@ -107,9 +117,30 @@ export default function LessonActivityMenu({
           return (
             <button
               key={act.id}
-              onClick={() => !locked && onChange(act.id)}
-              disabled={locked}
+              role="tab"
               aria-selected={active}
+              aria-disabled={locked}
+              aria-controls={`activity-panel-${act.id}`}
+              id={`activity-tab-${act.id}`}
+              onClick={() => !locked && onChange(act.id)}
+              onKeyDown={e => {
+                // Arrow key navigation between tabs
+                const ids = activities.filter(a => !isLocked(a)).map(a => a.id);
+                const idx = ids.indexOf(act.id);
+                if (e.key === 'ArrowRight') {
+                  e.preventDefault();
+                  const next = ids[(idx + 1) % ids.length];
+                  onChange(next);
+                  document.getElementById(`activity-tab-${next}`)?.focus();
+                } else if (e.key === 'ArrowLeft') {
+                  e.preventDefault();
+                  const prev = ids[(idx - 1 + ids.length) % ids.length];
+                  onChange(prev);
+                  document.getElementById(`activity-tab-${prev}`)?.focus();
+                }
+              }}
+              tabIndex={active ? 0 : -1}
+              disabled={locked}
               aria-label={locked ? `${act.label} — complete required activities first` : act.label}
               className={[
                 'flex items-center gap-1.5 px-3 py-3 text-sm font-semibold whitespace-nowrap',
@@ -122,7 +153,7 @@ export default function LessonActivityMenu({
                   : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300',
               ].join(' ')}
             >
-              <Icon className={`w-4 h-4 flex-shrink-0 ${active ? color : locked ? 'text-slate-300' : 'text-slate-400'}`} />
+              <Icon className={`w-4 h-4 flex-shrink-0 ${active ? color : locked ? 'text-slate-300' : 'text-slate-400'}`} aria-hidden />
               <span className="hidden sm:inline">{act.label}</span>
               {statusIcon(act)}
             </button>
@@ -132,13 +163,17 @@ export default function LessonActivityMenu({
 
       {/* Gating hint — shown when checkpoint is locked */}
       {activities.some(a => a.id === 'checkpoint' && isLocked(a)) && (
-        <div className="px-3 py-2 bg-amber-50 border-t border-amber-100 text-xs text-amber-700 flex items-center gap-1.5">
-          <Lock className="w-3 h-3 flex-shrink-0" />
+        <div
+          role="status"
+          aria-live="polite"
+          className="px-3 py-2 bg-amber-50 border-t border-amber-100 text-xs text-amber-700 flex items-center gap-1.5"
+        >
+          <Lock className="w-3 h-3 flex-shrink-0" aria-hidden />
           Complete{' '}
           {[...gateIds]
-            .filter(id => !attempted.has(id))
+            .filter(id => !(completedActivities ?? attempted).has(id))
             .map(id => activities.find(a => a.id === id)?.label ?? id)
-            .join(', ')}{' '}
+            .join(' and ')}{' '}
           to unlock the checkpoint.
         </div>
       )}

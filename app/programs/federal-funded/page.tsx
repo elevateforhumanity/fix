@@ -7,7 +7,7 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
-import { programs } from '@/app/data/programs';
+
 import { Shield, CheckCircle, Users, Award } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
@@ -51,9 +51,7 @@ export default async function FederalFundedProgramsPage() {
     .select('*')
     .eq('funding_type', 'federal');
 
-  const federalPrograms = programs.filter((p) =>
-    federalFundedSlugs.includes(p.slug)
-  );
+  const federalPrograms = dbPrograms ?? [];
 
   return (
     <div className="bg-white">

@@ -53,7 +53,7 @@ export default async function EnrollmentSuccessPage({
             </Link>
             
             <Link
-              href="/client-portal"
+              href="/learner/dashboard"
               className="inline-flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-black px-8 py-4 rounded-xl text-lg font-bold transition-colors"
             >
               <BookOpen className="h-5 w-5" />

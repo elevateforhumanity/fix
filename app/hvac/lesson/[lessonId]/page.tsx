@@ -19,7 +19,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllHvacLessons, getHvacLesson } from '@/lib/courses/hvac-csv-loader';
-import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
+import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-legacy-maps';
 import { HVAC_QUIZ_MAP } from '@/lib/courses/hvac-quizzes';
 import { EPA_608_LESSON_TAGS } from '@/lib/courses/hvac-epa-tags';
 

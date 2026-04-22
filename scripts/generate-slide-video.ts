@@ -12,7 +12,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { COURSE_DEFINITIONS } from '../lib/courses/definitions';
-import { HVAC_LESSON_UUID } from '../lib/courses/hvac-uuids';
+import { HVAC_LESSON_UUID } from '../lib/courses/hvac-legacy-maps';
 import { buildLessonContent, isPlaceholderContent } from '../lib/courses/hvac-content-builder';
 import {
   titleSlideHTML, sectionSlideHTML, bulletsSlideHTML,

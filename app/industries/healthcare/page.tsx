@@ -6,7 +6,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
-import { programs } from '@/app/data/programs';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
   title: 'Healthcare Programs | Elevate for Humanity',
@@ -17,19 +17,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HealthcarePage() {
-  // Filter healthcare programs
-  const healthcarePrograms = programs.filter((p) =>
-    [
-      'cna-certification',
-      'medical-assistant',
-      'home-health-aide',
-      'phlebotomy-technician',
-      'cpr-first-aid-hsi',
-      'emergency-health-safety-tech',
-      'certified-peer-recovery-coach',
-    ].includes(p.slug)
-  );
+export default async function HealthcarePage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('programs')
+    .select('id, slug, title, description, short_description, image_url, hero_image_url, is_active')
+    .eq('is_active', true)
+    .ilike('category', '%healthcare%')
+    .order('title');
+  const healthcarePrograms = data ?? [];
 
   return (
     <div className="bg-white">
@@ -55,6 +51,8 @@ export default function HealthcarePage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {healthcarePrograms.map((program: any) => {
+              const imgSrc = program.hero_image_url || program.image_url || '/images/pages/comp-home-hero-programs.jpg';
+              const name = program.title || program.name;
               return (
                 <Link
                   key={program.slug}
@@ -62,29 +60,17 @@ export default function HealthcarePage() {
                   className="group block bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
                 >
                   <div className="aspect-video relative overflow-hidden bg-white">
-                    {program.heroImage && (
-                      <Image
-                        src={program.heroImage}
-                        alt={program.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-all duration-500"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
-                    )}
-                    
+                    <Image
+                      src={imgSrc}
+                      alt={name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-all duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
                     <div className="absolute bottom-4 left-4 right-4">
                       <h3 className="text-xl font-bold text-white mb-1">
-                        {program.name}
+                        {name}
                       </h3>
-                      <div className="flex items-center gap-2 text-sm text-white/90">
-                        <span>{program.duration}</span>
-                        {program.format && (
-                          <>
-                            <span>•</span>
-                            <span>{program.format}</span>
-                          </>
-                        )}
-                      </div>
                     </div>
                   </div>
                   <div className="p-6 bg-white">

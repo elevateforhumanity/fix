@@ -131,11 +131,6 @@ export const PAGE_SCRIPTS: Record<string, {
     nextAction: `Check your status card and complete any pending items.`,
   },
 
-  '/client-portal': {
-    opening: `This dashboard shows your current status and the single next step required. If stuck, it's usually a missing document.`,
-    nextAction: `Open Documents and confirm every item shows as received.`,
-  },
-
   // === LEARNING ===
   '/lms': {
     opening: `This is your learning system. Access enrolled courses, track progress, complete assessments. Progress saves automatically.`,

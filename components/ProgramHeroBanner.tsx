@@ -1,45 +1,38 @@
 'use client';
 
 import CanonicalVideo from '@/components/video/CanonicalVideo';
-
-// Poster images keyed by video src — avoids the generic og-default.jpg flash.
-// Add entries here when new program videos are introduced.
-const POSTER_BY_VIDEO: Record<string, string> = {
-  '/videos/electrician-trades.mp4':   '/hero-images/skilled-trades-cat-new.jpg',
-  '/videos/welding-trades.mp4':       '/hero-images/skilled-trades-cat-new.jpg',
-  '/videos/hvac-technician.mp4':      '/hero-images/skilled-trades-cat-new.jpg',
-  '/videos/hvac-hero-final.mp4':      '/hero-images/skilled-trades-cat-new.jpg',
-  '/videos/it-technology.mp4':        '/hero-images/technology-cat-new.jpg',
-  '/videos/healthcare-cna.mp4':       '/hero-images/healthcare-cat-new.jpg',
-  '/videos/cna-hero.mp4':             '/hero-images/healthcare-cat-new.jpg',
-  '/videos/program-hero.mp4':         '/hero-images/healthcare-cat-new.jpg',
-  '/videos/cosmetology-salon.mp4':    '/hero-images/barber-beauty-cat-new.jpg',
-  '/videos/beauty-cosmetology.mp4':   '/hero-images/barber-beauty-cat-new.jpg',
-  '/videos/barber-hero-final.mp4':    '/hero-images/barber-hero.jpg',
-  '/videos/business-finance.mp4':     '/hero-images/business-hero.jpg',
-  '/videos/cdl-hero.mp4':             '/hero-images/cdl-transportation-category.jpg',
-};
+import heroBanners from '@/content/heroBanners';
 
 interface ProgramHeroBannerProps {
   videoSrc: string;
+  /** Explicit poster image. If omitted, falls back to heroBanners[pageKey].posterImage. */
   posterImage?: string;
+  /** heroBanners pageKey — used to look up the correct poster when posterImage is not passed. */
+  pageKey?: string;
   title?: string;
   voiceoverSrc?: string;
 }
 
-export default function ProgramHeroBanner({ videoSrc, posterImage }: ProgramHeroBannerProps) {
-  // Explicit prop wins; fall back to the video-keyed map; last resort: category image
-  const poster = posterImage ?? POSTER_BY_VIDEO[videoSrc] ?? '/hero-images/skilled-trades-cat-new.jpg';
+export default function ProgramHeroBanner({
+  videoSrc,
+  posterImage,
+  pageKey,
+  voiceoverSrc,
+}: ProgramHeroBannerProps) {
+  // Resolve poster: explicit prop → heroBanners lookup → generic fallback
+  const resolvedPoster =
+    posterImage ??
+    (pageKey ? heroBanners[pageKey]?.posterImage : undefined) ??
+    '/hero-images/pathways-hero.jpg';
 
   return (
-    <div className="relative w-full overflow-hidden bg-slate-900" style={{ height: 'clamp(340px, 48vw, 620px)' }}>
+    <div className="relative w-full" style={{ height: 'clamp(320px, 45vw, 560px)' }}>
       <CanonicalVideo
         src={videoSrc}
-        poster={poster}
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        poster={resolvedPoster}
+        className="absolute inset-0 w-full h-full object-cover"
         autoPlayOnMount
-        loop
-        preloadFull
+        playThrough
       />
     </div>
   );

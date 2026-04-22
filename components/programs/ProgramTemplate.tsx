@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Phone, Mail } from 'lucide-react';
-import type { Program } from '@/app/data/programs';
+import type { Program } from '@/lib/types/program';
 import { ProgramPaymentButton } from './ProgramPaymentButton';
 import { PricingTiers } from './PricingTiers';
 import { CareerServicesHook } from './CareerServicesHook';

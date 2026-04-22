@@ -2,6 +2,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { createPublicClient } from '@/lib/supabase/public';
 import { programs as staticPrograms } from '@/content/cf-programs';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const revalidate = 3600;
 
@@ -40,13 +42,20 @@ export default async function ProgramsPage() {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-3xl font-bold text-slate-900">Programs</h1>
-      <p className="mt-4 text-slate-700">
-        Credential-bearing programs in healthcare, skilled trades, technology, beauty, and business.
-        Most programs complete in 4–12 weeks. WIOA and Workforce Ready Grant funding available for
-        eligible Indiana residents.
-      </p>
+    <>
+      <HeroVideo
+        videoSrcDesktop={heroBanners['programs'].videoSrcDesktop}
+        posterImage={heroBanners['programs'].posterImage}
+        voiceoverSrc={heroBanners['programs'].voiceoverSrc}
+        microLabel={heroBanners['programs'].microLabel}
+        belowHeroHeadline={heroBanners['programs'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['programs'].belowHeroSubheadline}
+        ctas={[heroBanners['programs'].primaryCta, ...(heroBanners['programs'].secondaryCta ? [heroBanners['programs'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['programs'].trustIndicators}
+        transcript={heroBanners['programs'].transcript}
+        analyticsName={heroBanners['programs'].analyticsName}
+      />
+      <section className="mx-auto max-w-6xl px-4 py-16">
       <div className="mt-8 grid gap-6 md:grid-cols-2">
         {programs.map((program) => (
           <article key={program.slug} className="rounded border p-6 hover:bg-slate-50">
@@ -64,5 +73,6 @@ export default async function ProgramsPage() {
         ))}
       </div>
     </section>
+    </>
   );
 }

@@ -16,7 +16,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
-import { HVAC_LESSON_UUID } from '../lib/courses/hvac-uuids';
+import { HVAC_LESSON_UUID } from '../lib/courses/hvac-legacy-maps';
 import * as fs from 'fs';
 import * as path from 'path';
 

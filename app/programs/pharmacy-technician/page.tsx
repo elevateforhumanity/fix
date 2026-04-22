@@ -4,7 +4,8 @@ export const revalidate = 3600;
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import ProgramHeroBanner from '@/components/ProgramHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
@@ -18,16 +19,25 @@ export const metadata: Metadata = {
 export default function PharmacyTechnicianPage() {
   return (
     <div className="min-h-screen bg-white">
-      <ProgramHeroBanner videoSrc="/videos/program-hero.mp4" voiceoverSrc="/audio/heroes/programs.mp3" />
+      
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'Healthcare', href: '/programs/healthcare' }, { label: 'Pharmacy Technician' }]} />
         </div>
       </div>
 
-      <section className="relative h-48 md:h-64 overflow-hidden">
-        <Image src="/images/pages/healthcare-hero.jpg" alt="Pharmacy technician training" fill sizes="100vw" className="object-cover" priority />
-      </section>
+      <HeroVideo
+        videoSrcDesktop={heroBanners['pharmacy-technician'].videoSrcDesktop}
+        posterImage={heroBanners['pharmacy-technician'].posterImage}
+        voiceoverSrc={heroBanners['pharmacy-technician'].voiceoverSrc}
+        microLabel={heroBanners['pharmacy-technician'].microLabel}
+        belowHeroHeadline={heroBanners['pharmacy-technician'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['pharmacy-technician'].belowHeroSubheadline}
+        ctas={[heroBanners['pharmacy-technician'].primaryCta, ...(heroBanners['pharmacy-technician'].secondaryCta ? [heroBanners['pharmacy-technician'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['pharmacy-technician'].trustIndicators}
+        transcript={heroBanners['pharmacy-technician'].transcript}
+        analyticsName={heroBanners['pharmacy-technician'].analyticsName}
+      />
 
       <section className="bg-slate-900 py-5">
         <div className="max-w-4xl mx-auto px-4 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">

@@ -1,4 +1,4 @@
-import { programs } from '@/app/data/programs';
+import { createClient } from '@/lib/supabase/server';
 
 export interface CategoryData {
   title: string;
@@ -112,23 +112,13 @@ export const categoryData: Record<string, CategoryData> = {
   },
 };
 
-export function getCategoryPrograms(category: string) {
-  // Map category slugs to program categories
-  const categoryMap: Record<string, string[]> = {
-    healthcare: ['Healthcare', 'Medical'],
-    'skilled-trades': ['Skilled Trades', 'Construction', 'HVAC', 'Electrical'],
-    'tax-entrepreneurship': ['Tax', 'Entrepreneurship', 'Business'],
-    'business-financial': ['Business', 'Financial', 'Accounting'],
-    'cdl-transportation': ['Transportation', 'CDL', 'Logistics'],
-  };
-
-  const categories = categoryMap[category] || [];
-
-  return programs.filter((program) => {
-    // Check if program matches any of the category keywords
-    return categories.some((cat) =>
-      program.name.toLowerCase().includes(cat.toLowerCase()) ||
-      program.shortDescription?.toLowerCase().includes(cat.toLowerCase())
-    );
-  });
+export async function getCategoryPrograms(category: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('programs')
+    .select('id, slug, title, description, short_description, image_url, hero_image_url, category, is_active')
+    .eq('is_active', true)
+    .ilike('category', `%${category}%`)
+    .order('title');
+  return data ?? [];
 }

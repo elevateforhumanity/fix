@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getProgramImages } from '@/lib/program-images';
-import type { Program } from '@/app/data/programs';
+import type { Program } from '@/lib/types/program';
 import { ProgramTutorCTA } from '@/components/ProgramTutorCTA';
 import { PROGRAMS } from '@/lib/ai/programRegistry';
 import HeroVideo from '@/components/marketing/HeroVideo';

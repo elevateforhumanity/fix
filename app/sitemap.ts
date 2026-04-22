@@ -88,7 +88,7 @@ const EXCLUDED_PREFIXES = [
 
   '/shop/checkout',
   '/shop/onboarding',
-  '/client-portal',
+
   '/workforce-board',
   '/help/admin',
   // Separate domain — not part of this sitemap

@@ -8,12 +8,12 @@ import {
   ChevronRight, Play, X, Maximize2,
 } from 'lucide-react';
 import type { CourseDefinition, CourseLesson, CourseModule } from '@/lib/courses/definitions';
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 import {
-  HVAC_COURSE_ID,
   HVAC_FIRST_LESSON_ID as FIRST_LESSON_ID,
   HVAC_LESSON_UUID as LESSON_UUID,
   HVAC_MODULE_FIRST_LESSON as MODULE_FIRST_LESSON,
-} from '@/lib/courses/hvac-uuids';
+} from '@/lib/courses/hvac-legacy-maps';
 
 function lessonUrl(id: string) { return `/courses/${HVAC_COURSE_ID}/lessons/${id}`; }
 function lessonUrlById(defId: string) {

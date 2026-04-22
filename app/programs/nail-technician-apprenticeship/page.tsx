@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import ProgramHeroBanner from '@/components/ProgramHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { FundingBadge } from '@/components/programs/FundingBadge';
 import { createBrowserClient } from '@supabase/ssr';
@@ -105,7 +106,7 @@ export default function NailTechnicianApprenticeshipPage() {
 
   return (
     <>
-      <ProgramHeroBanner videoSrc="/videos/beauty-cosmetology.mp4" />
+      
       <div className="bg-slate-50 border-b">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Breadcrumbs items={[
@@ -116,10 +117,18 @@ export default function NailTechnicianApprenticeshipPage() {
         </div>
       </div>
 
-      {/* Hero Image */}
-      <section className="relative h-[240px] sm:h-[320px] md:h-[400px]">
-        <Image src="/images/pages/barber-training.jpg" alt="Nail technician apprenticeship hands-on training in salon" fill sizes="100vw" className="object-cover" priority />
-      </section>
+      <HeroVideo
+        videoSrcDesktop={heroBanners['nail-technician-apprenticeship'].videoSrcDesktop}
+        posterImage={heroBanners['nail-technician-apprenticeship'].posterImage}
+        voiceoverSrc={heroBanners['nail-technician-apprenticeship'].voiceoverSrc}
+        microLabel={heroBanners['nail-technician-apprenticeship'].microLabel}
+        belowHeroHeadline={heroBanners['nail-technician-apprenticeship'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['nail-technician-apprenticeship'].belowHeroSubheadline}
+        ctas={[heroBanners['nail-technician-apprenticeship'].primaryCta, ...(heroBanners['nail-technician-apprenticeship'].secondaryCta ? [heroBanners['nail-technician-apprenticeship'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['nail-technician-apprenticeship'].trustIndicators}
+        transcript={heroBanners['nail-technician-apprenticeship'].transcript}
+        analyticsName={heroBanners['nail-technician-apprenticeship'].analyticsName}
+      />
 
       {/* Stats */}
       <section className="bg-white border-b">

@@ -3,7 +3,8 @@ import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import Image from 'next/image';
-import VideoHeroBanner from '@/components/home/VideoHeroBanner';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,12 +27,17 @@ export default async function BusinessPage() {
     .eq('category', 'business');
   return (
     <div className="min-h-screen bg-gray-50">
-      <VideoHeroBanner
-        videoSrc="/videos/hero-home.mp4"
-        headline="Business & Administration Programs"
-        subheadline="Build Your Business Career - Accounting, Office Skills & Management"
-        primaryCTA={{ text: 'Apply Now', href: '/apply' }}
-        secondaryCTA={{ text: 'View All Programs', href: '/programs' }}
+      <HeroVideo
+        videoSrcDesktop={heroBanners['business'].videoSrcDesktop}
+        posterImage={heroBanners['business'].posterImage}
+        voiceoverSrc={heroBanners['business'].voiceoverSrc}
+        microLabel={heroBanners['business'].microLabel}
+        belowHeroHeadline={heroBanners['business'].belowHeroHeadline}
+        belowHeroSubheadline={heroBanners['business'].belowHeroSubheadline}
+        ctas={[heroBanners['business'].primaryCta, ...(heroBanners['business'].secondaryCta ? [heroBanners['business'].secondaryCta] : [])]}
+        trustIndicators={heroBanners['business'].trustIndicators}
+        transcript={heroBanners['business'].transcript}
+        analyticsName={heroBanners['business'].analyticsName}
       />
 
       {/* At-a-Glance */}

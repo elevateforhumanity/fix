@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { TESTING_CENTER, CALENDLY_CONFIG } from '@/lib/testing/testing-config';
 import Image from 'next/image';
-import { CalendarDays, DollarSign, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import { CalendarDays, DollarSign, AlertTriangle, CheckCircle, Info, CreditCard } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ACTIVE_PROVIDERS } from '@/lib/testing/proctoring-capabilities';
 
@@ -174,8 +174,10 @@ export default function TestingPage() {
                           href={`/testing/book?exam=${provider.key}`}
                           className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors"
                         >
-                          <CalendarDays className="w-4 h-4" />
-                          Book a Seat
+                          <CreditCard className="w-4 h-4" />
+                          {provider.fees && provider.fees.length > 0
+                            ? `Pay & Book — $${provider.fees[0].amount}`
+                            : 'Book a Seat'}
                         </Link>
                       )}
                       {provider.key === 'certiport' && provider.status === 'active' && (

@@ -38,23 +38,6 @@ const InteractiveVideoPlayer = dynamic(() => import('@/components/lms/Interactiv
 const HvacLessonVideo = dynamic(() => import('@/components/lms/HvacLessonVideo'), { ssr: false });
 const NoteTaking = dynamic(() => import('@/components/NoteTaking').then(m => ({ default: m.NoteTaking })), { ssr: false });
 const DigitalBinder = dynamic(() => import('@/components/DigitalBinder'), { ssr: false });
-import { HVAC_LESSON_UUID } from '@/lib/courses/hvac-uuids';
-
-// Reverse map: UUID → definition key (e.g. '2f172cb2-...' → 'hvac-01-01').
-// Used by HvacLessonVideo to resolve local MP3/MP4 files in /public/hvac/.
-const HVAC_UUID_TO_DEF: Record<string, string> = Object.fromEntries(
-  Object.entries(HVAC_LESSON_UUID).map(([defId, uuid]) => [uuid, defId])
-);
-
-// Slug-based fallback for HvacLessonVideo defId resolution.
-function hvacDefIdFromSlug(slug: string): string | undefined {
-  if (/^hvac-\d{2}-\d{2}$/.test(slug)) return slug;
-  const match = slug.match(/^hvac-lesson-(\d+)$/);
-  if (!match) return undefined;
-  const n = parseInt(match[1], 10);
-  const defKeys = Object.keys(HVAC_LESSON_UUID);
-  return defKeys[n - 1];
-}
 import { transformLessonContent, isAiJsonBlob } from '@/lib/lms/transformLessonContent';
 import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
@@ -89,12 +72,15 @@ function barberVideoUrl(
 import { lessonUuidToSimulationKey } from '@/lib/lms/hvac-simulations';
 import { getActivitiesForLesson, getDefaultActivity } from '@/lib/lms/activity-map';
 import type { ActivityId } from '@/lib/lms/activity-map';
+import { useActivityCompletion } from '@/lib/lms/use-activity-completion';
 import { BARBER_PROGRAM_ID, BARBER_COURSE_ID } from '@/lib/barber/pricing';
 
 const ExplainSimply = dynamic(() => import('@/components/lms/ai/ExplainSimply').then(m => ({ default: m.ExplainSimply })), { ssr: false });
 const TranslateToggle = dynamic(() => import('@/components/lms/ai/TranslateToggle').then(m => ({ default: m.TranslateToggle })), { ssr: false });
 const SpacedRepetitionReview = dynamic(() => import('@/components/lms/SpacedRepetitionReview'), { ssr: false });
 const LessonActivityMenu = dynamic(() => import('@/components/lms/LessonActivityMenu'), { ssr: false });
+const LessonInlineInput = dynamic(() => import('@/components/lms/LessonInlineInput'), { ssr: false });
+const ScenarioBlock = dynamic(() => import('@/components/lms/ScenarioBlock'), { ssr: false });
 
 const LessonVideoWithSimulation = dynamic(
   () => import('@/components/lms/LessonVideoWithSimulation'),
@@ -159,6 +145,14 @@ export default function LessonPage() {
   // Hours tracking — only fetched for apprenticeship programs (barber, cosmetology, etc.)
   const [hoursLogged, setHoursLogged] = useState<number | null>(null);
   const [hoursRequired, setHoursRequired] = useState<number>(2000);
+
+  // ── Activity completion tracking (real completion, not just tab visits) ──
+  const {
+    completed: completedActivities,
+    markCompleted: markActivityCompleted,
+    onVideoProgress,
+    onReadingScroll,
+  } = useActivityCompletion();
 
   // ── Refs — stable across renders, safe to use in any hook below ──
   // Mirrors passedCheckpointIds so fetchLessonData can read it without
@@ -1122,15 +1116,10 @@ export default function LessonPage() {
             />
           </div>
         ) : isHvacCourse ? (
-          /* HVAC: always render the avatar+audio player — video_url is NULL in DB,
-             HvacLessonVideo resolves the file from defId → UUID → /hvac/videos/ */
+          /* HVAC: avatar+audio player — resolves local MP3/MP4 by lessonId UUID */
           <div className="max-w-4xl mx-auto p-4 md:p-8">
             <HvacLessonVideo
-              lessonDefId={
-                HVAC_UUID_TO_DEF[lessonId] ??
-                (lesson.slug ? hvacDefIdFromSlug(lesson.slug) : undefined) ??
-                lesson.slug
-              }
+              lessonId={lessonId}
               dbVideoUrl={lesson.video_url ?? undefined}
               brollVideoUrl="/videos/hvac-technician.mp4"
               lessonTitle={lesson.title}
@@ -1373,6 +1362,7 @@ export default function LessonPage() {
                   activities={activityDefs}
                   activeId={activeActivity}
                   attempted={attempted}
+                  completedActivities={completedActivities}
                   isCompleted={isCompleted}
                   onChange={(id) => {
                     setActiveActivity(id);
@@ -1385,13 +1375,14 @@ export default function LessonPage() {
 
                   {/* VIDEO */}
                   {activeActivity === 'video' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Video">
                       {isBarberLesson ? (
                         barberVideoUrl(lesson.slug, lesson.video_config, lesson.video_url) ? (
                           <InteractiveVideoPlayer
                             videoUrl={barberVideoUrl(lesson.slug, lesson.video_config, lesson.video_url)!}
                             title={lesson.title}
-                            onComplete={() => { markAttempted('video'); if (!isCompleted) markComplete(); }}
+                            onProgress={(p) => onVideoProgress(p, 100)}
+                            onComplete={() => { markActivityCompleted('video'); markAttempted('video'); if (!isCompleted) markComplete(); }}
                           />
                         ) : (
                           <div className="bg-slate-100 rounded-xl flex items-center justify-center h-48 text-slate-400 text-sm">
@@ -1404,13 +1395,14 @@ export default function LessonPage() {
                             lessonId={lessonId}
                             videoUrl={lesson.video_url}
                             title={lesson.title}
-                            onComplete={() => { markAttempted('video'); if (!isCompleted) markComplete(); }}
+                            onComplete={() => { markActivityCompleted('video'); markAttempted('video'); if (!isCompleted) markComplete(); }}
                           />
                         ) : (
                           <InteractiveVideoPlayer
                             videoUrl={lesson.video_url}
                             title={lesson.title}
-                            onComplete={() => { markAttempted('video'); if (!isCompleted) markComplete(); }}
+                            onProgress={(p) => onVideoProgress(p, 100)}
+                            onComplete={() => { markActivityCompleted('video'); markAttempted('video'); if (!isCompleted) markComplete(); }}
                           />
                         )
                       ) : (
@@ -1430,13 +1422,29 @@ export default function LessonPage() {
 
                   {/* READING */}
                   {activeActivity === 'reading' && (
-                    <div className="bg-white rounded-xl p-4 md:p-8 shadow-sm">
+                    <div
+                      role="tabpanel"
+                      aria-label="Reading"
+                      className="bg-white rounded-xl p-4 md:p-8 shadow-sm overflow-y-auto max-h-[70vh]"
+                      onScroll={onReadingScroll}
+                    >
                       {lesson.content ? (
                         <>
                           <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(lesson.content) }} />
                           <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-3">
                             <ExplainSimply content={lesson.content} />
                             <TranslateToggle content={lesson.content} />
+                          </div>
+                          {/* Inline reflection prompt — auto-saves to lesson_responses */}
+                          <div className="mt-6">
+                            <LessonInlineInput
+                              lessonId={lessonId}
+                              courseId={courseId}
+                              fieldKey="reading-reflection"
+                              prompt="What's one key idea from this reading you want to remember?"
+                              variant="reflect"
+                              onChange={() => markActivityCompleted('reading')}
+                            />
                           </div>
                         </>
                       ) : (
@@ -1450,14 +1458,14 @@ export default function LessonPage() {
 
                   {/* FLASHCARDS */}
                   {activeActivity === 'flashcards' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Flashcards">
                       <SpacedRepetitionReview />
                     </div>
                   )}
 
                   {/* LAB */}
                   {activeActivity === 'lab' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Lab">
                       {(lesson.step_type === 'lab' || lesson.step_type === 'assignment') ? (
                         <StepSubmissionForm
                           lessonId={lessonId}
@@ -1465,7 +1473,7 @@ export default function LessonPage() {
                           stepType={lesson.step_type}
                           lessonTitle={lesson.title}
                           competencyKey={lesson.competency_checks?.[0]?.key}
-                          onSubmitted={() => { markAttempted('lab'); if (!isCompleted) markComplete(); }}
+                          onSubmitted={() => { markActivityCompleted('lab'); markAttempted('lab'); if (!isCompleted) markComplete(); }}
                         />
                       ) : (
                         <div className="bg-white rounded-xl p-8 shadow-sm text-center">
@@ -1478,13 +1486,13 @@ export default function LessonPage() {
 
                   {/* PRACTICE QUESTIONS */}
                   {activeActivity === 'practice' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Practice">
                       {lesson.quiz_questions?.length > 0 ? (
                         <QuizPlayer
                           questions={lesson.quiz_questions}
                           title="Practice Questions"
                           passingScore={60}
-                          onComplete={() => markAttempted('practice')}
+                          onComplete={() => { markActivityCompleted('practice'); markAttempted('practice'); }}
                         />
                       ) : (
                         <div className="bg-white rounded-xl p-8 shadow-sm text-center">
@@ -1497,7 +1505,7 @@ export default function LessonPage() {
 
                   {/* CHECKPOINT / QUIZ */}
                   {activeActivity === 'checkpoint' && (
-                    <div>
+                    <div role="tabpanel" aria-label="Checkpoint">
                       {lesson.quiz_questions?.length > 0 ? (
                         <QuizPlayer
                           questions={lesson.quiz_questions}
@@ -1505,6 +1513,7 @@ export default function LessonPage() {
                           passingScore={lesson.passing_score || 70}
                           isCheckpoint={lesson.step_type === 'checkpoint'}
                           onComplete={(score) => {
+                            markActivityCompleted('checkpoint');
                             if (score >= (lesson.passing_score || 70) && !isCompleted) markComplete();
                           }}
                         />
@@ -1519,12 +1528,14 @@ export default function LessonPage() {
 
                   {/* NOTES */}
                   {activeActivity === 'notes' && (
-                    <NoteTaking courseId={courseId} lessonId={lessonId} />
+                    <div role="tabpanel" aria-label="Notes">
+                      <NoteTaking courseId={courseId} lessonId={lessonId} />
+                    </div>
                   )}
 
                   {/* RESOURCES */}
                   {activeActivity === 'resources' && (
-                    <div className="space-y-3">
+                    <div role="tabpanel" aria-label="Resources" className="space-y-3">
                       {lesson.resources?.length > 0 ? lesson.resources.map((resource: any, idx: number) => (
                         <div key={idx} className="flex items-center justify-between p-4 bg-white rounded-lg hover:bg-slate-50 transition">
                           <div className="flex items-center gap-3">

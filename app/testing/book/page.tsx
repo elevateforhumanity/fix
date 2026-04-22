@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, MapPinned, Monitor, Phone, AlertTriangle, CreditCard } from 'lucide-react';
+import { ChevronRight, MapPinned, Monitor, Phone, AlertTriangle, CreditCard, CheckCircle } from 'lucide-react';
 import {
   ALL_PROVIDERS,
   getProctoringOptions,
@@ -193,53 +193,50 @@ function BookingForm() {
     const qty = parseInt(participantCount, 10) || 1;
 
     try {
-      // For individual bookings with a fee — go to Stripe first, booking created on success
+      // All bookings with a fee go through Stripe — individuals and orgs alike.
+      // Orgs pay qty × per-seat fee. No booking is confirmed without payment.
       const fee = selectedProvider.fees?.[0];
-      if (fee && !isOrg) {
-        const addOnCents = addOnSelected ? (selectedProvider.addOn?.amountCents ?? 0) : 0;
-        const totalCents = fee.amount * 100 + addOnCents;
+      if (fee) {
+        const addOnCents = (!isOrg && addOnSelected) ? (selectedProvider.addOn?.amountCents ?? 0) : 0;
         const res = await fetch('/api/testing/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             examType: selectedProvider.key,
             examName: selectedProvider.name,
-            feeCents: totalCents,
-            bookingType: 'individual',
-            participantCount: 1,
+            bookingType: isOrg ? 'organization' : 'individual',
+            participantCount: isOrg ? qty : 1,
             email,
             name,
-            addOn: addOnSelected,
+            addOn: !isOrg && addOnSelected,
             addOnCents,
             slotId: selectedSlotId || null,
           }),
         });
         const data = await res.json();
         if (data.url) {
-          // Mark lead converted — they're going to Stripe, follow-ups not needed
           fetch('/api/testing/leads', {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, examType: selectedProvider.key }),
           }).catch(() => {});
-          // Save booking intent to session storage so success page can complete it
           sessionStorage.setItem('pendingBooking', JSON.stringify({
             examType: selectedProvider.key,
             examName: selectedProvider.name,
-            bookingType: 'individual',
+            bookingType: isOrg ? 'organization' : 'individual',
             firstName, lastName, email, phone,
-            organization: org, participantCount: 1,
+            organization: org, participantCount: isOrg ? qty : 1,
             preferredDate, preferredTime: '',
             slotId: selectedSlotId || null,
             notes,
-            addOn: addOnSelected,
+            addOn: !isOrg && addOnSelected,
           }));
           window.location.href = data.url;
           return;
         }
       }
 
-      // Organizations and waived-fee bookings — submit directly
+      // Only reaches here for exams with no fee configured (free exams)
       const res = await fetch('/api/testing/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -458,7 +455,7 @@ function BookingForm() {
                   <ul className="mt-2 space-y-1">
                     {selectedProvider.addOn.includes.map(item => (
                       <li key={item} className="flex items-start gap-1.5 text-xs text-slate-600">
-                        <span className="text-amber-500 font-bold mt-0.5">✓</span>
+                        <CheckCircle className="w-3 h-3 text-amber-500 shrink-0 mt-0.5" />
                         {item}
                       </li>
                     ))}
@@ -468,21 +465,32 @@ function BookingForm() {
             </div>
           )}
 
-          {/* Dynamic price summary — shown for individual or unset org type */}
-          {selectedProvider?.fees && selectedProvider.fees.length > 0 && (orgType === 'Individual' || orgType === '') && (() => {
+          {/* Dynamic price summary — shown for all org types once provider is selected */}
+          {selectedProvider?.fees && selectedProvider.fees.length > 0 && (() => {
             const fee = selectedProvider.fees![0];
-            const addOnCents = addOnSelected && selectedProvider.addOn ? selectedProvider.addOn.amountCents : 0;
-            const total = fee.amount + addOnCents / 100;
+            const isOrgType = orgType !== 'Individual' && orgType !== '';
+            const qty = parseInt(participantCount, 10) || 1;
+            const addOnCents = (!isOrgType && addOnSelected && selectedProvider.addOn)
+              ? selectedProvider.addOn.amountCents : 0;
+            const total = isOrgType ? fee.amount * qty : fee.amount + addOnCents / 100;
 
             // NHA fees have a breakdown note: "$149 NHA exam + $94 testing & administration"
-            // Parse it so the line items match what the candidate actually sees on the NHA invoice.
-            const nhaBreakdown = fee.note?.match(/\$(\d+)\s+(.+?)\s*\+\s*\$(\d+)\s+(.+)/);
+            const nhaBreakdown = !isOrgType
+              ? fee.note?.match(/\$(\d+)\s+(.+?)\s*\+\s*\$(\d+)\s+(.+)/)
+              : null;
 
             return (
               <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Order Summary</p>
                 <div className="space-y-2 text-sm">
-                  {nhaBreakdown ? (
+                  {isOrgType ? (
+                    <>
+                      <div className="flex justify-between text-slate-700">
+                        <span>{fee.label} × {qty} seat{qty !== 1 ? 's' : ''}</span>
+                        <span className="font-semibold">${(fee.amount * qty).toFixed(0)}</span>
+                      </div>
+                    </>
+                  ) : nhaBreakdown ? (
                     <>
                       <div className="flex justify-between text-slate-700">
                         <span>{nhaBreakdown[2]}</span>
@@ -499,7 +507,7 @@ function BookingForm() {
                       <span className="font-semibold">${fee.amount.toFixed(0)}</span>
                     </div>
                   )}
-                  {addOnSelected && selectedProvider.addOn && (
+                  {!isOrgType && addOnSelected && selectedProvider.addOn && (
                     <div className="flex justify-between text-amber-700">
                       <span>{selectedProvider.addOn.label}</span>
                       <span className="font-semibold">+${(selectedProvider.addOn.amountCents / 100).toFixed(0)}</span>
@@ -510,7 +518,7 @@ function BookingForm() {
                     <span>${total.toFixed(0)}</span>
                   </div>
                 </div>
-                <p className="text-xs text-slate-400 mt-3">Secure checkout · Instant confirmation · No hidden fees</p>
+                <p className="text-xs text-slate-400 mt-3">Secure checkout — Instant confirmation — No hidden fees</p>
               </div>
             );
           })()}
@@ -715,11 +723,16 @@ function BookingForm() {
               >
                 {submitting
                   ? 'Processing...'
-                  : selectedProvider?.fees?.length && orgType === 'Individual'
-                  ? `Pay & Book — $${
-                      selectedProvider.fees[0].amount +
-                      (addOnSelected && selectedProvider.addOn ? selectedProvider.addOn.amountCents / 100 : 0)
-                    }`
+                  : selectedProvider?.fees?.length
+                  ? (() => {
+                      const isOrgType = orgType !== 'Individual' && orgType !== '';
+                      const qty = parseInt(participantCount, 10) || 1;
+                      const base = selectedProvider.fees![0].amount;
+                      const addOn = (!isOrgType && addOnSelected && selectedProvider.addOn)
+                        ? selectedProvider.addOn.amountCents / 100 : 0;
+                      const total = isOrgType ? base * qty : base + addOn;
+                      return `Pay & Book — $${total.toFixed(0)}${isOrgType && qty > 1 ? ` (${qty} seats)` : ''}`;
+                    })()
                   : 'Submit Booking Request'}
               </button>
 

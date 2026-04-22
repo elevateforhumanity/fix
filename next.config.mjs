@@ -372,6 +372,12 @@ const nextConfig = {
         destination: '/images/efh/hero/hero-main-clean.jpg',
         permanent: true,
       },
+      // /client-portal → /learner/dashboard (SaaS portal page removed)
+      {
+        source: '/client-portal/:path*',
+        destination: '/learner/dashboard',
+        permanent: true,
+      },
       // /sitemap → /site-map (HTML sitemap page moved to avoid conflict with app/sitemap.ts)
       {
         source: '/sitemap',

@@ -25,7 +25,7 @@ dotenv.config({ path: path.join(process.cwd(), '.env'), override: false });
 
 // ── Imports after env is loaded ──────────────────────────────────────────
 
-import { HVAC_LESSON_UUID } from '../lib/courses/hvac-uuids';
+import { HVAC_LESSON_UUID } from '../lib/courses/hvac-legacy-maps';
 import { HVAC_LESSON_CONTENT } from '../lib/courses/hvac-lesson-content';
 import { isOpenAIConfigured, getOpenAIClient } from '../lib/openai-client';
 

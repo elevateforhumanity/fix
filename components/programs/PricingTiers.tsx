@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Check, Star } from 'lucide-react';
-import type { PricingTier } from '@/app/data/programs';
+import type { PricingTier } from '@/lib/types/program';
 
 interface PricingTiersProps {
   programSlug: string;

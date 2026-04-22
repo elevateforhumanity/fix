@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,40 +12,41 @@ export const metadata: Metadata = {
   description: 'Build and customize course content.',
 };
 
+const CourseAuthoringTool = dynamic(
+  () => import('@/components/lms/CourseAuthoringTool'),
+  { ssr: false }
+);
+
 export default async function BuilderPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
+  if (!user) redirect('/login?redirect=/lms/builder');
 
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (profile?.role !== 'instructor' && profile?.role !== 'admin') redirect('/unauthorized');
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (!['instructor', 'admin', 'super_admin', 'staff'].includes(profile?.role ?? '')) {
+    redirect('/unauthorized');
+  }
 
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/lms/dashboard" className="hover:text-primary">LMS</Link></li><li>/</li><li className="text-slate-900 font-medium">Builder</li></ol></nav>
+        <div className="mb-6">
+          <nav className="text-sm mb-4">
+            <ol className="flex items-center space-x-2 text-slate-700">
+              <li><Link href="/lms/dashboard" className="hover:text-primary">LMS</Link></li>
+              <li>/</li>
+              <li className="text-slate-900 font-medium">Course Builder</li>
+            </ol>
+          </nav>
           <h1 className="text-3xl font-bold text-slate-900">Course Builder</h1>
-          <p className="text-slate-700 mt-2">Create and customize course content</p>
+          <p className="text-slate-600 mt-1">Drag and drop to build course structure. Save to DB via Admin → Curriculum.</p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-1 bg-white rounded-lg shadow-sm border p-4">
-            <h2 className="font-semibold mb-4">Content Blocks</h2>
-            <div className="space-y-2">
-              {['Text', 'Video', 'Quiz', 'Assignment', 'File'].map((block) => (
-                <div key={block} className="p-3 border rounded-lg cursor-move hover:bg-white flex items-center gap-2">
-                  <svg className="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" /></svg>
-                  <span className="text-sm">{block}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="lg:col-span-3 bg-white rounded-lg shadow-sm border p-6">
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center min-h-[400px] flex items-center justify-center">
-              <div><svg className="w-12 h-12 text-slate-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg><p className="text-slate-700">Drag content blocks here to build your course</p></div>
-            </div>
-          </div>
-        </div>
+        <CourseAuthoringTool />
       </div>
     </div>
   );

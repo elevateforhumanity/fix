@@ -5,19 +5,8 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { programs } from '@/app/data/programs';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createBrowserClient } from '@supabase/ssr';
-const grantFundedPrograms = programs.filter((p) =>
-  p.fundingOptions.some(
-    (f) =>
-      f.toLowerCase().includes('wioa') ||
-      f.toLowerCase().includes('wrg') ||
-      f.toLowerCase().includes('jri') ||
-      f.toLowerCase().includes('workforce') ||
-      f.toLowerCase().includes('grant')
-  )
-);
 
 
 
@@ -28,7 +17,12 @@ export default function GrantProgramsPage() {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
-    supabase.from('funding_sources').select('*').limit(50)
+    supabase
+      .from('programs')
+      .select('id, slug, title, description, short_description, image_url, hero_image_url, funding_tags, wioa_approved, is_active')
+      .eq('is_active', true)
+      .eq('wioa_approved', true)
+      .order('title')
       .then(({ data }) => { if (data) setDbRows(data); });
   }, []);
 
@@ -175,60 +169,30 @@ export default function GrantProgramsPage() {
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {grantFundedPrograms.map((program: any) => (
+            {dbRows.map((program: any) => (
               <div
                 key={program.slug}
                 className="bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-md transition-shadow"
               >
                 <div className="relative h-48">
                   <Image
-                    src={program.heroImage}
-                    alt={program.heroImageAlt}
+                    src={program.hero_image_url || program.image_url || '/images/pages/comp-home-hero-programs.jpg'}
+                    alt={`${program.title} program`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-bold mb-2">{program.name}</h3>
+                  <h3 className="text-lg font-bold mb-2">{program.title}</h3>
                   <p className="text-black mb-4 line-clamp-2">
-                    {program.shortDescription}
+                    {program.short_description || program.description}
                   </p>
-
-                  <div className="space-y-2 mb-4">
-                    <p className="text-sm text-black">
-                      <strong>Duration:</strong> {program.duration}
-                    </p>
-                    <p className="text-sm text-black">
-                      <strong>Delivery:</strong> {program.delivery}
-                    </p>
-                    {program.price && (
-                      <div className="bg-slate-50 rounded p-3 mt-3">
-                        <p className="text-sm font-semibold text-black mb-1">
-                          Self-Pay Option (if funding not available):
-                        </p>
-                        <p className="text-lg font-bold text-black">
-                          ${program.price.toLocaleString()}
-                        </p>
-                        <p className="text-xs text-black mt-1">
-                          Or split over 6 months: $
-                          {(program.price / 6).toFixed(2)}/month
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
                   <div className="bg-brand-green-50 rounded p-3 mb-4">
                     <p className="text-sm font-semibold text-brand-green-900 mb-1">
-                      • Available at no cost with:
+                      • WIOA Approved — may be available at no cost
                     </p>
-                    <ul className="text-xs text-black space-y-1">
-                      {program.fundingOptions.slice(0, 3).map((option, idx) => (
-                        <li key={idx}>• {option}</li>
-                      ))}
-                    </ul>
                   </div>
-
                   <Link
                     href={`/programs/${program.slug}`}
                     className="block w-full text-center bg-brand-orange-600 hover:bg-brand-orange-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"

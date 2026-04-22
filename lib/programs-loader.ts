@@ -1,83 +1,36 @@
-import { logger } from '@/lib/logger';
-import fs from 'fs';
-import path from 'path';
-import { programs } from '@/app/data/programs';
-
 /**
- * Program Data Loader
+ * Program Data Loader — DB-only.
  *
- * Supports loading programs from:
- * 1. TypeScript data file (current - app/data/programs.ts)
- * 2. JSON files (optional - data/programs/*.json)
- * 3. API endpoints (future)
+ * All functions query the `programs` table via lib/lms/api.ts.
+ * The static app/data/programs.ts fallback has been removed.
  */
 
-// Get all programs from TypeScript data
-export function getAllPrograms(): Program[] {
-  return programs;
+import { getPrograms, getProgramBySlug as _getProgramBySlug } from '@/lib/lms/api';
+
+export async function getAllPrograms() {
+  return getPrograms();
 }
 
-// Get single program by slug
-export function getProgramBySlug(slug: string): Program | undefined {
-  return programs.find((p) => p.slug === slug);
+export async function getProgramBySlug(slug: string) {
+  return _getProgramBySlug(slug);
 }
 
-// Get all program slugs for static generation
-export function getAllProgramSlugs(): string[] {
+export async function getAllProgramSlugs(): Promise<string[]> {
+  const programs = await getPrograms();
   return programs.map((p) => p.slug);
 }
 
-// Optional: Load programs from JSON files (if you want to use this approach)
-export function loadProgramsFromJSON(): Program[] {
-  const programsDir = path.join(process.cwd(), 'data', 'programs');
-
-  // Check if directory exists
-  if (!fs.existsSync(programsDir)) {
-    logger.warn('Programs directory not found, using TypeScript data');
-    return programs;
-  }
-
-  try {
-    const files = fs.readdirSync(programsDir);
-    const jsonPrograms = files
-      .filter((file) => file.endsWith('.json'))
-      .map((file) => {
-        const filePath = path.join(programsDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(fileContent) as Program;
-      });
-
-    return jsonPrograms.length > 0 ? jsonPrograms : programs;
-  } catch (error) {
-    logger.error('Error loading programs from JSON:', error);
-    return programs;
-  }
-}
-
-// Get programs by category
-export function getProgramsByCategory(category: string): Program[] {
-  // You can add category field to Program type if needed
-  return programs.filter(
-    (p) =>
-      p.slug.includes(category.toLowerCase()) ||
-      p.name.toLowerCase().includes(category.toLowerCase())
-  );
-}
-
-// Search programs
-export function searchPrograms(query: string): Program[] {
-  const lowerQuery = query.toLowerCase();
-  return programs.filter(
-    (p) =>
-      p.name.toLowerCase().includes(lowerQuery) ||
-      p.shortDescription.toLowerCase().includes(lowerQuery) ||
-      p.heroTitle.toLowerCase().includes(lowerQuery)
-  );
-}
-
-// Get featured programs
-export function getFeaturedPrograms(limit: number = 3): Program[] {
-  // You can add a 'featured' field to Program type
-  // For now, return first N programs
+export async function getFeaturedPrograms(limit = 3) {
+  const programs = await getPrograms();
   return programs.slice(0, limit);
+}
+
+export async function searchPrograms(query: string) {
+  const programs = await getPrograms();
+  const q = query.toLowerCase();
+  return programs.filter(
+    (p) =>
+      (p.title ?? '').toLowerCase().includes(q) ||
+      (p.description ?? '').toLowerCase().includes(q)
+  );
 }
