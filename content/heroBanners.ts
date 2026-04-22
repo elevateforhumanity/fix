@@ -225,19 +225,19 @@ const heroBanners: Record<string, HeroBannerConfig> = {
     posterImage: '/images/pages/comp-home-hero.jpg',
     voiceoverSrc: '/audio/heroes/home.mp3',
     microLabel: 'Indianapolis, Indiana',
-    belowHeroHeadline: 'Workforce training for real jobs.',
+    belowHeroHeadline: 'The workforce operating system for Indiana.',
     belowHeroSubheadline:
-      'Healthcare, skilled trades, CDL, technology, and more — with funding pathways for eligible Indiana residents.',
+      'Training, credentialing, compliance tracking, and employer placement — built for workforce agencies, employers, and the people they serve.',
     primaryCta: { label: 'Check Eligibility', href: '/check-eligibility' },
-    secondaryCta: { label: 'See All Programs', href: '/programs', variant: 'secondary' },
+    secondaryCta: { label: 'For Agencies & Partners', href: '/for-agencies', variant: 'secondary' },
     trustIndicators: [
-      'WIOA & state funding available',
       'DOL Registered Apprenticeship Sponsor',
-      'ETPL approved',
+      'ETPL & WIOA approved',
+      'Compliance-ready reporting',
       'Indianapolis, Indiana',
     ],
     transcript:
-      'At Elevate for Humanity, career training is built for real life. Short-term programs. Industry credentials. Funding that can cover the cost. And a direct path to work.',
+      'Elevate for Humanity is a workforce operating system — not just a training provider. We handle credentialing, compliance tracking, employer placement, and funding documentation so agencies and participants can focus on outcomes.',
     analyticsName: 'home',
   },
 

@@ -5,17 +5,18 @@ import MarqueeBanner from '@/components/MarqueeBanner';
 import { ProgramVideoCards } from '@/components/marketing/ProgramVideoCards';
 import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
+import RotatingBanner from '@/components/blocks/RotatingBanner';
 
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Elevate for Humanity | Workforce Training — Indianapolis, Indiana',
-  description: 'DOL-registered apprenticeship sponsor and ETPL-approved training provider. Healthcare, skilled trades, CDL, and more. WIOA and state funding available for eligible programs.',
-  keywords: 'workforce training Indianapolis, WIOA training Indiana, DOL registered apprenticeship, ETPL approved training provider, Elevate for Humanity',
+  title: 'Elevate for Humanity | Workforce Operating System — Indianapolis, Indiana',
+  description: 'DOL-registered apprenticeship sponsor and ETPL-approved training provider. Credentialing, compliance tracking, employer placement, and WIOA-ready reporting — built for Indiana workforce agencies and participants.',
+  keywords: 'workforce operating system Indianapolis, WIOA training Indiana, DOL registered apprenticeship, ETPL approved training provider, workforce compliance tracking, Elevate for Humanity',
   openGraph: {
-    title: 'Elevate for Humanity | Workforce Training — Indianapolis, Indiana',
-    description: 'DOL-registered apprenticeship sponsor and ETPL-approved training provider. Healthcare, skilled trades, CDL, and more.',
+    title: 'Elevate for Humanity | Workforce Operating System — Indianapolis, Indiana',
+    description: 'Training, credentialing, compliance tracking, and employer placement — built for workforce agencies, employers, and the people they serve.',
   },
 };
 
@@ -36,8 +37,72 @@ export default function HomePage() {
         transcript={heroBanners.home.transcript}
       />
 
+      {/* ── ROTATING BANNER ── */}
+      <RotatingBanner
+        variant="red"
+        lines={[
+          'DOL Registered Apprenticeship Sponsor — Indiana',
+          'WIOA & Workforce Ready Grant funding available',
+          'ETPL-approved training provider',
+          'Compliance-ready reporting for workforce agencies',
+          'Employer placement tracking built in',
+          'Credentials that meet DOL and industry standards',
+        ]}
+      />
+
       {/* ── MARQUEE ── */}
       <MarqueeBanner />
+
+      {/* ── PLATFORM POSITIONING ── */}
+      <section className="bg-slate-950 py-16 px-6 border-b border-slate-800">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-brand-red-400 text-xs font-bold uppercase tracking-widest text-center mb-3">What we actually built</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-4">
+            More than a training provider.
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base text-center max-w-2xl mx-auto mb-12">
+            Elevate runs the full workforce cycle — from intake and funding documentation to credentialing, employer placement, and compliance reporting. One system. Every stakeholder.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: '🎓',
+                title: 'Credential Delivery',
+                body: 'Industry-recognized credentials with a built-in LMS, checkpoint gating, and certificate issuance.',
+              },
+              {
+                icon: '📋',
+                title: 'Compliance Tracking',
+                body: 'WIOA documentation, FERPA controls, audit logs, and eligibility verification — all in one place.',
+              },
+              {
+                icon: '🏢',
+                title: 'Employer Pipeline',
+                body: 'Employer dashboards, OJT and WEX tracking, apprenticeship management, and placement reporting.',
+              },
+              {
+                icon: '💰',
+                title: 'Funding Infrastructure',
+                body: 'WIOA, Workforce Ready Grant, FSSA IMPACT, and Job Ready Indy — documented and tracked automatically.',
+              },
+            ].map((item) => (
+              <div key={item.title} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                <div className="text-2xl mb-3">{item.icon}</div>
+                <h3 className="text-white font-bold text-sm mb-2">{item.title}</h3>
+                <p className="text-slate-400 text-xs leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link href="/for-agencies" className="inline-block bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold px-8 py-3.5 rounded-lg transition-colors text-sm mr-4">
+              How It Works for Agencies
+            </Link>
+            <Link href="/program-holder" className="inline-block border border-slate-600 text-slate-300 hover:text-white hover:border-slate-400 font-bold px-8 py-3.5 rounded-lg transition-colors text-sm">
+              License the Platform
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* ── WHO THIS IS FOR ── */}
       <section className="bg-white py-16 px-6 border-b border-slate-100">
