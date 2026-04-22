@@ -1,265 +1,247 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
-import { createClient } from '@/lib/supabase/server';
-import {
-  Building2, BookOpen, Users, BarChart3, FileText, Settings,
-  ShieldCheck, ClipboardCheck, Eye, Scale, GraduationCap,
-  Store, Wrench, UserCheck, Clock, Handshake, DollarSign, Ban,
-  LayoutDashboard, ArrowRight, LogIn,
-} from 'lucide-react';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import HeroVideo from '@/components/marketing/HeroVideo';
-import heroBanners from '@/content/heroBanners';
+import { ShieldCheck, BarChart3, Users, BookOpen, Download } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'For Program Holders | Run Programs on the Elevate OS',
-  description: 'Training providers, schools, and instructors: run your programs on Elevate infrastructure. Compliance, enrollment, credentialing, and WIOA reporting included.',
-  alternates: {
-    canonical: 'https://www.elevateforhumanity.org/program-holder',
-  },
+  title: 'Operate Workforce Programs | Elevate for Humanity',
+  description: 'A complete workforce operating system for agencies, employers, and partners to deliver training, track outcomes, and meet compliance requirements — without building the infrastructure.',
+  alternates: { canonical: 'https://www.elevateforhumanity.org/program-holder' },
 };
 
-const features = [
-  { icon: BookOpen, title: 'Blueprint-Driven LMS', description: 'Define your program once in a blueprint. The engine handles enrollment, checkpoint gating, and lesson delivery automatically.' },
-  { icon: Users, title: 'Enrollment & Progress Tracking', description: 'Real-time learner progress, attendance logs, RTI hours, and completion records — all in one place.' },
-  { icon: BarChart3, title: 'Outcome Reporting', description: 'WIOA-compliant outcome reports generated automatically. DWD submission ready.' },
-  { icon: FileText, title: 'Compliance Infrastructure', description: 'ETPL documentation, RAPIDS reporting, and audit trails built into every program — not bolted on.' },
-  { icon: Building2, title: 'Employer & Agency Network', description: 'Connect graduates to the Elevate employer network and WorkOne referral pipeline.' },
-  { icon: Settings, title: 'Program Configuration', description: 'Set funding paths, pricing, cohort schedules, and credentialing requirements per program.' },
-];
-
-export default async function ProgramHolderLanding() {
-  const supabase = await createClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-
-  let isProgramHolder = false;
-  if (user) {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-    isProgramHolder = profile?.role === 'program_holder';
-  }
-
+export default function ProgramHolderPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <Breadcrumbs items={[{ label: 'Program Holder' }]} />
+    <main className="bg-white">
+
+      {/* SECTION 1: POSITIONING */}
+      <section className="bg-slate-950 py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-brand-red-400 text-xs font-bold uppercase tracking-widest mb-5">For Agencies · Employers · Partners</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6">
+            Operate Workforce Programs Without Building the Infrastructure
+          </h1>
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto mb-10">
+            Elevate provides a complete workforce operating system for agencies, employers, and partners to deliver training, track outcomes, and meet compliance requirements.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact?subject=platform-demo" className="bg-brand-red-600 hover:bg-brand-red-700 text-white font-extrabold px-10 py-4 rounded-xl transition-colors text-sm">
+              Request a Demo
+            </Link>
+            <Link href="#how-it-works" className="border-2 border-slate-600 text-slate-300 hover:border-slate-400 hover:text-white font-extrabold px-10 py-4 rounded-xl transition-colors text-sm">
+              View How It Works
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <HeroVideo
-        videoSrcDesktop={heroBanners['program-holder'].videoSrcDesktop}
-        posterImage={heroBanners['program-holder'].posterImage}
-        voiceoverSrc={heroBanners['program-holder'].voiceoverSrc}
-        microLabel={heroBanners['program-holder'].microLabel}
-        belowHeroHeadline={heroBanners['program-holder'].belowHeroHeadline}
-        belowHeroSubheadline={heroBanners['program-holder'].belowHeroSubheadline}
-        ctas={[heroBanners['program-holder'].primaryCta, heroBanners['program-holder'].secondaryCta].filter(Boolean)}
-        trustIndicators={heroBanners['program-holder'].trustIndicators}
-        transcript={heroBanners['program-holder'].transcript}
-      />
-
-      {/* Auth-aware action strip */}
-      {isProgramHolder ? (
-        <section className="bg-brand-green-50 border-b border-brand-green-100 py-4">
-          <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-brand-green-900 font-medium text-sm">You&apos;re logged in as a Program Holder. Jump straight to your portal.</p>
-            <div className="flex gap-3 flex-shrink-0">
-              <Link href="/program-holder/dashboard" className="inline-flex items-center gap-2 bg-brand-green-600 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-brand-green-700 transition">
-                <LayoutDashboard className="w-4 h-4" /> Dashboard
-              </Link>
-              <Link href="/program-holder/students" className="inline-flex items-center gap-2 border border-brand-green-600 text-brand-green-700 px-5 py-2 rounded-lg font-semibold text-sm hover:bg-brand-green-100 transition">
-                <Users className="w-4 h-4" /> Students
-              </Link>
-              <Link href="/program-holder/reports" className="inline-flex items-center gap-2 border border-brand-green-600 text-brand-green-700 px-5 py-2 rounded-lg font-semibold text-sm hover:bg-brand-green-100 transition">
-                <FileText className="w-4 h-4" /> Reports
-              </Link>
-            </div>
-          </div>
-        </section>
-      ) : (
-        <section className="bg-brand-blue-50 border-b border-brand-blue-100 py-4">
-          <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-brand-blue-900 font-medium text-sm">Already a program holder? Log in to access your dashboard, students, and reports.</p>
-            <div className="flex gap-3 flex-shrink-0">
-              <Link href="/login?redirect=/program-holder/dashboard" className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-brand-blue-700 transition">
-                <LogIn className="w-4 h-4" /> Log In
-              </Link>
-              <Link href="/apply/program-holder" className="inline-flex items-center gap-2 border border-brand-blue-600 text-brand-blue-700 px-5 py-2 rounded-lg font-semibold text-sm hover:bg-brand-blue-100 transition">
-                Apply Now
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Features */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">Portal Features</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border">
-                <feature.icon className="w-10 h-10 text-teal-600 mb-4" />
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{feature.title}</h3>
-                <p className="text-slate-600">{feature.description}</p>
+      {/* SECTION 2: WHO THIS IS FOR */}
+      <section className="bg-slate-900 py-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-white text-center mb-3">
+            Built for Organizations Responsible for Outcomes
+          </h2>
+          <p className="text-slate-400 text-sm text-center mb-10">
+            If you are responsible for enrollment, performance, or placement — this system is built for you.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { label: 'Workforce Development Boards', detail: 'Track participant outcomes, manage WIOA compliance, and report to funders including DWD and WorkOne.' },
+              { label: 'State & Local Agencies', detail: 'Deploy programs at scale with audit-ready records, FSSA IMPACT eligibility tracking, and performance dashboards.' },
+              { label: 'Training Providers & Institutions', detail: 'Run credentialed programs on proven infrastructure without building your own LMS or compliance stack.' },
+              { label: 'Employers & Industry Partners', detail: 'Sponsor apprenticeships, manage OJT agreements, and access a trained talent pipeline through Indiana Career Connect.' },
+            ].map((item) => (
+              <div key={item.label} className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+                <h3 className="text-white font-extrabold text-sm mb-2">{item.label}</h3>
+                <p className="text-slate-400 text-xs leading-relaxed">{item.detail}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Barber on File */}
-      <section className="py-16 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="flex items-center gap-3 mb-2">
-            <ShieldCheck className="w-7 h-7 text-teal-700 flex-shrink-0" />
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Barber on File</h2>
+      {/* SECTION 3: WHAT YOU GET */}
+      <section className="bg-white py-20 px-6 border-t border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-3">
+            Everything Required to Operate a Workforce Program
+          </h2>
+          <p className="text-slate-500 text-sm text-center max-w-xl mx-auto mb-14">Four operational categories. No gaps.</p>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {[
+              {
+                Icon: BookOpen,
+                title: 'Program Delivery',
+                items: ['Structured training pathways', 'Progress tracking and checkpoints', 'Credential alignment'],
+              },
+              {
+                Icon: Users,
+                title: 'Participant Management',
+                items: ['Enrollment and intake workflows', 'Case management tools', 'Status and progress visibility'],
+              },
+              {
+                Icon: BarChart3,
+                title: 'Compliance & Reporting',
+                items: ['WIOA-aligned tracking', 'Audit-ready records', 'Performance dashboards'],
+              },
+              {
+                Icon: ShieldCheck,
+                title: 'Employer & Placement Integration',
+                items: ['Employer connections via Indiana Career Connect', 'Placement tracking and wage outcomes', 'Outcome reporting for DWD and WorkOne'],
+              },
+            ].map((block) => (
+              <div key={block.title} className="border border-slate-200 rounded-xl p-7">
+                <div className="flex items-center gap-3 mb-5">
+                  <block.Icon className="w-5 h-5 text-brand-red-600 shrink-0" />
+                  <h3 className="font-extrabold text-slate-900 text-base">{block.title}</h3>
+                </div>
+                <ul className="space-y-2.5">
+                  {block.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-slate-600 text-sm">
+                      <span className="text-brand-red-500 font-black mt-0.5 shrink-0">→</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-          <p className="text-sm text-teal-700 font-semibold uppercase tracking-wide mb-6">Licensed Supervising Barber — Apprenticeship Program</p>
-          <p className="text-slate-700 mb-6">
-            The barber on file is the licensed professional responsible for supervising and verifying the training of apprentices working in the shop.
+        </div>
+      </section>
+
+      {/* SECTION 4: HOW IT WORKS */}
+      <section id="how-it-works" className="bg-slate-950 py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-3">
+            From Intake to Placement — Managed in One System
+          </h2>
+          <p className="text-slate-400 text-sm text-center max-w-xl mx-auto mb-14">
+            Agencies need to see the full lifecycle. Here it is.
           </p>
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <Eye className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Direct Supervision of Apprentices</h3>
-                <p className="text-sm text-slate-600">Supervises apprentices while they perform barber services, ensuring all work is done safely and according to barber board sanitation standards.</p>
+          <div className="space-y-3">
+            {[
+              { n: '01', label: 'Intake & Eligibility', detail: 'Participants apply and are matched with funding pathways — WIOA, Workforce Ready Grant, FSSA IMPACT, or employer-sponsored.' },
+              { n: '02', label: 'Enrollment & Program Assignment', detail: 'Participants enrolled with IEP alignment and funding documentation. WorkOne referrals processed directly.' },
+              { n: '03', label: 'Training & Progress Tracking', detail: 'Structured programs with lesson delivery, checkpoint assessments, and attendance logging.' },
+              { n: '04', label: 'Credentialing & Verification', detail: 'Industry certifications issued and publicly verifiable. DOL-aligned credential records.' },
+              { n: '05', label: 'Employer Placement', detail: 'Direct connection to employer opportunities via Indiana Career Connect. OJT agreements, WEX placements, and wage tracking.' },
+              { n: '06', label: 'Reporting & Compliance', detail: 'Real-time dashboards for agencies and partners. RAPIDS-compatible exports. DWD and WorkOne submission ready.' },
+            ].map((step) => (
+              <div key={step.n} className="flex items-start gap-5 bg-slate-900 border border-slate-800 rounded-xl px-6 py-5">
+                <span className="text-brand-red-400 font-black text-xs tracking-widest shrink-0 mt-0.5">{step.n}</span>
+                <div>
+                  <p className="text-white font-extrabold text-sm mb-1">{step.label}</p>
+                  <p className="text-slate-400 text-xs leading-relaxed">{step.detail}</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <ClipboardCheck className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Hour Verification &amp; Training Logs</h3>
-                <p className="text-sm text-slate-600">Reviews and verifies apprentice hours and training logs, and signs off on progress documentation required for the apprenticeship program.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <Scale className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Shop Compliance &amp; Barber Board Standards</h3>
-                <p className="text-sm text-slate-600">Ensures the shop environment follows barber board regulations, including supervision ratios and sanitation procedures.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <GraduationCap className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Progress Evaluation &amp; Completion Sign-Off</h3>
-                <p className="text-sm text-slate-600">Confirms when an apprentice has successfully completed the required training and is ready to move forward toward licensing.</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Shop Owner */}
-      <section className="py-16 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="flex items-center gap-3 mb-2">
-            <Store className="w-7 h-7 text-teal-700 flex-shrink-0" />
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Shop Owner Responsibilities</h2>
-          </div>
-          <p className="text-sm text-teal-700 font-semibold uppercase tracking-wide mb-6">Licensed Shop — Apprenticeship Training Site</p>
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <Scale className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Shop License &amp; Regulatory Compliance</h3>
-                <p className="text-sm text-slate-600">Maintain a valid shop license and ensure the shop meets all barber board health, sanitation, and safety regulations.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <Wrench className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Equipment &amp; Workstations</h3>
-                <p className="text-sm text-slate-600">Provide the required barber equipment and workstations so apprentices can perform services safely.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <UserCheck className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Apprentice Registration &amp; Permits</h3>
-                <p className="text-sm text-slate-600">Ensure apprentices are properly registered with the state barber board before they begin performing services.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <Clock className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Training Hours &amp; Scheduling</h3>
-                <p className="text-sm text-slate-600">Allow apprentices to complete their required on-the-job training hours and provide reasonable scheduling.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <Handshake className="w-6 h-6 text-teal-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Cooperation with Sponsor &amp; Barber on File</h3>
-                <p className="text-sm text-slate-600">Cooperate with the apprenticeship sponsor and barber on file by allowing oversight of training activities.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Compensation */}
-      <section className="py-16 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="flex items-center gap-3 mb-2">
-            <DollarSign className="w-7 h-7 text-teal-700 flex-shrink-0" />
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Apprentice Compensation</h2>
-          </div>
-          <p className="text-sm text-teal-700 font-semibold uppercase tracking-wide mb-6">Pay Structure &amp; Wage Requirements</p>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-5 mb-6">
-            <div className="flex items-start gap-3">
-              <Ban className="w-6 h-6 text-red-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <h3 className="font-bold text-red-900 mb-1">Sole Commission Is Not Permitted</h3>
-                <p className="text-sm text-red-800">Apprentices must receive at least minimum wage for all hours worked. Commission-only pay violates FLSA and DOL registered apprenticeship standards.</p>
-              </div>
-            </div>
-          </div>
+      {/* SECTION 5: WHY AGENCIES SWITCH */}
+      <section className="bg-white py-16 px-6 border-t border-slate-100">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-10">
+            Why Agencies Use Elevate
+          </h2>
           <div className="space-y-4">
-            <div className="bg-white border border-slate-200 rounded-lg p-4">
-              <h4 className="font-bold text-slate-900 mb-1">Base Hourly Wage (Required)</h4>
-              <p className="text-sm text-slate-600">At or above minimum wage for all hours worked, including OJT hours.</p>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-lg p-4">
-              <h4 className="font-bold text-slate-900 mb-1">Optional Commission on Services</h4>
-              <p className="text-sm text-slate-600">Commission may supplement the base wage but cannot replace it.</p>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-lg p-4">
-              <h4 className="font-bold text-slate-900 mb-1">Progressive Wage Increases</h4>
-              <p className="text-sm text-slate-600">Wages increase as the apprentice advances through the program and completes training milestones.</p>
-            </div>
+            {[
+              'Eliminate fragmented systems and spreadsheets',
+              'Track participant outcomes in real time',
+              'Maintain compliance without manual processes',
+              'Deploy programs without building internal infrastructure',
+              'Connect participants to employers through Indiana Career Connect',
+              'Document FSSA IMPACT, WIOA, and WorkOne referrals in one place',
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-4 border border-slate-200 rounded-xl px-6 py-4">
+                <span className="w-2 h-2 rounded-full bg-brand-red-600 shrink-0" />
+                <p className="text-slate-900 font-semibold text-sm">{item}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-16 bg-slate-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Join Our Network?</h2>
-          <p className="text-white/80 mb-8 text-lg">Application takes 15–20 minutes. Decision in 2–3 days.</p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/apply/program-holder" className="inline-flex items-center gap-2 bg-brand-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-blue-700 transition">
-              Apply Now <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link href="/login?redirect=/program-holder/dashboard" className="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/20 transition">
-              <LogIn className="w-5 h-5" /> Log In to Portal
-            </Link>
+      {/* SECTION 6: COMPLIANCE */}
+      <section className="bg-slate-950 py-16 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <ShieldCheck className="w-8 h-8 text-brand-red-400 mx-auto mb-5" />
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-10">
+            Designed for Workforce Compliance
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              'DOL Registered Apprenticeship Sponsor',
+              'ETPL-Aligned Program Structure',
+              'WIOA Performance Tracking',
+              'Secure, Role-Based Access & Audit Trails',
+            ].map((item) => (
+              <div key={item} className="border-2 border-brand-red-600 rounded-xl px-5 py-5">
+                <p className="text-white font-extrabold text-sm leading-snug">{item}</p>
+              </div>
+            ))}
           </div>
-          <p className="mt-6 text-white/60 text-sm">
-            Questions? Call <a href="tel:3173143757" className="underline">(317) 314-3757</a> or visit our <Link href="/platform/program-holders" className="underline">program holder info page</Link>.
-          </p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              { label: 'FSSA IMPACT', detail: 'SNAP and TANF recipients trained at no cost. Elevate is a participating provider. Eligibility verified at intake.' },
+              { label: 'WorkOne Integration', detail: 'Case managers refer clients directly. Progress visible in real time without manual updates or phone calls.' },
+              { label: 'Indiana Career Connect', detail: "Graduates posted to Indiana's official workforce portal. Employer connections and job matching built in." },
+            ].map((item) => (
+              <div key={item.label} className="bg-slate-900 border border-slate-800 rounded-xl px-5 py-5 text-left">
+                <p className="text-brand-red-400 font-extrabold text-xs uppercase tracking-widest mb-2">{item.label}</p>
+                <p className="text-slate-300 text-xs leading-relaxed">{item.detail}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-    </div>
+
+      {/* SECTION 7: DEPLOYMENT OPTIONS */}
+      <section className="bg-white py-20 px-6 border-t border-slate-100">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-3">
+            Flexible Deployment
+          </h2>
+          <p className="text-slate-500 text-sm text-center max-w-xl mx-auto mb-12">
+            Three options. No lock-in on the wrong tier.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              { label: 'Managed Platform', detail: 'We host and manage the system while you operate programs. Fastest path to deployment.', tag: 'Most common', highlight: true },
+              { label: 'Branded Deployment', detail: 'Run programs under your organization with custom branding and portals.', tag: 'For partners', highlight: false },
+              { label: 'Enterprise / Source Access', detail: 'Full control for large-scale or state-level implementations.', tag: 'For scale', highlight: false },
+            ].map((option) => (
+              <div key={option.label} className={`rounded-xl p-7 border-2 flex flex-col ${option.highlight ? 'border-brand-red-600 bg-brand-red-50' : 'border-slate-200 bg-white'}`}>
+                <span className={`text-[10px] font-extrabold uppercase tracking-widest mb-3 ${option.highlight ? 'text-brand-red-600' : 'text-slate-400'}`}>{option.tag}</span>
+                <h3 className="font-extrabold text-slate-900 text-base mb-3">{option.label}</h3>
+                <p className="text-slate-600 text-xs leading-relaxed flex-1">{option.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 8: CLOSE */}
+      <section className="bg-slate-950 py-24 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-5 leading-tight">
+            See How It Works in Your Environment
+          </h2>
+          <p className="text-slate-300 text-sm leading-relaxed mb-10 max-w-xl mx-auto">
+            We will walk through how the system supports your programs, compliance requirements, and reporting needs — including WIOA, FSSA IMPACT, WorkOne referrals, and Indiana Career Connect integration.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact?subject=platform-demo" className="bg-brand-red-600 hover:bg-brand-red-700 text-white font-extrabold px-10 py-4 rounded-xl transition-colors text-sm">
+              Request a Demo
+            </Link>
+            <a href="/elevate-platform-overview.pdf" className="inline-flex items-center justify-center gap-2 border-2 border-slate-600 text-slate-300 hover:border-slate-400 hover:text-white font-extrabold px-10 py-4 rounded-xl transition-colors text-sm">
+              <Download className="w-4 h-4" /> Download Overview
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
   );
 }
