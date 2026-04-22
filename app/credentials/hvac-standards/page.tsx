@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { resolveHvacCourseId } from '@/lib/courses/resolvers';
 import HVACStandardsContent from './HVACStandardsContent';
 
 export const dynamic = 'force-dynamic';
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HVACStandardsPage() {
-  const db = await getAdminClient();
+  const [db, courseId] = await Promise.all([getAdminClient(), resolveHvacCourseId()]);
 
   const { data: lessons } = await db
     .from('curriculum_lessons')
@@ -21,5 +22,5 @@ export default async function HVACStandardsPage() {
     (lessons ?? []).map((l: any) => [l.lesson_number, { id: l.id, title: l.title, slug: l.slug }])
   );
 
-  return <HVACStandardsContent lessonMap={lessonMap} />;
+  return <HVACStandardsContent lessonMap={lessonMap} courseId={courseId} />;
 }

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
+import CourseAuthoringToolClient from './CourseAuthoringToolClient';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,11 +11,6 @@ export const metadata: Metadata = {
   title: 'Course Builder | Elevate For Humanity',
   description: 'Build and customize course content.',
 };
-
-const CourseAuthoringTool = dynamic(
-  () => import('@/components/lms/CourseAuthoringTool'),
-  { ssr: false }
-);
 
 export default async function BuilderPage() {
   const supabase = await createClient();
@@ -46,7 +41,7 @@ export default async function BuilderPage() {
           <h1 className="text-3xl font-bold text-slate-900">Course Builder</h1>
           <p className="text-slate-600 mt-1">Drag and drop to build course structure. Save to DB via Admin → Curriculum.</p>
         </div>
-        <CourseAuthoringTool />
+        <CourseAuthoringToolClient />
       </div>
     </div>
   );

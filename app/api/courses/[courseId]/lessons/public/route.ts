@@ -6,13 +6,14 @@ import { HVAC_LESSON_UUID, HVAC_MODULE_UUID } from '@/lib/courses/hvac-legacy-ma
 import { HVAC_QUIZ_MAP } from '@/lib/courses/hvac-quiz-map';
 import { buildLessonContent, isPlaceholderContent } from '@/lib/courses/hvac-content-builder';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 // Known course UUID → definition slug mapping for pre-migration fallback
 const COURSE_ID_TO_SLUG: Record<string, string> = {
-  '0ba9a61c-1f1b-4019-be6f-90e92eba2bc0': 'hvac-technician',
+  [HVAC_COURSE_ID]: 'hvac-technician',
 };
 
 // Lesson definition ID → UUID lookup (currently only HVAC)

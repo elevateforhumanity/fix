@@ -213,6 +213,30 @@ export default function CourseAuthoringTool() {
     setShowLessonForm(true);
   };
 
+  // Persist module reorder to DB if course.id is a real UUID
+  const persistModuleReorder = async (modules: Module[]) => {
+    if (!course.id || course.id.startsWith('course-')) return; // local-only state
+    await fetch(`/api/admin/courses/${course.id}/modules/reorder`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: modules.map((m, i) => ({ id: m.id, order_index: i })),
+      }),
+    });
+  };
+
+  // Persist lesson reorder to DB if course.id is a real UUID
+  const persistLessonReorder = async (moduleId: string, lessons: Lesson[]) => {
+    if (!course.id || course.id.startsWith('course-')) return;
+    await fetch(`/api/admin/courses/${course.id}/lessons/reorder`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: lessons.map((l, i) => ({ id: l.id, order_index: i })),
+      }),
+    });
+  };
+
   // Handle module drag end
   const handleModuleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -220,11 +244,10 @@ export default function CourseAuthoringTool() {
 
     const oldIndex = course.modules.findIndex((m) => m.id === active.id);
     const newIndex = course.modules.findIndex((m) => m.id === over.id);
+    const reordered = arrayMove(course.modules, oldIndex, newIndex);
 
-    setCourse({
-      ...course,
-      modules: arrayMove(course.modules, oldIndex, newIndex),
-    });
+    setCourse({ ...course, modules: reordered });
+    persistModuleReorder(reordered);
   };
 
   // Handle lesson drag end
@@ -237,15 +260,13 @@ export default function CourseAuthoringTool() {
 
     const oldIndex = module.lessons.findIndex((l) => l.id === active.id);
     const newIndex = module.lessons.findIndex((l) => l.id === over.id);
+    const reordered = arrayMove(module.lessons, oldIndex, newIndex);
 
-    setCourse({
-      ...course,
-      modules: course.modules.map((m) =>
-        m.id === moduleId
-          ? { ...m, lessons: arrayMove(m.lessons, oldIndex, newIndex) }
-          : m
-      ),
-    });
+    const updatedModules = course.modules.map((m) =>
+      m.id === moduleId ? { ...m, lessons: reordered } : m
+    );
+    setCourse({ ...course, modules: updatedModules });
+    persistLessonReorder(moduleId, reordered);
   };
 
   // Save module

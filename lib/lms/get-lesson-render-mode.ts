@@ -10,6 +10,7 @@
 
 import { normalizeLessonType, type LessonType } from '@/lib/curriculum/lesson-types';
 import { normalizeLessonContent, type LessonContent } from '@/lib/curriculum/normalize-lesson-content';
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
 // ─── Render modes ─────────────────────────────────────────────────────────────
 
@@ -61,7 +62,7 @@ export function getLessonRenderMode(lesson: Record<string, unknown>): LessonRend
   // HVAC legacy adapter — isolate before canonical path
   const isHvacLegacy =
     lesson.lesson_source === 'training' ||
-    (lesson.course_id === 'f0593164-55be-5867-98e7-8a86770a8dd0' &&
+    (lesson.course_id === HVAC_COURSE_ID &&
       !lesson.content_structured &&
       lessonType === 'reading');
 

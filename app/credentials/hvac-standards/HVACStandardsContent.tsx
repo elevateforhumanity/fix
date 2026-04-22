@@ -1,6 +1,7 @@
 "use client";
 
 import { FileText, Shield, Wrench, Zap, Thermometer, Settings, Search, Snowflake, Clock, CheckCircle2, Building2, GraduationCap } from "lucide-react";
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
 /* ── Competency Framework Data ── */
 
@@ -150,7 +151,7 @@ const OJT_COMPETENCIES = DOMAINS.reduce(
 
 interface LessonRef { id: string; title: string; slug: string; }
 
-export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<number, LessonRef> }) {
+export default function HVACStandardsContent({ lessonMap, courseId }: { lessonMap?: Map<number, LessonRef>; courseId?: string }) {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -408,7 +409,7 @@ export default function HVACStandardsContent({ lessonMap }: { lessonMap?: Map<nu
                             {comp.lessons.map((num: number, i: number) => {
                               const ref = lessonMap?.get(num);
                               return ref ? (
-                                <a key={num} href={`/lms/courses/f0593164-55be-5867-98e7-8a86770a8dd0/lessons/${ref.id}`}
+                                <a key={num} href={`/lms/courses/${courseId ?? HVAC_COURSE_ID}/lessons/${ref.id}`}
                                   className="underline hover:text-brand-blue-600 mr-1">
                                   {num}
                                 </a>

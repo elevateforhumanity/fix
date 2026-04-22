@@ -64,19 +64,19 @@
       "name": "Students",
       "short_name": "Students",
       "url": "/admin/students",
-      "icons": [{ "src": "/icons/students-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/icons/admin-96.png", "sizes": "96x96" }]
     },
     {
       "name": "Applications",
       "short_name": "Apps",
       "url": "/admin/applications",
-      "icons": [{ "src": "/icons/applications-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/icons/admin-96.png", "sizes": "96x96" }]
     },
     {
       "name": "Reports",
       "short_name": "Reports",
       "url": "/admin/reports",
-      "icons": [{ "src": "/icons/reports-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/icons/admin-96.png", "sizes": "96x96" }]
     }
   ]
 }

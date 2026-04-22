@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import WIOAComplianceDashboard, { type WIOADashboardProps } from '@/components/admin/WIOAComplianceDashboard';
 import ComplianceClientShell from './ComplianceClientShell';
+import { CoiValidator } from '@/components/admin/CoiValidator';
 import {
 
   getAllGuardrails,
@@ -295,6 +296,19 @@ export default async function CompliancePage() {
       <section className="py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <ComplianceClientShell />
+        </div>
+      </section>
+
+      {/* COI Validator — Certificate of Insurance review for partner/employer onboarding */}
+      <section className="py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">Certificate of Insurance Validator</h2>
+          <p className="text-slate-600 mb-6 text-sm">
+            Upload and validate COI documents for employer and program holder onboarding.
+          </p>
+          <CoiValidator
+            expectedCertificateHolder="Elevate for Humanity"
+          />
         </div>
       </section>
     </div>

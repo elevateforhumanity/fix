@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getCourseBySlug } from '@/lib/courses/definitions';
 import { getCurrentUser } from '@/lib/auth';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { resolveHvacCourseId } from '@/lib/courses/resolvers';
 import HvacCourseHome from './HvacCourseHome';
 
 export const metadata: Metadata = {
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function HvacCoursePage() {
-  const course = getCourseBySlug('hvac-technician');
+  const [course, courseId] = await Promise.all([
+    Promise.resolve(getCourseBySlug('hvac-technician')),
+    resolveHvacCourseId(),
+  ]);
   if (!course) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -65,6 +69,7 @@ export default async function HvacCoursePage() {
   return (
     <HvacCourseHome
       course={course}
+      courseId={courseId}
       completedLessonIds={completedLessonIds}
       progressPercent={progressPercent}
       lastLessonId={lastLessonId}

@@ -2,6 +2,10 @@
  * lib/course-builder/schema.ts
  * Single source of truth for the course builder pipeline.
  */
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
+// BARBER_COURSE_ID not imported from @/lib/barber/constants — that module re-exports
+// from this file, creating a circular dependency. Use the literal directly here.
+const BARBER_COURSE_ID_SCHEMA = '3fb5ce19-1cde-434c-a8c6-f138d7d7aa17';
 
 export type CredentialTarget = 'INTERNAL' | 'STATE_BOARD' | 'IC&RC' | 'NAADAC' | 'CUSTOM' | 'DOL_APPRENTICESHIP';
 export type LessonType = 'video' | 'reading' | 'quiz' | 'assignment' | 'practical' | 'checkpoint' | 'exam' | 'live_session' | 'fieldwork' | 'observation' | 'lesson' | 'lab' | 'certification';
@@ -208,8 +212,8 @@ export const DEFAULT_ACTIVITIES: Record<string, ActivityType[]> = {
 };
 
 export const PROGRAM_COURSE_MAP: Record<string, string> = {
-  'barber-apprenticeship': '3fb5ce19-1cde-434c-a8c6-f138d7d7aa17',
-  'hvac-technician': 'f0593164-55be-5867-98e7-8a86770a8dd0',
+  'barber-apprenticeship': BARBER_COURSE_ID_SCHEMA,
+  'hvac-technician': HVAC_COURSE_ID,
 };
 
 export function resolveCourseId(programSlug: string): string | null {

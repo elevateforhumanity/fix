@@ -3,21 +3,24 @@ export const dynamic = 'force-dynamic';
 import Image from 'next/image';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
-import { getDb } from '@/lib/lms/api';
+import { getAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
 import { AdminInstallPrompt } from '@/components/pwa/AdminInstallPrompt';
 
-async function getAdminDashboardData() {
-  const supabase = await getDb();
+async function getPwaAdminData() {
+  const adminClient = await getAdminClient();
+  const fallback = await createClient();
+  const db = adminClient ?? fallback;
 
   const [profileRes, appRes, enrollRes, courseRes, programRes, productRes, recentAppsRes, recentEnrollRes] = await Promise.all([
-    supabase.from('profiles').select('id', { count: 'exact', head: true }),
-    supabase.from('applications').select('id', { count: 'exact', head: true }),
-    supabase.from('enrollments').select('id', { count: 'exact', head: true }),
-    supabase.from('courses').select('id', { count: 'exact', head: true }),
-    supabase.from('programs').select('id', { count: 'exact', head: true }),
-    supabase.from('products').select('id', { count: 'exact', head: true }),
-    supabase.from('applications').select('id, first_name, last_name, email, status, created_at').order('created_at', { ascending: false }).limit(5),
-    supabase.from('enrollments').select('id, user_id, course_id, status, enrolled_at').order('enrolled_at', { ascending: false }).limit(5),
+    db.from('profiles').select('id', { count: 'exact', head: true }),
+    db.from('applications').select('id', { count: 'exact', head: true }),
+    db.from('program_enrollments').select('id', { count: 'exact', head: true }),
+    db.from('training_courses').select('id', { count: 'exact', head: true }),
+    db.from('programs').select('id', { count: 'exact', head: true }),
+    db.from('products').select('id', { count: 'exact', head: true }),
+    db.from('applications').select('id, first_name, last_name, email, status, created_at').order('created_at', { ascending: false }).limit(5),
+    db.from('program_enrollments').select('id, user_id, program_id, status, created_at').order('created_at', { ascending: false }).limit(5),
   ]);
 
   return {
@@ -33,7 +36,7 @@ async function getAdminDashboardData() {
 }
 
 export default async function AdminPWAPage() {
-  const data = await getAdminDashboardData();
+  const data = await getPwaAdminData();
 
   const stats = [
     { label: 'Users', value: data.profiles, color: 'bg-brand-blue-600', href: '/admin/users' },
@@ -119,7 +122,7 @@ export default async function AdminPWAPage() {
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${e.status === 'active' ? 'bg-brand-green-500' : e.status === 'completed' ? 'bg-brand-blue-500' : 'bg-slate-400'}`} />
               <div className="flex-1 min-w-0">
                 <div className="font-semibold text-slate-900 text-sm truncate">Enrollment #{e.id.slice(0, 8)}</div>
-                <div className="text-xs text-slate-500">{new Date(e.enrolled_at).toLocaleDateString()}</div>
+                <div className="text-xs text-slate-500">{new Date(e.created_at).toLocaleDateString()}</div>
               </div>
               <span className={`text-xs font-medium px-2 py-1 rounded-full ${e.status === 'active' ? 'bg-brand-green-100 text-brand-green-700' : e.status === 'completed' ? 'bg-brand-blue-100 text-brand-blue-700' : 'bg-slate-100 text-slate-600'}`}>
                 {e.status}

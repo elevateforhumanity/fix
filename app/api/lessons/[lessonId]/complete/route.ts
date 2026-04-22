@@ -1,5 +1,5 @@
 import { logger } from '@/lib/logger';
-import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
+import { resolveHvacCourseId } from '@/lib/courses/resolvers';
 import { checkEligibilityAndAuthorize } from '@/lib/services/exam-eligibility';
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -208,7 +208,8 @@ async function _POST(
       if (!passingAttempt) {
         // Allow completion if this is an HVAC course lesson (local quiz bank,
         // no quiz_attempts rows). Client already enforced pass score.
-        if (lesson.course_id !== HVAC_COURSE_ID) {
+        const hvacCourseId = await resolveHvacCourseId();
+        if (lesson.course_id !== hvacCourseId) {
           return NextResponse.json(
             { error: 'Quiz must be passed before marking complete' },
             { status: 403 }
@@ -343,7 +344,8 @@ async function _POST(
     }
 
     // HVAC workflow: advance credential sequence when all lessons complete
-    if (courseCompleted && lesson.course_id === '0ba9a61c-1f1b-4019-be6f-90e92eba2bc0') {
+    const hvacCourseIdForWorkflow = await resolveHvacCourseId();
+    if (courseCompleted && lesson.course_id === hvacCourseIdForWorkflow) {
       try {
         const { advanceHvacWorkflow } = await import('@/lib/courses/hvac-completion-workflow');
         const wfResult = await advanceHvacWorkflow(user.id);

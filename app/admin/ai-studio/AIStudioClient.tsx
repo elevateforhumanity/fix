@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { AdminAIAssistant } from '@/components/admin/AdminAIAssistant';
 
 // Lazy-load all AI tool components
 const AssetGenerator = dynamic(() => import('@/components/AssetGenerator'), { ssr: false });
@@ -89,6 +90,9 @@ export default function AIStudioPage() {
           </div>
         )}
       </div>
+
+      {/* Floating AI assistant — available on all AI Studio tabs */}
+      <AdminAIAssistant />
     </div>
   );
 }
