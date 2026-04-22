@@ -11,8 +11,8 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'For Workforce Agencies | Refer Clients | Elevate for Humanity',
-  description: 'WorkOne case managers, DWD staff, and workforce agencies: refer clients to ETPL-approved, WIOA-funded career training. RAPIDS-tracked outcomes, real-time reporting.',
+  title: 'For Workforce Agencies | Elevate for Humanity',
+  description: 'WorkOne case managers, DWD staff, and workforce boards: real-time participant tracking, WIOA documentation, credential verification, employer placement reporting, and RAPIDS-compatible outcomes — all in one system.',
   alternates: { canonical: 'https://www.elevateforhumanity.org/for-agencies' },
 };
 
@@ -197,6 +197,100 @@ export default async function ForAgenciesPage() {
           </div>
         </section>
       )}
+
+      {/* ── PLATFORM CAPABILITIES ── */}
+      <section className="py-16 px-4 bg-white border-t border-slate-100">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-brand-red-600 text-xs font-bold uppercase tracking-widest text-center mb-3">What the system does</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-4">
+            Built for how workforce agencies actually operate.
+          </h2>
+          <p className="text-slate-500 text-sm text-center max-w-2xl mx-auto mb-12">
+            Most training providers hand you a completion certificate and walk away. Elevate runs the full cycle — intake, training, credentialing, placement, and the documentation your agency needs for reporting.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: <ClipboardList className="w-6 h-6 text-brand-red-600" />,
+                title: 'WIOA Documentation',
+                body: 'Eligibility verification, IEP alignment, and RAPIDS-compatible outcome tracking. Every participant record is audit-ready.',
+              },
+              {
+                icon: <TrendingUp className="w-6 h-6 text-brand-red-600" />,
+                title: 'Real-Time Progress Reporting',
+                body: 'Case managers can see enrollment status, lesson completion, checkpoint scores, and credential issuance — without calling us.',
+              },
+              {
+                icon: <CheckCircle className="w-6 h-6 text-brand-red-600" />,
+                title: 'Credential Verification',
+                body: 'Every certificate issued is publicly verifiable. Employers and agencies can confirm credentials instantly via a unique verification link.',
+              },
+              {
+                icon: <Building2 className="w-6 h-6 text-brand-red-600" />,
+                title: 'Employer Placement Tracking',
+                body: 'OJT agreements, WEX placements, and apprenticeship hours are tracked in the system. Wage outcomes are recorded at placement.',
+              },
+              {
+                icon: <Users className="w-6 h-6 text-brand-red-600" />,
+                title: 'Cohort & Attendance Management',
+                body: 'Schedule cohorts, track attendance, and manage instructor assignments — all tied to the participant record.',
+              },
+              {
+                icon: <FileText className="w-6 h-6 text-brand-red-600" />,
+                title: 'Funding Documentation',
+                body: 'WIOA, Workforce Ready Grant, FSSA IMPACT, and Job Ready Indy funding is tracked per participant with exportable documentation.',
+              },
+            ].map((item) => (
+              <div key={item.title} className="bg-slate-50 border border-slate-200 rounded-xl p-6">
+                <div className="mb-3">{item.icon}</div>
+                <h3 className="font-bold text-slate-900 text-sm mb-2">{item.title}</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT AGENCIES SEE ── */}
+      <section className="py-16 px-4 bg-slate-950">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-brand-red-400 text-xs font-bold uppercase tracking-widest text-center mb-3">Agency visibility</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-4">
+            Your clients. Your outcomes. Your reports.
+          </h2>
+          <p className="text-slate-400 text-sm text-center max-w-xl mx-auto mb-12">
+            Workforce boards and case managers get a dedicated view — not a generic training portal. Here's what's visible from day one.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-4 mb-10">
+            {[
+              { label: 'Participant enrollment status', detail: 'Active, completed, withdrawn — updated in real time' },
+              { label: 'Lesson and checkpoint progress', detail: 'Percentage complete, last activity, pass/fail on assessments' },
+              { label: 'Credential issuance', detail: 'Date issued, credential type, verification link' },
+              { label: 'Employer placement', detail: 'Employer name, job title, start date, hourly wage' },
+              { label: 'Funding source per participant', detail: 'WIOA, WRG, IMPACT, or self-pay — tracked per record' },
+              { label: 'Attendance and cohort records', detail: 'Session dates, hours logged, instructor sign-off' },
+              { label: 'FERPA-compliant data access', detail: 'Role-based access controls, consent tracking, audit log' },
+              { label: 'Exportable outcome reports', detail: 'CSV and PDF exports formatted for DWD and RAPIDS submission' },
+            ].map((item) => (
+              <div key={item.label} className="flex items-start gap-3 bg-slate-900 border border-slate-800 rounded-lg px-5 py-4">
+                <CheckCircle className="w-4 h-4 text-brand-red-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-white text-sm font-semibold">{item.label}</p>
+                  <p className="text-slate-400 text-xs mt-0.5">{item.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link
+              href="/apply"
+              className="inline-flex items-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white font-bold px-8 py-3.5 rounded-lg transition-colors text-sm"
+            >
+              <Users className="w-4 h-4" /> Refer a Client Now <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Contact / refer CTA */}
       <section className="py-14 px-4 bg-slate-900 text-white">
