@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import WIOAComplianceDashboard, { type WIOADashboardProps } from '@/components/admin/WIOAComplianceDashboard';
-import ComplianceClientShell from './ComplianceClientShell';
 import { CoiValidator } from '@/components/admin/CoiValidator';
 import {
 
@@ -289,13 +288,6 @@ export default async function CompliancePage() {
       <section className="py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <WIOAComplianceDashboard {...wioaData} />
-        </div>
-      </section>
-
-      {/* Blockchain Credential Verification */}
-      <section className="py-8 px-6">
-        <div className="max-w-7xl mx-auto">
-          <ComplianceClientShell />
         </div>
       </section>
 
