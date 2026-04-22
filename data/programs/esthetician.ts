@@ -6,7 +6,7 @@ export const ESTHETICIAN: ProgramSchema = {
   subtitle: '5-week accelerated non-licensure certificate. Skin analysis, facial treatments, hair removal, and business startup — WIOA funded.',
   sector: 'personal-services',
   category: 'Beauty & Personal Services',
-  heroImage: '/images/pages/barber-apprentice-learning.jpg',
+  heroImage: '/images/pages/cosmetology-hero.jpg',
   heroImageAlt: 'Esthetician performing professional facial treatment',
   videoSrc: '/videos/esthetician-spa.mp4',
   deliveryMode: 'hybrid',

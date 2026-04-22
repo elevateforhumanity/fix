@@ -61,7 +61,7 @@ export default async function AboutPage() {
           {/* Contained headshot */}
           <div className="relative w-40 h-40 sm:w-52 sm:h-52 flex-shrink-0 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
             <Image
-              src="/images/team/elizabeth-greene-headshot.jpg"
+              src="/images/team/elizabeth-greene.jpg"
               alt="Elizabeth Greene, Founder & CEO of Elevate for Humanity"
               fill
               className="object-cover object-top"
@@ -441,14 +441,14 @@ export default async function AboutPage() {
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-8">Our Founder</h2>
           <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
             <div className="flex flex-col sm:flex-row">
-              <div className="relative w-full sm:w-72 flex-shrink-0 overflow-hidden aspect-square" style={{ aspectRatio: '3/4' }}>
+              <div className="relative w-48 h-48 sm:w-56 sm:h-64 flex-shrink-0 overflow-hidden mx-auto sm:mx-0">
                 <Image
-                  src="/images/team/elizabeth-greene-headshot.jpg"
+                  src="/images/team/founder/elizabeth-greene-founder-hero-01.jpg"
                   alt="Elizabeth Greene, Founder & CEO of Elevate for Humanity"
                   fill
-                  sizes="(max-width: 640px) 100vw, 288px"
+                  sizes="(max-width: 640px) 192px, 224px"
                   quality={95}
-                  className="object-cover object-center"
+                  className="object-cover object-top"
                 />
               </div>
               <div className="p-6 flex-1">

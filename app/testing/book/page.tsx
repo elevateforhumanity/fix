@@ -315,9 +315,9 @@ function BookingForm() {
           <h2 className="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wide">How Booking Works</h2>
           <ol className="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-600 list-none">
             <li><span className="font-semibold text-slate-800">1.</span> Select your exam provider and type</li>
-            <li><span className="font-semibold text-slate-800">2.</span> Choose an available date and time</li>
-            <li><span className="font-semibold text-slate-800">3.</span> Enter your contact information</li>
-            <li><span className="font-semibold text-slate-800">4.</span> Complete payment to confirm your seat</li>
+            <li><span className="font-semibold text-slate-800">2.</span> Enter your contact information</li>
+            <li className="flex items-center gap-1.5"><span className="font-semibold text-slate-800">3.</span> <span className="font-bold text-brand-blue-700">Complete payment</span> <span className="text-[10px] bg-brand-blue-100 text-brand-blue-700 font-bold px-1.5 py-0.5 rounded">Required before scheduling</span></li>
+            <li><span className="font-semibold text-slate-800">4.</span> Choose your exam date and time</li>
             <li><span className="font-semibold text-slate-800">5.</span> Receive email confirmation within 1 business day</li>
           </ol>
           <div className="mt-3 pt-3 border-t border-slate-200 text-xs text-slate-500 space-y-0.5">
@@ -618,10 +618,37 @@ function BookingForm() {
                 </div>
               </div>
 
+              {/* Payment gate — must pay before selecting a slot */}
+              {enforcementHold && !enforcementHold.paid && (
+                <div className="rounded-xl border-2 border-brand-blue-400 bg-brand-blue-50 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <div className="flex-1">
+                    <p className="font-bold text-brand-blue-900 text-sm mb-1">
+                      ⚠️ Payment required before scheduling
+                    </p>
+                    <p className="text-brand-blue-800 text-xs leading-relaxed">
+                      Your exam fee of <strong>${(enforcementHold.fee_cents / 100).toFixed(0)}</strong> must be paid before you can select a date and time.
+                      Your spot will be confirmed immediately after payment.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handlePayFee}
+                    disabled={payingFee}
+                    className="flex-shrink-0 inline-flex items-center gap-2 bg-brand-blue-600 hover:bg-brand-blue-700 disabled:opacity-60 text-white font-bold px-5 py-2.5 rounded-lg text-sm transition-colors"
+                  >
+                    <CreditCard className="w-4 h-4" />
+                    {payingFee ? 'Redirecting...' : `Pay $${(enforcementHold.fee_cents / 100).toFixed(0)} Now`}
+                  </button>
+                </div>
+              )}
+
               {/* Slot picker — pulls live availability from DB */}
-              <div>
+              <div className={enforcementHold && !enforcementHold.paid ? 'opacity-40 pointer-events-none select-none' : ''}>
                 <label className="block text-xs font-semibold text-slate-600 mb-1">
                   Select a testing date &amp; time *
+                  {enforcementHold && !enforcementHold.paid && (
+                    <span className="ml-2 text-brand-blue-600 font-bold">(Pay first to unlock)</span>
+                  )}
                 </label>
                 {slotsLoading ? (
                   <p className="text-xs text-slate-400 py-2">Loading available slots...</p>

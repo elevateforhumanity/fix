@@ -95,7 +95,7 @@ export default async function ProviderPage({ params }: Props) {
     <main className="min-h-screen bg-white">
 
       {/* ── HERO ── */}
-      <section className="relative h-[480px] flex items-end overflow-hidden">
+      <section className="relative flex items-end overflow-hidden" style={{ minHeight: 'clamp(420px, 52vw, 600px)' }}>
         <Image
           src={heroImg}
           alt={provider.name}
@@ -168,21 +168,21 @@ export default async function ProviderPage({ params }: Props) {
                       <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                       <h3 className="font-bold text-slate-900 text-base leading-snug">{name}</h3>
                     </div>
-                    {desc && <p className="text-slate-600 text-sm leading-relaxed ml-8">{desc}</p>}
+                    {desc && <p className="text-slate-700 text-sm leading-relaxed ml-8">{desc}</p>}
                     {(duration || questions || ncrc) && (
                       <div className="ml-8 mt-3 flex flex-wrap gap-3">
                         {duration && (
-                          <span className="text-xs bg-white border border-slate-200 text-slate-500 px-2.5 py-1 rounded-full">
+                          <span className="text-xs bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full">
                             ⏱ {duration >= 60 ? `${Math.floor(duration / 60)}h${duration % 60 ? ` ${duration % 60}m` : ''}` : `${duration} min`}
                           </span>
                         )}
                         {questions && (
-                          <span className="text-xs bg-white border border-slate-200 text-slate-500 px-2.5 py-1 rounded-full">
+                          <span className="text-xs bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full">
                             {questions} question{questions !== 1 ? 's' : ''}
                           </span>
                         )}
                         {ncrc && (
-                          <span className="text-xs bg-white border border-slate-200 text-slate-500 px-2.5 py-1 rounded-full">
+                          <span className="text-xs bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full">
                             {ncrc}
                           </span>
                         )}
@@ -227,7 +227,7 @@ export default async function ProviderPage({ params }: Props) {
                 <Briefcase className="w-6 h-6 text-brand-blue-600" />
                 <h2 className="text-2xl font-bold text-slate-900">Jobs This Credential Unlocks</h2>
               </div>
-              <p className="text-slate-500 text-sm mb-6">
+              <p className="text-slate-700 text-sm mb-6">
                 Employers use these credentials as a hiring filter. Knowing the target level before you test helps you prepare to the right standard.
               </p>
               <div className="space-y-4">
@@ -259,38 +259,7 @@ export default async function ProviderPage({ params }: Props) {
         {/* Right — exam portal + pricing + CTA */}
         <aside className="space-y-6">
 
-          {/* ── Exam Portal — proctor launch panel ── */}
-          {provider.examPortalUrl && (
-            <aside aria-label="Exam Portal for Proctors" className="bg-slate-900 rounded-2xl overflow-hidden shadow-sm">
-              <div className="px-6 py-4 border-b border-slate-700">
-                <div className="flex items-center gap-2 text-white">
-                  <Monitor className="w-5 h-5 text-green-400" />
-                  <h3 id="exam-portal-heading" className="font-bold text-lg">Exam Portal</h3>
-                  <span className="ml-auto text-xs font-semibold bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-0.5 rounded-full">
-                    Proctor Use
-                  </span>
-                </div>
-              </div>
-              <div className="px-6 py-5 space-y-4">
-                {provider.examPortalNote && (
-                  <p className="text-slate-300 text-xs leading-relaxed">
-                    {provider.examPortalNote}
-                  </p>
-                )}
-                <a
-                  href={provider.examPortalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-labelledby="exam-portal-heading"
-                  className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white font-bold px-6 py-3.5 rounded-xl transition-colors text-sm"
-                >
-                  <Monitor className="w-4 h-4" />
-                  Launch Exam Portal
-                  <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-                </a>
-              </div>
-            </aside>
-          )}
+
 
           {/* Pricing card */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
@@ -309,12 +278,12 @@ export default async function ProviderPage({ params }: Props) {
                       <span className="text-2xl font-extrabold text-slate-900">${fee.amount}</span>
                     </div>
                     {fee.note && (
-                      <p className="text-slate-500 text-xs mt-1">{fee.note}</p>
+                      <p className="text-slate-600 text-xs mt-1">{fee.note}</p>
                     )}
                   </div>
                 ))
               ) : (
-                <p className="text-slate-500 text-sm">Pricing quoted on request — contact us for details.</p>
+                <p className="text-slate-700 text-sm">Pricing quoted on request — contact us for details.</p>
               )}
               {provider.groupDiscount && (
                 <div className="bg-green-50 rounded-lg p-3 border border-green-100 mt-2">
@@ -383,7 +352,7 @@ export default async function ProviderPage({ params }: Props) {
       {/* ── BOTTOM CTA ── */}
       <section className="bg-slate-900 py-16 px-6 text-center">
         <h2 className="text-3xl font-extrabold text-white mb-3">Ready to Get Certified?</h2>
-        <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+        <p className="text-slate-300 mb-8 max-w-xl mx-auto">
           All exams are by appointment only. Walk-ins are not accepted. Same-day appointments may be available depending on capacity — call us to check.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
@@ -397,7 +366,7 @@ export default async function ProviderPage({ params }: Props) {
           )}
           <Link
             href="/testing"
-            className="border border-slate-600 text-slate-300 hover:text-white hover:border-slate-400 font-bold px-8 py-4 rounded-full transition-colors"
+            className="border border-slate-500 text-white hover:text-white hover:border-white font-bold px-8 py-4 rounded-full transition-colors"
           >
             View All Exams
           </Link>

@@ -60,9 +60,9 @@ export default function TestingPage() {
           {/* Pathway context — testing is step 3, not a standalone service */}
           <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-4">
             <Link href="/programs" className="hover:text-brand-red-600 transition-colors">Get Trained</Link>
-            <span className="text-slate-300">→</span>
+            <span className="text-slate-500">→</span>
             <span className="text-brand-red-600 font-bold">Get Tested</span>
-            <span className="text-slate-300">→</span>
+            <span className="text-slate-500">→</span>
             <Link href="/employers" className="hover:text-brand-red-600 transition-colors">Get Hired</Link>
           </div>
           <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-2">Testing &amp; Credential Exams</h1>
@@ -103,39 +103,50 @@ export default function TestingPage() {
 
           <div className="space-y-10">
             {ACTIVE_PROVIDERS.map((provider) => (
-              <div key={provider.key} id={provider.key} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div key={provider.key} id={provider.key} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="grid lg:grid-cols-3">
-                  <div className="relative h-64 sm:h-80 lg:h-full min-h-[280px] overflow-hidden">
+                  {/* Image — clicking goes to provider detail page */}
+                  <Link href={`/testing/${provider.key}`} className="relative h-64 sm:h-80 lg:h-full min-h-[280px] overflow-hidden block group">
                     <Image
                       src={PROVIDER_IMAGES[provider.key] || '/images/pages/career-services-page-1.jpg'}
                       alt={provider.name}
                       fill
-                      className="object-cover object-center"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
                       sizes="(max-width: 1024px) 100vw, 33vw"
                     />
-                  </div>
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                  </Link>
                   <div className="lg:col-span-2 p-6">
                     <div className="flex items-start justify-between gap-4 mb-2">
-                      <h3 className="text-xl font-bold text-slate-900">{provider.name}</h3>
+                      <Link href={`/testing/${provider.key}`} className="hover:text-brand-blue-600 transition-colors">
+                        <h3 className="text-xl font-bold text-slate-900">{provider.name}</h3>
+                      </Link>
                       <span className="text-xs font-medium bg-slate-100 text-slate-600 px-3 py-1 rounded-full whitespace-nowrap flex-shrink-0">
                         {CAPABILITY_LABELS[provider.capability]}
                       </span>
                     </div>
-                    <p className="text-slate-600 text-sm mb-5 leading-relaxed">{provider.description}</p>
+                    <p className="text-slate-700 text-sm mb-5 leading-relaxed">{provider.description}</p>
 
-                    {/* Exams */}
+                    {/* Exams — each links to provider detail page */}
                     <div className="mb-5">
                       <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Exams Available</p>
-                      <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1.5">
+                      <div className="grid sm:grid-cols-2 gap-x-4 gap-y-2">
                         {provider.exams.map((exam) => {
-                          const label = typeof exam === 'object' && exam !== null
-                            ? (exam as { name: string }).name
-                            : exam as string;
+                          const isObj = typeof exam === 'object' && exam !== null;
+                          const label = isObj ? (exam as ExamDefinition).name : exam as string;
+                          const desc = isObj ? (exam as ExamDefinition).description : undefined;
                           return (
-                            <div key={label} className="flex items-start gap-2 text-sm text-slate-700">
-                              <CheckCircle className="w-3.5 h-3.5 text-brand-green-600 flex-shrink-0 mt-0.5" />
-                              {label}
-                            </div>
+                            <Link
+                              key={label}
+                              href={`/testing/${provider.key}`}
+                              className="flex items-start gap-2 text-sm text-slate-700 hover:text-brand-blue-600 group/exam"
+                            >
+                              <CheckCircle className="w-3.5 h-3.5 text-brand-green-600 flex-shrink-0 mt-0.5 group-hover/exam:text-brand-blue-500" />
+                              <span>
+                                <span className="font-medium group-hover/exam:underline">{label}</span>
+                                {desc && <span className="block text-xs text-slate-500 mt-0.5">{desc}</span>}
+                              </span>
+                            </Link>
                           );
                         })}
                       </div>
@@ -150,7 +161,7 @@ export default function TestingPage() {
                             <div key={fee.label} className="flex items-center justify-between gap-4 px-4 py-2.5">
                               <div>
                                 <p className="text-sm font-medium text-slate-800">{fee.label}</p>
-                                {fee.note && <p className="text-xs text-slate-400 mt-0.5">{fee.note}</p>}
+                                {fee.note && <p className="text-xs text-slate-600 mt-0.5">{fee.note}</p>}
                               </div>
                               <span className="text-brand-red-600 font-black text-lg shrink-0">${fee.amount}</span>
                             </div>
@@ -238,10 +249,10 @@ export default function TestingPage() {
                   .flatMap(p =>
                     p.fees!.map((fee, i) => (
                       <tr key={`${p.key}-${i}`} className="hover:bg-slate-50 transition-colors">
-                        <td className="px-5 py-3 text-slate-400 text-xs align-top pt-3.5">{i === 0 ? p.name : ''}</td>
+                        <td className="px-5 py-3 text-slate-600 text-xs align-top pt-3.5">{i === 0 ? p.name : ''}</td>
                         <td className="px-5 py-3 text-slate-800 font-medium">
                           {fee.label}
-                          {fee.note && <span className="block text-xs text-slate-400 font-normal">{fee.note}</span>}
+                          {fee.note && <span className="block text-xs text-slate-600 font-normal">{fee.note}</span>}
                         </td>
                         <td className="px-5 py-3 text-right font-black text-brand-red-600 text-base">${fee.amount}</td>
                       </tr>

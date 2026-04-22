@@ -110,8 +110,10 @@ export default async function ProgramHolderLayout({
     }
   }
 
-  // If not a program holder, just render children (for public landing page)
-  if (!profile || profile.role !== 'program_holder') {
+  const PORTAL_ROLES = ['program_holder', 'admin', 'super_admin', 'staff'];
+
+  // Non-portal roles (public visitors, unapproved applicants) — render children only
+  if (!profile || !PORTAL_ROLES.includes(profile.role)) {
     return <>{children}</>;
   }
 

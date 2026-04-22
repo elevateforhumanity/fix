@@ -234,12 +234,12 @@ export default function NailTechnicianApprenticeshipPage() {
               {
                 title: "Creative Expression",
                 description: "Nail art is one of the fastest-growing segments of the beauty industry. From minimalist designs to elaborate 3D art, your creativity becomes your signature and your brand.",
-                image: "/images/pages/barber-hero-main.jpg"
+                image: "/images/pages/nail-tech-hero.jpg"
               },
               {
                 title: "Flexible Work Options",
                 description: "Work in a salon, rent a booth, do mobile services, or open your own studio. Many nail techs set their own hours and build a schedule that fits their life.",
-                image: "/images/pages/barber-training.jpg"
+                image: "/images/pages/nail-technician.jpg"
               },
               {
                 title: "Low Startup Costs",
@@ -364,7 +364,7 @@ export default function NailTechnicianApprenticeshipPage() {
             Submit an inquiry to get matched with a salon sponsor and learn about enrollment, payment plans, and orientation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/apply?program=nail-technician-apprenticeship" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-pink-600 font-bold rounded-xl hover:bg-gray-100 transition text-lg shadow-lg">
+            <Link href="/programs/nail-technician-apprenticeship/apply" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-pink-600 font-bold rounded-xl hover:bg-gray-100 transition text-lg shadow-lg">
               Submit Inquiry <ArrowRight className="w-5 h-5" />
             </Link>
             <Link href="/programs/nail-technician-apprenticeship/orientation" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-white font-bold rounded-xl hover:bg-white/10 transition text-lg border-2 border-white">

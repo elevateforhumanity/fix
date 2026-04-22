@@ -469,25 +469,76 @@ export default async function GovernmentPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'WIOA Title I', desc: 'Adult, Dislocated Worker, Youth', icon: FileText },
-              { name: 'WRG', desc: 'Workforce Ready Grant (Indiana)', icon: Award },
-              { name: 'SNAP E&T', desc: 'Employment & Training', icon: Users },
-              { name: 'TANF', desc: 'Temporary Assistance', icon: Shield },
-              { name: 'TAA', desc: 'Trade Adjustment Assistance', icon: Briefcase },
-              { name: 'Veterans', desc: 'GI Bill & VR&E', icon: Award },
-              { name: 'Reentry', desc: 'Second Chance Programs', icon: Users },
-              { name: 'Apprenticeship', desc: 'DOL Registered Programs', icon: Building2 },
-            ].map((item, index) => {
+              {
+                name: 'WIOA Title I',
+                desc: 'Covers tuition, books, and support services for eligible adults, dislocated workers, and youth ages 16–24.',
+                icon: FileText,
+                image: '/images/pages/card-wioa.jpg',
+              },
+              {
+                name: 'Workforce Ready Grant',
+                desc: 'Indiana state grant for high-demand certifications. Covers tuition and fees for eligible Indiana residents.',
+                icon: Award,
+                image: '/images/pages/funding-impact-1.jpg',
+              },
+              {
+                name: 'SNAP E&T',
+                desc: 'Employment and Training funding for SNAP recipients pursuing job-ready credentials.',
+                icon: Users,
+                image: '/images/pages/funding-impact-2.jpg',
+              },
+              {
+                name: 'TANF',
+                desc: 'Temporary Assistance for Needy Families — supports training for participants moving toward self-sufficiency.',
+                icon: Shield,
+                image: '/images/pages/government-3.jpg',
+              },
+              {
+                name: 'Trade Adjustment Assistance',
+                desc: 'Federal funding for workers displaced by foreign trade. Covers retraining in high-demand fields.',
+                icon: Briefcase,
+                image: '/images/pages/government-4.jpg',
+              },
+              {
+                name: 'Veterans Programs',
+                desc: 'GI Bill and VR&E approved programs for veterans and service members transitioning to civilian careers.',
+                icon: Award,
+                image: '/images/pages/government-5.jpg',
+              },
+              {
+                name: 'Reentry Programs',
+                desc: 'Second chance training through Job Ready Indy and other reentry-focused funding for justice-involved individuals.',
+                icon: Users,
+                image: '/images/pages/community-page-1.jpg',
+              },
+              {
+                name: 'Registered Apprenticeship',
+                desc: 'DOL-registered earn-and-learn programs with structured OJT and related instruction leading to journey-level credentials.',
+                icon: Building2,
+                image: '/images/pages/apprenticeship-hero.jpg',
+              },
+            ].map((item) => {
               const IconComponent = item.icon;
               return (
-                <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                  <div className="w-12 h-12 bg-brand-blue-100 rounded-lg flex items-center justify-center mb-4">
-                    <IconComponent className="w-6 h-6 text-brand-blue-600" />
+                <div key={item.name} className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 flex flex-col">
+                  <div className="relative h-40 overflow-hidden flex-shrink-0">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">{item.name}</h3>
-                  <p className="text-sm text-black">{item.desc}</p>
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center mb-3">
+                      <IconComponent className="w-5 h-5 text-brand-blue-600" />
+                    </div>
+                    <h3 className="font-bold text-slate-900 mb-2 text-base">{item.name}</h3>
+                    <p className="text-sm text-slate-700 leading-relaxed">{item.desc}</p>
+                  </div>
                 </div>
               );
             })}

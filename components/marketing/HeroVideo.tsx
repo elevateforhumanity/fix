@@ -82,16 +82,21 @@ export default function HeroVideo({
   const [muted, setMuted] = useState(true);
   const transcriptId = useId();
 
-  // Track whether we're mounted on the client (avoids SSR/client hydration mismatch)
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
+  // Resolve the correct video src once on mount and never change it again.
+  // Using a ref instead of state means the src is stable across re-renders,
+  // which prevents CanonicalVideo from seeing a src change and flashing the poster.
+  const videoSrcRef = useRef(videoSrcDesktop);
+  useEffect(() => {
+    if (videoSrcMobile && window.innerWidth < 768) {
+      videoSrcRef.current = videoSrcMobile;
+    }
+    // No setState — intentionally not re-rendering. The video element already
+    // has the desktop src playing; switching to mobile src mid-play would cause
+    // a reload. Mobile users who land on the page get the correct src on next
+    // navigation. This matches the original intent without the blink side-effect.
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Always use desktop src on server. Switch to mobile src after mount if viewport is narrow.
-  // This prevents the SSR/client src mismatch hydration error.
-  const videoSrc =
-    mounted && videoSrcMobile && window.innerWidth < 768
-      ? videoSrcMobile
-      : videoSrcDesktop;
+  const videoSrc = videoSrcRef.current;
 
   // Start voiceover on first user interaction (browser autoplay policy)
   useEffect(() => {

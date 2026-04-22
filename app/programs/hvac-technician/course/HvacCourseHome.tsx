@@ -32,7 +32,7 @@ const TYPE_LABEL: Record<CourseLesson['type'], string> = {
  * 16 unique HVAC/trades images — all >200KB, no duplicates, contextually matched.
  */
 const MODULE_PHOTO: string[] = [
-  '/images/pages/barber-apprentice-learning.jpg',                 // 1  Orientation — students in class
+  '/images/pages/admin-ferpa-training-hero.jpg',                  // 1  Orientation — students in class
   '/images/pages/hvac-hero.jpg',                      // 2  Fundamentals — HVAC hero shot
   '/images/pages/electrical.jpg',                        // 3  Electrical — wiring/panels
   '/images/pages/hvac-technician.jpg',                   // 4  Heating — HVAC tech at work

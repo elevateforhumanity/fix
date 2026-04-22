@@ -4,6 +4,7 @@ import PathwayDisclosure from '@/components/PathwayDisclosure';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import {
   Heart,
@@ -14,6 +15,7 @@ import {
   CheckCircle,
   Clock,
   GraduationCap,
+  ArrowRight,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -62,24 +64,51 @@ export default async function JRIProgramsPage() {
 
   return (
     <div className="bg-white">
+
+      {/* Breadcrumb */}
+      <div className="bg-slate-50 border-b">
+        <div className="max-w-6xl mx-auto px-4 py-3">
+          <Breadcrumbs items={[{ label: 'Programs', href: '/programs' }, { label: 'JRI — Second Chance Programs' }]} />
+        </div>
+      </div>
+
       {/* Hero */}
-      <section className="bg-white text-white px-6 sm:px-10 lg:px-12 py-20 lg:py-28">
-        <div className="mx-auto max-w-5xl text-center">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-            <Heart className="w-5 h-5" />
-            <span className="text-sm font-semibold">JRI Programs</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
-            Everyone Deserves
-            <br />A Second Chance
+      <section className="relative overflow-hidden" style={{ minHeight: 'clamp(420px, 52vw, 600px)' }}>
+        <Image
+          src="/images/pages/jri-hero.jpg"
+          alt="Second chance career training — JRI programs at Elevate for Humanity"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+        <div className="absolute bottom-0 left-0 right-0 max-w-5xl mx-auto px-4 pb-12 pt-20">
+          <span className="inline-block bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+            Justice Reinvestment Initiative · Second Chance Programs
+          </span>
+          <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight drop-shadow-md">
+            Everyone Deserves<br />A Second Chance
           </h1>
-
-          <p className="text-xl sm:text-2xl text-indigo-100 leading-relaxed max-w-3xl mx-auto">
-            The Justice Reinvestment Initiative (JRI) provides 100% free career
-            training and wraparound support for individuals with justice
-            involvement. Your past doesn't define your future.
+          <p className="text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed drop-shadow mb-6">
+            JRI provides 100% free career training and wraparound support for individuals
+            with justice involvement. Real credentials, real employers, real careers.
+            Your past doesn't define your future.
           </p>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/apply/intake"
+              className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-lg transition-colors"
+            >
+              Apply Now <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/check-eligibility"
+              className="inline-flex items-center gap-2 border border-white/50 hover:border-white text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            >
+              Check Eligibility
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -87,40 +116,45 @@ export default async function JRIProgramsPage() {
       <PathwayDisclosure programName="JRI Programs" programSlug="jri" />
 
       {/* Story Section */}
-      <section className="px-6 sm:px-10 lg:px-12 py-16 lg:py-20 bg-gray-50">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-3xl sm:text-4xl font-bold text-black text-center leading-tight mb-12">
-            Why JRI Works
-          </h2>
-
-          <div className="space-y-6 text-lg text-black leading-relaxed">
-            <p>
-              Returning to society after incarceration is one of the hardest
-              challenges anyone can face. Without job skills, stable employment,
-              and support, the cycle of recidivism continues. JRI breaks that
-              cycle.
-            </p>
-
-            <p>
-              <span className="font-bold text-black">
-                This isn't just training—it's a complete support system.
-              </span>{' '}
-              JRI provides free career training in high-demand fields, plus case
-              management, transportation assistance, childcare support, and job
-              placement services.
-            </p>
-
-            <p>
-              We believe in second chances. Your past mistakes don't define who
-              you are or what you can become. With the right training and
-              support, you can build a stable career, support your family, and
-              contribute to your community.
-            </p>
-
-            <p className="text-xl font-bold text-black">
-              This is your opportunity to rewrite your story. We're here to help
-              you succeed.
-            </p>
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-black text-slate-900 mb-6">Why JRI Works</h2>
+              <div className="space-y-4 text-slate-700 leading-relaxed">
+                <p>
+                  Returning to society after incarceration is one of the hardest challenges
+                  anyone can face. Without job skills, stable employment, and support, the
+                  cycle of recidivism continues. JRI breaks that cycle.
+                </p>
+                <p>
+                  <span className="font-bold text-slate-900">This isn't just training — it's a complete support system.</span>{' '}
+                  JRI provides free career training in high-demand fields, plus case management,
+                  transportation assistance, childcare support, and job placement services.
+                </p>
+                <p>
+                  We believe in second chances. Your past doesn't define who you are or what
+                  you can become. With the right training and support, you can build a stable
+                  career, support your family, and contribute to your community.
+                </p>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {['100% Free', 'WIOA Eligible', 'Justice-Friendly', 'Job Placement Support'].map((tag) => (
+                  <span key={tag} className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-700 text-sm font-semibold px-3 py-1.5 rounded-full border border-indigo-200">
+                    <CheckCircle className="w-3.5 h-3.5" /> {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/pages/community-page-3.jpg"
+                alt="JRI participants in career training"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </div>
       </section>

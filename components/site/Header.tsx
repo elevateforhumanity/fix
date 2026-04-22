@@ -81,37 +81,44 @@ export const NAV_ITEMS = [
     name: 'Partners',
     href: '/partners',
     subItems: [
-      { name: '— Apprenticeship Hosts —', href: '/partners', isHeader: true },
+      { name: '— Apprenticeship Hosts —', href: '/partners/barbershop-apprenticeship', isHeader: true },
       { name: 'Barbershop Partners', href: '/partners/barbershop-apprenticeship' },
       { name: 'Cosmetology & Salon Partners', href: '/partners/cosmetology-apprenticeship' },
+      { name: 'Training Sites & Facilities', href: '/partners/training-sites' },
       { name: '— Workforce & Reentry —', href: '/partners/workforce', isHeader: true },
       { name: 'Workforce Agencies', href: '/partners/workforce' },
       { name: 'Reentry Organizations', href: '/partners/reentry' },
-      { name: 'JRI Partners', href: '/partners/jri' },
+      { name: 'Job Ready Indy (JRI)', href: '/partners/jri' },
       { name: '— Employers —', href: '/for-employers', isHeader: true },
+      { name: 'For Employers', href: '/for-employers' },
       { name: 'Hire Our Graduates', href: '/hire-graduates' },
-      { name: 'OJT & Employer Partners', href: '/for-employers' },
-      { name: 'Training Sites & Facilities', href: '/partners/training-sites' },
+      { name: 'Talent Pipeline', href: '/employers/talent-pipeline' },
       { name: '— Training Providers —', href: '/partners/training-provider', isHeader: true },
       { name: 'Training Providers', href: '/partners/training-provider' },
-      { name: 'Program Holders', href: '/program-holder' },
-      { name: 'Sign an MOU', href: '/partners/mou' },
-      { name: 'All Partner Types →', href: '/partners' },
+      { name: 'Program Holders', href: '/apply/program-holder' },
+      { name: 'Apply as a Provider', href: '/partners/apply' },
+      { name: '— Resources —', href: '/partners/join', isHeader: true },
+      { name: 'Partner Overview', href: '/partners' },
+      { name: 'Become a Partner', href: '/partners/join' },
+      { name: 'WorkOne Partner Packet', href: '/workone-partner-packet' },
     ],
   },
   {
     name: 'Funding',
-    href: '/financial-aid',
+    href: '/funding',
     subItems: [
-      { name: '— How It Works —', href: '/financial-aid', isHeader: true },
-      { name: 'Financial Aid Overview', href: '/financial-aid' },
-      { name: 'How Funding Works', href: '/how-it-works' },
-      { name: 'Check Eligibility', href: '/start' },
-      { name: '— Funding Sources —', href: '/financial-aid', isHeader: true },
-      { name: 'WIOA / WorkOne', href: '/agencies#wioa' },
+      { name: '— How Funding Works —', href: '/funding', isHeader: true },
+      { name: 'Funding Overview', href: '/funding' },
+      { name: 'Check Eligibility', href: '/check-eligibility' },
+      { name: 'How It Works', href: '/funding/how-it-works' },
+      { name: '— Funding Sources —', href: '/funding', isHeader: true },
+      { name: 'WIOA / WorkOne', href: '/funding/wioa' },
+      { name: 'Workforce Ready Grant', href: '/funding/wrg' },
       { name: 'Job Ready Indy', href: '/partners/jri' },
-      { name: 'Next Level Jobs', href: '/financial-aid#next-level' },
-      { name: 'WorkOne Partner Packet', href: '/workone-partner-packet' },
+      { name: 'Federal Programs', href: '/funding/federal-programs' },
+      { name: 'State Programs', href: '/funding/state-programs' },
+      { name: '— Employers —', href: '/funding', isHeader: true },
+      { name: 'OJT & Wage Reimbursement', href: '/ojt-and-funding' },
     ],
   },
   {
@@ -126,7 +133,7 @@ export const NAV_ITEMS = [
       { name: 'WorkKeys / NCRC', href: '/testing/workkeys' },
       { name: '— Schedule —', href: '/testing/book', isHeader: true },
       { name: 'Book a Testing Session', href: '/testing/book' },
-      { name: 'Verify a Credential', href: '/verify-credentials' },
+      { name: 'Verify a Credential', href: '/verify' },
     ],
   },
   {
@@ -149,25 +156,14 @@ export const NAV_ITEMS = [
     name: 'Sign In',
     href: '/login',
     subItems: [
-      { name: '— My Dashboard —', href: '/my-dashboard', isHeader: true },
-      { name: 'My Dashboard (All Roles)', href: '/my-dashboard' },
-      { name: '— Students —', href: '/learner/dashboard', isHeader: true },
+      { name: '— Learners —', href: '/login', isHeader: true },
+      { name: 'Student Login', href: '/login' },
       { name: 'Learner Dashboard', href: '/learner/dashboard' },
-      { name: 'My Courses', href: '/lms/courses' },
-      { name: '— Education Staff —', href: '/instructor/dashboard', isHeader: true },
-      { name: 'Instructor Portal', href: '/instructor/dashboard' },
-
-      { name: '— Employers & Partners —', href: '/employer/dashboard', isHeader: true },
+      { name: '— Partners & Employers —', href: '/login', isHeader: true },
       { name: 'Employer Portal', href: '/employer/dashboard' },
       { name: 'Partner Portal', href: '/partner/dashboard' },
-      { name: '— Program Administration —', href: '/program-holder/dashboard', isHeader: true },
       { name: 'Program Holder Portal', href: '/program-holder/dashboard' },
-      { name: 'Training Provider Portal', href: '/provider/dashboard' },
-      { name: 'Case Manager Portal', href: '/case-manager/dashboard' },
-
-      { name: '— Internal Staff —', href: '/staff-portal/dashboard', isHeader: true },
-      { name: 'Staff Portal', href: '/staff-portal/dashboard' },
-      { name: 'Admin Dashboard', href: '/admin/dashboard' },
+      { name: 'Instructor Portal', href: '/instructor/dashboard' },
     ],
   },
 ];
@@ -202,7 +198,7 @@ export default function Header() {
         {/* CTA Buttons */}
         <div className="hidden lg:flex items-center gap-3">
           <Link
-            href="/start"
+            href="/check-eligibility"
             prefetch={false}
             className="bg-brand-red-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-brand-red-700 transition-colors"
           >
