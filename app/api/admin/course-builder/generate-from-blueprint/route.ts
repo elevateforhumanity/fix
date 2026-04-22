@@ -29,6 +29,12 @@ import {
 import { getOpenAIClient } from '@/lib/openai-client';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
 import type { BlueprintLessonRef } from '@/lib/curriculum/blueprints/types';
+import {
+  generateNaturalVoiceover,
+  generateDIDVideo,
+  generateSynthesiaVideo,
+} from '@/lib/video/generate';
+import { getInstructorForCourse } from '@/lib/ai-instructors';
 
 export const maxDuration = 300;
 export const dynamic = 'force-dynamic';
@@ -236,27 +242,63 @@ export async function POST(req: NextRequest) {
     console.error('[generate-from-blueprint] assessment-generator error:', err);
   }
 
-  // ── Step 5: Queue video generation ────────────────────────────────────────
+  // ── Step 5: Generate videos directly (no HTTP hop, no cookie dependency) ──
   let videosQueued = 0;
   try {
-    const videoRes = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/admin/generate-lesson-videos`,
-      {
-        method:  'POST',
-        headers: {
-          'Content-Type':  'application/json',
-          'Authorization': req.headers.get('Authorization') ?? '',
-          'Cookie':        req.headers.get('Cookie') ?? '',
-        },
-        body: JSON.stringify({ courseId, batchSize: 10 }),
+    const { data: lessonRows } = await db
+      .from('course_lessons')
+      .select('id, title, content, lesson_type')
+      .eq('course_id', courseId)
+      .is('video_url', null)
+      .limit(10);
+
+    const instructor = getInstructorForCourse(courseTitle);
+    const VOICE_MAP: Record<string, string> = {
+      'dr-sarah-chen': 'nova', 'marcus-johnson': 'onyx',
+      'james-williams': 'echo', 'lisa-martinez': 'shimmer',
+      'robert-davis': 'fable', 'angela-thompson': 'alloy',
+    };
+    const voice = VOICE_MAP[instructor.id] ?? 'nova';
+
+    for (const lesson of (lessonRows ?? [])) {
+      const script = `Welcome to ${courseTitle}, lesson: ${lesson.title}. ${(lesson.content ?? '').replace(/<[^>]+>/g, '').substring(0, 300)}`.trim();
+      let videoUrl: string | null = null;
+
+      // Synthesia first
+      if (process.env.SYNTHESIA_API_KEY && !videoUrl) {
+        try {
+          const r = await generateSynthesiaVideo(script, 'anna_costume1_cameraA');
+          videoUrl = r.videoUrl;
+        } catch { /* fall through */ }
       }
-    );
-    if (videoRes.ok) {
-      const videoData = await videoRes.json();
-      videosQueued = videoData?.queued ?? videoData?.results?.length ?? 0;
+
+      // D-ID second
+      if (process.env.DID_API_KEY && !videoUrl) {
+        try {
+          const { audioBuffer } = await generateNaturalVoiceover(script, voice, instructor.id);
+          const audioDataUrl = `data:audio/mp3;base64,${audioBuffer.toString('base64')}`;
+          const r = await generateDIDVideo(script, instructor.avatar, audioDataUrl);
+          videoUrl = r.videoUrl;
+        } catch { /* fall through */ }
+      }
+
+      // TTS audio fallback
+      if (!videoUrl && process.env.OPENAI_API_KEY) {
+        try {
+          const { audioBuffer } = await generateNaturalVoiceover(script, voice, instructor.id);
+          const path = `course-videos/${courseId}/${lesson.id}.mp3`;
+          await db.storage.from('course-videos').upload(path, audioBuffer, { contentType: 'audio/mp3', upsert: true });
+          const { data: urlData } = db.storage.from('course-videos').getPublicUrl(path);
+          videoUrl = urlData.publicUrl;
+        } catch { /* non-fatal */ }
+      }
+
+      if (videoUrl) {
+        await db.from('course_lessons').update({ video_url: videoUrl }).eq('id', lesson.id);
+        videosQueued++;
+      }
     }
   } catch (err) {
-    // Non-fatal — videos can be generated from /admin/video-generator
     console.error('[generate-from-blueprint] video generation error:', err);
   }
 
