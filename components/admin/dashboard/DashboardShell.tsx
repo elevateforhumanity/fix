@@ -10,7 +10,7 @@ import {
   Activity, TrendingUp, Inbox,
 } from "lucide-react";
 import type { AdminDashboardData, InactiveLearner, StaleLeadItem } from "./types";
-import { SystemHealthPanel } from "./SystemHealthPanel";
+
 
 function fmtUsd(cents: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(cents / 100);
@@ -358,7 +358,7 @@ export function DashboardShell({ data }: { data: AdminDashboardData }) {
           <div>
             <ComplianceSnapshot data={data} />
             <RecentActivity items={data.recentActivity} />
-            <SystemHealthPanel health={data.systemHealth} />
+
           </div>
         </div>
 
