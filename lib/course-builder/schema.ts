@@ -211,11 +211,22 @@ export const DEFAULT_ACTIVITIES: Record<string, ActivityType[]> = {
   observation: ['checklist', 'observation'],
 };
 
-export const PROGRAM_COURSE_MAP: Record<string, string> = {
+/**
+ * Static fallback map — used ONLY when the DB is unavailable (e.g. build time,
+ * scripts without a DB client). All runtime resolution goes through
+ * lib/course-builder/program-resolver.ts → program_course_links table.
+ *
+ * Do not add new entries here. Register new programs via
+ * POST /api/admin/course-builder/program-map instead.
+ *
+ * @deprecated Use resolveCourseIdFromDb() from program-resolver.ts at runtime.
+ */
+const _STATIC_COURSE_FALLBACK: Record<string, string> = {
   'barber-apprenticeship': BARBER_COURSE_ID_SCHEMA,
-  'hvac-technician': HVAC_COURSE_ID,
+  'hvac-technician':       HVAC_COURSE_ID,
 };
 
+/** @deprecated Runtime code must use resolveCourseIdFromDb() from program-resolver.ts */
 export function resolveCourseId(programSlug: string): string | null {
-  return PROGRAM_COURSE_MAP[programSlug] ?? null;
+  return _STATIC_COURSE_FALLBACK[programSlug] ?? null;
 }

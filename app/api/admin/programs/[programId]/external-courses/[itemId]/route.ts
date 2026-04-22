@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { z } from 'zod';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { getCurrentUser } from '@/lib/auth';
@@ -29,14 +30,6 @@ const PatchSchema = z.object({
   is_active:                z.boolean().optional(),
 });
 
-async function requireAdmin() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-  const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'org_admin', 'staff'].includes(profile.role)) return null;
-  return user;
-}
 
 export async function PATCH(
   req: NextRequest,

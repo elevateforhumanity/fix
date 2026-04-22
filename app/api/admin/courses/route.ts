@@ -1,30 +1,20 @@
 import { NextResponse } from 'next/server';
 import { CourseCreateSchema } from '@/lib/validators/course';
 import { createCourse, listCourses } from '@/lib/db/courses';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { withApiAudit } from '@/lib/audit/withApiAudit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-async function requireAdmin() {
-  const supabase = await createClient();
-const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'instructor'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 };
-  }
-  return { user, profile };
-}
 
 async function _GET(request: Request) {
   
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
-const auth = await requireAdmin();
-  if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
+const auth = await apiRequireAdmin(request);
+  if (auth.error) return auth.error;
   try {
     const data = await listCourses();
     return NextResponse.json({ data }, { status: 200 });
@@ -37,8 +27,8 @@ async function _POST(request: Request) {
     const rateLimited = await applyRateLimit(request, 'api');
     if (rateLimited) return rateLimited;
 
-  const auth = await requireAdmin();
-  if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
+  const auth = await apiRequireAdmin(request);
+  if (auth.error) return auth.error;
   try {
     const body = await request.json().catch(() => null);
     const parsed = CourseCreateSchema.safeParse(body);

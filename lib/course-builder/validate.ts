@@ -235,7 +235,7 @@ export function validateCourseTemplate(template: CourseTemplate): CourseValidati
 
   // Program mapping
   if (!resolveCourseId(template.programSlug))
-    cErr('programSlug', `'${template.programSlug}' not in PROGRAM_COURSE_MAP — add it to lib/course-builder/schema.ts`);
+    cErr('programSlug', `'${template.programSlug}' not registered — add via POST /api/admin/course-builder/program-map`);
 
   // Identity
   if (!template.courseSlug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(template.courseSlug))

@@ -1,57 +1,81 @@
 #!/usr/bin/env tsx
 /**
- * Environment Validation Script (Readiness Check)
- * Validates environment configuration for platform readiness
+ * Environment validation — fails hard on missing critical vars.
+ *
+ * Treats empty string as missing (VAR= is not configured).
+ * Exits non-zero if any critical var is absent or empty.
  */
 
 import fs from 'fs';
 import path from 'path';
 
-console.log('🔍 Validating environment configuration...\n');
-
 const envPath = path.join(process.cwd(), '.env.local');
 
-if (!fs.existsSync(envPath)) {
-  console.log('⚠️  .env.local not found');
-  console.log('   This is expected in CI/CD environments');
-  console.log('   For local development, copy .env.example to .env.local\n');
-  console.log('✅ Environment validation PASSED (CI mode)\n');
-  process.exit(0);
-}
-
-const envContent = fs.readFileSync(envPath, 'utf8');
-const lines = envContent.split('\n').filter(line => line.trim() && !line.startsWith('#'));
-
-console.log(`✅ Found .env.local with ${lines.length} configured variables\n`);
-
-const criticalVars = [
+const CRITICAL = [
   'NEXT_PUBLIC_SUPABASE_URL',
   'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+  'SUPABASE_SERVICE_ROLE_KEY',
   'NEXT_PUBLIC_SITE_URL',
 ];
 
-const configured: string[] = [];
-const missing: string[] = [];
+const RECOMMENDED = [
+  'STRIPE_SECRET_KEY',
+  'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY',
+  'OPENAI_API_KEY',
+  'BARBER_PROGRAM_ID',
+];
 
-for (const varName of criticalVars) {
-  if (envContent.includes(varName + '=')) {
-    configured.push(varName);
-  } else {
-    missing.push(varName);
+function parseEnvFile(filePath: string): Record<string, string> {
+  if (!fs.existsSync(filePath)) return {};
+  const result: Record<string, string> = {};
+  for (const line of fs.readFileSync(filePath, 'utf8').split('\n')) {
+    const t = line.trim();
+    if (!t || t.startsWith('#')) continue;
+    const eq = t.indexOf('=');
+    if (eq === -1) continue;
+    result[t.slice(0, eq).trim()] = t.slice(eq + 1).trim().replace(/^["']|["']$/g, '');
   }
+  return result;
 }
 
-if (configured.length > 0) {
-  console.log('Configured variables:');
-  configured.forEach(v => console.log(`   ✅ ${v}`));
-  console.log();
+function isSet(val: string | undefined): boolean {
+  return typeof val === 'string' && val.length > 0 &&
+    !val.includes('[password]') && !val.includes('[project-ref]');
 }
 
-if (missing.length > 0) {
-  console.log('⚠️  Optional variables not configured:');
-  missing.forEach(v => console.log(`   - ${v}`));
-  console.log('   These can be added later for full functionality\n');
+const fileVars = parseEnvFile(envPath);
+const env = (k: string) => fileVars[k] ?? process.env[k];
+
+const missing: string[] = [];
+const empty: string[]   = [];
+const ok: string[]      = [];
+
+for (const k of CRITICAL) {
+  const v = env(k);
+  if (v === undefined) missing.push(k);
+  else if (!isSet(v))  empty.push(k);
+  else                 ok.push(k);
 }
 
-console.log('✅ Environment validation PASSED\n');
-process.exit(0);
+const warn = RECOMMENDED.filter(k => !isSet(env(k)));
+
+console.log('\n── Environment validation ──────────────────────────────────\n');
+ok.forEach(k      => console.log(`  ✅  ${k}`));
+empty.forEach(k   => console.log(`  ❌  ${k}  (empty — placeholder value?)`));
+missing.forEach(k => console.log(`  ❌  ${k}  (not set)`));
+if (warn.length) {
+  console.log('\n  Recommended (degraded if absent):');
+  warn.forEach(k => console.log(`  ⚠️   ${k}`));
+}
+
+const failed = missing.length + empty.length;
+console.log('');
+if (failed > 0) {
+  console.log(`❌  FAILED — ${failed} critical variable(s) missing or empty.`);
+  console.log('   Add to .env.local. See .env.example for descriptions.');
+  console.log('   Gitpod: ensure secret chunks are configured.\n');
+  process.exit(1);
+} else {
+  console.log('✅  All critical variables present.\n');
+  process.exit(0);
+}

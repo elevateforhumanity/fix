@@ -15,7 +15,7 @@ import { safeError, safeInternalError } from '@/lib/api/safe-error';
 import { sendEmail } from '@/lib/email';
 import { logger } from '@/lib/logger';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
-import { PROGRAM_COURSE_MAP } from '@/lib/barber/constants';
+import { resolveCourseId } from '@/lib/course-builder/schema';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -59,7 +59,7 @@ export async function POST(
   // Resolve course_id for programs that have a canonical LMS course.
   // Without this, the learner dashboard routes to the marketing page instead of the LMS.
   const resolvedCourseId = enrollment.program_slug
-    ? (PROGRAM_COURSE_MAP[enrollment.program_slug] ?? null)
+    ? resolveCourseId(enrollment.program_slug)
     : null;
 
   // Grant access — move to active and record who granted it and when

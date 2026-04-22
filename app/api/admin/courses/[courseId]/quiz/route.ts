@@ -9,24 +9,13 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { z } from 'zod';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-async function requireAdmin() {
-  const supabase = await createClient();
-const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: 'Unauthorized', status: 401 };
-  const { data: profile } = await supabase
-    .from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!profile || !['admin', 'super_admin', 'org_admin', 'instructor'].includes(profile.role)) {
-    return { error: 'Forbidden', status: 403 };
-  }
-  return { user, profile, db };
-}
 
 const QuestionSchema = z.object({
   question_text: z.string().min(1, 'Question text is required'),
@@ -47,8 +36,8 @@ export async function GET(
   { params }: { params: Promise<{ courseId: string }> }
 ) {
   const { courseId } = await params;
-  const auth = await requireAdmin();
-  if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
+  const auth = await apiRequireAdmin(request);
+  if (auth.error) return auth.error;
 
   const { data: course, error } = await auth.supabase
     .from('courses')
@@ -75,8 +64,8 @@ export async function PUT(
   if (rateLimited) return rateLimited;
 
   const { courseId } = await params;
-  const auth = await requireAdmin();
-  if ('error' in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
+  const auth = await apiRequireAdmin(request);
+  if (auth.error) return auth.error;
 
   const body = await request.json().catch(() => null);
   if (!body) return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });

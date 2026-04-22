@@ -14,7 +14,7 @@
 
 import { validateCourseTemplate, assertPublishable } from '../lib/course-builder/validate';
 import { normalizeTemplate } from '../lib/course-builder/pipeline';
-import { resolveCourseId, PROGRAM_COURSE_MAP, type CourseTemplate } from '../lib/course-builder/schema';
+import { resolveCourseId, type CourseTemplate } from '../lib/course-builder/schema';
 import { isRegisteredCompetencyKey } from '../lib/course-builder/competencies';
 
 let passed = 0;
@@ -146,8 +146,8 @@ const BROKEN_TEMPLATE: CourseTemplate = {
 
 console.log('\n=== Course Builder Pipeline — Generalization Tests ===\n');
 
-// Test 1: PROGRAM_COURSE_MAP
-console.log('Test 1: PROGRAM_COURSE_MAP resolution');
+// Test 1: static fallback resolution (DB resolver tested separately via API)
+console.log('Test 1: static course ID fallback resolution');
 assert('barber-apprenticeship resolves', resolveCourseId('barber-apprenticeship') === '3fb5ce19-1cde-434c-a8c6-f138d7d7aa17');
 assert('hvac-technician resolves',       resolveCourseId('hvac-technician') === 'f0593164-55be-5867-98e7-8a86770a8dd0');
 assert('unknown-program returns null',   resolveCourseId('unknown-program') === null);

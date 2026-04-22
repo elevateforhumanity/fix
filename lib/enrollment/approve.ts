@@ -14,7 +14,7 @@ import { randomBytes } from 'crypto';
 import { logger } from '@/lib/logger';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { attachPartnerRouting } from '@/lib/enrollment/partner-routing';
-import { PROGRAM_COURSE_MAP } from '@/lib/barber/constants';
+import { resolveCourseId } from '@/lib/course-builder/schema';
 
 export interface ApproveApplicationInput {
   applicationId: string;
@@ -189,7 +189,8 @@ export async function approveApplication(
   if (assignedRole === 'student' && resolvedProgramId) {
     // Resolve course_id so the learner dashboard routes to the LMS, not the marketing page.
     const programSlug = app.program_slug ?? app.pathway_slug ?? null;
-    const resolvedCourseId = programSlug ? (PROGRAM_COURSE_MAP[programSlug] ?? null) : null;
+    // Static fallback — runtime DB resolution happens in the LMS routing layer.
+    const resolvedCourseId = programSlug ? resolveCourseId(programSlug) : null;
 
     const { data: pe, error: peErr } = await db
       .from('program_enrollments')

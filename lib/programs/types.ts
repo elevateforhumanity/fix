@@ -36,6 +36,8 @@ export interface ProgramModuleInput {
 }
 
 export interface ProgramCreateInput {
+  /** Org slug to scope this program to. Defaults to 'elevate-core'. */
+  orgSlug?: string;
   program: {
     slug: string;
     title: string;

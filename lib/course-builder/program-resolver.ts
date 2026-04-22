@@ -39,6 +39,18 @@ export async function resolveCourseIdFromDb(
   db: SupabaseClient,
   programSlug: string,
 ): Promise<string | null> {
+  // Try program_course_links first (canonical, org-scoped).
+  const { data: linkData, error: linkError } = await db
+    .from('program_course_links')
+    .select('course_id')
+    .eq('program_slug', programSlug)
+    .eq('status', 'active')
+    .eq('is_primary', true)
+    .maybeSingle();
+
+  if (!linkError && linkData?.course_id) return linkData.course_id;
+
+  // Fall back to program_course_map (legacy, pre-migration).
   const { data, error } = await db
     .from('program_course_map')
     .select('course_id')
@@ -46,7 +58,6 @@ export async function resolveCourseIdFromDb(
     .maybeSingle();
 
   if (error) {
-    // Table may not exist yet — fall back to legacy map silently.
     if (error.code === '42P01') {
       logger.warn('[program-resolver] program_course_map table not found — using legacy fallback', { programSlug });
       return LEGACY_FALLBACK[programSlug] ?? null;
@@ -57,7 +68,6 @@ export async function resolveCourseIdFromDb(
 
   if (data?.course_id) return data.course_id;
 
-  // Not in DB — check legacy map (covers pre-migration window).
   const legacy = LEGACY_FALLBACK[programSlug] ?? null;
   if (legacy) {
     logger.warn('[program-resolver] slug not in DB, using legacy fallback', { programSlug });

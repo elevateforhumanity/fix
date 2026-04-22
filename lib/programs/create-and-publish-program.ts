@@ -91,6 +91,16 @@ export async function createAndPublishProgram(
     }
   }
 
+  // ── 0. Resolve default org_id (Elevate Core) ────────────────────────────────
+  // New records are scoped to the caller's org. For platform-internal creation
+  // (no org context), fall back to the Elevate Core org.
+  const { data: defaultOrg } = await db
+    .from('organizations')
+    .select('id')
+    .eq('slug', input.orgSlug ?? 'elevate-core')
+    .maybeSingle();
+  const orgId: string | null = defaultOrg?.id ?? null;
+
   // ── 1. programs row ─────────────────────────────────────────────────────────
   const { data: program, error: programErr } = await db
     .from('programs')
@@ -108,6 +118,7 @@ export async function createAndPublishProgram(
         delivery_model:    input.program.deliveryModel ?? null,
         enrollment_type:   input.program.enrollmentType ?? null,
         has_lms_course:    true,
+        org_id:            orgId,
         updated_at:        new Date().toISOString(),
       },
       { onConflict: 'slug' }
@@ -134,6 +145,7 @@ export async function createAndPublishProgram(
         description:       courseOverride.description ?? input.program.description,
         status:            'draft',
         is_active:         true,
+        org_id:            orgId,
       },
       { onConflict: 'slug' }
     )

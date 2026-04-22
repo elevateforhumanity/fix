@@ -1,11 +1,12 @@
 /**
  * Barber apprenticeship constants.
  *
- * PROGRAM_COURSE_MAP is now canonical in lib/course-builder/schema.ts.
- * Re-exported here for backward compatibility with existing importers.
+ * PROGRAM_COURSE_MAP has been removed. Runtime resolution uses
+ * resolveCourseIdFromDb() from lib/course-builder/program-resolver.ts.
+ * The static resolveCourseId() fallback is kept for scripts only.
  */
 
-export { PROGRAM_COURSE_MAP, resolveCourseId } from '@/lib/course-builder/schema';
+export { resolveCourseId } from '@/lib/course-builder/schema';
 
 export const BARBER_PROGRAM_SLUG = 'barber-apprenticeship';
 export const BARBER_COURSE_ID    = '3fb5ce19-1cde-434c-a8c6-f138d7d7aa17';
