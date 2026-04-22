@@ -319,6 +319,13 @@ export type CredentialBlueprint = {
   generationRules: BlueprintGenerationRules;
 
   /**
+   * When true, the seeder skips LQS validation for this blueprint.
+   * Use for non-cosmetology programs where the barber-specific LQS rules
+   * (sanitation, hair type, visual cues) do not apply.
+   */
+  skipLqs?: boolean;
+
+  /**
    * Hard counts validated at module load time by each blueprint file.
    * expectedLessonCount counts only lessons[] entries, not generated lessons.
    * Set to 0 for generation-rules-only blueprints that do not pre-define lessons.

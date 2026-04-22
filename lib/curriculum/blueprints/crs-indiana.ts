@@ -44,6 +44,8 @@ export const crsIndianaBlueprint: CredentialBlueprint = {
   trackVariants: ['standard'],
   status: 'active',
 
+  skipLqs: true,
+
   generationRules: {
     allowRemediation: true,
     allowExpansionLessons: true,

@@ -115,7 +115,7 @@ async function main() {
 
   // ── LQS validation — hard gate before any DB writes ──────────────────
   const allLessons = blueprint.modules.flatMap(m => m.lessons ?? []);
-  if (allLessons.length > 0) {
+  if (allLessons.length > 0 && !blueprint.skipLqs) {
     console.log(`Running LQS validation on ${allLessons.length} lessons...`);
     const lqsResults = validateBlueprintLessons(allLessons);
     const failures = lqsResults.filter(r => !r.passed);
@@ -133,6 +133,8 @@ async function main() {
       process.exit(1);
     }
     console.log(`✅ LQS passed — all ${allLessons.length} lessons meet quality standard.\n`);
+  } else if (blueprint.skipLqs) {
+    console.log(`⚠️  LQS skipped — blueprint.skipLqs=true (non-cosmetology program).\n`);
   }
   // ─────────────────────────────────────────────────────────────────────
 
