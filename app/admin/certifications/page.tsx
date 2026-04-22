@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
 import Image from 'next/image';
+import { CertificationReviewPanel } from '@/components/admin/CertificationReviewPanel';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,30 +20,32 @@ export const metadata: Metadata = {
 
 export default async function CertificationsPage() {
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
+  const db = await getAdminClient();
 
+  const [pendingRes, recentRes] = await Promise.all([
+    db
+      .from('certification_submissions')
+      .select('*, profiles(id, full_name, email), programs(id, name)')
+      .eq('status', 'pending_review')
+      .order('created_at', { ascending: false })
+      .limit(20),
+    db
+      .from('certification_submissions')
+      .select('*, profiles(id, full_name, email), programs(id, name)')
+      .in('status', ['approved', 'rejected'])
+      .order('reviewed_at', { ascending: false })
+      .limit(10),
+  ]);
 
-
-  // Fetch certifications data
-  const { data: items, count: totalItems } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .limit(20);
-
-  const { count: activeItems } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'active');
+  const pendingSubmissions = pendingRes.data ?? [];
+  const recentSubmissions = recentRes.data ?? [];
 
   return (
     <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Certifications' }]} />
+      </div>
 
-      {/* Hero Image */}
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Certifications" }]} />
-        </div>
-      {/* Hero Section */}
       <section className="relative h-48 md:h-64 overflow-hidden">
         <Image
           src="/images/pages/admin-certifications-detail.jpg"
@@ -53,100 +56,50 @@ export default async function CertificationsPage() {
           priority
           sizes="100vw"
         />
-
       </section>
 
-      {/* Content Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Total Certifications
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {totalItems || 0}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Active
-                </h3>
-                <p className="text-3xl font-bold text-brand-green-600">
-                  {activeItems || 0}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-sm font-medium text-black mb-2">
-                  Recent
-                </h3>
-                <p className="text-3xl font-bold text-brand-blue-600">
-                  {items?.filter((i) => {
-                    const created = new Date(i.created_at);
-                    const weekAgo = new Date();
-                    weekAgo.setDate(weekAgo.getDate() - 7);
-                    return created > weekAgo;
-                  }).length || 0}
-                </p>
-              </div>
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">Certifications</h1>
+              <p className="text-slate-600 mt-1">
+                Review and approve student certification submissions.
+              </p>
             </div>
-
-            {/* Data Display */}
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-2xl font-bold mb-4">Certifications</h2>
-              {items && items.length > 0 ? (
-                <div className="space-y-4">
-                  {items.map((item: any) => (
-                    <div
-                      key={item.id}
-                      className="p-4 border rounded-lg hover:bg-gray-50"
-                    >
-                      <p className="font-semibold">
-                        {item.title || item.name || item.id}
-                      </p>
-                      <p className="text-sm text-black">
-                        {new Date(item.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-black text-center py-8">
-                  No certifications found
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-brand-blue-700">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Manage Certification Programs
-                        </h2>
-            <p className="text-base md:text-lg text-brand-blue-100 mb-8">
-              Track student progress toward industry certifications.
-                        </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/admin/certifications"
-                className="bg-white text-brand-blue-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 text-lg"
-              >
-                View Certifications
-              </Link>
+            <div className="flex gap-3">
               <Link
                 href="/admin/reports"
-                className="bg-brand-blue-800 text-white px-8 py-4 rounded-lg font-semibold hover:bg-brand-blue-600 border-2 border-white text-lg"
+                className="px-4 py-2 border rounded-lg text-sm font-medium text-slate-700 hover:bg-gray-50"
               >
                 View Reports
               </Link>
             </div>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <h3 className="text-sm font-medium text-slate-600 mb-2">Pending Review</h3>
+              <p className="text-3xl font-bold text-amber-600">{pendingSubmissions.length}</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <h3 className="text-sm font-medium text-slate-600 mb-2">Recently Approved</h3>
+              <p className="text-3xl font-bold text-brand-green-600">
+                {recentSubmissions.filter((s: any) => s.status === 'approved').length}
+              </p>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <h3 className="text-sm font-medium text-slate-600 mb-2">Recently Rejected</h3>
+              <p className="text-3xl font-bold text-red-600">
+                {recentSubmissions.filter((s: any) => s.status === 'rejected').length}
+              </p>
+            </div>
+          </div>
+
+          <CertificationReviewPanel
+            pendingSubmissions={pendingSubmissions}
+            recentSubmissions={recentSubmissions}
+          />
         </div>
       </section>
     </div>

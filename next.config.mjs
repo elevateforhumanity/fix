@@ -783,6 +783,10 @@ const sentryWebpackPluginOptions = {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
+  // Disable auto-instrumentation of proxy.ts — Sentry's wrappingLoader breaks
+  // the 'proxy' export required by Next.js 16 when it wraps this file.
+  // Sentry still initialises at runtime via instrumentation.ts.
+  autoInstrumentMiddleware: false,
 };
 
 export default process.env.NETLIFY === 'true'

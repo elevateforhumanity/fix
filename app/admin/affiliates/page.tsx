@@ -47,11 +47,13 @@ export default async function AffiliatesPage() {
 
   const { affiliates: dbAffiliates, stats: dbStats } = await getAffiliateData();
 
+  const totalReferrals = dbAffiliates.reduce((sum: number, a: any) => sum + (a.referral_count || 0), 0);
+
   const stats = [
-    { label: 'Total Affiliates', value: String(dbStats.total), icon: Users, change: '+12%' },
-    { label: 'Active', value: String(dbStats.active), icon: TrendingUp, change: '+8%' },
-    { label: 'Total Referrals', value: '284', icon: UserPlus, change: '+23%' },
-    { label: 'Commissions Paid', value: `$${dbStats.totalPaid.toLocaleString()}`, icon: DollarSign, change: '+15%' },
+    { label: 'Total Affiliates', value: String(dbStats.total), icon: Users },
+    { label: 'Active', value: String(dbStats.active), icon: TrendingUp },
+    { label: 'Total Referrals', value: String(totalReferrals), icon: UserPlus },
+    { label: 'Commissions Paid', value: `$${dbStats.totalPaid.toLocaleString()}`, icon: DollarSign },
   ];
 
   const affiliates = dbAffiliates.length > 0 ? dbAffiliates.map((a: any) => ({
@@ -90,7 +92,6 @@ export default async function AffiliatesPage() {
           <div key={stat.label} className="bg-white rounded-xl shadow-sm border p-6">
             <div className="flex items-center justify-between">
               <stat.icon className="w-8 h-8 text-brand-orange-600" />
-              <span className="text-brand-green-600 text-sm font-medium">{stat.change}</span>
             </div>
             <p className="text-2xl font-bold mt-4">{stat.value}</p>
             <p className="text-slate-700 text-sm">{stat.label}</p>

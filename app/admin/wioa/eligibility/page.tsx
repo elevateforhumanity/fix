@@ -1,171 +1,114 @@
 import { Metadata } from 'next';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { requireRole } from '@/lib/auth/require-role';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
-import { XCircle, Clock, Search, ArrowLeft, User, FileCheck, Plus } from 'lucide-react';
-import { createClient } from '@/lib/supabase/server';
+import { Users, ChevronRight, ArrowRight, Clock, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = { robots: { index: false, follow: false }, title: 'WIOA Eligibility | Admin' };
 
-export const metadata: Metadata = {
-  title: 'WIOA Eligibility | Admin',
-  description: 'Review and manage WIOA eligibility determinations.',
-  robots: { index: false, follow: false },
+const STATUS_STYLES: Record<string, string> = {
+  pending:    'bg-amber-100 text-amber-800',
+  approved:   'bg-green-100 text-green-800',
+  denied:     'bg-red-100 text-red-800',
+  incomplete: 'bg-slate-100 text-slate-600',
+  in_review:  'bg-blue-100 text-blue-800',
 };
 
 export default async function WIOAEligibilityPage() {
-  const supabase = await createClient();
+  await requireRole(['admin', 'super_admin', 'staff']);
+  const db = await getAdminClient();
 
-  // Fetch WIOA applications
-  const { data: applications } = await supabase
-    .from('wioa_applications')
-    .select('*, profiles(first_name, last_name, email)')
-    .order('created_at', { ascending: false })
-    .limit(50);
+  // wioa_applications may not exist — fall back to applications with wioa funding
+  const [appsRes, pendingRes, approvedRes, deniedRes] = await Promise.all([
+    db.from('applications')
+      .select('id, first_name, last_name, email, status, program_interest, created_at, eligibility_status', { count: 'exact' })
+      .not('eligibility_status', 'is', null)
+      .order('created_at', { ascending: false })
+      .limit(100),
+    db.from('applications').select('id', { count: 'exact', head: true }).eq('eligibility_status', 'pending'),
+    db.from('applications').select('id', { count: 'exact', head: true }).eq('eligibility_status', 'approved'),
+    db.from('applications').select('id', { count: 'exact', head: true }).eq('eligibility_status', 'denied'),
+  ]);
 
-  const allApps = applications || [];
+  const apps         = appsRes.data ?? [];
+  const totalCount   = appsRes.count ?? 0;
+  const pendingCount = pendingRes.count ?? 0;
+  const approvedCount = approvedRes.count ?? 0;
+  const deniedCount  = deniedRes.count ?? 0;
 
-  // Calculate stats
-  const stats = [
-    { label: 'Pending Review', value: allApps.filter(a => a.status === 'pending').length, color: 'yellow' },
-    { label: 'Approved', value: allApps.filter(a => a.status === 'approved').length, color: 'green' },
-    { label: 'Denied', value: allApps.filter(a => a.status === 'denied').length, color: 'red' },
-    { label: 'Incomplete', value: allApps.filter(a => a.status === 'incomplete').length, color: 'gray' },
-  ];
   return (
-    <div className="min-h-screen bg-white p-8">
-
-      {/* Hero Image */}
-            <div className="max-w-7xl mx-auto px-4 py-4">
-        <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Eligibility" }]} />
+    <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-slate-200 px-6 py-5">
+        <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+          <Link href="/admin/dashboard" className="hover:text-slate-700">Admin</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href="/admin/wioa" className="hover:text-slate-700">WIOA</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-slate-900 font-medium">Eligibility</span>
+        </nav>
+        <h1 className="text-2xl font-bold text-slate-900">WIOA Eligibility Determinations</h1>
+        <p className="text-sm text-slate-500 mt-1">Review and process WIOA eligibility for applicants</p>
       </div>
-<div className="max-w-7xl mx-auto">
-        <Link href="/admin/wioa" className="flex items-center gap-2 text-slate-700 hover:text-brand-blue-600 mb-6">
-          <ArrowLeft className="w-4 h-4" />
-          Back to WIOA Management
-        </Link>
 
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">Eligibility Determinations</h1>
-            <p className="text-slate-700">Review and process WIOA eligibility applications</p>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: 'Total',    value: totalCount,    icon: Users,         color: 'text-slate-600',  bg: 'bg-slate-100' },
+            { label: 'Pending',  value: pendingCount,  icon: Clock,         color: 'text-amber-600',  bg: 'bg-amber-50',  urgent: pendingCount > 0 },
+            { label: 'Approved', value: approvedCount, icon: CheckCircle,   color: 'text-green-600',  bg: 'bg-green-50' },
+            { label: 'Denied',   value: deniedCount,   icon: XCircle,       color: 'text-red-600',    bg: 'bg-red-50' },
+          ].map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} className={`bg-white rounded-2xl border shadow-sm p-5 ${(s as any).urgent ? 'border-amber-300 ring-1 ring-amber-200' : 'border-slate-200'}`}>
+                <div className={`w-9 h-9 rounded-xl ${s.bg} flex items-center justify-center mb-3`}><Icon className={`w-4 h-4 ${s.color}`} /></div>
+                <p className="text-2xl font-bold text-slate-900 tabular-nums">{s.value}</p>
+                <p className="text-xs text-slate-500 mt-1 font-medium">{s.label}</p>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-sm p-6">
-              <div className={`w-3 h-3 rounded-full bg-${stat.color}-500 mb-3`} />
-              <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
-              <p className="text-sm text-slate-700">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm">
-          <div className="p-4 border-b flex items-center gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700" />
-              <input
-                type="text"
-                placeholder="Search applications..."
-                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent"
-              />
-            </div>
-            <select className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500">
-              <option>All Categories</option>
-              <option>Adult</option>
-              <option>Dislocated Worker</option>
-              <option>Youth</option>
-            </select>
-            <select className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-blue-500">
-              <option>All Status</option>
-              <option>Pending</option>
-              <option>Approved</option>
-              <option>Denied</option>
-            </select>
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h2 className="font-semibold text-slate-900 text-sm">Eligibility Queue</h2>
+            <span className="text-xs text-slate-400">{totalCount} applicants</span>
           </div>
-
-          {allApps.length === 0 ? (
-            <div className="p-12 text-center">
-              <FileCheck className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-slate-900 mb-2">No Eligibility Applications</h3>
-              <p className="text-slate-700 mb-6">WIOA eligibility applications will appear here once submitted.</p>
-              <Link
-                href="/wioa-eligibility"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue-600 text-white rounded-lg hover:bg-brand-blue-700 transition"
-              >
-                <Plus className="w-4 h-4" />
-                Start New Application
-              </Link>
+          {apps.length === 0 ? (
+            <div className="py-16 text-center">
+              <Users className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+              <p className="text-sm text-slate-500">No eligibility determinations on record</p>
+              <p className="text-xs text-slate-400 mt-1">Eligibility status is set during the application review process</p>
             </div>
           ) : (
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Applicant</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Category</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Submitted</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Documents</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-700 uppercase">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {allApps.map((app) => {
-                  const profile = app.profiles as { first_name: string; last_name: string; email: string } | null;
-                  return (
-                    <tr key={app.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-brand-blue-100 rounded-full flex items-center justify-center">
-                            <User className="w-5 h-5 text-brand-blue-600" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-900">
-                              {profile?.first_name || 'Unknown'} {profile?.last_name || ''}
-                            </p>
-                            <p className="text-sm text-slate-700">{profile?.email || ''}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="px-3 py-1 bg-brand-blue-100 text-brand-blue-700 text-sm rounded-full">
-                          {app.eligibility_category || 'Adult'}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-slate-700">
-                        {new Date(app.created_at).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-1">
-                          <FileCheck className="w-4 h-4 text-slate-700" />
-                          <span className="text-slate-700">{app.documents_count || 0}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
-                          app.status === 'approved' ? 'bg-brand-green-100 text-brand-green-700' :
-                          app.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                          app.status === 'denied' ? 'bg-brand-red-100 text-brand-red-700' :
-                          'bg-gray-100 text-slate-900'
-                        }`}>
-                          {app.status === 'approved' && <span className="text-slate-400 flex-shrink-0">•</span>}
-                          {app.status === 'pending' && <Clock className="w-4 h-4" />}
-                          {app.status === 'denied' && <XCircle className="w-4 h-4" />}
-                          {app.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <Link
-                          href={`/admin/wioa/verify?id=${app.id}`}
-                          className="px-4 py-2 bg-brand-blue-600 text-white text-sm rounded-lg hover:bg-brand-blue-700 transition"
-                        >
-                          Review
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-slate-100 bg-slate-50">
+                {['Applicant','Program','Eligibility Status','Applied',''].map(h => (
+                  <th key={h} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">{h}</th>
+                ))}
+              </tr></thead>
+              <tbody className="divide-y divide-slate-50">
+                {apps.map((a: any) => (
+                  <tr key={a.id} className="hover:bg-slate-50">
+                    <td className="py-3.5 px-5">
+                      <p className="font-semibold text-slate-900">{[a.first_name, a.last_name].filter(Boolean).join(' ') || '—'}</p>
+                      <p className="text-xs text-slate-400">{a.email ?? ''}</p>
+                    </td>
+                    <td className="py-3.5 px-5 text-slate-600 text-xs">{a.program_interest ?? '—'}</td>
+                    <td className="py-3.5 px-5">
+                      <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-semibold ${STATUS_STYLES[a.eligibility_status] ?? 'bg-slate-100 text-slate-600'}`}>
+                        {a.eligibility_status ?? 'unknown'}
+                      </span>
+                    </td>
+                    <td className="py-3.5 px-5 text-slate-500 text-xs">{a.created_at ? new Date(a.created_at).toLocaleDateString() : '—'}</td>
+                    <td className="py-3.5 px-5 text-right">
+                      <Link href={`/admin/applications/${a.id}`} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700">
+                        Review <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           )}

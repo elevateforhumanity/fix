@@ -60,7 +60,7 @@ function LoginForm() {
         .maybeSingle();
 
       if (profileError) {
-        console.error('Profile fetch failed:', profileError.message);
+        // profile fetch failed — non-fatal, user still authenticated
         setError('Unable to load your profile. Please try again or contact support.');
         setLoading(false);
         return;
@@ -91,7 +91,6 @@ function LoginForm() {
     } catch (err: any) {
       // Supabase error objects have non-enumerable properties — extract explicitly
       const msg = err?.message || err?.error_description || err?.msg || 'Invalid email or password';
-      console.error('Login error:', msg, err?.status ?? '');
       setError(msg);
     } finally {
       setLoading(false);

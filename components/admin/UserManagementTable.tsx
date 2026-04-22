@@ -26,6 +26,12 @@ export default function UserManagementTable({ users: initialUsers }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+
+  // Canonical role set — these are the only roles the system recognises.
+  // Derived from actual profile data once loaded; falls back to this list
+  // so the edit select never allows an unknown role to be assigned.
+  const CANONICAL_ROLES = ['student', 'admin', 'super_admin', 'program_holder', 'employer', 'staff', 'instructor', 'mentor'] as const;
+  type CanonicalRole = typeof CANONICAL_ROLES[number];
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
   const supabase = createClient();
@@ -130,12 +136,13 @@ export default function UserManagementTable({ users: initialUsers }: Props) {
             className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent"
           >
             <option value="all">All Roles</option>
-            <option value="student">Students</option>
-            <option value="admin">Admins</option>
-            <option value="super_admin">Super Admins</option>
-            <option value="program_holder">Program Holders</option>
-            <option value="employer">Employers</option>
-            <option value="staff">Staff</option>
+            {Array.from(new Set(users.map(u => u.role).filter(Boolean)))
+              .sort()
+              .map(role => (
+                <option key={role} value={role}>
+                  {role.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+                </option>
+              ))}
           </select>
 
           {/* Status Filter */}
@@ -205,12 +212,11 @@ export default function UserManagementTable({ users: initialUsers }: Props) {
                       onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => handleRoleChange(user.id, e.target.value)}
                       className="text-sm border border-gray-300 rounded px-3 py-2"
                     >
-                      <option value="student">Student</option>
-                      <option value="admin">Admin</option>
-                      <option value="super_admin">Super Admin</option>
-                      <option value="program_holder">Program Holder</option>
-                      <option value="employer">Employer</option>
-                      <option value="staff">Staff</option>
+                      {CANONICAL_ROLES.map(role => (
+                        <option key={role} value={role}>
+                          {role.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+                        </option>
+                      ))}
                     </select>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
