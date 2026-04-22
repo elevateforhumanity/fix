@@ -10,6 +10,7 @@ import {
   Heart,
 } from 'lucide-react';
 import ModernLandingHero from '@/components/landing/ModernLandingHero';
+import { createClient } from '@/lib/supabase/server';
 
 export const metadata: Metadata = {
   title: 'Success Stories - Real People, Real Results | Elevate for Humanity',
@@ -187,7 +188,28 @@ const successStories = [
   },
 ];
 
-export default function SuccessStoriesPage() {
+export default async function SuccessStoriesPage() {
+  // Live counts from DB — no hardcoded metrics on public pages
+  const supabase = await createClient().catch(() => null);
+  let totalEnrolled = 0;
+  let totalCompleted = 0;
+  let totalCerts = 0;
+
+  if (supabase) {
+    const [enrolledRes, completedRes, certsRes] = await Promise.all([
+      supabase.from('program_enrollments').select('id', { count: 'exact', head: true }),
+      supabase.from('program_enrollments').select('id', { count: 'exact', head: true }).eq('status', 'completed'),
+      supabase.from('program_completion_certificates').select('id', { count: 'exact', head: true }),
+    ]);
+    totalEnrolled = enrolledRes.count ?? 0;
+    totalCompleted = completedRes.count ?? 0;
+    totalCerts = certsRes.count ?? 0;
+  }
+
+  const completionRate = totalEnrolled > 0
+    ? Math.round((totalCompleted / totalEnrolled) * 100)
+    : null;
+
   return (
     <div className="min-h-screen bg-white">
       <ModernLandingHero
@@ -195,15 +217,15 @@ export default function SuccessStoriesPage() {
         headline="Success"
         accentText="Stories"
         subheadline="Lives transformed through training and opportunity"
-        description="These aren't just statistics—they're real people who transformed their lives through education, determination, and the right support at the right time. 1,200+ lives changed with 87% employment rate."
+        description="Real people who transformed their lives through education, determination, and the right support at the right time."
         imageSrc="/images/learners/reentry-coaching.jpg"
         imageAlt="Success Stories"
         primaryCTA={{ text: "Read Stories", href: "#stories" }}
         secondaryCTA={{ text: "Start Your Journey", href: "/apply" }}
         features={[
-          "1,200+ lives changed • 87% employment rate",
-          "$42K average starting salary for graduates",
-          "92% program completion rate"
+          totalEnrolled > 0 ? `${totalEnrolled.toLocaleString()}+ learners enrolled` : 'Workforce training that works',
+          totalCerts > 0 ? `${totalCerts.toLocaleString()} credentials issued` : 'Industry-recognized credentials',
+          completionRate !== null ? `${completionRate}% program completion rate` : 'Hands-on, employer-aligned training',
         ]}
         imageOnRight={false}
       />
@@ -214,27 +236,27 @@ export default function SuccessStoriesPage() {
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center bg-white rounded-xl p-6 shadow-sm">
               <div className="text-4xl font-black text-blue-600 mb-2">
-                1,200+
+                {totalEnrolled > 0 ? `${totalEnrolled.toLocaleString()}+` : '—'}
               </div>
-              <div className="text-sm text-black">Lives Changed</div>
+              <div className="text-sm text-black">Learners Enrolled</div>
             </div>
             <div className="text-center bg-white rounded-xl p-6 shadow-sm">
               <div className="text-4xl font-black text-green-600 mb-2">
-                87%
+                {totalCompleted > 0 ? totalCompleted.toLocaleString() : '—'}
               </div>
-              <div className="text-sm text-black">Employment Rate</div>
+              <div className="text-sm text-black">Programs Completed</div>
             </div>
             <div className="text-center bg-white rounded-xl p-6 shadow-sm">
               <div className="text-4xl font-black text-orange-600 mb-2">
-                $42K
+                {totalCerts > 0 ? `${totalCerts.toLocaleString()}+` : '—'}
               </div>
-              <div className="text-sm text-black">Avg Starting Salary</div>
+              <div className="text-sm text-black">Credentials Issued</div>
             </div>
             <div className="text-center bg-white rounded-xl p-6 shadow-sm">
               <div className="text-4xl font-black text-purple-600 mb-2">
-                92%
+                {completionRate !== null ? `${completionRate}%` : '—'}
               </div>
-              <div className="text-sm text-black">Program Completion</div>
+              <div className="text-sm text-black">Completion Rate</div>
             </div>
           </div>
         </div>

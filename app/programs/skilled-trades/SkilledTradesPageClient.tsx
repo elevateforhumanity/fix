@@ -211,7 +211,7 @@ export default function SkilledTradesPageClient({ programs }: { programs: Progra
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { stat: '$18-$30', label: 'Starting hourly wage' },
-              { stat: '85%+', label: 'Job placement rate' },
+              { stat: '100+', label: 'Hiring employer partners' },
               { stat: '8-16 wks', label: 'Typical program duration' },
               { stat: 'High', label: 'Demand for skilled workers' },
             ].map(({ stat, label }) => (

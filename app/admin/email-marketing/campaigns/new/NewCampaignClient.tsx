@@ -4,7 +4,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import React from 'react';
 import { sanitizeHtml } from '@/lib/sanitize';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -44,6 +44,14 @@ export default function NewCampaignPage() {
   });
 
   const [preview, setPreview] = useState(false);
+  const [audienceCounts, setAudienceCounts] = useState<Record<string, number> | null>(null);
+
+  useEffect(() => {
+    fetch('/api/admin/email-marketing/audience-counts')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setAudienceCounts(data); })
+      .catch(() => {});
+  }, []);
 
   const handleTemplateSelect = (templateKey: EmailTemplateKey) => {
     const template = emailTemplates[templateKey];
@@ -408,36 +416,12 @@ export default function NewCampaignPage() {
 
                   <div className="space-y-3">
                     {[
-                      {
-                        value: 'all-students',
-                        label: 'All Students',
-                        count: 1234,
-                      },
-                      {
-                        value: 'active-students',
-                        label: 'Active Students',
-                        count: 856,
-                      },
-                      {
-                        value: 'new-applicants',
-                        label: 'New Applicants',
-                        count: 142,
-                      },
-                      {
-                        value: 'program-completers',
-                        label: 'Program Completers',
-                        count: 89,
-                      },
-                      {
-                        value: 'employers',
-                        label: 'Employer Partners',
-                        count: 67,
-                      },
-                      {
-                        value: 'workone',
-                        label: 'WorkOne Contacts',
-                        count: 23,
-                      },
+                      { value: 'all-students',       label: 'All Students' },
+                      { value: 'active-students',    label: 'Active Students' },
+                      { value: 'new-applicants',     label: 'New Applicants' },
+                      { value: 'program-completers', label: 'Program Completers' },
+                      { value: 'employers',          label: 'Employer Partners' },
+                      { value: 'workone',            label: 'WorkOne Contacts' },
                     ].map((list) => (
                       <label
                         key={list.value}
@@ -472,7 +456,7 @@ export default function NewCampaignPage() {
                               {list.label}
                             </div>
                             <div className="text-sm text-black">
-                              {list.count} contacts
+                              {audienceCounts ? `${audienceCounts[list.value] ?? 0} contacts` : '— contacts'}
                             </div>
                           </div>
                         </div>

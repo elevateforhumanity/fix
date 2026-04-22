@@ -119,14 +119,7 @@ export default function ContentLibrary({
     fetchContent();
   }, [fetchContent]);
 
-  const getFallbackContent = (): ContentItem[] => [
-    { id: '1', title: 'Introduction to Barbering', type: 'video', category: 'Barber', duration: '15 min', is_premium: false, view_count: 1250, created_at: new Date().toISOString() },
-    { id: '2', title: 'HVAC Fundamentals Course', type: 'course', category: 'HVAC', duration: '2 hours', is_premium: false, view_count: 890, created_at: new Date().toISOString() },
-    { id: '3', title: 'Medical Terminology Guide', type: 'document', category: 'Healthcare', is_premium: false, view_count: 2100, created_at: new Date().toISOString() },
-    { id: '4', title: 'Workplace Safety Quiz', type: 'quiz', category: 'General', duration: '10 min', is_premium: false, view_count: 3400, created_at: new Date().toISOString() },
-    { id: '5', title: 'CDL Pre-Trip Inspection', type: 'video', category: 'CDL', duration: '25 min', is_premium: false, view_count: 1800, created_at: new Date().toISOString() },
-    { id: '6', title: 'CNA Skills Checklist', type: 'document', category: 'Healthcare', is_premium: false, view_count: 950, created_at: new Date().toISOString() },
-  ];
+  const getFallbackContent = (): ContentItem[] => [];
 
   // Track content view
   const trackView = async (item: ContentItem) => {

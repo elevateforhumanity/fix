@@ -85,7 +85,7 @@ export default function HeroSection() {
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4 text-emerald-400/70" />
-              85% job placement rate
+              Employer-connected placement support
             </span>
           </div>
 

@@ -6,6 +6,7 @@ import {
   CheckCircle, Clock, DollarSign, Award, ArrowRight, 
   GraduationCap, Users, FileText, Calendar, Heart, Star
 } from 'lucide-react';
+import { createClient } from '@/lib/supabase/server';
 
 const SITE_URL = 'https://www.elevateforhumanity.org';
 
@@ -114,7 +115,27 @@ const steps = [
   { num: 4, title: 'Get Approved', desc: 'Receive funding confirmation and start training' },
 ];
 
-export default function ScholarshipsPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function ScholarshipsPage() {
+  const supabase = await createClient().catch(() => null);
+  let totalEnrolled = 0;
+  let fundedCount = 0;
+
+  if (supabase) {
+    const [enrolledRes, fundedRes] = await Promise.all([
+      supabase.from('program_enrollments').select('id', { count: 'exact', head: true }),
+      supabase.from('program_enrollments')
+        .select('id', { count: 'exact', head: true })
+        .not('funding_source', 'in', '(self_pay,pending,null)'),
+    ]);
+    totalEnrolled = enrolledRes.count ?? 0;
+    fundedCount   = fundedRes.count ?? 0;
+  }
+
+  const fundedPct = totalEnrolled > 0
+    ? Math.round((fundedCount / totalEnrolled) * 100)
+    : null;
   return (
     <div className="min-h-screen bg-white">
       {/* Breadcrumbs */}
@@ -162,16 +183,20 @@ export default function ScholarshipsPage() {
         <div className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-green-400">85%</div>
-              <div className="text-slate-400 text-sm">Students Pay $0</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-blue-400">$5M+</div>
-              <div className="text-slate-400 text-sm">Funding Awarded</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-yellow-400">1,000+</div>
+              <div className="text-3xl font-bold text-green-400">
+                {fundedPct !== null ? `${fundedPct}%` : 'Most'}
+              </div>
               <div className="text-slate-400 text-sm">Students Funded</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-blue-400">$0</div>
+              <div className="text-slate-400 text-sm">Tuition for Eligible Students</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-yellow-400">
+                {totalEnrolled > 0 ? `${totalEnrolled.toLocaleString()}+` : '—'}
+              </div>
+              <div className="text-slate-400 text-sm">Learners Enrolled</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-400">10+</div>
@@ -371,7 +396,7 @@ export default function ScholarshipsPage() {
             Don&apos;t Let Cost Stop You
           </h2>
           <p className="text-xl text-slate-300 mb-8">
-            85% of our students pay $0 for training. Let us help you find funding.
+            Most of our students pay $0 for training. Let us help you find funding.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/wioa-eligibility" className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-full font-bold text-lg transition-all hover:scale-105">

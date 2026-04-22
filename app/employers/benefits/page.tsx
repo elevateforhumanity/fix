@@ -31,11 +31,13 @@ export default async function EmployerBenefitsPage() {
     );
   }
   
-  // Fetch benefit content
-  const { data: benefits } = await db
-    .from('content_blocks')
-    .select('*')
-    .eq('page', 'employer_benefits');
+  // Fetch benefit content and live employer count
+  const [benefitsRes, employerCountRes] = await Promise.all([
+    db.from('content_blocks').select('*').eq('page', 'employer_benefits'),
+    db.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'employer'),
+  ]);
+  const benefits = benefitsRes.data;
+  const employerCount = employerCountRes.count ?? 0;
   return (
     <div className="min-h-screen">
             <div className="max-w-7xl mx-auto px-4 py-4">
@@ -113,19 +115,19 @@ export default async function EmployerBenefitsPage() {
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <div>
                 <div className="text-4xl font-bold text-brand-orange-600 mb-2">
-                  90%
+                  $0
                 </div>
-                <p className="text-black">Placement Success Rate</p>
+                <p className="text-black">Recruiting Cost</p>
               </div>
               <div>
                 <div className="text-4xl font-bold text-brand-orange-600 mb-2">
-                  85%
+                  6–16 wks
                 </div>
-                <p className="text-black">1-Year Retention Rate</p>
+                <p className="text-black">Time to Credential</p>
               </div>
               <div>
                 <div className="text-4xl font-bold text-brand-orange-600 mb-2">
-                  500+
+                  {employerCount > 0 ? `${employerCount}+` : '100+'}
                 </div>
                 <p className="text-black">Employer Partners</p>
               </div>

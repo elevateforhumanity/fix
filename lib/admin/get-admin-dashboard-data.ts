@@ -25,9 +25,6 @@ function clampPercent(value: number): number {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
 
-function sumCents(rows: Array<{ amount_paid_cents?: number | null }>): number {
-  return rows.reduce((sum, r) => sum + (r.amount_paid_cents ?? 0), 0);
-}
 
 /**
  * Asserts a critical count query succeeded.
@@ -85,30 +82,13 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   // rather than crashing the entire dashboard.
   const db = adminClient ?? supabase;
 
-  let adminProfile: { full_name: string | null; role: string } | null = null;
-  // Auth is critical — throw if it fails. Profile name resolution is non-critical
-  // (greeting degrades to "Admin") but we log the failure so it's not invisible.
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
-  if (authError) throw new Error(`Auth user fetch failed in getAdminDashboardData: ${authError.message}`);
-  if (user) {
-    const { data: profileData, error: profileError } = await db
-      .from('profiles')
-      .select('full_name, role')
-      .eq('id', user.id)
-      .maybeSingle();
-    if (profileError) {
-      logger.error('[getAdminDashboardData] profile fetch failed:', profileError);
-    } else {
-      adminProfile = profileData ?? null;
-    }
-  }
-
   const thisMonthStart  = monthStart();
   const lastMonthStartS = lastMonthStart();
   const lastMonthEndS   = lastMonthEnd();
 
-  // ── Critical queries — throw immediately on failure ───────────────────────
+  // ── All queries run in parallel — auth, profile, health, and data ─────────
   const [
+    authRes,
     pendingAppsRes,
     allPendingAppsRes,
     activeEnrollmentsRes,
@@ -131,7 +111,10 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     wioaDocsPendingRes,
     newLeadsTodayRes,
     newEnrollmentsTodayRes,
+    systemHealthRes,
   ] = await Promise.all([
+    // Auth — critical, but resolved here so it runs in parallel with DB queries
+    supabase.auth.getUser(),
     db.from('applications')
       .select('id, first_name, last_name, full_name, email, program_interest, program_slug, status, created_at, submitted_at')
       .in('status', ['submitted', 'pending', 'in_review'])
@@ -152,21 +135,25 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       .eq('status', 'active')
       .lt('created_at', lastMonthEndS),
 
+    // Revenue — use aggregate to avoid fetching all rows
     db.from('program_enrollments')
-      .select('amount_paid_cents')
-      .in('payment_status', ['paid', 'completed', 'setup_fee_paid']),
+      .select('amount_paid_cents.sum()')
+      .in('payment_status', ['paid', 'completed', 'setup_fee_paid'])
+      .single(),
 
     db.from('program_enrollments')
-      .select('amount_paid_cents')
+      .select('amount_paid_cents.sum()')
       .in('payment_status', ['paid', 'completed', 'setup_fee_paid'])
-      .gte('created_at', thisMonthStart),
+      .gte('created_at', thisMonthStart)
+      .single(),
 
     // Last month revenue for delta
     db.from('program_enrollments')
-      .select('amount_paid_cents')
+      .select('amount_paid_cents.sum()')
       .in('payment_status', ['paid', 'completed', 'setup_fee_paid'])
       .gte('created_at', lastMonthStartS)
-      .lt('created_at', lastMonthEndS),
+      .lt('created_at', lastMonthEndS)
+      .single(),
 
     // Count from both tables — certificates (legacy) and program_completion_certificates (LMS engine)
     Promise.all([
@@ -256,7 +243,39 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     db.from('program_enrollments')
       .select('id', { count: 'exact', head: true })
       .gte('created_at', new Date(new Date().setHours(0, 0, 0, 0)).toISOString()),
+
+    // System health — runs in parallel with all other queries
+    getSystemHealth(db).catch(() => ({
+      stripeWebhookOk: false,
+      buildEnvOk: false,
+      staleJobs: 0,
+      degraded: true,
+      missingDocuments: 0,
+      missingCertifications: 0,
+      unresolvedFlags: 0,
+      alerts: [{ code: 'health_check_failed', severity: 'warning' as const, message: 'System health check failed to load.' }],
+    })),
   ]);
+
+  // ── Resolve auth + profile from parallel result ───────────────────────────
+  let adminProfile: { full_name: string | null; role: string } | null = null;
+  const { data: { user }, error: authError } = authRes;
+  if (authError) throw new Error(`Auth user fetch failed in getAdminDashboardData: ${authError.message}`);
+  if (user) {
+    const { data: profileData, error: profileError } = await db
+      .from('profiles')
+      .select('full_name, role')
+      .eq('id', user.id)
+      .maybeSingle();
+    if (profileError) {
+      logger.error('[getAdminDashboardData] profile fetch failed:', profileError);
+    } else {
+      adminProfile = profileData ?? null;
+    }
+  }
+
+  // ── System health from parallel result ────────────────────────────────────
+  const systemHealth = systemHealthRes;
 
   // Log failures but never throw — the error boundary shows a blank page with
   // no actionable info. A degraded dashboard is always better than a 500.
@@ -292,126 +311,8 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     href: `/admin/crm/leads/${l.id}`,
   }));
 
-  // ── Priority items — scored and sorted ───────────────────────────────────
-  const rawPriorityItems: PriorityItem[] = [];
-
-  // Compliance alerts
-  for (const a of complianceAlerts as any[]) {
-    const daysOpen = a.created_at
-      ? Math.floor((Date.now() - new Date(a.created_at).getTime()) / 86400000)
-      : 0;
-    const risk = a.severity === 'critical' ? 5 : a.severity === 'high' ? 4 : a.severity === 'medium' ? 2 : 1;
-    const score = calculatePriorityScore({ type: 'compliance', days: Math.max(0, daysOpen - 1), risk, blocked: true });
-    rawPriorityItems.push({
-      id: a.id,
-      type: 'compliance',
-      label: a.title ?? `Compliance alert: ${a.alert_type ?? 'unknown'}`,
-      href: '/admin/compliance',
-      score,
-      severity: scoreSeverity(score),
-      context: `${daysOpen}d open · ${a.severity ?? 'unknown'} severity`,
-    });
-  }
-
-  // Stale CRM leads
-  for (const l of staleLeads) {
-    const score = calculatePriorityScore({ type: 'lead', days: Math.max(0, l.days_stale - 5), money: 3 });
-    rawPriorityItems.push({
-      id: l.id,
-      type: 'lead',
-      label: `Stale lead: ${l.name ?? 'Unknown'}`,
-      href: l.href,
-      score,
-      severity: scoreSeverity(score),
-      context: `${l.days_stale}d no activity · ${l.status ?? 'No status'}`,
-    });
-  }
-
-  // Pending WIOA docs — one aggregate item
-  if (pendingWioaDocs > 0) {
-    const score = calculatePriorityScore({ type: 'wioa', risk: 3, money: 2, blocked: true });
-    rawPriorityItems.push({
-      id: 'wioa-docs',
-      type: 'wioa',
-      label: `${pendingWioaDocs} WIOA document${pendingWioaDocs !== 1 ? 's' : ''} awaiting review`,
-      href: '/admin/wioa/documents',
-      score,
-      severity: scoreSeverity(score),
-      context: 'Funding eligibility may be blocked',
-    });
-  }
-
-  // Pending enrollments — one aggregate item
-  if (totalPendingCount > 0) {
-    const oldestApp = (pendingApps as any[]).find(a => a.urgent);
-    const daysOverdue = oldestApp ? Math.max(0, Math.floor((Date.now() - new Date(oldestApp.created_at).getTime()) / 86400000) - 3) : 0;
-    const score = calculatePriorityScore({ type: 'enrollment', days: daysOverdue, money: 3, blocked: true });
-    rawPriorityItems.push({
-      id: 'pending-enrollments',
-      type: 'enrollment',
-      label: `${totalPendingCount} enrollment${totalPendingCount !== 1 ? 's' : ''} pending review`,
-      href: '/admin/applications?status=submitted',
-      score,
-      severity: scoreSeverity(score),
-      context: oldestApp ? 'Oldest is 3+ days old' : 'Awaiting admin review',
-    });
-  }
-
-  // Failed jobs
-  const failedJobCount = systemHealth.failedJobs ?? 0;
-  if (failedJobCount > 0) {
-    const score = calculatePriorityScore({ type: 'system', risk: 4, blocked: true });
-    rawPriorityItems.push({
-      id: 'failed-jobs',
-      type: 'system',
-      label: `${failedJobCount} failed job${failedJobCount !== 1 ? 's' : ''} in queue`,
-      href: '/admin/system/jobs',
-      score,
-      severity: scoreSeverity(score),
-      context: 'Requires investigation',
-    });
-  }
-
-  // Inactive learners — one aggregate item
-  if (inactiveLearners.length > 0) {
-    const score = calculatePriorityScore({ type: 'learner', days: Math.max(0, inactiveLearners[0]?.daysInactive - 7), risk: 1 });
-    rawPriorityItems.push({
-      id: 'inactive-learners',
-      type: 'learner',
-      label: `${inactiveLearners.length} learner${inactiveLearners.length !== 1 ? 's' : ''} inactive 7+ days`,
-      href: '/admin/at-risk',
-      score,
-      severity: scoreSeverity(score),
-      context: `Most inactive: ${inactiveLearners[0]?.daysInactive ?? 0}d`,
-    });
-  }
-
-  const priorities = sortPriorityItems(rawPriorityItems).slice(0, 10);
-
-  const needsReviewTotal = totalPendingCount + pendingWioaDocs;
-  const needsReviewParts: string[] = [];
-  if (totalPendingCount > 0) needsReviewParts.push(`${totalPendingCount} enrollment${totalPendingCount !== 1 ? 's' : ''}`);
-  if (pendingWioaDocs > 0) needsReviewParts.push(`${pendingWioaDocs} WIOA doc${pendingWioaDocs !== 1 ? 's' : ''}`);
-
-  const newTodayTotal = newLeadsToday + newEnrollmentsToday;
-  const newTodayParts: string[] = [];
-  if (newLeadsToday > 0) newTodayParts.push(`${newLeadsToday} lead${newLeadsToday !== 1 ? 's' : ''}`);
-  if (newEnrollmentsToday > 0) newTodayParts.push(`${newEnrollmentsToday} enrollment${newEnrollmentsToday !== 1 ? 's' : ''}`);
-
-  const highSeverityAlert = complianceAlerts.find((a: any) => a.severity === 'critical' || a.severity === 'high');
-
-  const operational = {
-    needsReview: needsReviewTotal,
-    needsReviewDetail: needsReviewParts.length > 0 ? needsReviewParts.join(' and ') : 'Nothing pending right now',
-    atRisk: inactiveLearners.length,
-    complianceAlerts: complianceAlerts.length,
-    complianceAlertsSeverity: highSeverityAlert ? (highSeverityAlert as any).severity : null,
-    newToday: newTodayTotal,
-    newTodayDetail: newTodayParts.length > 0 ? newTodayParts.join(', ') : 'Nothing new today',
-    revenueThisMonthCents,
-  };
-
   // Track which non-critical sections failed — UI renders a partial-failure notice.
+  // Declared here so optionalRows() can push into it during the second batch.
   const degradedSections: DegradedSection[] = [];
 
   // ── Non-critical queries — degrade gracefully on failure ──────────────────
@@ -503,13 +404,12 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   });
 
   const totalPending = totalPendingCount;
-  const urgentApps = pendingApps.filter(a => a.urgent).length;
   const oldestApp = pendingApps[0] ?? null;
 
-  // ── Revenue ───────────────────────────────────────────────────────────────
-  const revenueAllTimeCents   = sumCents(revenueAllTimeRes.data ?? []);
-  const revenueThisMonthCents = sumCents(revenueThisMonthRes.data ?? []);
-  const revenueLastMonthCents = revenueLastMonthRes.error ? 0 : sumCents(revenueLastMonthRes.data ?? []);
+  // ── Revenue — extracted from aggregate results ────────────────────────────
+  const revenueAllTimeCents   = toSafeNumber((revenueAllTimeRes.data as any)?.amount_paid_cents ?? 0);
+  const revenueThisMonthCents = toSafeNumber((revenueThisMonthRes.data as any)?.amount_paid_cents ?? 0);
+  const revenueLastMonthCents = revenueLastMonthRes.error ? 0 : toSafeNumber((revenueLastMonthRes.data as any)?.amount_paid_cents ?? 0);
 
   // ── Enrollment trend — bucket by month ───────────────────────────────────
   const trendBuckets: Record<string, number> = {};
@@ -690,6 +590,127 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     };
   });
 
+  // ── Priority items — scored and sorted ───────────────────────────────────
+  // Computed here so inactiveLearners, staleLeads, and pendingApps are all available.
+  const rawPriorityItems: PriorityItem[] = [];
+
+  // Compliance alerts
+  for (const a of complianceAlerts as any[]) {
+    const daysOpen = a.created_at
+      ? Math.floor((Date.now() - new Date(a.created_at).getTime()) / 86400000)
+      : 0;
+    const risk = a.severity === 'critical' ? 5 : a.severity === 'high' ? 4 : a.severity === 'medium' ? 2 : 1;
+    const score = calculatePriorityScore({ type: 'compliance', days: Math.max(0, daysOpen - 1), risk, blocked: true });
+    rawPriorityItems.push({
+      id: a.id,
+      type: 'compliance',
+      label: a.title ?? `Compliance alert: ${a.alert_type ?? 'unknown'}`,
+      href: '/admin/compliance',
+      score,
+      severity: scoreSeverity(score),
+      context: `${daysOpen}d open · ${a.severity ?? 'unknown'} severity`,
+    });
+  }
+
+  // Stale CRM leads
+  for (const l of staleLeads) {
+    const score = calculatePriorityScore({ type: 'lead', days: Math.max(0, l.days_stale - 5), money: 3 });
+    rawPriorityItems.push({
+      id: l.id,
+      type: 'lead',
+      label: `Stale lead: ${l.name ?? 'Unknown'}`,
+      href: l.href,
+      score,
+      severity: scoreSeverity(score),
+      context: `${l.days_stale}d no activity · ${l.status ?? 'No status'}`,
+    });
+  }
+
+  // Pending WIOA docs — one aggregate item
+  if (pendingWioaDocs > 0) {
+    const score = calculatePriorityScore({ type: 'wioa', risk: 3, money: 2, blocked: true });
+    rawPriorityItems.push({
+      id: 'wioa-docs',
+      type: 'wioa',
+      label: `${pendingWioaDocs} WIOA document${pendingWioaDocs !== 1 ? 's' : ''} awaiting review`,
+      href: '/admin/wioa/documents',
+      score,
+      severity: scoreSeverity(score),
+      context: 'Funding eligibility may be blocked',
+    });
+  }
+
+  // Pending enrollments — one aggregate item
+  if (totalPendingCount > 0) {
+    const urgentApp = pendingApps.find(a => a.urgent);
+    const daysOverdue = urgentApp ? Math.max(0, Math.floor((Date.now() - new Date(urgentApp.created_at).getTime()) / 86400000) - 3) : 0;
+    const score = calculatePriorityScore({ type: 'enrollment', days: daysOverdue, money: 3, blocked: true });
+    rawPriorityItems.push({
+      id: 'pending-enrollments',
+      type: 'enrollment',
+      label: `${totalPendingCount} enrollment${totalPendingCount !== 1 ? 's' : ''} pending review`,
+      href: '/admin/applications?status=submitted',
+      score,
+      severity: scoreSeverity(score),
+      context: urgentApp ? 'Oldest is 3+ days old' : 'Awaiting admin review',
+    });
+  }
+
+  // Failed jobs
+  const failedJobCount = systemHealth.staleJobs ?? 0;
+  if (failedJobCount > 0) {
+    const score = calculatePriorityScore({ type: 'system', risk: 4, blocked: true });
+    rawPriorityItems.push({
+      id: 'failed-jobs',
+      type: 'system',
+      label: `${failedJobCount} failed job${failedJobCount !== 1 ? 's' : ''} in queue`,
+      href: '/admin/system/jobs',
+      score,
+      severity: scoreSeverity(score),
+      context: 'Requires investigation',
+    });
+  }
+
+  // Inactive learners — one aggregate item
+  if (inactiveLearners.length > 0) {
+    const score = calculatePriorityScore({ type: 'learner', days: Math.max(0, inactiveLearners[0]?.daysInactive - 7), risk: 1 });
+    rawPriorityItems.push({
+      id: 'inactive-learners',
+      type: 'learner',
+      label: `${inactiveLearners.length} learner${inactiveLearners.length !== 1 ? 's' : ''} inactive 7+ days`,
+      href: '/admin/at-risk',
+      score,
+      severity: scoreSeverity(score),
+      context: `Most inactive: ${inactiveLearners[0]?.daysInactive ?? 0}d`,
+    });
+  }
+
+  const priorities = sortPriorityItems(rawPriorityItems).slice(0, 10);
+
+  // ── Operational signals ───────────────────────────────────────────────────
+  const needsReviewTotal = totalPendingCount + pendingWioaDocs;
+  const needsReviewParts: string[] = [];
+  if (totalPendingCount > 0) needsReviewParts.push(`${totalPendingCount} enrollment${totalPendingCount !== 1 ? 's' : ''}`);
+  if (pendingWioaDocs > 0) needsReviewParts.push(`${pendingWioaDocs} WIOA doc${pendingWioaDocs !== 1 ? 's' : ''}`);
+
+  const newTodayTotal = newLeadsToday + newEnrollmentsToday;
+  const newTodayParts: string[] = [];
+  if (newLeadsToday > 0) newTodayParts.push(`${newLeadsToday} lead${newLeadsToday !== 1 ? 's' : ''}`);
+  if (newEnrollmentsToday > 0) newTodayParts.push(`${newEnrollmentsToday} enrollment${newEnrollmentsToday !== 1 ? 's' : ''}`);
+
+  const highSeverityAlert = complianceAlerts.find((a: any) => a.severity === 'critical' || a.severity === 'high');
+
+  const operational = {
+    needsReview: needsReviewTotal,
+    needsReviewDetail: needsReviewParts.length > 0 ? needsReviewParts.join(' and ') : 'Nothing pending right now',
+    atRisk: inactiveLearners.length,
+    complianceAlerts: complianceAlerts.length,
+    complianceAlertsSeverity: highSeverityAlert ? (highSeverityAlert as any).severity : null,
+    newToday: newTodayTotal,
+    newTodayDetail: newTodayParts.length > 0 ? newTodayParts.join(', ') : 'Nothing new today',
+    revenueThisMonthCents,
+  };
+
   // ── Recent students ───────────────────────────────────────────────────────
   // Resolve each student's most recent enrollment + program name via separate queries.
   const recentStudentIds = recentStudentsData.map((s: any) => s.id).filter(Boolean);
@@ -839,15 +860,6 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     profile: adminProfile,
     generatedAt: new Date().toISOString(),
     degradedSections,
-    systemHealth: await getSystemHealth(db).catch(() => ({
-      stripeWebhookOk: false,
-      buildEnvOk: false,
-      staleJobs: 0,
-      degraded: true,
-      missingDocuments: 0,
-      missingCertifications: 0,
-      unresolvedFlags: 0,
-      alerts: [{ code: 'health_check_failed', severity: 'warning' as const, message: 'System health check failed to load.' }],
-    })),
+    systemHealth,
   };
 }

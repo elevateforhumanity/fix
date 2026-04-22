@@ -215,7 +215,7 @@ export default function HealthcarePageClient({ programs }: { programs: Program[]
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { stat: '$15-$22', label: 'Starting hourly wage for CNAs' },
-              { stat: '90%+', label: 'Job placement rate' },
+              { stat: '100+', label: 'Hiring employer partners' },
               { stat: '4-8 wks', label: 'Typical program duration' },
               { stat: 'High', label: 'Demand for healthcare workers' },
             ].map(({ stat, label }) => (

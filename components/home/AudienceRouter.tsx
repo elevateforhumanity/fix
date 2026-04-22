@@ -12,7 +12,7 @@ const AUDIENCES = [
     label: 'I want to train',
     headline: 'Launch a career that pays $35K–$75K in 6–16 weeks.',
     subtext: 'No tuition. No debt. Industry credentials. Employer pipeline.',
-    proof: '85% placement rate across all programs',
+    proof: 'Employer-connected placement support for all graduates',
     cta: 'Check Eligibility in 60 Seconds',
     ctaHref: '/wioa-eligibility',
     secondaryCta: 'Browse Programs',
@@ -23,7 +23,7 @@ const AUDIENCES = [
     stats: [
       { value: '$0', label: 'Tuition for eligible students' },
       { value: '6–16', label: 'Weeks to credential' },
-      { value: '85%', label: 'Job placement rate' },
+      { value: '100+', label: 'Hiring employer partners' },
     ],
     objections: [
       { q: 'Is this actually free?', a: 'WIOA, WRG, and JRI can cover tuition, books, and supplies for eligible students. Eligibility varies by program.' },

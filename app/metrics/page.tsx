@@ -28,17 +28,27 @@ export default async function MetricsPage() {
     );
   }
   
-  // Fetch metrics
-  const { data: metrics } = await supabase
-    .from('metrics')
-    .select('*')
-    .order('category');
+  // Live counts — no hardcoded metrics on public pages
+  const [enrolledRes, completedRes, certsRes, employerRes, programsRes] = await Promise.all([
+    supabase.from('program_enrollments').select('id', { count: 'exact', head: true }),
+    supabase.from('program_enrollments').select('id', { count: 'exact', head: true }).eq('status', 'completed'),
+    supabase.from('program_completion_certificates').select('id', { count: 'exact', head: true }),
+    supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'employer'),
+    supabase.from('programs').select('id', { count: 'exact', head: true }).eq('published', true).neq('status', 'archived'),
+  ]);
+
+  const totalEnrolled  = enrolledRes.count ?? 0;
+  const totalCompleted = completedRes.count ?? 0;
+  const totalCerts     = certsRes.count ?? 0;
+  const totalEmployers = employerRes.count ?? 0;
+  const totalPrograms  = programsRes.count ?? 0;
+
   return (
     <div className="bg-white">
-            <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="max-w-7xl mx-auto px-4 py-4">
         <Breadcrumbs items={[{ label: "Metrics" }]} />
       </div>
-<ComplianceBar />
+      <ComplianceBar />
 
       <div className="max-w-4xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold mb-4 text-black">
@@ -50,23 +60,31 @@ export default async function MetricsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-8 text-center">
-            <div className="text-5xl font-bold text-blue-600 mb-2">1,200+</div>
+            <div className="text-5xl font-bold text-blue-600 mb-2">
+              {totalEnrolled > 0 ? `${totalEnrolled.toLocaleString()}+` : '—'}
+            </div>
             <div className="text-lg text-black">Enrolled Learners</div>
           </div>
 
           <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
-            <div className="text-5xl font-bold text-green-600 mb-2">80%</div>
-            <div className="text-lg text-black">Job Placement Rate</div>
+            <div className="text-5xl font-bold text-green-600 mb-2">
+              {totalCerts > 0 ? `${totalCerts.toLocaleString()}+` : '—'}
+            </div>
+            <div className="text-lg text-black">Credentials Issued</div>
           </div>
 
           <div className="bg-purple-50 border border-purple-200 rounded-xl p-8 text-center">
-            <div className="text-5xl font-bold text-purple-600 mb-2">50+</div>
+            <div className="text-5xl font-bold text-purple-600 mb-2">
+              {totalEmployers > 0 ? `${totalEmployers}+` : '—'}
+            </div>
             <div className="text-lg text-black">Employer Partners</div>
           </div>
 
           <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-8 text-center">
-            <div className="text-5xl font-bold text-indigo-600 mb-2">14+</div>
-            <div className="text-lg text-black">Training Programs</div>
+            <div className="text-5xl font-bold text-indigo-600 mb-2">
+              {totalPrograms > 0 ? `${totalPrograms}+` : '—'}
+            </div>
+            <div className="text-lg text-black">Active Programs</div>
           </div>
         </div>
 

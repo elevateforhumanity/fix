@@ -121,19 +121,35 @@ export default function DiscussionForums() {
       if (error) throw error;
 
       if (data) {
-        // Static counts until we have real data
-        const staticCounts = [
-          { thread_count: 24, post_count: 156 },
-          { thread_count: 18, post_count: 89 },
-          { thread_count: 31, post_count: 203 },
-          { thread_count: 12, post_count: 67 },
-          { thread_count: 45, post_count: 312 },
-        ];
+        // Fetch real thread and post counts per category
+        const categoryIds = data.map((c: any) => c.id);
+        const [threadsRes, postsRes] = await Promise.all([
+          supabase
+            .from('forum_threads')
+            .select('category_id', { count: 'exact' })
+            .in('category_id', categoryIds),
+          supabase
+            .from('forum_posts')
+            .select('category_id', { count: 'exact' })
+            .in('category_id', categoryIds),
+        ]);
+
+        const threadsByCategory: Record<string, number> = {};
+        const postsByCategory: Record<string, number> = {};
+        for (const t of threadsRes.data ?? []) {
+          const id = (t as any).category_id;
+          threadsByCategory[id] = (threadsByCategory[id] ?? 0) + 1;
+        }
+        for (const p of postsRes.data ?? []) {
+          const id = (p as any).category_id;
+          postsByCategory[id] = (postsByCategory[id] ?? 0) + 1;
+        }
+
         setCategories(
-          data.map((cat, i) => ({
+          data.map((cat: any) => ({
             ...cat,
-            thread_count: staticCounts[i % staticCounts.length].thread_count,
-            post_count: staticCounts[i % staticCounts.length].post_count,
+            thread_count: threadsByCategory[cat.id] ?? 0,
+            post_count: postsByCategory[cat.id] ?? 0,
           }))
         );
       }
