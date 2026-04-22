@@ -75,6 +75,13 @@ export const NAV_ITEMS = [
       { name: '— More Programs —', href: '/programs', isHeader: true },
       { name: 'Hospitality', href: '/programs/hospitality' },
       { name: 'All Programs →', href: '/programs' },
+      { name: '— Certification Testing —', href: '/testing', isHeader: true },
+      { name: 'All Testing Providers', href: '/testing' },
+      { name: 'NHA Healthcare Exams', href: '/testing/nha' },
+      { name: 'EPA 608 Certification', href: '/testing/esco' },
+      { name: 'Certiport (Microsoft, Adobe)', href: '/testing/certiport' },
+      { name: 'Book a Testing Session', href: '/testing/book' },
+      { name: 'Verify a Credential', href: '/verify-credentials' },
     ],
   },
   {

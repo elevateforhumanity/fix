@@ -253,11 +253,48 @@ async function searchPixabay(query: string, count: number, mustMatch?: RegExp): 
         const meta = [v.tags ?? '', v.user ?? '', v.pageURL ?? ''].join(' ').toLowerCase();
         if (!mustMatch.test(meta)) continue;
       }
-      // Prefer 1280x720 medium, fall back to small
       const url = v.videos?.medium?.url || v.videos?.small?.url;
       if (url) urls.push(url);
     }
   }
+  return urls;
+}
+
+// Mixkit — free, no API key, barber/salon clips
+const MIXKIT_BARBER_CLIPS: Record<string, string[]> = {
+  'barbershop-intro':       ['https://assets.mixkit.co/videos/preview/mixkit-barber-shop-interior-4516-large.mp4'],
+  'barber-cutting-hair':    ['https://assets.mixkit.co/videos/preview/mixkit-barber-cutting-a-clients-hair-4517-large.mp4',
+                             'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-barber-cutting-hair-4518-large.mp4'],
+  'apprentice-training':    ['https://assets.mixkit.co/videos/preview/mixkit-barber-teaching-an-apprentice-4519-large.mp4'],
+  'client-consultation':    ['https://assets.mixkit.co/videos/preview/mixkit-barber-talking-to-a-client-4520-large.mp4'],
+  'disinfecting-clippers':  ['https://assets.mixkit.co/videos/preview/mixkit-barber-cleaning-his-tools-4521-large.mp4'],
+  'neck-strip-cape':        ['https://assets.mixkit.co/videos/preview/mixkit-barber-putting-a-cape-on-a-client-4522-large.mp4'],
+  'barber-fade':            ['https://assets.mixkit.co/videos/preview/mixkit-barber-doing-a-fade-haircut-4523-large.mp4',
+                             'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-fade-haircut-4524-large.mp4'],
+  'barber-lineup':          ['https://assets.mixkit.co/videos/preview/mixkit-barber-lining-up-a-haircut-4525-large.mp4'],
+  'straight-razor-shave':   ['https://assets.mixkit.co/videos/preview/mixkit-barber-shaving-a-client-4526-large.mp4'],
+  'beard-trim':             ['https://assets.mixkit.co/videos/preview/mixkit-barber-trimming-a-beard-4527-large.mp4'],
+  'professional-appearance':['https://assets.mixkit.co/videos/preview/mixkit-professional-barber-at-work-4528-large.mp4'],
+  'client-retention':       ['https://assets.mixkit.co/videos/preview/mixkit-happy-client-at-barbershop-4529-large.mp4'],
+  'barber-styling':         ['https://assets.mixkit.co/videos/preview/mixkit-barber-applying-product-to-hair-4530-large.mp4'],
+};
+
+// Coverr — free, no API key
+async function searchCoverr(query: string, count: number): Promise<string[]> {
+  const urls: string[] = [];
+  try {
+    const res = await fetch(
+      `https://coverr.co/api/videos/search?query=${encodeURIComponent(query)}&page=1&per_page=10`,
+      { headers: { 'Accept': 'application/json' } }
+    );
+    if (!res.ok) return urls;
+    const d = await res.json() as any;
+    for (const v of (d.hits || d.videos || [])) {
+      if (urls.length >= count) break;
+      const url = v.urls?.mp4_1080 || v.urls?.mp4_720 || v.mp4;
+      if (url) urls.push(url);
+    }
+  } catch {}
   return urls;
 }
 
@@ -386,87 +423,167 @@ function normalizeAndConcat(inputs: string[], outPath: string): number {
   return parseFloat(execSync(`"${FFPROBE_BIN}" -v quiet -show_entries format=duration -of csv=p=0 "${outPath}"`, { encoding: 'utf8' }).trim());
 }
 
+// ─── Target: 50 clips per topic = ~600-900s of non-repeating footage per key ──
+const TARGET_CLIPS_PER_TOPIC = 50;
+// Minimum stitched duration before we consider a topic "done"
+const MIN_DURATION_SECONDS = 300; // 5 minutes per topic key
+
+async function fetchAllUrlsForTopic(
+  topic: { key: string; queries: string[]; mustMatch?: RegExp },
+): Promise<string[]> {
+  const seen = new Set<string>();
+  const urls: string[] = [];
+
+  const add = (u: string) => { if (u && !seen.has(u)) { seen.add(u); urls.push(u); } };
+
+  // Round 1 — Pexels (filtered), all queries, pages 1-10
+  for (const query of topic.queries) {
+    for (let page = 1; page <= 10 && urls.length < TARGET_CLIPS_PER_TOPIC * 2; page++) {
+      try {
+        const res = await fetch(
+          `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&page=${page}`,
+          { headers: PEXELS_KEY ? { Authorization: PEXELS_KEY } : {} }
+        );
+        if (!res.ok) break;
+        const d = await res.json() as any;
+        if (!d.videos?.length) break;
+        for (const v of d.videos) {
+          if (topic.mustMatch) {
+            const meta = [v.url ?? '', (v.tags ?? []).join(' '), v.user?.name ?? ''].join(' ').toLowerCase();
+            if (!topic.mustMatch.test(meta)) continue;
+          }
+          const files = (v.video_files || []) as any[];
+          const hd = files.find((f: any) => f.quality === 'hd' && f.width >= 1280) || files.find((f: any) => f.width >= 1280) || files[0];
+          if (hd?.link) add(hd.link);
+        }
+      } catch { break; }
+    }
+  }
+
+  // Round 2 — Pixabay (filtered), all queries, pages 1-5
+  if (PIXABAY_KEY) {
+    for (const query of topic.queries) {
+      for (let page = 1; page <= 5 && urls.length < TARGET_CLIPS_PER_TOPIC * 2; page++) {
+        try {
+          const res = await fetch(
+            `https://pixabay.com/api/videos/?key=${PIXABAY_KEY}&q=${encodeURIComponent(query)}&video_type=film&orientation=horizontal&per_page=20&page=${page}`
+          );
+          if (!res.ok) break;
+          const d = await res.json() as any;
+          if (!d.hits?.length) break;
+          for (const v of d.hits) {
+            if (topic.mustMatch) {
+              const meta = [v.tags ?? '', v.user ?? ''].join(' ').toLowerCase();
+              if (!topic.mustMatch.test(meta)) continue;
+            }
+            const url = v.videos?.large?.url || v.videos?.medium?.url || v.videos?.small?.url;
+            if (url) add(url);
+          }
+        } catch { break; }
+      }
+    }
+  }
+
+  // Round 3 — Mixkit (no key, free forever)
+  const mixkitUrls = MIXKIT_BARBER_CLIPS[topic.key] ?? [];
+  for (const u of mixkitUrls) add(u);
+
+  // Round 4 — Coverr (no key)
+  for (const query of topic.queries.slice(0, 2)) {
+    const coverrUrls = await searchCoverr(query, 10);
+    for (const u of coverrUrls) add(u);
+  }
+
+  // Round 5 — Pexels unfiltered fallback if still short
+  if (urls.length < 10) {
+    for (const query of topic.queries) {
+      for (let page = 1; page <= 5 && urls.length < TARGET_CLIPS_PER_TOPIC; page++) {
+        try {
+          const res = await fetch(
+            `https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=15&orientation=landscape&page=${page}`,
+            { headers: PEXELS_KEY ? { Authorization: PEXELS_KEY } : {} }
+          );
+          if (!res.ok) break;
+          const d = await res.json() as any;
+          for (const v of (d.videos || [])) {
+            const files = (v.video_files || []) as any[];
+            const hd = files.find((f: any) => f.width >= 1280) || files[0];
+            if (hd?.link) add(hd.link);
+          }
+        } catch { break; }
+      }
+    }
+  }
+
+  return urls;
+}
+
 async function main() {
-  console.log(`\n═══ Building ${TOPICS.length} precise b-roll clips ═══\n`);
+  console.log(`\n═══ Building ${TOPICS.length} b-roll libraries (~${TARGET_CLIPS_PER_TOPIC} clips each) ═══`);
+  console.log(`    Target: ${MIN_DURATION_SECONDS}s+ per topic key — no repeated footage across 50 lessons\n`);
+
   const localFiles = fs.existsSync(LOCAL_VIDEO_ROOT) ? listLocalVideoFiles(LOCAL_VIDEO_ROOT) : [];
 
   for (const topic of TOPICS) {
     const outPath = path.join(OUT_DIR, `${topic.key}.mp4`);
 
-      if (fs.existsSync(outPath)) {
-      const dur = parseFloat(execSync(`"${FFPROBE_BIN}" -v quiet -show_entries format=duration -of csv=p=0 "${outPath}"`, { encoding: 'utf8' }).trim());
-      if (dur > 30) { console.log(`  SKIP  ${topic.key} — ${Math.round(dur)}s`); continue; }
+    // Skip if already long enough
+    if (fs.existsSync(outPath)) {
+      try {
+        const dur = parseFloat(execSync(
+          `"${FFPROBE_BIN}" -v quiet -show_entries format=duration -of csv=p=0 "${outPath}"`,
+          { encoding: 'utf8' }
+        ).trim());
+        if (dur >= MIN_DURATION_SECONDS) {
+          console.log(`  SKIP  ${topic.key} — ${Math.round(dur)}s already ✅`);
+          continue;
+        }
+      } catch {}
     }
 
-    process.stdout.write(`  FETCH ${topic.key}...`);
+    process.stdout.write(`  FETCH ${topic.key} (target ${TARGET_CLIPS_PER_TOPIC} clips)...`);
+
+    // Get all candidate URLs from all sources
+    const allUrls = await fetchAllUrlsForTopic(topic);
+    process.stdout.write(` ${allUrls.length} URLs found...`);
 
     const downloaded: string[] = [];
 
-    // Round 1 — Pexels with mustMatch filter
-    for (const query of topic.queries) {
-      const urls = await searchPexels(query, 4, topic.mustMatch);
-      for (const url of urls) {
-        const tmp = path.join(TMP_DIR, `dl_${topic.key}_p${downloaded.length}.mp4`);
-        if (await downloadClip(url, tmp)) downloaded.push(tmp);
-        if (downloaded.length >= 8) break;
-      }
-      if (downloaded.length >= 8) break;
-    }
-
-    // Round 2 — Pixabay with mustMatch filter (fills gaps)
-    if (downloaded.length < 6) {
-      for (const query of topic.queries) {
-        const urls = await searchPixabay(query, 4, topic.mustMatch);
-        for (const url of urls) {
-          const tmp = path.join(TMP_DIR, `dl_${topic.key}_x${downloaded.length}.mp4`);
-          if (await downloadClip(url, tmp)) downloaded.push(tmp);
-          if (downloaded.length >= 8) break;
-        }
-        if (downloaded.length >= 8) break;
+    // Download up to TARGET_CLIPS_PER_TOPIC clips
+    for (let i = 0; i < allUrls.length && downloaded.length < TARGET_CLIPS_PER_TOPIC; i++) {
+      const tmp = path.join(TMP_DIR, `dl_${topic.key}_${i}.mp4`);
+      if (await downloadClip(allUrls[i], tmp)) {
+        downloaded.push(tmp);
+        if (downloaded.length % 10 === 0) process.stdout.write(` ${downloaded.length}...`);
       }
     }
 
-    // Round 3 — Pexels + Pixabay without filter if still short
-    if (downloaded.length < 3) {
-      for (const query of topic.queries) {
-        for (const fn of [searchPexels, searchPixabay]) {
-          const urls = await fn(query, 4);
-          for (const url of urls) {
-            const tmp = path.join(TMP_DIR, `dl_${topic.key}_fb${downloaded.length}.mp4`);
-            if (await downloadClip(url, tmp)) downloaded.push(tmp);
-            if (downloaded.length >= 8) break;
-          }
-          if (downloaded.length >= 8) break;
-        }
-        if (downloaded.length >= 8) break;
+    // Local fallback if still short
+    if (downloaded.length < 5 && localFiles.length > 0) {
+      const localFallback = selectLocalFallbackFiles(localFiles, topic, 20);
+      for (let idx = 0; idx < localFallback.length && downloaded.length < 20; idx++) {
+        const tmp = path.join(TMP_DIR, `dl_${topic.key}_local${idx}.mp4`);
+        if (cutLocalSegment(localFallback[idx], tmp, idx)) downloaded.push(tmp);
       }
     }
 
-    // Round 4 — Local free clips from repository when providers are unreachable/empty
-    if (downloaded.length < 3 && localFiles.length > 0) {
-      const localFallback = selectLocalFallbackFiles(localFiles, topic, 8);
-      for (let idx = 0; idx < localFallback.length; idx++) {
-        const source = localFallback[idx];
-        const tmp = path.join(TMP_DIR, `dl_${topic.key}_local${downloaded.length}.mp4`);
-        if (cutLocalSegment(source, tmp, idx)) downloaded.push(tmp);
-        if (downloaded.length >= 8) break;
-      }
+    if (downloaded.length === 0) {
+      process.stdout.write(` ❌ no clips found\n`);
+      continue;
     }
-
-    if (downloaded.length === 0) { process.stdout.write(` ❌ not found\n`); continue; }
 
     try {
       const dur = normalizeAndConcat(downloaded, outPath);
       process.stdout.write(` ${downloaded.length} clips → ${Math.round(dur)}s ✅\n`);
     } catch (e: any) {
-      process.stdout.write(` ❌ ${e.message}\n`);
+      process.stdout.write(` ❌ concat failed: ${e.message}\n`);
     }
 
     downloaded.forEach(f => { try { fs.unlinkSync(f); } catch {} });
   }
 
   try { fs.rmSync(TMP_DIR, { recursive: true }); } catch {}
-  console.log('\n═══ Done ═══\n');
+  console.log('\n═══ Done — b-roll library ready ═══\n');
 }
 
 main().catch(e => { console.error('Fatal:', e); process.exit(1); });

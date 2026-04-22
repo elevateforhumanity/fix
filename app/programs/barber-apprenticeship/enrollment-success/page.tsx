@@ -130,7 +130,7 @@ export default async function EnrollmentSuccessPage() {
 
         {/* Primary CTA — go to program dashboard */}
         <Link
-          href="/programs/barber-apprenticeship/orientation"
+          href="/learner/dashboard"
           className="block w-full bg-brand-blue-600 hover:bg-brand-blue-700 text-white text-center py-5 rounded-xl font-bold text-lg transition-all hover:scale-[1.02] shadow-lg"
         >
           Start Orientation →

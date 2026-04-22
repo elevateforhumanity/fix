@@ -148,6 +148,9 @@ const WEBHOOK_PATHS = [
   '/api/donations/webhook',    // Donations (separate product)
 ];
 
+// Next.js 16.2 renamed middleware.ts → proxy.ts and requires the handler to be
+// exported as 'proxy' (or as the default export). The 'middleware' name is kept
+// for any internal imports that reference it directly.
 export async function middleware(request: NextRequest) {
   return proxy(request);
 }
@@ -774,6 +777,9 @@ export async function proxy(request: NextRequest) {
 
   return response;
 }
+
+// Sentry's wrappingLoader auto-adds a 'proxy' export — do not add one manually.
+export default middleware;
 
 export const config = {
   matcher: [

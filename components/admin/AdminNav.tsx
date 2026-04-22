@@ -198,7 +198,7 @@ const NAV = [
       { label: "Grants — Apply",            href: "/admin/grants/apply" },
       { label: "Grants — Intake",           href: "/admin/grants/intake" },
       { label: "Grants — Revenue",          href: "/admin/grants/revenue" },
-      { label: "Grants — SAEF",             href: "/admin/grants/saef" },
+
       { label: "Grants — Submissions",      href: "/admin/grants/submissions" },
       { label: "Grants — Workflow",         href: "/admin/grants/workflow" },
       { label: "WIOA",                      href: "/admin/wioa" },

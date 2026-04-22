@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import PageAvatar from '@/components/PageAvatar';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
 
 interface Program {
   id: string;
@@ -41,10 +43,9 @@ const programImages: Record<string, string> = {
 };
 
 export default function SkilledTradesProgramsPage() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [showContent, setShowContent] = useState(false);
   const [programs, setPrograms] = useState<Program[]>([]);
   const [loading, setLoading] = useState(true);
+  const b = heroBanners['skilled-trades'];
 
   useEffect(() => {
     async function fetchPrograms() {
@@ -63,64 +64,24 @@ export default function SkilledTradesProgramsPage() {
     fetchPrograms();
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowContent(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.play().catch(() => {});
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
+      <HeroVideo
+        videoSrcDesktop={b.videoSrcDesktop}
+        posterImage={b.posterImage}
+        voiceoverSrc={'voiceoverSrc' in b ? b.voiceoverSrc : undefined}
+        microLabel={b.microLabel}
+        analyticsName={b.analyticsName}
+        belowHeroHeadline={b.belowHeroHeadline}
+        belowHeroSubheadline={b.belowHeroSubheadline}
+        ctas={[b.primaryCta, ...(b.secondaryCta ? [b.secondaryCta] : [])]}
+        trustIndicators={b.trustIndicators}
+        transcript={b.transcript}
+      />
 
-
-      {/* Hero */}
-      <section className="relative w-full h-[50vh] sm:h-[60vh] flex items-center overflow-hidden bg-slate-900">
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover brightness-110"
-          loop
-          muted
-          playsInline
-          autoPlay
-          preload="metadata"
-          poster="/images/skilled-trades-vibrant.jpg"
-        >
-          <source src="https://pub-23811be4d3844e45a8bc2d3dc5e7aaec.r2.dev/videos/hvac-hero-final.mp4" type="video/mp4" />
-        </video>
-        {/* overlay removed */}
-        
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`transition-all duration-700 ease-out ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">Skilled Trades Programs</h1>
-            <p className="text-xl text-white/90 max-w-2xl mb-8">Build your future with free, WIOA-funded skilled trades training</p>
-            <div className="flex flex-wrap gap-4">
-              <Link 
-                href="/apply?program=skilled-trades"
-                className="inline-flex items-center justify-center bg-orange-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-orange-600 transition-colors text-lg"
-              >
-                Apply Now
-              </Link>
-              <Link 
-                href="/wioa-eligibility"
-                className="inline-flex items-center text-white text-lg border-b-2 border-white pb-1 hover:border-orange-400 hover:text-orange-400 transition-all duration-300"
-              >
-                Check Eligibility
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Avatar Guide */}
-      <PageAvatar 
-        videoSrc="/videos/avatars/trades-guide.mp4" 
-        title="Trades Guide" 
+      <PageAvatar
+        videoSrc="/videos/avatars/trades-guide.mp4"
+        title="Trades Guide"
       />
 
       {/* Breadcrumbs */}

@@ -9,25 +9,38 @@ import { Shield, Clock, Database, Lock, FileText } from 'lucide-react';
  * Shows governance posture without exposing internals.
  */
 
-interface SystemStatusPanelProps {
-  lastComplianceReview?: string;
-  environment?: 'Production' | 'Staging' | 'Development';
+// Environment is read from NEXT_PUBLIC_ENVIRONMENT at build time.
+// Falls back to NODE_ENV if not set. Never hardcoded.
+function resolveEnvironment(): 'Production' | 'Staging' | 'Development' {
+  const raw = process.env.NEXT_PUBLIC_ENVIRONMENT ?? process.env.NODE_ENV ?? '';
+  if (raw === 'production') return 'Production';
+  if (raw === 'staging') return 'Staging';
+  return 'Development';
 }
 
-export function SystemStatusPanel({ 
-  lastComplianceReview = '2026-01-15',
-  environment = 'Production'
-}: SystemStatusPanelProps) {
+interface SystemStatusPanelProps {
+  /** ISO date string from platform_settings or compliance records. Pass null if not recorded. */
+  lastComplianceReview: string | null;
+}
+
+export function SystemStatusPanel({ lastComplianceReview }: SystemStatusPanelProps) {
+  const environment = resolveEnvironment();
+
+  const reviewDisplay = lastComplianceReview
+    ? new Date(lastComplianceReview).toLocaleDateString('en-US', {
+        timeZone: 'UTC',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : 'Not recorded';
+
   const statusItems = [
     {
       label: 'Last Compliance Review',
-      value: new Date(lastComplianceReview).toLocaleDateString('en-US', { timeZone: 'UTC', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      }),
+      value: reviewDisplay,
       icon: Clock,
-      status: 'active',
+      status: lastComplianceReview ? 'active' : 'missing',
     },
     {
       label: 'Audit Logging',
@@ -79,8 +92,9 @@ export function SystemStatusPanel({
             </div>
             <div className="flex items-center gap-2">
               <span className={`text-sm font-medium ${
-                item.status === 'active' ? 'text-slate-900' :
-                item.status === 'production' ? 'text-brand-green-700' :
+                item.status === 'active'      ? 'text-slate-900' :
+                item.status === 'production'  ? 'text-brand-green-700' :
+                item.status === 'missing'     ? 'text-amber-600 italic' :
                 'text-slate-600'
               }`}>
                 {item.value}
@@ -91,6 +105,11 @@ export function SystemStatusPanel({
               {item.status === 'production' && (
                 <span className="px-2 py-0.5 text-xs font-medium bg-brand-green-100 text-brand-green-700 rounded">
                   Live
+                </span>
+              )}
+              {item.status === 'missing' && (
+                <span className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-700 rounded">
+                  Not set
                 </span>
               )}
             </div>

@@ -9,6 +9,11 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Catalog Sanity Check | Admin',
+  // MIGRATION TOOL — not a live catalog page.
+  // ALL_PRODUCTS (app/data/store-products.ts) is still the active fallback in:
+  //   - app/api/licenses/checkout/route.ts
+  //   - app/api/stripe/checkout/route.ts
+  // Do not delete store-products.ts until those routes are fully migrated to DB.
   description: 'Compare DB catalog against hardcoded products to verify migration.',
 };
 
@@ -148,9 +153,12 @@ export default async function CatalogSanityPage() {
           </table>
         </div>
 
-        <p className="text-xs text-slate-700 mt-4">
-          Once the migration is run and all rows show &quot;Match&quot;, the hardcoded fallback in API routes can be removed.
-        </p>
+        <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+          <strong>Migration incomplete.</strong> <code>ALL_PRODUCTS</code> is still the active fallback in{' '}
+          <code>app/api/licenses/checkout</code> and <code>app/api/stripe/checkout</code>.
+          Do not delete <code>app/data/store-products.ts</code> until those routes query the DB directly.
+          Once all rows show &quot;Match&quot; and API routes are updated, retire this page.
+        </div>
       </div>
     </div>
   );

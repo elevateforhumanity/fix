@@ -69,6 +69,10 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
 
   // Memoize event handlers to prevent re-registrations on each render
   const handlePlaying = useCallback(() => setPlaying(true), []);
+  // timeupdate fires on every frame tick — use as a reliable fallback for
+  // browsers/situations where onPlaying fires before React attaches the handler
+  // (e.g. autoPlayOnMount on a fast connection where canplay fires synchronously).
+  const handleTimeUpdate = useCallback(() => setPlaying(true), []);
   const handleEnded = useCallback(() => setEnded(true), []);
   const handleError = useCallback(() => setFailed(true), []);
 
@@ -215,6 +219,7 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           preload={preloadFull ? 'auto' : 'metadata'}
           aria-hidden="true"
           onPlaying={handlePlaying}
+          onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
           onError={handleError}
           style={{ zIndex: 2, position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}

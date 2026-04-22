@@ -1,168 +1,140 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
-import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
+import { BookOpen, Users, CheckCircle, TrendingUp, ChevronRight, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
-  alternates: {
-    canonical: 'https://www.elevateforhumanity.org/admin/analytics/learning',
-  },
-  title: 'Learning Analytics | Elevate For Humanity',
-  description: 'Track course completion rates, learning progress, and educational outcomes.',
-};
+export const metadata: Metadata = { robots: { index: false, follow: false }, title: 'Learning Analytics | Admin' };
 
 export default async function LearningAnalyticsPage() {
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
+  const db = await getAdminClient();
 
+  const [
+    totalCoursesRes,
+    totalEnrollmentsRes,
+    completedEnrollmentsRes,
+    completedLessonsRes,
+    totalLessonsRes,
+    recentProgressRes,
+    certsRes,
+  ] = await Promise.all([
+    db.from('programs').select('id', { count: 'exact', head: true }).eq('is_active', true),
+    db.from('program_enrollments').select('id', { count: 'exact', head: true }),
+    db.from('program_enrollments').select('id', { count: 'exact', head: true }).eq('status', 'completed'),
+    db.from('lesson_progress').select('id', { count: 'exact', head: true }).eq('completed', true),
+    db.from('lesson_progress').select('id', { count: 'exact', head: true }),
+    db.from('lesson_progress')
+      .select('id, user_id, completed, completed_at, course_id, progress_percent')
+      .eq('completed', true)
+      .order('completed_at', { ascending: false })
+      .limit(20),
+    db.from('program_completion_certificates').select('id', { count: 'exact', head: true }),
+  ]);
 
+  const totalCourses      = totalCoursesRes.count ?? 0;
+  const totalEnrollments  = totalEnrollmentsRes.count ?? 0;
+  const completedEnroll   = completedEnrollmentsRes.count ?? 0;
+  const completedLessons  = completedLessonsRes.count ?? 0;
+  const totalLessons      = totalLessonsRes.count ?? 0;
+  const recentProgress    = recentProgressRes.data ?? [];
+  const totalCerts        = certsRes.count ?? 0;
 
-  // Fetch learning analytics data
-  const { count: totalCourses } = await supabase
-    .from('courses')
-    .select('*', { count: 'exact', head: true });
+  const completionRate = totalEnrollments > 0 ? Math.round((completedEnroll / totalEnrollments) * 100) : 0;
+  const lessonRate     = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
 
-  const { count: totalEnrollments } = await supabase
-    .from('program_enrollments')
-    .select('*', { count: 'exact', head: true });
-
-  const { count: completedEnrollments } = await supabase
-    .from('program_enrollments')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'completed');
-
-  const { count: totalCertificates } = await supabase
-    .from('certificates')
-    .select('*', { count: 'exact', head: true });
-
-  const { data: rawCourses } = await supabase
-    .from('courses')
-    .select('id, title')
-    .limit(10);
-
-  // Fetch real enrollment counts per course from program_enrollments
-  const topCourses = await Promise.all(
-    (rawCourses || []).map(async (course: any) => {
-      const { count } = await supabase
-        .from('program_enrollments')
-        .select('*', { count: 'exact', head: true })
-        .eq('course_id', course.id);
-      return { ...course, enrollment_count: count || 0 };
-    })
-  );
-  topCourses.sort((a, b) => b.enrollment_count - a.enrollment_count);
-
-  const completionRate = totalEnrollments 
-    ? Math.round(((completedEnrollments || 0) / totalEnrollments) * 100) 
-    : 0;
+  // Hydrate user profiles for recent progress
+  const userIds = [...new Set(recentProgress.map((p: any) => p.user_id).filter(Boolean))];
+  const { data: profiles } = userIds.length
+    ? await db.from('profiles').select('id, full_name, email').in('id', userIds)
+    : { data: [] };
+  const profileMap = Object.fromEntries((profiles ?? []).map((p: any) => [p.id, p]));
 
   return (
     <div className="min-h-screen bg-white">
+      <div className="bg-white border-b border-slate-200 px-6 py-5">
+        <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-3">
+          <Link href="/admin/dashboard" className="hover:text-slate-700">Admin</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href="/admin/analytics" className="hover:text-slate-700">Analytics</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-slate-900 font-medium">Learning</span>
+        </nav>
+        <h1 className="text-2xl font-bold text-slate-900">Learning Analytics</h1>
+        <p className="text-sm text-slate-500 mt-1">Course completions, lesson progress, and certificate issuance</p>
+      </div>
 
-      {/* Hero Image */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-slate-700">
-              <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
-              <li>/</li>
-              <li><Link href="/admin/analytics" className="hover:text-primary">Analytics</Link></li>
-              <li>/</li>
-              <li className="text-slate-900 font-medium">Learning</li>
-            </ol>
-          </nav>
-          <h1 className="text-3xl font-bold text-slate-900">Learning Analytics</h1>
-          <p className="text-slate-700 mt-2">Track course performance and learner progress</p>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Total Courses</h3>
-              <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{totalCourses || 0}</p>
-            <p className="text-sm text-slate-700 mt-1">Available courses</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Enrollments</h3>
-              <span className="text-brand-green-600 bg-brand-green-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{totalEnrollments || 0}</p>
-            <p className="text-sm text-slate-700 mt-1">Total enrollments</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Completion Rate</h3>
-              <span className="text-brand-blue-600 bg-brand-blue-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{completionRate}%</p>
-            <p className="text-sm text-slate-700 mt-1">Courses completed</p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-slate-700">Certificates Issued</h3>
-              <span className="text-brand-orange-600 bg-brand-orange-100 p-2 rounded-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-              </span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900 mt-2">{totalCertificates || 0}</p>
-            <p className="text-sm text-slate-700 mt-1">Certificates earned</p>
-          </div>
-        </div>
-
-        {/* Top Courses */}
-        <div className="bg-white rounded-lg shadow-sm border">
-          <div className="p-6 border-b">
-            <h2 className="text-lg font-semibold">Top Courses by Enrollment</h2>
-            <p className="text-sm text-slate-700">Most popular courses</p>
-          </div>
-          <div className="divide-y">
-            {topCourses && topCourses.length > 0 ? (
-              topCourses.map((course: any, index: number) => (
-                <div key={course.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
-                  <div className="flex items-center gap-4">
-                    <span className="w-8 h-8 bg-brand-blue-100 rounded-full flex items-center justify-center text-brand-blue-600 font-semibold text-sm">
-                      {index + 1}
-                    </span>
-                    <div>
-                      <p className="font-medium text-slate-900">{course.title}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-slate-900">{course.enrollment_count || 0}</p>
-                    <p className="text-sm text-slate-700">enrollments</p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="p-8 text-center text-slate-700">
-                No course data available
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: 'Active Programs',      value: totalCourses,     icon: BookOpen,    color: 'text-brand-blue-600', bg: 'bg-brand-blue-50' },
+            { label: 'Total Enrollments',    value: totalEnrollments, icon: Users,       color: 'text-purple-600',     bg: 'bg-purple-50' },
+            { label: 'Completion Rate',      value: `${completionRate}%`, icon: TrendingUp, color: 'text-green-600',  bg: 'bg-green-50' },
+            { label: 'Certificates Issued',  value: totalCerts,       icon: CheckCircle, color: 'text-amber-600',     bg: 'bg-amber-50' },
+          ].map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                <div className={`w-9 h-9 rounded-xl ${s.bg} flex items-center justify-center mb-3`}><Icon className={`w-4 h-4 ${s.color}`} /></div>
+                <p className="text-2xl font-bold text-slate-900 tabular-nums">{s.value}</p>
+                <p className="text-xs text-slate-500 mt-1 font-medium">{s.label}</p>
               </div>
-            )}
+            );
+          })}
+        </div>
+
+        {/* Lesson completion bar */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold text-slate-900 text-sm">Lesson Completion</h2>
+            <span className="text-sm font-bold text-slate-700">{completedLessons} / {totalLessons} lessons</span>
           </div>
+          <div className="w-full bg-slate-100 rounded-full h-3">
+            <div className="bg-brand-blue-500 h-3 rounded-full transition-all" style={{ width: `${lessonRate}%` }} />
+          </div>
+          <p className="text-xs text-slate-400 mt-2">{lessonRate}% of all lesson progress records marked complete</p>
+        </div>
+
+        {/* Recent completions */}
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <h2 className="font-semibold text-slate-900 text-sm">Recent Lesson Completions</h2>
+            <Link href="/admin/students" className="text-xs font-semibold text-brand-blue-600 hover:underline flex items-center gap-1">All students <ArrowRight className="w-3 h-3" /></Link>
+          </div>
+          {recentProgress.length === 0 ? (
+            <div className="py-12 text-center text-sm text-slate-400">No lesson completions recorded yet</div>
+          ) : (
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-slate-100 bg-slate-50">
+                {['Student','Progress','Completed'].map(h => <th key={h} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">{h}</th>)}
+              </tr></thead>
+              <tbody className="divide-y divide-slate-50">
+                {recentProgress.map((p: any) => {
+                  const profile = profileMap[p.user_id];
+                  return (
+                    <tr key={p.id} className="hover:bg-slate-50">
+                      <td className="py-3.5 px-5">
+                        <p className="font-semibold text-slate-900">{profile?.full_name ?? '—'}</p>
+                        <p className="text-xs text-slate-400">{profile?.email ?? ''}</p>
+                      </td>
+                      <td className="py-3.5 px-5">
+                        {p.progress_percent != null && (
+                          <div className="flex items-center gap-2">
+                            <div className="w-20 bg-slate-100 rounded-full h-1.5">
+                              <div className="bg-green-500 h-1.5 rounded-full" style={{ width: `${p.progress_percent}%` }} />
+                            </div>
+                            <span className="text-xs text-slate-500">{p.progress_percent}%</span>
+                          </div>
+                        )}
+                      </td>
+                      <td className="py-3.5 px-5 text-slate-500 text-xs">{p.completed_at ? new Date(p.completed_at).toLocaleString() : '—'}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

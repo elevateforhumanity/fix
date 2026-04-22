@@ -1,39 +1,25 @@
 import { Metadata } from 'next';
+import { requireRole } from '@/lib/auth/require-role';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Building2, CheckCircle, Briefcase, Plus, ChevronRight, ArrowRight, MapPin, Mail } from 'lucide-react';
+import { Building2, ChevronRight, ArrowRight, Plus, MapPin, Phone, Mail } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { robots: { index: false, follow: false }, title: 'Employers | Admin' };
 
-const STATUS_STYLES: Record<string, string> = {
-  active:   'bg-emerald-100 text-emerald-800',
-  inactive: 'bg-slate-100 text-slate-600',
-  pending:  'bg-amber-100 text-amber-800',
-};
-
-export default async function EmployersPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
+export default async function AdminEmployersPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const db = await getAdminClient();
-  const { data: profile } = await db.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!['admin', 'super_admin', 'staff'].includes(profile?.role ?? '')) redirect('/unauthorized');
 
-  const [
-    { data: employers, count: total },
-    { count: active },
-    { count: openJobs },
-  ] = await Promise.all([
+  const [employersRes] = await Promise.all([
     db.from('employers')
-      .select('id, name, industry, city, state, status, contact_email, created_at', { count: 'exact' })
+      .select('id, name, industry, city, state, phone, email, status, created_at', { count: 'exact' })
       .order('created_at', { ascending: false })
-      .limit(50),
-    db.from('employers').select('*', { count: 'exact', head: true }).eq('status', 'active'),
-    db.from('job_postings').select('*', { count: 'exact', head: true }).eq('status', 'open'),
+      .limit(100),
   ]);
+
+  const employers  = employersRes.data ?? [];
+  const totalCount = employersRes.count ?? 0;
 
   return (
     <div className="min-h-screen bg-white">
@@ -45,93 +31,55 @@ export default async function EmployersPage() {
         </nav>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Employer Management</h1>
-            <p className="text-sm text-slate-500 mt-1">Partner employers, job postings, and OJT placements</p>
+            <h1 className="text-2xl font-bold text-slate-900">Employers</h1>
+            <p className="text-sm text-slate-500 mt-1">{totalCount} employer{totalCount !== 1 ? 's' : ''} on record</p>
           </div>
-          <Link href="/admin/employers/new"
-            className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+          <Link href="/admin/employers/new" className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
             <Plus className="w-4 h-4" /> Add Employer
           </Link>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-4">
-          {[
-            { label: 'Total Employers',  value: total ?? 0,   icon: Building2,   color: 'text-brand-blue-600', bg: 'bg-brand-blue-50' },
-            { label: 'Active Partners',  value: active ?? 0,  icon: CheckCircle, color: 'text-green-600',      bg: 'bg-green-50' },
-            { label: 'Open Jobs',        value: openJobs ?? 0,icon: Briefcase,   color: 'text-amber-600',      bg: 'bg-amber-50' },
-          ].map((s) => {
-            const Icon = s.icon;
-            return (
-              <div key={s.label} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-                <div className={`w-9 h-9 rounded-xl ${s.bg} flex items-center justify-center mb-3`}>
-                  <Icon className={`w-4 h-4 ${s.color}`} />
-                </div>
-                <p className="text-2xl font-bold text-slate-900 tabular-nums">{s.value}</p>
-                <p className="text-xs text-slate-500 mt-1 font-medium">{s.label}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Table */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h2 className="font-semibold text-slate-900 text-sm">All Employers</h2>
-            <span className="text-xs text-slate-400">{total ?? 0} total</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        {employers.length === 0 ? (
+          <div className="py-24 text-center">
+            <Building2 className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <p className="text-sm font-semibold text-slate-600">No employers yet</p>
+            <p className="text-xs text-slate-400 mt-1">Add employer partners to track apprenticeships and job placements</p>
+            <Link href="/admin/employers/new" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-blue-600 hover:underline">
+              Add first employer <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
-          {!employers?.length ? (
-            <div className="py-16 text-center">
-              <Building2 className="w-8 h-8 text-slate-300 mx-auto mb-3" />
-              <p className="text-sm text-slate-500 font-medium">No employers yet</p>
-              <p className="text-xs text-slate-400 mt-1">Add your first employer partner to get started</p>
-              <Link href="/admin/employers/new" className="inline-flex items-center gap-1.5 mt-4 text-sm text-brand-blue-600 font-semibold hover:underline">
-                <Plus className="w-3.5 h-3.5" /> Add Employer
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {employers.map((e: any) => (
+              <Link key={e.id} href={`/admin/employers/${e.id}`}
+                className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:border-brand-blue-300 hover:shadow-md transition-all group">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
+                    <Building2 className="w-5 h-5 text-slate-500" />
+                  </div>
+                  {e.status && (
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${e.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
+                      {e.status}
+                    </span>
+                  )}
+                </div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-brand-blue-700 transition-colors">{e.name ?? '—'}</h3>
+                {e.industry && <p className="text-xs text-slate-400 mt-0.5">{e.industry}</p>}
+                <div className="mt-3 space-y-1">
+                  {(e.city || e.state) && (
+                    <p className="flex items-center gap-1.5 text-xs text-slate-500">
+                      <MapPin className="w-3 h-3 flex-shrink-0" />{[e.city, e.state].filter(Boolean).join(', ')}
+                    </p>
+                  )}
+                  {e.phone && <p className="flex items-center gap-1.5 text-xs text-slate-500"><Phone className="w-3 h-3 flex-shrink-0" />{e.phone}</p>}
+                  {e.email && <p className="flex items-center gap-1.5 text-xs text-slate-500"><Mail className="w-3 h-3 flex-shrink-0" />{e.email}</p>}
+                </div>
               </Link>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-100 bg-slate-50">
-                    <th className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">Employer</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Industry</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Location</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Status</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Contact</th>
-                    <th className="py-3 px-4" />
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {employers.map((e: any) => (
-                    <tr key={e.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="py-3.5 px-5 font-semibold text-slate-900">{e.name}</td>
-                      <td className="py-3.5 px-4 text-slate-500">{e.industry ?? '—'}</td>
-                      <td className="py-3.5 px-4 text-slate-500">
-                        {[e.city, e.state].filter(Boolean).join(', ') || '—'}
-                      </td>
-                      <td className="py-3.5 px-4">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold ${STATUS_STYLES[e.status] ?? 'bg-slate-100 text-slate-600'}`}>
-                          {e.status ?? 'unknown'}
-                        </span>
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-500 text-xs">{e.contact_email ?? '—'}</td>
-                      <td className="py-3.5 px-4 text-right">
-                        <Link href={`/admin/employers/${e.id}`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue-600 hover:text-brand-blue-700">
-                          View <ArrowRight className="w-3 h-3" />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

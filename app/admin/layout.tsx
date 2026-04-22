@@ -96,10 +96,15 @@ export default async function AdminLayout({
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return { userName: 'Admin', notifs: [] };
 
-        const [profileRes, appsRes, docsRes] = await Promise.all([
+        const [profileRes, appsRes, docsRes, alertsRes, wioaDocsRes, staleLeadsRes] = await Promise.all([
           db.from('profiles').select('full_name, first_name').eq('id', user.id).maybeSingle(),
           db.from('applications').select('id', { count: 'exact', head: true }).in('status', ['submitted', 'in_review']),
           db.from('documents').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+          db.from('compliance_alerts').select('id', { count: 'exact', head: true }).eq('resolved', false),
+          db.from('wioa_documents').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+          db.from('leads').select('id', { count: 'exact', head: true })
+            .lt('updated_at', new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString())
+            .not('stage', 'in', '("Closed Won","Closed Lost")'),
         ]);
         // Header notification counts are non-critical — log failures but don't throw
         if (appsRes.error) console.error('[AdminLayout] applications count failed:', appsRes.error.message);
@@ -107,7 +112,6 @@ export default async function AdminLayout({
 
         const name = profileRes.data?.first_name || profileRes.data?.full_name?.split(' ')[0] || 'Admin';
         const notifs: import('@/components/admin/AdminNav').AdminNavNotif[] = [];
-
 
         if ((appsRes.count ?? 0) > 0) {
           notifs.push({ id: 'apps', unread: true, href: '/admin/applications?status=submitted',
@@ -118,6 +122,21 @@ export default async function AdminLayout({
           notifs.push({ id: 'docs', unread: true, href: '/admin/documents/review',
             title: `${docsRes.count} document${docsRes.count !== 1 ? 's' : ''} need review`,
             time: 'Compliance required' });
+        }
+        if ((alertsRes.count ?? 0) > 0) {
+          notifs.push({ id: 'compliance', unread: true, href: '/admin/compliance',
+            title: `${alertsRes.count} unresolved compliance alert${alertsRes.count !== 1 ? 's' : ''}`,
+            time: 'Needs attention' });
+        }
+        if ((wioaDocsRes.count ?? 0) > 0) {
+          notifs.push({ id: 'wioa', unread: true, href: '/admin/wioa/documents',
+            title: `${wioaDocsRes.count} WIOA document${wioaDocsRes.count !== 1 ? 's' : ''} awaiting review`,
+            time: 'WIOA queue' });
+        }
+        if ((staleLeadsRes.count ?? 0) > 0) {
+          notifs.push({ id: 'leads', unread: true, href: '/admin/crm/leads',
+            title: `${staleLeadsRes.count} CRM lead${staleLeadsRes.count !== 1 ? 's' : ''} with no activity in 5+ days`,
+            time: 'Follow-up needed' });
         }
 
         return { userName: name, notifs };

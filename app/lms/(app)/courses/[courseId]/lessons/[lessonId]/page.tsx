@@ -142,6 +142,9 @@ export default function LessonPage() {
   const [checkpointBlocked, setCheckpointBlocked] = useState(false);
   const [passedCheckpointIds, setPassedCheckpointIds] = useState<Set<string>>(new Set());
   const [loadTimeout, setLoadTimeout] = useState(false);
+  // Hours tracking — only fetched for apprenticeship programs (barber, cosmetology, etc.)
+  const [hoursLogged, setHoursLogged] = useState<number | null>(null);
+  const [hoursRequired, setHoursRequired] = useState<number>(2000);
 
   // ── Activity completion tracking (real completion, not just tab visits) ──
   const {
@@ -436,6 +439,20 @@ export default function LessonPage() {
     lessonStartTime.current = Date.now();
     fetchLessonData();
   }, [lessonId, fetchLessonData]);
+
+  // Fetch hours summary for apprenticeship programs (barber, cosmetology, etc.)
+  // Only runs once per course load — hours don't change lesson-to-lesson.
+  useEffect(() => {
+    if (!isBarberLesson) return; // extend this check when cosmetology course ID is known
+    fetch('/api/apprentice/hours-summary')
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data?.summary) return;
+        setHoursLogged(Math.round(data.summary.total_hours + (data.summary.transfer_hours ?? 0)));
+        setHoursRequired(data.summary.required_hours ?? 2000);
+      })
+      .catch(() => {}); // fail silently — hours strip is non-critical
+  }, [isBarberLesson]);
 
   const markComplete = async (forceComplete?: boolean) => {
     // forceComplete=true means "always mark complete" (called from activity handlers).

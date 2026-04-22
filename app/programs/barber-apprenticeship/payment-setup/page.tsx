@@ -55,7 +55,7 @@ function PaymentSetupForm({ weeklyAmount }: { weeklyAmount: number }) {
       // Non-fatal — subscription activation will be retried by cron
     }
 
-    router.push('/api/onboarding/complete?redirect=/apprentice');
+    router.push('/learner/dashboard');
   }
 
   return (

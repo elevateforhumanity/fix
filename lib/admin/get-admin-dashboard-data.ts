@@ -6,6 +6,12 @@
 import { getAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
+import {
+  calculatePriorityScore,
+  scoreSeverity,
+  sortPriorityItems,
+  type PriorityItem,
+} from '@/lib/admin/priority-score';
 import type { AdminDashboardData, DegradedSection } from '@/components/admin/dashboard/types';
 import { getSystemHealth } from './dashboard/get-system-health';
 
@@ -120,9 +126,14 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     pendingHoldersRes,
     pendingHolderDocsRes,
     pendingSubmissionsRes,
+    complianceAlertsRes,
+    staleLeadsRes,
+    wioaDocsPendingRes,
+    newLeadsTodayRes,
+    newEnrollmentsTodayRes,
   ] = await Promise.all([
     db.from('applications')
-      .select('id, first_name, last_name, full_name, email, program_interest, program_slug, status, created_at, submitted_at, next_step_due_date, funding_type')
+      .select('id, first_name, last_name, full_name, email, program_interest, program_slug, status, created_at, submitted_at')
       .in('status', ['submitted', 'pending', 'in_review'])
       .order('created_at', { ascending: true })
       .limit(20),
@@ -213,6 +224,38 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       .in('status', ['submitted', 'under_review'])
       .order('submitted_at', { ascending: true })
       .limit(10),
+
+    // Compliance alerts — unresolved, for dashboard snapshot
+    // Real columns: title (not message), status != 'resolved' (not a boolean resolved column)
+    db.from('compliance_alerts')
+      .select('id, alert_type, severity, title, description, created_at')
+      .neq('status', 'resolved')
+      .order('severity', { ascending: false })
+      .limit(5),
+
+    // Stale CRM leads — no activity in 5+ days, not closed
+    // Real columns: first_name, last_name, email, status (not company_name/contact_name/stage)
+    db.from('leads')
+      .select('id, first_name, last_name, email, status, updated_at')
+      .not('status', 'in', '(closed_won,closed_lost)')
+      .lt('updated_at', new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString())
+      .order('updated_at', { ascending: true })
+      .limit(5),
+
+    // WIOA documents pending review
+    db.from('wioa_documents')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'pending'),
+
+    // New leads today
+    db.from('leads')
+      .select('id', { count: 'exact', head: true })
+      .gte('created_at', new Date(new Date().setHours(0, 0, 0, 0)).toISOString()),
+
+    // New enrollments today
+    db.from('program_enrollments')
+      .select('id', { count: 'exact', head: true })
+      .gte('created_at', new Date(new Date().setHours(0, 0, 0, 0)).toISOString()),
   ]);
 
   // Log failures but never throw — the error boundary shows a blank page with
@@ -231,6 +274,142 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   const pendingHoldersCount  = pendingHoldersRes.error ? 0 : (pendingHoldersRes.count ?? 0);
   const pendingHolderDocsCount = pendingHolderDocsRes.error ? 0 : (pendingHolderDocsRes.count ?? 0);
   const pendingSubmissions = pendingSubmissionsRes.error ? [] : (pendingSubmissionsRes.data ?? []);
+
+  // ── Operational dashboard signals ─────────────────────────────────────────
+  const complianceAlerts = complianceAlertsRes.error ? [] : (complianceAlertsRes.data ?? []);
+  const staleLeadsData = staleLeadsRes.error ? [] : (staleLeadsRes.data ?? []);
+  const pendingWioaDocs = wioaDocsPendingRes.error ? 0 : (wioaDocsPendingRes.count ?? 0);
+  const newLeadsToday = newLeadsTodayRes.error ? 0 : (newLeadsTodayRes.count ?? 0);
+  const newEnrollmentsToday = newEnrollmentsTodayRes.error ? 0 : (newEnrollmentsTodayRes.count ?? 0);
+
+  const now2 = Date.now();
+  const staleLeads = staleLeadsData.map((l: any) => ({
+    id: l.id,
+    name: [l.first_name, l.last_name].filter(Boolean).join(' ') || l.email || null,
+    status: l.status ?? null,
+    updated_at: l.updated_at ?? null,
+    days_stale: l.updated_at ? Math.floor((now2 - new Date(l.updated_at).getTime()) / 86400000) : 0,
+    href: `/admin/crm/leads/${l.id}`,
+  }));
+
+  // ── Priority items — scored and sorted ───────────────────────────────────
+  const rawPriorityItems: PriorityItem[] = [];
+
+  // Compliance alerts
+  for (const a of complianceAlerts as any[]) {
+    const daysOpen = a.created_at
+      ? Math.floor((Date.now() - new Date(a.created_at).getTime()) / 86400000)
+      : 0;
+    const risk = a.severity === 'critical' ? 5 : a.severity === 'high' ? 4 : a.severity === 'medium' ? 2 : 1;
+    const score = calculatePriorityScore({ type: 'compliance', days: Math.max(0, daysOpen - 1), risk, blocked: true });
+    rawPriorityItems.push({
+      id: a.id,
+      type: 'compliance',
+      label: a.title ?? `Compliance alert: ${a.alert_type ?? 'unknown'}`,
+      href: '/admin/compliance',
+      score,
+      severity: scoreSeverity(score),
+      context: `${daysOpen}d open · ${a.severity ?? 'unknown'} severity`,
+    });
+  }
+
+  // Stale CRM leads
+  for (const l of staleLeads) {
+    const score = calculatePriorityScore({ type: 'lead', days: Math.max(0, l.days_stale - 5), money: 3 });
+    rawPriorityItems.push({
+      id: l.id,
+      type: 'lead',
+      label: `Stale lead: ${l.name ?? 'Unknown'}`,
+      href: l.href,
+      score,
+      severity: scoreSeverity(score),
+      context: `${l.days_stale}d no activity · ${l.status ?? 'No status'}`,
+    });
+  }
+
+  // Pending WIOA docs — one aggregate item
+  if (pendingWioaDocs > 0) {
+    const score = calculatePriorityScore({ type: 'wioa', risk: 3, money: 2, blocked: true });
+    rawPriorityItems.push({
+      id: 'wioa-docs',
+      type: 'wioa',
+      label: `${pendingWioaDocs} WIOA document${pendingWioaDocs !== 1 ? 's' : ''} awaiting review`,
+      href: '/admin/wioa/documents',
+      score,
+      severity: scoreSeverity(score),
+      context: 'Funding eligibility may be blocked',
+    });
+  }
+
+  // Pending enrollments — one aggregate item
+  if (totalPendingCount > 0) {
+    const oldestApp = (pendingApps as any[]).find(a => a.urgent);
+    const daysOverdue = oldestApp ? Math.max(0, Math.floor((Date.now() - new Date(oldestApp.created_at).getTime()) / 86400000) - 3) : 0;
+    const score = calculatePriorityScore({ type: 'enrollment', days: daysOverdue, money: 3, blocked: true });
+    rawPriorityItems.push({
+      id: 'pending-enrollments',
+      type: 'enrollment',
+      label: `${totalPendingCount} enrollment${totalPendingCount !== 1 ? 's' : ''} pending review`,
+      href: '/admin/applications?status=submitted',
+      score,
+      severity: scoreSeverity(score),
+      context: oldestApp ? 'Oldest is 3+ days old' : 'Awaiting admin review',
+    });
+  }
+
+  // Failed jobs
+  const failedJobCount = systemHealth.failedJobs ?? 0;
+  if (failedJobCount > 0) {
+    const score = calculatePriorityScore({ type: 'system', risk: 4, blocked: true });
+    rawPriorityItems.push({
+      id: 'failed-jobs',
+      type: 'system',
+      label: `${failedJobCount} failed job${failedJobCount !== 1 ? 's' : ''} in queue`,
+      href: '/admin/system/jobs',
+      score,
+      severity: scoreSeverity(score),
+      context: 'Requires investigation',
+    });
+  }
+
+  // Inactive learners — one aggregate item
+  if (inactiveLearners.length > 0) {
+    const score = calculatePriorityScore({ type: 'learner', days: Math.max(0, inactiveLearners[0]?.daysInactive - 7), risk: 1 });
+    rawPriorityItems.push({
+      id: 'inactive-learners',
+      type: 'learner',
+      label: `${inactiveLearners.length} learner${inactiveLearners.length !== 1 ? 's' : ''} inactive 7+ days`,
+      href: '/admin/at-risk',
+      score,
+      severity: scoreSeverity(score),
+      context: `Most inactive: ${inactiveLearners[0]?.daysInactive ?? 0}d`,
+    });
+  }
+
+  const priorities = sortPriorityItems(rawPriorityItems).slice(0, 10);
+
+  const needsReviewTotal = totalPendingCount + pendingWioaDocs;
+  const needsReviewParts: string[] = [];
+  if (totalPendingCount > 0) needsReviewParts.push(`${totalPendingCount} enrollment${totalPendingCount !== 1 ? 's' : ''}`);
+  if (pendingWioaDocs > 0) needsReviewParts.push(`${pendingWioaDocs} WIOA doc${pendingWioaDocs !== 1 ? 's' : ''}`);
+
+  const newTodayTotal = newLeadsToday + newEnrollmentsToday;
+  const newTodayParts: string[] = [];
+  if (newLeadsToday > 0) newTodayParts.push(`${newLeadsToday} lead${newLeadsToday !== 1 ? 's' : ''}`);
+  if (newEnrollmentsToday > 0) newTodayParts.push(`${newEnrollmentsToday} enrollment${newEnrollmentsToday !== 1 ? 's' : ''}`);
+
+  const highSeverityAlert = complianceAlerts.find((a: any) => a.severity === 'critical' || a.severity === 'high');
+
+  const operational = {
+    needsReview: needsReviewTotal,
+    needsReviewDetail: needsReviewParts.length > 0 ? needsReviewParts.join(' and ') : 'Nothing pending right now',
+    atRisk: inactiveLearners.length,
+    complianceAlerts: complianceAlerts.length,
+    complianceAlertsSeverity: highSeverityAlert ? (highSeverityAlert as any).severity : null,
+    newToday: newTodayTotal,
+    newTodayDetail: newTodayParts.length > 0 ? newTodayParts.join(', ') : 'Nothing new today',
+    revenueThisMonthCents,
+  };
 
   // Track which non-critical sections failed — UI renders a partial-failure notice.
   const degradedSections: DegradedSection[] = [];
@@ -642,6 +821,8 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       pendingProgramHolders: pendingHoldersCount,
       pendingDocuments:      pendingHolderDocsCount,
     },
+    operational,
+    priorities,
     kpis,
     enrollmentTrend,
     studentStatuses,
@@ -652,6 +833,9 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
     blockedPrograms,
     inactiveLearners,
     pendingSubmissions,
+    complianceAlerts,
+    staleLeads,
+    pendingWioaDocs,
     profile: adminProfile,
     generatedAt: new Date().toISOString(),
     degradedSections,

@@ -1,19 +1,15 @@
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
-// Force static generation for performance
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
-import PageAvatar from '@/components/PageAvatar';
 import Image from 'next/image';
-import { Metadata } from 'next';
-import { createPublicClient } from '@/lib/supabase/server';
-import ModernLandingHero from '@/components/landing/ModernLandingHero';
 import { ArrowRight, Clock, DollarSign, Award, CheckCircle } from 'lucide-react';
+import HeroVideo from '@/components/marketing/HeroVideo';
+import heroBanners from '@/content/heroBanners';
+import { CredentialsOutcomes } from '@/components/programs/CredentialsOutcomes';
 import { HostShopRequirements } from '@/components/compliance/HostShopRequirements';
 import PathwayDisclosure from '@/components/PathwayDisclosure';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-
 
 export const metadata: Metadata = {
   title: 'Beauty Industry Apprenticeships | Barber, Cosmetology, Esthetics, Nails',
@@ -24,200 +20,145 @@ export const metadata: Metadata = {
   },
 };
 
-const beautyPrograms = [
+const PROGRAMS = [
   {
     title: 'Barber Apprenticeship',
     description: 'Complete 2,000-hour apprenticeship to become a licensed barber in Indiana. Learn cutting, styling, shaving, and business skills.',
     href: '/programs/barber-apprenticeship',
     image: '/hero-images/barber-hero.jpg',
     hours: 2000,
-    price: 4980,
-    duration: '15-24 months',
+    price: '$4,980',
+    duration: '15–24 months',
     highlights: ['Indiana IPLA compliant', 'Milady Theory included', 'Hour logging system'],
   },
   {
     title: 'Cosmetology Apprenticeship',
     description: 'Full cosmetology training covering hair, skin, and nails. 1,500-hour program prepares you for state licensure.',
     href: '/programs/cosmetology-apprenticeship',
-    image: '/images/beauty/hero-program-cosmetology.jpg',
+    image: '/hero-images/barber-beauty-cat-new.jpg',
     hours: 1500,
-    price: 4980,
-    duration: '12-18 months',
+    price: '$4,980',
+    duration: '12–18 months',
     highlights: ['Complete beauty training', 'Hair, skin & nails', 'State license prep'],
   },
   {
     title: 'Esthetician Apprenticeship',
     description: 'Specialize in skincare with 700 hours of training. Learn facials, treatments, and advanced skin techniques.',
     href: '/programs/esthetician-apprenticeship',
-    image: '/hero-images/barber-beauty-category.jpg',
+    image: '/hero-images/barber-beauty-cat-new.jpg',
     hours: 700,
-    price: 3480,
-    duration: '6-9 months',
+    price: '$3,480',
+    duration: '6–9 months',
     highlights: ['Skincare specialty', 'Facial techniques', 'Treatment protocols'],
   },
   {
     title: 'Nail Technician Apprenticeship',
     description: 'Master nail artistry with 450 hours of training. Learn manicures, pedicures, acrylics, and nail art.',
     href: '/programs/nail-technician-apprenticeship',
-    image: '/hero-images/barber-beauty-category.webp',
+    image: '/hero-images/barber-beauty-cat-new.jpg',
     hours: 450,
-    price: 2980,
-    duration: '4-6 months',
+    price: '$2,980',
+    duration: '4–6 months',
     highlights: ['Nail artistry', 'Acrylics & gels', 'Salon business skills'],
   },
 ];
 
-export default async function BeautyProgramsPage() {
-  const supabase = createPublicClient();
+const WHY = [
+  { icon: DollarSign, label: 'Earn While Learning', detail: 'Work in a salon and earn income while completing your training hours.' },
+  { icon: Clock,      label: 'Flexible Schedule',   detail: 'Complete hours at your own pace while working with your sponsor.' },
+  { icon: Award,      label: 'State Licensure',     detail: 'Programs meet Indiana state requirements for professional licensure.' },
+  { icon: CheckCircle,label: 'DOL Registered',      detail: 'Official U.S. Department of Labor registered apprenticeship programs.' },
+];
 
-  if (!supabase) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Service Unavailable</h1>
-          <p className="text-gray-600">Please try again later.</p>
-        </div>
-      </div>
-    );
-  }
-  
-  // Fetch beauty programs
-  const { data: dbBeautyPrograms } = await supabase
-    .from('programs')
-    .select('*')
-    .eq('category', 'beauty');
+export default function BeautyProgramsPage() {
+  const b = heroBanners['barber-apprenticeship'];
 
   return (
-    <div className="pb-20 md:pb-0">
+    <div className="min-h-screen bg-slate-50">
+      {/* Video hero — uses barber video/poster; same beauty category */}
+      <HeroVideo
+        videoSrcDesktop={b.videoSrcDesktop}
+        posterImage={b.posterImage}
+        voiceoverSrc={'voiceoverSrc' in b ? b.voiceoverSrc : undefined}
+        microLabel="DOL Registered Apprenticeships"
+        analyticsName="beauty-programs"
+        belowHeroHeadline="Beauty Industry Apprenticeships"
+        belowHeroSubheadline="Barber · Cosmetology · Esthetics · Nails — earn while you learn with flat-fee pricing and DOL-registered programs."
+        ctas={[
+          { label: 'View Programs', href: '#programs' },
+          { label: 'Apply Now', href: '/apply', variant: 'secondary' },
+        ]}
+        trustIndicators={['DOL Registered', 'ETPL Approved', 'Earn wages from day one', 'Flat-fee pricing']}
+      />
+
       <Breadcrumbs
         items={[
           { label: 'Programs', href: '/programs' },
           { label: 'Beauty' },
         ]}
       />
-      <ModernLandingHero
-        badge="DOL Registered Apprenticeships"
-        headline="Beauty Industry Apprenticeships"
-        accentText="Earn While You Learn"
-        subheadline="Barber • Cosmetology • Esthetics • Nails"
-        description="Launch your career in the beauty industry with our DOL-registered apprenticeship programs. Flat-fee pricing, no hidden costs. Work with licensed professionals while completing your training hours."
-        imageSrc="/hero-images/barber-beauty-category.jpg"
-        imageAlt="Beauty Industry Training"
-        primaryCTA={{ text: 'View Programs', href: '#programs' }}
-        secondaryCTA={{ text: 'Apply Now', href: '/apply' }}
-        features={[
-          'DOL Registered & ETPL Approved',
-          'Flat-fee pricing - no hourly charges',
-          'Earn income while training',
-        ]}
-        imageOnRight={true}
-      />
 
-      {/* Why Apprenticeship */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PathwayDisclosure programName="Beauty" programSlug="beauty" />
+
+      {/* Why apprenticeship */}
+      <section className="py-16 bg-white border-b border-slate-100">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-black mb-4">Why Choose an Apprenticeship?</h2>
-            <p className="text-xl text-gray-600">
-              Apprenticeships offer a proven path to licensure with real-world experience
-            </p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-3">Why Choose an Apprenticeship?</h2>
+            <p className="text-slate-600 max-w-xl mx-auto">A proven path to licensure with real-world experience and income from day one.</p>
           </div>
-
-          <div className="grid md:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-              <DollarSign className="w-12 h-12 text-green-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-black mb-2">Earn While Learning</h3>
-              <p className="text-gray-600 text-sm">
-                Work in a salon and earn income while completing your training hours
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-              <Clock className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-black mb-2">Flexible Schedule</h3>
-              <p className="text-gray-600 text-sm">
-                Complete hours at your own pace while working with your sponsor
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-              <Award className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-black mb-2">State Licensure</h3>
-              <p className="text-gray-600 text-sm">
-                Programs meet state requirements for professional licensure
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center">
-              <CheckCircle className="w-12 h-12 text-orange-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-black mb-2">DOL Registered</h3>
-              <p className="text-gray-600 text-sm">
-                Official Department of Labor registered apprenticeship programs
-              </p>
-            </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {WHY.map(({ icon: Icon, label, detail }) => (
+              <div key={label} className="bg-slate-50 rounded-xl p-6 text-center border border-slate-200">
+                <Icon className="w-10 h-10 text-brand-blue-600 mx-auto mb-3" />
+                <h3 className="font-bold text-slate-900 mb-2">{label}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">{detail}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Pathway Disclosure */}
-      <PathwayDisclosure programName="Beauty" programSlug="beauty" />
-
-      {/* Program Cards */}
-      <section id="programs" className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      {/* Program cards */}
+      <section id="programs" className="py-16 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-black mb-4">Choose Your Program</h2>
-            <p className="text-xl text-gray-600">
-              All programs include theory materials, hour logging, and career support
-            </p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-3">Choose Your Program</h2>
+            <p className="text-slate-600">All programs include theory materials, hour logging, and career support.</p>
           </div>
-
           <div className="grid md:grid-cols-2 gap-8">
-            {beautyPrograms.map((program) => (
+            {PROGRAMS.map((p) => (
               <Link
-                key={program.href}
-                href={program.href}
-                className="group block bg-white rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-200 hover:border-gray-900 overflow-hidden"
+                key={p.href}
+                href={p.href}
+                className="group bg-white rounded-xl border border-slate-200 hover:border-brand-blue-400 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col"
               >
                 <div className="relative w-full h-48 overflow-hidden">
                   <Image
-                    src={program.image}
-                    alt={program.title}
-                    fill sizes="100vw"
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-2 rounded-full">
-                    <span className="text-sm font-bold text-gray-900">
-                      ${program.price.toLocaleString()}
-                    </span>
+                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full shadow-sm">
+                    <span className="text-sm font-bold text-slate-900">{p.price}</span>
                   </div>
                 </div>
-
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-black mb-2">{program.title}</h3>
-                  <p className="text-gray-600 mb-4">{program.description}</p>
-
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      {program.hours} hours
-                    </span>
-                    <span>{program.duration}</span>
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{p.title}</h3>
+                  <p className="text-slate-600 text-sm mb-4 leading-relaxed flex-1">{p.description}</p>
+                  <div className="flex items-center gap-4 text-xs text-slate-500 mb-4">
+                    <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{p.hours.toLocaleString()} hours</span>
+                    <span>{p.duration}</span>
                   </div>
-
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {program.highlights.map((highlight) => (
-                      <span
-                        key={highlight}
-                        className="bg-gray-100 text-gray-700 px-3 py-2 rounded-full text-xs"
-                      >
-                        {highlight}
-                      </span>
+                    {p.highlights.map((h) => (
+                      <span key={h} className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">{h}</span>
                     ))}
                   </div>
-
-                  <div className="flex items-center text-brand-blue-600 font-semibold group-hover:text-brand-blue-700">
-                    Learn More <ArrowRight className="w-4 h-4 ml-2" />
+                  <div className="flex items-center text-brand-blue-600 font-semibold text-sm group-hover:text-brand-blue-700">
+                    Learn More <ArrowRight className="w-4 h-4 ml-1.5" />
                   </div>
                 </div>
               </Link>
@@ -226,30 +167,26 @@ export default async function BeautyProgramsPage() {
         </div>
       </section>
 
-      {/* Host Shop Requirements - All Tracks */}
-      <HostShopRequirements 
-        programTrack="all" 
+      <HostShopRequirements
+        programTrack="all"
         showApprovalProcess={true}
         showMultiRegion={true}
       />
 
-      {/* Important Notice */}
-      <section className="py-12 bg-white border-y border-amber-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h3 className="text-xl font-bold text-amber-800 mb-4">Important Notice</h3>
-            <p className="text-amber-700">
-              These apprenticeship programs are NOT a substitute for licensed cosmetology, barber,
-              esthetician, or nail technician schools. Apprenticeships are an alternative pathway to
-              licensure that requires working under a licensed sponsor. You must secure a sponsor
-              before beginning your apprenticeship hours.
-            </p>
-          </div>
+      {/* Important notice */}
+      <section className="py-10 bg-amber-50 border-y border-amber-200">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h3 className="text-lg font-bold text-amber-900 mb-3">Important Notice</h3>
+          <p className="text-amber-800 text-sm leading-relaxed">
+            These apprenticeship programs are not a substitute for licensed cosmetology, barber, esthetician, or nail technician schools.
+            Apprenticeships are an alternative pathway to licensure that requires working under a licensed sponsor.
+            You must secure a sponsor before beginning your apprenticeship hours.
+          </p>
         </div>
       </section>
 
       {/* Credentials & Outcomes */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white border-t border-slate-100">
         <div className="max-w-4xl mx-auto px-6">
           <CredentialsOutcomes
             programName="Beauty & Cosmetology"
@@ -260,32 +197,32 @@ export default async function BeautyProgramsPage() {
               'Indiana Manicurist License (issued by Indiana Professional Licensing Agency)',
             ]}
             employmentOutcomes={[
-              'Licensed Cosmetologist',
-              'Licensed Barber',
-              'Licensed Esthetician',
-              'Licensed Nail Technician',
-              'Salon/Barbershop Owner',
+              'Licensed Cosmetologist', 'Licensed Barber', 'Licensed Esthetician',
+              'Licensed Nail Technician', 'Salon/Barbershop Owner',
             ]}
           />
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <Link
-            href="/apply"
-            className="inline-block bg-brand-blue-600 rounded-2xl px-8 py-6 shadow-xl hover:shadow-2xl transition-all hover:scale-105 transform"
-          >
-            <h3 className="text-xl sm:text-2xl font-black text-white mb-2">
-              Ready to Start Your Beauty Career?
-            </h3>
-            <p className="text-white/90 mb-4">Check eligibility first - takes just 5 minutes</p>
-            <div className="inline-flex items-center gap-2 text-white font-bold">
-              <span>Start Eligibility & Choose This Program</span>
-              <ArrowRight className="w-5 h-5" />
-            </div>
-          </Link>
+      <section className="py-16 bg-slate-900">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to Start Your Beauty Career?</h2>
+          <p className="text-slate-300 mb-8">Check eligibility first — takes just 5 minutes.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/apply"
+              className="inline-flex items-center justify-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white px-8 py-4 rounded-xl font-bold transition-colors"
+            >
+              Apply Now <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/start"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-xl font-bold transition-colors"
+            >
+              Check Funding Eligibility
+            </Link>
+          </div>
         </div>
       </section>
     </div>
