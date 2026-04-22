@@ -233,8 +233,15 @@ export async function runCoursePublishPipeline(opts: PipelineOptions): Promise<P
     });
   }
 
-  // Step 3: Resolve course ID
-  const courseId = resolveCourseId(template.programSlug);
+  // Step 3: Resolve course ID — DB first, static map as fallback.
+  let courseId = resolveCourseId(template.programSlug); // static fallback
+  try {
+    const { resolveCourseIdFromDb } = await import('./program-resolver');
+    const dbId = await resolveCourseIdFromDb(db, template.programSlug);
+    if (dbId) courseId = dbId;
+  } catch {
+    // program_course_map table not yet applied — static fallback already set above.
+  }
   if (!courseId) {
     return {
       success: false,
@@ -242,7 +249,7 @@ export async function runCoursePublishPipeline(opts: PipelineOptions): Promise<P
       validation,
       lessonsWritten: 0,
       lessonsSkipped: 0,
-      errors: [`programSlug '${template.programSlug}' not in PROGRAM_COURSE_MAP`],
+      errors: [`programSlug '${template.programSlug}' not registered — add via POST /api/admin/course-builder/program-map`],
     };
   }
 

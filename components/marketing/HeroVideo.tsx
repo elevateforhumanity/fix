@@ -172,7 +172,7 @@ export default function HeroVideo({
         {/* Micro-label — bottom-left, 2–4 words max */}
         {microLabel && (
           <div className="absolute bottom-4 left-4 z-10">
-            <span className="text-white text-xs font-semibold tracking-widest uppercase bg-black/40 px-2.5 py-1 rounded">
+            <span className="text-white text-xs font-semibold tracking-widest uppercase">
               {microLabel}
             </span>
           </div>

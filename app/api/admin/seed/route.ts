@@ -1,17 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { apiRequireAdmin } from '@/lib/admin/guards';
 
-export async function POST(request: Request) {
-  const supabase = await createClient();
-  
-  const { data: { user } } = await supabase.auth.getUser();
-  
-  // Allow seeding in development or for authenticated admins
+export async function POST(request: NextRequest) {
+  // Dev-only bypass: allow seeding without auth in local development.
+  // In all other environments, require admin role.
   const isDev = process.env.NODE_ENV === 'development';
-  
-  if (!isDev && !user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!isDev) {
+    const auth = await apiRequireAdmin(request);
+    if (auth.error) return auth.error;
   }
+
+  const supabase = await createClient();
 
   const results: Record<string, { success: boolean; count?: number; error?: string }> = {};
 

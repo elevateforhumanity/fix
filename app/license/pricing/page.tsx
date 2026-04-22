@@ -78,7 +78,7 @@ export default async function PricingPage() {
                 }`}
               >
                 {tier.featured && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-blue-700 text-white px-4 py-2 rounded-full text-xs font-bold">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full text-xs font-bold">
                     MOST POPULAR
                   </div>
                 )}
@@ -164,25 +164,25 @@ export default async function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16">
+      <section className="py-16 bg-slate-900">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Get Started?
           </h2>
-          <p className="text-white mb-8">
+          <p className="text-slate-300 mb-8">
             Schedule a demo to see the platform in action.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={ROUTES.schedule}
-              className="inline-flex items-center justify-center gap-2 bg-white text-brand-orange-600 px-8 py-4 rounded-lg font-bold hover:bg-brand-orange-50 transition"
+              className="inline-flex items-center justify-center gap-2 bg-brand-orange-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-brand-orange-700 transition"
             >
               <Calendar className="w-5 h-5" />
               Schedule Demo
             </Link>
             <Link
               href="/contact"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-brand-orange-700 transition"
+              className="border-2 border-slate-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-slate-800 transition"
             >
               Contact Sales
             </Link>

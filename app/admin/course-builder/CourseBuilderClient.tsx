@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { apiPost, apiPatch } from '@/lib/api';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { Copy, BookOpen, Layers } from 'lucide-react';
 
 const AutomaticCourseBuilder = dynamic(() => import('@/components/course/AutomaticCourseBuilder'), { ssr: false });
 
@@ -37,6 +38,23 @@ export default function CourseBuilderClient({ initialCourses, programs }: Props)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [cloningId, setCloningId] = useState<string | null>(null);
+
+  const handleClone = async (course: Course) => {
+    if (!confirm(`Clone "${course.title}"? A draft copy will be created.`)) return;
+    setCloningId(course.id);
+    try {
+      const res = await fetch(`/api/admin/courses/${course.id}/clone`, { method: 'POST' });
+      const json = await res.json();
+      if (!res.ok || !json.ok) throw new Error(json.error ?? 'Clone failed');
+      // Reload to show the new draft
+      window.location.reload();
+    } catch (err: any) {
+      setError(err.message ?? 'Clone failed');
+    } finally {
+      setCloningId(null);
+    }
+  };
 
   const [formData, setFormData] = useState({
     title: '',
@@ -209,6 +227,37 @@ export default function CourseBuilderClient({ initialCourses, programs }: Props)
         </div>
       )}
 
+      {/* Architecture context — two-layer model */}
+      <div className="mb-8 rounded-xl border border-slate-200 bg-slate-50 p-5">
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 mt-0.5">
+            <Layers className="w-5 h-5 text-slate-500" />
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 flex-1 text-sm">
+            <div>
+              <p className="font-semibold text-slate-800 mb-1 flex items-center gap-1.5">
+                <BookOpen className="w-4 h-4 text-brand-blue-600" />
+                Program — definition layer
+              </p>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Title, description, outcomes, credentials, funding tracks, compliance profile, CTAs.
+                Managed in <Link href="/admin/programs" className="text-brand-blue-600 hover:underline">Programs</Link>.
+              </p>
+            </div>
+            <div>
+              <p className="font-semibold text-slate-800 mb-1 flex items-center gap-1.5">
+                <Copy className="w-4 h-4 text-brand-orange-600" />
+                Course — execution layer
+              </p>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Modules, lessons, quizzes, competencies, hours, validation. What learners actually run.
+                Linked to a program via <Link href="/api/admin/course-builder/program-map" className="text-brand-blue-600 hover:underline font-mono text-[11px]">program_course_map</Link>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -290,6 +339,15 @@ export default function CourseBuilderClient({ initialCourses, programs }: Props)
                   <button onClick={() => openEditModal(course)} className="px-3 py-1.5 text-sm border rounded-lg hover:bg-gray-50">Edit</button>
                   <Link href={`/admin/courses/${course.id}/content`} className="px-3 py-1.5 text-sm border rounded-lg hover:bg-gray-50">Lessons</Link>
                   <Link href={`/admin/courses/${course.id}/quizzes`} className="px-3 py-1.5 text-sm border rounded-lg hover:bg-gray-50">Quizzes</Link>
+                  <button
+                    onClick={() => handleClone(course)}
+                    disabled={cloningId === course.id}
+                    className="px-3 py-1.5 text-sm border rounded-lg hover:bg-gray-50 disabled:opacity-40 flex items-center gap-1"
+                    title="Clone this course into a new draft"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                    {cloningId === course.id ? 'Cloning…' : 'Clone'}
+                  </button>
                   <button onClick={() => handleDelete(course.id)} className="px-3 py-1.5 text-sm text-brand-red-600 border border-brand-red-200 rounded-lg hover:bg-brand-red-50">Delete</button>
                 </div>
               </div>

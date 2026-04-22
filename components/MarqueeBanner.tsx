@@ -36,7 +36,7 @@ export default function MarqueeBanner() {
         {ROW.map((item, i) => (
           <span key={`${item}-${i}`} className="inline-flex items-center">
             <span className="text-sm font-black tracking-widest text-white uppercase">{item}</span>
-            <span className="mx-5 text-brand-red-500 font-black">✦</span>
+            <span className="mx-5 text-white/30 font-black">✦</span>
           </span>
         ))}
       </div>
