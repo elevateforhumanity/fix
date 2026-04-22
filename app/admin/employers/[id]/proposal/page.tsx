@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
+import { EmployerProposalPreview } from '@/components/admin/EmployerProposalPreview';
+import type { Employer } from '@/lms-data/employers';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,30 +16,56 @@ export default async function EmployerProposalPage({ params }: { params: { id: s
   await requireRole(['admin', 'super_admin']);
   const supabase = await createClient();
 
-  const { data: employer } = await supabase.from('employers').select('*').eq('id', params.id).maybeSingle();
+  const { data: row } = await supabase
+    .from('employers')
+    .select('*')
+    .eq('id', params.id)
+    .maybeSingle();
+
+  // Adapt DB row to the static Employer interface expected by EmployerProposalPreview
+  const employer: Employer | null = row
+    ? {
+        id: row.id,
+        name: row.company_name ?? row.name ?? 'Unknown Employer',
+        contactName: row.contact_name ?? row.primary_contact_name ?? undefined,
+        contactEmail: row.contact_email ?? row.email ?? undefined,
+        contactPhone: row.contact_phone ?? row.phone ?? undefined,
+        city: row.city ?? undefined,
+        state: row.state ?? undefined,
+        website: row.website ?? undefined,
+        notes: row.notes ?? undefined,
+        interestedPrograms: row.interested_programs ?? [],
+        tags: row.tags ?? [],
+        wantsWex: row.wants_wex ?? false,
+        wantsOjt: row.wants_ojt ?? false,
+        wantsApprenticeship: row.wants_apprenticeship ?? false,
+      }
+    : null;
 
   return (
     <div className="min-h-screen bg-white">
-
-      {/* Hero Image */}
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <nav className="text-sm mb-4"><ol className="flex items-center space-x-2 text-slate-700"><li><Link href="/admin" className="hover:text-primary">Admin</Link></li><li>/</li><li><Link href="/admin/employers" className="hover:text-primary">Employers</Link></li><li>/</li><li className="text-slate-900 font-medium">Proposal</li></ol></nav>
+          <nav className="text-sm mb-4">
+            <ol className="flex items-center space-x-2 text-slate-700">
+              <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
+              <li>/</li>
+              <li><Link href="/admin/employers" className="hover:text-primary">Employers</Link></li>
+              <li>/</li>
+              <li className="text-slate-900 font-medium">Proposal</li>
+            </ol>
+          </nav>
           <h1 className="text-3xl font-bold text-slate-900">Partnership Proposal</h1>
-          <p className="text-slate-700 mt-2">{employer?.name || 'Employer'}</p>
+          <p className="text-slate-700 mt-2">{employer?.name ?? 'Employer'}</p>
         </div>
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-lg font-semibold mb-4">Proposal Details</h2>
-          <div className="space-y-4">
-            <div><label className="block text-sm font-medium text-slate-900 mb-2">Partnership Type</label><select className="w-full border rounded-lg px-3 py-2"><option>Hiring Partner</option><option>Training Sponsor</option><option>Internship Provider</option></select></div>
-            <div><label className="block text-sm font-medium text-slate-900 mb-2">Proposed Terms</label><textarea className="w-full border rounded-lg px-3 py-2" rows={4} placeholder="Describe partnership terms..." /></div>
-            <div><label className="block text-sm font-medium text-slate-900 mb-2">Expected Outcomes</label><textarea className="w-full border rounded-lg px-3 py-2" rows={3} placeholder="Expected hiring commitments, training support, etc." /></div>
-            <div className="flex gap-4 pt-4 border-t">
-              <button className="flex-1 bg-brand-blue-600 text-white px-4 py-2 rounded-lg hover:bg-brand-blue-700">Send Proposal</button>
-              <button className="px-4 py-2 border rounded-lg hover:bg-gray-50">Save Draft</button>
-            </div>
+
+        {employer ? (
+          <EmployerProposalPreview employer={employer} />
+        ) : (
+          <div className="bg-white rounded-lg shadow-sm border p-6 text-center text-slate-500">
+            Employer not found.
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

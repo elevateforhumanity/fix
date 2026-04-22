@@ -4,6 +4,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SystemStatusPanel } from '@/components/admin/SystemStatusPanel';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,6 +56,14 @@ export default async function SystemHealthPage() {
     .eq('resolved', false);
 
   const jobQueueHealthy = (failedJobs ?? 0) === 0;
+
+  // Governance panel — last compliance review date from platform_settings
+  const { data: complianceSetting } = await supabase
+    .from('platform_settings')
+    .select('value')
+    .eq('key', 'last_compliance_review')
+    .maybeSingle();
+  const lastComplianceReview = complianceSetting?.value ?? null;
 
   return (
     <div className="min-h-screen bg-white">
@@ -158,6 +167,10 @@ export default async function SystemHealthPage() {
             >
               View Reports
             </Link>
+          </div>
+
+          <div className="mt-8">
+            <SystemStatusPanel lastComplianceReview={lastComplianceReview} />
           </div>
         </div>
       </section>
