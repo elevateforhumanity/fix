@@ -7,6 +7,7 @@
 
 import { logger } from '@/lib/logger';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { sendTeamsMessage } from '@/lib/notifications/teams';
 
 export interface PostApprovalInput {
   db: SupabaseClient;
@@ -33,6 +34,17 @@ export async function runPostApprovalActions(input: PostApprovalInput): Promise<
   } else {
     await sendGenericApprovalEmail({ studentEmail, firstName, passwordSetupLink: passwordSetupLink ?? null, onboardingUrl, dashboardUrl, siteUrl });
   }
+
+  // Teams notification — non-fatal
+  await sendTeamsMessage(
+    'Application Approved',
+    `${studentName || studentEmail} has been approved${programSlug ? ` for **${programSlug}**` : ''}.`,
+    {
+      Student: studentEmail,
+      Program: programSlug ?? 'Unknown',
+      'Onboarding URL': onboardingUrl,
+    },
+  ).catch(err => logger.error('[post-approval] Teams notification failed', err));
 }
 
 async function sendBarberApprovalEmail({

@@ -15,6 +15,7 @@ import { recordCheckpointAttempt } from '@/lib/lms/engine';
 import { logger } from '@/lib/logger';
 import { assertLessonAccess, accessErrorResponse } from '@/lib/lms/access-control';
 import { createClient } from '@/lib/supabase/server';
+import { sendTeamsMessage } from '@/lib/notifications/teams';
 export const runtime = 'nodejs';
 
 export const dynamic = 'force-dynamic';
@@ -99,6 +100,21 @@ export async function POST(
       passed: result.passed,
       attemptNumber: result.attemptNumber,
     });
+
+    // Teams alert on checkpoint fail (at-risk signal) — non-fatal, only if Teams is configured
+    if (!result.passed) {
+      sendTeamsMessage(
+        'Checkpoint Failed',
+        `A learner failed a checkpoint on attempt ${result.attemptNumber}.`,
+        {
+          'User ID': user.id,
+          'Lesson ID': lessonId,
+          'Course ID': courseId ?? 'Unknown',
+          Score: `${score}% (passing: ${passingScore}%)`,
+          Attempt: String(result.attemptNumber),
+        },
+      ).catch(() => {});
+    }
 
     return NextResponse.json(result);
   } catch (err) {

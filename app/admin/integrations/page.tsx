@@ -54,9 +54,10 @@ const INTEGRATIONS: Integration[] = [
     description: 'Appointment scheduling for advising, program consultations, tax prep, and workforce intake. Webhook auto-creates DB records.',
     icon: Calendar,
     category: 'scheduling',
-    envVars: [],
+    envVars: ['CALENDLY_WEBHOOK_SECRET'],
     status: 'active',
     docsUrl: 'https://calendly.com/integrations',
+    configUrl: '/admin/integrations/calendly',
   },
   {
     name: 'Google Calendar',
@@ -76,6 +77,7 @@ const INTEGRATIONS: Integration[] = [
     category: 'communication',
     envVars: ['TEAMS_WEBHOOK_URL'],
     status: 'not_configured',
+    configUrl: '/admin/integrations/teams',
   },
   {
     name: 'SendGrid (Email)',
@@ -135,6 +137,7 @@ const INTEGRATIONS: Integration[] = [
     category: 'learning',
     envVars: ['GEMINI_API_KEY'],
     status: 'not_configured',
+    configUrl: '/admin/integrations/gemini',
   },
 ];
 

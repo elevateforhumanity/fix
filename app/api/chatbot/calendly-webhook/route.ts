@@ -2,6 +2,7 @@ import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
+import { getAdminClient } from '@/lib/supabase/admin';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -253,6 +254,31 @@ export async function POST(request: NextRequest) {
       });
     }
     
+    // Persist booking to DB regardless of email status
+    const db = await getAdminClient();
+    if (db) {
+      const p = event.payload;
+      await db.from('calendly_bookings').upsert({
+        event_type: event.event,
+        invitee_name: p.invitee.name,
+        invitee_email: p.invitee.email,
+        invitee_timezone: p.invitee.timezone ?? null,
+        event_name: p.scheduled_event.name,
+        start_time: p.scheduled_event.start_time,
+        end_time: p.scheduled_event.end_time,
+        location: p.scheduled_event.location?.location ?? p.scheduled_event.location?.type ?? null,
+        utm_source: p.tracking?.utm_source ?? null,
+        utm_medium: p.tracking?.utm_medium ?? null,
+        utm_campaign: p.tracking?.utm_campaign ?? null,
+        questions: p.questions_and_answers ?? null,
+        status: event.event === 'invitee.canceled' ? 'canceled' : 'scheduled',
+        raw_payload: p,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'invitee_email,start_time', ignoreDuplicates: false }).catch(err => {
+        logger.error('[Calendly Webhook] DB upsert failed', err);
+      });
+    }
+
     switch (event.event) {
       case 'invitee.created':
         // New booking created
@@ -261,12 +287,10 @@ export async function POST(request: NextRequest) {
           notifyInternal(event.payload),
           sendReminder(event.payload.invitee, event.payload.scheduled_event.start_time),
         ]);
-        
         logger.info('[Calendly Webhook] Booking confirmation sent to:', event.payload.invitee.email);
         break;
-        
+
       case 'invitee.canceled':
-        // Booking canceled - could send cancellation email or update CRM
         logger.info('[Calendly Webhook] Booking canceled:', event.payload.invitee.email);
         break;
         

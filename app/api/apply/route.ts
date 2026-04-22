@@ -1,5 +1,6 @@
 // PUBLIC ROUTE: general program application form
 import { logger } from '@/lib/logger';
+import { sendTeamsMessage } from '@/lib/notifications/teams';
 
 import { NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
@@ -127,6 +128,13 @@ export const POST = withRateLimit(
       });
 
       // Trigger routing automation for apprenticeship programs (non-blocking)
+      // Teams alert — non-fatal
+      sendTeamsMessage(
+        'New Application Received',
+        `**${firstName} ${lastName}** applied for **${program ?? 'Unknown program'}**.`,
+        { Email: email, Program: program ?? 'Unknown', Funding: funding ?? 'Unknown' },
+      ).catch(err => logger.error('[apply] Teams notification failed', err));
+
       if (process.env.AUTOMATION_ENABLE_TRIGGERS !== 'false' && application?.id) {
         if (program?.toLowerCase().includes('apprentice')) {
           getRoutingRecommendations(application.id).catch((err) => {
