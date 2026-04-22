@@ -46,7 +46,6 @@ export const mainNavigation: NavItem[] = [
           { label: 'Direct Support Professional', href: '/programs/direct-support-professional' },
           { label: 'CDL', href: '/programs/cdl' },
           { label: 'CPR & First Aid', href: '/programs/cpr-first-aid' },
-          { label: 'Peer Recovery Coach', href: '/programs/peer-recovery-coach' },
         ]
       },
       {
@@ -58,7 +57,6 @@ export const mainNavigation: NavItem[] = [
           { label: 'Phlebotomy Technician', href: '/programs/healthcare' },
           { label: 'CDL', href: '/programs/cdl' },
           { label: 'Workforce Readiness', href: '/programs/workforce-readiness' },
-          { label: 'Peer Recovery Coach', href: '/programs/peer-recovery-coach' },
         ]
       },
     ]

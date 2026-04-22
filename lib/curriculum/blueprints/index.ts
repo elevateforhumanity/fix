@@ -35,18 +35,15 @@ export async function getAllBlueprints(): Promise<CredentialBlueprint[]> {
   if (_registry) return _registry;
   // hvac-epa-608 blueprint removed — HVAC course is now fully DB-driven
   const [
-    { prsIndianaBlueprint },
     { bookkeepingQuickbooksBlueprint },
     { barberApprenticeshipBlueprint },
     { crsIndianaBlueprint },
   ] = await Promise.all([
-    import('./prs-indiana'),
     import('./bookkeeping-quickbooks'),
     import('./barber-apprenticeship'),
     import('./crs-indiana'),
   ]);
   _registry = [
-    prsIndianaBlueprint,
     bookkeepingQuickbooksBlueprint,
     barberApprenticeshipBlueprint,
     crsIndianaBlueprint,

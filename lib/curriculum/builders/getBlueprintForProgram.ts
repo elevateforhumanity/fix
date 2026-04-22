@@ -18,22 +18,10 @@ type ProgramLike = {
   credential_slug?: string | null;
 };
 
-const PRS_PROGRAM_SLUGS = new Set([
-  'prs',
-  'peer-recovery-specialist',
-  'peer-recovery-specialist-jri',
-  'peer-recovery-support-specialist',
-]);
-
 export async function getBlueprintForProgram(program: ProgramLike): Promise<CredentialBlueprint | null> {
   // Prefer explicit credential_slug
   if (program.credential_slug) {
     return getBlueprintByCredentialSlug(program.credential_slug);
-  }
-
-  // Fall back to known program slug aliases
-  if (program.slug && PRS_PROGRAM_SLUGS.has(program.slug)) {
-    return getBlueprintByCredentialSlug('prs');
   }
 
   return null;

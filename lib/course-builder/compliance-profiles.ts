@@ -69,32 +69,6 @@ export const COMPLIANCE_PROFILES: Record<string, ComplianceRuleSet> = {
     requiredDomains: [],
   },
 
-  icrc_peer_recovery: {
-    profileKey: 'icrc_peer_recovery',
-    profileLabel: 'IC&RC Peer Recovery',
-    credentialTarget: 'IC&RC',
-    minimumProgramHours: 46,
-    requiresFinalExam: true,
-    requirePassingScoresForAssessments: true,
-    requireInstructorSignoffForPracticals: true,
-    requireEvidenceForPracticals: true,
-    requireDomainMapping: true,
-    requireCompetencyMapping: true,
-    requireCertificateVerification: true,
-    requireHourCategory: true,
-    requireDeliveryMethod: true,
-    requireInstructorRequirements: true,
-    requireFieldworkTracking: true,
-    requireArtifactRules: true,
-    requireRetentionPolicy: true,
-    requiredDomains: [
-      { key: 'advocacy', label: 'Advocacy', required: true },
-      { key: 'ethical_responsibility', label: 'Ethical Responsibility', required: true },
-      { key: 'mentoring_education', label: 'Mentoring and Education', required: true },
-      { key: 'recovery_wellness_support', label: 'Recovery and Wellness Support', required: true },
-      { key: 'harm_reduction', label: 'Harm Reduction', required: true },
-    ],
-  },
 
   naadac_peer_support: {
     profileKey: 'naadac_peer_support',

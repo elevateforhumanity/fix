@@ -202,13 +202,6 @@ export const PROGRAM_IMAGES: Record<string, ProgramImageEntry> = {
     alt: 'Project manager leading a team meeting',
   },
 
-  // ── Peer Recovery / DSP ──────────────────────────────────────────────────
-  'peer-recovery-specialist': {
-    card: `${P}/peer-recovery.jpg`,
-    hero: `${P}/training-cohort.jpg`,
-    alt: 'Peer recovery specialist in a professional support session',
-  },
-
   // ── Culinary ─────────────────────────────────────────────────────────────
   'culinary-apprenticeship': {
     card: `${P}/culinary.jpg`,

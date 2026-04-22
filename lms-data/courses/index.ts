@@ -25,7 +25,6 @@ import { hospitalityCourse } from './program-hospitality';
 import { medicalAssistantCourse } from './program-medical-assistant';
 import { medicalBillingCourse } from './program-medical-billing';
 import { patientCareTechCourse } from './program-patient-care-tech';
-import { peerRecoveryCourse } from './program-peer-recovery';
 import { pharmacyTechCourse } from './program-pharmacy-tech';
 import { phlebotomyCourse } from './program-phlebotomy';
 import { plumbingCourse } from './program-plumbing';
@@ -60,7 +59,6 @@ export const allCourses: Course[] = [
   medicalAssistantCourse,
   medicalBillingCourse,
   patientCareTechCourse,
-  peerRecoveryCourse,
   pharmacyTechCourse,
   phlebotomyCourse,
   plumbingCourse,
