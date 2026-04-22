@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -74,7 +75,8 @@ const phases = [
   { phase: '3', title: 'Employment Transition', desc: 'Transition to W-2 employment at partner firms, seasonal tax positions, or structured self-employment with income documentation.' },
 ];
 
-export default function FinancePathwayPage() {
+export default async function FinancePathwayPage() {
+  const enrollmentCount = await getEnrollmentCount('finance-bookkeeping-accounting');
   return (
     <div className="min-h-screen bg-white">
       {/* Breadcrumbs */}
@@ -115,6 +117,11 @@ export default function FinancePathwayPage() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-4">
             Finance, Bookkeeping &amp; Accounting
           </h1>
+      {enrollmentCount > 0 && (
+        <p className="text-sm text-slate-500 mt-1">
+          {enrollmentCount.toLocaleString()} learners currently enrolled
+        </p>
+      )}
           <p className="text-black text-base sm:text-lg max-w-2xl leading-relaxed mb-6">
             A tiered credential pathway preparing participants for entry-level and growth-track roles
             in tax preparation, bookkeeping, payroll support, and small business financial services.

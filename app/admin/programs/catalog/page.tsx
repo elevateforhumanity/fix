@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function ProgramCatalogPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const supabase = await createClient();
   
   const { data: allPrograms = [] } = await supabase

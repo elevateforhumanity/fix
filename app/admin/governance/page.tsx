@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { 
@@ -73,6 +74,7 @@ const highlights = [
 ];
 
 export default async function GovernancePage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',

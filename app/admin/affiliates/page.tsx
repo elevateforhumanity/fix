@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 import { Metadata } from 'next';
@@ -59,6 +60,7 @@ async function getAffiliateData() {
 }
 
 export default async function AffiliatesPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const { applications: dbApplications, stats: dbStats } = await getAffiliateData();
 
   const stats = [

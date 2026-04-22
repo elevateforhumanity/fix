@@ -1,4 +1,5 @@
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { createClient } from '@/lib/supabase/server';
@@ -19,6 +20,7 @@ const statusColors: Record<string, string> = {
 };
 
 export default async function AdminApiKeysPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const supabase = await createClient();
 
   // Fetch API keys from database

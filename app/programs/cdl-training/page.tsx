@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 // Force static generation for performance
 
 export const revalidate = 86400;
@@ -85,7 +86,8 @@ const employers = [
   'Local carriers',
 ];
 
-export default function CDLTrainingPage() {
+export default async function CDLTrainingPage() {
+  const enrollmentCount = await getEnrollmentCount('cdl-training');
   return (
     <div className="min-h-screen bg-white">
       {/* Avatar Guide */}
@@ -122,11 +124,16 @@ export default function CDLTrainingPage() {
             <h1 className="text-4xl md:text-6xl font-black text-white mb-4">
               CDL Training
             </h1>
+      {enrollmentCount > 0 && (
+        <p className="text-sm text-slate-500 mt-1">
+          {enrollmentCount.toLocaleString()} learners currently enrolled
+        </p>
+      )}
             <p className="text-xl text-white/90 max-w-xl mb-6">
               Get your Class A Commercial Driver License in just 4-8 weeks. High demand, excellent pay, and freedom of the open road.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/apply" className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105">
+              <Link href="/apply?program=cdl-training" className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105">
                 Apply Now <ArrowRight className="w-5 h-5" />
               </Link>
               <Link href="/wioa-eligibility" className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white px-8 py-4 rounded-full font-bold text-lg transition-all border border-white/40">
@@ -339,7 +346,7 @@ export default function CDLTrainingPage() {
             Classes starting soon. Companies hiring immediately.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/apply" className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full font-bold text-lg transition-all hover:scale-105">
+            <Link href="/apply?program=cdl-training" className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-5 rounded-full font-bold text-lg transition-all hover:scale-105">
               Apply Now <ArrowRight className="w-5 h-5" />
             </Link>
             <a href="tel:+13173143757" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-10 py-5 rounded-full font-bold text-lg transition-all border border-white/30">

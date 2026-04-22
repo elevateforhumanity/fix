@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 export const revalidate = 3600;
 
 import type { Metadata } from 'next';
@@ -52,7 +53,8 @@ const PAYMENT_PLANS = [
   { label: '12-Month Plan', months: 12, amount: '$415' },
 ];
 
-export default function CosmetologyApprenticeshipPage() {
+export default async function CosmetologyApprenticeshipPage() {
+  const enrollmentCount = await getEnrollmentCount('cosmetology-apprenticeship');
   const b = heroBanners['cosmetology-apprenticeship'];
 
   return (
@@ -75,6 +77,11 @@ export default function CosmetologyApprenticeshipPage() {
       <section className="bg-white border-b border-slate-100 py-12">
         <div className="mx-auto max-w-4xl px-6">
           <h2 className="text-sm font-bold text-slate-900 mb-8 text-center uppercase tracking-widest">How it works</h2>
+      {enrollmentCount > 0 && (
+        <p className="text-sm text-slate-500 mt-1">
+          {enrollmentCount.toLocaleString()} learners currently enrolled
+        </p>
+      )}
           <div className="grid sm:grid-cols-3 gap-6">
             {[
               { step: '1', label: 'Learn', detail: 'Complete Milady theory online — hair, skin, nails, sanitation, state law, and exam prep.' },

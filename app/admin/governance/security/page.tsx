@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Shield } from 'lucide-react';
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
   description: 'How 2Exclusive LLC-S (d/b/a Elevate for Humanity Career & Technical Institute) protects personal, educational, and operational data.',
 };
 
-export default function SecurityDocumentPage() {
+export default async function SecurityDocumentPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',

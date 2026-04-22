@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, DollarSign, Calendar, Link as LinkIcon, Tag } from 'lucide-react';
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
   description: 'Add a new grant funding opportunity.',
 };
 
-export default function NewGrantPage() {
+export default async function NewGrantPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   return (
     <div className="min-h-screen bg-white">

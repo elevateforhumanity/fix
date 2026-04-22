@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 export const dynamic = 'force-dynamic';
 
 export default async function AdminLicensesPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const supabase = await createClient();
 
 

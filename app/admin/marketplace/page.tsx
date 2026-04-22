@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -33,6 +34,7 @@ const sections = [
 ];
 
 export default async function AdminMarketplacePage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   return (
     <div className="min-h-screen bg-white">

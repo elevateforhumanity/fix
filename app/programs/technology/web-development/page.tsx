@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -49,7 +50,8 @@ const PORTFOLIO_PROJECTS = [
   'Collaborative team project (capstone)',
 ];
 
-export default function WebDevelopmentPage() {
+export default async function WebDevelopmentPage() {
+  const enrollmentCount = await getEnrollmentCount('web-development');
   return (
     <main className="min-h-screen bg-white">
 
@@ -85,6 +87,11 @@ export default function WebDevelopmentPage() {
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-4">
             Web Development
           </h1>
+      {enrollmentCount > 0 && (
+        <p className="text-sm text-slate-500 mt-1">
+          {enrollmentCount.toLocaleString()} learners currently enrolled
+        </p>
+      )}
           <p className="text-black text-base sm:text-lg max-w-2xl leading-relaxed mb-2">
             Full-stack development training covering HTML, CSS, JavaScript, React, Node.js, and databases.
             Graduate with a portfolio of real projects and the skills employers are hiring for.

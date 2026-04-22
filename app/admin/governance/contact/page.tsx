@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Mail, Building2, Shield, Scale, FileText } from 'lucide-react';
@@ -47,7 +48,8 @@ const contactCategories = [
   },
 ];
 
-export default function GovernanceContactPage() {
+export default async function GovernanceContactPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',

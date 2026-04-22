@@ -8,10 +8,12 @@ export const metadata: Metadata = {
 
 import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
+import { requireRole } from '@/lib/auth/require-role';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminPlacementsPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   let data: any[] = [];
   
   try {

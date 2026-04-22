@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Settings, BookOpen, ShoppingCart, Code, Shield } from 'lucide-react';
@@ -47,7 +48,8 @@ const deploymentChecks = [
   'Linting and code quality',
 ];
 
-export default function OperationalControlsPage() {
+export default async function OperationalControlsPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',

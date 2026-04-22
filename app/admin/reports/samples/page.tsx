@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SampleReportsPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const supabase = await createClient();
 
   const [students, enrollments, certificates, completions, programs, courses] = await Promise.all([

@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 export const revalidate = 3600;
 
 import type { Metadata } from 'next';
@@ -70,7 +71,8 @@ const WHY = [
   { icon: CheckCircle,label: 'DOL Registered',      detail: 'Official U.S. Department of Labor registered apprenticeship programs.' },
 ];
 
-export default function BeautyProgramsPage() {
+export default async function BeautyProgramsPage() {
+  const enrollmentCount = await getEnrollmentCount('barber-apprenticeship');
   const b = heroBanners['barber-apprenticeship'];
 
   return (
@@ -86,7 +88,7 @@ export default function BeautyProgramsPage() {
         belowHeroSubheadline="Barber · Cosmetology · Esthetics · Nails — earn while you learn with flat-fee pricing and DOL-registered programs."
         ctas={[
           { label: 'View Programs', href: '#programs' },
-          { label: 'Apply Now', href: '/apply', variant: 'secondary' },
+          { label: 'Apply Now', href: '/apply?program=barber-apprenticeship', variant: 'secondary' },
         ]}
         trustIndicators={['DOL Registered', 'ETPL Approved', 'Earn wages from day one', 'Flat-fee pricing']}
       />
@@ -105,6 +107,11 @@ export default function BeautyProgramsPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900 mb-3">Why Choose an Apprenticeship?</h2>
+      {enrollmentCount > 0 && (
+        <p className="text-sm text-slate-500 mt-1">
+          {enrollmentCount.toLocaleString()} learners currently enrolled
+        </p>
+      )}
             <p className="text-slate-600 max-w-xl mx-auto">A proven path to licensure with real-world experience and income from day one.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -211,7 +218,7 @@ export default function BeautyProgramsPage() {
           <p className="text-slate-300 mb-8">Check eligibility first — takes just 5 minutes.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/apply"
+              href="/apply?program=barber-apprenticeship"
               className="inline-flex items-center justify-center gap-2 bg-brand-red-600 hover:bg-brand-red-700 text-white px-8 py-4 rounded-xl font-bold transition-colors"
             >
               Apply Now <ArrowRight className="w-5 h-5" />

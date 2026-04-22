@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -11,6 +12,7 @@ export const metadata = {
 };
 
 export default async function EmployerOnboardingReview() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const auth = await createClient();
 
   const supabase = await getAdminClient();

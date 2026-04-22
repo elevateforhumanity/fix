@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Building2, Handshake, Heart, GraduationCap, FileText, Mail, MapPin, Phone } from 'lucide-react';
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
   description: 'Corporate structure, entity relationships, and governance documents for Elevate for Humanity Career & Technical Institute.',
 };
 
-export default function LegalGovernancePage() {
+export default async function LegalGovernancePage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   return (
     <div className="min-h-screen bg-white">

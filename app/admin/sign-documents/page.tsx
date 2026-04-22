@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import { SignDocumentsClient } from './SignDocumentsClient';
 
@@ -10,5 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default async function SignDocumentsPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   return <SignDocumentsClient />;
 }

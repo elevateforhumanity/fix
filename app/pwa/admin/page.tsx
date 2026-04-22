@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { requireRole } from '@/lib/auth/require-role';
 import Image from 'next/image';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
@@ -36,6 +37,7 @@ async function getPwaAdminData() {
 }
 
 export default async function AdminPWAPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const data = await getPwaAdminData();
 
   const stats = [

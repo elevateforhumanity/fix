@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, User, Building, FileText, Calendar } from 'lucide-react';
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
   description: 'Submit a new Work Opportunity Tax Credit application.',
 };
 
-export default function NewWOTCPage() {
+export default async function NewWOTCPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   return (
     <div className="min-h-screen bg-white">

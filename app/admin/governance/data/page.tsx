@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -35,7 +36,8 @@ function PolicySection({
   );
 }
 
-export default function DataGovernancePage() {
+export default async function DataGovernancePage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   return (
     <div className="min-h-screen bg-white">

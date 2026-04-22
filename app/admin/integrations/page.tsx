@@ -1,6 +1,7 @@
 
 export const revalidate = 3600;
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import Link from 'next/link';
@@ -138,6 +139,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 export default async function AdminIntegrationsPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const integrations = INTEGRATIONS.map((i) => ({
     ...i,
     status: i.envVars.length > 0 ? getStatus(i.envVars) : i.status,

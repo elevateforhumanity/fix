@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -11,14 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.elevateforhumanity.org/programs/cna' },
 };
 
-const OUTCOMES = [
-  { icon: Clock, label: 'Program Length', value: '6 Weeks' },
-  { icon: DollarSign, label: 'Starting Salary', value: '$30K–$42K/yr' },
-  { icon: Award, label: 'Credential', value: 'Indiana State CNA' },
-  { icon: Users, label: 'Class Size', value: 'Small cohorts' },
-  { icon: MapPin, label: 'Location', value: 'Indianapolis, IN' },
-  { icon: DollarSign, label: 'Tuition', value: '$0 for eligible participants' },
-];
+// OUTCOMES is defined inside the page function so enrollmentCount is in scope
 
 const CURRICULUM = [
   {
@@ -49,8 +43,18 @@ const FAQ = [
   { q: 'What funding is available?', a: 'WIOA, Workforce Ready Grant, and Job Ready Indy funding may cover 100% of tuition, books, and exam fees for eligible Indiana residents. We help you apply.' },
 ];
 
-export default function CNAPage() {
+export default async function CNAPage() {
+  const enrollmentCount = await getEnrollmentCount('cna-certification');
   const b = heroBanners['cna'];
+
+  const OUTCOMES = [
+    { icon: Clock, label: 'Program Length', value: '6 Weeks' },
+    { icon: DollarSign, label: 'Starting Salary', value: '$30K–$42K/yr' },
+    { icon: Award, label: 'Credential', value: 'Indiana State CNA' },
+    { icon: Users, label: 'Active Learners', value: enrollmentCount > 0 ? enrollmentCount.toLocaleString() : 'Enrolling now' },
+    { icon: MapPin, label: 'Location', value: 'Indianapolis, IN' },
+    { icon: DollarSign, label: 'Tuition', value: '$0 for eligible participants' },
+  ];
   return (
     <main className="min-h-screen bg-white">
 
@@ -114,7 +118,7 @@ export default function CNAPage() {
               ))}
             </ul>
             <div className="flex flex-wrap gap-4">
-              <Link href="/programs/cna/apply" className="inline-block bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold px-8 py-4 rounded-xl transition-colors">
+              <Link href="/apply?program=cna-certification" className="inline-block bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold px-8 py-4 rounded-xl transition-colors">
                 Apply Now
               </Link>
               <Link href="/start" className="inline-block border border-brand-blue-700 text-brand-blue-700 font-bold px-8 py-4 rounded-xl hover:bg-brand-blue-50 transition-colors">
@@ -185,7 +189,7 @@ export default function CNAPage() {
                 </li>
               </ul>
               <div className="pt-2 space-y-3">
-                <Link href="/programs/cna/apply" className="block w-full text-center bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold px-6 py-3.5 rounded-xl transition-colors">
+                <Link href="/apply?program=cna-certification" className="block w-full text-center bg-brand-blue-700 hover:bg-brand-blue-800 text-white font-bold px-6 py-3.5 rounded-xl transition-colors">
                   Start Application
                 </Link>
                 <Link href="/start" className="block w-full text-center border border-brand-blue-700 text-brand-blue-700 font-bold px-6 py-3.5 rounded-xl hover:bg-brand-blue-50 transition-colors">

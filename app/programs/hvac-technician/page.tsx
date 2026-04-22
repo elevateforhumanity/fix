@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -61,6 +62,7 @@ const AUTHORITY = [
 ];
 
 export default async function HVACTechnicianPage() {
+  const enrollmentCount = await getEnrollmentCount('hvac-technician');
   let program;
   try {
     program = await getPublishedProgramBySlug('hvac-technician');
@@ -102,6 +104,11 @@ export default async function HVACTechnicianPage() {
           <div className="mx-auto max-w-7xl px-6 py-12">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-black">12-Week Workforce Training Program</p>
             <h1 className="text-4xl font-black text-slate-900 mb-4">{banner.belowHeroHeadline}</h1>
+      {enrollmentCount > 0 && (
+        <p className="text-sm text-slate-500 mt-1">
+          {enrollmentCount.toLocaleString()} learners currently enrolled
+        </p>
+      )}
             <p className="text-black text-lg mb-6">{banner.belowHeroSubheadline}</p>
             <p className="mt-2 text-xl text-slate-700 leading-relaxed mb-8">
               You could be earning <strong className="text-slate-900">$18–$25/hr fixing AC units</strong> 90 days from now — with certifications that follow you for life.

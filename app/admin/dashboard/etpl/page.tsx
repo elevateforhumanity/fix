@@ -1,4 +1,5 @@
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import {
   getEtplMetrics,
@@ -26,6 +27,7 @@ export const metadata = {
 };
 
 export default async function EtplDashboard() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   const etpl = await getEtplMetrics();
   const funding = await getFundingMetrics();

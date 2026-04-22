@@ -1,3 +1,4 @@
+import { getEnrollmentCount } from '@/lib/programs/getEnrollmentCount';
 
 export const revalidate = 86400;
 
@@ -50,7 +51,8 @@ const careers = [
   { title: 'Technical Support Rep', salary: '$40K-$55K', growth: 'Remote options' },
 ];
 
-export default function ITSupportPage() {
+export default async function ITSupportPage() {
+  const enrollmentCount = await getEnrollmentCount('it-support');
   return (
     <main className="min-h-screen bg-white">
       {/* Hero */}
@@ -61,6 +63,11 @@ export default function ITSupportPage() {
           <div className="max-w-7xl mx-auto">
             <span className="text-blue-200 font-medium text-sm uppercase tracking-wider">Technology Programs</span>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 mt-2">IT Support Training</h1>
+      {enrollmentCount > 0 && (
+        <p className="text-sm text-slate-500 mt-1">
+          {enrollmentCount.toLocaleString()} learners currently enrolled
+        </p>
+      )}
             <p className="text-xl text-white/90">CompTIA A+ Certification Program</p>
           </div>
         </div>

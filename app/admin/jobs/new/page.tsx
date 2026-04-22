@@ -2,6 +2,7 @@
 export const revalidate = 3600;
 
 
+import { requireRole } from '@/lib/auth/require-role';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AdminNewJobPage() {
+export default async function AdminNewJobPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
 
   return (
     <div className="min-h-screen bg-white p-6">

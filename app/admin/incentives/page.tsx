@@ -1,3 +1,4 @@
+import { requireRole } from '@/lib/auth/require-role';
 import type { Metadata } from 'next';
 import { getAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
@@ -17,6 +18,7 @@ const STATUS_STYLES: Record<string, string> = {
 };
 
 export default async function IncentivesPage() {
+  await requireRole(['admin', 'super_admin', 'staff']);
   const db = await getAdminClient();
 
   const { data: rows } = await db
