@@ -108,27 +108,8 @@ const INTEGRATIONS: Integration[] = [
     envVars: ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'],
     status: 'not_configured',
   },
-  {
-    name: 'Google Classroom',
-    slug: 'google-classroom',
-    description: 'Sync courses, assignments, and grades with Google Classroom for blended learning.',
-    icon: GraduationCap,
-    category: 'learning',
-    envVars: ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET'],
-    status: 'not_configured',
-    configUrl: '/admin/integrations/google-classroom',
-  },
-  {
-    name: 'Salesforce',
-    slug: 'salesforce',
-    description: 'CRM sync for leads, enrollments, employer partnerships, and workforce board reporting.',
-    icon: Database,
-    category: 'data',
-    envVars: ['SALESFORCE_CLIENT_ID', 'SALESFORCE_CLIENT_SECRET'],
-    status: 'not_configured',
-    docsUrl: 'https://login.salesforce.com',
-    configUrl: '/admin/integrations/salesforce',
-  },
+
+
   {
     name: 'Gemini AI',
     slug: 'gemini',

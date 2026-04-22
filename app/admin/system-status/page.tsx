@@ -287,7 +287,7 @@ export default async function SystemStatusPage() {
     { path: '/admin/students', name: 'Student Management', category: 'Admin', dataSource: 'supabase' },
     { path: '/admin/applications', name: 'Applications', category: 'Admin', dataSource: 'supabase' },
     { path: '/admin/courses', name: 'Course Management', category: 'Admin', dataSource: 'supabase' },
-    { path: '/admin/integrations/salesforce', name: 'Salesforce Integration', category: 'Admin', dataSource: 'api' },
+    
     { path: '/partners/dashboard', name: 'Partner Dashboard', category: 'Partner', dataSource: 'supabase' },
     { path: '/partners/students', name: 'Partner Students', category: 'Partner', dataSource: 'supabase' },
     { path: '/about', name: 'About Us', category: 'Public', dataSource: 'static' },

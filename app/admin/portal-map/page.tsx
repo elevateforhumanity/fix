@@ -556,7 +556,7 @@ const adminRoutes: AdminRoute[] = [
       },
       {
         name: 'Google Classroom',
-        href: '/admin/integrations/google-classroom',
+        href: '/admin/integrations',
         description: 'Google Classroom sync',
         status: 'active',
       },

@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import { BookOpen, Award, Briefcase } from 'lucide-react';
-import GoogleClassroomSync from '@/components/GoogleClassroomSync';
+
 import { VideoConferencingIntegration } from '@/components/VideoConferencingIntegration';
 
 export const dynamic = 'force-dynamic';
@@ -185,10 +185,6 @@ export default async function IntegrationsPage() {
         </div>
       </section>
 
-      {/* Google Classroom Sync */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <GoogleClassroomSync />
-      </section>
 
       {/* Video Conferencing */}
       <section className="max-w-7xl mx-auto px-4 py-8">
