@@ -6,6 +6,7 @@ import { ProgramVideoCards } from '@/components/marketing/ProgramVideoCards';
 import HeroVideo from '@/components/marketing/HeroVideo';
 import heroBanners from '@/content/heroBanners';
 import RotatingBanner from '@/components/blocks/RotatingBanner';
+import { WorkforceSystemDiagram } from '@/components/marketing/WorkforceSystemDiagram';
 
 
 export const revalidate = 60;
@@ -103,6 +104,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── SYSTEM DIAGRAM ── */}
+      <WorkforceSystemDiagram />
 
       {/* ── WHO THIS IS FOR ── */}
       <section className="bg-white py-16 px-6 border-b border-slate-100">

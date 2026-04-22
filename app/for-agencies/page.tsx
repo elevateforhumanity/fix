@@ -7,6 +7,7 @@ import {
   CheckCircle, ArrowRight, Phone, Mail, FileText,
   Users, TrendingUp, ClipboardList, Building2,
 } from 'lucide-react';
+import { WorkforceSystemDiagram } from '@/components/marketing/WorkforceSystemDiagram';
 
 export const revalidate = 3600;
 
@@ -197,6 +198,9 @@ export default async function ForAgenciesPage() {
           </div>
         </section>
       )}
+
+      {/* ── SYSTEM DIAGRAM ── */}
+      <WorkforceSystemDiagram />
 
       {/* ── PLATFORM CAPABILITIES ── */}
       <section className="py-16 px-4 bg-white border-t border-slate-100">
