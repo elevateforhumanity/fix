@@ -29,7 +29,7 @@
   # 6144MB for the Next.js build process. The project uses webpack (required
   # for custom webpack config in next.config.mjs). With 1400+ pages the
   # webpack compiler needs significant JS heap headroom.
-  NODE_OPTIONS = "--max-old-space-size=6144"
+  NODE_OPTIONS = "--max-old-space-size=7168"
   SENTRY_SKIP_AUTO_INSTRUMENTATION = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public

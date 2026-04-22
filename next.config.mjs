@@ -183,6 +183,11 @@ const nextConfig = {
       };
     }
 
+    // Limit parallelism to reduce peak memory on CI (Netlify has ~8 GB total).
+    // Default is os.cpus().length which on Netlify is 8–16, causing OOM on
+    // large apps. 2 workers keeps memory predictable.
+    config.parallelism = 2;
+
     // Use Next.js default splitChunks — the custom config above was creating
     // one chunk per npm package (name() function), generating thousands of
     // chunks and holding the entire module graph in memory simultaneously.
