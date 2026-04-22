@@ -2,7 +2,8 @@
 import Turnstile from '@/components/Turnstile';
 import HostShopSelect from '@/components/programs/HostShopSelect';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Loader2, CreditCard, Calculator, Info } from 'lucide-react';
 
@@ -10,17 +11,16 @@ import { ArrowLeft, Loader2, CreditCard, Calculator, Info } from 'lucide-react';
 const PRICING = {
   totalHours: 2000,
   fullPrice: 4980,
-  setupFee: 1743,
-  setupFeeRate: 0.35,
-  remainingBalance: 3237,
+  minDeposit: 600,       // minimum down payment / starting deposit
   billingDay: 'Friday',
 };
 
-function calculateWeeklyPayment(hoursPerWeek: number, transferHours: number = 0) {
+function calculateWeeklyPayment(hoursPerWeek: number, transferHours: number = 0, deposit: number = PRICING.minDeposit) {
   const remainingHours = PRICING.totalHours - transferHours;
   const weeks = Math.ceil(remainingHours / hoursPerWeek);
-  const weeklyDollars = weeks > 0 ? Math.round((PRICING.remainingBalance / weeks) * 100) / 100 : 0;
-  return { weeklyDollars, weeks, remainingHours };
+  const remainingBalance = PRICING.fullPrice - deposit;
+  const weeklyDollars = weeks > 0 ? Math.round((remainingBalance / weeks) * 100) / 100 : 0;
+  return { weeklyDollars, weeks, remainingHours, remainingBalance };
 }
 
 function getNextFriday(): string {
@@ -32,7 +32,18 @@ function getNextFriday(): string {
   return nextFriday.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 }
 
-export default function BarberApprenticeshipApplyPage() {
+function BarberApprenticeshipApplyPageInner() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // Partner shop applications go to the dedicated partner apply flow.
+  // This page is for apprentice applicants only.
+  useEffect(() => {
+    if (searchParams.get('type') === 'partner_shop') {
+      router.replace('/partners/barbershop-apprenticeship/apply');
+    }
+  }, [searchParams, router]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [errorSeverity, setErrorSeverity] = useState<'info' | 'critical'>('info');
@@ -44,7 +55,7 @@ export default function BarberApprenticeshipApplyPage() {
   
   // Payment option
   const [paymentOption, setPaymentOption] = useState<'weekly' | 'full' | 'custom' | 'sezzle' | 'affirm'>('weekly');
-  const [customAmount, setCustomAmount] = useState(PRICING.setupFee);
+  const [customAmount, setCustomAmount] = useState(PRICING.minDeposit);
   
   // Form state
   const [formData, setFormData] = useState({
@@ -61,7 +72,9 @@ export default function BarberApprenticeshipApplyPage() {
     setNextFriday(getNextFriday());
   }, []);
 
-  const { weeklyDollars, weeks, remainingHours } = calculateWeeklyPayment(hoursPerWeek, transferHours);
+  // Use the actual deposit amount for weekly plan so remaining balance is accurate
+  const depositForCalc = paymentOption === 'weekly' ? PRICING.minDeposit : customAmount;
+  const { weeklyDollars, weeks, remainingHours, remainingBalance } = calculateWeeklyPayment(hoursPerWeek, transferHours, depositForCalc);
 
   const updateField = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -117,7 +130,7 @@ export default function BarberApprenticeshipApplyPage() {
         // 1. Get checkout config from our API
         // 2. Load Affirm JS SDK
         // 3. Call affirm.checkout() which opens their modal
-        const affirmAmount = Math.max(PRICING.setupFee, customAmount);
+        const affirmAmount = Math.max(PRICING.minDeposit, customAmount);
         checkoutResponse = await fetch('/api/affirm/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -187,7 +200,7 @@ export default function BarberApprenticeshipApplyPage() {
         return;
       } else if (paymentOption === 'sezzle') {
         // Sezzle - pay over time. Minimum is the setup fee ($1,743).
-        const sezzleAmount = Math.min(2500, Math.max(PRICING.setupFee, customAmount));
+        const sezzleAmount = Math.min(2500, Math.max(PRICING.minDeposit, customAmount));
         checkoutResponse = await fetch('/api/sezzle/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -604,10 +617,10 @@ export default function BarberApprenticeshipApplyPage() {
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-bold text-black text-lg">Payment Plan</p>
-                        <p className="text-black text-sm">${PRICING.setupFee.toLocaleString()} today + ${weeklyDollars.toFixed(2)}/week</p>
+                        <p className="text-black text-sm">${PRICING.minDeposit.toLocaleString()} today + ${weeklyDollars.toFixed(2)}/week</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-brand-orange-600 text-xl">${PRICING.setupFee.toLocaleString()}</p>
+                        <p className="font-bold text-brand-orange-600 text-xl">${PRICING.minDeposit.toLocaleString()}</p>
                         <p className="text-xs text-black">due today</p>
                       </div>
                     </div>
@@ -626,7 +639,7 @@ export default function BarberApprenticeshipApplyPage() {
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-bold text-black text-lg">Custom Amount</p>
-                        <p className="text-black text-sm">Pay what you can today (min ${Math.round(PRICING.fullPrice * 0.35).toLocaleString()})</p>
+                        <p className="text-black text-sm">Pay what you can today (min ${PRICING.minDeposit.toLocaleString()})</p>
                       </div>
                       <div className="text-right">
                         <p className="font-bold text-brand-blue-600 text-lg">You Choose</p>
@@ -638,7 +651,7 @@ export default function BarberApprenticeshipApplyPage() {
                   {paymentOption === 'custom' && (
                     <div className="bg-brand-blue-50 rounded-xl p-4 mb-3 border-2 border-brand-blue-200">
                       <label className="block text-sm font-medium text-black mb-2">
-                        Enter your payment amount (min ${Math.round(PRICING.fullPrice * 0.35).toLocaleString()})
+                        Enter your payment amount (min ${PRICING.minDeposit.toLocaleString()})
                       </label>
                       <div className="flex items-center gap-2">
                         <span className="text-2xl font-bold text-black">$</span>
@@ -652,7 +665,7 @@ export default function BarberApprenticeshipApplyPage() {
                             setCustomAmount(val ? parseInt(val) : 0);
                           }}
                           onBlur={() => {
-                            const min = Math.round(PRICING.fullPrice * 0.35);
+                            const min = PRICING.minDeposit;
                             if (customAmount < min) setCustomAmount(min);
                             if (customAmount > PRICING.fullPrice) setCustomAmount(PRICING.fullPrice);
                           }}
@@ -682,7 +695,7 @@ export default function BarberApprenticeshipApplyPage() {
                       </div>
                       <div className="text-right">
                         <p className="font-bold text-brand-blue-600 text-lg">You Choose</p>
-                        <p className="text-xs text-black">min ${PRICING.setupFee.toLocaleString()}</p>
+                        <p className="text-xs text-black">min ${PRICING.minDeposit.toLocaleString()}</p>
                       </div>
                     </div>
                   </button>
@@ -691,7 +704,7 @@ export default function BarberApprenticeshipApplyPage() {
                   {paymentOption === 'affirm' && (
                     <div className="bg-brand-blue-50 rounded-xl p-4 mb-3 border-2 border-brand-blue-200">
                       <label className="block text-sm font-medium text-black mb-2">
-                        How much do you want to finance with Affirm? (min ${PRICING.setupFee.toLocaleString()})
+                        How much do you want to finance with Affirm? (min ${PRICING.minDeposit.toLocaleString()})
                       </label>
                       <div className="flex items-center gap-2">
                         <span className="text-2xl font-bold text-black">$</span>
@@ -705,7 +718,7 @@ export default function BarberApprenticeshipApplyPage() {
                             setCustomAmount(val ? parseInt(val) : 0);
                           }}
                           onBlur={() => {
-                            if (customAmount < PRICING.setupFee) setCustomAmount(PRICING.setupFee);
+                            if (customAmount < PRICING.minDeposit) setCustomAmount(PRICING.minDeposit);
                             if (customAmount > PRICING.fullPrice) setCustomAmount(PRICING.fullPrice);
                           }}
                           className="w-full px-4 py-3 text-2xl font-bold border-2 border-brand-blue-300 rounded-lg focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500"
@@ -734,7 +747,7 @@ export default function BarberApprenticeshipApplyPage() {
                       </div>
                       <div className="text-right">
                         <p className="font-bold text-indigo-600 text-lg">You Choose</p>
-                        <p className="text-xs text-black">${PRICING.setupFee.toLocaleString()} - $2,500</p>
+                        <p className="text-xs text-black">${PRICING.minDeposit.toLocaleString()} - $2,500</p>
                       </div>
                     </div>
                   </button>
@@ -743,7 +756,7 @@ export default function BarberApprenticeshipApplyPage() {
                   {paymentOption === 'sezzle' && (
                     <div className="bg-indigo-50 rounded-xl p-4 mb-3 border-2 border-indigo-200">
                       <label className="block text-sm font-medium text-black mb-2">
-                        How much do you want to pay with Sezzle? (${PRICING.setupFee.toLocaleString()} - $2,500)
+                        How much do you want to pay with Sezzle? (${PRICING.minDeposit.toLocaleString()} - $2,500)
                       </label>
                       <div className="flex items-center gap-2">
                         <span className="text-2xl font-bold text-black">$</span>
@@ -757,7 +770,7 @@ export default function BarberApprenticeshipApplyPage() {
                             setCustomAmount(val ? parseInt(val) : 0);
                           }}
                           onBlur={() => {
-                            if (customAmount < PRICING.setupFee) setCustomAmount(PRICING.setupFee);
+                            if (customAmount < PRICING.minDeposit) setCustomAmount(PRICING.minDeposit);
                             if (customAmount > 2500) setCustomAmount(2500);
                           }}
                           className="w-full px-4 py-3 text-2xl font-bold border-2 border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -833,5 +846,13 @@ export default function BarberApprenticeshipApplyPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function BarberApprenticeshipApplyPage() {
+  return (
+    <Suspense>
+      <BarberApprenticeshipApplyPageInner />
+    </Suspense>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CheckCircle, ArrowRight, Phone, AlertCircle, Info, Clock, DollarSign, Briefcase } from 'lucide-react';
 
 const EMPLOYMENT_STATUS = [
@@ -36,12 +37,12 @@ function getRecommendedPrograms(q1: YesNo, q2: YesNo, employment: string): Recom
     { name: 'CNA — Certified Nursing Assistant', slug: 'cna', duration: '4–6 weeks', outcome: 'Avg. $16–$20/hr starting wage', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
     { name: 'Phlebotomy Technician (CPT)', slug: 'phlebotomy', duration: '4–6 weeks', outcome: 'NHA certification included', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
     { name: 'HVAC Technician', slug: 'hvac-technician', duration: '10–16 weeks', outcome: 'EPA 608 certification included', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
-    { name: 'IT Support Specialist', slug: 'it-support', duration: '8–12 weeks', outcome: 'CompTIA A+ via Certiport', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
+    { name: 'IT Help Desk Specialist', slug: 'it-help-desk', duration: '8–12 weeks', outcome: 'CompTIA A+ via Certiport', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
     { name: 'Medical Assistant (CCMA)', slug: 'medical-assistant', duration: '8–12 weeks', outcome: 'NHA certification included', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
-    { name: 'Pharmacy Technician', slug: 'pharmacy-tech', duration: '8–10 weeks', outcome: 'PTCB exam prep included', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
+    { name: 'Pharmacy Technician', slug: 'pharmacy-technician', duration: '8–10 weeks', outcome: 'PTCB exam prep included', funded: true, fundedLabel: 'WIOA / Workforce Ready Grant' },
     { name: 'Barber Apprenticeship', slug: 'barber-apprenticeship', duration: '2 years (USDOL registered)', outcome: 'Indiana barber license pathway', funded: false },
-    { name: 'CDL Class A', slug: 'cdl', duration: '4–8 weeks', outcome: 'Avg. $55,000–$75,000/yr', funded: true, fundedLabel: 'WIOA eligible' },
-    { name: 'Cosmetology Apprenticeship', slug: 'cosmetology', duration: '2 years', outcome: 'Indiana cosmetology license', funded: false },
+    { name: 'CDL Class A', slug: 'cdl-training', duration: '4–8 weeks', outcome: 'Avg. $55,000–$75,000/yr', funded: true, fundedLabel: 'WIOA eligible' },
+    { name: 'Cosmetology Apprenticeship', slug: 'cosmetology-apprenticeship', duration: '2 years', outcome: 'Indiana cosmetology license', funded: false },
   ];
 
   // Fastest-to-employment programs for unemployed candidates
@@ -189,15 +190,38 @@ export default function CheckEligibilityPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <div className="bg-slate-900 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-white font-bold text-sm hover:text-brand-red-300 transition-colors">
-          ← Elevate for Humanity
-        </Link>
-        <a href="tel:3173143757" className="flex items-center gap-2 text-white text-sm font-semibold hover:text-brand-red-300 transition-colors">
-          <Phone className="w-4 h-4" />
-          (317) 314-3757
-        </a>
-      </div>
+      {/* Hero */}
+      <section className="relative overflow-hidden" style={{ minHeight: 'clamp(320px, 40vw, 460px)' }}>
+        <Image
+          src="/images/pages/funding-page-2.jpg"
+          alt="Check your eligibility for free career training"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-transparent" />
+        <div className="relative z-10 h-full flex flex-col justify-between px-4 sm:px-6 py-5" style={{ minHeight: 'clamp(320px, 40vw, 460px)' }}>
+          <div className="flex items-center justify-between">
+            <Link href="/" className="text-white/80 hover:text-white text-sm font-semibold transition-colors">
+              ← Elevate for Humanity
+            </Link>
+            <a href="tel:3173143757" className="flex items-center gap-2 text-white/80 hover:text-white text-sm font-semibold transition-colors">
+              <Phone className="w-4 h-4" />
+              (317) 314-3757
+            </a>
+          </div>
+          <div className="pb-6">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-red-400 mb-2">Free Career Training</p>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 max-w-lg leading-tight">
+              Check If You Qualify for Funded Training
+            </h1>
+            <p className="text-white/75 text-base max-w-md">
+              3 questions. 30 seconds. We'll match you with WIOA, Workforce Ready Grant, or JRI funding.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <div className="max-w-xl mx-auto px-4 py-12">
 
@@ -269,11 +293,10 @@ export default function CheckEligibilityPage() {
               </p>
               <div className="space-y-2">
                 {recommended.map((p, i) => (
-                  <button
+                  <div
                     key={p.slug}
-                    type="button"
                     onClick={() => setProgram(p.name)}
-                    className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-colors ${
+                    className={`w-full text-left rounded-xl border-2 px-4 py-3 transition-colors cursor-pointer ${
                       program === p.name
                         ? 'border-brand-red-500 bg-brand-red-50'
                         : 'border-slate-200 bg-white hover:border-brand-red-300'
@@ -300,13 +323,22 @@ export default function CheckEligibilityPage() {
                           </div>
                         </div>
                       </div>
-                      {p.funded && (
-                        <span className="shrink-0 flex items-center gap-1 text-xs font-semibold text-brand-green-700 bg-brand-green-50 border border-brand-green-200 px-2 py-0.5 rounded-full">
-                          <DollarSign className="w-3 h-3" />Funded
-                        </span>
-                      )}
+                      <div className="flex flex-col items-end gap-1 shrink-0">
+                        {p.funded && (
+                          <span className="flex items-center gap-1 text-xs font-semibold text-brand-green-700 bg-brand-green-50 border border-brand-green-200 px-2 py-0.5 rounded-full">
+                            <DollarSign className="w-3 h-3" />Funded
+                          </span>
+                        )}
+                        <Link
+                          href={`/programs/${p.slug}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-xs text-brand-blue-600 hover:underline font-semibold"
+                        >
+                          View Program →
+                        </Link>
+                      </div>
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
               <button
@@ -318,7 +350,12 @@ export default function CheckEligibilityPage() {
               </button>
             </div>
 
-            <h2 className="text-xl font-extrabold text-slate-900 mb-6">Tell us about yourself</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-extrabold text-slate-900">Tell us about yourself</h2>
+              <Link href="/programs" className="text-xs text-brand-blue-600 hover:underline font-semibold">
+                Browse all programs →
+              </Link>
+            </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1">Full Name *</label>
@@ -351,6 +388,9 @@ export default function CheckEligibilityPage() {
                     <option value="Barber Apprenticeship">Barber Apprenticeship</option>
                     <option value="CDL Class A">CDL Class A</option>
                     <option value="Cosmetology Apprenticeship">Cosmetology Apprenticeship</option>
+                    <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
+                    <option value="Network Administration">Network Administration</option>
+                    <option value="Bookkeeping">Bookkeeping</option>
                     <option value="Not Sure Yet">Not Sure Yet</option>
                   </select>
                 </div>

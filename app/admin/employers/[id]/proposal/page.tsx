@@ -1,71 +1,69 @@
 import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
+import { getAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { EmployerProposalPreview } from '@/components/admin/EmployerProposalPreview';
-import type { Employer } from '@/lms-data/employers';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Employer Proposal | Elevate For Humanity',
+  robots: { index: false, follow: false },
+  title: 'Employer Proposal | Admin | Elevate for Humanity',
   description: 'View and manage employer partnership proposals.',
 };
 
-export default async function EmployerProposalPage({ params }: { params: { id: string } }) {
+export default async function EmployerProposalPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   await requireRole(['admin', 'super_admin']);
-  const supabase = await createClient();
+  const { id } = await params;
 
-  const { data: row } = await supabase
+  const adminClient = await getAdminClient();
+  const fallback = await createClient();
+  const db = adminClient ?? fallback;
+
+  const { data: row } = await db
     .from('employers')
-    .select('*')
-    .eq('id', params.id)
+    .select('id, name, contact_name, contact_email, contact_phone, city, state, website, notes')
+    .eq('id', id)
     .maybeSingle();
 
-  // Adapt DB row to the static Employer interface expected by EmployerProposalPreview
-  const employer: Employer | null = row
-    ? {
-        id: row.id,
-        name: row.company_name ?? row.name ?? 'Unknown Employer',
-        contactName: row.contact_name ?? row.primary_contact_name ?? undefined,
-        contactEmail: row.contact_email ?? row.email ?? undefined,
-        contactPhone: row.contact_phone ?? row.phone ?? undefined,
-        city: row.city ?? undefined,
-        state: row.state ?? undefined,
-        website: row.website ?? undefined,
-        notes: row.notes ?? undefined,
-        interestedPrograms: row.interested_programs ?? [],
-        tags: row.tags ?? [],
-        wantsWex: row.wants_wex ?? false,
-        wantsOjt: row.wants_ojt ?? false,
-        wantsApprenticeship: row.wants_apprenticeship ?? false,
-      }
-    : null;
+  if (!row) notFound();
+
+  // Map DB row to the Employer shape expected by EmployerProposalPreview
+  const employer = {
+    id: row.id,
+    name: row.name ?? 'Unknown Employer',
+    contactName: row.contact_name ?? undefined,
+    contactEmail: row.contact_email ?? undefined,
+    contactPhone: row.contact_phone ?? undefined,
+    city: row.city ?? undefined,
+    state: row.state ?? undefined,
+    website: row.website ?? undefined,
+    notes: row.notes ?? undefined,
+    interestedPrograms: [],
+    tags: [] as any[],
+  };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <nav className="text-sm mb-4">
-            <ol className="flex items-center space-x-2 text-slate-700">
-              <li><Link href="/admin" className="hover:text-primary">Admin</Link></li>
-              <li>/</li>
-              <li><Link href="/admin/employers" className="hover:text-primary">Employers</Link></li>
-              <li>/</li>
-              <li className="text-slate-900 font-medium">Proposal</li>
-            </ol>
-          </nav>
-          <h1 className="text-3xl font-bold text-slate-900">Partnership Proposal</h1>
-          <p className="text-slate-700 mt-2">{employer?.name ?? 'Employer'}</p>
-        </div>
-
-        {employer ? (
-          <EmployerProposalPreview employer={employer} />
-        ) : (
-          <div className="bg-white rounded-lg shadow-sm border p-6 text-center text-slate-500">
-            Employer not found.
-          </div>
-        )}
+        <nav className="text-sm mb-6">
+          <ol className="flex items-center space-x-2 text-slate-600">
+            <li><Link href="/admin" className="hover:text-slate-900">Admin</Link></li>
+            <li>/</li>
+            <li><Link href="/admin/employers" className="hover:text-slate-900">Employers</Link></li>
+            <li>/</li>
+            <li><Link href={`/admin/employers/${id}`} className="hover:text-slate-900">{employer.name}</Link></li>
+            <li>/</li>
+            <li className="text-slate-900 font-medium">Proposal</li>
+          </ol>
+        </nav>
+        <EmployerProposalPreview employer={employer} />
       </div>
     </div>
   );

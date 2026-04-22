@@ -39,7 +39,7 @@ const HvacLessonVideo = dynamic(() => import('@/components/lms/HvacLessonVideo')
 const NoteTaking = dynamic(() => import('@/components/NoteTaking').then(m => ({ default: m.NoteTaking })), { ssr: false });
 const DigitalBinder = dynamic(() => import('@/components/DigitalBinder'), { ssr: false });
 import { transformLessonContent, isAiJsonBlob } from '@/lib/lms/transformLessonContent';
-import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
+// HVAC_COURSE_ID removed — isHvacCourse now derived from course slug (see fetchLesson)
 
 
 
@@ -120,7 +120,7 @@ export default function LessonPage() {
   const courseId = params.courseId as string;
   const lessonId = params.lessonId as string;
 
-  const isHvacCourse = courseId === HVAC_COURSE_ID;
+  const [isHvacCourse, setIsHvacCourse] = useState(false);
   const isBarberLesson = courseId === BARBER_COURSE_ID;
 
   // ── All state declarations first — no hooks may reference these before this block ──
@@ -240,6 +240,14 @@ export default function LessonPage() {
         // Network error — don't block, let lesson load attempt continue
       }
     }
+
+    // 0. Resolve course slug to determine program type (replaces HVAC_COURSE_ID constant)
+    const { data: courseRow } = await supabase
+      .from('courses')
+      .select('slug')
+      .eq('id', courseId)
+      .maybeSingle();
+    if (courseRow?.slug === 'hvac-technician') setIsHvacCourse(true);
 
     // 1. Fetch lesson data — try lms_lessons view first, fall back to course_lessons
     let { data: lessonData } = await supabase

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { X, Save, Search, Upload } from 'lucide-react';
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 import type {
   ExamSession, ExamProvider, ExamSessionStatus, ExamResult,
   IdType, DeliveryMethod,
@@ -119,7 +120,7 @@ export default function NewSessionForm({ session, onSaved, onCancel }: Props) {
     const { count: totalLessons } = await supabase
       .from('training_lessons')
       .select('*', { count: 'exact', head: true })
-      .eq('course_id', '0ba9a61c-1f1b-4019-be6f-90e92eba2bc0');
+      .eq('course_id', HVAC_COURSE_ID);
 
     const { count: completedLessons } = await supabase
       .from('lesson_progress')
@@ -131,7 +132,7 @@ export default function NewSessionForm({ session, onSaved, onCancel }: Props) {
     const { data: quizLessons } = await supabase
       .from('training_lessons')
       .select('id')
-      .eq('course_id', '0ba9a61c-1f1b-4019-be6f-90e92eba2bc0')
+      .eq('course_id', HVAC_COURSE_ID)
       .eq('content_type', 'quiz');
 
     let quizzesPassed = 0;

@@ -4,7 +4,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Users, DollarSign, TrendingUp, UserPlus, Search, Filter, MoreVertical } from 'lucide-react';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,57 +14,68 @@ export const metadata: Metadata = {
 
 async function getAffiliateData() {
   const supabase = await getAdminClient();
-  
-  // Get affiliates from database
-  const { data: affiliates, count } = await supabase
+
+  // Total registered affiliates
+  const { count: totalCount } = await supabase
+    .from('affiliates')
+    .select('*', { count: 'exact', head: true });
+
+  // Applications list (most recent 10)
+  const { data: applications } = await supabase
     .from('affiliate_applications')
-    .select('*', { count: 'exact' })
+    .select('id, company_name, status, created_at')
     .order('created_at', { ascending: false })
     .limit(10);
 
-  // Get payouts
+  // Active application count
+  const { count: activeCount } = await supabase
+    .from('affiliate_applications')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'approved');
+
+  // Pending application count (used as "referrals" proxy)
+  const { count: pendingCount } = await supabase
+    .from('affiliate_applications')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'pending');
+
+  // Commissions paid
   const { data: payouts } = await supabase
     .from('affiliate_payouts')
     .select('amount')
     .eq('status', 'paid');
 
-  const totalPaid = payouts?.reduce((sum, p) => sum + (p.amount || 0), 0) || 0;
-  const activeCount = affiliates?.filter(a => a.status === 'approved').length || 0;
+  const totalPaid = payouts?.reduce((sum, p) => sum + (Number(p.amount) || 0), 0) || 0;
 
   return {
-    affiliates: affiliates || [],
+    applications: applications || [],
     stats: {
-      total: count || 0,
-      active: activeCount,
+      total: totalCount || 0,
+      active: activeCount || 0,
+      pending: pendingCount || 0,
       totalPaid,
-    }
+    },
   };
 }
 
 export default async function AffiliatesPage() {
-  const auth = await createClient();
-
-  const { affiliates: dbAffiliates, stats: dbStats } = await getAffiliateData();
-
-  const totalReferrals = dbAffiliates.reduce((sum: number, a: any) => sum + (a.referral_count || 0), 0);
+  const { applications: dbApplications, stats: dbStats } = await getAffiliateData();
 
   const stats = [
     { label: 'Total Affiliates', value: String(dbStats.total), icon: Users },
-    { label: 'Active', value: String(dbStats.active), icon: TrendingUp },
-    { label: 'Total Referrals', value: String(totalReferrals), icon: UserPlus },
+    { label: 'Approved', value: String(dbStats.active), icon: TrendingUp },
+    { label: 'Pending Applications', value: String(dbStats.pending), icon: UserPlus },
     { label: 'Commissions Paid', value: `$${dbStats.totalPaid.toLocaleString()}`, icon: DollarSign },
   ];
 
-  const affiliates = dbAffiliates.length > 0 ? dbAffiliates.map((a: any) => ({
-    id: a.id,
-    name: a.company_name || a.contact_name || 'Unknown',
-    email: a.email || '',
-    referrals: a.referral_count || 0,
-    earnings: `$${(a.total_earnings || 0).toLocaleString()}`,
-    status: a.status || 'pending',
-  })) : [
-    { id: 1, name: 'No affiliates yet', email: '', referrals: 0, earnings: '$0', status: 'pending' },
-  ];
+  const affiliates = dbApplications.length > 0
+    ? dbApplications.map((a: any) => ({
+        id: a.id,
+        name: a.company_name || 'Unknown',
+        status: a.status || 'pending',
+        appliedAt: a.created_at ? new Date(a.created_at).toLocaleDateString() : '—',
+      }))
+    : [{ id: 'empty', name: 'No applications yet', status: 'pending', appliedAt: '—' }];
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -122,9 +132,8 @@ export default async function AffiliatesPage() {
         <table className="w-full">
           <thead className="bg-gray-50 border-b">
             <tr>
-              <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Affiliate</th>
-              <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Referrals</th>
-              <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Earnings</th>
+              <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Company</th>
+              <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Applied</th>
               <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Status</th>
               <th className="text-left px-6 py-4 text-sm font-semibold text-slate-900">Actions</th>
             </tr>
@@ -133,17 +142,15 @@ export default async function AffiliatesPage() {
             {affiliates.map((affiliate) => (
               <tr key={affiliate.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4">
-                  <div>
-                    <p className="font-medium text-slate-900">{affiliate.name}</p>
-                    <p className="text-sm text-slate-700">{affiliate.email}</p>
-                  </div>
+                  <p className="font-medium text-slate-900">{affiliate.name}</p>
                 </td>
-                <td className="px-6 py-4 text-slate-900">{affiliate.referrals}</td>
-                <td className="px-6 py-4 text-slate-900">{affiliate.earnings}</td>
+                <td className="px-6 py-4 text-slate-700 text-sm">{affiliate.appliedAt}</td>
                 <td className="px-6 py-4">
-                  <span className={`px-2 py-2 rounded-full text-xs font-medium ${
-                    affiliate.status === 'active' 
-                      ? 'bg-brand-green-100 text-brand-green-800' 
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    affiliate.status === 'approved'
+                      ? 'bg-brand-green-100 text-brand-green-800'
+                      : affiliate.status === 'rejected'
+                      ? 'bg-red-100 text-red-800'
                       : 'bg-yellow-100 text-yellow-800'
                   }`}>
                     {affiliate.status}

@@ -47,21 +47,31 @@ export default function PublicLandingPage({ config }: { config: LandingPageConfi
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="relative w-full">
-        <div className="relative overflow-hidden" style={{ height: 'clamp(260px, 40vw, 480px)' }}>
-          <Image src={config.hero.image} alt={config.hero.title} fill className="object-cover" priority sizes="100vw" />
-        </div>
-        <div className="bg-white py-10 border-t">
-          <div className="max-w-5xl mx-auto px-4 text-center">
-            {config.hero.tag && (
-              <p className={`font-semibold text-sm mb-2 uppercase tracking-wide ${config.hero.tagColor || 'text-brand-blue-600'}`}>
-                {config.hero.tag}
-              </p>
-            )}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-3">{config.hero.title}</h1>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">{config.hero.subtitle}</p>
-          </div>
+      {/* Hero — full-bleed image with text overlay */}
+      <section className="relative w-full overflow-hidden" style={{ minHeight: 'clamp(420px, 55vw, 640px)' }}>
+        <Image
+          src={config.hero.image}
+          alt={config.hero.title}
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        {/* Dark gradient scrim — bottom-heavy so text is always readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
+        {/* Text anchored to bottom-left */}
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-12 pt-20 max-w-5xl mx-auto">
+          {config.hero.tag && (
+            <p className={`font-bold text-sm mb-3 uppercase tracking-widest ${config.hero.tagColor || 'text-brand-blue-400'}`}>
+              {config.hero.tag}
+            </p>
+          )}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 leading-tight drop-shadow-md">
+            {config.hero.title}
+          </h1>
+          <p className="text-lg sm:text-xl text-white/90 max-w-3xl leading-relaxed drop-shadow">
+            {config.hero.subtitle}
+          </p>
         </div>
       </section>
 

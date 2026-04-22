@@ -482,49 +482,24 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
             {/* Quick Actions */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
               <h2 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Link
-                  href="/lms/courses"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
-                >
-                  <BookOpen className="w-8 h-8 text-brand-blue-600 mb-2" />
-                  <span className="text-sm font-medium text-slate-900">My Courses</span>
-                </Link>
-                <Link
-                  href="/lms/certificates"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
-                >
-                  <Award className="w-8 h-8 text-emerald-600 mb-2" />
-                  <span className="text-sm font-medium text-slate-900">Certificates</span>
-                </Link>
-                <Link
-                  href="/lms/attendance"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
-                >
-                  <Calendar className="w-8 h-8 text-amber-600 mb-2" />
-                  <span className="text-sm font-medium text-slate-900">Attendance</span>
-                </Link>
-                <Link
-                  href="/support/contact"
-                  className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
-                >
-                  <MessageSquare className="w-8 h-8 text-brand-blue-600 mb-2" />
-                  <span className="text-sm font-medium text-slate-900">Get Help</span>
-                </Link>
-                <Link
-                  href="/credentials"
-                  className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-slate-50 transition"
-                >
-                  <FileText className="w-8 h-8 text-brand-orange-600 mb-2" />
-                  <span className="text-sm font-medium text-slate-900">Credentials</span>
-                </Link>
-                <Link
-                  href="/transcript"
-                  className="flex flex-col items-center p-4 bg-white rounded-lg hover:bg-slate-50 transition"
-                >
-                  <ScrollText className="w-8 h-8 text-slate-600 mb-2" />
-                  <span className="text-sm font-medium text-slate-900">Transcript</span>
-                </Link>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                {[
+                  { href: '/lms/courses',      icon: <BookOpen className="w-7 h-7 text-brand-blue-600" />,    label: 'My Courses' },
+                  { href: '/lms/certificates', icon: <Award className="w-7 h-7 text-emerald-600" />,          label: 'Certificates' },
+                  { href: '/lms/attendance',   icon: <Calendar className="w-7 h-7 text-amber-600" />,         label: 'Attendance' },
+                  { href: '/credentials',      icon: <FileText className="w-7 h-7 text-brand-orange-600" />,  label: 'Credentials' },
+                  { href: '/transcript',       icon: <ScrollText className="w-7 h-7 text-slate-600" />,       label: 'Transcript' },
+                  { href: '/support/contact',  icon: <MessageSquare className="w-7 h-7 text-brand-blue-600" />, label: 'Get Help' },
+                ].map(({ href, icon, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="flex flex-col items-center p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
+                  >
+                    {icon}
+                    <span className="text-xs font-medium text-slate-900 mt-2 text-center">{label}</span>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -615,44 +590,6 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
                 <MessageSquare className="w-4 h-4" />
                 Contact Support
               </Link>
-            </div>
-
-            {/* Certificates */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-slate-900">Certificates</h2>
-                  <Link href="/certificates" className="text-sm text-brand-orange-600 hover:text-brand-orange-700">
-                    View All
-                  </Link>
-                </div>
-              </div>
-              <div className="p-6">
-                {certificates && certificates.length > 0 ? (
-                  <div className="space-y-4">
-                    {certificates.map((cert: any) => (
-                      <div key={cert.id} className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-brand-green-100 rounded-full flex items-center justify-center">
-                          <Award className="w-5 h-5 text-brand-green-600" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-slate-900 text-sm truncate">
-                            {cert.course_title || 'Certificate'}
-                          </p>
-                          <p className="text-xs text-slate-700">
-                            {cert.certificate_number} &middot; {cert.issued_at ? new Date(cert.issued_at).toLocaleDateString() : ''}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-4">
-                    <Award className="w-10 h-10 text-slate-700 mx-auto mb-2" />
-                    <p className="text-sm text-slate-700">Complete courses to earn certificates</p>
-                  </div>
-                )}
-              </div>
             </div>
 
             {/* Certification Pipeline */}

@@ -258,7 +258,7 @@ export default function EntrepreneurshipPage() {
               {
                 title: "Flexible Schedule",
                 description: "Design your work around your life, not the other way around. Many small business owners work hard but on their own terms — choosing when, where, and how they work.",
-                image: "/images/pages/barber-apprentice-learning.jpg"
+                image: "/images/pages/admin-startup-hero.jpg"
               },
               {
                 title: "Community Impact",
@@ -342,7 +342,7 @@ export default function EntrepreneurshipPage() {
             {[
               { title: "Registered Business Entity", desc: "LLC or DBA filed with Indiana Secretary of State, EIN obtained, business bank account opened.", image: "/images/pages/office-admin-desk.jpg" },
               { title: "Lender-Ready Business Plan", desc: "Complete business plan with market analysis, financial projections, and operational strategy — ready for SBA lenders.", image: "/images/pages/business-sector.jpg" },
-              { title: "Marketing Foundation", desc: "Google Business Profile, social media accounts, brand identity, and a 90-day marketing action plan.", image: "/images/pages/barber-apprentice-learning.jpg" },
+              { title: "Marketing Foundation", desc: "Google Business Profile, social media accounts, brand identity, and a 90-day marketing action plan.", image: "/images/pages/entrepreneurship.jpg" },
               { title: "Mentor & Network", desc: "Matched with an experienced business mentor for 3 months. Access to alumni network and quarterly meetups.", image: "/images/pages/career-services-hero.jpg" },
             ].map((item, index) => (
               <motion.div

@@ -62,12 +62,12 @@ export interface CertProvider {
    * Used on provider detail pages so a proctor at the testing center can
    * launch the exam system with one click without hunting for the login page.
    */
-  examPortalUrl?: string;
+
   /**
    * Short proctor note shown next to the portal button — login requirements,
    * candidate check-in steps, or anything the proctor needs before clicking launch.
    */
-  examPortalNote?: string;
+
   /** Whether Elevate is currently an active authorized site */
   status: 'active' | 'available_through_partner';
   /** Hide from public-facing pages (e.g. not yet offered, internal only) */
@@ -136,8 +136,6 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.escogroup.org/esco/certifications/epa608.aspx',
-    examPortalUrl: 'https://www.escogroup.org/esco/login/',
-    examPortalNote: 'Log in with the Elevate proctor account. Select "Administer Exam", then check in the candidate by confirmation code.',
     status: 'active',
     fees: [...EPA608_FEES],
     groupDiscount: 'Groups of 5+ — contact us for employer/cohort pricing',
@@ -209,8 +207,6 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://nrffoundation.org/riseup',
-    examPortalUrl: 'https://riseup.nrf.com/',
-    examPortalNote: 'Log in to the RISE Up Testing Center portal. Select the candidate\'s name from today\'s roster to launch their exam.',
     status: 'active',
     fees: [...NRF_FEES],
     ncrcJobProfiles: [
@@ -300,8 +296,6 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://certiport.pearsonvue.com/Locator',
-    examPortalUrl: 'https://certiport.pearsonvue.com/',
-    examPortalNote: 'Log in to the Certiport Management System (CMS) with the proctor account. Go to Exams → Start Exam Session → enter the candidate\'s CMS username to begin.',
     status: 'active',
     fees: [...CERTIPORT_FEES],
     groupDiscount: 'Groups of 5+ — contact us for cohort pricing',
@@ -408,8 +402,6 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.nhanow.com/',
-    examPortalUrl: 'https://www.nhanow.com/testing-centers',
-    examPortalNote: 'Log in to the NHA Testing Center portal. Search candidate by last name or confirmation code, verify eligibility, then launch the exam session.',
     status: 'active',
     // All NHA exams: $149 exam voucher (pass-through) + $94 testing & administration = $243 total.
     // Pricing locked per owner decision — do not modify without approval.
@@ -513,8 +505,6 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.act.org/content/act/en/products-and-services/workkeys-for-job-seekers.html',
-    examPortalUrl: 'https://workkeys.act.org/',
-    examPortalNote: 'Log in to the ACT WorkKeys Testing Center portal. Locate the candidate\'s registration, verify their photo ID, then launch the assigned assessments.',
     status: 'active',
     fees: [...WORKKEYS_FEES],
     groupDiscount: 'Groups of 5+ — $30/assessment. Contact us for employer or cohort scheduling.',
@@ -618,8 +608,6 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.osha.gov/training/outreach',
-    examPortalUrl: 'https://www.careersafeonline.com/',
-    examPortalNote: 'Log in to the CareerSafe instructor portal. Enroll the candidate in the appropriate OSHA course, then launch the online course session for them.',
     status: 'active',
     publicVisible: true,
     fees: [
@@ -691,8 +679,6 @@ export const CERT_PROVIDERS: Record<string, CertProvider> = {
       },
     ],
     verifyUrl: 'https://www.midlandtesting.com/',
-    examPortalUrl: 'https://www.midlandtesting.com/testing-centers',
-    examPortalNote: 'Log in to the Midland Testing proctor portal with the Elevate site credentials. Locate the candidate by their registration ID or last name, verify photo ID, then launch the assigned assessment.',
     status: 'active',
     fees: [
       { label: 'Core assessment', amount: 50, note: 'Includes exam + Midland registration' },

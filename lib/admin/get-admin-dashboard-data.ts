@@ -79,7 +79,11 @@ const MONTH_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct'
 
 export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   const supabase = await createClient();
-  const db = await getAdminClient();
+  const adminClient = await getAdminClient();
+  // Fall back to the anon client if the service role key is absent.
+  // Queries that require elevated privileges will return empty results
+  // rather than crashing the entire dashboard.
+  const db = adminClient ?? supabase;
 
   let adminProfile: { full_name: string | null; role: string } | null = null;
   // Auth is critical — throw if it fails. Profile name resolution is non-critical

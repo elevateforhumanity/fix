@@ -5,11 +5,12 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
 // Known course UUIDs → program slug for courses with dedicated pages.
 // These redirect immediately without querying Supabase.
 const COURSE_ID_TO_PROGRAM_SLUG: Record<string, string> = {
-  'f0593164-55be-5867-98e7-8a86770a8dd0': 'hvac-technician',
+  [HVAC_COURSE_ID]: 'hvac-technician',
 };
 
 export async function generateMetadata({

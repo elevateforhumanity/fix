@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 import { CheckCircle, AlertCircle, Loader2, Database, Volume2, BookOpen, Play } from 'lucide-react';
 
 interface StepStatus {
@@ -16,7 +17,7 @@ export default function HVACActivationPage() {
   const [videoStep, setVideoStep] = useState<StepStatus>({ status: 'idle' });
   const [statusStep, setStatusStep] = useState<StepStatus>({ status: 'idle' });
 
-  const COURSE_ID = '0ba9a61c-1f1b-4019-be6f-90e92eba2bc0';
+  const COURSE_ID = HVAC_COURSE_ID;
 
   // Step 1: Check if SQL migration has been run
   const checkSqlStatus = async () => {

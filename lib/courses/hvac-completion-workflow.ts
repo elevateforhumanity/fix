@@ -19,7 +19,7 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { setAuditContext } from '@/lib/audit-context';
 import { sendEmail } from '@/lib/email/sendgrid';
 import { logger } from '@/lib/logger';
-import { HVAC_COURSE_ID, HVAC_PROGRAM_ID } from './hvac-uuids';
+import { resolveHvacCourseId, resolveHvacProgramId } from './resolvers';
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.elevateforhumanity.org';
 
@@ -283,18 +283,22 @@ export async function advanceHvacWorkflow(userId: string): Promise<{
   const cprComplete = approved('CPR/AED/First Aid');
   const epa608Complete = approved('EPA 608 Universal');
 
+  // Resolve HVAC IDs from DB (slug-based, not hardcoded UUID)
+  const hvacCourseId = await resolveHvacCourseId();
+  const hvacProgramId = await resolveHvacProgramId();
+
   // Check if all internal lessons are complete
   const { data: lessonProgress } = await db
     .from('lesson_progress')
     .select('lesson_id')
     .eq('user_id', userId)
-    .eq('course_id', HVAC_COURSE_ID)
+    .eq('course_id', hvacCourseId)
     .eq('completed', true);
 
   const { data: allLessons } = await db
     .from('training_lessons')
     .select('id')
-    .eq('course_id_uuid', HVAC_COURSE_ID);
+    .eq('course_id_uuid', hvacCourseId);
 
   const totalLessons = allLessons?.length || 94;
   const completedLessons = lessonProgress?.length || 0;

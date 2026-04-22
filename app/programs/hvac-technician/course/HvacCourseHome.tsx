@@ -8,18 +8,17 @@ import {
   ChevronRight, Play, X, Maximize2,
 } from 'lucide-react';
 import type { CourseDefinition, CourseLesson, CourseModule } from '@/lib/courses/definitions';
-import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 import {
   HVAC_FIRST_LESSON_ID as FIRST_LESSON_ID,
   HVAC_LESSON_UUID as LESSON_UUID,
   HVAC_MODULE_FIRST_LESSON as MODULE_FIRST_LESSON,
 } from '@/lib/courses/hvac-legacy-maps';
 
-function lessonUrl(id: string) { return `/courses/${HVAC_COURSE_ID}/lessons/${id}`; }
-function lessonUrlById(defId: string) {
+function lessonUrl(courseId: string, id: string) { return `/courses/${courseId}/lessons/${id}`; }
+function lessonUrlById(courseId: string, defId: string) {
   const uuid = LESSON_UUID[defId];
-  if (uuid) return lessonUrl(uuid);
-  return lessonUrl(MODULE_FIRST_LESSON[defId.replace(/-\d+$/, '')] || FIRST_LESSON_ID);
+  if (uuid) return lessonUrl(courseId, uuid);
+  return lessonUrl(courseId, MODULE_FIRST_LESSON[defId.replace(/-\d+$/, '')] || FIRST_LESSON_ID);
 }
 
 const TYPE_ICON: Record<CourseLesson['type'], React.ElementType> = {
@@ -33,7 +32,7 @@ const TYPE_LABEL: Record<CourseLesson['type'], string> = {
  * 16 unique HVAC/trades images — all >200KB, no duplicates, contextually matched.
  */
 const MODULE_PHOTO: string[] = [
-  '/images/pages/barber-apprentice-learning.jpg',                 // 1  Orientation — students in class
+  '/images/pages/admin-ferpa-training-hero.jpg',                  // 1  Orientation — students in class
   '/images/pages/hvac-hero.jpg',                      // 2  Fundamentals — HVAC hero shot
   '/images/pages/electrical.jpg',                        // 3  Electrical — wiring/panels
   '/images/pages/hvac-technician.jpg',                   // 4  Heating — HVAC tech at work
@@ -109,8 +108,8 @@ function VideoPlayer({ src, onClose }: { src: string; onClose: () => void }) {
 }
 
 /* ── Lesson Drawer ── */
-function LessonDrawer({ module, index, done, onClose }: {
-  module: CourseModule; index: number; done: string[]; onClose: () => void;
+function LessonDrawer({ module, index, done, courseId, onClose }: {
+  module: CourseModule; index: number; done: string[]; courseId: string; onClose: () => void;
 }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -135,7 +134,7 @@ function LessonDrawer({ module, index, done, onClose }: {
             const uuid = LESSON_UUID[lesson.id] || lesson.id;
             const isDone = done.includes(uuid);
             return (
-              <Link key={lesson.id} href={lessonUrlById(lesson.id)}
+              <Link key={lesson.id} href={lessonUrlById(courseId, lesson.id)}
                 className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition group">
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-semibold ${
                   isDone ? 'bg-green-500 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'
@@ -162,10 +161,11 @@ function LessonDrawer({ module, index, done, onClose }: {
 /* ══════════════════════════════════════════════════════════════════ */
 
 export default function HvacCourseHome({
-  course, completedLessonIds = [], progressPercent = 0,
+  course, courseId, completedLessonIds = [], progressPercent = 0,
   lastLessonId = null, lastLessonTitle = null, totalTimeSeconds = 0,
 }: {
   course: CourseDefinition;
+  courseId: string;
   completedLessonIds?: string[];
   progressPercent?: number;
   lastLessonId?: string | null;
@@ -177,7 +177,7 @@ export default function HvacCourseHome({
   const total = course.modules.reduce((s, m) => s + m.lessons.length, 0);
   const done = completedLessonIds.length;
   const next = useMemo(() => findNext(course.modules, completedLessonIds), [course.modules, completedLessonIds]);
-  const continueUrl = lastLessonId ? lessonUrl(lastLessonId) : next ? lessonUrl(next.lessonId) : lessonUrl(FIRST_LESSON_ID);
+  const continueUrl = lastLessonId ? lessonUrl(courseId, lastLessonId) : next ? lessonUrl(courseId, next.lessonId) : lessonUrl(courseId, FIRST_LESSON_ID);
   const allDone = done >= total && total > 0;
 
   return (
@@ -319,7 +319,7 @@ export default function HvacCourseHome({
 
       {/* Lesson Drawer */}
       {openModule !== null && (
-        <LessonDrawer module={course.modules[openModule]} index={openModule} done={completedLessonIds} onClose={() => setOpenModule(null)} />
+        <LessonDrawer module={course.modules[openModule]} index={openModule} done={completedLessonIds} courseId={courseId} onClose={() => setOpenModule(null)} />
       )}
     </div>
   );

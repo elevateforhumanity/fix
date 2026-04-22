@@ -97,6 +97,11 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
     return () => mq.removeEventListener('change', handler);
   }, []);
 
+  // Track the previous src so we only reset state when the src genuinely changes
+  // (not on every render). This prevents the poster flash caused by HeroVideo
+  // switching from the SSR desktop src to the mobile src after hydration.
+  const prevSrcRef = useRef<string>('');
+
   // Immediate autoplay for above-the-fold hero videos.
   // Fires on mount and whenever src changes (e.g. desktop→mobile swap after hydration).
   // Only one play path runs — autoPlayOnMount OR observer, never both.
@@ -104,9 +109,14 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
     if (!autoPlayOnMount || reducedMotion || failed) return;
     const video = ref.current;
     if (!video) return;
-    // Reset playing/ended state when src changes so the fade-in triggers again
-    setPlaying(false);
-    setEnded(false);
+    // Only reset the fade state when the src actually changes to a new URL.
+    // Skipping the reset when src is unchanged prevents the poster blink that
+    // occurs when HeroVideo re-renders after setMounted(true) with the same src.
+    if (prevSrcRef.current !== src) {
+      prevSrcRef.current = src;
+      setPlaying(false);
+      setEnded(false);
+    }
     // Wait for enough data before calling play() to avoid AbortError races
     if (video.readyState >= 2) {
       video.play().catch(() => {});
@@ -172,8 +182,12 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
   if (poster) {
     return (
       <>
-        {/* Poster — z-1, always visible until video plays.
-            Sits above the container background but below the video (z-2).
+        {/* Poster — z-1, sits behind the video (z-2).
+            For autoPlayOnMount heroes: starts hidden (opacity-0) so it never
+            flashes before the video plays. Only becomes visible if the video
+            ends (non-looping) or fails.
+            For scroll-triggered videos: starts visible so there's no blank gap
+            before the video enters the viewport and begins playing.
             Explicit inline position/size so it fills the container regardless
             of what className the caller passes — Safari/iOS stacking fix. */}
         <img
@@ -183,7 +197,11 @@ export default function CanonicalVideo({ src, poster, className, threshold = 0.1
           fetchPriority={autoPlayOnMount ? 'high' : 'auto'}
           loading={autoPlayOnMount ? 'eager' : 'lazy'}
           decoding="async"
-          className={`${className} transition-opacity duration-700 ${playing && !ended ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          className={`${className} transition-opacity duration-700 ${
+            autoPlayOnMount
+              ? playing && !ended ? 'opacity-0 pointer-events-none' : ended ? 'opacity-100' : 'opacity-0'
+              : playing && !ended ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
           style={{ objectFit: 'cover', objectPosition: 'center', zIndex: 1, position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         />
         {/* Video — z-2, fades in once onPlaying fires (first real frame on screen).

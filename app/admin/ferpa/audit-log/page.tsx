@@ -1,164 +1,123 @@
+import { Metadata } from 'next';
 import { requireRole } from '@/lib/auth/require-role';
-import { getAdminClient } from '@/lib/supabase/admin';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { Shield, FileText } from 'lucide-react';
+import { getAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
+import { Shield } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
-// FERPA-relevant action prefixes in audit_logs
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+  title: 'FERPA Audit Log | Admin | Elevate for Humanity',
+};
+
 const FERPA_ACTIONS = [
-  'ferpa',
-  'record_access',
-  'record_disclosure',
-  'consent',
-  'directory_info',
-  'education_record',
+  'ferpa.access_request',
+  'ferpa.disclosure',
+  'ferpa.consent',
+  'ferpa.opt_out',
+  'ferpa.directory_info_change',
+  'ferpa.record_amendment',
+  'document.viewed',
+  'document.downloaded',
+  'document.shared',
 ];
 
-export default async function FerpaAuditLogPage() {
-  await requireRole(['admin', 'super_admin', 'staff']);
-  const db = await getAdminClient();
+async function getFerpaAuditLog() {
+  const adminClient = await getAdminClient();
+  const fallback = await createClient();
+  const db = adminClient ?? fallback;
 
-  // Pull audit_logs rows whose action starts with a FERPA-relevant prefix
-  // Supabase doesn't support OR-ilike natively in one call, so we filter client-side
-  // after fetching recent logs (capped at 200 to keep it fast).
-  const { data: allLogs } = await db
+  const { data, error } = await db
     .from('audit_logs')
-    .select('id, action, actor_id, target_type, target_id, metadata, created_at, profiles(full_name, email)')
+    .select('id, action, actor_id, target_id, metadata, created_at, profiles:actor_id(full_name, email)')
+    .in('action', FERPA_ACTIONS)
     .order('created_at', { ascending: false })
     .limit(200);
 
-  const logs = (allLogs ?? []).filter((log: any) =>
-    FERPA_ACTIONS.some((prefix) =>
-      (log.action ?? '').toLowerCase().startsWith(prefix)
-    )
-  );
+  if (error) return [];
+  return data ?? [];
+}
 
-  // Also pull ferpa_access_logs as a dedicated source
-  const { data: accessLogs } = await db
-    .from('ferpa_access_logs')
-    .select('id, action, record_type, justification, created_at, user_id, profiles(full_name, email)')
-    .order('created_at', { ascending: false })
-    .limit(100);
+const actionColor: Record<string, string> = {
+  'ferpa.disclosure': 'bg-red-100 text-red-700',
+  'ferpa.access_request': 'bg-amber-100 text-amber-700',
+  'ferpa.consent': 'bg-green-100 text-green-700',
+  'ferpa.opt_out': 'bg-purple-100 text-purple-700',
+  'document.viewed': 'bg-blue-100 text-blue-700',
+  'document.downloaded': 'bg-blue-100 text-blue-700',
+};
+
+export default async function FerpaAuditLogPage() {
+  await requireRole(['admin', 'super_admin']);
+  const entries = await getFerpaAuditLog();
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <Breadcrumbs
-          items={[
-            { label: 'Admin', href: '/admin' },
-            { label: 'FERPA', href: '/admin/ferpa' },
-            { label: 'Audit Log' },
-          ]}
-        />
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <Breadcrumbs items={[
+          { label: 'Admin', href: '/admin' },
+          { label: 'FERPA', href: '/admin/ferpa' },
+          { label: 'Audit Log' },
+        ]} />
 
-        <div className="mt-6 mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">FERPA Audit Log</h1>
-          <p className="text-slate-600 mt-1">
-            Compliance audit trail for all education record access and disclosure events.
-          </p>
+        <div className="mt-6 mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">FERPA Audit Log</h1>
+            <p className="text-slate-600 mt-1">
+              All FERPA-relevant actions — disclosures, access requests, consent changes, and record views.
+            </p>
+          </div>
+          <span className="text-sm text-slate-500">{entries.length} entries</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <Shield className="w-5 h-5 text-brand-blue-600" />
-              <span className="text-sm font-medium text-slate-600">FERPA Audit Events</span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900">{logs.length}</p>
-            <p className="text-xs text-slate-400 mt-1">From audit_logs (last 200)</p>
+        {entries.length === 0 ? (
+          <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
+            <Shield className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <p className="text-slate-600 font-medium">No FERPA audit entries found</p>
+            <p className="text-slate-500 text-sm mt-1">
+              FERPA-relevant actions will be logged here automatically.
+            </p>
           </div>
-          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <FileText className="w-5 h-5 text-slate-500" />
-              <span className="text-sm font-medium text-slate-600">Record Access Events</span>
-            </div>
-            <p className="text-3xl font-bold text-slate-900">{accessLogs?.length ?? 0}</p>
-            <p className="text-xs text-slate-400 mt-1">From ferpa_access_logs</p>
-          </div>
-        </div>
-
-        {/* FERPA Access Logs */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-6">
-          <div className="px-6 py-4 border-b border-slate-100">
-            <h2 className="font-semibold text-slate-900">Record Access Events</h2>
-          </div>
-          {!accessLogs?.length ? (
-            <div className="py-10 text-center text-sm text-slate-400">No record access events logged.</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-100 bg-slate-50">
-                    <th className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">User</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Action</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Record Type</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Justification</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Date</th>
+        ) : (
+          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <table className="w-full text-sm">
+              <thead className="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th className="px-6 py-3 text-left font-medium text-slate-700">Timestamp</th>
+                  <th className="px-6 py-3 text-left font-medium text-slate-700">Action</th>
+                  <th className="px-6 py-3 text-left font-medium text-slate-700">Actor</th>
+                  <th className="px-6 py-3 text-left font-medium text-slate-700">Target</th>
+                  <th className="px-6 py-3 text-left font-medium text-slate-700">Details</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {entries.map((e: any) => (
+                  <tr key={e.id} className="hover:bg-slate-50">
+                    <td className="px-6 py-3 text-slate-500 whitespace-nowrap">
+                      {new Date(e.created_at).toLocaleString()}
+                    </td>
+                    <td className="px-6 py-3">
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${actionColor[e.action] ?? 'bg-slate-100 text-slate-700'}`}>
+                        {e.action}
+                      </span>
+                    </td>
+                    <td className="px-6 py-3 text-slate-700">
+                      {(e.profiles as any)?.full_name ?? (e.profiles as any)?.email ?? e.actor_id?.slice(0, 8) + '…'}
+                    </td>
+                    <td className="px-6 py-3 text-slate-500 font-mono text-xs">
+                      {e.target_id ? e.target_id.slice(0, 8) + '…' : '—'}
+                    </td>
+                    <td className="px-6 py-3 text-slate-500 max-w-xs truncate">
+                      {e.metadata ? JSON.stringify(e.metadata).slice(0, 80) : '—'}
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {accessLogs.map((log: any) => (
-                    <tr key={log.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="py-3.5 px-5">
-                        <p className="font-medium text-slate-900">{log.profiles?.full_name ?? '—'}</p>
-                        <p className="text-xs text-slate-400">{log.profiles?.email ?? ''}</p>
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-700 text-xs font-mono">{log.action}</td>
-                      <td className="py-3.5 px-4 text-slate-600 text-xs">{log.record_type ?? '—'}</td>
-                      <td className="py-3.5 px-4 text-slate-500 text-xs max-w-[200px] truncate">
-                        {log.justification ?? '—'}
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-400 text-xs">
-                        {log.created_at ? new Date(log.created_at).toLocaleString() : '—'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-
-        {/* General FERPA audit events from audit_logs */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100">
-            <h2 className="font-semibold text-slate-900">FERPA System Events</h2>
+                ))}
+              </tbody>
+            </table>
           </div>
-          {!logs.length ? (
-            <div className="py-10 text-center text-sm text-slate-400">No FERPA system events in audit log.</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-100 bg-slate-50">
-                    <th className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-widest text-slate-400">Actor</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Action</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Target</th>
-                    <th className="text-left py-3 px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">Date</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {logs.map((log: any) => (
-                    <tr key={log.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="py-3.5 px-5">
-                        <p className="font-medium text-slate-900">{log.profiles?.full_name ?? '—'}</p>
-                        <p className="text-xs text-slate-400">{log.profiles?.email ?? ''}</p>
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-700 text-xs font-mono">{log.action}</td>
-                      <td className="py-3.5 px-4 text-slate-500 text-xs">
-                        {log.target_type ? `${log.target_type} ${log.target_id ?? ''}` : '—'}
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-400 text-xs">
-                        {log.created_at ? new Date(log.created_at).toLocaleString() : '—'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

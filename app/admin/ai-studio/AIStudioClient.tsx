@@ -90,6 +90,8 @@ export default function AIStudioPage() {
           </div>
         )}
       </div>
+
+      {/* Floating AI assistant — available on all AI Studio tabs */}
       <AdminAIAssistant />
     </div>
   );

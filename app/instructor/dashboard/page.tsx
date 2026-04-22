@@ -178,6 +178,19 @@ export default async function InstructorDashboard() {
     .order('total_approved_hours', { ascending: false })
     .limit(10);
 
+  // Resolve names for hour summary rows
+  const hourStudentIds = (hourSummary ?? []).map((r: any) => r.student_id).filter(Boolean);
+  const hourProfileMap = new Map<string, string>();
+  if (hourStudentIds.length > 0) {
+    const { data: hourProfiles } = await supabase
+      .from('profiles')
+      .select('id, full_name, email')
+      .in('id', hourStudentIds);
+    (hourProfiles ?? []).forEach((p: any) => {
+      hourProfileMap.set(p.id, p.full_name?.trim() || p.email || p.id.slice(0, 8) + '…');
+    });
+  }
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -513,7 +526,7 @@ export default async function InstructorDashboard() {
                     <tbody className="divide-y divide-slate-100">
                       {hourSummary!.map((row: any) => (
                         <tr key={row.student_id}>
-                          <td className="py-2 text-slate-700 font-mono text-xs truncate max-w-[120px]">{row.student_id.slice(0, 8)}…</td>
+                          <td className="py-2 text-slate-700 font-medium truncate max-w-[160px]">{hourProfileMap.get(row.student_id) ?? row.student_id.slice(0, 8) + '…'}</td>
                           <td className="py-2 text-right text-slate-600">{Number(row.theory_hours ?? 0).toFixed(1)}</td>
                           <td className="py-2 text-right text-slate-600">{Number(row.lab_hours ?? 0).toFixed(1)}</td>
                           <td className="py-2 text-right text-slate-600">{Number(row.field_hours ?? 0).toFixed(1)}</td>

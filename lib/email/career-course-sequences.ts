@@ -1,5 +1,6 @@
 // Email sequences for career course purchasers.
 // All CTA links route to the canonical LMS paths, not /career-services/.
+import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
 export interface CourseEmailData {
   email: string;
@@ -16,7 +17,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://elevateforhumanity
 // Maps program slug → LMS course UUID for direct deep-linking.
 // Add new programs here as they are seeded.
 const COURSE_ID_MAP: Record<string, string> = {
-  'hvac-technician': '0ba9a61c-1f1b-4019-be6f-90e92eba2bc0',
+  'hvac-technician': HVAC_COURSE_ID,
 };
 
 function lmsUrl(data: CourseEmailData): string {

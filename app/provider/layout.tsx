@@ -32,7 +32,8 @@ export default async function ProviderLayout({
     .eq('id', user.id)
     .maybeSingle();
 
-  if (!profile || profile.role !== 'provider_admin') {
+  const ALLOWED = ['provider_admin', 'admin', 'super_admin', 'staff'];
+  if (!profile || !ALLOWED.includes(profile.role)) {
     redirect('/unauthorized');
   }
 

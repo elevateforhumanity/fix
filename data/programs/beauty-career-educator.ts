@@ -6,7 +6,7 @@ export const BEAUTY_CAREER_EDUCATOR: ProgramSchema = {
   subtitle: '12-week hybrid program combining salon services, peer teaching, entrepreneurship, and workforce readiness.',
   sector: 'personal-services',
   category: 'Beauty & Personal Services',
-  heroImage: '/images/pages/barber-styling-hair.jpg',
+  heroImage: '/images/pages/cosmetology-hero.jpg',
   heroImageAlt: 'Beauty educator training students in salon techniques',
   videoSrc: '/videos/beauty-cosmetology.mp4',
   deliveryMode: 'hybrid',

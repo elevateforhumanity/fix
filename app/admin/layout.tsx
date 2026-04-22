@@ -168,6 +168,8 @@ export default async function AdminLayout({
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <AdminNav userName={headerData.userName} notifs={headerData.notifs} />
       <IdleTimeoutGuard />
+      <PWAManager />
+      <UpdatePrompt />
       <main id="main-content" className="pt-16">
         {children}
       </main>

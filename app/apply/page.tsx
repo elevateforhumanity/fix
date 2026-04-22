@@ -207,10 +207,12 @@ export default async function ApplyPage({
                 alt="Launch your own training program with Elevate"
                 fill
                 className="object-cover"
-               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+              {/* Gradient scrim so text is readable over any image */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-5">
-                <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">Become a Program Holder</h2>
-                <p className="text-slate-900 text-sm leading-relaxed mb-3">
+                <h2 className="text-lg sm:text-xl font-bold text-white mb-2">Become a Program Holder</h2>
+                <p className="text-white/90 text-sm leading-relaxed mb-3">
                   Launch your own workforce training program on Elevate&apos;s platform.
                   We provide the LMS, curriculum, and compliance infrastructure.
                 </p>

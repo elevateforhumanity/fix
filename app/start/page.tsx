@@ -59,7 +59,7 @@ export default function StartPage() {
   return (
     <div className="min-h-screen bg-white">
       <HeroVideo
-        posterImage="/images/pages/comp-home-hero-programs.jpg"
+        posterImage="/images/pages/funding-page-1.jpg"
         videoSrcDesktop={heroBanners['start'].videoSrcDesktop}
         voiceoverSrc={heroBanners['start'].voiceoverSrc}
         microLabel={heroBanners['start'].microLabel}

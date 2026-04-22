@@ -26,6 +26,14 @@ async function getJobsData() {
     .from('employers')
     .select('*', { count: 'exact', head: true });
 
+  const { count: applicationCount } = await supabase
+    .from('job_applications')
+    .select('*', { count: 'exact', head: true });
+
+  const { count: placementCount } = await supabase
+    .from('job_placements')
+    .select('*', { count: 'exact', head: true });
+
   const activeJobs = jobPostings?.filter(j => j.status === 'active').length || 0;
 
   return {
@@ -34,6 +42,8 @@ async function getJobsData() {
       totalJobs: jobCount || 0,
       activeJobs,
       employers: employerCount || 0,
+      applications: applicationCount || 0,
+      placements: placementCount || 0,
     }
   };
 }
@@ -46,8 +56,8 @@ export default async function JobsPage() {
   const stats = [
     { label: 'Active Jobs', value: String(dbStats.activeJobs), icon: Briefcase },
     { label: 'Partner Employers', value: String(dbStats.employers), icon: Building2 },
-    { label: 'Applications', value: '156', icon: Clock },
-    { label: 'Placements', value: '89', icon: MapPin },
+    { label: 'Applications', value: String(dbStats.applications), icon: Clock },
+    { label: 'Placements', value: String(dbStats.placements), icon: MapPin },
   ];
 
   const jobs = dbJobs.length > 0 ? dbJobs.map((j: any) => ({
