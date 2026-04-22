@@ -8,8 +8,11 @@
  * metadata are pulled directly from the blueprint — no duplication.
  */
 
-import { barberApprenticeshipBlueprint } from '@/lib/curriculum/blueprints/barber-apprenticeship';
+import { loadJsonOnce } from '@/lib/data/json-cache';
 import type { BlueprintLessonRef, BlueprintQuizQuestion } from '@/lib/curriculum/blueprints/types';
+
+// 224 KB blueprint loaded from JSON — excluded from webpack module graph
+const barberApprenticeshipBlueprint = loadJsonOnce<any>('barber-apprenticeship-blueprint.json');
 
 export type EbookLesson = {
   slug: string;
