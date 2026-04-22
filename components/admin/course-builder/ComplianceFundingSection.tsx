@@ -4,6 +4,15 @@ import { Shield, CheckCircle } from 'lucide-react';
 import BuilderSection from './BuilderSection';
 import type { ProgramBuilderState } from './types';
 
+const COMPLIANCE_PROFILE_OPTIONS = [
+  { key: 'internal_basic',      label: 'Internal Basic',          description: 'Minimal rules for internal programs' },
+  { key: 'state_board_strict',  label: 'State Board (Strict)',    description: 'State licensing board requirements' },
+  { key: 'dol_apprenticeship',  label: 'DOL Apprenticeship',      description: 'Dept. of Labor registered apprenticeship (144hr min)' },
+  { key: 'icrc_peer_recovery',  label: 'ICRC Peer Recovery',      description: 'Indiana ICRC peer recovery specialist (46hr, 5 domains)' },
+  { key: 'naadac_peer_support', label: 'NAADAC Peer Support',     description: 'NAADAC peer support specialist (50hr)' },
+  { key: 'custom_regulated',    label: 'Custom Regulated',        description: 'Custom compliance rules — configure separately' },
+] as const;
+
 interface Props {
   state: ProgramBuilderState;
   onChange: (patch: Partial<ProgramBuilderState>) => void;
@@ -97,6 +106,41 @@ export default function ComplianceFundingSection({ state, onChange }: Props) {
             </div>
           </div>
         ))}
+
+        {/* Compliance profile selector */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Compliance Profile
+            <span className="ml-1.5 text-xs font-normal text-slate-400">— sets validation rules and minimum hour requirements</span>
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {COMPLIANCE_PROFILE_OPTIONS.map(opt => {
+              const active = state.compliance_profile_key === opt.key;
+              return (
+                <button
+                  key={opt.key}
+                  type="button"
+                  onClick={() => onChange({ compliance_profile_key: active ? null : opt.key })}
+                  className={`text-left rounded-lg border px-3 py-2.5 transition-colors ${
+                    active
+                      ? 'border-brand-blue-500 bg-brand-blue-50 ring-1 ring-brand-blue-500'
+                      : 'border-slate-200 hover:border-slate-300 bg-white'
+                  }`}
+                >
+                  <p className={`text-xs font-semibold ${active ? 'text-brand-blue-700' : 'text-slate-800'}`}>
+                    {opt.label}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-0.5 leading-snug">{opt.description}</p>
+                </button>
+              );
+            })}
+          </div>
+          {state.compliance_profile_key && (
+            <p className="mt-1.5 text-xs text-brand-blue-600 font-medium">
+              Active: {COMPLIANCE_PROFILE_OPTIONS.find(o => o.key === state.compliance_profile_key)?.label}
+            </p>
+          )}
+        </div>
 
         {/* Internal notes */}
         <div>

@@ -140,8 +140,6 @@ export async function POST(request: Request) {
 
   const auth = await apiRequireAdmin(request);
   if (auth.error) return auth.error;
-    return NextResponse.json({ error: auth.error }, { status: auth.status });
-  }
 
   let formData: FormData;
   try {

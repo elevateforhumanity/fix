@@ -54,11 +54,19 @@ CREATE TABLE IF NOT EXISTS public.course_lesson_versions (
 
 -- ── 3. Add FK from course_lessons.previous_version_id → course_lesson_versions ─
 
-ALTER TABLE public.course_lessons
-  ADD CONSTRAINT course_lessons_previous_version_fk
-  FOREIGN KEY (previous_version_id)
-  REFERENCES public.course_lesson_versions(id)
-  ON DELETE SET NULL;
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.table_constraints
+    WHERE constraint_name = 'course_lessons_previous_version_fk'
+      AND table_name = 'course_lessons'
+  ) THEN
+    ALTER TABLE public.course_lessons
+      ADD CONSTRAINT course_lessons_previous_version_fk
+      FOREIGN KEY (previous_version_id)
+      REFERENCES public.course_lesson_versions(id)
+      ON DELETE SET NULL;
+  END IF;
+END $$;
 
 -- ── 4. Index for fast version history lookup ──────────────────────────────────
 
@@ -70,6 +78,7 @@ CREATE INDEX IF NOT EXISTS idx_course_lesson_versions_lesson_id
 ALTER TABLE public.course_lesson_versions ENABLE ROW LEVEL SECURITY;
 
 -- Admins and instructors can read version history.
+DROP POLICY IF EXISTS "lesson_versions_read" ON public.course_lesson_versions;
 CREATE POLICY "lesson_versions_read"
   ON public.course_lesson_versions FOR SELECT
   TO authenticated

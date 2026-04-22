@@ -64,9 +64,7 @@ async function _POST(request: NextRequest) {
     if (rateLimited) return rateLimited;
 
     const auth = await apiRequireAdmin(request);
-  if (auth.error) return auth.error;
-      return NextResponse.json({ error: auth.error }, { status: auth.status });
-    }
+    if (auth.error) return auth.error;
     const { user, adminDb } = auth;
 
     // Parse + validate input

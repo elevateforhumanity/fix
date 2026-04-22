@@ -62,7 +62,7 @@ CREATE POLICY "review_log_read" ON public.program_review_log
     -- Org members see logs for their programs
     program_id IN (
       SELECT p.id FROM public.programs p
-      JOIN public.organization_users ou ON ou.org_id = p.org_id
+      JOIN public.organization_users ou ON ou.organization_id = p.organization_id
       WHERE ou.user_id = auth.uid() AND ou.status = 'active'
     )
   );

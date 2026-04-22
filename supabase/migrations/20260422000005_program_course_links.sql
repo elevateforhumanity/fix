@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS public.program_course_links (
 
 INSERT INTO public.program_course_links (org_id, program_slug, course_id, is_primary, status)
 SELECT
-  COALESCE(pcm.org_id, (SELECT id FROM public.organizations WHERE slug = 'elevate-core' LIMIT 1)),
+  COALESCE(pcm.org_id, (SELECT id FROM public.organizations WHERE slug = 'elevate-for-humanity' LIMIT 1)),
   pcm.program_slug,
   pcm.course_id,
   true,

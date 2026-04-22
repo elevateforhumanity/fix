@@ -10,12 +10,15 @@ CREATE TABLE IF NOT EXISTS public.program_course_map (
   updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- Seed the two existing hardcoded entries.
--- UUIDs match lib/courses/hvac-uuids.ts and lib/course-builder/schema.ts.
+-- Seed the two existing hardcoded entries only if the course IDs exist.
 INSERT INTO public.program_course_map (program_slug, course_id)
-VALUES
-  ('hvac-technician',      'f0593164-55be-5867-98e7-8a86770a8dd0'),
-  ('barber-apprenticeship', '3fb5ce19-1cde-434c-a8c6-f138d7d7aa17')
+SELECT 'hvac-technician', 'f0593164-55be-5867-98e7-8a86770a8dd0'::uuid
+WHERE EXISTS (SELECT 1 FROM public.courses WHERE id = 'f0593164-55be-5867-98e7-8a86770a8dd0')
+ON CONFLICT (program_slug) DO NOTHING;
+
+INSERT INTO public.program_course_map (program_slug, course_id)
+SELECT 'barber-apprenticeship', '3fb5ce19-1cde-434c-a8c6-f138d7d7aa17'::uuid
+WHERE EXISTS (SELECT 1 FROM public.courses WHERE id = '3fb5ce19-1cde-434c-a8c6-f138d7d7aa17')
 ON CONFLICT (program_slug) DO NOTHING;
 
 -- Trigger to keep updated_at current.

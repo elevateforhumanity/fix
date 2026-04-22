@@ -36,8 +36,6 @@ async function _POST(request: Request) {
 
   const auth = await apiRequireAdmin(request);
   if (auth.error) return auth.error;
-    return NextResponse.json({ error: auth.error }, { status: auth.status });
-  }
 
   if (!isOpenAIConfigured()) {
     return NextResponse.json(
@@ -216,8 +214,6 @@ async function _POST(request: Request) {
 async function _GET(request: Request) {
   const auth = await apiRequireAdmin(request);
   if (auth.error) return auth.error;
-    return NextResponse.json({ error: auth.error }, { status: auth.status });
-  }
 
   const { searchParams } = new URL(request.url);
   const jobId = searchParams.get('job_id');

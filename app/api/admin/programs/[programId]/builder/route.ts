@@ -14,7 +14,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { apiRequireAdmin } from '@/lib/admin/guards';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
 import { safeError, safeInternalError } from '@/lib/api/safe-error';
 
@@ -28,12 +27,20 @@ export async function PATCH(
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
-  const guard = await apiRequireAdmin(request);
-  if (guard.error) return guard.error;
-
   const { programId } = await params;
   const db = await getAdminClient();
   if (!db) return safeError('Service unavailable', 503);
+
+  // Resolve org_id for this program so builderGuard can scope access
+  const { data: progMeta } = await db
+    .from('programs')
+    .select('org_id')
+    .eq('id', programId)
+    .maybeSingle();
+
+  const { builderGuard } = await import('@/lib/auth/builder-guard');
+  const guard = await builderGuard(request, progMeta?.org_id ?? null);
+  if (guard.error) return guard.error;
 
   let body: any;
   try {

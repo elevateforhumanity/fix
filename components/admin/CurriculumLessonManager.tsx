@@ -4,12 +4,16 @@
  * CurriculumLessonManager
  *
  * Admin UI for editing curriculum_lessons rows — the live DB-driven LMS table.
- * Grouped by module_order. Exposes step_type, passing_score, script_text,
+ * Grouped by module_order. Exposes step_type, passing_score, content (JSONB),
  * video_file, and quiz_questions.
+ *
+ * content (JSONB) is the canonical rich-text field edited via RichContentEditor.
+ * script_text is retained as a read-only archive for HVAC legacy content.
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import RichContentEditor from '@/components/admin/lesson-editor/RichContentEditor';
 import {
   BookOpen, ClipboardList, FlaskConical, FileText, Award, GraduationCap,
   ChevronDown, ChevronUp, Save, AlertCircle, CheckCircle2,
@@ -29,6 +33,9 @@ interface CurriculumLesson {
   lesson_order: number;
   duration_minutes: number | null;
   status: string;
+  /** Rich-text content as Tiptap ProseMirror JSON. Canonical for new edits. */
+  content: object | null;
+  /** Plain-text archive from legacy HVAC generation. Read-only. */
   script_text: string | null;
   video_file: string | null;
   quiz_questions: any[] | null;
@@ -72,7 +79,7 @@ export default function CurriculumLessonManager({ courseId, moduleOrder }: Props
       const supabase = createClient();
       let query = supabase
         .from('curriculum_lessons')
-        .select('id, lesson_slug, lesson_title, step_type, passing_score, module_order, lesson_order, duration_minutes, status, script_text, video_file, quiz_questions, module_id')
+        .select('id, lesson_slug, lesson_title, step_type, passing_score, module_order, lesson_order, duration_minutes, status, content, script_text, video_file, quiz_questions, module_id')
         .eq('course_id', courseId)
         .order('module_order', { ascending: true })
         .order('lesson_order', { ascending: true });
@@ -276,13 +283,18 @@ export default function CurriculumLessonManager({ courseId, moduleOrder }: Props
                           </div>
 
                           <div className="md:col-span-2">
-                            <label className="block text-xs font-semibold text-slate-600 mb-1">Script / Content</label>
-                            <textarea
-                              rows={5}
-                              value={m.script_text ?? ''}
-                              onChange={e => setField(lesson.id, 'script_text', e.target.value || null)}
-                              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue-500 resize-y"
-                              placeholder="Lesson script or rich HTML content…"
+                            <label className="block text-xs font-semibold text-slate-600 mb-1">
+                              Lesson Content
+                              {m.script_text && !m.content && (
+                                <span className="ml-2 text-xs font-normal text-amber-600">
+                                  legacy script_text — edit here to migrate to rich content
+                                </span>
+                              )}
+                            </label>
+                            <RichContentEditor
+                              value={m.content ?? null}
+                              onChange={json => setField(lesson.id, 'content', json)}
+                              placeholder="Write lesson content — supports headings, lists, blockquotes…"
                             />
                           </div>
 

@@ -100,6 +100,10 @@ export interface ProgramBuilderState {
   wioa_approved: boolean;
   dol_registered: boolean;
   etpl_listed: boolean;
+  /** Compliance profile key — maps to COMPLIANCE_PROFILES in lib/course-builder/compliance-profiles.ts */
+  compliance_profile_key: string | null;
+  /** Org this program belongs to */
+  org_id: string | null;
 
   status: ProgramStatus;
   published: boolean;
