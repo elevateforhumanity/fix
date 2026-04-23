@@ -73,6 +73,7 @@ export default tseslint.config(
       'node_modules/**',
       '*.config.js',
       '*.config.ts',
+      '_archived/**',
       '.archive/**',
       '.next/**',
       'deployment-ready/**',

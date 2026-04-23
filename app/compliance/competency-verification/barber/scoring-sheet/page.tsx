@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { BARBER_SECTIONS, BARBER_STATS } from '../barber-rubric-data';
-import { PrintButton } from '../PrintButton';
+import { PrintButton } from '../../PrintButton';
 
 export const metadata: Metadata = {
   title: 'Barber Apprenticeship Scoring Sheet | Elevate for Humanity',

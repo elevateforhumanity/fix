@@ -177,6 +177,9 @@ export async function proxy(request: NextRequest) {
   const allowDevAdminBypass =
     isDevelopment && process.env.SKIP_ADMIN_AUTH === 'true';
 
+  // Gitpod preview domains — treat as development for routing purposes
+  const isGitpodPreview = host.includes('.gitpod.dev') || host.includes('gitpod.io');
+
   // Production misconfiguration guard — bypass remains disabled, but the
   // presence of SKIP_ADMIN_AUTH in a production environment is logged as an
   // error so a bad deployment is caught immediately in Netlify function logs.
@@ -687,6 +690,11 @@ export async function proxy(request: NextRequest) {
       return response;
     }
 
+    // Gitpod preview domains bypass onboarding gate — dev environment only
+    if (isGitpodPreview) {
+      return response;
+    }
+
     // Primary gate: profiles.onboarding_completed is readable by the user (no RLS block).
     if (!cachedProfile?.onboarding_completed) {
       return NextResponse.redirect(new URL('/onboarding/legal', request.url), { status: 307 });
@@ -728,7 +736,7 @@ export async function proxy(request: NextRequest) {
       : Promise.resolve({ data: null }),
   ]);
 
-  if (needsEnrollment && enrollmentResult.data) {
+  if (needsEnrollment && !isGitpodPreview && enrollmentResult.data) {
     const state = enrollmentResult.data.enrollment_state;
     if (state !== 'active' && state !== 'documents_complete') {
       let redirectPath = '/enrollment/confirmed';

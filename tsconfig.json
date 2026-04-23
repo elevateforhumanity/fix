@@ -76,6 +76,7 @@
     "workers",
     "deployment-ready",
     "supabase/functions",
+    "_archived",
     ".archive",
     "backend",
     "lib/new-ecosystem-services",

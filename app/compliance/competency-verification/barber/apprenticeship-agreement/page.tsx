@@ -5,7 +5,7 @@ export const revalidate = 3600;
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { PrintButton } from '../PrintButton';
+import { PrintButton } from '../../PrintButton';
 
 export const metadata: Metadata = {
   title: 'Barbering Apprenticeship Agreement | Elevate for Humanity',

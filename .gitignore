@@ -209,6 +209,9 @@ audit_artifacts/
 playwright-report/
 .github/workflows-disabled-all/
 scripts/archive/
+
+# Historical archive — not part of the live codebase, excluded from TS/ESLint/search
+_archived/
 public/videos/barber-lessons/barber-lesson-15.mp4
 
 # All generated/binary video and audio assets — served from CDN, not committed to git

@@ -5,7 +5,7 @@ export const revalidate = 3600;
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { PrintButton } from '../PrintButton';
+import { PrintButton } from '../../PrintButton';
 import { BARBER_SECTIONS, BARBER_STATS } from '../barber-rubric-data';
 
 export const metadata: Metadata = {

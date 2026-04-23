@@ -1,4 +1,4 @@
-export default function AdminLoading() {
+export default function AdminLoadingSkeleton() {
   return (
     <div className="p-6 space-y-4">
       {Array.from({ length: 8 }).map((_, i) => (

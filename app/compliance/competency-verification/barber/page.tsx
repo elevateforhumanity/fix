@@ -18,7 +18,7 @@ import {
   Clock,
   UserCheck,
 } from 'lucide-react';
-import { PrintButton } from './PrintButton';
+import { PrintButton } from '../PrintButton';
 import { BARBER_SECTIONS, BARBER_STATS } from './barber-rubric-data';
 import type { RubricSection, RubricItem } from './barber-rubric-data';
 
