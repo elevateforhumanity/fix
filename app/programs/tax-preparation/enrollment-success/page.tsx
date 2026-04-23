@@ -2,197 +2,151 @@ import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Shield, ExternalLink } from 'lucide-react';
+import { Shield, Calculator, BookOpen, Clock, Phone, ExternalLink } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'You Are Enrolled | Tax Preparation & Financial Services | Elevate for Humanity',
+  title: 'Enrolled | Tax Preparation Program | Elevate for Humanity',
   description: 'Your enrollment in the Tax Preparation & Financial Services program is confirmed.',
 };
 
 export default async function EnrollmentSuccessPage() {
   const supabase = await createClient();
-
-
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect('/login?redirect=/programs/tax-preparation/enrollment-success');
-  }
+  if (!user) redirect('/login?redirect=/programs/tax-preparation/enrollment-success');
 
-  // Get enrollment — first by user_id, then by email for public-checkout users
   let { data: enrollment } = await supabase
     .from('program_enrollments')
-    .select('id, enrolled_at, status, program_id, user_id, programs(name, title, slug)')
+    .select('id, enrolled_at, status, program_id, user_id, programs(name, slug)')
     .eq('user_id', user.id)
     .order('enrolled_at', { ascending: false })
     .limit(1)
     .maybeSingle();
 
   if (!enrollment && user.email) {
-    const normalizedEmail = user.email.toLowerCase().trim();
     const { data: emailMatch } = await supabase
       .from('program_enrollments')
-      .select('id, enrolled_at, status, program_id, user_id, programs(name, title, slug)')
-      .ilike('email', normalizedEmail)
+      .select('id, enrolled_at, status, program_id, user_id, programs(name, slug)')
+      .ilike('email', user.email.toLowerCase().trim())
       .is('user_id', null)
       .order('enrolled_at', { ascending: false })
       .limit(1)
       .maybeSingle();
-
     if (emailMatch) {
-      await supabase
-        .from('program_enrollments')
-        .update({ user_id: user.id })
-        .eq('id', emailMatch.id);
+      await supabase.from('program_enrollments').update({ user_id: user.id }).eq('id', emailMatch.id);
       enrollment = { ...emailMatch, user_id: user.id };
     }
   }
 
-  if (!enrollment) {
-    redirect('/programs/tax-preparation');
-  }
+  if (!enrollment) redirect('/programs/tax-preparation');
 
-  // Mark enrollment as confirmed if not already
   if (enrollment.status === 'paid' || enrollment.status === 'approved') {
-    await supabase
-      .from('program_enrollments')
-      .update({ status: 'confirmed', confirmed_at: new Date().toISOString() })
+    await supabase.from('program_enrollments')
+      .update({ status: 'confirmed', enrollment_confirmed_at: new Date().toISOString() })
       .eq('id', enrollment.id);
   }
 
   const programName = (enrollment.programs as { name?: string })?.name || 'Tax Preparation & Financial Services';
-
-  // Calculate start date (next Monday after enrollment)
-  const enrolledDate = enrollment?.enrolled_at ? new Date(enrollment.enrolled_at) : new Date();
+  const enrolledDate = enrollment.enrolled_at ? new Date(enrollment.enrolled_at) : new Date();
   const daysUntilMonday = (8 - enrolledDate.getDay()) % 7 || 7;
   const startDate = new Date(enrolledDate);
   startDate.setDate(startDate.getDate() + daysUntilMonday);
   const formattedStartDate = startDate.toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
+    weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
   });
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
       <div className="max-w-lg w-full">
-        {/* Success Icon */}
         <div className="text-center mb-8">
-          <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
-            <span className="text-black flex-shrink-0">•</span>
+          <div className="w-24 h-24 bg-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+            <Calculator className="w-12 h-12 text-white" />
           </div>
-
-          <h1 className="text-4xl font-black text-slate-900 mb-2">
-            You are now officially enrolled.
-          </h1>
+          <p className="text-indigo-400 font-bold text-sm uppercase tracking-widest mb-2">IRS-Recognized Credential Pathway</p>
+          <h1 className="text-4xl font-black text-white mb-2">You're officially enrolled.</h1>
+          <p className="text-slate-400">Welcome to the Tax Preparation & Financial Services program.</p>
         </div>
 
-        {/* Enrollment Details Card */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden mb-8">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden mb-6">
+          <div className="bg-indigo-500 px-6 py-3">
+            <p className="text-white font-bold text-sm">Enrollment Confirmation</p>
+          </div>
           <div className="p-6 space-y-4">
             <div className="flex justify-between items-center py-3 border-b border-slate-100">
-              <span className="text-black">Program</span>
+              <span className="text-slate-600">Program</span>
               <span className="font-bold text-slate-900">{programName}</span>
             </div>
-
             <div className="flex justify-between items-center py-3 border-b border-slate-100">
-              <span className="text-black">Status</span>
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-brand-green-100 text-brand-green-700 rounded-full font-bold text-sm">
-                <span className="w-2 h-2 bg-brand-green-500 rounded-full"></span>
-                Active
+              <span className="text-slate-600">Status</span>
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full font-bold text-sm">
+                <span className="w-2 h-2 bg-green-500 rounded-full" />Active
               </span>
             </div>
-
             <div className="flex justify-between items-center py-3 border-b border-slate-100">
-              <span className="text-black">Start Date</span>
+              <span className="text-slate-600">Classes Begin</span>
               <span className="font-bold text-slate-900">{formattedStartDate}</span>
             </div>
-
             <div className="flex justify-between items-center py-3 border-b border-slate-100">
-              <span className="text-black">Duration</span>
-              <span className="font-bold text-slate-900">10 weeks (150 hours)</span>
+              <span className="text-slate-600">Credential Pathway</span>
+              <span className="font-bold text-slate-900">PTIN → EFIN → EA Exam</span>
             </div>
-
-            <div className="flex justify-between items-center py-3 border-b border-slate-100">
-              <span className="text-black">Cost</span>
-              <span className="font-bold text-slate-900">$0 (WIOA funded)</span>
-            </div>
-
             <div className="flex justify-between items-center py-3">
-              <span className="text-black">Sponsor</span>
+              <span className="text-slate-600">Software Partner</span>
               <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-brand-blue-600" />
-                <span className="font-bold text-slate-900">Elevate for Humanity</span>
+                <Shield className="w-4 h-4 text-indigo-500" />
+                <span className="font-bold text-slate-900">SupersonicFastCash</span>
               </div>
             </div>
-
-            <div className="text-xs text-black text-center pt-2">
-              IRS VITA Track — Credentials: IRS VITA/TCE, QuickBooks ProAdvisor, Microsoft 365
-            </div>
           </div>
         </div>
 
-        {/* Setup Steps */}
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
-          <div className="p-6">
-            <h2 className="text-lg font-bold text-slate-900 mb-4">Before You Start</h2>
-            <ol className="space-y-4">
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 w-7 h-7 bg-brand-green-600 text-white rounded-full flex items-center justify-center font-bold text-xs">1</span>
-                <div>
-                  <h3 className="font-medium text-slate-900 text-sm">Set up your IRS Link &amp; Learn account</h3>
-                  <p className="text-black text-xs mt-0.5">For your VITA/TCE certification exam in Week 10.</p>
-                  <a
-                    href="https://apps.irs.gov/app/vita/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-brand-green-600 text-xs mt-1 hover:underline"
-                  >
-                    Create account <ExternalLink className="w-3 h-3" />
-                  </a>
+        <div className="bg-slate-800 rounded-2xl p-6 mb-6">
+          <p className="text-white font-bold mb-4">Your next steps</p>
+          <div className="space-y-3">
+            {[
+              { n: 1, title: 'Complete tax law fundamentals', desc: 'Federal income tax, deductions, credits — access via your learner dashboard' },
+              { n: 2, title: 'Obtain your IRS PTIN', desc: 'Preparer Tax Identification Number — required to prepare returns for compensation' },
+              { n: 3, title: 'Apply for your EFIN', desc: 'Electronic Filing Identification Number — required to e-file returns' },
+              { n: 4, title: 'Prepare for the EA Exam', desc: 'Enrolled Agent — the highest IRS credential for tax professionals' },
+            ].map(({ n, title, desc }) => (
+              <div key={n} className="flex items-start gap-3">
+                <div className="w-6 h-6 bg-indigo-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-white text-xs font-bold">{n}</span>
                 </div>
-              </li>
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 w-7 h-7 bg-brand-green-600 text-white rounded-full flex items-center justify-center font-bold text-xs">2</span>
                 <div>
-                  <h3 className="font-medium text-slate-900 text-sm">Enroll in Intuit for Education (free)</h3>
-                  <p className="text-black text-xs mt-0.5">Financial literacy curriculum delivered in Week 5.</p>
-                  <a
-                    href="https://intuit4education.app.intuit.com/login"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-brand-green-600 text-xs mt-1 hover:underline"
-                  >
-                    Sign up <ExternalLink className="w-3 h-3" />
-                  </a>
+                  <p className="text-white font-medium text-sm">{title}</p>
+                  <p className="text-slate-400 text-xs">{desc}</p>
                 </div>
-              </li>
-            </ol>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Primary CTA — go to program dashboard */}
-        <Link
-          href={`/lms/program/${enrollment.program_id}`}
-          className="block w-full bg-brand-green-600 hover:bg-brand-green-700 text-white text-center py-5 rounded-xl font-bold text-lg transition-all hover:scale-[1.02] shadow-lg"
+        <Link href="/learner/dashboard" className="block w-full bg-indigo-500 hover:bg-indigo-600 text-white text-center py-5 rounded-xl font-bold text-lg transition-all hover:scale-[1.02] shadow-lg mb-3">
+          Start Your Coursework →
+        </Link>
+        <a
+          href="https://www.irs.gov/tax-professionals/ptin-requirements-for-tax-return-preparers"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 w-full bg-slate-700 hover:bg-slate-600 text-white text-center py-4 rounded-xl font-bold transition-all mb-3"
         >
-          Go to My Program Dashboard
+          <ExternalLink className="w-4 h-4" />IRS PTIN Application
+        </a>
+        <Link href="/supersonic" className="block w-full bg-slate-600 hover:bg-slate-500 text-white text-center py-4 rounded-xl font-bold transition-all mb-6">
+          <BookOpen className="inline w-4 h-4 mr-2" />SupersonicFastCash Tax Software
         </Link>
 
-        <p className="text-black text-sm text-center mt-4">
-          View your courses, track progress, and start learning.
-        </p>
-
-        {/* Help */}
-        <p className="text-center text-xs text-black mt-6">
-          Questions? Call{' '}
-          <a href="tel:317-314-3757" className="text-white hover:underline">317-314-3757</a>
-          {' '}or{' '}
-          <Link href="/contact" className="text-white hover:underline">contact us</Link>
-        </p>
+        <div className="text-center space-y-1">
+          <p className="text-slate-400 text-sm flex items-center justify-center gap-2">
+            <Clock className="w-4 h-4" />Questions? Mon–Fri 9am–5pm ET
+          </p>
+          <a href="tel:317-314-3757" className="text-indigo-400 hover:underline text-sm flex items-center justify-center gap-1">
+            <Phone className="w-3 h-3" />317-314-3757
+          </a>
+        </div>
       </div>
     </div>
   );
