@@ -26,7 +26,7 @@ import {
   generateAndPersistModuleQuiz,
   generateAndPersistFinalExam,
 } from '@/lib/course-builder/assessment-generator';
-import { getOpenAIClient } from '@/lib/openai-client';
+import { groqJSON } from '@/lib/groq-client';
 import { logAdminAudit, AdminAction } from '@/lib/admin/audit-log';
 import type { BlueprintLessonRef } from '@/lib/curriculum/blueprints/types';
 import {
@@ -58,7 +58,7 @@ interface LessonContent {
   }>;
 }
 
-// ─── GPT-4o lesson content generator ─────────────────────────────────────────
+// ─── Groq lesson content generator ───────────────────────────────────────────
 
 async function generateLessonContent(
   lesson: BlueprintLessonRef,
@@ -66,10 +66,8 @@ async function generateLessonContent(
   courseTitle: string,
   state: string,
 ): Promise<LessonContent> {
-  const openai = getOpenAIClient();
-
-  const isCheckpoint = lesson.slug.includes('checkpoint');
-  const isExam       = lesson.slug.includes('exam') || lesson.slug.includes('final');
+  const isCheckpoint  = lesson.slug.includes('checkpoint');
+  const isExam        = lesson.slug.includes('exam') || lesson.slug.includes('final');
   const questionCount = isExam ? 10 : isCheckpoint ? 5 : 3;
 
   const prompt = `You are a curriculum architect writing premium workforce training content.
@@ -99,16 +97,7 @@ Rules:
 - quiz_questions: exactly ${questionCount} questions, correct is 0-indexed
 - All content must be specific to ${courseTitle} — no generic filler`;
 
-  const completion = await openai.chat.completions.create({
-    model:           'gpt-4o',
-    messages:        [{ role: 'user', content: prompt }],
-    temperature:     0.4,
-    max_tokens:      2500,
-    response_format: { type: 'json_object' },
-  });
-
-  const raw = completion.choices[0]?.message?.content ?? '{}';
-  return JSON.parse(raw) as LessonContent;
+  return groqJSON<LessonContent>(prompt);
 }
 
 // ─── Route handler ────────────────────────────────────────────────────────────
