@@ -26,9 +26,15 @@
 
 [build.environment]
   NODE_VERSION = "20"
-
-  NODE_OPTIONS = "--max-old-space-size=7680 --expose-gc"
-  
+  # Explicitly set so next.config.mjs can gate Netlify-specific behaviour.
+  # Netlify injects this automatically but it may not be present when
+  # next.config.mjs is first evaluated by the build process.
+  NETLIFY = "true"
+  # 7168 MB for the Next.js webpack build. Netlify build containers have ~8 GB
+  # total RAM; OS + pnpm install consume ~512 MB, leaving ~7.5 GB for Node.
+  # --expose-gc lets Next.js call gc() between page compilations to reclaim
+  # young-gen heap before the mark-compact phase hits the limit.
+  NODE_OPTIONS = "--max-old-space-size=7168 --expose-gc"
   SENTRY_SKIP_AUTO_INSTRUMENTATION = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public

@@ -139,28 +139,11 @@ const nextConfig = {
         'elevateforhumanity.org',
       ],
     },
-    // optimizePackageImports reduces webpack memory by tree-shaking barrel imports
-    // at the Next.js level before webpack sees them. Critical on Netlify where
-    // lucide-react (1,400+ icons) and radix-ui are imported across 1,500+ pages.
-    optimizePackageImports: [
-      'lucide-react',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-select',
-      '@radix-ui/react-tabs',
-      '@radix-ui/react-accordion',
-      '@radix-ui/react-tooltip',
-      '@radix-ui/react-popover',
-      'recharts',
-      'react-hot-toast',
-      'date-fns',
-      'framer-motion',
-      '@stripe/stripe-js',
-      'zod',
-      'react-hook-form',
-      '@hookform/resolvers',
-      'swr',
-    ],
+    // optimizePackageImports is disabled globally.
+    // On Netlify (1,400+ pages) it adds significant webpack compilation overhead
+    // and was confirmed active in build logs despite the NETLIFY env-var guard
+    // (the var may not be set when next.config.mjs is first evaluated).
+    // Re-enable per-package only after moving to a host with >8 GB build RAM.
     // Disabled: spawns separate child processes, exceeds Netlify build RAM.
     optimizeCss: false,
     parallelServerCompiles: false,

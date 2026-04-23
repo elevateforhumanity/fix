@@ -1,15 +1,46 @@
-// PUBLIC ROUTE: anonymous usage tracking
+// PUBLIC ROUTE: anonymous usage tracking / DMCA watermark detection
+// No audit logging: this is a high-frequency anonymous endpoint. Audit DB writes
+// here would insert one row per page load, overwhelming the audit table with noise
+// and causing cascading timeouts. Bot/prerender traffic amplifies this further.
+// DMCA detections are logged separately to unauthorized_access_log.
 import { safeInternalError } from '@/lib/api/safe-error';
-
 import { getAdminClient } from '@/lib/supabase/admin';
-
 import { NextRequest, NextResponse } from 'next/server';
 import { parseBody } from '@/lib/api-helpers';
 import { logger } from '@/lib/logger';
 import { applyRateLimit } from '@/lib/api/withRateLimit';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
+
 export const runtime = 'nodejs';
 export const maxDuration = 60;
+
+// Known bot/prerender user-agent substrings — skip processing entirely.
+// These generate high request volume but carry no signal for DMCA detection.
+const BOT_UA_PATTERNS = [
+  'prerender',
+  'googlebot',
+  'bingbot',
+  'slurp',
+  'duckduckbot',
+  'baiduspider',
+  'yandexbot',
+  'facebookexternalhit',
+  'twitterbot',
+  'linkedinbot',
+  'whatsapp',
+  'applebot',
+  'semrushbot',
+  'ahrefsbot',
+  'mj12bot',
+  'dotbot',
+  'rogerbot',
+  'screaming frog',
+  'headlesschrome',
+];
+
+function isBot(userAgent: string): boolean {
+  const ua = userAgent.toLowerCase();
+  return BOT_UA_PATTERNS.some(p => ua.includes(p));
+}
 
 export const dynamic = 'force-dynamic';
 
@@ -49,14 +80,19 @@ const getOfficialDomains = () => {
   ];
 };
 
-async function _POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const rateLimited = await applyRateLimit(request, 'api');
+    const rateLimited = await applyRateLimit(request, 'public');
     if (rateLimited) return rateLimited;
 
     const body = await parseBody<Record<string, any>>(request);
 
     const { siteId, owner, url, referrer, timestamp, userAgent } = body;
+
+    // Skip bots and prerender crawlers — they generate high volume with no DMCA signal.
+    if (userAgent && isBot(String(userAgent))) {
+      return NextResponse.json({ status: 'ok', message: 'Tracking recorded' });
+    }
 
     // Get the domain from the URL
     const urlObj = new URL(url);
@@ -390,7 +426,7 @@ Elevate for Humanity Career & Technical Institute
 /**
  * GET endpoint to check tracking status
  */
-async function _GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
@@ -409,5 +445,3 @@ async function _GET(request: NextRequest) {
     official_domains: officialDomains,
   });
 }
-export const GET = withApiAudit('/api/track-usage', _GET);
-export const POST = withApiAudit('/api/track-usage', _POST);

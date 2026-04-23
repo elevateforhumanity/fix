@@ -22,63 +22,16 @@ import * as Sentry from '@sentry/nextjs';
 interface WithApiAuditOptions {
   actor_type?: ActorType;
   actor_id?: string;
-  skip_body?: boolean;
-  // When true, audit write failure returns 500 instead of silently continuing.
+  // When true, audit write failure is logged as critical.
   // Use for compliance-critical routes: enrollment approvals, hour certifications,
   // RAPIDS mutations, payment state changes.
+  // Note: response is already sent before audit fires, so this cannot block the user.
   critical?: boolean;
 }
 
-// Keys to strip from params before logging
-const REDACT_KEYS = new Set([
-  'password', 'ssn', 'ssn_hash', 'ssn_last4', 'date_of_birth', 'dob',
-  'bank_account', 'routing_number', 'account_number', 'tax_id',
-  'driver_license', 'state_id', 'government_id', 'itin', 'ein',
-  'credit_card', 'card_number', 'cvv', 'cvc', 'expiry',
-  'secret', 'token', 'api_key', 'authorization',
-]);
-
-function sanitizeParams(params: Record<string, unknown>): Record<string, unknown> {
-  const clean: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(params)) {
-    if (REDACT_KEYS.has(key.toLowerCase())) {
-      clean[key] = '[REDACTED]';
-    } else if (value && typeof value === 'object' && !Array.isArray(value)) {
-      clean[key] = sanitizeParams(value as Record<string, unknown>);
-    } else if (typeof value === 'string' && value.length > 200) {
-      clean[key] = `[string:${value.length}chars]`;
-    } else if (Array.isArray(value)) {
-      clean[key] = `[array:${value.length}items]`;
-    } else {
-      clean[key] = value;
-    }
-  }
-  return clean;
-}
-
-async function extractSafeParams(req: Request, skipBody?: boolean): Promise<Record<string, unknown>> {
-  const params: Record<string, unknown> = {};
-
-  try {
-    const url = new URL(req.url);
-    url.searchParams.forEach((value, key) => { params[key] = value; });
-  } catch { /* ignore */ }
-
-  if (!skipBody && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
-    try {
-      const cloned = req.clone();
-      const ct = cloned.headers.get('content-type') || '';
-      if (ct.includes('application/json')) {
-        const body = await cloned.json();
-        if (body && typeof body === 'object' && !Array.isArray(body)) {
-          Object.assign(params, body);
-        }
-      }
-    } catch { /* non-JSON or stream error */ }
-  }
-
-  return sanitizeParams(params);
-}
+// Params are no longer extracted or stored in audit events.
+// Full request details are captured in application logs (logger).
+// Audit storage uses only compact metadata: endpoint, method, actor, result, status, duration.
 
 async function resolveUserId(req: Request): Promise<string | null> {
   try {
@@ -110,23 +63,11 @@ export function withApiAudit(
     const start = Date.now();
     const rid = requestId();
 
-    // Resolve actor
-    let actorId: string | null = options?.actor_id ?? null;
-    let actorType: ActorType = options?.actor_type ?? 'anonymous';
-
-    if (!options?.actor_type) {
-      const userId = await resolveUserId(req);
-      if (userId) {
-        actorId = userId;
-        actorType = 'user';
-      }
-    }
-
-    // Extract params (best-effort)
-    let params: Record<string, unknown> = {};
-    try {
-      params = await extractSafeParams(req, options?.skip_body);
-    } catch { /* skip */ }
+    // Use caller-supplied actor identity for webhooks/cron.
+    // For user requests, actor resolution happens AFTER the handler returns
+    // so it never adds latency to the hot path.
+    const staticActorId: string | null = options?.actor_id ?? null;
+    const staticActorType: ActorType | null = options?.actor_type ?? null;
 
     let response: Response;
     let result: 'success' | 'failure' | 'denied' | 'error' = 'success';
@@ -153,14 +94,29 @@ export function withApiAudit(
       } else {
         throw e;
       }
-    } finally {
+    }
+
+    // Build and fire audit payload asynchronously — never blocks the response.
+    // Actor resolution and param extraction happen here, after the response is ready.
+    const fireAudit = async () => {
+      let actorId = staticActorId;
+      let actorType: ActorType = staticActorType ?? 'anonymous';
+
+      if (!staticActorType) {
+        const userId = await resolveUserId(req);
+        if (userId) { actorId = userId; actorType = 'user'; }
+      }
+
+      // Params are intentionally omitted from the audit payload.
+      // writeApiAuditEvent now stores only compact metadata (endpoint, method,
+      // actor, result, status, duration). Full params are in application logs.
+      // This eliminates oversized JSONB payloads that caused DB insert rejections.
       const auditPayload = {
         endpoint,
         method: req.method,
         actor_type: actorType,
         actor_id: actorId,
         request_id: rid,
-        params,
         result,
         status_code: statusCode,
         error_summary: errorSummary,
@@ -173,21 +129,15 @@ export function withApiAudit(
         try {
           await writeApiAuditEvent(auditPayload);
         } catch (auditErr) {
-          const msg = `Audit write failed on critical route ${endpoint}`;
-          logger.error(msg, auditErr instanceof Error ? auditErr : new Error(String(auditErr)));
+          logger.error(`Audit write failed on critical route ${endpoint}`, auditErr instanceof Error ? auditErr : new Error(String(auditErr)));
           Sentry.captureException(auditErr, {
             tags: { audit_critical: 'true', endpoint },
             extra: { request_id: rid, actor_id: actorId, result },
           });
-          // Override the response — the action may have succeeded but
-          // we cannot prove it, so we fail the request.
-          response = NextResponse.json(
-            { error: 'Audit system unavailable. Action not recorded. Contact support.' },
-            { status: 503 },
-          );
+          // Note: response is already sent — we can't override it here.
+          // Log the failure; the fallback channels in onAuditFailure handle durability.
         }
       } else {
-        // Non-critical: fire-and-forget, but still report failures to Sentry
         writeApiAuditEvent(auditPayload).catch((auditErr) => {
           Sentry.captureException(auditErr, {
             tags: { audit_critical: 'false', endpoint },
@@ -195,7 +145,10 @@ export function withApiAudit(
           });
         });
       }
-    }
+    };
+
+    // Fire-and-forget for all routes — response is already constructed above.
+    void fireAudit();
 
     return response!;
   };

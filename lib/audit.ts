@@ -127,6 +127,17 @@ export async function logAuditEvent(event: AuditEvent): Promise<void> {
 
   try {
     const supabase = await getAdminClient();
+
+    // getAdminClient() returns null when SUPABASE_SERVICE_ROLE_KEY is absent
+    // (e.g. cold Lambda start before app_secrets hydration, or missing secret).
+    // Throwing here would cascade into the 800ms audit timeout on every request.
+    // Log to stderr and return — the fallback channels in onAuditFailure handle
+    // durable recording once the secret is available.
+    if (!supabase) {
+      void onAuditFailure('logAuditEvent: admin client unavailable (key absent)', new Error('No admin client'), payload);
+      return;
+    }
+
     const { error } = await supabase.from('audit_logs').insert(payload);
 
     if (error) {

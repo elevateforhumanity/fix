@@ -30,12 +30,25 @@ let cacheTimestamp = 0;
 let hydrated = false;
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 min — survives warm Lambda reuse
 
+// Abort app_secrets fetch if Supabase doesn't respond within this window.
+// Without a timeout, a cold Lambda with no service role key hangs for 60s+
+// on every request, cascading into audit timeouts and slow cold starts.
+const SECRETS_FETCH_TIMEOUT_MS = 3000;
+
 function getBootstrapClient(): SupabaseClient | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
   return createClient(url, key, {
     auth: { autoRefreshToken: false, persistSession: false },
+    global: {
+      // Per-request AbortSignal timeout — prevents indefinite hangs on cold starts.
+      fetch: (input, init) => {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), SECRETS_FETCH_TIMEOUT_MS);
+        return fetch(input, { ...init, signal: controller.signal }).finally(() => clearTimeout(timer));
+      },
+    },
   });
 }
 
@@ -46,14 +59,26 @@ async function loadSecrets(): Promise<Record<string, string>> {
 
   const client = getBootstrapClient();
   if (!client) {
-    // No Supabase creds — local dev or misconfigured. Fall through to process.env.
+    // SUPABASE_SERVICE_ROLE_KEY absent — local dev or Lambda before secret injection.
+    // Fall through to process.env; getAdminClient() will return null and callers
+    // must handle that gracefully.
     return {};
   }
 
-  const { data, error } = await client
-    .from('app_secrets')
-    .select('key, value')
-    .eq('scope', 'runtime');
+  let data: Array<{ key: string; value: string }> | null = null;
+  let error: unknown = null;
+
+  try {
+    const result = await client
+      .from('app_secrets')
+      .select('key, value')
+      .eq('scope', 'runtime');
+    data = result.data;
+    error = result.error;
+  } catch (e) {
+    // Covers AbortError (timeout) and network failures.
+    error = e;
+  }
 
   if (error) {
     logger.error('Failed to load from app_secrets', error instanceof Error ? error : undefined);

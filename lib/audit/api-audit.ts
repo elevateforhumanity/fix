@@ -77,11 +77,13 @@ function sanitizeParams(params: Record<string, unknown>): Record<string, unknown
   return clean;
 }
 
-// Audit write timeout. If the DB insert takes longer than this,
-// we abandon the await and let the fallback channels handle it.
-// 800ms is generous for a single INSERT but short enough to prevent
-// cascading latency into the API response.
-const AUDIT_WRITE_TIMEOUT_MS = 800;
+// Audit write timeout. Raised from 800ms to 5000ms.
+// 800ms was a tripwire on serverless: cold starts + app_secrets hydration +
+// DB connection overhead routinely exceeded it, generating noisy timeout errors
+// on every request. Since audit writes now happen after the response is sent
+// (fire-and-forget in withApiAudit), this timeout only affects how long the
+// Lambda stays alive post-response — not user-visible latency.
+const AUDIT_WRITE_TIMEOUT_MS = 5000;
 
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return Promise.race([
@@ -100,23 +102,29 @@ export async function writeApiAuditEvent(event: ApiAuditEvent): Promise<void> {
   try {
     const requestId = event.request_id || generateRequestId();
 
+    // Compact metadata — no raw request params, no full URLs, no user agents.
+    // Storing full nested params caused oversized JSONB payloads that contributed
+    // to DB insert rejections and slow writes. Params are already captured in
+    // application logs (logger) for debugging; audit storage needs only the
+    // minimal set required for compliance attribution.
+    const compactMetadata: Record<string, unknown> = {
+      endpoint: event.endpoint,
+      method: event.method,
+      actor_type: event.actor_type,
+      request_id: requestId,
+      result: event.result,
+      status_code: event.status_code,
+      duration_ms: event.duration_ms,
+    };
+    if (event.error_summary) compactMetadata.error_summary = event.error_summary;
+
     await withTimeout(
       logAuditEvent({
         userId: event.actor_id,
         action: `api:${event.method.toLowerCase()}:${event.endpoint}`,
         resourceType: 'api_request',
         resourceId: requestId,
-        metadata: {
-          endpoint: event.endpoint,
-          method: event.method,
-          actor_type: event.actor_type,
-          request_id: requestId,
-          params: event.params ? sanitizeParams(event.params) : undefined,
-          result: event.result,
-          status_code: event.status_code,
-          error_summary: event.error_summary,
-          duration_ms: event.duration_ms,
-        },
+        metadata: compactMetadata,
       }),
       AUDIT_WRITE_TIMEOUT_MS,
     );

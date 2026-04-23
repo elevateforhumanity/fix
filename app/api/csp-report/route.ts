@@ -1,25 +1,27 @@
 // PUBLIC ROUTE: CSP violation reports sent by browsers — no auth possible
+// No audit logging: this endpoint is browser telemetry, high-frequency by design.
+// Audit DB writes here would generate one insert per page load per user, creating
+// unnecessary load and drowning real audit events in noise.
 import { NextRequest, NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
-import { withApiAudit } from '@/lib/audit/withApiAudit';
 
-/**
- * CSP violation report endpoint.
- * Receives Content-Security-Policy violation reports from browsers.
- */
-async function _POST(request: NextRequest) {
+export const runtime = 'nodejs';
+
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    logger.warn('CSP violation report', {
-      blockedUri: body['csp-report']?.['blocked-uri'] || body?.blockedURL,
-      violatedDirective: body['csp-report']?.['violated-directive'] || body?.effectiveDirective,
-      documentUri: body['csp-report']?.['document-uri'] || body?.documentURL,
-      sourceFile: body['csp-report']?.['source-file'] || body?.sourceFile,
-    });
+    // Sample at 10% — CSP reports are noisy and most are benign extension conflicts.
+    if (Math.random() < 0.1) {
+      logger.warn('CSP violation report', {
+        blockedUri: body['csp-report']?.['blocked-uri'] || body?.blockedURL,
+        violatedDirective: body['csp-report']?.['violated-directive'] || body?.effectiveDirective,
+        documentUri: body['csp-report']?.['document-uri'] || body?.documentURL,
+        sourceFile: body['csp-report']?.['source-file'] || body?.sourceFile,
+      });
+    }
   } catch {
     // Silently accept malformed reports
   }
 
   return new NextResponse(null, { status: 204 });
 }
-export const POST = withApiAudit('/api/csp-report', _POST);
