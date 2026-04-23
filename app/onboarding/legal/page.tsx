@@ -98,12 +98,13 @@ export default function LegalOnboardingPage() {
     try {
       const supabase = createClient();
 
-      // Get user's role from profile
+      // Get user's role from profile — maybeSingle() avoids throwing if the
+      // profile row hasn't been created yet (async trigger race on new accounts).
       const { data: profile } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       // Insert agreement acceptance
       const { error: insertError } = await supabase
@@ -139,26 +140,39 @@ export default function LegalOnboardingPage() {
 
     try {
       const supabase = createClient();
+      const now = new Date().toISOString();
 
-      // Update or create onboarding status
-      const { error: upsertError } = await supabase
+      // Write the canonical completion flag that the middleware gate reads.
+      // profiles.onboarding_completed is the single source of truth —
+      // proxy.ts checks this field to allow access to /lms, /student-portal, etc.
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({
+          onboarding_completed: true,
+          onboarding_completed_at: now,
+        })
+        .eq('id', user.id);
+
+      if (profileError) throw profileError;
+
+      // Also write to user_onboarding_status for supplemental audit trail.
+      // Non-fatal: if this fails the gate is already satisfied above.
+      await supabase
         .from('user_onboarding_status')
         .upsert({
           user_id: user.id,
           status: 'complete',
           agreements_signed: true,
-          completed_at: new Date().toISOString(),
-        }, {
-          onConflict: 'user_id',
-        });
+          completed_at: now,
+        }, { onConflict: 'user_id' })
+        .then(() => {})
+        .catch(() => {});
 
-      if (upsertError) throw upsertError;
-
-      // Redirect to dashboard
+      // Redirect to student portal — middleware gate now passes
       router.push('/student-portal');
 
     } catch (err: any) {
-      setError('An error occurred');
+      setError('Failed to complete onboarding. Please try again or contact support.');
     } finally {
       setSigning(false);
     }
