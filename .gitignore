@@ -239,3 +239,7 @@ public/videos/barber-lessons/*.srt
 public/videos/barber-clipper-options/
 public/videos/barber-infection-clips/
 public/videos/barber-orientation-clips/
+
+# large local video files — served from R2/CDN in production
+public/videos/*.mp4
+public/videos/**/*.mp4
