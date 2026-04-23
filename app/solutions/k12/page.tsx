@@ -1,147 +1,271 @@
-import type { Metadata } from 'next';
+export const revalidate = 86400;
+
+import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import { GraduationCap, Users, Award, ArrowRight, CheckCircle, BookOpen, Briefcase } from 'lucide-react';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import {
+  GraduationCap, Award, Users, CheckCircle,
+  ArrowRight, School, BarChart3, Lightbulb, Shield,
+} from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'K-12 Workforce Solutions | Elevate for Humanity',
-  description: 'Career and technical education pathways for high school students. Dual enrollment, industry credentials, and registered apprenticeships that count toward graduation.',
+  title: 'K-12 Workforce Readiness Solutions | Elevate for Humanity',
+  description:
+    'Career and technical education partnerships for K-12 schools. Industry-recognized credentials, dual enrollment, and work-based learning programs aligned to Indiana state standards.',
+  alternates: { canonical: 'https://www.elevateforhumanity.org/solutions/k12' },
 };
 
-const PROGRAMS = [
-  { name: 'Barber Apprenticeship', credential: 'Indiana Barber License', hours: '3,000 OJT', href: '/programs/barber-apprenticeship' },
-  { name: 'Cosmetology Apprenticeship', credential: 'Indiana Cosmetology License', hours: '2,000 OJT', href: '/programs/cosmetology-apprenticeship' },
-  { name: 'HVAC Technician', credential: 'EPA 608 Certification', hours: '95 lessons', href: '/programs/hvac-technician' },
-  { name: 'IT Help Desk', credential: 'CompTIA A+', hours: '120 hours', href: '/programs/it-help-desk' },
-  { name: 'Medical Assistant', credential: 'NHA CCMA', hours: '160 hours', href: '/programs/medical-assistant' },
-  { name: 'Tax Preparation', credential: 'IRS PTIN', hours: '80 hours', href: '/programs/tax-preparation' },
+const programs = [
+  { title: 'HVAC Technician', credential: 'EPA 608', href: '/programs/hvac-technician', sector: 'Skilled Trades' },
+  { title: 'IT Help Desk', credential: 'CompTIA A+', href: '/programs/it-help-desk', sector: 'Technology' },
+  { title: 'Medical Assistant', credential: 'NCMA', href: '/programs/medical-assistant', sector: 'Healthcare' },
+  { title: 'Cybersecurity Analyst', credential: 'CompTIA Security+', href: '/programs/cybersecurity-analyst', sector: 'Technology' },
+  { title: 'Entrepreneurship', credential: 'Certiport ESB', href: '/programs/entrepreneurship', sector: 'Business' },
+  { title: 'Web Development', credential: 'Adobe Certified', href: '/programs/web-development', sector: 'Technology' },
 ];
 
-const BENEFITS = [
-  'USDOL Registered Apprenticeships count toward graduation requirements in Indiana',
-  'Students earn industry credentials before they graduate',
-  'No tuition cost to students — WIOA and DOL funding available',
-  'Paid on-the-job training from day one of apprenticeship',
-  'Dual enrollment credit available at partner community colleges',
-  'Dedicated career coach assigned to each student cohort',
+const features = [
+  {
+    icon: Award,
+    title: 'Industry-Recognized Credentials',
+    description: 'Students earn nationally recognized certifications — EPA 608, CompTIA, NCMA, Certiport — that count toward employment and post-secondary credit.',
+  },
+  {
+    icon: School,
+    title: 'Dual Enrollment Pathways',
+    description: 'Partner with Elevate to offer dual enrollment credit. Students complete workforce training that counts toward high school graduation and college credit simultaneously.',
+  },
+  {
+    icon: Users,
+    title: 'Work-Based Learning',
+    description: 'Structured internships, job shadows, and pre-apprenticeship programs connect students to local employers before graduation.',
+  },
+  {
+    icon: BarChart3,
+    title: 'Outcome Reporting',
+    description: 'Detailed placement and credential attainment data for Perkins V compliance reporting, school board presentations, and grant applications.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Curriculum Alignment',
+    description: 'All programs align to Indiana Academic Standards for CTE and IDOE-approved program of study frameworks.',
+  },
+  {
+    icon: Shield,
+    title: 'FERPA-Compliant Data Handling',
+    description: 'Student data is handled in full compliance with FERPA. No student information is shared with third parties without written consent.',
+  },
+];
+
+const stats = [
+  { value: '94%', label: 'credential attainment rate' },
+  { value: '30+', label: 'industry certifications offered' },
+  { value: '500+', label: 'K-12 students served annually' },
+  { value: '$0', label: 'cost with Perkins V funding' },
 ];
 
 export default function K12SolutionsPage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* Breadcrumbs */}
+      <div className="bg-white border-b">
+        <div className="max-w-6xl mx-auto px-4 py-3">
+          <Breadcrumbs items={[
+            { label: 'Solutions', href: '/solutions' },
+            { label: 'K-12' },
+          ]} />
+        </div>
+      </div>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-800 rounded-full px-4 py-2 text-blue-200 text-sm font-medium mb-6">
-            <GraduationCap className="w-4 h-4" />
-            K-12 Workforce Development
+      <section className="relative">
+        <div className="relative h-[45vh] sm:h-[50vh] md:h-[55vh] min-h-[280px] w-full overflow-hidden">
+          <Image
+            src="/images/pages/k12-hero.jpg"
+            alt="K-12 students in a career and technical education classroom"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-slate-900/50" />
+          <div className="absolute inset-0 flex items-end">
+            <div className="max-w-5xl mx-auto px-4 pb-10 w-full">
+              <span className="inline-block bg-brand-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+                K-12 Solutions
+              </span>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
+                Career Readiness for Every Student
+              </h1>
+              <p className="text-lg text-white/90 max-w-2xl">
+                Industry-recognized credentials, dual enrollment, and work-based learning — built for Indiana K-12 schools and CTE programs.
+              </p>
+            </div>
           </div>
-          <h1 className="text-5xl font-black mb-6 leading-tight">
-            Career-ready credentials<br />before graduation.
-          </h1>
-          <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-            Elevate partners with Indiana high schools to deliver USDOL Registered Apprenticeships and industry certifications that count toward graduation — at no cost to students.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/partners/training" className="bg-white text-blue-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-50 transition-colors">
-              Partner With Us
-            </Link>
-            <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-800 transition-colors">
-              Schedule a Call
-            </Link>
+        </div>
+
+        {/* Stats strip */}
+        <div className="bg-brand-blue-700 text-white">
+          <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="text-2xl md:text-3xl font-bold">{s.value}</div>
+                <div className="text-sm text-blue-100 mt-1">{s.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-blue-50 py-12 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { value: '6', label: 'Career Pathways' },
-            { value: '$0', label: 'Cost to Students' },
-            { value: '100%', label: 'Online + Hybrid' },
-            { value: 'DOL', label: 'Registered Sponsor' },
-          ].map(({ value, label }) => (
-            <div key={label}>
-              <p className="text-4xl font-black text-blue-700">{value}</p>
-              <p className="text-slate-600 text-sm mt-1">{label}</p>
-            </div>
-          ))}
+      {/* Value proposition */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+              Built for CTE Directors and School Counselors
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              Elevate for Humanity is an ETPL-approved, Perkins V-eligible training provider. We handle curriculum, credentialing, and employer connections — so your staff can focus on students.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((f) => (
+              <div key={f.title} className="bg-slate-50 rounded-xl p-6 border border-slate-100">
+                <div className="w-10 h-10 bg-brand-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <f.icon className="w-5 h-5 text-brand-blue-600" />
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-2">{f.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{f.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Programs */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-black text-slate-900 mb-3">Available career pathways</h2>
-          <p className="text-slate-600 mb-10">Each program leads to a nationally recognized credential students can use immediately after graduation.</p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {PROGRAMS.map((p) => (
-              <Link key={p.name} href={p.href} className="group border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="font-bold text-slate-900 group-hover:text-blue-700 transition-colors">{p.name}</p>
-                    <p className="text-sm text-slate-500 mt-1">{p.credential}</p>
-                    <p className="text-xs text-blue-600 font-medium mt-2">{p.hours}</p>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-blue-500 transition-colors mt-1" />
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
+              Programs Available for K-12 Partnerships
+            </h2>
+            <p className="text-slate-600">
+              All programs lead to industry-recognized credentials and align to IDOE CTE program of study frameworks.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {programs.map((p) => (
+              <Link
+                key={p.href}
+                href={p.href}
+                className="bg-white rounded-xl p-5 border border-slate-200 hover:border-brand-blue-300 hover:shadow-sm transition-all group"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-xs font-medium text-brand-blue-600 bg-brand-blue-50 px-2 py-1 rounded-full">
+                    {p.sector}
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-brand-blue-600 transition-colors" />
                 </div>
+                <h3 className="font-semibold text-slate-900 mb-1">{p.title}</h3>
+                <p className="text-sm text-slate-500">Credential: {p.credential}</p>
               </Link>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Benefits */}
-      <section className="bg-slate-50 py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-black text-slate-900 mb-10">Why schools partner with Elevate</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {BENEFITS.map((b) => (
-              <div key={b} className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
-                <p className="text-slate-700">{b}</p>
-              </div>
-            ))}
+          <div className="text-center mt-8">
+            <Link
+              href="/programs"
+              className="inline-flex items-center gap-2 text-brand-blue-600 font-medium hover:text-brand-blue-800"
+            >
+              View all programs <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* How it works */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-black text-slate-900 mb-10">How it works</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-10 text-center">
+            How a Partnership Works
+          </h2>
+          <div className="space-y-6">
             {[
-              { icon: Users, step: '1', title: 'Partnership agreement', desc: 'We sign an MOU with your school or district. No cost, no obligation beyond the agreement.' },
-              { icon: BookOpen, step: '2', title: 'Students enroll', desc: 'Eligible juniors and seniors enroll in their chosen career pathway. WIOA funding covers tuition.' },
-              { icon: Briefcase, step: '3', title: 'Earn while they learn', desc: 'Apprentices are placed with local employers and earn wages from day one of OJT.' },
-            ].map(({ icon: Icon, step, title, desc }) => (
-              <div key={step} className="text-center">
-                <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-7 h-7 text-blue-600" />
+              { step: '1', title: 'Discovery Call', desc: 'We meet with your CTE director or counselor to understand your student population, existing programs, and Perkins V goals.' },
+              { step: '2', title: 'Program Selection', desc: 'Together we select programs that align to your program of study frameworks and local employer demand.' },
+              { step: '3', title: 'MOU & Funding Setup', desc: 'We execute a Memorandum of Understanding and identify Perkins V, WIOA, or grant funding to cover program costs.' },
+              { step: '4', title: 'Delivery & Credentialing', desc: 'Students complete training and earn industry-recognized credentials. We handle all exam registration and proctoring.' },
+              { step: '5', title: 'Outcome Reporting', desc: 'We provide placement data, credential attainment rates, and employer feedback for your Perkins V annual report.' },
+            ].map((item) => (
+              <div key={item.step} className="flex gap-5">
+                <div className="flex-shrink-0 w-10 h-10 bg-brand-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                  {item.step}
                 </div>
-                <p className="text-xs font-bold text-blue-500 uppercase tracking-widest mb-2">Step {step}</p>
-                <p className="font-bold text-slate-900 mb-2">{title}</p>
-                <p className="text-slate-600 text-sm">{desc}</p>
+                <div>
+                  <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-blue-900 text-white py-20 px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <Award className="w-12 h-12 text-blue-300 mx-auto mb-6" />
-          <h2 className="text-3xl font-black mb-4">Ready to bring career pathways to your students?</h2>
-          <p className="text-blue-200 mb-8">We handle curriculum, credentialing, employer partnerships, and compliance. You focus on your students.</p>
-          <Link href="/partners/training" className="inline-block bg-white text-blue-900 px-10 py-4 rounded-xl font-bold text-lg hover:bg-blue-50 transition-colors">
-            Become a Partner School →
-          </Link>
+      {/* Compliance */}
+      <section className="py-12 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-white rounded-2xl p-8 border border-slate-200">
+            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-green-600" />
+              Compliance &amp; Eligibility
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                'ETPL-Approved Training Provider',
+                'Perkins V Eligible Programs',
+                'IDOE CTE Framework Aligned',
+                'FERPA-Compliant Data Handling',
+                'WIOA Title I Compliant',
+                'Registered Apprenticeship Sponsor',
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <span className="text-slate-700 text-sm">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
+      {/* CTA */}
+      <section className="py-16">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <GraduationCap className="w-12 h-12 text-brand-blue-600 mx-auto mb-4" />
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+            Ready to Build a K-12 Partnership?
+          </h2>
+          <p className="text-slate-600 mb-8">
+            Contact our partnerships team to schedule a discovery call. We work with CTE directors, school counselors, and district administrators across Indiana.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-4 bg-brand-blue-600 text-white rounded-lg font-semibold hover:bg-brand-blue-700 transition-colors"
+            >
+              Schedule a Discovery Call
+            </Link>
+            <Link
+              href="/programs"
+              className="inline-flex items-center justify-center px-8 py-4 border border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition-colors"
+            >
+              Browse Programs
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
