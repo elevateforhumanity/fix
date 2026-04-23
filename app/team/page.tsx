@@ -17,18 +17,18 @@ export default async function TeamPage() {
   // Pull staff profiles from DB; fall back to static data if table is empty
   const supabase = await createClient();
   const { data: dbStaff } = await supabase
-    .from('profiles')
-    .select('id, full_name, role, bio, avatar_url, email')
-    .in('role', ['admin', 'super_admin', 'staff', 'instructor'])
-    .order('full_name');
+    .from('team_members')
+    .select('id, name, title, bio, image_url, email')
+    .eq('is_active', true)
+    .order('display_order');
 
   const members = (dbStaff && dbStaff.length > 0)
     ? dbStaff.map((p) => ({
         id: p.id,
-        name: p.full_name ?? 'Team Member',
-        title: p.role ?? '',
+        name: p.name ?? 'Team Member',
+        title: p.title ?? '',
         bio: p.bio ?? '',
-        headshotSrc: p.avatar_url ?? null,
+        headshotSrc: p.image_url ?? null,
         email: p.email ?? '',
       }))
     : TEAM;

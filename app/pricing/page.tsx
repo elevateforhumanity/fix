@@ -1,11 +1,10 @@
+export const revalidate = 3600;
+
 import { Metadata } from 'next';
-import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { Check } from 'lucide-react';
 import { APP_STORE_PRODUCTS } from '@/lib/stripe/app-store-products';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-
-export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   alternates: {
@@ -16,25 +15,9 @@ export const metadata: Metadata = {
     'Choose your access level. Free to download. Platform access starts at $39/month for enrolled learners.',
 };
 
+// Pricing is driven by APP_STORE_PRODUCTS — the single source of truth
+// that must stay in sync with Stripe and app store listings.
 export default async function PricingPage() {
-  const supabase = await createClient();
-
-  if (!supabase) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Service Unavailable</h1>
-          <p className="text-gray-600">Please try again later.</p>
-        </div>
-      </div>
-    );
-  }
-  
-  // Fetch pricing plans
-  const { data: plans } = await supabase
-    .from('pricing_plans')
-    .select('*')
-    .order('price');
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Breadcrumbs */}
