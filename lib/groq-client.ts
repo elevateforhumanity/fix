@@ -1,12 +1,15 @@
 /**
  * lib/groq-client.ts
  *
- * Groq inference client — drop-in replacement for OpenAI in content generation.
- * Free tier: 14,400 req/day, no credit card required.
- * Model: llama-3.3-70b-versatile — same quality as GPT-4o for structured content.
+ * Groq inference client — primary AI provider for content generation.
+ * Free tier: 14,400 req/day, 6,000 tokens/min.
+ * Model: llama-3.3-70b-versatile
+ *
+ * Fallback: Google Gemini (gemini-1.5-flash) when Groq fails or is unconfigured.
  */
 
 import Groq from 'groq-sdk';
+import { geminiJSON, isGeminiConfigured } from '@/lib/gemini-client';
 
 let _client: Groq | null = null;
 
@@ -24,24 +27,41 @@ export function isGroqConfigured(): boolean {
 }
 
 /**
- * Generate structured JSON content via Groq.
- * Uses llama-3.3-70b-versatile — fast, free, high quality.
+ * Generate structured JSON content via Groq, with Gemini as fallback.
+ *
+ * Tries Groq first. On any error (rate limit, network, parse failure),
+ * retries once with Gemini if GEMINI_API_KEY is configured.
  */
 export async function groqJSON<T = unknown>(prompt: string): Promise<T> {
-  const groq = getGroqClient();
-  const completion = await groq.chat.completions.create({
-    model:       'llama-3.3-70b-versatile',
-    messages:    [
-      {
-        role:    'system',
-        content: 'You are a professional curriculum architect. Always respond with valid JSON only. No markdown, no prose, no code fences.',
-      },
-      { role: 'user', content: prompt },
-    ],
-    temperature:      0.4,
-    max_tokens:       2048,
-    response_format:  { type: 'json_object' },
-  });
-  const raw = completion.choices[0]?.message?.content ?? '{}';
-  return JSON.parse(raw) as T;
+  // ── Primary: Groq ─────────────────────────────────────────────────────────
+  if (isGroqConfigured()) {
+    try {
+      const groq       = getGroqClient();
+      const completion = await groq.chat.completions.create({
+        model:      'llama-3.3-70b-versatile',
+        messages:   [
+          {
+            role:    'system',
+            content: 'You are a professional curriculum architect. Always respond with valid JSON only. No markdown, no prose, no code fences.',
+          },
+          { role: 'user', content: prompt },
+        ],
+        temperature:     0.4,
+        max_tokens:      2048,
+        response_format: { type: 'json_object' },
+      });
+      const raw = completion.choices[0]?.message?.content ?? '{}';
+      return JSON.parse(raw) as T;
+    } catch (err) {
+      const reason = err instanceof Error ? err.message : String(err);
+      console.warn(`[groq-client] Groq failed (${reason}) — falling back to Gemini`);
+    }
+  }
+
+  // ── Fallback: Gemini ──────────────────────────────────────────────────────
+  if (isGeminiConfigured()) {
+    return geminiJSON<T>(prompt);
+  }
+
+  throw new Error('No AI provider available. Set GROQ_API_KEY or GEMINI_API_KEY.');
 }
