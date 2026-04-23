@@ -35,7 +35,7 @@ export default function TestingAccommodationsPage() {
   return (
     <main className="bg-white">
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* HERO */}
       <section className="bg-[#1E3A5F] text-white py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-brand-gold-400 text-sm font-semibold uppercase tracking-widest mb-3">
@@ -50,7 +50,7 @@ export default function TestingAccommodationsPage() {
         </div>
       </section>
 
-      {/* ── DEADLINE WARNING ─────────────────────────────────────────────── */}
+      {/* DEADLINE WARNING */}
       <section className="bg-amber-50 border-b border-amber-200 py-6 px-4">
         <div className="max-w-3xl mx-auto flex items-start gap-3">
           <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
@@ -61,7 +61,7 @@ export default function TestingAccommodationsPage() {
         </div>
       </section>
 
-      {/* ── AVAILABLE ACCOMMODATIONS ─────────────────────────────────────── */}
+      {/* AVAILABLE ACCOMMODATIONS */}
       <section className="py-14 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-extrabold text-slate-900 mb-2">Available Accommodations</h2>
@@ -82,7 +82,7 @@ export default function TestingAccommodationsPage() {
         </div>
       </section>
 
-      {/* ── HOW TO REQUEST ───────────────────────────────────────────────── */}
+      {/* HOW TO REQUEST */}
       <section className="bg-slate-50 border-y border-slate-200 py-14 px-4">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-2xl font-extrabold text-slate-900 text-center mb-2">How to Request Accommodations</h2>
@@ -103,7 +103,7 @@ export default function TestingAccommodationsPage() {
         </div>
       </section>
 
-      {/* ── CONTACT ──────────────────────────────────────────────────────── */}
+      {/* CONTACT */}
       <section className="py-14 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-extrabold text-slate-900 mb-2">Submit Your Request</h2>

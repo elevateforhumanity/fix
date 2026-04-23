@@ -141,7 +141,7 @@ export default function PayrollSetupForm({ user, profile, rateConfigs, existingP
 
       <div className="max-w-2xl mx-auto px-4 py-8">
 
-        {/* ── Step 1: Pay Method ── */}
+        {/* Step 1: Pay Method */}
         {step === 'method' && (
           <div>
             <h2 className="text-lg font-bold text-slate-900 mb-1">Choose your pay method</h2>
@@ -182,7 +182,7 @@ export default function PayrollSetupForm({ user, profile, rateConfigs, existingP
           </div>
         )}
 
-        {/* ── Step 2: Banking (direct deposit only) ── */}
+        {/* Step 2: Banking (direct deposit only) */}
         {step === 'banking' && (
           <div>
             <h2 className="text-lg font-bold text-slate-900 mb-1">Bank account details</h2>
@@ -233,7 +233,7 @@ export default function PayrollSetupForm({ user, profile, rateConfigs, existingP
           </div>
         )}
 
-        {/* ── Step 3: W-9 ── */}
+        {/* Step 3: W-9 */}
         {step === 'w9' && (
           <div>
             <h2 className="text-lg font-bold text-slate-900 mb-1">W-9 Tax Form</h2>
@@ -284,7 +284,7 @@ export default function PayrollSetupForm({ user, profile, rateConfigs, existingP
           </div>
         )}
 
-        {/* ── Step 4: Review & Submit ── */}
+        {/* Step 4: Review & Submit */}
         {step === 'review' && (
           <div>
             <h2 className="text-lg font-bold text-slate-900 mb-1">Review & Submit</h2>

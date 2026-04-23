@@ -16,7 +16,7 @@ export type RubricSection = {
   items: RubricItem[];
 };
 
-/* ── Section 1: Sanitation, Safety & State Compliance ── */
+/* Section 1: Sanitation, Safety & State Compliance */
 const SECTION_1: RubricSection = {
   section: 1,
   title: 'Sanitation, Safety & State Compliance',
@@ -98,7 +98,7 @@ const SECTION_1: RubricSection = {
   ],
 };
 
-/* ── Section 2: Clipper & Cutting Technique ── */
+/* Section 2: Clipper & Cutting Technique */
 const SECTION_2: RubricSection = {
   section: 2,
   title: 'Clipper & Cutting Technique',
@@ -179,7 +179,7 @@ const SECTION_2: RubricSection = {
   ],
 };
 
-/* ── Section 3: Shaving & Razor Techniques ── */
+/* Section 3: Shaving & Razor Techniques */
 const SECTION_3: RubricSection = {
   section: 3,
   title: 'Shaving & Razor Techniques',
@@ -249,7 +249,7 @@ const SECTION_3: RubricSection = {
   ],
 };
 
-/* ── Section 4: Client Services & Professionalism ── */
+/* Section 4: Client Services & Professionalism */
 const SECTION_4: RubricSection = {
   section: 4,
   title: 'Client Services & Professionalism',
@@ -316,7 +316,7 @@ const SECTION_4: RubricSection = {
   ],
 };
 
-/* ── Section 5: Shop Operations & Business Readiness ── */
+/* Section 5: Shop Operations & Business Readiness */
 const SECTION_5: RubricSection = {
   section: 5,
   title: 'Shop Operations & Business Readiness',
@@ -410,7 +410,7 @@ const SECTION_5: RubricSection = {
   ],
 };
 
-/* ── Section 6: OJT Performance Rubric ── */
+/* Section 6: OJT Performance Rubric */
 const SECTION_6: RubricSection = {
   section: 6,
   title: 'OJT Performance Evaluation',

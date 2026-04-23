@@ -199,10 +199,10 @@ export default async function ForAgenciesPage() {
         </section>
       )}
 
-      {/* ── SYSTEM DIAGRAM ── */}
+      {/* SYSTEM DIAGRAM */}
       <WorkforceSystemDiagram />
 
-      {/* ── PLATFORM CAPABILITIES ── */}
+      {/* PLATFORM CAPABILITIES */}
       <section className="py-16 px-4 bg-white border-t border-slate-100">
         <div className="max-w-6xl mx-auto">
           <p className="text-brand-red-600 text-xs font-bold uppercase tracking-widest text-center mb-3">What the system does</p>
@@ -255,7 +255,7 @@ export default async function ForAgenciesPage() {
         </div>
       </section>
 
-      {/* ── WHAT AGENCIES SEE ── */}
+      {/* WHAT AGENCIES SEE */}
       <section className="py-16 px-4 bg-slate-950">
         <div className="max-w-5xl mx-auto">
           <p className="text-brand-red-400 text-xs font-bold uppercase tracking-widest text-center mb-3">Agency visibility</p>

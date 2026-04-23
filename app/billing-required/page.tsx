@@ -34,7 +34,7 @@ function BillingRequiredContent() {
       <div className="max-w-lg w-full">
 
         {updated ? (
-          /* ── Payment updated confirmation ── */
+          /* Payment updated confirmation */
           <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8 text-green-600" />
@@ -51,7 +51,7 @@ function BillingRequiredContent() {
             </a>
           </div>
         ) : (
-          /* ── Suspended / past due state ── */
+          /* Suspended past due state */
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
             <div className="bg-red-600 px-6 py-5">
               <div className="flex items-center gap-3">

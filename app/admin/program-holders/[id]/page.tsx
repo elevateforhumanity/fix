@@ -430,7 +430,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
           </dl>
         </div>
 
-        {/* ── PENDING: Approve & Provision (atomic RPC) ── */}
+        {/* PENDING: Approve & Provision (atomic RPC) */}
         {(isPending || isInactive) && hasApprovalAuthority && hasLinkedUser && (
           <div className="bg-white rounded-lg shadow-sm border-2 border-amber-300 p-6 mb-6">
             <h2 className="text-lg font-semibold text-slate-900 mb-1">
@@ -476,7 +476,7 @@ export default async function AdminProgramHolderDetailPage({ params, searchParam
           </div>
         )}
 
-        {/* ── Provisioned Programs ── */}
+        {/* Provisioned Programs */}
         <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
           <h2 className="text-lg font-semibold text-slate-900 mb-1 flex items-center gap-2">
             <BookOpen className="w-5 h-5 text-brand-blue-600" />

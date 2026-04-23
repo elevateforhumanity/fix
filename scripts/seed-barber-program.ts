@@ -1,32 +1,5 @@
 #!/usr/bin/env node
-/**
- * @deprecated — DO NOT RUN FOR THE BARBER APPRENTICESHIP COURSE
- *
- * This script was written for the old Milady-module architecture.  It reads
- * from data/programs/barber-apprenticeship-indiana.json (which no longer
- * exists) and seeds a program using 10 hard-coded UUID modules aligned to
- * Milady chapter groupings (BARB-ORIENT, BARB-MILADY-RISE, BARB-MILADY-THEORY-*,
- * BARB-SHOP-*, BARB-CAPSTONE).  That architecture was superseded by the
- * DB-driven blueprint engine.
- *
- * ── CANONICAL SOURCE ────────────────────────────────────────────────────────
- * lib/curriculum/blueprints/barber-apprenticeship.ts
- *
- * ── CANONICAL SEEDER ────────────────────────────────────────────────────────
- * pnpm tsx scripts/seed-course-from-blueprint.ts \
- *   --blueprint barber-apprenticeship-v1 --program <programId>
- *
- * Running this script will fail (missing JSON file) and, if the JSON were
- * restored, would create an incompatible module structure that conflicts with
- * the 8-module blueprint-driven course.
- * ────────────────────────────────────────────────────────────────────────────
- *
- * Seed Barber Apprenticeship (Indiana) Program to Supabase (LEGACY)
- *
- * Requirements:
- *   - SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local
- *   - data/programs/barber-apprenticeship-indiana.json exists
- */
+/* @deprecated — DO NOT RUN FOR THE BARBER APPRENTICESHIP COURSE This script was written for the old Milady-module architecture. It reads from data programs barber-apprenticeship-indiana.json (which no longer exists) and seeds a program using 10 hard-coded UUID modules aligned to Milady chapter groupings (BARB-ORIENT, BARB-MILADY-RISE, BARB-MILADY-THEORY- , BARB-SHOP- , BARB-CAPSTONE). That architecture was superseded by the DB-driven blueprint engine. CANONICAL SOURCE lib curriculum blueprints barber-apprenticeship.ts CANONICAL SEEDER pnpm tsx scripts seed-course-from-blueprint.ts \ --blueprint barber-apprenticeship-v1 --program <programId> Running this script will fail (missing JSON file) and, if the JSON were restored, would create an incompatible module structure that conflicts with the 8-module blueprint-driven course. Seed Barber Apprenticeship (Indiana) Program to Supabase (LEGACY) Requirements: - SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local - data programs barber-apprenticeship-indiana.json exists */
 
 import { supabaseAdmin as supabase } from '../lib/supabaseAdmin.js';
 import { readFileSync } from 'fs';

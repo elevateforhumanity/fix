@@ -29,7 +29,7 @@ interface LessonPlayerProps {
   onComplete?: () => void;
 }
 
-/* ── Media type detection ─────────────────────────────────── */
+/* Media type detection */
 
 type MediaKind = "video" | "audio" | "unknown";
 
@@ -55,7 +55,7 @@ function mimeForUrl(url: string): string | undefined {
   return undefined;
 }
 
-/* ── Component ────────────────────────────────────────────── */
+/* Component */
 
 export default function LessonPlayer({
   videoUrl,
@@ -181,7 +181,7 @@ export default function LessonPlayer({
     return () => { if (hideControlsTimer.current) clearTimeout(hideControlsTimer.current); };
   }, [isPlaying, resetControlsTimer]);
 
-  /* ── Playback controls ──────────────────────────────────── */
+  /* Playback controls */
 
   const play = async () => {
     const v = getMedia();
@@ -226,7 +226,7 @@ export default function LessonPlayer({
     v.currentTime = Math.max(0, Math.min(maxWatchedRef.current + 2, target));
   };
 
-  /* ── Seek bar helpers ───────────────────────────────────── */
+  /* Seek bar helpers */
 
   const seekFromEvent = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
@@ -271,7 +271,7 @@ export default function LessonPlayer({
     return () => window.removeEventListener("keydown", handler);
   });
 
-  /* ── Shared progress bar ────────────────────────────────── */
+  /* Shared progress bar */
 
   const ProgressBar = (
     <div
@@ -296,7 +296,7 @@ export default function LessonPlayer({
     </div>
   );
 
-  /* ── No media: clean empty state ────────────────────────── */
+  /* No media: clean empty state */
 
   if (!videoUrl) {
     return (
@@ -312,7 +312,7 @@ export default function LessonPlayer({
     );
   }
 
-  /* ── Audio player ───────────────────────────────────────── */
+  /* Audio player */
 
   if (mediaKind === "audio") {
     return (
@@ -385,7 +385,7 @@ export default function LessonPlayer({
     );
   }
 
-  /* ── Video player ───────────────────────────────────────── */
+  /* Video player */
 
   return (
     <div ref={containerRef} className="w-full" onMouseMove={resetControlsTimer}>

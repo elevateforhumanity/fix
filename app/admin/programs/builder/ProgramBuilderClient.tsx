@@ -104,7 +104,7 @@ export default function ProgramBuilderClient({
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* ── Header ── */}
+      {/* Header */}
       <div className="bg-white border-b border-slate-200 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
@@ -132,7 +132,7 @@ export default function ProgramBuilderClient({
           </div>
         </div>
 
-        {/* ── Tab bar ── */}
+        {/* Tab bar */}
         <div className="max-w-7xl mx-auto mt-4 flex gap-1">
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
@@ -151,7 +151,7 @@ export default function ProgramBuilderClient({
         </div>
       </div>
 
-      {/* ── Tab content ── */}
+      {/* Tab content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {activeTab === 'programs' && (
           <ProgramsTab

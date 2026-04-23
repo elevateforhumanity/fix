@@ -71,7 +71,7 @@ export default function EnrollmentCtaSection({ state, onChange }: Props) {
     >
       <div className="space-y-6">
 
-        {/* ── CTAs ── */}
+        {/* CTAs */}
         <div>
           <h3 className="text-sm font-semibold text-slate-800 mb-3">Calls to Action</h3>
 
@@ -139,7 +139,7 @@ export default function EnrollmentCtaSection({ state, onChange }: Props) {
           </div>
         </div>
 
-        {/* ── Enrollment Tracks ── */}
+        {/* Enrollment Tracks */}
         <div>
           <h3 className="text-sm font-semibold text-slate-800 mb-1">Enrollment Tracks</h3>
           <p className="text-xs text-slate-500 mb-3">Define how learners pay or get funded. Each track appears as an enrollment option.</p>

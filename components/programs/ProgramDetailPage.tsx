@@ -48,7 +48,7 @@ export default function ProgramDetailPage({ program: p, heroOverride, children }
 
   return (
     <div className="min-h-screen bg-white">
-      {/* ═══ A. HERO ════════════════════════════════════════════════ */}
+      {/* A. HERO */}
       <section>
         {heroOverride ?? (() => {
           const banner = heroBanners[p.slug];
@@ -206,7 +206,7 @@ export default function ProgramDetailPage({ program: p, heroOverride, children }
         </div>
       </section>
 
-      {/* ═══ CREDIBILITY STRIP ══════════════════════════════════════ */}
+      {/* CREDIBILITY STRIP */}
       <section className="py-8 border-y border-slate-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
@@ -241,7 +241,7 @@ export default function ProgramDetailPage({ program: p, heroOverride, children }
         </div>
       </section>
 
-      {/* ═══ CURRICULUM ══════════════════════════════════════════════ */}
+      {/* CURRICULUM */}
       <section className="py-12">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl font-extrabold text-slate-900 mb-2">What You&apos;ll Learn</h2>
@@ -267,7 +267,7 @@ export default function ProgramDetailPage({ program: p, heroOverride, children }
         </div>
       </section>
 
-      {/* ═══ WHAT'S INCLUDED ════════════════════════════════════════ */}
+      {/* WHAT'S INCLUDED */}
       {((p.partnerCourses && p.partnerCourses.length > 0) || (p.microCourses && p.microCourses.length > 0) || p.lmsCourseSlug) && (
         <section className="py-12 bg-slate-50 border-y border-slate-100">
           <div className="max-w-6xl mx-auto px-4">
@@ -365,7 +365,7 @@ export default function ProgramDetailPage({ program: p, heroOverride, children }
         </section>
       )}
 
-      {/* ═══ ENROLLMENT TRACKS ══════════════════════════════════════ */}
+      {/* ENROLLMENT TRACKS */}
       <section className="py-14 border-y border-slate-100">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-10">
@@ -481,7 +481,7 @@ export default function ProgramDetailPage({ program: p, heroOverride, children }
         </div>{/* max-w-5xl */}
       </section>
 
-      {/* ═══ CTA ════════════════════════════════════════════════════ */}
+      {/* CTA */}
       <section className="py-16 bg-slate-900">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">

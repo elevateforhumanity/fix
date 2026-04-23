@@ -1,31 +1,4 @@
-/**
- * Certiport authorized testing center pricing for Elevate.
- *
- * ⚠️  VERIFY BEFORE LAUNCH: All voucher costs below are estimates based on
- *     publicly available Certiport pricing tiers. Your actual agreement with
- *     Pearson/Certiport may differ. Log into your Certiport account at
- *     certiport.pearsonvue.com → Vouchers to see your contracted rates.
- *     Update each VOUCHER_COST entry and re-run the build — the engine will
- *     throw if any exam drops below the margin floor.
- *
- * Cost structure per seat:
- *   Voucher (Certiport fee): varies by exam — see table below
- *   Proctor time:            $25   ← 60-min session, allocated hourly rate
- *   Overhead:                $15   ← facility + ops + Certiport compliance
- *   ─────────────────────────────────────────────────────────────────────
- *   True cost = voucher + $40 fixed
- *
- * Certiport carries the highest compliance overhead of all your providers:
- *   - Annual authorized center fee
- *   - Pearson audit requirements
- *   - System/software maintenance
- *   - Staff certification requirements
- * This is why the multiplier is 2.1 (vs 1.8–1.9 for other providers).
- *
- * Previous pricing: $65 flat for ALL exams.
- * Problem: CompTIA vouchers alone run $100–$165. You were losing money on
- * every CompTIA exam and barely breaking even on MOS.
- */
+/* Certiport authorized testing center pricing for Elevate. ⚠️ VERIFY BEFORE LAUNCH: All voucher costs below are estimates based on publicly available Certiport pricing tiers. Your actual agreement with Pearson Certiport may differ. Log into your Certiport account at certiport.pearsonvue.com → Vouchers to see your contracted rates. Update each VOUCHER_COST entry and re-run the build — the engine will throw if any exam drops below the margin floor. Cost structure per seat: Voucher (Certiport fee): varies by exam — see table below Proctor time: $25 ← 60-min session, allocated hourly rate Overhead: $15 ← facility + ops + Certiport compliance True cost = voucher + $40 fixed Certiport carries the highest compliance overhead of all your providers: - Annual authorized center fee - Pearson audit requirements - System software maintenance - Staff certification requirements This is why the multiplier is 2.1 (vs 1.8–1.9 for other providers). Previous pricing: $65 flat for ALL exams. Problem: CompTIA vouchers alone run $100–$165. You were losing money on every CompTIA exam and barely breaking even on MOS. */
 
 import { calculatePrice, calculateRetakePrice, calculateNoShowFee } from '../pricing-engine';
 

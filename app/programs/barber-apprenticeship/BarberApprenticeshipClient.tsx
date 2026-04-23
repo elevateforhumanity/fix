@@ -26,7 +26,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* ═══ HERO ═══ */}
+      {/* HERO */}
       {(() => {
         const b = heroBanners['barber-apprenticeship'];
         const ctas = [b.primaryCta, ...(b.secondaryCta ? [b.secondaryCta] : [])];
@@ -46,7 +46,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         );
       })()}
 
-      {/* ═══ PROGRAM IDENTITY CARD (below video) ═══ */}
+      {/* PROGRAM IDENTITY CARD (below video) */}
       <section className="border-b border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <nav className="flex items-center gap-1.5 text-xs text-black mb-4">
@@ -73,7 +73,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ DISCLOSURE BANNER ═══ */}
+      {/* DISCLOSURE BANNER */}
       <section className="bg-amber-50 border-y border-amber-200 py-4">
         <div className="max-w-6xl mx-auto px-4 flex items-start gap-3">
           <AlertTriangle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
@@ -89,7 +89,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ CAREER PATHWAY (condensed paragraph) ═══ */}
+      {/* CAREER PATHWAY (condensed paragraph) */}
       <section className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
@@ -112,7 +112,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ MEASURABLE OUTCOMES (condensed paragraph) ═══ */}
+      {/* MEASURABLE OUTCOMES (condensed paragraph) */}
       <section className="py-10">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -138,7 +138,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ CURRICULUM PREVIEW ═══ */}
+      {/* CURRICULUM PREVIEW */}
       <section className="bg-slate-50 border-y border-slate-200 py-10">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-2">
@@ -176,7 +176,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ CREDENTIALS EARNED (image blocks, no OSHA 10) ═══ */}
+      {/* CREDENTIALS EARNED (image blocks, no OSHA 10) */}
       <section className="max-w-6xl mx-auto px-4 py-10">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
@@ -205,7 +205,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ CTA: INQUIRY & ENROLLMENT ═══ */}
+      {/* CTA: INQUIRY & ENROLLMENT */}
       <section className="py-12 border-t">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-slate-900 text-center mb-3">Ready to Start?</h2>
@@ -253,7 +253,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
 
 
 
-      {/* ═══ CAREER OUTCOMES / LABOR MARKET ═══ */}
+      {/* CAREER OUTCOMES LABOR MARKET */}
       <section className="py-10">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-6">
@@ -288,7 +288,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ FAQ ═══ */}
+      {/* FAQ */}
       <section className="max-w-6xl mx-auto px-4 py-10">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
@@ -309,7 +309,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ WAITLIST SIGNUP ═══ */}
+      {/* WAITLIST SIGNUP */}
       <section className="bg-brand-blue-50 py-10" id="waitlist">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -415,7 +415,7 @@ export default function BarberApprenticeshipClient({ program: p }: Props) {
         </div>
       </section>
 
-      {/* ═══ INSTITUTIONAL FOOTER ═══ */}
+      {/* INSTITUTIONAL FOOTER */}
       <section className="border-t py-8">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm text-black">

@@ -86,7 +86,7 @@ export default function HVACSystemOverview({ mode = 'explore', onComplete }: Pro
           <path d="M250,100 L500,30 L750,100 L750,350 L250,350 Z" fill="#f8fafc" stroke="#94a3b8" strokeWidth="1.5" />
           <text x="500" y="55" textAnchor="middle" fill="#64748b" fontSize="11" fontWeight="600">BUILDING INTERIOR</text>
 
-          {/* ── OUTDOOR CONDENSER ── */}
+          {/* OUTDOOR CONDENSER */}
           <g onClick={() => handleClick('condenser')} className="cursor-pointer" role="button" aria-label="Outdoor condenser unit">
             <rect x="30" y="240" width="140" height="110" rx="10" fill={activePart === 'condenser' ? '#fee2e2' : '#fef2f2'} stroke="#dc2626" strokeWidth="2" />
             <circle cx="100" cy="270" r="25" fill="none" stroke="#dc2626" strokeWidth="1.5" />
@@ -101,7 +101,7 @@ export default function HVACSystemOverview({ mode = 'explore', onComplete }: Pro
             <text x="55" y="210" fill="#991b1b" fontSize="8">HEAT OUT</text>
           </g>
 
-          {/* ── REFRIGERANT LINES ── */}
+          {/* REFRIGERANT LINES */}
           <g onClick={() => handleClick('refrigerant-lines')} className="cursor-pointer" role="button" aria-label="Refrigerant lines">
             {/* Suction line (large, insulated) */}
             <line x1="170" y1="280" x2="350" y2="280" stroke="#0891b2" strokeWidth="6" />
@@ -116,7 +116,7 @@ export default function HVACSystemOverview({ mode = 'explore', onComplete }: Pro
             </text>
           </g>
 
-          {/* ── FURNACE / AIR HANDLER ── */}
+          {/* FURNACE AIR HANDLER */}
           <g onClick={() => handleClick('furnace')} className="cursor-pointer" role="button" aria-label="Furnace and air handler">
             <rect x="340" y="200" width="120" height="150" rx="8" fill={activePart === 'furnace' ? '#dbeafe' : '#eff6ff'} stroke="#2563eb" strokeWidth="2" />
             <text x="400" y="225" textAnchor="middle" fill="#2563eb" fontSize="10" fontWeight="700">
@@ -130,7 +130,7 @@ export default function HVACSystemOverview({ mode = 'explore', onComplete }: Pro
             <text x="400" y="344" textAnchor="middle" fill="#64748b" fontSize="7">FILTER</text>
           </g>
 
-          {/* ── EVAPORATOR COIL ── */}
+          {/* EVAPORATOR COIL */}
           <g onClick={() => handleClick('evaporator')} className="cursor-pointer" role="button" aria-label="Evaporator coil">
             <rect x="355" y="170" width="90" height="30" rx="4" fill={activePart === 'evaporator' ? '#a5f3fc' : '#cffafe'} stroke="#0891b2" strokeWidth="2" />
             {/* Coil fins */}
@@ -142,7 +142,7 @@ export default function HVACSystemOverview({ mode = 'explore', onComplete }: Pro
             </text>
           </g>
 
-          {/* ── DUCTWORK ── */}
+          {/* DUCTWORK */}
           <g onClick={() => handleClick('ductwork')} className="cursor-pointer" role="button" aria-label="Ductwork">
             {/* Supply duct going right */}
             <rect x="460" y="140" width="200" height="30" rx="4" fill={activePart === 'ductwork' ? '#bbf7d0' : '#dcfce7'} stroke="#16a34a" strokeWidth="1.5" />
@@ -166,7 +166,7 @@ export default function HVACSystemOverview({ mode = 'explore', onComplete }: Pro
             <text x="620" y="318" fill="#6366f1" fontSize="12">← ← ←</text>
           </g>
 
-          {/* ── THERMOSTAT ── */}
+          {/* THERMOSTAT */}
           <g onClick={() => handleClick('thermostat')} className="cursor-pointer" role="button" aria-label="Thermostat">
             <rect x="620" y="100" width="70" height="50" rx="8" fill={activePart === 'thermostat' ? '#fef3c7' : '#fefce8'} stroke="#ca8a04" strokeWidth="2" />
             <text x="655" y="122" textAnchor="middle" fill="#854d0e" fontSize="14" fontWeight="700">72°</text>

@@ -404,7 +404,7 @@ export default function HVACClassroomPreview({
             })}
           </div>
 
-          {/* ── VIDEO TAB ── */}
+          {/* VIDEO TAB */}
           {activeTab === 'video' && (
             <div>
               {(() => {
@@ -438,7 +438,7 @@ export default function HVACClassroomPreview({
             </div>
           )}
 
-          {/* ── CONTENT TAB ── */}
+          {/* CONTENT TAB */}
           {activeTab === 'content' && (
             <div className="space-y-8">
               {/* Module content from data-driven renderer */}
@@ -485,7 +485,7 @@ export default function HVACClassroomPreview({
             </div>
           )}
 
-          {/* ── LAB TAB ── */}
+          {/* LAB TAB */}
           {activeTab === 'lab' && (
             <div>
               {/* Interactive Labs — mapped by module */}
@@ -603,7 +603,7 @@ export default function HVACClassroomPreview({
             </div>
           )}
 
-          {/* ── QUIZ TAB ── */}
+          {/* QUIZ TAB */}
           {activeTab === 'quiz' && (
             <div>
               <PostVideoQuiz

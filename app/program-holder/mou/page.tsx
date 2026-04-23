@@ -78,7 +78,7 @@ export default async function ProgramHolderMOUPage() {
               <p className="mb-4">This Memorandum of Understanding (&ldquo;MOU&rdquo;) is entered into between <strong>Elevate for Humanity Career &amp; Technical Institute</strong> (&ldquo;Elevate&rdquo;) and <strong>{orgName}</strong> (&ldquo;Program Holder&rdquo;).</p>
 
               {isCustomHvac ? (
-                /* ── David Nazaire / First Class Training Center — HVAC Co-Delivery ── */
+                /* David Nazaire First Class Training Center — HVAC Co-Delivery */
                 <>
                   <h3 className="font-semibold text-slate-800 mt-5 mb-2">1. Purpose</h3>
                   <p className="mb-4">The purpose of this MOU is to establish a co-delivery partnership for the HVAC Technician training program. Elevate and {orgName} each hold distinct and complementary responsibilities in delivering a complete, industry-recognized training experience to enrolled students.</p>
@@ -205,7 +205,7 @@ export default async function ProgramHolderMOUPage() {
                   <p>This MOU is effective upon signing by both parties and remains in effect for one (1) year, renewable annually by mutual written agreement. Either party may terminate with 30 days written notice. Termination does not affect obligations for students already enrolled prior to the termination date.</p>
                 </>
               ) : (
-                /* ── Universal MOU — all other program holders ── */
+                /* Universal MOU — all other program holders */
                 <>
                   <h3 className="font-semibold text-slate-800 mt-5 mb-2">1. Purpose</h3>
                   <p className="mb-4">The purpose of this MOU is to establish a partnership for the delivery of workforce training programs through Elevate&apos;s learning management platform.</p>

@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-/* ─── Data contract ─── */
+/* Data contract */
 
 export interface ProgramCredential {
   name: string;
@@ -101,7 +101,7 @@ export interface WorkforceProgramData {
   };
 }
 
-/* ─── Color map ─── */
+/* Color map */
 
 const COLORS = {
   red:   { bg: 'bg-brand-red-600', hover: 'hover:bg-brand-red-700', light: 'bg-brand-red-50', text: 'text-brand-red-600', accent: 'bg-brand-red-100', dot: 'bg-brand-red-600' },
@@ -111,7 +111,7 @@ const COLORS = {
   amber: { bg: 'bg-amber-600', hover: 'hover:bg-amber-700', light: 'bg-amber-50', text: 'text-amber-600', accent: 'bg-amber-100', dot: 'bg-amber-600' },
 } as const;
 
-/* ─── Component ─── */
+/* Component */
 
 export function WorkforceProgramPage({ program }: { program: WorkforceProgramData }) {
   const c = COLORS[program.accentColor];

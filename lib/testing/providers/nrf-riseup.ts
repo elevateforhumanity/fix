@@ -1,30 +1,4 @@
-/**
- * NRF RISE Up pricing for Elevate Testing Center.
- *
- * ⚠️  VERIFY BEFORE LAUNCH: NRF Foundation authorized center voucher cost.
- *     Public NRF rate for test-takers is $13.50–$22 per credential.
- *     Your authorized center agreement may differ — check nrffoundation.org
- *     or your NRF account portal and update VOUCHER_COST below.
- *
- * NRF RISE Up credentials currently offered at Elevate:
- *   - Retail Industry Fundamentals  (entry-level, no proctor required)
- *   - Customer Service & Sales      (proctored)
- *   - Business of Retail            (proctored)
- *
- * NOT offered (not in current NRF catalog as a standalone credential):
- *   - "Supply Chain & Logistics" — does not exist as an NRF RISE Up exam.
- *     Do not add it until NRF officially launches it.
- *
- * Cost structure per seat:
- *   Voucher (NRF fee):  $18   ← ⚠️ ESTIMATE — verify against your NRF agreement
- *   Proctor time:       $20   ← shorter session than Certiport/WorkKeys
- *   Overhead:           $10
- *   ─────────────────────────
- *   True cost/seat:     $48
- *
- * Previous pricing: $45 flat → ~6% margin. Effectively working for free.
- * Corrected pricing: $91 → ~47% margin.
- */
+/* NRF RISE Up pricing for Elevate Testing Center. ⚠️ VERIFY BEFORE LAUNCH: NRF Foundation authorized center voucher cost. Public NRF rate for test-takers is $13.50–$22 per credential. Your authorized center agreement may differ — check nrffoundation.org or your NRF account portal and update VOUCHER_COST below. NRF RISE Up credentials currently offered at Elevate: - Retail Industry Fundamentals (entry-level, no proctor required) - Customer Service & Sales (proctored) - Business of Retail (proctored) NOT offered (not in current NRF catalog as a standalone credential): - "Supply Chain & Logistics" — does not exist as an NRF RISE Up exam. Do not add it until NRF officially launches it. Cost structure per seat: Voucher (NRF fee): $18 ← ⚠️ ESTIMATE — verify against your NRF agreement Proctor time: $20 ← shorter session than Certiport WorkKeys Overhead: $10 True cost seat: $48 Previous pricing: $45 flat → ~6% margin. Effectively working for free. Corrected pricing: $91 → ~47% margin. */
 
 import { calculatePrice, calculateRetakePrice, calculateNoShowFee } from '../pricing-engine';
 

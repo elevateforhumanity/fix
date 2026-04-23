@@ -148,7 +148,7 @@ export function CourseBuilderPageClient() {
   return (
     <div className="p-6 space-y-4 text-sm">
 
-      {/* ── Generate Full Course ─────────────────────────────────────────── */}
+      {/* Generate Full Course */}
       <div className="border-2 border-indigo-200 rounded-2xl p-5 bg-indigo-50 space-y-4">
         <div className="flex items-start justify-between">
           <div>
@@ -219,7 +219,7 @@ export function CourseBuilderPageClient() {
         )}
       </div>
 
-      {/* ── Manual Builder ───────────────────────────────────────────────── */}
+      {/* Manual Builder */}
       <div className="grid grid-cols-12 gap-4">
 
         <div className="col-span-3 border rounded-2xl p-4 space-y-2">

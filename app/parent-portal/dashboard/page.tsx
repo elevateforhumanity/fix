@@ -112,7 +112,7 @@ export default async function ParentDashboardPage() {
         </p>
 
         {students.length === 0 ? (
-          /* ── No linked students ── */
+          /* No linked students */
           <div className="rounded-2xl border border-slate-200 bg-slate-50 px-8 py-14 text-center max-w-lg mx-auto">
             <div className="w-14 h-14 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center mx-auto mb-5">
               <AlertTriangle className="w-7 h-7 text-amber-500" />
@@ -138,7 +138,7 @@ export default async function ParentDashboardPage() {
             </div>
           </div>
         ) : (
-          /* ── Student cards ── */
+          /* Student cards */
           <div className="space-y-8">
             {students.map(student => (
               <div key={student.id} className="rounded-2xl border border-slate-200 bg-white overflow-hidden">

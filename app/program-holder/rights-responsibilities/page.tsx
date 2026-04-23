@@ -79,7 +79,7 @@ export default async function ProgramHolderRightsPage() {
 
         <div className="prose prose-slate max-w-none mb-12">
 
-          {/* ── PART 1: RIGHTS ── */}
+          {/* PART 1: RIGHTS */}
           <h2 className="text-2xl font-bold text-slate-900 border-b-2 border-brand-blue-600 pb-2 mt-0">Part 1: Your Rights as a Program Holder</h2>
           <p>
             These rights exist to protect you. Elevate is obligated to honor them. If you believe any of
@@ -159,7 +159,7 @@ export default async function ProgramHolderRightsPage() {
             by law or federal oversight agencies.
           </p>
 
-          {/* ── PART 2: RESPONSIBILITIES ── */}
+          {/* PART 2: RESPONSIBILITIES */}
           <h2 className="text-2xl font-bold text-slate-900 border-b-2 border-red-600 pb-2">Part 2: Your Responsibilities as a Program Holder</h2>
           <p>
             These responsibilities are not suggestions. They are conditions of your authorization to operate
@@ -218,7 +218,7 @@ export default async function ProgramHolderRightsPage() {
             <li>Repay any disallowed costs or overpayments within 30 days of written notice from Elevate.</li>
           </ul>
 
-          {/* ── TERMINATION ── */}
+          {/* TERMINATION */}
           <h2 className="text-2xl font-bold text-slate-900 border-b-2 border-slate-400 pb-2">Part 3: Termination</h2>
 
           <h3 className="text-xl font-bold text-slate-800">T1. Termination by You — 30 Days Notice</h3>

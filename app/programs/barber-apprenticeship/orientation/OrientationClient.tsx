@@ -178,7 +178,7 @@ export default function BarberOrientationClient({
 
       <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
 
-        {/* ── Step 1: Video ── */}
+        {/* Step 1: Video */}
         <div className="space-y-3">
           <h2 className="text-white font-semibold text-sm uppercase tracking-widest">
             Step 1 — Watch the Orientation Video
@@ -222,7 +222,7 @@ export default function BarberOrientationClient({
           </div>
         </div>
 
-        {/* ── Step 2: Handbook slides ── */}
+        {/* Step 2: Handbook slides */}
         <div className={`space-y-4 transition-opacity duration-300 ${videoWatched ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
           <h2 className="text-white font-semibold text-sm uppercase tracking-widest">
             Step 2 — Student Handbook ({readSlides.size}/{HANDBOOK_SLIDES.length} sections read)
@@ -331,7 +331,7 @@ export default function BarberOrientationClient({
           </div>
         </div>
 
-        {/* ── Step 3: Acknowledge & Continue ── */}
+        {/* Step 3: Acknowledge & Continue */}
         <div className={`bg-slate-800 rounded-2xl p-6 space-y-4 transition-opacity duration-300 ${allSlidesRead ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
           <h2 className="text-white font-semibold text-sm uppercase tracking-widest">
             Step 3 — Acknowledge & Continue

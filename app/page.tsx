@@ -25,7 +25,7 @@ export default function HomePage() {
   return (
     <main>
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <HeroVideo
         videoSrcDesktop={heroBanners.home.videoSrcDesktop}
         posterImage={heroBanners.home.posterImage}
@@ -38,7 +38,7 @@ export default function HomePage() {
         transcript={heroBanners.home.transcript}
       />
 
-      {/* ── ROTATING BANNER ── */}
+      {/* ROTATING BANNER */}
       <RotatingBanner
         variant="red"
         lines={[
@@ -51,10 +51,10 @@ export default function HomePage() {
         ]}
       />
 
-      {/* ── MARQUEE ── */}
+      {/* MARQUEE */}
       <MarqueeBanner />
 
-      {/* ── PLATFORM POSITIONING ── */}
+      {/* PLATFORM POSITIONING */}
       <section className="bg-slate-950 py-16 px-6 border-b border-slate-800">
         <div className="max-w-6xl mx-auto">
           <p className="text-brand-red-400 text-xs font-bold uppercase tracking-widest text-center mb-3">What we actually built</p>
@@ -105,10 +105,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SYSTEM DIAGRAM ── */}
+      {/* SYSTEM DIAGRAM */}
       <WorkforceSystemDiagram />
 
-      {/* ── WHO THIS IS FOR ── */}
+      {/* WHO THIS IS FOR */}
       <section className="bg-white py-16 px-6 border-b border-slate-100">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-10 text-center">Who we work with</h2>
@@ -159,7 +159,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── PROGRAMS ── */}
+      {/* PROGRAMS */}
       <section className="bg-slate-900 py-16 px-6">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 text-center">Programs</h2>
@@ -175,7 +175,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FUNDING ── */}
+      {/* FUNDING */}
       <section className="bg-brand-red-700 py-14 sm:py-16 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
@@ -212,7 +212,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
+      {/* CTA */}
       <div className="bg-slate-800 py-14 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">Ready to start?</h2>

@@ -21,7 +21,7 @@ export const maxDuration = 300;
 
 export const dynamic = 'force-dynamic';
 
-/* ── Paths ──────────────────────────────────────────────────── */
+/* Paths */
 
 const BASE_DIR = () => path.join(process.cwd(), 'public', 'generated', 'lessons');
 const scriptFilePath = (id: string) => path.join(BASE_DIR(), `lesson-full-${id}.txt`);
@@ -29,7 +29,7 @@ const audioFilePath = (id: string) => path.join(BASE_DIR(), `lesson-full-${id}.m
 const publicAudioUrl = (id: string) => `/hvac/audio/lesson-${id}.mp3`;
 const publicScriptUrl = (id: string) => `/hvac/audio/lesson-${id}.txt`;
 
-/* ── Lesson lookup ──────────────────────────────────────────── */
+/* Lesson lookup */
 
 interface LessonContext {
   lesson: CourseLesson;
@@ -60,7 +60,7 @@ function findLesson(lessonId: string): LessonContext | null {
   return null;
 }
 
-/* ── Fallback script from lesson definition data (no API needed) ── */
+/* Fallback script from lesson definition data (no API needed) */
 
 function buildFallbackScript(ctx: LessonContext): string {
   const { lesson, module, moduleIndex, lessonIndex, courseName } = ctx;
@@ -91,7 +91,7 @@ Remember, this is part of your 12-week HVAC Technician program at Elevate for Hu
 Let's get to work.`.trim();
 }
 
-/* ── Full lecture script generation via aiChat (Gemini/OpenAI) ── */
+/* Full lecture script generation via aiChat (Gemini OpenAI) */
 
 async function generateFullScript(ctx: LessonContext): Promise<string> {
   const { lesson, module, moduleIndex, lessonIndex, courseName } = ctx;
@@ -181,7 +181,7 @@ RULES:
   return script;
 }
 
-/* ── TTS via Gemini native audio or Google Cloud TTS ────────── */
+/* TTS via Gemini native audio or Google Cloud TTS */
 
 async function convertToAudio(script: string): Promise<Buffer | null> {
   const geminiKey = process.env.GEMINI_API_KEY;
@@ -275,7 +275,7 @@ async function convertToAudio(script: string): Promise<Buffer | null> {
   return null;
 }
 
-/* ── Route handler ──────────────────────────────────────────── */
+/* Route handler */
 
 type Params = Promise<{ lessonId: string }>;
 

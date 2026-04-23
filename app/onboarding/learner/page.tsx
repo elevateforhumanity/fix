@@ -401,7 +401,7 @@ export default async function LearnerOnboardingPage({
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
-        {/* ── Gate: no application on record ─────────────────────────────── */}
+        {/* Gate: no application on record */}
         {noApplication && (
           <div className="max-w-lg mx-auto text-center py-16">
             <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-6">
@@ -427,7 +427,7 @@ export default async function LearnerOnboardingPage({
           </div>
         )}
 
-        {/* ── Gate: application submitted but not yet approved ────────────── */}
+        {/* Gate: application submitted but not yet approved */}
         {applicationPending && !noApplication && (
           <div className="max-w-lg mx-auto text-center py-16">
             <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-6">
@@ -456,7 +456,7 @@ export default async function LearnerOnboardingPage({
           </div>
         )}
 
-        {/* ── Main onboarding content — only shown when application is approved ── */}
+        {/* Main onboarding content — only shown when application is approved */}
         {!noApplication && !applicationPending && <>
 
         {/* Enrollment approved — student can access courses */}

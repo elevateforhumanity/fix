@@ -418,7 +418,7 @@ export default function ProgramManagerClient({
 
       {notice && <Alert msg={notice.msg} type={notice.type} />}
 
-      {/* ── Section 1: Internal LMS Courses ─────────────────────────────── */}
+      {/* Section 1: Internal LMS Courses */}
       <section>
         <div className="flex items-center justify-between mb-4">
           <div>
@@ -520,7 +520,7 @@ export default function ProgramManagerClient({
         </p>
       </section>
 
-      {/* ── Section 2: External Partner Training ────────────────────────── */}
+      {/* Section 2: External Partner Training */}
       <section>
         <div className="flex items-center justify-between mb-4">
           <div>
@@ -627,7 +627,7 @@ export default function ProgramManagerClient({
         )}
       </section>
 
-      {/* ── Footer actions ───────────────────────────────────────────────── */}
+      {/* Footer actions */}
       <div className="flex items-center gap-4 pt-4 border-t border-slate-100">
         <a
           href={`/programs/${programCode}`}

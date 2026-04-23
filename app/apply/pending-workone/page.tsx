@@ -130,7 +130,7 @@ export default function PendingWorkOnePage({
           </p>
         </div>
 
-        {/* ── Checklist ── */}
+        {/* Checklist */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-slate-900 mb-1">Track your progress</h2>
           <p className="text-sm text-black mb-4">

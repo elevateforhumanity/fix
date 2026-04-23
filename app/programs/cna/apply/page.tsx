@@ -89,7 +89,7 @@ export default function CNAApplyPage() {
           <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">{error}</div>
         )}
 
-        {/* ── STEP 1 ── */}
+        {/* STEP 1 */}
         {step === 1 && (
           <div>
             <h1 className="text-2xl font-bold mb-1">Let&apos;s Get You Started</h1>
@@ -139,7 +139,7 @@ export default function CNAApplyPage() {
           </div>
         )}
 
-        {/* ── STEP 2 ── */}
+        {/* STEP 2 */}
         {step === 2 && (
           <div>
             <h1 className="text-2xl font-bold mb-1">A few quick questions</h1>
@@ -195,7 +195,7 @@ export default function CNAApplyPage() {
           </div>
         )}
 
-        {/* ── STEP 3 ── */}
+        {/* STEP 3 */}
         {step === 3 && (
           <div>
             <h1 className="text-2xl font-bold mb-1">You&apos;re almost done</h1>

@@ -962,7 +962,7 @@ export default function LessonPage() {
         ) : lesson.step_type === 'exam' ? (
           <div className="max-w-4xl mx-auto p-4 md:p-8">
             {lesson.partner_exam_code ? (
-              /* ── Certiport / external proctored exam ── */
+              /* Certiport external proctored exam */
               <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-8">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0">
@@ -997,7 +997,7 @@ export default function LessonPage() {
                 </Link>
               </div>
             ) : lesson.quiz_questions?.length > 0 ? (
-              /* ── Internal quiz-based exam ── */
+              /* Internal quiz-based exam */
               <QuizPlayer
                 questions={lesson.quiz_questions}
                 title={lesson.title}
@@ -1359,7 +1359,7 @@ export default function LessonPage() {
             </div>
           )}
 
-          {/* ── NHA-STYLE ACTIVITY TABS ── */}
+          {/* NHA-STYLE ACTIVITY TABS */}
           {(() => {
             const stepType = lesson.step_type || lesson.content_type || 'lesson';
             const activityDefs = getActivitiesForLesson(stepType, lesson.activities);

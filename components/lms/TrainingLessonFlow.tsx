@@ -147,7 +147,7 @@ export default function TrainingLessonFlow({
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-10">
 
-      {/* ── 1. VIDEO DEMO ─────────────────────────────────────────────────── */}
+      {/* 1. VIDEO DEMO */}
       {hasVideo && (
         <section aria-label="Lesson video">
           <div className="flex items-center gap-2 mb-3">
@@ -185,7 +185,7 @@ export default function TrainingLessonFlow({
         </section>
       )}
 
-      {/* ── 2. CORE CONTENT ───────────────────────────────────────────────── */}
+      {/* 2. CORE CONTENT */}
       {content && (
         <section aria-label="Lesson content">
           <div
@@ -208,7 +208,7 @@ export default function TrainingLessonFlow({
         </div>
       )}
 
-      {/* ── 3. KEY TERMS ──────────────────────────────────────────────────── */}
+      {/* 3. KEY TERMS */}
       {hasKeyTerms && (
         <section aria-label="Key terms">
           <button
@@ -239,7 +239,7 @@ export default function TrainingLessonFlow({
         </section>
       )}
 
-      {/* ── 4. SCENARIO ───────────────────────────────────────────────────── */}
+      {/* 4. SCENARIO */}
       {hasScenario && (
         <section aria-label="Applied scenario" ref={quizRef}>
           <div className="rounded-xl border-l-4 border-brand-orange-500 bg-orange-50 p-6">
@@ -259,7 +259,7 @@ export default function TrainingLessonFlow({
         </section>
       )}
 
-      {/* ── 5. QUIZ ───────────────────────────────────────────────────────── */}
+      {/* 5. QUIZ */}
       {hasQuiz && quizPhase !== 'passed' && (
         <section aria-label="Quick check quiz">
           <div className="border border-slate-200 rounded-xl overflow-hidden">
@@ -365,7 +365,7 @@ export default function TrainingLessonFlow({
         </section>
       )}
 
-      {/* ── 6. PASSED STATE ───────────────────────────────────────────────── */}
+      {/* 6. PASSED STATE */}
       {(quizPhase === 'passed' || alreadyPassed) && hasQuiz && (
         <section aria-label="Lesson complete">
           <div className="rounded-xl bg-green-50 border border-green-200 p-5 flex items-center gap-4">

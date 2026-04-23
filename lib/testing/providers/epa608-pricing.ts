@@ -1,33 +1,4 @@
-/**
- * EPA Section 608 (ESCO Institute) pricing for Elevate Testing Center.
- *
- * Elevate is an authorized proctor site for both ESCO Group and
- * Mainstream Engineering. EPA 608 is IN_PERSON_ONLY by federal regulation —
- * remote proctoring is not permitted under the Clean Air Act.
- *
- * ⚠️  VERIFY BEFORE LAUNCH: ESCO proctor site fee per candidate.
- *     ESCO charges authorized sites a per-candidate fee, not a voucher.
- *     Typical range: $8–$15 per candidate depending on your agreement.
- *     Check your ESCO proctor site agreement and update ESCO_FEE below.
- *
- * Cost structure per seat:
- *   ESCO proctor fee:  $12   ← ⚠️ ESTIMATE — verify against your ESCO agreement
- *   Proctor time:      $20   ← 45-min session
- *   Overhead:          $10
- *   ─────────────────────────
- *   True cost/seat:    $42
- *
- * Previous pricing:
- *   Universal (all 4 sections): $55 → ~24% margin. Thin.
- *   Single section:             $35 → ~17% margin. Barely covers costs.
- *
- * Corrected pricing (~45% margin):
- *   Universal: $76
- *   Single:    $50
- *
- * Note: EPA 608 is a high-volume, low-complexity exam. The volume justifies
- * a slightly lower margin target (40% floor) vs other providers.
- */
+/* EPA Section 608 (ESCO Institute) pricing for Elevate Testing Center. Elevate is an authorized proctor site for both ESCO Group and Mainstream Engineering. EPA 608 is IN_PERSON_ONLY by federal regulation — remote proctoring is not permitted under the Clean Air Act. ⚠️ VERIFY BEFORE LAUNCH: ESCO proctor site fee per candidate. ESCO charges authorized sites a per-candidate fee, not a voucher. Typical range: $8–$15 per candidate depending on your agreement. Check your ESCO proctor site agreement and update ESCO_FEE below. Cost structure per seat: ESCO proctor fee: $12 ← ⚠️ ESTIMATE — verify against your ESCO agreement Proctor time: $20 ← 45-min session Overhead: $10 True cost seat: $42 Previous pricing: Universal (all 4 sections): $55 → ~24% margin. Thin. Single section: $35 → ~17% margin. Barely covers costs. Corrected pricing (~45% margin): Universal: $76 Single: $50 Note: EPA 608 is a high-volume, low-complexity exam. The volume justifies a slightly lower margin target (40% floor) vs other providers. */
 
 import { calculatePrice, calculateRetakePrice, calculateNoShowFee } from '../pricing-engine';
 

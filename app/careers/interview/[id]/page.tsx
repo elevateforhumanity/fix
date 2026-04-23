@@ -174,7 +174,7 @@ export default async function InterviewPage({ params }: { params: Promise<{ id: 
         </div>
 
         {zoomLink ? (
-          /* ── Zoom link available ── */
+          /* Zoom link available */
           <div className="space-y-4">
             <div className="bg-white rounded-2xl border p-6">
               <h2 className="font-bold text-slate-900 mb-4">Interview Details</h2>
@@ -232,7 +232,7 @@ export default async function InterviewPage({ params }: { params: Promise<{ id: 
             </div>
           </div>
         ) : (
-          /* ── Zoom not configured — show scheduling info ── */
+          /* Zoom not configured — show scheduling info */
           <div className="bg-white rounded-2xl border p-8 text-center">
             <Calendar className="w-12 h-12 text-brand-blue-400 mx-auto mb-4" />
             <h2 className="text-xl font-bold text-slate-900 mb-2">Interview Being Scheduled</h2>

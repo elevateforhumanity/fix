@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { Printer, Download, BookOpen, CheckCircle, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { useI18n, I18nProvider } from '@/lib/i18n/context';
 
-/* ── Data ─────────────────────────────────────────────────────── */
+/* Data */
 
 const REFRIGERANT_TABLE = [
   { name: 'R-12',    type: 'CFC',  odp: '1.0',  gwp: '10,900', color: 'White',      status: 'Banned 1996',        safety: 'A1' },
@@ -79,7 +79,7 @@ const MUST_KNOW_QA = [
   { q: 'Can recovered refrigerant be returned to the same system without reclamation?', a: 'Yes — same owner\'s equipment only. Different owner requires reclamation to ARI 700.' },
 ];
 
-/* ── Components ───────────────────────────────────────────────── */
+/* Components */
 
 function SectionHeader({ number, title, color }: { number: string; title: string; color: string }) {
   return (
@@ -119,7 +119,7 @@ function CollapsibleQA() {
   );
 }
 
-/* ── Main ─────────────────────────────────────────────────────── */
+/* Main */
 
 function StudyGuideContent() {
   const { t } = useI18n();

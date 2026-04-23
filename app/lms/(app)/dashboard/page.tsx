@@ -177,7 +177,7 @@ export default async function StudentDashboard() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* ── Top bar ──────────────────────────────────────────────────────── */}
+      {/* Top bar */}
       <div className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-sm text-slate-500">
           <GraduationCap className="w-4 h-4 text-brand-blue-600" />
@@ -191,7 +191,7 @@ export default async function StudentDashboard() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-        {/* ── COMMAND CENTER — above the fold ──────────────────────────── */}
+        {/* COMMAND CENTER — above the fold */}
         {activeEnrollment && !isPendingApproval ? (
           <div className="bg-brand-blue-700 rounded-2xl overflow-hidden">
             <div className="px-6 sm:px-8 py-6 sm:py-8">
@@ -335,7 +335,7 @@ export default async function StudentDashboard() {
           </div>
         )}
 
-        {/* ── WorkOne checklist (gated) ─────────────────────────────────── */}
+        {/* WorkOne checklist (gated) */}
         {isPendingWorkone && (
           <WorkOneChecklistSection
             pendingWorkone={isPendingWorkone}
@@ -343,7 +343,7 @@ export default async function StudentDashboard() {
           />
         )}
 
-        {/* ── Main 2-col layout ─────────────────────────────────────────── */}
+        {/* Main 2-col layout */}
         <div className="grid lg:grid-cols-3 gap-6">
 
           {/* Main column */}

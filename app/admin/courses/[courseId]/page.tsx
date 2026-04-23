@@ -94,7 +94,7 @@ export default async function CourseBuilderPage({
   return (
     <div className="min-h-screen bg-white">
 
-      {/* ── Header ── */}
+      {/* Header */}
       <div className="bg-brand-blue-700 text-white py-6 px-4">
         <div className="max-w-5xl mx-auto flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -158,7 +158,7 @@ export default async function CourseBuilderPage({
 
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
 
-        {/* ── Generation progress bar ── */}
+        {/* Generation progress bar */}
         {(isGenerating || genStatus === 'generating') && (
           <div className="bg-white rounded-xl border p-4 space-y-2">
             <div className="flex items-center justify-between text-sm">
@@ -192,7 +192,7 @@ export default async function CourseBuilderPage({
           </div>
         )}
 
-        {/* ── Generate panel (shown when draft or review) ── */}
+        {/* Generate panel (shown when draft or review) */}
         {(genStatus === 'draft' || genStatus === 'review') && (
           <div className="bg-white rounded-xl border p-5">
             <h2 className="text-base font-semibold text-slate-900 mb-1">
@@ -223,7 +223,7 @@ export default async function CourseBuilderPage({
           </div>
         )}
 
-        {/* ── Lesson builder ── */}
+        {/* Lesson builder */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-900">

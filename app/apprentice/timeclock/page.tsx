@@ -627,7 +627,7 @@ export default function TimeclockPage() {
           </div>
 
           {/* Shift Complete */}
-          {/* ── RECENT SHIFT LOG ── */}
+          {/* RECENT SHIFT LOG */}
           <div className="mt-8">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-sm font-semibold text-slate-900 flex items-center gap-1.5">

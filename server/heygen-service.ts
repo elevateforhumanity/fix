@@ -8,7 +8,7 @@
 const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY!;
 const BASE = 'https://api.heygen.com';
 
-/* ── helpers ─────────────────────────────────────────────────────── */
+/* helpers */
 
 async function heygenFetch(path: string, body: Record<string, unknown>) {
   const res = await fetch(`${BASE}${path}`, {
@@ -37,7 +37,7 @@ async function heygenGet(path: string) {
   return res.json() as Promise<any>;
 }
 
-/* ── types ───────────────────────────────────────────────────────── */
+/* types */
 
 export interface HeyGenScene {
   /** Script the avatar will speak (max 5,000 chars) */
@@ -62,7 +62,7 @@ export interface CreateVideoOptions {
   defaultVoiceId?: string;
 }
 
-/* ── public API ──────────────────────────────────────────────────── */
+/* public API */
 
 /**
  * Create a HeyGen video with one or more scenes.

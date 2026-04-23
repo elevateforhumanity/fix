@@ -42,7 +42,7 @@ export default function BuilderSidebar({ state, derived, onAddLesson, onAddModul
   return (
     <div className="sticky top-20 space-y-4">
 
-      {/* ── Completion Checklist ── */}
+      {/* Completion Checklist */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         <div className="border-b border-slate-100 px-5 py-4">
           <div className="flex items-center justify-between">
@@ -77,7 +77,7 @@ export default function BuilderSidebar({ state, derived, onAddLesson, onAddModul
         </ul>
       </div>
 
-      {/* ── Program Health ── */}
+      {/* Program Health */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         <div className="border-b border-slate-100 px-5 py-4">
           <h3 className="text-sm font-semibold text-slate-900">Program Health</h3>
@@ -121,7 +121,7 @@ export default function BuilderSidebar({ state, derived, onAddLesson, onAddModul
         </div>
       </div>
 
-      {/* ── Quick Actions ── */}
+      {/* Quick Actions */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         <div className="border-b border-slate-100 px-5 py-4">
           <h3 className="text-sm font-semibold text-slate-900">Quick Actions</h3>
@@ -161,7 +161,7 @@ export default function BuilderSidebar({ state, derived, onAddLesson, onAddModul
         </div>
       </div>
 
-      {/* ── Publish gate message ── */}
+      {/* Publish gate message */}
       {derived.missingRequired.length > 0 && (
         <div className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4">
           <p className="text-xs font-semibold text-amber-800 mb-2">Cannot publish yet</p>

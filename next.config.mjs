@@ -79,6 +79,8 @@ const nextConfig = {
   // the dynamic import() in the TTS route still causes webpack to trace it.
   transpilePackages: ['edge-tts'],
 
+
+
   // turbopack: {} removed — enabling it causes OOM kills on Netlify's build
   // containers (exit 137). Production builds use webpack. Dev uses --turbopack
   // via the dev script.
@@ -137,29 +139,28 @@ const nextConfig = {
         'elevateforhumanity.org',
       ],
     },
-    // optimizePackageImports disabled on Netlify — adds memory overhead during
-    // webpack compilation with 1,300+ pages. Re-enable when moving to Railway.
-    ...(process.env.NETLIFY !== 'true' ? {
-      optimizePackageImports: [
-        'lucide-react',
-        '@radix-ui/react-dialog',
-        '@radix-ui/react-dropdown-menu',
-        '@radix-ui/react-select',
-        '@radix-ui/react-tabs',
-        '@radix-ui/react-accordion',
-        '@radix-ui/react-tooltip',
-        '@radix-ui/react-popover',
-        'recharts',
-        'react-hot-toast',
-        'date-fns',
-        'framer-motion',
-        '@stripe/stripe-js',
-        'zod',
-        'react-hook-form',
-        '@hookform/resolvers',
-        'swr',
-      ],
-    } : {}),
+    // optimizePackageImports reduces webpack memory by tree-shaking barrel imports
+    // at the Next.js level before webpack sees them. Critical on Netlify where
+    // lucide-react (1,400+ icons) and radix-ui are imported across 1,500+ pages.
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-tooltip',
+      '@radix-ui/react-popover',
+      'recharts',
+      'react-hot-toast',
+      'date-fns',
+      'framer-motion',
+      '@stripe/stripe-js',
+      'zod',
+      'react-hook-form',
+      '@hookform/resolvers',
+      'swr',
+    ],
     // Disabled: spawns separate child processes, exceeds Netlify build RAM.
     optimizeCss: false,
     parallelServerCompiles: false,
@@ -184,9 +185,9 @@ const nextConfig = {
     }
 
     // Limit parallelism to reduce peak memory on CI (Netlify has ~8 GB total).
-    // Default is os.cpus().length which on Netlify is 8–16, causing OOM on
-    // large apps. 1 worker minimizes concurrent young-gen allocation pressure.
-    config.parallelism = 1;
+    // 1 worker on Netlify minimizes concurrent young-gen allocation pressure.
+    // Locally: 2 workers (faster, more RAM available).
+    config.parallelism = process.env.NETLIFY === 'true' ? 1 : 2;
 
     // Filesystem cache — reuse compiled modules across builds.
     // On Netlify, .next/cache persists between deploys of the same branch,

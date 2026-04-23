@@ -213,7 +213,7 @@ export default async function HVACTechnicianPage() {
   return (
     <main className="min-h-screen bg-white text-slate-900">
 
-      {/* ── Hero video ───────────────────────────────────────────────────── */}
+      {/* Hero video */}
       <HeroVideo
         videoSrcDesktop={banner.videoSrcDesktop}
         posterImage={banner.posterImage}
@@ -223,7 +223,7 @@ export default async function HVACTechnicianPage() {
         analyticsName={banner.analyticsName}
       />
 
-      {/* ── FUNDING HEADLINE — lead with the strongest weapon ────────────── */}
+      {/* FUNDING HEADLINE — lead with the strongest weapon */}
       <section className="bg-brand-orange-600 text-white py-5 px-6 text-center">
         <p className="text-lg font-bold tracking-tight">
           This program may cost you <span className="underline decoration-wavy">$0</span> — WIOA and Workforce Ready Grant funding available for eligible Indiana residents.
@@ -231,7 +231,7 @@ export default async function HVACTechnicianPage() {
         <p className="text-sm mt-1 text-orange-100">Check your eligibility in 2 minutes. No commitment required.</p>
       </section>
 
-      {/* ── Program identity + CTAs ───────────────────────────────────────── */}
+      {/* Program identity + CTAs */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-2 md:items-center">
           <div>
@@ -295,7 +295,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── Authority stacking ────────────────────────────────────────────── */}
+      {/* Authority stacking */}
       <section className="bg-slate-900 text-white py-8 px-6">
         <div className="mx-auto max-w-7xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-black mb-4 text-center">What you earn when you complete this program</p>
@@ -310,7 +310,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── What you'll learn — weekly breakdown ─────────────────────────── */}
+      {/* What you'll learn — weekly breakdown */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand-orange-600 mb-2">Week by week</p>
@@ -330,7 +330,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── Outcome clarity — training → job → money ─────────────────────── */}
+      {/* Outcome clarity — training → job → money */}
       <section className="bg-slate-50 border-y border-slate-200 py-16 px-6">
         <div className="mx-auto max-w-7xl">
           <div className="mb-8">
@@ -353,7 +353,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── About + Enrollment tracks ─────────────────────────────────────── */}
+      {/* About + Enrollment tracks */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-10 lg:grid-cols-[1.4fr,0.9fr]">
           <div>
@@ -406,7 +406,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── Curriculum modules ────────────────────────────────────────────── */}
+      {/* Curriculum modules */}
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <h2 className="mb-6 text-2xl font-bold">Full Curriculum</h2>
         <div className="space-y-4">
@@ -447,7 +447,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── Program Resources ─────────────────────────────────────────────── */}
+      {/* Program Resources */}
       <section className="border-t border-slate-200 bg-slate-50 py-12 px-6">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-lg font-bold text-slate-900 mb-6">Program Resources</h2>
@@ -468,7 +468,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── EPA 608 Online Enrollment ─────────────────────────────────────── */}
+      {/* EPA 608 Online Enrollment */}
       <section className="border-t border-slate-200 bg-white py-14 px-6">
         <div className="mx-auto max-w-5xl">
           <div className="mb-8">
@@ -580,7 +580,7 @@ export default async function HVACTechnicianPage() {
         </div>
       </section>
 
-      {/* ── Footer CTA ───────────────────────────────────────────────────── */}
+      {/* Footer CTA */}
       <section className="border-t border-slate-200 bg-slate-900 text-white py-16">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand-orange-400 mb-3">Ready to start?</p>

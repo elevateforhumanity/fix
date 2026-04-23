@@ -102,7 +102,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
           <text x="387" y="370" textAnchor="middle" fill="#94a3b8" fontSize="10">LIVING ROOM</text>
           <text x="600" y="370" textAnchor="middle" fill="#94a3b8" fontSize="10">KITCHEN</text>
 
-          {/* ── AIR HANDLER (center, in closet) ── */}
+          {/* AIR HANDLER (center, in closet) */}
           <g onClick={() => handleClick('air-handler')} className="cursor-pointer" role="button" aria-label="Air handler">
             <rect x="340" y="220" width="70" height="100" rx="6" fill={activeId === 'air-handler' ? '#bfdbfe' : '#dbeafe'} stroke="#2563eb" strokeWidth="2" />
             <text x="375" y="260" textAnchor="middle" fill="#2563eb" fontSize="9" fontWeight="700">
@@ -115,7 +115,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
             <circle cx="375" cy="295" r="10" fill="none" stroke="#2563eb" strokeWidth="1" />
           </g>
 
-          {/* ── SUPPLY PLENUM ── */}
+          {/* SUPPLY PLENUM */}
           <g onClick={() => handleClick('supply-plenum')} className="cursor-pointer" role="button" aria-label="Supply plenum">
             <rect x="320" y="180" width="110" height="30" rx="4" fill={activeId === 'supply-plenum' ? '#bbf7d0' : '#dcfce7'} stroke="#16a34a" strokeWidth="2" />
             <text x="375" y="200" textAnchor="middle" fill="#16a34a" fontSize="9" fontWeight="600">
@@ -123,7 +123,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
             </text>
           </g>
 
-          {/* ── SUPPLY DUCTS ── */}
+          {/* SUPPLY DUCTS */}
           <g onClick={() => handleClick('supply-ducts')} className="cursor-pointer" role="button" aria-label="Supply ducts">
             {/* Left duct */}
             <rect x="100" y="155" width="220" height="20" rx="3" fill={activeId === 'supply-ducts' ? '#bbf7d0' : '#dcfce7'} stroke="#16a34a" strokeWidth="1.5" />
@@ -137,7 +137,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
             </text>
           </g>
 
-          {/* ── DAMPERS ── */}
+          {/* DAMPERS */}
           <g onClick={() => handleClick('damper')} className="cursor-pointer" role="button" aria-label="Zone dampers">
             {/* Left damper */}
             <rect x="280" y="155" width="8" height="20" rx="1" fill={activeId === 'damper' ? '#fef3c7' : '#fefce8'} stroke="#ca8a04" strokeWidth="1.5" />
@@ -148,7 +148,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
             </text>
           </g>
 
-          {/* ── SUPPLY REGISTERS ── */}
+          {/* SUPPLY REGISTERS */}
           <g onClick={() => handleClick('supply-registers')} className="cursor-pointer" role="button" aria-label="Supply registers">
             {/* Bedroom register */}
             <rect x="140" y="175" width="40" height="8" rx="2" fill={activeId === 'supply-registers' ? '#bbf7d0' : '#86efac'} stroke="#16a34a" strokeWidth="1.5" />
@@ -170,7 +170,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
             <line x1="595" y1="183" x2="595" y2="210" stroke="#16a34a" strokeWidth="1" strokeDasharray="3 2" />
           </g>
 
-          {/* ── RETURN DUCT ── */}
+          {/* RETURN DUCT */}
           <g onClick={() => handleClick('return-duct')} className="cursor-pointer" role="button" aria-label="Return duct">
             <rect x="200" y="330" width="140" height="20" rx="3" fill={activeId === 'return-duct' ? '#c7d2fe' : '#e0e7ff'} stroke="#6366f1" strokeWidth="1.5" />
             <text x="270" y="345" textAnchor="middle" fill="#6366f1" fontSize="9" fontWeight="600">
@@ -179,7 +179,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
             <text x="270" y="325" fill="#6366f1" fontSize="10">→ → →</text>
           </g>
 
-          {/* ── RETURN GRILLE ── */}
+          {/* RETURN GRILLE */}
           <g onClick={() => handleClick('return-grille')} className="cursor-pointer" role="button" aria-label="Return air grille">
             <rect x="130" y="300" width="50" height="50" rx="4" fill={activeId === 'return-grille' ? '#c7d2fe' : '#e0e7ff'} stroke="#6366f1" strokeWidth="2" />
             {/* Grille lines */}
@@ -191,7 +191,7 @@ export default function DuctDistributionDiagram({ mode = 'explore', onComplete }
             </text>
           </g>
 
-          {/* ── FILTER ── */}
+          {/* FILTER */}
           <g onClick={() => handleClick('filter')} className="cursor-pointer" role="button" aria-label="Air filter">
             <rect x="345" y="320" width="60" height="10" rx="2" fill={activeId === 'filter' ? '#e2e8f0' : '#f1f5f9'} stroke="#64748b" strokeWidth="1.5" />
             {Array.from({ length: 6 }).map((_, i) => (

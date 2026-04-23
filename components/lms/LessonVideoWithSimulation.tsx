@@ -80,7 +80,7 @@ export default function LessonVideoWithSimulation({
 
   return (
     <div className="space-y-6">
-      {/* ── STEP 1: Video ── */}
+      {/* STEP 1: Video */}
       <div>
         <div className="flex items-center gap-2 mb-3">
           <span className={`flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold ${minimumReached ? 'bg-green-100 text-green-700' : 'bg-brand-blue-100 text-brand-blue-700'}`}>1</span>
@@ -108,7 +108,7 @@ export default function LessonVideoWithSimulation({
         </div>
       </div>
 
-      {/* ── STEP 2: Teaching content (unlocks after video) ── */}
+      {/* STEP 2: Teaching content (unlocks after video) */}
       {minimumReached && teaching && (
         <div>
           <div className="flex items-center gap-2 mb-3">
@@ -172,7 +172,7 @@ export default function LessonVideoWithSimulation({
         </div>
       )}
 
-      {/* ── STEP 3: 3D Simulation (unlocks after teaching) ── */}
+      {/* STEP 3: 3D Simulation (unlocks after teaching) */}
       {simulationUnlocked && (
         <div>
           <div className="flex items-center gap-2 mb-3">
@@ -193,7 +193,7 @@ export default function LessonVideoWithSimulation({
         </div>
       )}
 
-      {/* ── Completion banner ── */}
+      {/* Completion banner */}
       {simulationComplete && (
         <div className="rounded-xl border-2 border-green-300 bg-green-50 p-5 text-center">
           <div className="text-2xl mb-1">&#10003;</div>

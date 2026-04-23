@@ -92,7 +92,7 @@ function countType(lessons: CourseLesson[], t: CourseLesson['type']) {
   return lessons.filter((l) => l.type === t).length;
 }
 
-/* ── Full-Screen Video Player ── */
+/* Full-Screen Video Player */
 function VideoPlayer({ src, onClose }: { src: string; onClose: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const handleFullscreen = () => { videoRef.current?.requestFullscreen?.(); };
@@ -110,7 +110,7 @@ function VideoPlayer({ src, onClose }: { src: string; onClose: () => void }) {
   );
 }
 
-/* ── Lesson Drawer ── */
+/* Lesson Drawer */
 function LessonDrawer({ module, index, done, courseId, onClose }: {
   module: CourseModule; index: number; done: string[]; courseId: string; onClose: () => void;
 }) {
@@ -161,7 +161,7 @@ function LessonDrawer({ module, index, done, courseId, onClose }: {
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════ */
+/*  */
 
 export default function HvacCourseHome({
   course, courseId, completedLessonIds = [], progressPercent = 0,
@@ -186,7 +186,7 @@ export default function HvacCourseHome({
   return (
     <div className="min-h-screen bg-white">
 
-      {/* ═══ HERO ═══ */}
+      {/* HERO */}
       <div className="relative h-[280px] md:h-[340px]">
         <Image src="/images/pages/hvac-hero.jpg" alt="HVAC technician" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
@@ -220,7 +220,7 @@ export default function HvacCourseHome({
 
       <div className="max-w-5xl mx-auto px-6 py-8">
 
-        {/* ═══ COURSE OVERVIEW ═══ */}
+        {/* COURSE OVERVIEW */}
         <div className="mb-10 grid sm:grid-cols-4 gap-4">
           {[
             { label: 'Duration', value: '20 Weeks', sub: 'Full-time program' },
@@ -236,7 +236,7 @@ export default function HvacCourseHome({
           ))}
         </div>
 
-        {/* ═══ ORIENTATION VIDEO ═══ */}
+        {/* ORIENTATION VIDEO */}
         <div className="mb-10">
           <h2 className="text-lg font-bold text-slate-900 mb-1">Student Orientation</h2>
           <p className="text-sm text-slate-500 mb-3">Required before starting Module 1. Covers program structure, policies, rights, and support services.</p>
@@ -260,7 +260,7 @@ export default function HvacCourseHome({
           </button>
         </div>
 
-        {/* ═══ MODULES ═══ */}
+        {/* MODULES */}
         <h2 className="text-lg font-bold text-slate-900 mb-4">Modules</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {course.modules.map((mod, i) => {

@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import LessonPlayer from '@/components/lms/LessonPlayer';
 
-/* ── Credential mapping ───────────────────────────────────── */
+/* Credential mapping */
 
 const CREDENTIAL_MAP: Record<string, { credential: string; issuer: string; icon: typeof Award }> = {
   'hvac': { credential: 'EPA 608 Universal Certification', issuer: 'U.S. Environmental Protection Agency', icon: Shield },
@@ -34,7 +34,7 @@ function getCredentialForCourse(course: any): { credential: string; issuer: stri
   return null;
 }
 
-/* ── Competency checklist per category ────────────────────── */
+/* Competency checklist per category */
 
 const COMPETENCY_MAP: Record<string, string[]> = {
   'hvac': [
@@ -83,7 +83,7 @@ function getCompetencies(course: any): string[] {
   return COMPETENCY_MAP['default'];
 }
 
-/* ── Component ────────────────────────────────────────────── */
+/* Component */
 
 export default function CoursePreviewPage() {
   const params = useParams();

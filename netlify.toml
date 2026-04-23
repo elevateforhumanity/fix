@@ -26,10 +26,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # 6144MB for the Next.js build process. The project uses webpack (required
-  # for custom webpack config in next.config.mjs). With 1400+ pages the
-  # webpack compiler needs significant JS heap headroom.
+
   NODE_OPTIONS = "--max-old-space-size=7680 --expose-gc"
+  
   SENTRY_SKIP_AUTO_INSTRUMENTATION = "1"
   NETLIFY_USE_PNPM = "true"
   # Disable secret scanning — NEXT_PUBLIC_* vars are intentionally public
@@ -147,9 +146,7 @@
   [headers.values]
     Cache-Control = "private, no-store"
 
-# =============================================================================
 # SCHEDULED FUNCTIONS (Social Media Automation)
-# =============================================================================
 
 [functions]
   node_bundler = "esbuild"
@@ -420,12 +417,9 @@
 [functions."cron-school-application-followup"]
   schedule = "0 14 * * *"
 
-# ============================================
-# ============================================
 # DOMAIN REDIRECTS
 # www.elevateforhumanity.org = LMS (this site)
 # www.elevateforhumanity.org/admin = admin portal
-# ============================================
 
 # Admin domain → /admin
 [[redirects]]
@@ -446,9 +440,7 @@
   status = 301
   force = true
 
-# ============================================
 # NETLIFY FUNCTION REWRITES
-# ============================================
 
 [[redirects]]
   from = "/api/pdf/export"
@@ -480,9 +472,7 @@
   status = 200
   force = true
 
-# ============================================
 # SECURITY — block common scanner probes
-# ============================================
 
 [[redirects]]
   from = "/wp-admin"
@@ -526,9 +516,7 @@
   status = 410
   force = true
 
-# ============================================
 # PATH REDIRECTS
-# ============================================
 
 [[redirects]]
   from = "/signin"
@@ -645,9 +633,7 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
-# ============================================
 # BOT / SCANNER TRAP — die at the edge, never reach SSR
-# ============================================
 [[redirects]]
   from = "/panel/*"
   to = "/404"

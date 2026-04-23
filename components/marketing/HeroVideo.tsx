@@ -132,7 +132,7 @@ export default function HeroVideo({
 
   return (
     <div ref={wrapperRef} className={`w-full ${className}`}>
-      {/* ── VIDEO FRAME ── */}
+      {/* VIDEO FRAME */}
       {/* Height: 56vw clamped between 400px and 780px */}
       <section
         className="relative w-full overflow-hidden bg-slate-900"
@@ -156,7 +156,7 @@ export default function HeroVideo({
 
 
 
-        {/* ── ON-VIDEO ELEMENTS (only these three are allowed) ── */}
+        {/* ON-VIDEO ELEMENTS (only these three are allowed) */}
 
         {/* Brand bug — top-left, only when requested */}
         {showBrandBug && (
@@ -197,7 +197,7 @@ export default function HeroVideo({
 
       </section>
 
-      {/* ── BELOW-HERO CONTENT ── */}
+      {/* BELOW-HERO CONTENT */}
       {/* All primary messaging lives here — never on the video */}
       {(belowHeroHeadline || belowHeroSubheadline || ctas || trustIndicators || children) && (
         <section className="border-b border-slate-100 py-10 sm:py-14">
@@ -249,7 +249,7 @@ export default function HeroVideo({
         </section>
       )}
 
-      {/* ── TRANSCRIPT ── */}
+      {/* TRANSCRIPT */}
       {/* Expandable, below the fold — never over the video */}
       {transcript && (
         <div className="bg-slate-50 border-b border-slate-100">

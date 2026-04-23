@@ -3,7 +3,7 @@
 import { FileText, Shield, Wrench, Zap, Thermometer, Settings, Search, Snowflake, Clock, CheckCircle2, Building2, GraduationCap } from "lucide-react";
 import { HVAC_COURSE_ID } from '@/lib/courses/hvac-uuids';
 
-/* ── Competency Framework Data ── */
+/* Competency Framework Data */
 
 const DOMAINS = [
   {
@@ -147,7 +147,7 @@ const OJT_COMPETENCIES = DOMAINS.reduce(
   0
 );
 
-/* ── Component ── */
+/* Component */
 
 interface LessonRef { id: string; title: string; slug: string; }
 

@@ -76,7 +76,7 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
   return (
     <div className="min-h-screen bg-slate-900 text-white">
 
-      {/* ── Top nav ── */}
+      {/* Top nav */}
       <div className="bg-slate-800 border-b border-slate-700 px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3 text-sm">
           <Link href="/hvac" className="text-slate-400 hover:text-white">← HVAC Course</Link>
@@ -88,7 +88,7 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
         </span>
       </div>
 
-      {/* ── Lesson title bar ── */}
+      {/* Lesson title bar */}
       <div className="bg-slate-800 border-b border-slate-700 px-6 py-4">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -123,7 +123,7 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
 
       <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
 
-        {/* ── SPEC LAYOUT: instructor left | diagram right | concept bottom ── */}
+        {/* SPEC LAYOUT: instructor left | diagram right | concept bottom */}
         {videoUrl ? (
           <div className="rounded-xl overflow-hidden shadow-2xl bg-black">
             <video
@@ -141,7 +141,7 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
           </div>
         )}
 
-        {/* ── Two-column: Script_Text left | Diagram right ── */}
+        {/* Two-column: Script_Text left | Diagram right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
           {/* LEFT: Script_Text from CSV — real teaching content */}
@@ -166,13 +166,13 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
           </div>
         </div>
 
-        {/* ── BOTTOM: Key Concept from CSV ── */}
+        {/* BOTTOM: Key Concept from CSV */}
         <div className="bg-slate-700 rounded-xl p-5 border-l-4 border-sky-500">
           <p className="text-sky-400 font-bold text-xs uppercase tracking-widest mb-2">Key Concept</p>
           <p className="text-white text-base leading-relaxed">{lesson.keyConcept}</p>
         </div>
 
-        {/* ── EPA 608 content block (when tagged) ── */}
+        {/* EPA 608 content block (when tagged) */}
         {epaTags.length > 0 && (
           <div className="bg-amber-900/20 border border-amber-600/40 rounded-xl p-5">
             <p className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-2">
@@ -188,7 +188,7 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
           </div>
         )}
 
-        {/* ── Quiz: 5 questions from HVAC_QUIZ_MAP or CSV fallback ── */}
+        {/* Quiz: 5 questions from HVAC_QUIZ_MAP or CSV fallback */}
         <div className="bg-slate-800 rounded-xl p-6">
           <p className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-4">Knowledge Check</p>
 
@@ -238,7 +238,7 @@ export default async function HvacLessonPage({ params }: { params: Promise<{ les
           )}
         </div>
 
-        {/* ── Prev / Next navigation ── */}
+        {/* Prev Next navigation */}
         <div className="flex justify-between items-center pt-2">
           {prevLesson ? (
             <Link

@@ -1,29 +1,4 @@
-/**
- * ACT WorkKeys / NCRC pricing for Elevate Testing Center.
- *
- * ⚠️  VERIFY BEFORE LAUNCH: ACT institutional per-assessment fee.
- *     Typical authorized center rate: $13.50–$22/assessment.
- *     Check your ACT agreement and update VOUCHER_COST_PER_ASSESSMENT.
- *
- * Cost structure per seat:
- *   Voucher (ACT fee):   $18   ← ⚠️ ESTIMATE — verify against your ACT agreement
- *   Proctor time:        $22   ← 45-min session, allocated hourly rate
- *   Overhead:            $12   ← facility + ops per seat
- *   ─────────────────────────
- *   True cost/seat:      $52
- *
- * Previous pricing (what you were charging):
- *   Individual:  $45  → was LOSING ~$7/test
- *   Full NCRC:   $120 → was LOSING ~$36/bundle
- *   Agency ref:  $35  → was LOSING ~$17/test
- *
- * Corrected pricing (engine-enforced, ~50% margin):
- *   Individual:  $99
- *   Full NCRC:   $269  (3 × $52 true cost = $156 → $269 at 42% margin)
- *   Agency ref:  $79   (reduced from individual — still profitable)
- *   Retake:      $65   (voucher + reduced overhead only)
- *   No-show fee: $50
- */
+/* ACT WorkKeys NCRC pricing for Elevate Testing Center. ⚠️ VERIFY BEFORE LAUNCH: ACT institutional per-assessment fee. Typical authorized center rate: $13.50–$22 assessment. Check your ACT agreement and update VOUCHER_COST_PER_ASSESSMENT. Cost structure per seat: Voucher (ACT fee): $18 ← ⚠️ ESTIMATE — verify against your ACT agreement Proctor time: $22 ← 45-min session, allocated hourly rate Overhead: $12 ← facility + ops per seat True cost seat: $52 Previous pricing (what you were charging): Individual: $45 → was LOSING ~$7 test Full NCRC: $120 → was LOSING ~$36 bundle Agency ref: $35 → was LOSING ~$17 test Corrected pricing (engine-enforced, ~50% margin): Individual: $99 Full NCRC: $269 (3 × $52 true cost = $156 → $269 at 42% margin) Agency ref: $79 (reduced from individual — still profitable) Retake: $65 (voucher + reduced overhead only) No-show fee: $50 */
 
 import { calculatePrice, calculateRetakePrice, calculateNoShowFee } from '../pricing-engine';
 

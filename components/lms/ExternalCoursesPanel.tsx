@@ -246,7 +246,7 @@ export default function ExternalCoursesPanel({ programSlug, requiredOnly = false
 
                     {!done && (
                       <>
-                        {/* ── Payment / sponsorship row ── */}
+                        {/* Payment sponsorship row */}
                         {course.cost_cents > 0 && (
                           isElevateSponsored ? (
                             /* Elevate covers it — show status, trigger sponsored checkout */
@@ -275,7 +275,7 @@ export default function ExternalCoursesPanel({ programSlug, requiredOnly = false
                           )
                         )}
 
-                        {/* ── Upload certificate after completing ── */}
+                        {/* Upload certificate after completing */}
                         <input
                           ref={el => { fileRefs.current[course.id] = el; }}
                           type="file"

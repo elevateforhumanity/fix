@@ -1,30 +1,4 @@
-/**
- * ServSafe and AHLEI hospitality certification pricing.
- *
- * ServSafe: National Restaurant Association — course+exam bundles.
- * AHLEI: American Hotel & Lodging Educational Institute — Guest Service Gold,
- *        START, ServSuccess.
- *
- * Elevate sells enrollment bundles. NRA/AHLEI handle exam delivery directly.
- * This is NOT a proctored testing center offering.
- *
- * Vendor base prices are wholesale rates for authorized training partners.
- * Keep vendorBase admin-only — never render on public pages.
- *
- * Verified margins:
- *   Product                  Base      Retail  Margin
- *   ─────────────────────────────────────────────────
- *   Food Handler bundle       $13.50    $29     53.4%  ← entry funnel
- *   Manager bundle            $137.66   $199    30.8%  ← required cert
- *   Guest Service bundle      $54.00    $89     39.3%
- *   Guest Service retake      $44.00    $79     44.3%
- *   Guest Service instr kit   $197.96   $299    33.8%
- *   START bundle              $54.00    $89     39.3%
- *   START retake              $44.00    $79     44.3%
- *   START instr guide         $134.96   $199    32.2%
- *   ServSuccess suite         $81.00    $129    37.2%
- *   ServSuccess exam          $45.00    $79     43.0%
- */
+/* ServSafe and AHLEI hospitality certification pricing. ServSafe: National Restaurant Association — course+exam bundles. AHLEI: American Hotel & Lodging Educational Institute — Guest Service Gold, START, ServSuccess. Elevate sells enrollment bundles. NRA AHLEI handle exam delivery directly. This is NOT a proctored testing center offering. Vendor base prices are wholesale rates for authorized training partners. Keep vendorBase admin-only — never render on public pages. Verified margins: Product Base Retail Margin Food Handler bundle $13.50 $29 53.4% ← entry funnel Manager bundle $137.66 $199 30.8% ← required cert Guest Service bundle $54.00 $89 39.3% Guest Service retake $44.00 $79 44.3% Guest Service instr kit $197.96 $299 33.8% START bundle $54.00 $89 39.3% START retake $44.00 $79 44.3% START instr guide $134.96 $199 32.2% ServSuccess suite $81.00 $129 37.2% ServSuccess exam $45.00 $79 43.0% */
 
 import type { ServsafePriceType, ServsafeProduct } from '@/types/servsafe';
 

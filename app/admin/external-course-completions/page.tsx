@@ -69,7 +69,7 @@ export default async function ExternalCourseApprovalsPage() {
 
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-10">
 
-        {/* ── Needs login sent ── */}
+        {/* Needs login sent */}
         {(needsLogin ?? []).length > 0 && (
           <section>
             <div className="flex items-center gap-2 mb-4">
@@ -97,7 +97,7 @@ export default async function ExternalCourseApprovalsPage() {
           </section>
         )}
 
-        {/* ── Pending credential approval ── */}
+        {/* Pending credential approval */}
         <section>
           <div className="flex items-center gap-2 mb-4">
             <Clock className="w-5 h-5 text-brand-blue-500" />

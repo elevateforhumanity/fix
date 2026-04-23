@@ -344,7 +344,7 @@ export default function StudentApplicationForm({ initialProgram = '' }: { initia
         </div>
       )}
 
-      {/* ── ELIGIBILITY & SUPPORT NEEDS SCREENING ── */}
+      {/* ELIGIBILITY & SUPPORT NEEDS SCREENING */}
       {applicationType === 'enrollment' && (
         <div className="bg-white border border-slate-200 rounded-lg p-6 space-y-8">
           <div>

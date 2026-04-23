@@ -110,7 +110,7 @@ export default function RefrigerationCycleDiagram({ mode = 'explore', onStageSel
           <rect x="10" y="250" width="340" height="200" rx="12" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1" />
           <text x="180" y="275" textAnchor="middle" className="text-[11px]" fill="#1e3a8a" fontWeight="600">INDOOR UNIT (Cold Side)</text>
 
-          {/* ── COMPRESSOR (bottom-right) ── */}
+          {/* COMPRESSOR (bottom-right) */}
           <g
             onClick={() => handleStageClick('compression')}
             className="cursor-pointer"
@@ -133,7 +133,7 @@ export default function RefrigerationCycleDiagram({ mode = 'explore', onStageSel
             )}
           </g>
 
-          {/* ── CONDENSER COIL (top-right) ── */}
+          {/* CONDENSER COIL (top-right) */}
           <g
             onClick={() => handleStageClick('condensation')}
             className="cursor-pointer"
@@ -149,7 +149,7 @@ export default function RefrigerationCycleDiagram({ mode = 'explore', onStageSel
             </text>
           </g>
 
-          {/* ── METERING DEVICE (bottom-left) ── */}
+          {/* METERING DEVICE (bottom-left) */}
           <g
             onClick={() => handleStageClick('expansion')}
             className="cursor-pointer"
@@ -165,7 +165,7 @@ export default function RefrigerationCycleDiagram({ mode = 'explore', onStageSel
             </text>
           </g>
 
-          {/* ── EVAPORATOR COIL (top-left) ── */}
+          {/* EVAPORATOR COIL (top-left) */}
           <g
             onClick={() => handleStageClick('evaporation')}
             className="cursor-pointer"
@@ -181,7 +181,7 @@ export default function RefrigerationCycleDiagram({ mode = 'explore', onStageSel
             </text>
           </g>
 
-          {/* ── FLOW ARROWS ── */}
+          {/* FLOW ARROWS */}
           <defs>
             <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
               <path d="M0,0 L8,3 L0,6" fill="#dc2626" />

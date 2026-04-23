@@ -3,7 +3,7 @@
 import { Printer, ClipboardCheck } from "lucide-react";
 import { useState } from "react";
 
-/* ── Checksheet Data ── */
+/* Checksheet Data */
 
 interface CheckItem {
   id: string;
@@ -205,7 +205,7 @@ const CHECKSHEETS: Checksheet[] = [
   },
 ];
 
-/* ── Printable Checksheet Component ── */
+/* Printable Checksheet Component */
 
 function PrintableChecksheet({ sheet }: { sheet: Checksheet }) {
   return (
@@ -380,7 +380,7 @@ function PrintableChecksheet({ sheet }: { sheet: Checksheet }) {
   );
 }
 
-/* ── Main Page ── */
+/* Main Page */
 
 interface LessonRef { id: string; title: string; slug: string; }
 

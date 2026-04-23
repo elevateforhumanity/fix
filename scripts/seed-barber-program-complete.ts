@@ -1,35 +1,5 @@
 #!/usr/bin/env node
-/**
- * @deprecated — DO NOT RUN FOR THE BARBER APPRENTICESHIP COURSE
- *
- * This script was written for the old SCORM/Milady four-module architecture
- * (Module 0 JRI SCORM, Module 1 Milady external, Module 2 Shop OJT,
- * Module 3 State Board SCORM).  That architecture was superseded by the
- * DB-driven blueprint engine.
- *
- * ── CANONICAL SOURCE ────────────────────────────────────────────────────────
- * lib/curriculum/blueprints/barber-apprenticeship.ts
- *
- * ── CANONICAL SEEDER ────────────────────────────────────────────────────────
- * pnpm tsx scripts/seed-course-from-blueprint.ts \
- *   --blueprint barber-apprenticeship-v1 --program <programId>
- *
- * Running this script will create an incompatible four-module SCORM record set
- * that conflicts with the 8-module blueprint-driven course.
- * ────────────────────────────────────────────────────────────────────────────
- *
- * Complete Barber Apprenticeship Program Seeder (LEGACY)
- *
- * Seeds:
- * - Funding programs (WIOA, WRG, JRI, Apprenticeship)
- * - Barber Apprenticeship program
- * - 4 modules (JRI SCORM, Milady external, Shop OJT, State Board SCORM)
- * - SCORM packages
- * - Program funding options
- *
- * Requirements:
- *   - SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local
- */
+/* @deprecated — DO NOT RUN FOR THE BARBER APPRENTICESHIP COURSE This script was written for the old SCORM Milady four-module architecture (Module 0 JRI SCORM, Module 1 Milady external, Module 2 Shop OJT, Module 3 State Board SCORM). That architecture was superseded by the DB-driven blueprint engine. CANONICAL SOURCE lib curriculum blueprints barber-apprenticeship.ts CANONICAL SEEDER pnpm tsx scripts seed-course-from-blueprint.ts \ --blueprint barber-apprenticeship-v1 --program <programId> Running this script will create an incompatible four-module SCORM record set that conflicts with the 8-module blueprint-driven course. Complete Barber Apprenticeship Program Seeder (LEGACY) Seeds: - Funding programs (WIOA, WRG, JRI, Apprenticeship) - Barber Apprenticeship program - 4 modules (JRI SCORM, Milady external, Shop OJT, State Board SCORM) - SCORM packages - Program funding options Requirements: - SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local */
 
 import { supabaseAdmin } from '../lib/supabaseAdmin.js';
 

@@ -81,7 +81,7 @@ export default function HeroPicture({
 
   return (
     <div className={`w-full ${className}`}>
-      {/* ── IMAGE FRAME ── */}
+      {/* IMAGE FRAME */}
       <section
         className={`relative w-full overflow-hidden ${heightStyle ?? ''}`}
         style={frameStyle}
@@ -96,7 +96,7 @@ export default function HeroPicture({
           priority={priority}
         />
 
-        {/* ── ON-IMAGE ELEMENTS (only these two are allowed) ── */}
+        {/* ON-IMAGE ELEMENTS (only these two are allowed) */}
 
         {/* Brand bug — top-left, only when requested */}
         {showBrandBug && (
@@ -119,7 +119,7 @@ export default function HeroPicture({
         )}
       </section>
 
-      {/* ── BELOW-HERO CONTENT ── */}
+      {/* BELOW-HERO CONTENT */}
       {(belowHeroHeadline || belowHeroSubheadline || ctas || trustIndicators || children) && (
         <section className="border-b border-slate-100 py-10 sm:py-14">
           <div className="max-w-4xl mx-auto px-6">
@@ -170,7 +170,7 @@ export default function HeroPicture({
         </section>
       )}
 
-      {/* ── TRANSCRIPT / CAPTION ── */}
+      {/* TRANSCRIPT CAPTION */}
       {transcript && (
         <div className="bg-slate-50 border-b border-slate-100">
           <div className="max-w-4xl mx-auto px-6 py-3">

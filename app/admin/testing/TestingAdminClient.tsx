@@ -204,7 +204,7 @@ export default function TestingAdminClient({ bookings: initial, slots: initialSl
         ))}
       </div>
 
-      {/* ── SLOTS TAB ── */}
+      {/* SLOTS TAB */}
       {tab === 'slots' && (
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Create slot form */}
@@ -317,7 +317,7 @@ export default function TestingAdminClient({ bookings: initial, slots: initialSl
         </div>
       )}
 
-      {/* ── BOOKINGS TAB ── */}
+      {/* BOOKINGS TAB */}
       {tab === 'bookings' && <>
 
       {/* Filters */}

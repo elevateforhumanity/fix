@@ -94,7 +94,7 @@ export default async function ProviderPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-white">
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section className="relative flex items-end overflow-hidden" style={{ minHeight: 'clamp(420px, 52vw, 600px)' }}>
         <Image
           src={heroImg}
@@ -129,7 +129,7 @@ export default async function ProviderPage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── BODY ── */}
+      {/* BODY */}
       <div className="max-w-5xl mx-auto px-6 py-12 grid lg:grid-cols-3 gap-10">
 
         {/* Left — description + exams */}
@@ -349,7 +349,7 @@ export default async function ProviderPage({ params }: Props) {
         </aside>
       </div>
 
-      {/* ── BOTTOM CTA ── */}
+      {/* BOTTOM CTA */}
       <section className="bg-slate-900 py-16 px-6 text-center">
         <h2 className="text-3xl font-extrabold text-white mb-3">Ready to Get Certified?</h2>
         <p className="text-slate-300 mb-8 max-w-xl mx-auto">

@@ -91,7 +91,7 @@ export default function ElectricalCircuitDiagram({ mode = 'explore', onComplete 
           <text x="50" y="45" fill="#dc2626" fontSize="9" fontWeight="600">L1 (HOT)</text>
           <text x="610" y="45" fill="#1e40af" fontSize="9" fontWeight="600">L2 (HOT)</text>
 
-          {/* ── TRANSFORMER ── */}
+          {/* TRANSFORMER */}
           <g onClick={() => handleClick('transformer')} className="cursor-pointer" role="button" aria-label="Transformer">
             <rect x="60" y="70" width="100" height="70" rx="8" fill={activeId === 'transformer' ? '#fef3c7' : '#fefce8'} stroke="#ca8a04" strokeWidth="2" />
             {/* Primary coil */}
@@ -112,7 +112,7 @@ export default function ElectricalCircuitDiagram({ mode = 'explore', onComplete 
           <line x1="110" y1="140" x2="110" y2="170" stroke="#ca8a04" strokeWidth="2" />
           <text x="130" y="165" fill="#ca8a04" fontSize="9" fontWeight="600">24V (R wire)</text>
 
-          {/* ── THERMOSTAT ── */}
+          {/* THERMOSTAT */}
           <g onClick={() => handleClick('thermostat')} className="cursor-pointer" role="button" aria-label="Thermostat">
             <rect x="60" y="170" width="100" height="50" rx="8" fill={activeId === 'thermostat' ? '#dbeafe' : '#eff6ff'} stroke="#2563eb" strokeWidth="2" />
             <text x="110" y="192" textAnchor="middle" fill="#2563eb" fontSize="10" fontWeight="700">
@@ -125,7 +125,7 @@ export default function ElectricalCircuitDiagram({ mode = 'explore', onComplete 
           <line x1="160" y1="195" x2="240" y2="195" stroke="#ca8a04" strokeWidth="2" />
           <text x="200" y="188" fill="#ca8a04" fontSize="8">Y wire →</text>
 
-          {/* ── SAFETY SWITCHES ── */}
+          {/* SAFETY SWITCHES */}
           <g onClick={() => handleClick('safety-switches')} className="cursor-pointer" role="button" aria-label="Safety switches">
             <rect x="240" y="170" width="100" height="50" rx="8" fill={activeId === 'safety-switches' ? '#fef2f2' : '#fff1f2'} stroke="#e11d48" strokeWidth="2" />
             <text x="290" y="192" textAnchor="middle" fill="#e11d48" fontSize="9" fontWeight="600">
@@ -142,7 +142,7 @@ export default function ElectricalCircuitDiagram({ mode = 'explore', onComplete 
           {/* Wire from safety to contactor coil */}
           <line x1="340" y1="195" x2="420" y2="195" stroke="#ca8a04" strokeWidth="2" />
 
-          {/* ── CONTACTOR COIL ── */}
+          {/* CONTACTOR COIL */}
           <g onClick={() => handleClick('contactor-coil')} className="cursor-pointer" role="button" aria-label="Contactor coil">
             <rect x="420" y="170" width="100" height="50" rx="8" fill={activeId === 'contactor-coil' ? '#dcfce7' : '#f0fdf4'} stroke="#059669" strokeWidth="2" />
             <text x="470" y="192" textAnchor="middle" fill="#059669" fontSize="9" fontWeight="600">
@@ -165,7 +165,7 @@ export default function ElectricalCircuitDiagram({ mode = 'explore', onComplete 
           <line x1="470" y1="220" x2="470" y2="260" stroke="#059669" strokeWidth="1.5" strokeDasharray="4 3" />
           <text x="490" y="245" fill="#059669" fontSize="8">magnetic</text>
 
-          {/* ── CONTACTOR CONTACTS (240V side) ── */}
+          {/* CONTACTOR CONTACTS (240V side) */}
           <g onClick={() => handleClick('contactor-contacts')} className="cursor-pointer" role="button" aria-label="Contactor contacts">
             <rect x="420" y="260" width="100" height="50" rx="8" fill={activeId === 'contactor-contacts' ? '#fef3c7' : '#fefce8'} stroke="#ca8a04" strokeWidth="2" />
             <text x="470" y="282" textAnchor="middle" fill="#ca8a04" fontSize="9" fontWeight="600">
@@ -187,7 +187,7 @@ export default function ElectricalCircuitDiagram({ mode = 'explore', onComplete 
           <line x1="440" y1="340" x2="340" y2="340" stroke="#dc2626" strokeWidth="1.5" />
           <line x1="500" y1="340" x2="600" y2="340" stroke="#1e40af" strokeWidth="1.5" />
 
-          {/* ── COMPRESSOR ── */}
+          {/* COMPRESSOR */}
           <g onClick={() => handleClick('compressor')} className="cursor-pointer" role="button" aria-label="Compressor motor">
             <circle cx="300" cy="370" r="30" fill={activeId === 'compressor' ? '#fecaca' : '#fee2e2'} stroke="#dc2626" strokeWidth="2" />
             <text x="300" y="367" textAnchor="middle" fill="#dc2626" fontSize="9" fontWeight="700">
@@ -198,7 +198,7 @@ export default function ElectricalCircuitDiagram({ mode = 'explore', onComplete 
             <line x1="340" y1="340" x2="330" y2="370" stroke="#1e40af" strokeWidth="1.5" />
           </g>
 
-          {/* ── FAN MOTOR ── */}
+          {/* FAN MOTOR */}
           <g onClick={() => handleClick('fan-motor')} className="cursor-pointer" role="button" aria-label="Condenser fan motor">
             <circle cx="600" cy="370" r="30" fill={activeId === 'fan-motor' ? '#e0e7ff' : '#eef2ff'} stroke="#6366f1" strokeWidth="2" />
             <text x="600" y="367" textAnchor="middle" fill="#6366f1" fontSize="9" fontWeight="700">
