@@ -61,6 +61,14 @@ export class IRSTransmitter {
    */
   async transmit(submission: MeFSubmission): Promise<TransmissionResult> {
     const endpoint = IRS_MEF_ENDPOINTS[this.config.environment];
+    // No real IRS transmissions until explicitly enabled and credentials are configured.
+    if (process.env.IRS_MEF_TRANSMISSION_ENABLED !== 'true' ||
+        !process.env.IRS_EFIN || !process.env.IRS_SOFTWARE_ID ||
+        this.config.softwareId === 'PENDING') {
+      return { success: false, submissionId: submission.submissionId,
+        transmittedAt: new Date().toISOString(),
+        error: 'IRS transmission disabled or required identifiers missing' };
+    }
     
     try {
       // Store submission in database before transmitting
@@ -360,7 +368,10 @@ export class IRSTransmitter {
       });
     }
     
-    const status = statusMatch?.[1]?.toLowerCase() === 'accepted' ? 'accepted' : 'rejected';
+    if (!statusMatch || !['accepted', 'rejected'].includes(statusMatch[1].toLowerCase())) {
+      throw new Error('IRS response did not contain a recognized acceptance status');
+    }
+    const status = statusMatch[1].toLowerCase() as 'accepted' | 'rejected';
     
     return {
       submissionId,
