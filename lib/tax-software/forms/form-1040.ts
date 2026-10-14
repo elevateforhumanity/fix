@@ -127,6 +127,11 @@ export interface Form1040Result {
 }
 
 export function calculateForm1040(taxReturn: TaxReturn): Form1040Result {
+  // Fail closed: the constants in this module apply exclusively to tax year 2024.
+  // Never silently calculate a later return using outdated tax brackets or credits.
+  if (taxReturn.taxYear !== 2024) {
+    throw new Error(`Unsupported tax year ${taxReturn.taxYear}. This calculator is certified for neither 2025 nor 2026; use an approved current-year tax engine.`);
+  }
   // Line 1: Wages
   const line1 = taxReturn.w2Income?.reduce((sum, w2) => sum + w2.wages, 0) || 0;
   
