@@ -89,6 +89,15 @@ export class MeFSOAPClient {
       timeout: 60000, // 60 second default
       ...config
     };
+    if (process.env.IRS_MEF_TRANSMISSION_ENABLED !== 'true') {
+      throw new Error('IRS MeF network access is disabled');
+    }
+    if (!config.efin || !config.softwareId || config.softwareId === 'PENDING') {
+      throw new Error('IRS MeF identifiers are not configured');
+    }
+    if (!((config.certPath && config.keyPath) || (config.cert && config.key))) {
+      throw new Error('IRS MeF mutual TLS client certificate and key are required');
+    }
     this.initializeAgent();
   }
 
@@ -114,7 +123,7 @@ export class MeFSOAPClient {
         }
         logger.info('[MeF SOAP] Loaded certificates from files');
       } catch (err) {
-        logger.error('[MeF SOAP] Failed to load certificates:', err);
+        throw new Error('Unable to load IRS MeF mutual TLS credentials');
       }
     } else if (this.config.cert && this.config.key) {
       agentOptions.cert = this.config.cert;
