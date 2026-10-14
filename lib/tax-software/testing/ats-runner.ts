@@ -331,6 +331,9 @@ export class ATSTestRunner {
 
   constructor(options: { useRealTransmission?: boolean } = {}) {
     this.useRealTransmission = options.useRealTransmission || false;
+    if (this.useRealTransmission && process.env.IRS_MEF_TRANSMISSION_ENABLED !== 'true') {
+      throw new Error('Real IRS ATS transmissions are disabled; configure approved credentials before running --real');
+    }
     this.validator = createSchemaValidator(2024);
     this.runId = `ATS-${Date.now().toString(36).toUpperCase()}`;
     this.evidenceDir = path.join(process.cwd(), 'reports', 'ats-evidence', this.runId);
@@ -449,7 +452,7 @@ export class ATSTestRunner {
           xmlContent: xml
         });
         
-        result.transmitted = transmitResult.success || transmitResult.error === undefined;
+        result.transmitted = transmitResult.success === true;
         result.receiptId = transmitResult.receiptId;
         result.transmissionError = transmitResult.error;
         
