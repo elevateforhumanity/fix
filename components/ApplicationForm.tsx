@@ -19,7 +19,7 @@ export function ApplicationForm() {
     // Step 2: Address
     address: '',
     city: '',
-    state: 'WI',
+    state: 'IN',
     zip: '',
     // Step 3: Program Selection
     program: '',
@@ -43,6 +43,7 @@ export function ApplicationForm() {
     'Welding',
     'Medical Assistant',
     'Culinary Arts',
+    'Bookkeeping & QuickBooks',
   ];
   const handleNext = () => {
     if (step < totalSteps) setStep(step + 1);
