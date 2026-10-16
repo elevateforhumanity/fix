@@ -309,6 +309,11 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
           </div>
         )}
 
+        <div className="mb-8 rounded-xl border border-slate-200 bg-white p-5 flex flex-wrap items-center justify-between gap-4">
+          <div><h2 className="font-bold text-slate-900">Career Feed &amp; Résumé Support</h2><p className="text-sm text-slate-600">Browse openings now. Verified credentials improve your job recommendations.</p></div>
+          <Link href="/lms/placement" className="inline-flex items-center rounded-lg bg-brand-blue-600 px-5 py-3 text-white font-semibold">Browse Career Feed</Link>
+        </div>
+
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
