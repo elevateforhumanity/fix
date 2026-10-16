@@ -316,6 +316,7 @@ async function _POST(req: Request) {
         `,
       });
 
+      const staffEmailResult = await staffEmailPromise;
       if (staffEmailResult.success) {
         logger.info('[Applications] Staff email sent', { id: staffEmailResult.data?.id });
       } else {
