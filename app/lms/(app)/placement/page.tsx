@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
 import { getActiveJobs } from '@/lib/data/jobs';
 import JobCard from '@/components/jobs/JobCard';
+import { getJobMatches } from '@/lib/hub/job-matching';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,9 +23,10 @@ export default async function PlacementPage() {
   const db = await getAdminClient();
 
   // Fetch jobs + learner's enrolled programs for context
-  const [jobs, profileResult] = await Promise.all([
+  const [jobs, profileResult, matches] = await Promise.all([
     getActiveJobs({ limit: 12 }),
     supabase.from('profiles').select('full_name, role').eq('id', user.id).maybeSingle(),
+    getJobMatches(user.id, 12).catch(() => []),
   ]);
 
   const profile = profileResult.data;
@@ -84,6 +86,22 @@ export default async function PlacementPage() {
             </Link>
           ))}
         </div>
+
+        {matches.length > 0 && (
+          <section aria-label="Credential-matched jobs">
+            <h2 className="text-lg font-bold text-slate-900 mb-4">Recommended for Your Credentials</h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {matches.map(match => (
+                <div key={match.job.id} className="rounded-xl border border-slate-200 p-4">
+                  <h3 className="font-semibold text-slate-900">{match.job.title}</h3>
+                  <p className="text-sm text-slate-600">{match.job.employer_name} · {match.job.location}</p>
+                  <p className="text-xs text-slate-600 mt-2">{match.match_reasons.join(' · ')}</p>
+                  <Link href={`/lms/alumni/jobs/${match.job.id}`} className="inline-block mt-3 text-sm font-semibold text-brand-blue-600">View job →</Link>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Job listings */}
         <div>

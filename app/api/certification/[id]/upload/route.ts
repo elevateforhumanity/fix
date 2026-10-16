@@ -21,12 +21,14 @@ const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const rateLimited = await applyRateLimit(request, 'api');
   if (rateLimited) return rateLimited;
 
   const auth = await apiAuthGuard(request);
+  if (!auth?.id) return safeError('Authentication required', 401);
+  const { id: certificationRequestId } = await params;
 
   try {
     const formData = await request.formData();
@@ -41,7 +43,7 @@ export async function POST(
     // Sanitize filename
     const ext = file.name.split('.').pop()?.toLowerCase() ?? 'pdf';
     const safeName = `exam-result-${Date.now()}.${ext}`;
-    const storagePath = `${auth.id}/${params.id}/${safeName}`;
+    const storagePath = `${auth.id}/${certificationRequestId}/${safeName}`;
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const { error: uploadErr } = await db.storage
@@ -55,7 +57,7 @@ export async function POST(
       return safeError('File upload failed — try again', 500);
     }
 
-    const result = await recordUpload(params.id, auth.id, storagePath, file.name);
+    const result = await recordUpload(certificationRequestId, auth.id, storagePath, file.name);
     if (!result.ok) return safeError(result.error ?? 'Failed to record upload', 400);
 
     return NextResponse.json({ success: true, uploadId: result.uploadId }, { status: 201 });
