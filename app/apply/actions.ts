@@ -387,7 +387,7 @@ async function insertApplication(payload: {
     const adminHtml = [
         emailHeader,
         `<h3>New ${payload.source.replace(/-/g, ' ')}</h3>`,
-        `<p style="color:#16a34a"><strong>Status: APPROVED — applicant account created and enrolled automatically</strong></p>`,
+        `<p style="color:#16a34a"><strong>Status: SUBMITTED — pending administrative review and funding verification</strong></p>`,
         `<table style="border-collapse:collapse;width:100%;max-width:500px">`,
         `<tr><td style="padding:6px;font-weight:bold">Name</td><td style="padding:6px">${payload.firstName} ${payload.lastName}</td></tr>`,
         `<tr><td style="padding:6px;font-weight:bold">Email</td><td style="padding:6px"><a href="mailto:${payload.email}">${payload.email}</a></td></tr>`,
@@ -603,16 +603,9 @@ async function insertApplication(payload: {
     }
   }
 
-  // Path B: Email-only fallback — DB unavailable, no record created.
-  // Return success:true so the user gets a confirmation, but status:'email_only'
-  // so the form routes to the thank-you page instead of checkout.
-  try {
-    await sendEnrollmentEmails();
-    return { success: true, status: 'email_only' as const, applicationId: `email-${referenceNumber}`, referenceNumber };
-  } catch (emailError) {
-    logger.error(`[Application] Email send failed for ${payload.email}`, emailError as Error);
-    return { success: false, error: 'We could not process your application. Please email us directly at elevate4humanityedu@gmail.com with your name, phone number, and program interest.' };
-  }
+  // A failed database write is not a completed application.
+  logger.error('[Apply] Application persistence failed', { email: payload.email });
+  return { success: false as const, error: 'Your application could not be saved. Please try again or contact elevate4humanityedu@gmail.com for assistance.' };
 }
 
 export async function submitStudentApplication(data: StudentApplicationData) {
