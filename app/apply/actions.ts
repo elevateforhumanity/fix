@@ -96,11 +96,8 @@ async function createStudentAccount(
 
     if (existingProfile?.id) {
       userId = existingProfile.id;
-      // Update password and ensure role is set correctly (trigger may have defaulted to 'student')
-      await Promise.all([
-        supabase.auth.admin.updateUserById(userId, { password }),
-        supabase.from('profiles').update({ role: profileRole }).eq('id', userId),
-      ]);
+      // Never reset an existing user's password or change their role through a public application.
+      // Existing users authenticate through the normal login/reset-password flow.
     } else {
       // Create new auth user with student-provided password
       const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
@@ -136,17 +133,14 @@ async function createStudentAccount(
           if (found) userId = found.id;
         }
         if (userId) {
-          await Promise.all([
-            supabase.auth.admin.updateUserById(userId, { password }),
-            supabase.from('profiles').upsert({
+          await supabase.from('profiles').upsert({
               id: userId,
               email: normalizedEmail,
               first_name: firstName,
               last_name: lastName,
               full_name: `${firstName} ${lastName}`,
               role: profileRole,
-            }, { onConflict: 'id' }),
-          ]);
+            }, { onConflict: 'id' });
         }
       }
     }
