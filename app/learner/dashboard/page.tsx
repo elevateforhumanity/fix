@@ -140,7 +140,7 @@ export default async function LearnerDashboardPage({ searchParams }: Props) {
     // Only force onboarding if NEITHER onboarding is done NOR access has been granted.
     // If access_granted_at is set (admin approved), let the student through regardless.
     if (!onboardingDone && !accessGranted) {
-      redirect('/programs/barber-apprenticeship/orientation');
+      redirect('/onboarding/learner');
     }
   }
 
