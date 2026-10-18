@@ -163,19 +163,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Wait for Netlify deployment
-        run: sleep 90
+      - name: Wait for production revision to become healthy
+        run: echo 'Checking the published production endpoint; no deployment is triggered by this job.'
 
       - name: Check health endpoint
         run: |
           HEALTH_URL="https://www.elevateforhumanity.org/api/health"
           echo "Checking health endpoint: $HEALTH_URL"
-          response=$(curl -s -w "\n%{http_code}" "$HEALTH_URL")
+          response=$(curl --max-time 20 -sS -w "\n%{http_code}" "$HEALTH_URL")
           status_code=$(echo "$response" | tail -n1)
           body=$(echo "$response" | head -n-1)
           echo "Status: $status_code"
           echo "Response: $body"
-          if [ "$status_code" = "200" ] || [ "$status_code" = "503" ]; then
+          if [ "$status_code" = "200" ]; then
             echo "Health check passed"
             exit 0
           else

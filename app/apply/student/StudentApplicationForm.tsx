@@ -147,6 +147,7 @@ export default function StudentApplicationForm({ initialProgram = '' }: { initia
 
     // Honeypot — hidden field bots fill in; silently redirect home
     if (formData.get('website_url')) {
+      setLoading(false);
       router.push('/');
       return;
     }
